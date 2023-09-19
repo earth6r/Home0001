@@ -1,0 +1,39 @@
+.figures :global {
+  --figure-columns: 1;
+}
+
+.wrap {
+  margin-top: calc(-1 * var(--border-size));
+}
+
+.grid {
+  margin-top: calc(-1 * (var(--border-size) + var(--space-x-half)));
+}
+
+.column {
+  width: calc(100% / var(--figure-columns));
+}
+
+.swiper {
+  overflow: visible !important;
+}
+
+.figure {
+  user-select: none;
+}
+
+@screen <md {
+  .col-3 {
+    --figure-columns: 2 !important;
+  }
+}
+
+@screen <sm {
+  .figures {
+    --figure-columns: 1 !important;
+  }
+
+  .slide {
+    width: calc(100% - var(--space-x-double)) !important;
+  }
+}

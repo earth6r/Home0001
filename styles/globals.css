@@ -1,0 +1,43 @@
+:root {
+  /* spacing */
+  --space-x: 1.5rem;
+  --space-x-half: calc(var(--space-x) * 0.5);
+  --space-x-double: calc(var(--space-x) * 2);
+  --space-x-lg: 2rem;
+  --space-y: 1.5rem;
+  --space-y-half: calc(var(--space-y) * 0.5);
+  --space-y-double: calc(var(--space-y) * 2);
+  --space-y-lg: 1.5rem;
+
+  /* container wrap sizes */
+  --wrap: 1248px;
+  --wrap-2xs: 400px;
+  --wrap-xs: 640px;
+  --wrap-sm: calc(var(--wrap-xs) + var(--space-x-double) * 2);
+
+  /* forms */
+  --input-size: 2.5em;
+
+  /* buttons */
+  --btn-height: 2.875em;
+  --btn-space-x: 2em;
+  --btn-space-y: 0.625em;
+
+  /* header + top spacing */
+  --header-height: 80px;
+}
+
+/* stylelint-disable selector-id-pattern */
+html,
+body,
+#__next {
+  height: 100%;
+}
+/* stylelint-enable selector-id-pattern */
+
+body {
+  background-color: theme('colors.white');
+  font-family: theme('fontFamily.sans');
+  font-size: theme('fontSize.base');
+  min-width: 320px;
+}

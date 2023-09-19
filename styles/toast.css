@@ -1,0 +1,20 @@
+/* stylelint-disable selector-class-pattern */
+@import url('react-toastify/dist/ReactToastify.css');
+
+.Toastify__toast {
+  cursor: default !important;
+}
+
+.Toastify__toast-body svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.Toastify__toast-body a {
+  font-weight: theme('fontWeight.bold');
+}
+
+.Toastify__toast-body a:hover,
+.Toastify__toast-body a:focus {
+  color: theme('colors.blue.500');
+}

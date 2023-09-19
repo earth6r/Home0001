@@ -1,0 +1,20 @@
+.btn {
+  cursor: pointer;
+  display: inline-block;
+  height: var(--btn-height);
+  position: relative;
+  user-select: none;
+}
+
+.btn:focus,
+:global(button:focus) .btn,
+:global(a:focus) .btn {
+  box-shadow: none;
+  outline: 0;
+}
+
+.btn[disabled],
+:global(button[disabled]) .btn,
+:global(a[disabled]) .btn {
+  cursor: default;
+}

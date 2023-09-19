@@ -1,0 +1,54 @@
+.arrow {
+  /* --btn-bg-up: theme('colors.yellow'); */
+
+  font-size: 1.5em;
+  position: absolute;
+  top: 50%;
+  transition: opacity var(--speed-normal);
+  z-index: 2;
+}
+
+.arrow[disabled] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.arrow-left {
+  left: var(--space-x);
+  transform: translate(-50%, -50%);
+}
+
+.arrow-right {
+  right: var(--space-x);
+  transform: translate(50%, -50%);
+}
+
+@screen <md {
+  .arrow {
+    font-size: 1.375em;
+  }
+}
+
+@screen <sm {
+  .arrow {
+    font-size: 1.2em;
+  }
+
+  .arrow-left {
+    transform: translate(-33%, -50%);
+  }
+
+  .arrow-right {
+    transform: translate(33%, -50%);
+  }
+}
+
+@screen xl {
+  .arrow-left {
+    left: 0;
+  }
+
+  .arrow-right {
+    right: 0;
+  }
+}

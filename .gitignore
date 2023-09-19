@@ -1,0 +1,42 @@
+node_modules
+
+# use yarn
+package-lock.json
+
+# testing
+/coverage
+
+# codegen
+/gen
+
+# next.js
+/.next
+/out
+
+# production
+/build
+
+# sanity studio
+/public/studio
+
+# vercel
+.vercel
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+
+# gitkeep
+!.gitkeep
