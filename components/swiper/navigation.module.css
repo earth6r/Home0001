@@ -23,26 +23,6 @@
   transform: translate(50%, -50%);
 }
 
-@screen <md {
-  .arrow {
-    font-size: 1.375em;
-  }
-}
-
-@screen <sm {
-  .arrow {
-    font-size: 1.2em;
-  }
-
-  .arrow-left {
-    transform: translate(-33%, -50%);
-  }
-
-  .arrow-right {
-    transform: translate(33%, -50%);
-  }
-}
-
 @screen xl {
   .arrow-left {
     left: 0;

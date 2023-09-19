@@ -21,19 +21,3 @@
 .figure {
   user-select: none;
 }
-
-@screen <md {
-  .col-3 {
-    --figure-columns: 2 !important;
-  }
-}
-
-@screen <sm {
-  .figures {
-    --figure-columns: 1 !important;
-  }
-
-  .slide {
-    width: calc(100% - var(--space-x-double)) !important;
-  }
-}
