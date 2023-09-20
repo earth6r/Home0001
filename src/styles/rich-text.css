@@ -1,5 +1,5 @@
 :root {
-  --rich-text-y: 1.5em;
+  --rich-text-y: 1em;
 }
 
 .rich-text > * {
@@ -69,6 +69,12 @@
   @apply text-base;
 }
 
+.rich-text p,
+.rich-text span,
+.rich-text li {
+  @apply tracking-body leading-[130%] md:leading-[135%];
+}
+
 .rich-text ul,
 .rich-text ol {
   @apply mx-auto;
@@ -102,6 +108,7 @@
 }
 
 .rich-text a {
+  border-bottom: 1.5px solid;
   color: theme('colors.black');
 }
 
@@ -111,11 +118,11 @@
 }
 
 .rich-text a:focus-visible {
-  text-decoration: underline;
+  border-bottom: 1.5px solid;
 }
 
 @media (hover: hover) {
   .rich-text a:hover {
-    text-decoration: underline;
+    font-weight: bold;
   }
 }

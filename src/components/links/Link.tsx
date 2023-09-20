@@ -14,13 +14,14 @@ export const Link: FC<LinkProps> = ({
   ...props
 }) => {
   return (
-    <NextLink {...props} passHref>
+    <NextLink {...props} legacyBehavior>
       <a
         className={classNames(
           styles.link,
           { [styles.active]: active },
           className
         )}
+        onClick={props.onClick}
         {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
       >
         {children}

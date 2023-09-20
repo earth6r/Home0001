@@ -8,7 +8,7 @@ import type {
 import type { Page as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
-import { BODY_QUERY, client, filterDataToSingleItem } from '@sanity/lib'
+import { BODY_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { BlockContent } from '@components/sanity'
 
 const ALL_SLUGS_QUERY = groq`*[_type == "page" && defined(slug.current)][].slug.current`
@@ -33,14 +33,15 @@ export const getStaticProps: GetStaticProps = context =>
 const Page: NextPage<PageProps> = ({
   data,
   preview,
-  query,
-  slug = null,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const page: SanityPage = filterDataToSingleItem(data)
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <article>
-      <BlockContent blocks={page?.body} className="flex flex-col" />
+      <BlockContent
+        blocks={page?.body}
+        className="flex flex-col container pt-[88px] md:pt-[126px]"
+      />
     </article>
   ) : null
 }

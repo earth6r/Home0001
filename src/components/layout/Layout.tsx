@@ -1,8 +1,7 @@
 import type { FC, ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
-import type { Page, SiteSettings } from '@gen/sanity-schema'
-import { SITE_SETTINGS_QUERY, filterDataToSingleItem } from '@sanity/lib'
+import type { Menus, Page, SiteSettings } from '@gen/sanity-schema'
 import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
@@ -17,18 +16,12 @@ interface LayoutProps {
   siteSettings?: SiteSettings | undefined
 }
 
-export const Layout: FC<LayoutProps> = ({
-  children,
-  preview = false,
-  data,
-  siteSettings,
-}) => {
+export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath } = useRouter()
-
   return (
     <>
       <Head
-        siteTitle={siteSettings?.title || 'Example Repo'}
+        siteTitle={siteSettings?.title || 'Home0001'}
         siteDescription={siteSettings?.description}
         siteImage={siteSettings?.image}
         siteKeywords={siteSettings?.siteKeywords}
@@ -41,7 +34,10 @@ export const Layout: FC<LayoutProps> = ({
         pageUrl={`${BASE_URL}${asPath}`}
       />
       <div className="flex flex-col min-h-full">
-        <Header className="flex-initial" />
+        <Header
+          className="flex-initial"
+          mainMenu={siteSettings?.mainMenu as Menus | undefined}
+        />
         <main className="flex-auto">{children}</main>
         <Footer />
       </div>

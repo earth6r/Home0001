@@ -23,7 +23,7 @@ export const Block: FC<BlockProps> = ({
         styles.block,
         styles.visible,
         className,
-        `flex-auto pt-ylg pb-block`
+        `flex-auto`
       )}
       {...props}
     >

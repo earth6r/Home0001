@@ -1,6 +1,6 @@
 import type { FC } from 'react'
-import type { SanityLinkType } from '@sanity/lib'
-import { getHrefBySanityLink } from '@sanity/lib'
+import type { SanityLinkType } from '@studio/lib'
+import { getHrefBySanityLink } from '@studio/lib'
 import type { LinkProps } from '@components/links'
 import { Link } from '@components/links'
 

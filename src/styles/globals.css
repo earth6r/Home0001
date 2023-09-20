@@ -1,6 +1,6 @@
 :root {
   /* spacing */
-  --space-x: 1.5rem;
+  --space-x: 1rem;
   --space-x-half: calc(var(--space-x) * 0.5);
   --space-x-double: calc(var(--space-x) * 2);
   --space-x-lg: 2rem;
@@ -8,6 +8,8 @@
   --space-y-half: calc(var(--space-y) * 0.5);
   --space-y-double: calc(var(--space-y) * 2);
   --space-y-lg: 1.5rem;
+
+  --space-menu: 3.625rem;
 
   /* container wrap sizes */
   --wrap: 1248px;
@@ -25,6 +27,23 @@
 
   /* header + top spacing */
   --header-height: 80px;
+
+  /* speeds */
+  --speed-fast: 0.2s;
+  --speed-normal: 0.3s;
+  --speed-slow: 0.5s;
+  --speed-xslow: 0.8s;
+  --speed-snail: 1.25s;
+  --speed-block: var(--speed-slow);
+}
+
+@screen md {
+  :root {
+    --space-x: 2.5rem;
+    --space-y: 2.5rem;
+
+    --space-menu: 5.625rem;
+  }
 }
 
 /* stylelint-disable selector-id-pattern */
@@ -39,5 +58,8 @@ body {
   background-color: theme('colors.white');
   font-family: theme('fontFamily.sans');
   font-size: theme('fontSize.base');
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   min-width: 320px;
 }

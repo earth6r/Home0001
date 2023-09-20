@@ -10,10 +10,11 @@ export const Btn: FC<BtnProps> = props => {
   const classes = {
     [styles.active]: props.active,
   }
+
   if (props.as === 'link') {
     const { href, external, onClick, innerRef } = props
     return (
-      <NextLink href={href} passHref>
+      <NextLink href={href} legacyBehavior>
         <a
           href={`${href}`}
           {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
@@ -22,20 +23,12 @@ export const Btn: FC<BtnProps> = props => {
           ref={innerRef as Ref<HTMLAnchorElement>}
           onClick={onClick}
         >
-          {custom ? (
-            children
-          ) : (
-            <>
-              <span className={classNames(styles.text, 'text')}>
-                {children}
-              </span>
-              <i className={classNames(styles.shadow, 'shadow')} />
-            </>
-          )}
+          {custom ? children : <span>{children}</span>}
         </a>
       </NextLink>
     )
   }
+
   if (props.as === 'span') {
     const { onClick, innerRef } = props
     return (
@@ -45,17 +38,11 @@ export const Btn: FC<BtnProps> = props => {
         ref={innerRef as Ref<HTMLSpanElement>}
         onClick={onClick}
       >
-        {custom ? (
-          children
-        ) : (
-          <>
-            <span className={classNames(styles.text, 'text')}>{children}</span>
-            <i className={classNames(styles.shadow, 'shadow')} />
-          </>
-        )}
+        {custom ? children : <span>{children}</span>}
       </span>
     )
   }
+
   const { type = 'button', onClick, innerRef } = props
   return (
     <button
@@ -65,14 +52,7 @@ export const Btn: FC<BtnProps> = props => {
       ref={innerRef as Ref<HTMLButtonElement>}
       onClick={onClick}
     >
-      {custom ? (
-        children
-      ) : (
-        <>
-          <span className={classNames(styles.text, 'text')}>{children}</span>
-          <i className={classNames(styles.shadow, 'shadow')} />
-        </>
-      )}
+      {custom ? children : <span>{children}</span>}
     </button>
   )
 }

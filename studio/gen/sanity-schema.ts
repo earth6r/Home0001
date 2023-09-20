@@ -37,12 +37,12 @@ export type {
 };
 
 /**
- * Menu
+ * Menus
  *
  *
  */
-export interface Menu extends SanityDocument {
-  _type: "menu";
+export interface Menus extends SanityDocument {
+  _type: "menus";
 
   /**
    * Title — `string`
@@ -50,6 +50,13 @@ export interface Menu extends SanityDocument {
    *
    */
   title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Menu Items — `array`
@@ -105,7 +112,7 @@ export interface SiteSettings extends SanityDocument {
    *
    * Select menu for main navigation
    */
-  mainMenu?: SanityReference<Menu>;
+  mainMenu?: SanityReference<Menus>;
 }
 
 /**
@@ -373,4 +380,4 @@ export type BlockContent = Array<
   SanityKeyed<TextBlock> | SanityKeyed<FiguresBlock>
 >;
 
-export type Documents = Menu | SiteSettings | Page;
+export type Documents = Menus | SiteSettings | Page;

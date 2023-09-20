@@ -3,7 +3,7 @@
   outline: 0;
 }
 
-.link:focus-visible,
+/* .link:focus-visible,
 .active {
   text-decoration: underline;
 }
@@ -12,13 +12,8 @@
   .link:hover {
     text-decoration: underline;
   }
-
-  .link:hover :global(> img),
-  .link:hover :global(> svg) {
-    border-bottom-color: currentcolor;
-  }
 }
 
 .link:active {
   text-decoration: underline;
-}
+} */

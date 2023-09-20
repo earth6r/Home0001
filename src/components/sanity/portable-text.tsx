@@ -4,7 +4,7 @@ import type {
   PortableTextBlockComponent,
 } from '@portabletext/react'
 import { reactNodeToString } from '@lib/util'
-import { getBlockHeading } from '@sanity/lib'
+import { getBlockHeading } from '@studio/lib'
 import { SanityLink, SanityFigure } from '.'
 
 /**

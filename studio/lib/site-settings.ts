@@ -1,6 +1,11 @@
 import groq from 'groq'
 import type { SiteSettings } from '@gen/sanity-schema'
-import { IMAGE_QUERY, previewClient, filterDataToSingleItem } from '.'
+import {
+  IMAGE_QUERY,
+  previewClient,
+  filterDataToSingleItem,
+  LINK_QUERY,
+} from '.'
 
 export const SITE_SETTINGS_QUERY = groq`
   *[_type == "siteSettings"][0]{
@@ -11,6 +16,15 @@ export const SITE_SETTINGS_QUERY = groq`
     },
     siteDescription,
     siteKeywords,
+    mainMenu->{
+      items[]{
+        _key,
+        text,
+        link{
+          ${LINK_QUERY}
+        }
+      }
+    },
   }
 `
 
