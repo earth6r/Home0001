@@ -1,5 +1,5 @@
 import { GrPaint } from 'react-icons/gr'
-import { COLORS } from '../../../globals'
+import { COLORS } from '../../../src/globals/colors'
 import { toTitleCase } from '../../lib/util'
 
 const colors = Object.keys(COLORS).map(color => ({

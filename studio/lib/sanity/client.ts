@@ -2,8 +2,6 @@ import { createClient } from 'next-sanity'
 import config from './config'
 import type { SanityClient } from 'sanity'
 
-console.log('process.env: ', process.env.NEXT_PUBLIC_SANITY_DATASET)
-
 export const client = createClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,

@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { SCREENS } from './globals'
+import { SCREENS } from './src/globals'
 
 const screens = Object.entries(SCREENS).reduce((acc, [key, value]) => {
   acc[key] = `${value}px`
@@ -8,8 +8,8 @@ const screens = Object.entries(SCREENS).reduce((acc, [key, value]) => {
 
 export default {
   content: [
-    './components/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/pages/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {

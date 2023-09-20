@@ -1,6 +1,6 @@
 import { IoIosImage } from 'react-icons/io'
 import type { PreviewValue } from '@sanity/types'
-import type { Media } from '../../gen/sanity-schema'
+import type { Media } from '@gen/sanity-schema'
 
 interface MediaSelectProps {
   caption?: Media['caption']

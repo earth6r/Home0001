@@ -1,7 +1,7 @@
 import { GrLink } from 'react-icons/gr'
 import slugify from 'slugify'
 import type { Rule, Slug } from '@sanity/types'
-import type { Link } from '../../gen/sanity-schema'
+import type { Link } from '@gen/sanity-schema'
 
 export default {
   name: 'link',

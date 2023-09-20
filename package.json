@@ -23,6 +23,7 @@
     "@sanity/types": "^3.0.0",
     "@sanity/ui": "^1.0.0",
     "classnames": "^2.3.1",
+    "cors": "^2.8.5",
     "focus-visible": "^5.2.0",
     "groq": "^2.15.0",
     "lodash": "^4.17.21",

@@ -4,9 +4,9 @@
     "paths": {
       "@gen/*": ["./studio/gen/*"],
       "@lib/*": ["./studio/lib/*"],
-      "@globals/*": ["./globals/*"],
-      "@components/*": ["./components/*"],
-      "@/*": ["./*"]
+      "@globals/*": ["./src/globals/*"],
+      "@components/*": ["./src/components/*"],
+      "@/*": ["./src/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -34,9 +34,9 @@
     "next-env.d.ts",
     "./studio/lib/**/*",
     "./studio/gen/**/*",
-    "./pages/**/*",
-    "./components/**/*",
-    "./styles/**/*",
+    "./src/pages/**/*",
+    "./src/components/**/*",
+    "./src/styles/**/*",
     "./*.{js,jsx,ts,tsx}",
     ".next/types/**/*.ts"
   ],

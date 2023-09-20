@@ -12,14 +12,12 @@
   },
   "extends": [
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
     "plugin:@asbjorn/groq/recommended",
     "plugin:prettier/recommended",
     "prettier"
   ],
-  "plugins": ["@typescript-eslint", "@asbjorn/groq", "prettier"],
+  "plugins": ["@asbjorn/groq", "prettier"],
   "rules": {
-    "@typescript-eslint/consistent-type-imports": "error",
     "no-process-env": "off",
     "no-shadow": "off",
     "no-console": "warn",

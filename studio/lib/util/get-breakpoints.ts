@@ -1,4 +1,4 @@
-import { SCREENS } from '../../../globals'
+import { SCREENS } from '../../../src/globals/screens'
 
 export type Breakpoints = { [key in keyof typeof SCREENS]: boolean }
 
