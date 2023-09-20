@@ -19,7 +19,10 @@ export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
     {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
       // @ts-ignore  */}
     {props['aria-expanded'] ? (
-      <IconX className="w-[40px] h-[40px]" />
+      <IconX
+        className="w-[16px] md:w-[40px] h-[16px] md:h-[40px]"
+        strokeWidth="2"
+      />
     ) : (
       <span className="uppercase">Menu</span>
     )}
@@ -47,7 +50,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               <Menu.Button as={HeaderToggleBtn} />
               <div
                 className={classNames(
-                  'fixed w-[100vw] h-[100vh] top-0 left-0 overflow-scroll bg-white text-left'
+                  'fixed w-[100vw] h-[100vh] top-0 left-0 overflow-hidden bg-white text-left'
                 )}
                 style={{
                   transition: 'opacity var(--speed-fast)',
@@ -58,7 +61,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 <div className="flex items-center relative h-[37px] px-x mt-y">
                   <Logo />
                 </div>
-                <nav className="overflow-auto z-40 md:shadow-none pt-[88px] md:pt-[77px] left-0 w-full h-full fade-enter-done">
+                <nav className="overflow-auto z-40 md:shadow-none pt-[34px] md:pt-[77px] left-0 w-full h-full fade-enter-done">
                   <Menu.Items
                     as="ul"
                     ref={items}
