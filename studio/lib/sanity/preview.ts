@@ -1,5 +1,5 @@
-import { createClient, createPreviewSubscriptionHook } from 'next-sanity'
-import { config, projectConfig } from './config'
+import { createClient } from 'next-sanity'
+import { config } from './config'
 
 export const previewClient = createClient({
   ...config,
@@ -8,23 +8,17 @@ export const previewClient = createClient({
   withCredentials: true,
 })
 
-export const usePreviewSubscription =
-  createPreviewSubscriptionHook(projectConfig)
-
 /**
  * Helper function to return the correct version of the document.
  * In preview mode this returns the preview document
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const filterDataToSingleItem = (data: any, preview: boolean): any => {
+export const filterDataToSingleItem = (data: any): any => {
   if (!Array.isArray(data)) {
     return data
   }
   if (data.length === 1) {
     return data[0]
-  }
-  if (preview) {
-    return data.find(item => item._id.startsWith('drafts.')) || data[0]
   }
   return data[0]
 }

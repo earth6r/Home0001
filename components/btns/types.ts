@@ -7,7 +7,7 @@ import type {
 } from 'react'
 import type * as CSS from 'csstype'
 import type { LinkProps } from 'next/link'
-import type { COLORS } from '@lib/globals'
+import type { COLORS } from '@globals/colors'
 
 export interface BtnCSSProperties extends CSS.Properties {
   '--btn-bg-up'?: COLORS

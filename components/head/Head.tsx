@@ -1,9 +1,9 @@
 import type { FC } from 'react'
 import NextHead from 'next/head'
-import { COLORS } from '@lib/globals'
 import type { HeadProps } from './types'
 import { useHeadTitle } from './use-title'
 import { useHeadImages } from './use-images'
+import { COLORS } from '@globals/colors'
 
 export const Head: FC<HeadProps> = props => {
   const title = useHeadTitle({

@@ -1,7 +1,7 @@
 import type { Rule } from '@sanity/types'
 import { IoIosImages } from 'react-icons/io'
 import { topFields } from './fields'
-import type { FiguresBlock } from '../../../gen/sanity-schema'
+import type { FiguresBlock } from '../../gen/sanity-schema'
 
 export default {
   name: 'figuresBlock',

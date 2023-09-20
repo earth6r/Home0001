@@ -16,7 +16,7 @@ export const SanityFigure: FC<SanityFigureProps> = ({
 }) => (
   <Figure
     className={className}
-    content={
+    media={
       <SanityFigureContent
         mediaRatio={mediaRatio}
         contentClass={contentClass}

@@ -1,7 +1,6 @@
 import type { Ref, FC } from 'react'
 import classNames from 'classnames'
 import NextLink from 'next/link'
-import { COLORS } from '@lib/globals'
 import styles from './btn.module.css'
 import type { BtnProps } from './types'
 
@@ -11,7 +10,6 @@ export const Btn: FC<BtnProps> = props => {
   const classes = {
     [styles.active]: props.active,
   }
-  if (props.color) style['--btn-bg-up'] = COLORS[props.color]
   if (props.as === 'link') {
     const { href, external, onClick, innerRef } = props
     return (

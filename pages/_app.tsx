@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+import dynamic from 'next/dynamic'
 import { Layout } from '@components/layout'
 import { Scripts } from '@components/scripts'
 import { useEffect } from 'react'
@@ -10,12 +11,21 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/virtual'
-import '@/styles/reset.css'
-import '@/styles/globals.css'
-import '@/styles/toast.css'
-import '@/styles/rich-text.css'
+import '../styles/main.css'
+import '../styles/toast.css'
 
-function App({ Component, pageProps }: AppProps) {
+const PreviewProvider = dynamic(
+  () => import('@components/preview/PreviewProvider')
+)
+
+function App({
+  Component,
+  pageProps,
+}: AppProps<{
+  draftMode: boolean
+  token: string
+}>) {
+  const { draftMode, token } = pageProps
   const router = useRouter()
 
   useEffect(() => {
@@ -37,7 +47,14 @@ function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
-  return (
+  return draftMode && token ? (
+    <PreviewProvider token={token}>
+      <Layout {...pageProps}>
+        <Component {...pageProps} />
+        <Scripts />
+      </Layout>
+    </PreviewProvider>
+  ) : (
     <Layout {...pageProps}>
       <Component {...pageProps} />
       <Scripts />

@@ -1,5 +1,3 @@
-import createSchema from 'part:@sanity/base/schema-creator'
-import schemaTypes from 'all:part:@sanity/base/schema-type'
 import richText from './objects/rich-text'
 import plainText from './objects/plain-text'
 import blockContent from './objects/block-content'
@@ -17,24 +15,23 @@ import page from './documents/page'
 import menu from './documents/menu'
 import siteSettings from './documents/site-settings'
 
-export default createSchema({
-  name: 'default',
-  types: schemaTypes.concat([
-    link,
-    cta,
-    textBlock,
-    figuresBlock,
-    color,
-    video,
-    media,
-    figure,
-    seo,
-    menuItem,
-    menu,
-    richText,
-    plainText,
-    blockContent,
-    siteSettings,
-    page,
-  ]),
-})
+export const schemaTypes = [
+  link,
+  cta,
+  textBlock,
+  figuresBlock,
+  color,
+  video,
+  media,
+  figure,
+  seo,
+  menuItem,
+  menu,
+  richText,
+  plainText,
+  blockContent,
+  siteSettings,
+  page,
+]
+
+export default schemaTypes

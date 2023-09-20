@@ -29,7 +29,7 @@ yarn run dev:sanity
 ```
 
 The Next.js app will be running at `http://localhost:3000` and the Sanity Studio
-CMS at `http://localhost:3636`.
+CMS at `http://localhost:3333`.
 
 ### Installing and updating Sanity Studio dependencies
 

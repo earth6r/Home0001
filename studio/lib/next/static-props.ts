@@ -1,10 +1,6 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
-import type { SiteSettings, Page } from '@gen/sanity-schema'
-import {
-  previewClient,
-  filterDataToSingleItem,
-  getSiteSettingsProps,
-} from '@lib/sanity'
+import type { SiteSettings, Page } from '../../gen/sanity-schema'
+import { previewClient, getSiteSettingsProps } from '../sanity'
 
 export interface PageProps {
   preview: boolean
@@ -24,14 +20,14 @@ export const getPageStaticProps = async ({
   preview = false,
 }: PageStaticProps): Promise<GetStaticPropsResult<PageProps>> => {
   const slug = params?.slug || null
-  const siteSettingsPromise = getSiteSettingsProps({ preview })
+  const siteSettingsPromise = getSiteSettingsProps()
   const pagePromise = previewClient.fetch(query, { slug })
   const [siteSettings, page] = await Promise.all([
     siteSettingsPromise,
     pagePromise,
   ])
   if (!page) return { notFound: true }
-  const data = filterDataToSingleItem(page, preview)
+  const data = page
   return {
     props: {
       preview,

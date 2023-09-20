@@ -6,6 +6,7 @@ const PREVIEW_SECRET = process.env.SANITY_STUDIO_PREVIEW_SECRET
 const STUDIO_URL = process.env.NEXT_PUBLIC_STUDIO_URL
 const NEXT_URL = process.env.NEXT_PUBLIC_BASE_URL
 const whitelist = [STUDIO_URL, NEXT_URL]
+
 const cors = initMiddleware(
   Cors({
     credentials: true,
@@ -45,7 +46,7 @@ export default async function handler(
     slug = '/'
   }
   // enable preview mode
-  res.setPreviewData({})
+  res.setDraftMode({ enable: true })
   // modify cookie to allow for iframe previews
   const cookies = res.getHeader('Set-Cookie')
   if (Array.isArray(cookies) && cookies.length > 0) {

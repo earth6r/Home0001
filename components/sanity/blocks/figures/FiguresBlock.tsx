@@ -6,7 +6,6 @@ import type { Swiper as SwiperType, SwiperOptions } from 'swiper'
 import { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import classNames from 'classnames'
-import { SCREENS } from '@lib/globals'
 import type { SanityMediaProps } from '@components/sanity'
 import { SanityFigure } from '@components/sanity'
 import { Block } from '@components/sanity'
@@ -17,6 +16,7 @@ import type {
   FiguresBlockProps,
   FiguresBlockCSSProps,
 } from './types'
+import { SCREENS } from '@globals/screens'
 
 const BlockFigure: FC<BlockFigureProps> = ({ media, className }) => (
   <SanityFigure

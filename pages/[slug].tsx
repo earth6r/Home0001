@@ -8,12 +8,7 @@ import type {
 import type { Page as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
-import {
-  BODY_QUERY,
-  client,
-  usePreviewSubscription,
-  filterDataToSingleItem,
-} from '@lib/sanity'
+import { BODY_QUERY, client, filterDataToSingleItem } from '@lib/sanity'
 import { BlockContent } from '@components/sanity'
 
 const ALL_SLUGS_QUERY = groq`*[_type == "page" && defined(slug.current)][].slug.current`
@@ -28,7 +23,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const pages = await client.fetch(ALL_SLUGS_QUERY)
   return {
     paths: pages.map((slug: string) => `/${slug}`),
-    fallback: true,
+    fallback: false,
   }
 }
 
@@ -41,19 +36,11 @@ const Page: NextPage<PageProps> = ({
   query,
   slug = null,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data: previewData } = usePreviewSubscription(query, {
-    params: { slug },
-    initialData: data,
-    enabled: preview,
-  })
-  const page: SanityPage = filterDataToSingleItem(
-    previewData as SanityPage,
-    preview
-  )
+  const page: SanityPage = filterDataToSingleItem(data)
 
-  return page?.body ? (
+  return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <article>
-      <BlockContent blocks={page.body} className="flex flex-col" />
+      <BlockContent blocks={page?.body} className="flex flex-col" />
     </article>
   ) : null
 }

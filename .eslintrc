@@ -61,7 +61,6 @@
       }
     },
     "import/core-modules": [
-      "windi.css",
       "swiper/css",
       "swiper/css/navigation",
       "swiper/css/pagination",

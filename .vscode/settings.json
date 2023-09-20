@@ -5,6 +5,7 @@
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.workingDirectories": ["./", "./studio"],
   "css.validate": false,
   "scss.validate": false,
   "stylelint.enable": true,

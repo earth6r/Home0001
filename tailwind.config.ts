@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { SCREENS } from './lib/globals'
+import { SCREENS } from './globals'
 
 const screens = Object.entries(SCREENS).reduce((acc, [key, value]) => {
   acc[key] = `${value}px`

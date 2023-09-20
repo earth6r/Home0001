@@ -6,7 +6,7 @@ import type { SanityImageProps as SanityImagePropsType } from './types'
 import { client } from '@lib/sanity'
 
 interface SanityImageProps extends SanityImageObject {
-  props?: SanityImagePropsType
+  props: SanityImagePropsType
   className?: string
 }
 

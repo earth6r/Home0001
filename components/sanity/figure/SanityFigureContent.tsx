@@ -24,6 +24,7 @@ export const SanityFigureContent: FC<SanityFigureContentProps> = ({
         >
           <SanityMedia
             imageProps={{
+              alt: '',
               layout: 'fill',
               objectFit: 'cover',
               width: undefined,

@@ -14,15 +14,11 @@ export const SITE_SETTINGS_QUERY = groq`
   }
 `
 
-export interface SiteSettingsProps {
-  preview: boolean
-}
-
-export const getSiteSettingsProps: (
-  props: SiteSettingsProps
-) => Promise<SiteSettings | undefined> = async ({ preview = false }) => {
+export const getSiteSettingsProps: () => Promise<
+  SiteSettings | undefined
+> = async () => {
   const data = await previewClient.fetch(SITE_SETTINGS_QUERY)
   if (!data) return undefined
-  const settings = filterDataToSingleItem(data, preview)
+  const settings = filterDataToSingleItem(data)
   return settings
 }

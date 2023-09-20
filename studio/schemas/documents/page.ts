@@ -1,11 +1,5 @@
 import { GrDocument } from 'react-icons/gr'
 import type { Rule } from '@sanity/types'
-import type { Page } from '../../../gen/sanity-schema'
-
-interface PageSelection {
-  title: Page['title']
-  media: Page['previewImage']
-}
 
 export default {
   name: 'page',
@@ -55,13 +49,4 @@ export default {
       group: 'metadata',
     },
   ],
-  preview: {
-    select: {
-      title: 'title',
-      media: 'previewImage',
-    },
-    prepare(selection: PageSelection): PageSelection {
-      return selection
-    },
-  },
 }

@@ -9,7 +9,7 @@ export const SanityMedia: FC<SanityMediaProps> = ({
   video,
   className,
 }) => {
-  if (image?.asset)
+  if (image?.asset && imageProps)
     return <SanityImage {...image} props={imageProps} className={className} />
   if (video?.files?.length)
     return <SanityVideo video={video} className={className} />

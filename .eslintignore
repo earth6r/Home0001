@@ -1,2 +1,3 @@
-gen/
+studio/node_modules
+studio/gen/
 public/studio/

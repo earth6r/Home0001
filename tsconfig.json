@@ -2,8 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@gen/*": ["./gen/*"],
-      "@lib/*": ["./lib/*"],
+      "@gen/*": ["./studio/gen/*"],
+      "@lib/*": ["./studio/lib/*"],
+      "@globals/*": ["./globals/*"],
       "@components/*": ["./components/*"],
       "@/*": ["./*"]
     },
@@ -21,18 +22,23 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noEmit": true
+    "noEmit": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "env.d.ts",
-    "scroll.d.ts",
     "next-env.d.ts",
-    "./lib/**/*",
-    "./gen/**/*",
+    "./studio/lib/**/*",
+    "./studio/gen/**/*",
     "./pages/**/*",
     "./components/**/*",
     "./styles/**/*",
-    "./*.{js,jsx,ts,tsx}"
+    "./*.{js,jsx,ts,tsx}",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
