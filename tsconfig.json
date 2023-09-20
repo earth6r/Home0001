@@ -2,8 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@sanity/*": ["./studio/*"],
       "@gen/*": ["./studio/gen/*"],
-      "@lib/*": ["./studio/lib/*"],
+      "@lib/*": ["./src/lib/*"],
       "@globals/*": ["./src/globals/*"],
       "@components/*": ["./src/components/*"],
       "@/*": ["./src/*"]
@@ -34,11 +35,13 @@
     "next-env.d.ts",
     "./studio/lib/**/*",
     "./studio/gen/**/*",
+    "./src/lib/**/*",
     "./src/pages/**/*",
     "./src/components/**/*",
     "./src/styles/**/*",
     "./*.{js,jsx,ts,tsx}",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/lib/next"
   ],
   "exclude": ["node_modules"]
 }

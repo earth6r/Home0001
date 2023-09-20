@@ -50,7 +50,7 @@ export default {
       title: 'Main Menu',
       type: 'reference',
       description: 'Select menu for main navigation',
-      to: { type: 'menu' },
+      to: { type: 'menus' },
       group: 'header',
     },
   ],

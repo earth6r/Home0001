@@ -2,7 +2,7 @@ import type { SanityImageObject } from '@sanity/image-url/lib/types/types'
 import type { ImageUrlBuilder } from 'next-sanity-image'
 import type { UseNextSanityImageProps } from 'next-sanity-image'
 import { useNextSanityImage } from 'next-sanity-image'
-import { client } from '@lib/sanity'
+import { client } from '@sanity/lib'
 import type { HeadImageProps } from './types'
 
 const imageBuilder = (builder: ImageUrlBuilder) =>

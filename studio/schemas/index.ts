@@ -12,7 +12,7 @@ import menuItem from './objects/menu-item'
 import seo from './objects/seo'
 import video from './objects/video'
 import page from './documents/page'
-import menu from './documents/menu'
+import menus from './documents/menus'
 import siteSettings from './documents/site-settings'
 
 export const schemaTypes = [
@@ -26,7 +26,7 @@ export const schemaTypes = [
   figure,
   seo,
   menuItem,
-  menu,
+  menus,
   richText,
   plainText,
   blockContent,

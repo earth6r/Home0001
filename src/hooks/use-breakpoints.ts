@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { debounce } from 'lodash'
-import type { Breakpoints } from '@lib/util'
-import { getBreakpoints } from '@lib/util'
+import type { Breakpoints } from '../lib/util'
+import { getBreakpoints } from '../lib/util'
 
 export const useBreakpoints = () => {
   const [breakpoints, setBreakpoints] = useState<Breakpoints | undefined>()

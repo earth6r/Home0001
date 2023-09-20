@@ -12,7 +12,6 @@ export const previewClient = createClient({
  * Helper function to return the correct version of the document.
  * In preview mode this returns the preview document
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const filterDataToSingleItem = (data: any): any => {
   if (!Array.isArray(data)) {
     return data

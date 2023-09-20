@@ -1,6 +1,6 @@
 import type { FC } from 'react'
-import type { SanityLinkType } from '@lib/sanity'
-import { getHrefBySanityLink } from '@lib/sanity'
+import type { SanityLinkType } from '@sanity/lib'
+import { getHrefBySanityLink } from '@sanity/lib'
 import type { BtnAsLink, BtnProps } from '@components/btns'
 import { Btn } from '@components/btns'
 

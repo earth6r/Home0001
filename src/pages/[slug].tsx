@@ -8,7 +8,7 @@ import type {
 import type { Page as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
-import { BODY_QUERY, client, filterDataToSingleItem } from '@lib/sanity'
+import { BODY_QUERY, client, filterDataToSingleItem } from '@sanity/lib'
 import { BlockContent } from '@components/sanity'
 
 const ALL_SLUGS_QUERY = groq`*[_type == "page" && defined(slug.current)][].slug.current`

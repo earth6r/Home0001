@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { rwClient } from '@lib/sanity'
+import { rwClient } from '@sanity/lib'
 
 type Data = {
   message: string

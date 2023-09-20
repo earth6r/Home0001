@@ -1,6 +1,6 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { SiteSettings, Page } from '@gen/sanity-schema'
-import { previewClient, getSiteSettingsProps } from '../sanity'
+import { previewClient, getSiteSettingsProps } from '@sanity/lib'
 
 export interface PageProps {
   preview: boolean

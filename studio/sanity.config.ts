@@ -2,6 +2,7 @@ import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { vercelDeployTool } from 'sanity-plugin-vercel-deploy'
 import { schemaTypes } from './schemas'
+import deskStructure, { getDefaultDocumentNode } from './parts/desk-structure'
 
 export default defineConfig({
   name: 'Home0001',
@@ -9,7 +10,13 @@ export default defineConfig({
   projectId: 'cr71fv96',
   dataset: 'production',
   basePath: '/studio',
-  plugins: [deskTool(), vercelDeployTool()],
+  plugins: [
+    deskTool({
+      structure: deskStructure,
+      defaultDocumentNode: getDefaultDocumentNode,
+    }),
+    vercelDeployTool(),
+  ],
   schema: {
     types: schemaTypes,
   },
@@ -17,10 +24,6 @@ export default defineConfig({
     {
       name: 'part:@sanity/base/schema',
       path: './schemas/index',
-    },
-    {
-      name: 'part:@sanity/desk-tool/structure',
-      path: './parts/desk-structure',
     },
     {
       implements: 'part:@sanity/production-preview/resolve-production-url',

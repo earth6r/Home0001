@@ -1,4 +1,4 @@
-# Earth - Fall 2023
+# Home0001 - Fall 2023
 
 [Next.js](https://nextjs.org) and [Sanity Studio](https://www.sanity.io/studio)
 monorepo. Intended for deployment to [Vercel](https://vercel.com).
@@ -16,6 +16,7 @@ Next's development server up and running:
 ```bash
 # install dependencies
 yarn install
+cd studio && yarn install
 
 # run requisite generate and clean steps
 # before running all apps simultaneously

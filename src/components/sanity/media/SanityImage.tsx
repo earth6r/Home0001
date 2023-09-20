@@ -3,7 +3,7 @@ import NextImage from 'next/image'
 import { useNextSanityImage } from 'next-sanity-image'
 import type { SanityImageObject } from '@sanity/image-url/lib/types/types'
 import type { SanityImageProps as SanityImagePropsType } from './types'
-import { client } from '@lib/sanity'
+import { client } from '@sanity/lib'
 
 interface SanityImageProps extends SanityImageObject {
   props: SanityImagePropsType
