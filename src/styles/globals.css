@@ -7,7 +7,7 @@
   --space-y: 1.5rem;
   --space-y-half: calc(var(--space-y) * 0.5);
   --space-y-double: calc(var(--space-y) * 2);
-  --space-y-lg: 1.5rem;
+  --space-y-lg: 2.5rem;
 
   --space-menu: 3.625rem;
 
@@ -44,7 +44,7 @@
 
     --space-menu: 5.625rem;
 
-    --header-height: 60px;
+    --header-height: 40px;
   }
 }
 

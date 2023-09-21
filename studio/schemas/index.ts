@@ -15,6 +15,7 @@ import menus from './documents/menus'
 import siteSettings from './documents/site-settings'
 import accordionBlock from './blocks/accordion-block'
 import accordion from './objects/accordion'
+import waitlistBlock from './blocks/waitlistBlock'
 
 export const schemaTypes = [
   link,
@@ -23,6 +24,7 @@ export const schemaTypes = [
   accordionBlock,
   textBlock,
   figuresBlock,
+  waitlistBlock,
   color,
   media,
   figure,

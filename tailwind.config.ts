@@ -13,6 +13,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundColor: {
+        whitesmoke: '#F3F3F3',
+      },
       screens,
       fontFamily: {
         sans: ['Arial', 'Helvetica', 'sans-serif', 'arial-unicode'],

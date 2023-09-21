@@ -281,6 +281,37 @@ export type FiguresBlock = {
   carousel?: boolean;
 };
 
+export type WaitlistBlock = {
+  _type: "waitlistBlock";
+  /**
+   * Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Text — `plainText`
+   *
+   *
+   */
+  text?: PlainText;
+
+  /**
+   * Audience ID — `string`
+   *
+   *
+   */
+  audienceId?: string;
+
+  /**
+   * Form Type — `string`
+   *
+   *
+   */
+  formType?: "general" | "unit";
+};
+
 export type Color = "black" | "white";
 
 export type Media = {
@@ -371,6 +402,7 @@ export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
   | SanityKeyed<FiguresBlock>
   | SanityKeyed<TextBlock>
+  | SanityKeyed<WaitlistBlock>
 >;
 
 export type Documents = Menus | SiteSettings | Page;

@@ -21,9 +21,8 @@ export const Block: FC<BlockProps> = ({
       id={slug?.current}
       className={classNames(
         styles.block,
-        styles.visible,
         className,
-        `flex-auto md:grid md:grid-cols-3 pr-menu`
+        `relative flex-auto md:grid md:grid-cols-3 pr-menu z-above`
       )}
       {...props}
     >

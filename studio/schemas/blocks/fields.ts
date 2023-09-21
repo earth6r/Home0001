@@ -35,4 +35,23 @@ export const textField = {
   title: 'Text',
 }
 
+export const headerField = {
+  name: 'header',
+  type: 'string',
+  title: 'Header',
+}
+
+export const plainTextField = {
+  name: 'text',
+  type: 'plainText',
+  title: 'Text',
+}
+
+export const idField = {
+  name: 'audienceId',
+  type: 'string',
+  title: 'Audience ID',
+}
+
 export const topFields = [slugField]
+export const newsletterFields = [headerField, plainTextField, idField]

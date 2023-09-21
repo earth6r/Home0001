@@ -14,15 +14,10 @@ interface AccordionProps extends HTMLAttributes<HTMLElement> {
 export const Accordion: FC<AccordionProps> = ({ header, text, className }) => {
   const ref = useRef<HTMLDivElement>(null)
 
-  function setHeight() {
-    console.log(ref.current?.scrollHeight)
+  const setHeight = () => {
     if (ref.current)
       ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
   }
-
-  useEffect(() => {
-    setHeight()
-  }, [])
 
   return (
     <div className={classNames(className, 'border-black')}>

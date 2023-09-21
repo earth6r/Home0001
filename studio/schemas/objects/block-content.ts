@@ -18,5 +18,10 @@ export default {
       type: 'textBlock',
       title: 'Text Block',
     },
+    {
+      name: 'waitlistBlock',
+      type: 'waitlistBlock',
+      title: 'Waitlist Form',
+    },
   ],
 }
