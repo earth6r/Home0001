@@ -55,10 +55,10 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                   pointerEvents: customOpen ? 'all' : 'none',
                 }}
               >
-                <div className="flex items-center relative h-[37px] px-x mt-y">
+                <div className="flex items-center absolute h-header px-x mt-y md:mt-[40px]">
                   <Logo />
                 </div>
-                <nav className="overflow-auto z-40 md:shadow-none pt-[34px] md:pt-[77px] left-0 w-full h-full fade-enter-done">
+                <nav className="overflow-auto z-40 md:shadow-none pt-[88px] md:pt-[126px] left-0 w-full h-full fade-enter-done">
                   <Menu.Items
                     as="ul"
                     ref={items}

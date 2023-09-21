@@ -9,9 +9,9 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 }) => {
   const year = new Date().getFullYear()
   return (
-    <footer className="container">
+    <footer className="px-x">
       <div>
-        <ul className="flex flex-col gap-12 w-full">
+        <ul className="flex flex-col gap-10 md:gap-12 w-full">
           {mainMenu?.items?.map(({ _key, text, link }) => {
             return text && link ? (
               <li key={_key} className="uppercase">
@@ -21,9 +21,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
           })}
         </ul>
       </div>
-      <p className="mb-10 md:mb-6 text-mobile-body md:text-desktop-body my-20">
-        &copy;{` ${year} HOME0001`}
-      </p>
+      <p className="mb-10 md:mb-6 my-20">&copy;{` ${year} HOME0001`}</p>
     </footer>
   )
 }

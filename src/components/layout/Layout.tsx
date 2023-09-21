@@ -18,7 +18,6 @@ interface LayoutProps {
 
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath } = useRouter()
-  console.log('asPath: ', asPath)
   return (
     <>
       <Head

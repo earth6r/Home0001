@@ -25,8 +25,8 @@
   --btn-space-x: 2em;
   --btn-space-y: 0.625em;
 
-  /* header + top spacing */
-  --header-height: 80px;
+  /* header height */
+  --header-height: 16px;
 
   /* speeds */
   --speed-fast: 0.2s;
@@ -43,6 +43,8 @@
     --space-y: 2.5rem;
 
     --space-menu: 5.625rem;
+
+    --header-height: 60px;
   }
 }
 

@@ -50,9 +50,6 @@ export default {
         normal: 'var(--speed-normal)',
         fast: 'var(--speed-fast)',
       },
-      shortcuts: {
-        container: 'w-full mx-auto px-x',
-      },
       zIndex: {
         auto: 'auto',
         behind: '-1',

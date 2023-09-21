@@ -17,14 +17,16 @@ export const Header: FC<HeaderProps> = ({ className, mainMenu }) => {
       <header
         ref={el}
         role="banner"
-        className="flex justify-between items-center w-full px-x pt-y"
+        className="flex justify-between items-center w-full h-header px-x mt-y"
       >
-        <Logo />
+        <div>
+          <Logo />
+        </div>
         <HeaderMenu
           customOpen={menuOpen}
           onOpen={onOpen}
           mainMenu={mainMenu as SanityMenu}
-          className="flex flex-col"
+          className="flex flex-col "
         />
       </header>
     </div>

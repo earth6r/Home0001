@@ -1,7 +1,6 @@
 .btn {
   cursor: pointer;
   display: inline-block;
-  height: var(--btn-height);
   position: relative;
   user-select: none;
 }
