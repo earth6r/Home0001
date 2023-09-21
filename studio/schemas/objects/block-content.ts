@@ -4,14 +4,19 @@ export default {
   type: 'array',
   of: [
     {
-      name: 'textBlock',
-      type: 'textBlock',
-      title: 'Text Block',
+      name: 'accordionBlock',
+      type: 'accordionBlock',
+      title: 'Accordion Block',
     },
     {
       name: 'figuresBlock',
       type: 'figuresBlock',
       title: 'Figures Block',
+    },
+    {
+      name: 'textBlock',
+      type: 'textBlock',
+      title: 'Text Block',
     },
   ],
 }

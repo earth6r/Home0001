@@ -10,18 +10,20 @@ import media from './objects/media'
 import figure from './objects/figure'
 import menuItem from './objects/menu-item'
 import seo from './objects/seo'
-import video from './objects/video'
 import page from './documents/page'
 import menus from './documents/menus'
 import siteSettings from './documents/site-settings'
+import accordionBlock from './blocks/accordion-block'
+import accordion from './objects/accordion'
 
 export const schemaTypes = [
   link,
+  accordion,
   cta,
+  accordionBlock,
   textBlock,
   figuresBlock,
   color,
-  video,
   media,
   figure,
   seo,

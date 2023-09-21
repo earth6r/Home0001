@@ -34,39 +34,18 @@
   @apply mb-0;
 }
 
-.rich-text h1,
-.rich-text h2,
-.rich-text h3,
-.rich-text h4,
-.rich-text h5,
-.rich-text h6,
 .rich-text blockquote,
 .rich-text p {
   @apply mx-auto;
 }
 
-.rich-text h1 {
-  @apply text-base;
-}
-
-.rich-text h2 {
-  @apply text-base;
-}
-
-.rich-text h3 {
-  @apply text-base;
-}
-
-.rich-text h4 {
-  @apply text-base;
-}
-
-.rich-text h5 {
-  @apply text-base;
-}
-
+.rich-text h1,
+.rich-text h2,
+.rich-text h3,
+.rich-text h4,
+.rich-text h5,
 .rich-text h6 {
-  @apply text-base;
+  @apply text-base uppercase;
 }
 
 .rich-text p,

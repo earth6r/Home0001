@@ -56,6 +56,11 @@ body,
 }
 /* stylelint-enable selector-id-pattern */
 
+::selection {
+  color: white;
+  background: black;
+}
+
 body {
   background-color: theme('colors.white');
   font-family: theme('fontFamily.sans');

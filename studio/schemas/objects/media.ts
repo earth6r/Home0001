@@ -5,7 +5,6 @@ import type { Media } from '@gen/sanity-schema'
 interface MediaSelectProps {
   caption?: Media['caption']
   image?: string
-  videoPosterUrl?: string
 }
 
 const MediaObject = {
@@ -30,7 +29,6 @@ const MediaObject = {
     select: {
       caption: 'caption',
       imageUrl: 'image',
-      videoPosterUrl: 'video.poster.asset.url',
     },
     prepare({ image }: MediaSelectProps): PreviewValue {
       let title = 'Media'

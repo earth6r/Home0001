@@ -23,7 +23,7 @@ export const Block: FC<BlockProps> = ({
         styles.block,
         styles.visible,
         className,
-        `flex-auto`
+        `flex-auto md:grid md:grid-cols-3 pr-menu`
       )}
       {...props}
     >

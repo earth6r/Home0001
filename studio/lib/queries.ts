@@ -8,42 +8,10 @@ export const IMAGE_QUERY = `
     _type != 'reference' => @,
   },
 `
-
-export const VIDEO_QUERY = `
-  ...,
-  "files": files[]{
-    ...,
-    "asset": asset{
-      ...,
-      _type == 'reference' => @->,
-      _type != 'reference' => @,
-    }
-  },
-  "poster": poster{
-    ...,
-    "asset": asset{
-      ...,
-      _type == 'reference' => @->,
-      _type != 'reference' => @,
-    }
-  },
-  "caption": caption{
-    ...,
-    "asset": asset{
-      ...,
-      _type == 'reference' => @->,
-      _type != 'reference' => @,
-    }
-  },
-`
-
 export const MEDIA_QUERY = `
   ...,
   "image": image{
     ${IMAGE_QUERY}
-  },
-  "video": video{
-    ${VIDEO_QUERY}
   },
 `
 

@@ -51,7 +51,7 @@ export const FiguresBlock: FC<FiguresBlockProps> = ({
   }
   const swiperUpdate = (swiper: SwiperType) => {
     if (mediaHeight !== 0) setMediaHeight(0)
-    const media = swiper.el.querySelector('img, video')
+    const media = swiper.el.querySelector('img')
     if (media) setMediaHeight(media.clientHeight)
   }
   useEffect(() => {

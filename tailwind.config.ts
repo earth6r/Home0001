@@ -77,6 +77,9 @@ export default {
             paddingBottom: theme('spacing.x'),
           },
         },
+        '.border-black': {
+          border: '1px solid black',
+        },
       })
     },
   ],

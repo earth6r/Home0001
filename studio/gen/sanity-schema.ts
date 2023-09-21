@@ -196,6 +196,23 @@ export type Link = {
   externalLink?: string;
 };
 
+export type Accordion = {
+  _type: "accordion";
+  /**
+   * Accordion Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Accordion Text — `richText`
+   *
+   *
+   */
+  text?: RichText;
+};
+
 export type Cta = {
   _type: "cta";
   /**
@@ -211,6 +228,16 @@ export type Cta = {
    *
    */
   link?: Link;
+};
+
+export type AccordionBlock = {
+  _type: "accordionBlock";
+  /**
+   * Accordions — `array`
+   *
+   *
+   */
+  accordions?: Array<SanityKeyed<Accordion>>;
 };
 
 export type TextBlock = {
@@ -255,42 +282,6 @@ export type FiguresBlock = {
 };
 
 export type Color = "black" | "white";
-
-export type Video = {
-  _type: "video";
-  /**
-   * files — `array`
-   *
-   * Video files beginning with WebM
-   */
-  files?: Array<SanityKeyed<{ _type: "file"; asset: SanityReference<any> }>>;
-
-  /**
-   * poster — `image`
-   *
-   * Image that displays before the video is loaded
-   */
-  poster?: {
-    _type: "image";
-    asset: SanityReference<SanityImageAsset>;
-    crop?: SanityImageCrop;
-    hotspot?: SanityImageHotspot;
-  };
-
-  /**
-   * loop — `boolean`
-   *
-   *
-   */
-  loop?: boolean;
-
-  /**
-   * autoplay — `boolean`
-   *
-   * Video will be muted if autoplay is enabled
-   */
-  autoplay?: boolean;
-};
 
 export type Media = {
   _type: "media";
@@ -377,7 +368,9 @@ export type RichText = Array<SanityKeyed<SanityBlock> | SanityKeyed<Media>>;
 export type PlainText = Array<SanityKeyed<SanityBlock>>;
 
 export type BlockContent = Array<
-  SanityKeyed<TextBlock> | SanityKeyed<FiguresBlock>
+  | SanityKeyed<AccordionBlock>
+  | SanityKeyed<FiguresBlock>
+  | SanityKeyed<TextBlock>
 >;
 
 export type Documents = Menus | SiteSettings | Page;

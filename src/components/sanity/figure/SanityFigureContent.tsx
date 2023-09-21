@@ -9,13 +9,12 @@ interface SanityFigureContentProps extends SanityFigureProps {
 
 export const SanityFigureContent: FC<SanityFigureContentProps> = ({
   image,
-  video,
   mediaRatio,
   contentClass,
   mediaClass,
   ...props
 }) =>
-  image?.asset || video?.files?.length ? (
+  image?.asset ? (
     mediaRatio ? (
       <div className={classNames(contentClass || 'contents', 'figure-content')}>
         <div
@@ -31,7 +30,6 @@ export const SanityFigureContent: FC<SanityFigureContentProps> = ({
               height: undefined,
             }}
             image={image}
-            video={video}
             className={mediaClass}
             {...props}
           />
@@ -39,12 +37,7 @@ export const SanityFigureContent: FC<SanityFigureContentProps> = ({
       </div>
     ) : (
       <div className={classNames(contentClass || 'contents', 'figure-content')}>
-        <SanityMedia
-          image={image}
-          video={video}
-          className={mediaClass}
-          {...props}
-        />
+        <SanityMedia image={image} className={mediaClass} {...props} />
       </div>
     )
   ) : null

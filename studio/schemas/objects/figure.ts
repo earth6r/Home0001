@@ -5,7 +5,6 @@ import type { Media } from '@gen/sanity-schema'
 interface MediaSelectProps {
   caption?: Media['caption']
   image?: string
-  videoPosterUrl?: string
 }
 
 export default {
