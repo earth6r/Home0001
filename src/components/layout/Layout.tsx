@@ -18,6 +18,7 @@ interface LayoutProps {
 
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath } = useRouter()
+  console.log('asPath: ', asPath)
   return (
     <>
       <Head
@@ -39,7 +40,9 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
         <main className="flex-auto">{children}</main>
-        <Footer />
+        {asPath !== '/' && (
+          <Footer mainMenu={siteSettings?.mainMenu as Menus | undefined} />
+        )}
       </div>
       <ToastContainer />
     </>

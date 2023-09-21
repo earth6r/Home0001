@@ -19,10 +19,7 @@ export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
     {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
       // @ts-ignore  */}
     {props['aria-expanded'] ? (
-      <IconX
-        className="w-[16px] md:w-[40px] h-[16px] md:h-[40px]"
-        strokeWidth="2"
-      />
+      <IconX className="w-[16px] md:w-[40px] h-[16px] md:h-[40px] stroke-2 md:stroke-1" />
     ) : (
       <span className="uppercase">Menu</span>
     )}
@@ -65,7 +62,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                   <Menu.Items
                     as="ul"
                     ref={items}
-                    className="px-4 md:px-10 flex flex-col gap-12 w-full"
+                    className="container flex flex-col gap-12 w-full"
                   >
                     {mainMenu?.items?.map(({ _key, text, link }) => {
                       return text && link ? (
