@@ -83,6 +83,9 @@ export default {
         '.border-black': {
           border: '1px solid black',
         },
+        '.border-bottom': {
+          borderBottom: '1.5px solid black',
+        },
       })
     },
   ],
