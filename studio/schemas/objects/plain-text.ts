@@ -1,6 +1,3 @@
-import { GiJoint } from 'react-icons/gi'
-import JoinMark from '../marks/JoinMark'
-
 export default {
   name: 'plainText',
   type: 'array',
@@ -14,14 +11,6 @@ export default {
         decorators: [
           { title: 'Strong', value: 'strong' },
           { title: 'Emphasis', value: 'em' },
-          {
-            title: 'Join',
-            value: 'join',
-            blockEditor: {
-              icon: GiJoint,
-              render: JoinMark,
-            },
-          },
         ],
         annotations: [
           {

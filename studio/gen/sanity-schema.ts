@@ -37,6 +37,29 @@ export type {
 };
 
 /**
+ * City
+ *
+ *
+ */
+export interface City extends SanityDocument {
+  _type: "city";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Active — `boolean`
+   *
+   *
+   */
+  active?: boolean;
+}
+
+/**
  * Menus
  *
  *
@@ -64,55 +87,6 @@ export interface Menus extends SanityDocument {
    *
    */
   items?: Array<SanityKeyed<MenuItem>>;
-}
-
-/**
- * Site Settings
- *
- *
- */
-export interface SiteSettings extends SanityDocument {
-  _type: "siteSettings";
-
-  /**
-   * Site Title — `string`
-   *
-   *
-   */
-  title?: string;
-
-  /**
-   * Site Description — `text`
-   *
-   *
-   */
-  description?: string;
-
-  /**
-   * Site Image — `image`
-   *
-   *
-   */
-  image?: {
-    _type: "image";
-    asset: SanityReference<SanityImageAsset>;
-    crop?: SanityImageCrop;
-    hotspot?: SanityImageHotspot;
-  };
-
-  /**
-   * Keyphrase — `string`
-   *
-   * Phrase that you want your site to rank for.
-   */
-  siteKeywords?: string;
-
-  /**
-   * Main Menu — `reference`
-   *
-   * Select menu for main navigation
-   */
-  mainMenu?: SanityReference<Menus>;
 }
 
 /**
@@ -162,6 +136,104 @@ export interface Page extends SanityDocument {
    *
    */
   seo?: Seo;
+}
+
+/**
+ * Property
+ *
+ *
+ */
+export interface Property extends SanityDocument {
+  _type: "property";
+
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
+   * Image — `image`
+   *
+   *
+   */
+  image?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * coordinates — `coordinates`
+   *
+   *
+   */
+  coordinates?: Coordinates;
+
+  /**
+   * Description — `richText`
+   *
+   *
+   */
+  description?: RichText;
+
+  /**
+   * Location — `reference`
+   *
+   *
+   */
+  location?: SanityReference<City>;
+}
+
+/**
+ * Site Settings
+ *
+ *
+ */
+export interface SiteSettings extends SanityDocument {
+  _type: "siteSettings";
+
+  /**
+   * Site Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Site Description — `text`
+   *
+   *
+   */
+  description?: string;
+
+  /**
+   * Site Image — `image`
+   *
+   *
+   */
+  image?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Keyphrase — `string`
+   *
+   * Phrase that you want your site to rank for.
+   */
+  siteKeywords?: string;
+
+  /**
+   * Main Menu — `reference`
+   *
+   * Select menu for main navigation
+   */
+  mainMenu?: SanityReference<Menus>;
 }
 
 export type Link = {
@@ -230,86 +302,21 @@ export type Cta = {
   link?: Link;
 };
 
-export type AccordionBlock = {
-  _type: "accordionBlock";
+export type Coordinates = {
+  _type: "coordinates";
   /**
-   * Accordions — `array`
+   * Latitude — `string`
    *
    *
    */
-  accordions?: Array<SanityKeyed<Accordion>>;
-};
-
-export type TextBlock = {
-  _type: "textBlock";
-  /**
-   * Text — `richText`
-   *
-   *
-   */
-  text?: RichText;
-};
-
-export type FiguresBlock = {
-  _type: "figuresBlock";
-  /**
-   * Slug — `slug`
-   *
-   * The block can be linked to using this slug as an anchor (optional)
-   */
-  slug?: { _type: "slug"; current: string };
+  lat?: string;
 
   /**
-   * Figures — `array`
+   * Longitude — `string`
    *
    *
    */
-  figures?: Array<SanityKeyed<Figure>>;
-
-  /**
-   * Column Count — `number`
-   *
-   *
-   */
-  columns?: number;
-
-  /**
-   * Carousel — `boolean`
-   *
-   *
-   */
-  carousel?: boolean;
-};
-
-export type WaitlistBlock = {
-  _type: "waitlistBlock";
-  /**
-   * Header — `string`
-   *
-   *
-   */
-  header?: string;
-
-  /**
-   * Text — `plainText`
-   *
-   *
-   */
-  text?: PlainText;
-
-  /**
-   * Audience ID — `string`
-   *
-   *
-   */
-  audienceId?: string;
-
-  /**
-   * Form Type — `string`
-   *
-   *
-   */
-  formType?: "general" | "unit";
+  long?: string;
 };
 
 export type Color = "black" | "white";
@@ -400,9 +407,70 @@ export type PlainText = Array<SanityKeyed<SanityBlock>>;
 
 export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
-  | SanityKeyed<FiguresBlock>
+  | SanityKeyed<CitiesBlock>
   | SanityKeyed<TextBlock>
   | SanityKeyed<WaitlistBlock>
 >;
 
-export type Documents = Menus | SiteSettings | Page;
+export type AccordionBlock = {
+  _type: "accordionBlock";
+  /**
+   * Accordions — `array`
+   *
+   *
+   */
+  accordions?: Array<SanityKeyed<Accordion>>;
+};
+
+export type CitiesBlock = {
+  _type: "citiesBlock";
+  /**
+   * Cities — `array`
+   *
+   *
+   */
+  citiesList?: Array<SanityKeyedReference<City>>;
+};
+
+export type TextBlock = {
+  _type: "textBlock";
+  /**
+   * Text — `richText`
+   *
+   *
+   */
+  text?: RichText;
+};
+
+export type WaitlistBlock = {
+  _type: "waitlistBlock";
+  /**
+   * Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Text — `plainText`
+   *
+   *
+   */
+  text?: PlainText;
+
+  /**
+   * Audience ID — `string`
+   *
+   *
+   */
+  audienceId?: string;
+
+  /**
+   * Form Type — `string`
+   *
+   *
+   */
+  formType?: "general" | "unit";
+};
+
+export type Documents = City | Menus | Page | Property | SiteSettings;

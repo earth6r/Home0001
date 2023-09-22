@@ -2,7 +2,6 @@ import richText from './objects/rich-text'
 import plainText from './objects/plain-text'
 import blockContent from './objects/block-content'
 import textBlock from './blocks/text-block'
-import figuresBlock from './blocks/figures-block'
 import color from './objects/color'
 import link from './objects/link'
 import cta from './objects/cta'
@@ -16,26 +15,38 @@ import siteSettings from './documents/site-settings'
 import accordionBlock from './blocks/accordion-block'
 import accordion from './objects/accordion'
 import waitlistBlock from './blocks/waitlistBlock'
+import coordinates from './objects/coordinates'
+import city from './documents/city'
+import citiesBlock from './blocks/cities-block'
+import property from './documents/property'
 
 export const schemaTypes = [
+  // objects
   link,
   accordion,
   cta,
-  accordionBlock,
-  textBlock,
-  figuresBlock,
-  waitlistBlock,
+  coordinates,
   color,
   media,
   figure,
   seo,
   menuItem,
-  menus,
   richText,
   plainText,
+
+  // blocks
   blockContent,
-  siteSettings,
+  accordionBlock,
+  citiesBlock,
+  textBlock,
+  waitlistBlock,
+
+  // documents
+  city,
+  menus,
   page,
+  property,
+  siteSettings,
 ]
 
 export default schemaTypes

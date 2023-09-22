@@ -9,9 +9,9 @@ export default {
       title: 'Accordion Block',
     },
     {
-      name: 'figuresBlock',
-      type: 'figuresBlock',
-      title: 'Figures Block',
+      name: 'citiesBlock',
+      type: 'citiesBlock',
+      title: 'Cities Block',
     },
     {
       name: 'textBlock',
