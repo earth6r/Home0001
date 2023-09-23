@@ -1,7 +1,7 @@
 import type { PortableTextBlockStyle } from '@portabletext/types'
 import type {
   PortableTextReactComponents,
-  // PortableTextBlockComponent,
+  PortableTextBlockComponent,
 } from '@portabletext/react'
 import { reactNodeToString } from '@lib/util'
 import { SanityLink, SanityFigure } from '.'
@@ -32,9 +32,9 @@ export const blockMarks: Partial<PortableTextReactComponents['marks']> = {
 /**
  * PortableText blocks used globally
  */
-// export const blockBlock: Record<
-//   PortableTextBlockStyle,
-//   PortableTextBlockComponent | undefined
-// > = {
-//   center: ({ children }) => <div className="text-center">{children}</div>,
-// }
+export const blockBlock: Record<
+  PortableTextBlockStyle,
+  PortableTextBlockComponent | undefined
+> = {
+  center: ({ children }) => <div className="text-center">{children}</div>,
+}

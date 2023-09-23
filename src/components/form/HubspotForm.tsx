@@ -55,10 +55,16 @@ export const HubspotForm: FC<HubspotFormProps> = ({
   //   setCityChecked(event?.target?.checked)
   // }
 
-  const onSubmit = async data => {
-    if (data.fax_data !== 'no-data') return
-    // await submit_general_hubspot_waitlist_form(data)
-    setSubmitted(true)
+  // const onSubmit = async data => {
+  //   if (data.fax_data !== 'no-data') return
+  //   // await submit_general_hubspot_waitlist_form(data)
+  //   setSubmitted(true)
+  // }
+
+  const onSubmit = () => {
+    // if (data.fax_data !== 'no-data') return
+    // // await submit_general_hubspot_waitlist_form(data)
+    // setSubmitted(true)
   }
 
   return (

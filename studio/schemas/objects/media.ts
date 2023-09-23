@@ -1,6 +1,7 @@
 import { IoIosImage } from 'react-icons/io'
 import type { PreviewValue } from '@sanity/types'
 import type { Media } from '@gen/sanity-schema'
+import type { Rule } from '@sanity/types'
 
 interface MediaSelectProps {
   caption?: Media['caption']
@@ -16,13 +17,26 @@ const MediaObject = {
     {
       name: 'image',
       type: 'image',
+    },
+    {
+      name: 'alt',
+      type: 'string',
+      title: 'Alternative text',
+      description: 'Important for SEO and accessiblity.',
+      validation: (Rule: Rule) =>
+        Rule.error('You have to fill out the alternative text.').required(),
       options: {
-        hotspot: true,
+        isHighlighted: true,
       },
     },
     {
       name: 'caption',
       type: 'richText',
+    },
+    {
+      name: 'file',
+      title: 'File',
+      type: 'file',
     },
   ],
   preview: {

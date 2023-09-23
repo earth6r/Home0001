@@ -37,11 +37,17 @@ export default {
         getOptionLabel: (reference: any) => `${reference.title}`,
       },
     },
+    {
+      name: 'unitsList',
+      title: 'Units',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'unit' }] }],
+    },
   ],
   preview: {
     select: {
-      title: 'title',
-      subtitle: 'city.title',
+      title: 'header',
+      subtitle: 'location.title',
     },
   },
 }

@@ -1,7 +1,8 @@
 import { defineConfig } from 'sanity'
+import { schemaTypes } from './schemas'
 import { deskTool } from 'sanity/desk'
 import { vercelDeployTool } from 'sanity-plugin-vercel-deploy'
-import { schemaTypes } from './schemas'
+import { media } from 'sanity-plugin-media'
 import deskStructure, { getDefaultDocumentNode } from './parts/desk-structure'
 
 export default defineConfig({
@@ -16,6 +17,7 @@ export default defineConfig({
       defaultDocumentNode: getDefaultDocumentNode,
     }),
     vercelDeployTool(),
+    media(),
   ],
   schema: {
     types: schemaTypes,

@@ -185,6 +185,99 @@ export interface Property extends SanityDocument {
    *
    */
   location?: SanityReference<City>;
+
+  /**
+   * Units — `array`
+   *
+   *
+   */
+  unitsList?: Array<SanityKeyedReference<Unit>>;
+}
+
+/**
+ * unit
+ *
+ *
+ */
+export interface Unit extends SanityDocument {
+  _type: "unit";
+
+  /**
+   * Available — `boolean`
+   *
+   *
+   */
+  available?: boolean;
+
+  /**
+   * Price — `string`
+   *
+   *
+   */
+  price?: string;
+
+  /**
+   * Area — `string`
+   *
+   *
+   */
+  area?: string;
+
+  /**
+   * Amenities — `richText`
+   *
+   *
+   */
+  amenities?: RichText;
+
+  /**
+   * Photographs — `array`
+   *
+   *
+   */
+  photographs?: Array<
+    SanityKeyed<{
+      _type: "image";
+      asset: SanityReference<SanityImageAsset>;
+      crop?: SanityImageCrop;
+      hotspot?: SanityImageHotspot;
+    }>
+  >;
+
+  /**
+   * Details — `richText`
+   *
+   *
+   */
+  details?: RichText;
+
+  /**
+   * Inventory — `inventoryModule`
+   *
+   *
+   */
+  inventory?: InventoryModule;
+
+  /**
+   * Layout Images — `array`
+   *
+   *
+   */
+  layoutImages?: Array<SanityKeyed<Media>>;
+
+  /**
+   * More Info — `richText`
+   *
+   *
+   */
+  moreInfo?: RichText;
+
+  /**
+   * Property — `reference`
+   *
+   *
+   */
+  property?: SanityReference<Property>;
 }
 
 /**
@@ -285,22 +378,7 @@ export type Accordion = {
   text?: RichText;
 };
 
-export type Cta = {
-  _type: "cta";
-  /**
-   * Text — `string`
-   *
-   *
-   */
-  text?: string;
-
-  /**
-   * Link — `link`
-   *
-   *
-   */
-  link?: Link;
-};
+export type Color = "black" | "white";
 
 export type Coordinates = {
   _type: "coordinates";
@@ -319,7 +397,42 @@ export type Coordinates = {
   long?: string;
 };
 
-export type Color = "black" | "white";
+export type Cta = {
+  _type: "cta";
+  /**
+   * Text — `string`
+   *
+   *
+   */
+  text?: string;
+
+  /**
+   * Link — `link`
+   *
+   *
+   */
+  link?: Link;
+};
+
+export type Figure = {
+  _type: "figure";
+  /**
+   * Media — `media`
+   *
+   *
+   */
+  media?: Media;
+};
+
+export type TableRow = {
+  _type: "tableRow";
+  /**
+   * Cells — `array`
+   *
+   *
+   */
+  cells?: Array<SanityKeyed<string>>;
+};
 
 export type Media = {
   _type: "media";
@@ -336,21 +449,42 @@ export type Media = {
   };
 
   /**
+   * Alternative text — `string`
+   *
+   * Important for SEO and accessiblity.
+   */
+  alt?: string;
+
+  /**
    * caption — `richText`
    *
    *
    */
   caption?: RichText;
-};
 
-export type Figure = {
-  _type: "figure";
   /**
-   * Media — `media`
+   * File — `file`
    *
    *
    */
-  media?: Media;
+  file?: { _type: "file"; asset: SanityReference<any> };
+};
+
+export type MenuItem = {
+  _type: "menuItem";
+  /**
+   * Menu Item Text — `string`
+   *
+   *
+   */
+  text?: string;
+
+  /**
+   * Menu Item URL — `link`
+   *
+   *
+   */
+  link?: Link;
 };
 
 export type Seo = {
@@ -384,26 +518,26 @@ export type Seo = {
   synonyms?: string;
 };
 
-export type MenuItem = {
-  _type: "menuItem";
-  /**
-   * Menu Item Text — `string`
-   *
-   *
-   */
-  text?: string;
-
-  /**
-   * Menu Item URL — `link`
-   *
-   *
-   */
-  link?: Link;
-};
-
 export type RichText = Array<SanityKeyed<SanityBlock> | SanityKeyed<Media>>;
 
 export type PlainText = Array<SanityKeyed<SanityBlock>>;
+
+export type InventoryModule = {
+  _type: "inventoryModule";
+  /**
+   * Headers — `array`
+   *
+   *
+   */
+  headers?: Array<SanityKeyed<string>>;
+
+  /**
+   * Rows — `array`
+   *
+   *
+   */
+  rows?: Array<SanityKeyed<TableRow>>;
+};
 
 export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
@@ -473,4 +607,4 @@ export type WaitlistBlock = {
   formType?: "general" | "unit";
 };
 
-export type Documents = City | Menus | Page | Property | SiteSettings;
+export type Documents = City | Menus | Page | Property | Unit | SiteSettings;

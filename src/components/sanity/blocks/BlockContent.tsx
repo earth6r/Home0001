@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { PortableText } from '@portabletext/react'
 import type { SanityBlockElement } from '@components/sanity'
 import { blockTypes, blockMarks, blockBlock } from '@components/sanity'
-import { TextBlock, FiguresBlock, AccordionBlock, WaitlistBlock } from '.'
+import { TextBlock, AccordionBlock, WaitlistBlock } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
@@ -18,9 +18,6 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ...blockTypes,
             accordionBlock: ({ index, value }) => (
               <AccordionBlock index={index} {...value} />
-            ),
-            figuresBlock: ({ index, value }) => (
-              <FiguresBlock index={index} {...value} />
             ),
             textBlock: ({ index, value }) => (
               <TextBlock index={index} {...value} />

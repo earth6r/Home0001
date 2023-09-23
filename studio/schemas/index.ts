@@ -19,20 +19,27 @@ import coordinates from './objects/coordinates'
 import city from './documents/city'
 import citiesBlock from './blocks/cities-block'
 import property from './documents/property'
+import unit from './documents/unit'
+import inventoryModule from './modules/inventory-module'
+import tableRow from './objects/table-row'
 
 export const schemaTypes = [
   // objects
   link,
   accordion,
-  cta,
-  coordinates,
   color,
-  media,
+  coordinates,
+  cta,
   figure,
-  seo,
+  tableRow,
+  media,
   menuItem,
+  seo,
   richText,
   plainText,
+
+  // modules
+  inventoryModule,
 
   // blocks
   blockContent,
@@ -46,6 +53,7 @@ export const schemaTypes = [
   menus,
   page,
   property,
+  unit,
   siteSettings,
 ]
 

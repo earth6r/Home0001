@@ -1,6 +1,7 @@
 import type { SanityDocument } from '@sanity/types'
 import { FaLocationDot } from 'react-icons/fa6'
 import { GrSettingsOption } from 'react-icons/gr'
+import { IoBedSharp } from 'react-icons/io5'
 import { MdHomeWork } from 'react-icons/md'
 import { RiFileList3Line } from 'react-icons/ri'
 import { StructureBuilder } from 'sanity/desk'
@@ -31,6 +32,10 @@ export const deskStructure = (S: StructureBuilder) =>
         .title('Properties')
         .child(S.documentTypeList('property').title('Properties'))
         .icon(MdHomeWork),
+      S.listItem()
+        .title('Units')
+        .child(S.documentTypeList('unit').title('Units'))
+        .icon(IoBedSharp),
       S.divider(),
       S.listItem()
         .title('Pages')
