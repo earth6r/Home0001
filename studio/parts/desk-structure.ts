@@ -1,10 +1,9 @@
-import type { SanityDocument } from '@sanity/types'
 import { FaLocationDot } from 'react-icons/fa6'
 import { GrSettingsOption } from 'react-icons/gr'
-import { IoBedSharp } from 'react-icons/io5'
 import { MdHomeWork } from 'react-icons/md'
 import { RiFileList3Line } from 'react-icons/ri'
 import { StructureBuilder } from 'sanity/desk'
+import { MdMeetingRoom } from 'react-icons/md'
 
 export const getDefaultDocumentNode = (S: StructureBuilder) => {
   return S.document().views([S.view.form()])
@@ -35,7 +34,7 @@ export const deskStructure = (S: StructureBuilder) =>
       S.listItem()
         .title('Units')
         .child(S.documentTypeList('unit').title('Units'))
-        .icon(IoBedSharp),
+        .icon(MdMeetingRoom),
       S.divider(),
       S.listItem()
         .title('Pages')

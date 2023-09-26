@@ -45,6 +45,7 @@ export default {
         wrap2xs: 'var(--wrap-2xs)',
         wrapxs: 'var(--wrap-xs)',
         wrapsm: 'var(--wrap-sm)',
+        page: 'var(--space-page)',
       },
       transitionDuration: {
         snail: 'var(--speed-snail)',

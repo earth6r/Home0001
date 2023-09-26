@@ -195,6 +195,36 @@ export interface Property extends SanityDocument {
 }
 
 /**
+ * Property Type
+ *
+ *
+ */
+export interface PropertyType extends SanityDocument {
+  _type: "propertyType";
+
+  /**
+   * Type Title — `string`
+   *
+   *
+   */
+  typeTitle?: string;
+
+  /**
+   * Type Value — `string`
+   *
+   *
+   */
+  typeValue?: string;
+
+  /**
+   * Related Cities — `array`
+   *
+   *
+   */
+  relatedCities?: Array<SanityKeyedReference<City>>;
+}
+
+/**
  * unit
  *
  *
@@ -203,11 +233,32 @@ export interface Unit extends SanityDocument {
   _type: "unit";
 
   /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
    * Available — `boolean`
    *
    *
    */
   available?: boolean;
+
+  /**
+   * Property — `reference`
+   *
+   *
+   */
+  property?: SanityReference<Property>;
+
+  /**
+   * Property Type — `reference`
+   *
+   *
+   */
+  propertyType?: SanityReference<PropertyType>;
 
   /**
    * Price — `string`
@@ -235,14 +286,7 @@ export interface Unit extends SanityDocument {
    *
    *
    */
-  photographs?: Array<
-    SanityKeyed<{
-      _type: "image";
-      asset: SanityReference<SanityImageAsset>;
-      crop?: SanityImageCrop;
-      hotspot?: SanityImageHotspot;
-    }>
-  >;
+  photographs?: Array<SanityKeyed<Media>>;
 
   /**
    * Details — `richText`
@@ -271,13 +315,6 @@ export interface Unit extends SanityDocument {
    *
    */
   moreInfo?: RichText;
-
-  /**
-   * Property — `reference`
-   *
-   *
-   */
-  property?: SanityReference<Property>;
 }
 
 /**
@@ -559,6 +596,13 @@ export type AccordionBlock = {
 export type CitiesBlock = {
   _type: "citiesBlock";
   /**
+   * Headers — `array`
+   *
+   *
+   */
+  headers?: Array<SanityKeyed<string>>;
+
+  /**
    * Cities — `array`
    *
    *
@@ -607,4 +651,11 @@ export type WaitlistBlock = {
   formType?: "general" | "unit";
 };
 
-export type Documents = City | Menus | Page | Property | Unit | SiteSettings;
+export type Documents =
+  | City
+  | Menus
+  | Page
+  | Property
+  | PropertyType
+  | Unit
+  | SiteSettings;

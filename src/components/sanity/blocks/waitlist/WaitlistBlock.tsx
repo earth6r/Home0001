@@ -16,7 +16,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className, 'relative')}>
+    <Block className={classNames(className, 'md:grid md:grid-cols-3 relative')}>
       <div className="relative w-[100vw] -left-x bg-whitesmoke z-behind"></div>
       <div className="py-ylg">
         {header && <h2 className="pb-ylg uppercase">{header}</h2>}

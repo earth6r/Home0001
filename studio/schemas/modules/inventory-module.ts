@@ -17,11 +17,7 @@ export default {
       name: 'rows',
       title: 'Rows',
       type: 'array',
-      of: [
-        {
-          type: 'tableRow',
-        },
-      ],
+      of: [{ type: 'tableRow' }],
     },
   ],
   options: {

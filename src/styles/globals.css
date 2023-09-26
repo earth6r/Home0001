@@ -10,6 +10,7 @@
   --space-y-lg: 2.5rem;
 
   --space-menu: 3.625rem;
+  --space-page: 88px;
 
   /* container wrap sizes */
   --wrap: 1248px;
@@ -43,6 +44,7 @@
     --space-y: 2.5rem;
 
     --space-menu: 5.625rem;
+    --space-page: 126px;
 
     --header-height: 40px;
   }

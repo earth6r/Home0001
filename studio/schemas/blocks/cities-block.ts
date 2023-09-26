@@ -8,6 +8,12 @@ export default {
   icon: FaLocationDot,
   fields: [
     {
+      name: 'headers',
+      title: 'Headers',
+      type: 'array',
+      of: [{ type: 'string', name: 'header' }],
+    },
+    {
       name: 'citiesList',
       title: 'Cities',
       type: 'array',

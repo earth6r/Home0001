@@ -5,6 +5,7 @@ import { Scripts } from '@components/scripts'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { animateScroll as scroll } from 'react-scroll'
+import { HomeProvider } from '@contexts/home'
 
 import 'focus-visible'
 import 'swiper/css'
@@ -49,16 +50,20 @@ function App({
 
   return draftMode && token ? (
     <PreviewProvider token={token}>
+      <HomeProvider>
+        <Layout {...pageProps}>
+          <Component {...pageProps} />
+          <Scripts />
+        </Layout>
+      </HomeProvider>
+    </PreviewProvider>
+  ) : (
+    <HomeProvider>
       <Layout {...pageProps}>
         <Component {...pageProps} />
         <Scripts />
       </Layout>
-    </PreviewProvider>
-  ) : (
-    <Layout {...pageProps}>
-      <Component {...pageProps} />
-      <Scripts />
-    </Layout>
+    </HomeProvider>
   )
 }
 

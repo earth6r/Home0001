@@ -1,11 +1,11 @@
 import type { Rule } from '@sanity/types'
-import { IoBedSharp } from 'react-icons/io5'
+import { MdMeetingRoom } from 'react-icons/md'
 
 export default {
   name: 'unit',
   title: 'unit',
   type: 'document',
-  icon: IoBedSharp,
+  icon: MdMeetingRoom,
   fields: [
     {
       title: 'Title',
@@ -18,12 +18,23 @@ export default {
       type: 'boolean',
       initialValue: true,
     },
-    // {
-    //   title: 'Property Type',
-    //   name: 'propertyType',
-    //   type: 'array',
-    //   of: [{ type: 'reference', to: [{ type: 'propertyType' }] }],
-    // },
+    {
+      title: 'Property',
+      name: 'property',
+      type: 'reference',
+      to: [{ type: 'property' }],
+      options: {
+        getOptionLabel: (reference: any) => `${reference.title}`,
+      },
+    },
+    {
+      title: 'Property Type',
+      name: 'propertyType',
+      type: 'reference',
+      to: [{ type: 'propertyType' }],
+      weak: true,
+      disableNew: false,
+    },
     {
       name: 'price',
       title: 'Price',
@@ -45,8 +56,7 @@ export default {
       type: 'array',
       of: [
         {
-          name: 'image',
-          type: 'image',
+          type: 'media',
         },
       ],
     },
@@ -74,15 +84,6 @@ export default {
       name: 'moreInfo',
       title: 'More Info',
       type: 'richText',
-    },
-    {
-      title: 'Property',
-      name: 'property',
-      type: 'reference',
-      to: [{ type: 'property' }],
-      options: {
-        getOptionLabel: (reference: any) => `${reference.title}`,
-      },
     },
   ],
   preview: {

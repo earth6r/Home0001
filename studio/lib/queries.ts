@@ -42,6 +42,13 @@ export const CTA_QUERY = `
   },
 `
 
+export const CITY_QUERY = `
+  _id,
+  _type,
+  title,
+  active,
+`
+
 export const BODY_QUERY = `
   "body": body[]{
     ...,
@@ -64,5 +71,8 @@ export const BODY_QUERY = `
         ${CTA_QUERY}
       }
     },
+    "citiesList": citiesList[]->{
+      ${CITY_QUERY}
+    }
   },
 `

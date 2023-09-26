@@ -7,6 +7,7 @@
       "@lib/*": ["./src/lib/*"],
       "@globals/*": ["./src/globals/*"],
       "@components/*": ["./src/components/*"],
+      "@contexts/*": ["./src/contexts/*"],
       "@/*": ["./src/*"]
     },
     "target": "es5",

@@ -22,6 +22,7 @@ import property from './documents/property'
 import unit from './documents/unit'
 import inventoryModule from './modules/inventory-module'
 import tableRow from './objects/table-row'
+import propertyType from './documents/property-type'
 
 export const schemaTypes = [
   // objects
@@ -53,6 +54,7 @@ export const schemaTypes = [
   menus,
   page,
   property,
+  propertyType,
   unit,
   siteSettings,
 ]
