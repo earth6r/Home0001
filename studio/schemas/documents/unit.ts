@@ -1,5 +1,11 @@
-import type { Rule } from '@sanity/types'
+import type { PreviewValue, Rule } from '@sanity/types'
 import { MdMeetingRoom } from 'react-icons/md'
+
+interface PreviewProps {
+  title?: string
+  propertyType?: string
+  propertyHeader?: string
+}
 
 export default {
   name: 'unit',
@@ -50,6 +56,11 @@ export default {
       title: 'Amenities',
       type: 'richText',
     },
+    // {
+    //   name: 'headlineImage',
+    //   title: 'Headline Image',
+    //   type: 'media',
+    // },
     {
       name: 'photographs',
       title: 'Photographs',
@@ -89,7 +100,19 @@ export default {
   preview: {
     select: {
       title: 'title',
-      subtitle: 'property.header',
+      propertyType: 'propertyType.typeTitle',
+      propertyHeader: 'property.location.title',
+    },
+    prepare({
+      title,
+      propertyType,
+      propertyHeader,
+    }: PreviewProps): PreviewValue {
+      const preparedTitle = propertyType ? `${title} – ${propertyType}` : title
+      return {
+        title: preparedTitle,
+        subtitle: propertyHeader,
+      }
     },
   },
 }

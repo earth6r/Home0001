@@ -1,4 +1,5 @@
 import groq from 'groq'
+import { useContext } from 'react'
 import type { InferGetStaticPropsType, GetStaticProps, NextPage } from 'next'
 import type { Page as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
@@ -21,7 +22,6 @@ const Page: NextPage<PageProps> = ({
   preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const page: SanityPage = filterDataToSingleItem(data)
-
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <article>
       <BlockContent

@@ -15,8 +15,8 @@ export default {
     },
     {
       name: 'image',
-      type: 'image',
-      title: 'Image',
+      type: 'media',
+      title: 'Property Image',
     },
     {
       type: 'coordinates',

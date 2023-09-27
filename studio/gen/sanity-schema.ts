@@ -57,6 +57,13 @@ export interface City extends SanityDocument {
    *
    */
   active?: boolean;
+
+  /**
+   * Propertys — `array`
+   *
+   *
+   */
+  properties?: Array<SanityKeyedReference<Property>>;
 }
 
 /**
@@ -154,16 +161,11 @@ export interface Property extends SanityDocument {
   header?: RichText;
 
   /**
-   * Image — `image`
+   * Property Image — `media`
    *
    *
    */
-  image?: {
-    _type: "image";
-    asset: SanityReference<SanityImageAsset>;
-    crop?: SanityImageCrop;
-    hotspot?: SanityImageHotspot;
-  };
+  image?: Media;
 
   /**
    * coordinates — `coordinates`

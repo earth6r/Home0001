@@ -58,6 +58,10 @@ body,
 }
 /* stylelint-enable selector-id-pattern */
 
+html {
+  overflow: scroll !important;
+}
+
 ::selection {
   color: white;
   background: black;

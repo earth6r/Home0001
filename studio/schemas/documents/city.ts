@@ -20,6 +20,16 @@ export default {
       initialValue: false,
       validation: (Rule: Rule): Rule => Rule.required(),
     },
+    {
+      title: 'Propertys',
+      name: 'properties',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'property' }] }],
+      validation: (Rule: Rule): Rule => Rule.max(1),
+      options: {
+        getOptionLabel: (reference: any) => `${reference.title}`,
+      },
+    },
   ],
   preview: {
     select: {

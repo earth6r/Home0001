@@ -1,0 +1,22 @@
+.map-module-wrapper.mexico {
+  filter: none;
+}
+
+.map-module-wrapper {
+  max-height: 400px;
+}
+
+.location-circle {
+  background: rgba(255, 0, 0, 0.4);
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  border-radius: 50px;
+  transform: translate(-50%, -50%);
+}
+
+@screen md {
+  .map-module-wrapper {
+    max-height: none;
+  }
+}

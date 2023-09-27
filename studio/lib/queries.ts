@@ -42,11 +42,45 @@ export const CTA_QUERY = `
   },
 `
 
+export const UNITS_QUERY = `
+  "propertyType": propertyType->{
+    typeTitle,
+    typeValue,
+  },
+  "photographs": photographs[]{
+    ...,
+    "media": media{
+      ${MEDIA_QUERY}
+    },
+  },
+  "layoutImages": layoutImages[]{
+    ...,
+    "media": media{
+      ${MEDIA_QUERY}
+    },
+  },
+`
+
+export const PROPERTIES_QUERY = `
+  _id,
+  "image": image{
+    ${MEDIA_QUERY}
+  },
+  "unitsList": unitsList[]->{
+    ...,
+    ${UNITS_QUERY}
+  },
+`
+
 export const CITY_QUERY = `
   _id,
   _type,
   title,
   active,
+  "properties": properties[]->{
+    ...,
+    ${PROPERTIES_QUERY}
+  },
 `
 
 export const BODY_QUERY = `

@@ -39,9 +39,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
         <main className="flex-auto">{children}</main>
-        {asPath !== '/' && (
-          <Footer mainMenu={siteSettings?.mainMenu as Menus | undefined} />
-        )}
+        <Footer mainMenu={siteSettings?.mainMenu as Menus | undefined} />
       </div>
       <ToastContainer />
     </>
