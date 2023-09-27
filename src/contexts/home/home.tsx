@@ -12,7 +12,9 @@ interface PropertyProps
 
 type homeContextType = {
   property: PropertyProps
+  propertySlug: string | undefined
   unit: string | undefined
+  unitSlug: string | undefined
 }
 
 type ProviderProps = {
@@ -26,7 +28,11 @@ enum ActionTypes {
 
 type SetPropertyAction = {
   type: 'SET_PROPERTY'
-  payload: { cityId: string | undefined; property: PropertyProps }
+  payload: {
+    cityId: string | undefined
+    property: PropertyProps
+    slug: string | undefined
+  }
 }
 
 type SetUnitAction = {
@@ -46,7 +52,9 @@ export const defaultState: homeContextType = {
     ...DEFAULT_PROPERTY,
     cityId: undefined,
   },
+  propertySlug: undefined,
   unit: undefined,
+  unitSlug: undefined,
 }
 
 export const reducer = (
@@ -58,7 +66,11 @@ export const reducer = (
       const { payload } = action
       return {
         ...state,
-        property: { cityId: payload.cityId, ...payload.property },
+        property: {
+          cityId: payload.cityId,
+          ...payload.property,
+        },
+        propertySlug: payload.slug,
         unit: undefined,
       }
     case ActionTypes.SET_UNIT:
