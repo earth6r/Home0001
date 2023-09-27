@@ -6,7 +6,7 @@ import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/units'
 
 export const Property: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
-  const { dispatch, state } = useContext(HomeContext)
+  const { state } = useContext(HomeContext)
   const property = state.property
 
   return (
@@ -46,8 +46,7 @@ export const Property: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
         {property.unitsList && (
           <>
             <div className="mt-9">Choose an available 0001 home here:</div>
-
-            <UnitsList className="" />
+            <UnitsList className="mx-[-1rem] animate-in flex flex-col gap-3 mt-7" />
           </>
         )}
       </div>

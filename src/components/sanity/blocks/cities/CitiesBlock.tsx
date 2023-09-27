@@ -1,11 +1,12 @@
 import { type FC, useContext, useEffect } from 'react'
 import classNames from 'classnames'
-import type { CitiesBlockProps, KeyedProperty } from './types'
+import type { CitiesBlockProps, KeyedCity, KeyedProperty } from './types'
 import { Block } from '@components/sanity'
 import { HomeContext } from '@contexts/home'
 import { Property } from '@components/property'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
+import { KeyedUnit } from '@components/units'
 
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
@@ -15,7 +16,25 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
 
-  const updateProperty = (
+  const dispatchUnit = (
+    cityId: string,
+    property: KeyedProperty,
+    unit: KeyedUnit,
+    title?: string
+  ) => {
+    dispatch({
+      ...state,
+      type: 'SET_UNIT',
+      payload: {
+        cityId: cityId,
+        property: property,
+        unit: unit,
+        slug: title,
+      },
+    })
+  }
+
+  const dispatchProperty = (
     cityId: string,
     property: KeyedProperty,
     title?: string
@@ -26,19 +45,60 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
       payload: {
         cityId: cityId,
         property: property,
-        slug: title && slugify(title, { lower: true }),
+        slug: title,
       },
     })
   }
 
-  // handle all the routing in a single component here using state instead of spreading over multiple ~ JLM
-  useEffect(() => {
-    if (state.propertySlug && state.propertySlug !== router.query.city)
-      router.push(`?city=${state.propertySlug}`, undefined, { shallow: true })
+  const updatePath = (title?: string) => {
+    if (title !== router.query.city)
+      router.push(`?city=${title}`, undefined, { shallow: true })
+  }
 
-    if (state.unitSlug && state.unitSlug !== router.query.unit)
-      router.push(`?unit=${state.unitSlug}`, undefined, { shallow: true })
-  }, [router, state.propertySlug, state.unitSlug])
+  const updateProperty = (
+    cityId: string,
+    property: KeyedProperty,
+    title?: string
+  ) => {
+    const slugifiedTitle = title && slugify(title, { lower: true })
+    dispatchProperty(cityId, property, slugifiedTitle)
+    updatePath(slugifiedTitle)
+  }
+
+  const filterListByTitleProp = (list: any[] | undefined, query: string) => {
+    const filteredList = list?.filter(({ title }: any) => {
+      const slugifiedTitle = title && slugify(title, { lower: true })
+      return slugifiedTitle === query
+    })
+    return filteredList?.length === 1 && filteredList[0]
+  }
+
+  // check for path queries on first load
+  // city assumes on property and assigns ~ JLM
+  useEffect(() => {
+    const cityQuery = router.query.city
+    const unitQuery = router.query.unit
+
+    if ((cityQuery || unitQuery) && citiesList) {
+      const activeCity = filterListByTitleProp(citiesList, cityQuery as string)
+      if (!activeCity || !activeCity._id) return
+
+      const property = activeCity.properties && activeCity.properties[0]
+      if (!property) return
+
+      const activeUnit = filterListByTitleProp(
+        property?.unitsList,
+        unitQuery as string
+      )
+
+      if (unitQuery && activeUnit) {
+        console.log('here')
+        dispatchUnit(activeCity._id, property, activeUnit, unitQuery as string)
+      } else {
+        dispatchProperty(activeCity._id, property, cityQuery as string)
+      }
+    }
+  }, [])
 
   return (
     <Block className={classNames(className)}>

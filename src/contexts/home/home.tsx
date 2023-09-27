@@ -1,4 +1,5 @@
-import { Property } from '@studio/gen/sanity-schema'
+import { UnitProps } from '@components/units'
+import { Property, Unit } from '@studio/gen/sanity-schema'
 import React, { createContext, useReducer } from 'react'
 
 interface PropertyProps
@@ -13,7 +14,7 @@ interface PropertyProps
 type homeContextType = {
   property: PropertyProps
   propertySlug: string | undefined
-  unit: string | undefined
+  unit: UnitProps
   unitSlug: string | undefined
 }
 
@@ -31,13 +32,19 @@ type SetPropertyAction = {
   payload: {
     cityId: string | undefined
     property: PropertyProps
+    unit?: UnitProps
     slug: string | undefined
   }
 }
 
 type SetUnitAction = {
   type: 'SET_UNIT'
-  unit: string | undefined
+  payload: {
+    cityId?: string | undefined
+    property?: PropertyProps
+    unit: UnitProps
+    slug: string | undefined
+  }
 }
 
 type DispatchActionTypes = SetPropertyAction | SetUnitAction
@@ -53,7 +60,9 @@ export const defaultState: homeContextType = {
     cityId: undefined,
   },
   propertySlug: undefined,
-  unit: undefined,
+  unit: {
+    _id: '',
+  },
   unitSlug: undefined,
 }
 
@@ -61,9 +70,9 @@ export const reducer = (
   state: homeContextType,
   action: DispatchActionTypes
 ): homeContextType => {
+  const { payload } = action
   switch (action.type) {
     case ActionTypes.SET_PROPERTY:
-      const { payload } = action
       return {
         ...state,
         property: {
@@ -71,11 +80,19 @@ export const reducer = (
           ...payload.property,
         },
         propertySlug: payload.slug,
-        unit: undefined,
       }
     case ActionTypes.SET_UNIT:
-      const { unit } = action
-      return { ...state, unit }
+      return {
+        ...state,
+        property: {
+          cityId: payload.cityId,
+          ...payload.property,
+        },
+        unit: {
+          ...payload.unit,
+        },
+        unitSlug: payload.slug,
+      }
 
     default:
       return state

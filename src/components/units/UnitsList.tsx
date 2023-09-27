@@ -1,16 +1,18 @@
 import { type FC, HTMLAttributes, useContext } from 'react'
 import { HomeContext } from '@contexts/home'
+import classNames from 'classnames'
+import { KeyedUnit } from './types'
+import { UnitButton } from './UnitButton'
 
 export const UnitsList: FC<HTMLAttributes<HTMLElement>> = ({ className }) => {
-  const { dispatch, state } = useContext(HomeContext)
-  const property = state.property
-  console.log('---- property: ', property)
+  const { state } = useContext(HomeContext)
+  const units = state.property.unitsList
 
   return (
-    property.unitsList && (
-      <ul className={className}>
-        {property.unitsList.map(unit => {
-          return <li key={unit._key}>Unit</li>
+    units && (
+      <ul className={classNames(className)}>
+        {units.map((unit: KeyedUnit) => {
+          return <UnitButton key={unit._id} unit={unit} />
         })}
       </ul>
     )
