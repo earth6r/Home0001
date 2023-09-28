@@ -1,12 +1,13 @@
 import { type FC, useContext, useEffect } from 'react'
 import classNames from 'classnames'
-import type { CitiesBlockProps, KeyedCity, KeyedProperty } from './types'
+import type { CitiesBlockProps, KeyedProperty } from './types'
 import { Block } from '@components/sanity'
 import { HomeContext } from '@contexts/home'
 import { Property } from '@components/property'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
-import { KeyedUnit } from '@components/units'
+import type { KeyedUnit } from '@components/units'
+import { Unit } from '@components/units'
 
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
@@ -91,12 +92,14 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
         unitQuery as string
       )
 
-      if (unitQuery && activeUnit) {
-        console.log('here')
-        dispatchUnit(activeCity._id, property, activeUnit, unitQuery as string)
-      } else {
-        dispatchProperty(activeCity._id, property, cityQuery as string)
-      }
+      unitQuery && activeUnit
+        ? dispatchUnit(
+            activeCity._id,
+            property,
+            activeUnit,
+            unitQuery as string
+          )
+        : dispatchProperty(activeCity._id, property, cityQuery as string)
     }
   }, [])
 
@@ -114,7 +117,6 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
       <ul className="grid grid-cols-3 gap-y-10 md:gap-y-20 pr-10">
         {citiesList &&
           citiesList.map(({ _id, title, active, properties }) => {
-            // only getting one property for now ~ JLM
             const property = properties && properties[0]
             if (_id)
               return (
@@ -147,6 +149,12 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
       {state.property._id && (
         <div className="md:grid md:grid-cols-3 pr-10">
           <Property className="md:col-start-2 md:col-span-1" />
+        </div>
+      )}
+
+      {state.unit._id && (
+        <div className="md:grid md:grid-cols-3 pr-10">
+          <Unit className="md:col-start-2 md:col-span-1" />
         </div>
       )}
     </Block>

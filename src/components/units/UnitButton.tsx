@@ -29,6 +29,7 @@ export const UnitButton: FC<UnitButtonProps> = ({ unit }) => {
   }
 
   const updateUnit = (unit: KeyedUnit, title?: string) => {
+    if (unit._id === state.unit._id) return
     const slugifiedTitle = title && slugify(title, { lower: true })
     dispatchUnit(unit, slugifiedTitle)
     updatePath(slugifiedTitle)
@@ -43,6 +44,7 @@ export const UnitButton: FC<UnitButtonProps> = ({ unit }) => {
         className={`transition-colors disabled:opacity-30 disabled:bg-white disabled:shadow-none px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`}
       >
         {/* TODO: replace */}
+        <div className="w-full h-[95px] bg-[lightgray]"></div>
         {/* <img
           className="h-auto w-auto mb-5"
           src={}
