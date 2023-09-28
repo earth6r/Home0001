@@ -59,6 +59,13 @@ export const UNITS_QUERY = `
       ${MEDIA_QUERY}
     },
   },
+  "property": property->{
+    ...,
+    "location": location->{
+      ...,
+      title,
+    },
+  }
 `
 
 export const PROPERTIES_QUERY = `

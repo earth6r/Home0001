@@ -60,6 +60,7 @@ export default {
         base: '1',
         above: '2',
         header: '3',
+        modal: '4',
       },
     },
   },

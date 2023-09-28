@@ -63,7 +63,8 @@
   @apply border;
 
   margin-top: calc(-1 * var(--border-size));
-  padding: calc(var(--rich-text-y) / 3) 1em calc(var(--rich-text-y) / 3) 2em;
+  padding-left: 20px;
+  padding-bottom: 16px;
 }
 
 .rich-text ul li {
@@ -71,15 +72,9 @@
 }
 
 .rich-text ul li::before {
-  background-color: theme('colors.black');
-  border-radius: 50%;
-  content: '';
-  display: block;
-  height: 0.25em;
-  left: 1.25em;
+  content: '–';
   position: absolute;
-  top: calc(var(--rich-text-y) * 0.666);
-  width: 0.25em;
+  left: 0;
 }
 
 .rich-text li:first-child {

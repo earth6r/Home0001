@@ -44,7 +44,7 @@ export const UnitButton: FC<UnitButtonProps> = ({ unit }) => {
         className={`transition-colors disabled:opacity-30 disabled:bg-white disabled:shadow-none px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`}
       >
         {/* TODO: replace */}
-        <div className="w-full h-[95px] bg-[lightgray]"></div>
+        <div className="w-full h-[300px] bg-[lightgray] mb-5"></div>
         {/* <img
           className="h-auto w-auto mb-5"
           src={}
