@@ -24,6 +24,7 @@ import inventoryModule from './modules/inventory-module'
 import tableRow from './objects/table-row'
 import propertyType from './documents/property-type'
 import newsletterBlock from './blocks/newsletter-block'
+import tooltip from './objects/tooltip'
 
 export const schemaTypes = [
   // objects
@@ -39,6 +40,7 @@ export const schemaTypes = [
   seo,
   richText,
   plainText,
+  tooltip,
 
   // modules
   inventoryModule,

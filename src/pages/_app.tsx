@@ -27,26 +27,26 @@ function App({
   token: string
 }>) {
   const { draftMode, token } = pageProps
-  const router = useRouter()
+  // const router = useRouter()
 
-  useEffect(() => {
-    const handleHashChange = (url: string) => {
-      const el = document.getElementById(url.slice(url.lastIndexOf('#') + 1))
-      const elRectTop = el?.getBoundingClientRect().top
-      const scrollTop = window.pageYOffset || document.body.scrollTop
-      const headerEl = document.getElementById('header')
-      const headerStyle = getComputedStyle(headerEl as HTMLElement)
-      const offset =
-        parseInt(headerStyle.height) + parseInt(headerStyle.top) * 2
-      elRectTop && scroll.scrollTo(Math.floor(elRectTop + scrollTop - offset))
-    }
+  // useEffect(() => {
+  //   const handleHashChange = (url: string) => {
+  //     const el = document.getElementById(url.slice(url.lastIndexOf('#') + 1))
+  //     const elRectTop = el?.getBoundingClientRect().top
+  //     const scrollTop = window.pageYOffset || document.body.scrollTop
+  //     const headerEl = document.getElementById('header')
+  //     const headerStyle = getComputedStyle(headerEl as HTMLElement)
+  //     const offset =
+  //       parseInt(headerStyle.height) + parseInt(headerStyle.top) * 2
+  //     elRectTop && scroll.scrollTo(Math.floor(elRectTop + scrollTop - offset))
+  //   }
 
-    router.events.on('hashChangeStart', handleHashChange)
+  //   router.events.on('hashChangeStart', handleHashChange)
 
-    return () => {
-      router.events.off('hashChangeStart', handleHashChange)
-    }
-  }, [router.events])
+  //   return () => {
+  //     router.events.off('hashChangeStart', handleHashChange)
+  //   }
+  // }, [router.events])
 
   return draftMode && token ? (
     <PreviewProvider token={token}>

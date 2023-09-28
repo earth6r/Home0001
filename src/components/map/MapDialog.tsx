@@ -15,7 +15,7 @@ export const MapDialog: FC<MapDialogProps> = ({
       <button
         aria-label={`Open Map`}
         onClick={() => setIsOpen(true)}
-        className="hover:font-bold text-mobile-body md:text-desktop-body border-b-[1.5px] border-solid"
+        className="hover:font-bold border-bottom"
       >
         {text}
       </button>

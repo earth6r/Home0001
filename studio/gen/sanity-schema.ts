@@ -387,7 +387,7 @@ export type Link = {
     /**
      * Anchor Slug — `slug`
      *
-     * Optional block slug to scroll to
+     *
      */
     anchor?: { _type: "anchor"; current: string };
   };
@@ -557,9 +557,26 @@ export type Seo = {
   synonyms?: string;
 };
 
-export type RichText = Array<SanityKeyed<SanityBlock> | SanityKeyed<Media>>;
+export type RichText = Array<SanityKeyed<SanityBlock>>;
 
 export type PlainText = Array<SanityKeyed<SanityBlock>>;
+
+export type Tooltip = {
+  _type: "tooltip";
+  /**
+   * Linked Copy — `string`
+   *
+   *
+   */
+  linkedCopy?: string;
+
+  /**
+   * Tooltip Content — `plainText`
+   *
+   *
+   */
+  tooltipContent?: PlainText;
+};
 
 export type InventoryModule = {
   _type: "inventoryModule";

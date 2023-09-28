@@ -5,6 +5,7 @@ import type {
 } from '@portabletext/react'
 import { reactNodeToString } from '@lib/util'
 import { SanityLink, SanityFigure } from '.'
+import { SanityTooltip } from './tooltip'
 
 /**
  * PortableText types used globally
@@ -16,6 +17,9 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
         <SanityFigure className="text-xs" {...value} />
       </div>
     )
+  },
+  tooltip: ({ value }) => {
+    return <SanityTooltip {...value} />
   },
 }
 

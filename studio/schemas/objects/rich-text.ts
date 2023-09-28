@@ -1,4 +1,4 @@
-import { GrTextAlignCenter, GrImage } from 'react-icons/gr'
+import { BsChatSquareDots } from 'react-icons/bs'
 
 export default {
   name: 'richText',
@@ -24,14 +24,29 @@ export default {
             name: 'link',
             type: 'link',
           },
+          {
+            name: 'anchor',
+            title: 'Anchor',
+            type: 'object',
+            icon: () => '#',
+            fields: [
+              {
+                name: 'anchorId',
+                title: 'Anchor ID',
+                type: 'string',
+              },
+            ],
+          },
         ],
       },
-    },
-    {
-      title: 'Media',
-      name: 'media',
-      type: 'media',
-      icon: GrImage,
+      of: [
+        {
+          title: 'Tooltip',
+          name: 'tooltip',
+          type: 'tooltip',
+          icon: BsChatSquareDots,
+        },
+      ],
     },
   ],
 }

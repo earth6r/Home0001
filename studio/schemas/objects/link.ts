@@ -24,7 +24,6 @@ export default {
           name: 'anchor',
           type: 'slug',
           title: 'Anchor Slug',
-          description: 'Optional block slug to scroll to',
           options: {
             slugify: (input?: string): string | undefined => {
               if (!input) return
