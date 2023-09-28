@@ -6,7 +6,7 @@ import { HomeContext } from '@contexts/home'
 import { Property } from '@components/property'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
-import type { KeyedUnit } from '@components/unit'
+import type { KeyedUnit, UnitProps } from '@components/unit'
 import { Unit } from '@components/unit'
 import { scrollToEl } from '@lib/util'
 
@@ -21,21 +21,22 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
 
-  // TODO: this dispatch is causing a blip when a property is already selected and a scrolling error
-  const dispatchUnit = (
+  const dispatchHome = (
     cityId: string,
     property: KeyedProperty,
-    unit: KeyedUnit,
-    title?: string
+    propertySlug?: string,
+    unit?: KeyedUnit,
+    unitSlug?: string
   ) => {
     dispatch({
       ...state,
-      type: 'SET_UNIT',
+      type: 'SET_HOME',
       payload: {
         cityId: cityId,
-        property: property,
-        unit: unit,
-        slug: title,
+        property,
+        propertySlug,
+        unit: unit as UnitProps,
+        unitSlug,
       },
     })
   }
@@ -43,15 +44,15 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   const dispatchProperty = (
     cityId: string,
     property: KeyedProperty,
-    title?: string
+    propertySlug?: string
   ) => {
     dispatch({
       ...state,
       type: 'SET_PROPERTY',
       payload: {
         cityId: cityId,
-        property: property,
-        slug: title,
+        property,
+        propertySlug,
       },
     })
   }
@@ -67,7 +68,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
     title?: string
   ) => {
     const slugifiedTitle = title && slugify(title, { lower: true })
-    dispatchProperty(cityId, property, slugifiedTitle)
+    dispatchHome(cityId, property, slugifiedTitle)
     updatePath(slugifiedTitle)
   }
 
@@ -81,11 +82,11 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
 
   // handle scrolling after state change
   useEffect(() => {
-    scrollToEl(propertyRef.current)
+    if (propertyRef.current) scrollToEl(propertyRef.current)
   }, [state.property._id])
 
   useEffect(() => {
-    scrollToEl(unitRef.current)
+    if (unitRef.current) scrollToEl(unitRef.current)
   }, [state.unit._id])
 
   // check for path queries on first load
@@ -107,9 +108,10 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
       )
 
       unitQuery && activeUnit
-        ? dispatchUnit(
+        ? dispatchHome(
             activeCity._id,
             property,
+            cityQuery as string,
             activeUnit,
             unitQuery as string
           )

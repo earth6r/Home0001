@@ -3,6 +3,7 @@ import { HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
 import { useForm } from 'react-hook-form'
+import { submitForm } from '@lib/util/submit-forms'
 
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
@@ -34,11 +35,9 @@ const LOCATIONS = [
     label: 'Mexico City (coming soon)',
     name: 'CDMX',
   },
-  {
-    label: 'Somewhere else',
-    name: 'Else',
-  },
 ]
+
+const SUCCESS_COPY = `You're on the waitlist. We’ll be in touch as homes are released for sale.`
 
 export const HubspotForm: FC<HubspotFormProps> = ({
   audienceId,
@@ -46,35 +45,34 @@ export const HubspotForm: FC<HubspotFormProps> = ({
   className,
 }) => {
   const [submitted, setSubmitted] = useState(false)
+  const [succesMessage, setSuccessMessage] = useState('')
+  const [result, setResult] = useState({})
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
   })
-  const [cityChecked, setCityChecked] = useState(false)
+  const [hiddenInputShown, setHiddenInputShown] = useState(false)
 
-  // const handleCheckChange = (event: MouseEvent<HTMLInputElement>) => {
-  //   setCityChecked(event?.target?.checked)
-  // }
-
-  // const onSubmit = async data => {
-  //   if (data.fax_data !== 'no-data') return
-  //   // await submit_general_hubspot_waitlist_form(data)
-  //   setSubmitted(true)
-  // }
-
-  const onSubmit = () => {
-    // if (data.fax_data !== 'no-data') return
-    // // await submit_general_hubspot_waitlist_form(data)
-    // setSubmitted(true)
+  const onSubmit = async (data: any) => {
+    if (!audienceId || !formType) return
+    try {
+      const result = await submitForm(data, audienceId, formType)
+      setResult('success')
+      setSuccessMessage(SUCCESS_COPY)
+    } catch (error) {
+      setResult('error')
+      console.log(error)
+    }
   }
 
-  return (
+  return result === 'success' ? (
+    <div className="relative mb-4 rich-text">
+      <p>{`Your data — our harvest.`}</p>
+    </div>
+  ) : (
     <div className={classNames(className)}>
       {submitted ? (
         <div className="relative mb-2 text-mobile-body md:text-desktop-body">
-          <p>
-            {`You're on the waitlist. We’ll be in touch as homes are
-                  released for sale.`}
-          </p>
+          <p>{succesMessage}</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
@@ -132,12 +130,26 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                       </label>
                     </div>
                   ))}
+                  <div className="mb-4" key={'else'}>
+                    <input
+                      type="checkbox"
+                      name={'else'}
+                      id={'else'}
+                      onChange={() => setHiddenInputShown(!hiddenInputShown)}
+                    />
+                    <label
+                      className="text-left ml-xhalf cursor-pointer"
+                      htmlFor={'else'}
+                    >
+                      {`Somewhere else`}
+                    </label>
+                  </div>
                   <input
                     type="text"
                     placeholder="WHERE?"
                     name="City"
                     className={classNames(
-                      cityChecked ? 'mb-4' : 'hidden',
+                      hiddenInputShown ? 'mb-4' : 'hidden',
                       'input'
                     )}
                   />
@@ -162,11 +174,16 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                   <Link href="/homes/contact" className="border-bottom">
                     Ask us anything
                   </Link>
-                  .
+                  {`.`}
                 </p>
               )}
             </div>
           </div>
+          {result === 'error' && (
+            <div className="mt-yhalf text-center py-4 text-[red] border-1 border-solid border-red text-base">
+              <p>{`Error submitting form`}</p>
+            </div>
+          )}
         </form>
       )}
     </div>

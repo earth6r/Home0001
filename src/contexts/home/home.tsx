@@ -23,8 +23,20 @@ type ProviderProps = {
 }
 
 enum ActionTypes {
+  SET_HOME = 'SET_HOME',
   SET_PROPERTY = 'SET_PROPERTY',
   SET_UNIT = 'SET_UNIT',
+}
+
+type SetHomeAction = {
+  type: 'SET_HOME'
+  payload: {
+    cityId: string | undefined
+    property: PropertyProps
+    propertySlug: string | undefined
+    unit: UnitProps
+    unitSlug: string | undefined
+  }
 }
 
 type SetPropertyAction = {
@@ -32,22 +44,24 @@ type SetPropertyAction = {
   payload: {
     cityId: string | undefined
     property: PropertyProps
+    propertySlug: string | undefined
     unit?: UnitProps
-    slug: string | undefined
+    unitSlug?: string
   }
 }
 
 type SetUnitAction = {
   type: 'SET_UNIT'
   payload: {
-    cityId?: string | undefined
+    cityId?: string
     property?: PropertyProps
+    propertySlug?: string
     unit: UnitProps
-    slug: string | undefined
+    unitSlug: string | undefined
   }
 }
 
-type DispatchActionTypes = SetPropertyAction | SetUnitAction
+type DispatchActionTypes = SetHomeAction | SetPropertyAction | SetUnitAction
 
 const DEFAULT_PROPERTY = {
   _id: '',
@@ -72,6 +86,19 @@ export const reducer = (
 ): homeContextType => {
   const { payload } = action
   switch (action.type) {
+    case ActionTypes.SET_HOME:
+      return {
+        ...state,
+        property: {
+          cityId: payload.cityId,
+          ...payload.property,
+        },
+        propertySlug: payload.propertySlug,
+        unit: {
+          ...payload.unit,
+        },
+        unitSlug: payload.unitSlug,
+      }
     case ActionTypes.SET_PROPERTY:
       return {
         ...state,
@@ -79,19 +106,15 @@ export const reducer = (
           cityId: payload.cityId,
           ...payload.property,
         },
-        propertySlug: payload.slug,
+        propertySlug: payload.propertySlug,
       }
     case ActionTypes.SET_UNIT:
       return {
         ...state,
-        property: {
-          cityId: payload.cityId,
-          ...payload.property,
-        },
         unit: {
           ...payload.unit,
         },
-        unitSlug: payload.slug,
+        unitSlug: payload.unitSlug,
       }
 
     default:

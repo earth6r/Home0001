@@ -27,7 +27,7 @@ export const Unit: FC<UnitContentProps> = ({ accordions, className }) => {
   }
 
   useEffect(() => {
-    scrollToEl(formRef.current)
+    if (formRef.current) scrollToEl(formRef.current)
   }, [formActive])
 
   return (

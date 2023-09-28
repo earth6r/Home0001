@@ -15,7 +15,7 @@ export const UnitButton: FC<UnitButtonProps> = ({ unit }) => {
       type: 'SET_UNIT',
       payload: {
         unit: unit,
-        slug: title,
+        unitSlug: title,
       },
     })
   }

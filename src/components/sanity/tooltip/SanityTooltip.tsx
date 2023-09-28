@@ -40,7 +40,7 @@ export const SanityTooltip: FC<SanityTooltipProps> = ({
           {props.linkedCopy}
         </a>
 
-        <Dialog
+        {/* <Dialog
           open={isOpen}
           onClose={() => setIsOpen(false)}
           className="relative max-w-[672px] w-full top-[72px] left-2 z-modal"
@@ -49,7 +49,7 @@ export const SanityTooltip: FC<SanityTooltipProps> = ({
             <CloseButton onClose={() => setIsOpen(false)} />
             <RichText blocks={props.tooltipContent} className={'p-x'} />
           </Dialog.Panel>
-        </Dialog>
+        </Dialog> */}
       </>
 
       // leaving here in case we need to use chakra (needs provider) ~ JLM

@@ -1,7 +1,7 @@
 import { animateScroll as scroll } from 'react-scroll'
 
-export const scrollToEl = (el: any) => {
-  if (typeof window !== 'undefined' && el) {
+export const scrollToEl = (el: HTMLElement) => {
+  if (typeof window !== 'undefined') {
     const top = el.getBoundingClientRect().top
     scroll.scrollTo(top)
   }
