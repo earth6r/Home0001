@@ -121,14 +121,14 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
     <Block className={classNames(className)}>
       {headers &&
         headers.map(header => (
-          <div key={header} className="rich-text">
-            <h2 className="uppercase pr-[30%] md:pr-0 mb-12 md:mb-16">
+          <div key={header} className="rich-text md:pr-menu">
+            <h2 className="uppercase pr-[40%] sm:pr-[30%] md:pr-0 mb-12 md:mb-16">
               {header}
             </h2>
           </div>
         ))}
 
-      <ul className="grid grid-cols-3 gap-y-10 md:gap-y-20 pr-10">
+      <ul className="grid grid-cols-3 gap-y-10 md:gap-y-20 pr-10 md:pr-menu">
         {citiesList &&
           citiesList.map(({ _id, title, active, properties }) => {
             const property = properties && properties[0]
@@ -161,7 +161,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
       {/* Probably overkill to rely on context for everything but 
       will be useful down the line and cleaner for the moment ~ JLM */}
       {state.property._id && (
-        <div ref={propertyRef} className="md:grid md:grid-cols-3 pr-10">
+        <div ref={propertyRef} className="md:grid md:grid-cols-3 md:pr-menu">
           <Property className="md:col-start-2 md:col-span-1" />
         </div>
       )}

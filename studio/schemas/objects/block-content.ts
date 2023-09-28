@@ -14,6 +14,11 @@ export default {
       title: 'Cities Block',
     },
     {
+      name: 'newsletterBlock',
+      type: 'newsletterBlock',
+      title: 'Newsletter Block',
+    },
+    {
       name: 'textBlock',
       type: 'textBlock',
       title: 'Text Block',
@@ -21,7 +26,7 @@ export default {
     {
       name: 'waitlistBlock',
       type: 'waitlistBlock',
-      title: 'Waitlist Form',
+      title: 'Waitlist Block',
     },
   ],
 }

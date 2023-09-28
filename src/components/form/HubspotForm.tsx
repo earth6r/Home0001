@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
-  formType?: 'unit' | 'general'
+  formType?: 'unit' | 'general' | 'newsletter'
 }
 
 const LOCATIONS = [
@@ -80,24 +80,26 @@ export const HubspotForm: FC<HubspotFormProps> = ({
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="w-full">
             <div className="relative flex flex-col gap-4">
-              <div className="flex flex-row gap-4">
-                <input
-                  type="text"
-                  id="first_name"
-                  className="input"
-                  placeholder="FIRST NAME"
-                  required
-                  {...register('first_name', { required: true })}
-                />
-                <input
-                  type="text"
-                  id="last_name"
-                  className="input"
-                  placeholder="LAST NAME"
-                  required
-                  {...register('last_name', { required: true })}
-                />
-              </div>
+              {formType !== 'newsletter' && (
+                <div className="flex flex-row gap-4">
+                  <input
+                    type="text"
+                    id="first_name"
+                    className="input"
+                    placeholder="FIRST NAME"
+                    required
+                    {...register('first_name', { required: true })}
+                  />
+                  <input
+                    type="text"
+                    id="last_name"
+                    className="input"
+                    placeholder="LAST NAME"
+                    required
+                    {...register('last_name', { required: true })}
+                  />
+                </div>
+              )}
 
               <input
                 placeholder="YOUR EMAIL"
@@ -116,7 +118,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                 {...register('fax_data', { required: true })}
               />
 
-              {formType === 'general' && (
+              {formType !== 'unit' && (
                 <>
                   <p className="mt-4">Where do you want to live?</p>
                   {LOCATIONS.map(({ label, name }) => (
@@ -152,15 +154,17 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                 className="tracking-normal h-12 max-h-12 text-center tracking-caps uppercase text-white bg-black text-mobile-body md:text-desktop-body"
                 type="submit"
               >
-                Join the waitlist
+                {formType === 'newsletter' ? `Submit` : `Join the waitlist`}
               </button>
-              <p className="mt-5">
-                {`Got questions?${' '}`}
-                <Link href="/homes/contact" className="border-bottom">
-                  Ask us anything
-                </Link>
-                .
-              </p>
+              {formType !== 'newsletter' && (
+                <p className="mt-5">
+                  {`Got questions?${' '}`}
+                  <Link href="/homes/contact" className="border-bottom">
+                    Ask us anything
+                  </Link>
+                  .
+                </p>
+              )}
             </div>
           </div>
         </form>

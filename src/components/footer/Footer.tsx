@@ -13,7 +13,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   const year = new Date().getFullYear()
   return (
     (state.property.cityId || path !== '/') && (
-      <footer className="px-x mt-y">
+      <footer className="px-x mt-20 md:mt-y">
         <div>
           <ul className="flex flex-col gap-10 md:gap-12 w-full">
             {mainMenu?.items?.map(({ _key, text, link }) => {

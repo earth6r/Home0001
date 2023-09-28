@@ -14,7 +14,7 @@ import menus from './documents/menus'
 import siteSettings from './documents/site-settings'
 import accordionBlock from './blocks/accordion-block'
 import accordion from './objects/accordion'
-import waitlistBlock from './blocks/waitlistBlock'
+import waitlistBlock from './blocks/waitlist-block'
 import coordinates from './objects/coordinates'
 import city from './documents/city'
 import citiesBlock from './blocks/cities-block'
@@ -23,6 +23,7 @@ import unit from './documents/unit'
 import inventoryModule from './modules/inventory-module'
 import tableRow from './objects/table-row'
 import propertyType from './documents/property-type'
+import newsletterBlock from './blocks/newsletter-block'
 
 export const schemaTypes = [
   // objects
@@ -46,6 +47,7 @@ export const schemaTypes = [
   blockContent,
   accordionBlock,
   citiesBlock,
+  newsletterBlock,
   textBlock,
   waitlistBlock,
 

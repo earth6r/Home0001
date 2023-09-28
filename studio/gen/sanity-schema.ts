@@ -581,6 +581,7 @@ export type InventoryModule = {
 export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
   | SanityKeyed<CitiesBlock>
+  | SanityKeyed<NewsletterBlock>
   | SanityKeyed<TextBlock>
   | SanityKeyed<WaitlistBlock>
 >;
@@ -617,6 +618,30 @@ export type CitiesBlock = {
    *
    */
   howItWorksContent?: Array<SanityKeyed<Accordion>>;
+};
+
+export type NewsletterBlock = {
+  _type: "newsletterBlock";
+  /**
+   * Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Text — `plainText`
+   *
+   *
+   */
+  text?: PlainText;
+
+  /**
+   * Audience ID — `string`
+   *
+   *
+   */
+  audienceId?: string;
 };
 
 export type TextBlock = {

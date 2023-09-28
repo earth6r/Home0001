@@ -40,7 +40,10 @@ export const Property: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
         )}
 
         {property.description && (
-          <RichText blocks={property.description} className="mt-8" />
+          <RichText
+            blocks={property.description}
+            className="pr-menu md:pr-0 mt-8"
+          />
         )}
 
         {property.unitsList && (

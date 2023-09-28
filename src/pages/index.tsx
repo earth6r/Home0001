@@ -26,7 +26,7 @@ const Page: NextPage<PageProps> = ({
     <article>
       <BlockContent
         blocks={page?.body}
-        className="flex flex-col container pt-page"
+        className="flex flex-col w-full px-x pt-page"
       />
     </article>
   ) : null
