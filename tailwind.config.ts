@@ -47,6 +47,15 @@ export default {
         wrapsm: 'var(--wrap-sm)',
         page: 'var(--space-page)',
       },
+      keyframes: {
+        'fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+      },
+      animation: {
+        fadeIn: 'fade-in 250ms linear forwards',
+      },
       transitionDuration: {
         snail: 'var(--speed-snail)',
         xslow: 'var(--speed-xslow)',

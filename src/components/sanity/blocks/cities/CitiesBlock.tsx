@@ -18,6 +18,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
 
+  // TODO: this dispatch is causing a blip when a property is already selected
   const dispatchUnit = (
     cityId: string,
     property: KeyedProperty,
@@ -153,14 +154,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
         </div>
       )}
 
-      {state.unit._id && (
-        <div className="md:grid md:grid-cols-3 pr-10">
-          <Unit
-            className="md:col-start-2 md:col-span-1"
-            accordions={howItWorksContent}
-          />
-        </div>
-      )}
+      {state.unit._id && <Unit accordions={howItWorksContent} />}
     </Block>
   )
 }

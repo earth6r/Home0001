@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
-  formType?: string
+  formType?: 'unit' | 'general'
 }
 
 const LOCATIONS = [
@@ -69,53 +69,67 @@ export const HubspotForm: FC<HubspotFormProps> = ({
 
   return (
     <div className={classNames(className)}>
-      <div className="animate-in relative">
-        <div className="w-screen h-full -ml-4 md:-ml-10 absolute bg-whitesmoke"></div>
-        <div className="md:col-start-2 md:col-span-1 pt-10 pb-10">
-          {submitted ? (
-            <div className="relative mb-2 text-mobile-body md:text-desktop-body">
-              <p>
-                {`You're on the waitlist. We’ll be in touch as homes are
+      {submitted ? (
+        <div className="relative mb-2 text-mobile-body md:text-desktop-body">
+          <p>
+            {`You're on the waitlist. We’ll be in touch as homes are
                   released for sale.`}
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-              <div className="w-full">
-                <div className="relative flex flex-col gap-4">
-                  <input
-                    type="text"
-                    id="full_name"
-                    className="input"
-                    placeholder="FULL NAME"
-                    required
-                    {...register('full_name', { required: true })}
-                  />
-                  <input
-                    placeholder="YOUR EMAIL"
-                    type="email"
-                    id="email"
-                    className="input"
-                    required
-                    {...register('email', { required: true })}
-                  />
-                  <input
-                    type="text"
-                    className="best-in-class"
-                    value="no-data"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    {...register('fax_data', { required: true })}
-                  />
+          </p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+          <div className="w-full">
+            <div className="relative flex flex-col gap-4">
+              <div className="flex flex-row gap-4">
+                <input
+                  type="text"
+                  id="first_name"
+                  className="input"
+                  placeholder="FIRST NAME"
+                  required
+                  {...register('first_name', { required: true })}
+                />
+                <input
+                  type="text"
+                  id="last_name"
+                  className="input"
+                  placeholder="LAST NAME"
+                  required
+                  {...register('last_name', { required: true })}
+                />
+              </div>
 
+              <input
+                placeholder="YOUR EMAIL"
+                type="email"
+                id="email"
+                className="input"
+                required
+                {...register('email', { required: true })}
+              />
+              <input
+                type="text"
+                className="absolute top-0 left-0 w-0 h-0 opacity-0 z-behind"
+                value="no-data"
+                tabIndex={-1}
+                autoComplete="off"
+                {...register('fax_data', { required: true })}
+              />
+
+              {formType === 'general' && (
+                <>
                   <p className="mt-4">Where do you want to live?</p>
                   {LOCATIONS.map(({ label, name }) => (
                     <div className="mb-4" key={name}>
-                      <input className="" type="checkbox" name={name} />
-                      <label className="text-left ml-2 ">{label}</label>
+                      <input type="checkbox" name={name} id={name} />
+                      <label
+                        className="text-left ml-xhalf cursor-pointer"
+                        htmlFor={name}
+                      >
+                        {label}
+                      </label>
                     </div>
                   ))}
-
                   <input
                     type="text"
                     placeholder="WHERE?"
@@ -125,27 +139,32 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                       'input'
                     )}
                   />
-                </div>
-                <div className="relative mt-6 flex flex-col gap-2 md:gap-4">
-                  <button
-                    className="tracking-normal h-12 max-h-12 text-center tracking-caps uppercase text-white bg-black text-mobile-body md:text-desktop-body"
-                    type="submit"
-                  >
-                    Join the waitlist
-                  </button>
-                  <p className="mt-5">
-                    {`Got questions?${' '}`}
-                    <Link href="/homes/contact" className="border-bottom">
-                      Ask us anything
-                    </Link>
-                    .
-                  </p>
-                </div>
-              </div>
-            </form>
-          )}
-        </div>
-      </div>
+                </>
+              )}
+            </div>
+            <div
+              className={classNames(
+                formType === 'unit' ? 'mt-10' : 'mt-6',
+                'relative flex flex-col gap-2 md:gap-4'
+              )}
+            >
+              <button
+                className="tracking-normal h-12 max-h-12 text-center tracking-caps uppercase text-white bg-black text-mobile-body md:text-desktop-body"
+                type="submit"
+              >
+                Join the waitlist
+              </button>
+              <p className="mt-5">
+                {`Got questions?${' '}`}
+                <Link href="/homes/contact" className="border-bottom">
+                  Ask us anything
+                </Link>
+                .
+              </p>
+            </div>
+          </div>
+        </form>
+      )}
     </div>
   )
 }

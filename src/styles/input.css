@@ -1,3 +1,41 @@
 .input {
   @apply outline-none border-black bg-transparent placeholder:opacity-[36] px-4 py-2 h-12 w-full;
 }
+
+input[type='checkbox'],
+input[type='checkbox']:focus,
+input[type='checkbox']:active {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid #000;
+  border-radius: 0;
+  box-shadow: none;
+  top: 0.2em;
+  left: 0.3em;
+  padding: 0.3em;
+  position: relative;
+  margin-right: 0.3em;
+}
+
+input[type='checkbox']:checked:before {
+  top: 1px;
+}
+
+input[type='checkbox']:checked {
+  background: black;
+}
+
+@screen md {
+  input[type='checkbox'],
+  input[type='checkbox']:focus,
+  input[type='checkbox']:active {
+    left: 12px;
+    width: 1rem;
+    height: 1rem;
+    padding: 0.3em;
+    margin-left: 2px;
+  }
+}

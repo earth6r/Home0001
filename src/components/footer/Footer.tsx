@@ -7,11 +7,12 @@ import { HomeContext } from '@contexts/home'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   mainMenu,
+  path,
 }) => {
   const { state } = useContext(HomeContext)
   const year = new Date().getFullYear()
   return (
-    state.property.cityId && (
+    (state.property.cityId || path !== '/') && (
       <footer className="px-x mt-y">
         <div>
           <ul className="flex flex-col gap-10 md:gap-12 w-full">

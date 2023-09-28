@@ -18,11 +18,11 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   return (
     <Block className={classNames(className, 'md:grid md:grid-cols-3 relative')}>
       <div className="relative w-[100vw] -left-x bg-whitesmoke z-behind"></div>
-      <div className="py-ylg">
+      <div className="py-12">
         {header && <h2 className="pb-ylg uppercase">{header}</h2>}
 
         {text && (
-          <RichText blocks={text} className={classNames('clear-both')} />
+          <RichText blocks={text} className={classNames('mb-4 clear-both')} />
         )}
 
         <HubspotForm formType={formType} audienceId={audienceId} />
