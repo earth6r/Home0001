@@ -1,4 +1,4 @@
-import { type FC, useContext, useEffect } from 'react'
+import { type FC, useContext, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import type { CitiesBlockProps, KeyedProperty } from './types'
 import { Block } from '@components/sanity'
@@ -8,6 +8,7 @@ import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import type { KeyedUnit } from '@components/unit'
 import { Unit } from '@components/unit'
+import { scrollToEl } from '@lib/util'
 
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
@@ -15,10 +16,12 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   howItWorksContent,
   className,
 }) => {
+  const propertyRef = useRef(null)
+  const unitRef = useRef(null)
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
 
-  // TODO: this dispatch is causing a blip when a property is already selected
+  // TODO: this dispatch is causing a blip when a property is already selected and a scrolling error
   const dispatchUnit = (
     cityId: string,
     property: KeyedProperty,
@@ -75,6 +78,15 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
     })
     return filteredList?.length === 1 && filteredList[0]
   }
+
+  // handle scrolling after state change
+  useEffect(() => {
+    scrollToEl(propertyRef.current)
+  }, [state.property._id])
+
+  useEffect(() => {
+    scrollToEl(unitRef.current)
+  }, [state.unit._id])
 
   // check for path queries on first load
   // city assumes on property and assigns ~ JLM
@@ -149,12 +161,16 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
       {/* Probably overkill to rely on context for everything but 
       will be useful down the line and cleaner for the moment ~ JLM */}
       {state.property._id && (
-        <div className="md:grid md:grid-cols-3 pr-10">
+        <div ref={propertyRef} className="md:grid md:grid-cols-3 pr-10">
           <Property className="md:col-start-2 md:col-span-1" />
         </div>
       )}
 
-      {state.unit._id && <Unit accordions={howItWorksContent} />}
+      {state.unit._id && (
+        <div ref={unitRef}>
+          <Unit accordions={howItWorksContent} />
+        </div>
+      )}
     </Block>
   )
 }

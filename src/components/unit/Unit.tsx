@@ -1,4 +1,4 @@
-import { type FC, useContext, useState, useEffect } from 'react'
+import { type FC, useContext, useState, useEffect, useRef } from 'react'
 import { HomeContext } from '@contexts/home'
 import { ImageCarousel } from '@components/carousel'
 import { RichText } from '@components/sanity'
@@ -9,10 +9,12 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { BtnScrollToTop } from '@components/btns/BtnScrollToTop'
 import { HubspotForm } from '@components/form'
+import { scrollToEl } from '@lib/util'
 
 export const Unit: FC<UnitContentProps> = ({ accordions, className }) => {
   const { state } = useContext(HomeContext)
   const unit = state.unit
+  const formRef = useRef(null)
   const [formActive, setFormActive] = useState(false)
 
   const formButtonClick = () => {
@@ -23,6 +25,10 @@ export const Unit: FC<UnitContentProps> = ({ accordions, className }) => {
     // )
     // viewOpenedReserveFormEvent(selectedPropertyType)
   }
+
+  useEffect(() => {
+    scrollToEl(formRef.current)
+  }, [formActive])
 
   return (
     unit && (
@@ -81,7 +87,10 @@ export const Unit: FC<UnitContentProps> = ({ accordions, className }) => {
         </div>
 
         {formActive ? (
-          <div className="md:grid md:grid-cols-3 relative pr-10 animate-fadeIn opacity-0">
+          <div
+            ref={formRef}
+            className="md:grid md:grid-cols-3 relative pr-10 animate-fadeIn opacity-0"
+          >
             <div className="w-screen h-full -ml-4 md:-ml-10 absolute bg-whitesmoke"></div>
             <div className="md:col-start-2 md:col-span-1 py-12 z-above">
               {unit.title && (
