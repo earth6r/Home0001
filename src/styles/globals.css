@@ -63,6 +63,20 @@ body,
   background: black;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar,
+.overflow-x-scroll::-webkit-scrollbar,
+div::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body,
+.overflow-x-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 body {
   background-color: theme('colors.white');
   font-family: theme('fontFamily.sans');

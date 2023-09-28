@@ -1,4 +1,4 @@
-import { UnitProps } from '@components/units'
+import { UnitProps } from '@components/unit'
 import { Property, Unit } from '@studio/gen/sanity-schema'
 import React, { createContext, useReducer } from 'react'
 

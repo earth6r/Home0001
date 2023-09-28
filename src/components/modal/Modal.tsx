@@ -20,16 +20,15 @@ const CloseButton: FC<ModalProps> = ({ onClose }) => {
 export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => (
   <Transition
     show={isOpen}
-    enter="duration-250 ease-in-out"
+    enter="transition-opacity duration-250 ease-in-out"
     enterFrom="opacity-0"
     enterTo="opacity-100"
-    leave="duration-250 ease-in-out"
+    leave="transition-opacity duration-250 ease-in-out"
     leaveFrom="opacity-100"
     leaveTo="opacity-0"
     as={Fragment}
   >
     <Dialog
-      open={isOpen}
       onClose={() => onClose}
       className="fixed max-w-[600px] w-full top-ylg left-x z-header"
     >

@@ -1,9 +1,15 @@
 import { HTMLAttributes } from 'react'
 import type {
+  Accordion,
   Property,
+  SanityKeyed,
   SanityKeyedReference,
   Unit,
 } from '@studio/gen/sanity-schema'
+
+export interface UnitContentProps extends HTMLAttributes<HTMLElement> {
+  accordions?: SanityKeyed<Accordion>[]
+}
 
 export interface UnitFactSheetProps
   extends Omit<HTMLAttributes<HTMLLIElement>, 'property'> {

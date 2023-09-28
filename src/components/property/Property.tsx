@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { HomeContext } from '@contexts/home'
 import { RichText, SanityMedia } from '@components/sanity'
 import MapDialog from '@components/map/MapDialog'
-import { UnitsList } from '@components/units'
+import { UnitsList } from '@components/unit'
 
 export const Property: FC<HTMLAttributes<HTMLDivElement>> = ({ className }) => {
   const { state } = useContext(HomeContext)

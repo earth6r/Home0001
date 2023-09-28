@@ -6,12 +6,13 @@ import { HomeContext } from '@contexts/home'
 import { Property } from '@components/property'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
-import type { KeyedUnit } from '@components/units'
-import { Unit } from '@components/units'
+import type { KeyedUnit } from '@components/unit'
+import { Unit } from '@components/unit'
 
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
   citiesList,
+  howItWorksContent,
   className,
 }) => {
   const router = useRouter()
@@ -154,7 +155,10 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
 
       {state.unit._id && (
         <div className="md:grid md:grid-cols-3 pr-10">
-          <Unit className="md:col-start-2 md:col-span-1" />
+          <Unit
+            className="md:col-start-2 md:col-span-1"
+            accordions={howItWorksContent}
+          />
         </div>
       )}
     </Block>

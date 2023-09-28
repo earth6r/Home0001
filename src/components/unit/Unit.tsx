@@ -3,8 +3,10 @@ import { HomeContext } from '@contexts/home'
 import { ImageCarousel } from '@components/carousel'
 import { RichText } from '@components/sanity'
 import UnitFactSheet from './UnitFactSheet'
+import UnitFaq from './UnitFaq'
+import { UnitContentProps } from './types'
 
-export const Unit: FC<HTMLAttributes<HTMLElement>> = ({ className }) => {
+export const Unit: FC<UnitContentProps> = ({ accordions, className }) => {
   const { state } = useContext(HomeContext)
   const unit = state.unit
 
@@ -15,6 +17,7 @@ export const Unit: FC<HTMLAttributes<HTMLElement>> = ({ className }) => {
           {unit.photographs && unit.photographs.length > 0 && (
             <ImageCarousel slides={unit.photographs} className="w-full" />
           )}
+
           <div className="mt-10">
             {unit.propertyType && (
               <p className="m-0 uppercase tracking-caps">
@@ -35,31 +38,17 @@ export const Unit: FC<HTMLAttributes<HTMLElement>> = ({ className }) => {
 
         <UnitFactSheet unit={unit} />
 
-        {/* {selectedPropertyType.moreImages?.length ? (
-          <div className="w-full mt-10">
-            {selectedPropertyType.propertyType === 'two-bedrooms' ||
-            selectedPropertyType.propertyType === 'penthouse' ? (
-              <div className="w-full relative">
-                {selectedPropertyType?.images &&
-                  selectedPropertyType.images.length !== 0 && (
-                    <ImageSlider images={selectedPropertyType.moreImages} />
-                  )}
-              </div>
-            ) : (
-              selectedPropertyType?.images &&
-              selectedPropertyType.images.length !== 0 && (
-                <ImageSlider images={selectedPropertyType.moreImages} />
-              )
-            )}
-          </div>
-        ) : null}
-        {selectedPropertyType?._rawDescriptionTwo?.text && (
-          <div className="mt-10 pr-mobile-menu md:pr-0 text-mobile-body md:text-desktop-body property-type-description">
-            <StandardText data={selectedPropertyType?._rawDescriptionTwo} />
+        {unit.layoutImages && unit.layoutImages.length > 0 && (
+          <ImageCarousel slides={unit.layoutImages} className="w-full" />
+        )}
+
+        {unit.moreInfo && (
+          <div className="mt-10 pr-mobile-menu md:pr-0">
+            <RichText blocks={unit.moreInfo} />
           </div>
         )}
 
-        <HowItWorksModal data={howItWorks} /> */}
+        {accordions && <UnitFaq accordions={accordions} />}
       </div>
     )
   )

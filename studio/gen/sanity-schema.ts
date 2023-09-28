@@ -610,6 +610,13 @@ export type CitiesBlock = {
    *
    */
   citiesList?: Array<SanityKeyedReference<City>>;
+
+  /**
+   * How It Works Content — `array`
+   *
+   *
+   */
+  howItWorksContent?: Array<SanityKeyed<Accordion>>;
 };
 
 export type TextBlock = {
