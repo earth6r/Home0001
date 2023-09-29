@@ -13,6 +13,10 @@
     "dev:sanity": "cp .env ./studio/.env.development && cd studio && sanity dev"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.1.5",
+    "@chakra-ui/react": "^2.8.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.11",
     "@iconify/icons-cib": "^1.2.2",
     "@iconify/react": "^3.1.4",
@@ -26,6 +30,7 @@
     "classnames": "^2.3.1",
     "cors": "^2.8.5",
     "focus-visible": "^5.2.0",
+    "framer-motion": "^10.16.4",
     "google-map-react": "^2.2.1",
     "groq": "^2.15.0",
     "lodash": "^4.17.21",

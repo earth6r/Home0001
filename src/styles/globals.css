@@ -86,3 +86,8 @@ body {
   text-rendering: optimizeLegibility;
   min-width: 320px;
 }
+
+.chakra-portal {
+  position: relative;
+  z-index: theme('zIndex.modal');
+}
