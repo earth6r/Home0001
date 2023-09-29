@@ -34,37 +34,38 @@ export const SanityTooltip: FC<SanityTooltipProps> = ({
   ...props
 }) => {
   let [isOpen, setIsOpen] = useState(false)
-  if (props.tooltipContent)
-    return (
-      <Popover
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        trigger="click"
-        placement="top-end"
-      >
-        <PopoverTrigger>
-          <a
-            aria-label={`Open tooltip`}
-            onClick={() => setIsOpen(true)}
-            className="inline hover:font-bold border-bottom"
-          >
-            {props.linkedCopy}
-          </a>
-        </PopoverTrigger>
-        <Portal>
-          <PopoverContent
-            variants={{}}
-            className="relative max-w-[calc(100vw-2rem)] md:max-w-[672px] w-full border-1 border-black border-solid left-x md:left-2 bg-white z-modal"
-          >
-            <CloseButton onClose={() => setIsOpen(false)} />
+  return (
+    <Popover
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      trigger="click"
+      placement="top-end"
+    >
+      <PopoverTrigger>
+        <a
+          aria-label={`Open tooltip`}
+          onClick={() => setIsOpen(true)}
+          className="inline hover:font-bold border-bottom"
+        >
+          {props.linkedCopy}
+        </a>
+      </PopoverTrigger>
+      <Portal>
+        <PopoverContent
+          variants={{}}
+          className="relative max-w-[calc(100vw-2rem)] md:max-w-[672px] w-full border-1 border-black border-solid left-x md:left-2 bg-white z-modal"
+        >
+          <CloseButton onClose={() => setIsOpen(false)} />
+          {props.tooltipContent && (
             <RichText
               blocks={props.tooltipContent}
               className={'bg-white p-[40px] md:p-x'}
             />
-          </PopoverContent>
-        </Portal>
-      </Popover>
-    )
+          )}
+        </PopoverContent>
+      </Portal>
+    </Popover>
+  )
 }
 
 export default SanityTooltip

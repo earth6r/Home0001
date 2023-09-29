@@ -9,13 +9,12 @@ export const UnitsList: FC<HTMLAttributes<HTMLElement>> = ({ className }) => {
   const units = state.property.unitsList
 
   return (
-    units && (
-      <ul className={classNames(className)}>
-        {units.map((unit: KeyedUnit) => {
+    <ul className={classNames(className)}>
+      {units &&
+        units.map((unit: KeyedUnit) => {
           return <UnitButton key={unit._id} unit={unit} />
         })}
-      </ul>
-    )
+    </ul>
   )
 }
 
