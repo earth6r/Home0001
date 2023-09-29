@@ -82,12 +82,12 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
 
   // handle scrolling after state change
   useEffect(() => {
-    if (propertyRef.current) scrollToEl(propertyRef.current)
-  }, [state.property._id])
-
-  useEffect(() => {
-    if (unitRef.current) scrollToEl(unitRef.current)
-  }, [state.unit._id])
+    if (state.unit._id && unitRef.current) {
+      scrollToEl(unitRef.current)
+    } else if (state.property._id && propertyRef.current) {
+      scrollToEl(propertyRef.current)
+    }
+  }, [state.property._id, state.unit._id])
 
   // check for path queries on first load
   // city assumes on property and assigns ~ JLM
