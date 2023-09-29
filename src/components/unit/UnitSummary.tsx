@@ -1,11 +1,11 @@
 import { type FC, useContext } from 'react'
 import { HomeContext } from '@contexts/home'
 import classNames from 'classnames'
-import { KeyedUnit, UnitButtonProps } from './types'
+import { KeyedUnit, UnitListProps } from './types'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
 
-export const UnitButton: FC<UnitButtonProps> = ({ unit }) => {
+export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
 
@@ -29,7 +29,7 @@ export const UnitButton: FC<UnitButtonProps> = ({ unit }) => {
   }
 
   const updateUnit = (unit: KeyedUnit, title?: string) => {
-    if (unit._id === state.unit._id) return
+    if (unit._id === state.unit?._id) return
     const slugifiedTitle = title && slugify(title, { lower: true })
     dispatchUnit(unit, slugifiedTitle)
     updatePath(slugifiedTitle)
@@ -76,12 +76,12 @@ export const UnitButton: FC<UnitButtonProps> = ({ unit }) => {
           </div>
           <div
             className={classNames(
-              state.unit._id === unit._id ? 'bg-black text-white' : '',
+              state.unit?._id === unit._id ? 'bg-black text-white' : '',
               `border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12`
             )}
           >
             <p className="mb-0 py-2 text-left pl-4 uppercase">
-              {state.unit._id === unit._id
+              {state.unit?._id === unit._id
                 ? 'Selected'
                 : `Explore ${unit?.title}`}
             </p>
@@ -93,4 +93,4 @@ export const UnitButton: FC<UnitButtonProps> = ({ unit }) => {
   )
 }
 
-export default UnitButton
+export default UnitSummary

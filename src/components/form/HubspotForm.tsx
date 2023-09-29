@@ -171,7 +171,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
               {formType !== 'newsletter' && (
                 <p className="mt-5">
                   {`Got questions?${' '}`}
-                  <Link href="/homes/contact" className="border-bottom">
+                  <Link href="/contact" className="border-bottom">
                     Ask us anything
                   </Link>
                   {`.`}

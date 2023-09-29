@@ -1,11 +1,13 @@
 import React, { FC, useState } from 'react'
 import { Modal } from '@components/modal'
-import { UnitContentProps } from './types'
+import { AccordionModalProps } from './types'
 import { Accordion } from '@components/accordion'
-import { SanityLink } from '@components/sanity'
 import Link from 'next/link'
 
-export const UnitFaq: FC<UnitContentProps> = ({ accordions, className }) => {
+export const AccordionModal: FC<AccordionModalProps> = ({
+  accordions,
+  className,
+}) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -51,4 +53,4 @@ export const UnitFaq: FC<UnitContentProps> = ({ accordions, className }) => {
   )
 }
 
-export default UnitFaq
+export default AccordionModal

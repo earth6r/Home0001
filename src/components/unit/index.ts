@@ -1,5 +1,4 @@
-export * from './UnitButton'
+export * from './UnitSummary'
 export * from './UnitsList'
 export * from './Unit'
-export * from './UnitFactSheet'
 export * from './types'

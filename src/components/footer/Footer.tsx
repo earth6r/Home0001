@@ -14,7 +14,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        state.property.cityId || path !== '/' ? '' : 'hidden',
+        state.property?.cityId || path !== '/' ? '' : 'hidden',
         'px-x mt-20 md:mt-y'
       )}
     >

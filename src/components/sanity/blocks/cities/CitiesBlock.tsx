@@ -35,7 +35,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
         cityId: cityId,
         property,
         propertySlug,
-        unit: unit as UnitProps,
+        unit,
         unitSlug,
       },
     })
@@ -82,12 +82,12 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
 
   // handle scrolling after state change
   useEffect(() => {
-    if (state.unit._id && unitRef.current) {
+    if (state.unit?._id && unitRef.current) {
       scrollToEl(unitRef.current)
-    } else if (state.property._id && propertyRef.current) {
+    } else if (state.property?._id && propertyRef.current) {
       scrollToEl(propertyRef.current)
     }
-  }, [state.property._id, state.unit._id])
+  }, [state.property?._id, state.unit?._id])
 
   // check for path queries on first load
   // city assumes on property and assigns ~ JLM
@@ -143,7 +143,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                       property && updateProperty(_id, property, title)
                     }
                     className={classNames(
-                      state.property.cityId === _id ? 'font-bold' : '',
+                      state.property?.cityId === _id ? 'font-bold' : '',
                       'p-5 -m-5 uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
                     )}
                   >
@@ -162,13 +162,13 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
 
       {/* Probably overkill to rely on context for everything but 
       will be useful down the line and cleaner for the moment ~ JLM */}
-      {state.property._id && (
+      {state.property?._id && (
         <div ref={propertyRef} className="md:grid md:grid-cols-3 md:pr-menu">
           <Property className="md:col-start-2 md:col-span-1" />
         </div>
       )}
 
-      {state.unit._id && (
+      {state.unit?._id && (
         <div ref={unitRef}>
           <Unit accordions={howItWorksContent} />
         </div>

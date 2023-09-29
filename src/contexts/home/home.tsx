@@ -1,20 +1,31 @@
-import { UnitProps } from '@components/unit'
-import { Property, Unit } from '@studio/gen/sanity-schema'
+import { KeyedPropertyProps } from '@components/property'
+import { KeyedUnit as KeyedUnitProps } from '@components/unit'
 import React, { createContext, useReducer } from 'react'
 
-interface PropertyProps
-  extends Omit<
-    Property,
-    '_type' | '_createdAt' | '_rev' | '_updatedAt' | '_id'
-  > {
-  _id?: string
+interface PropertyContentProps
+  extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref'> {
   cityId?: string
+  unitsList?: KeyedUnitProps[]
+}
+
+interface UnitContentProps
+  extends Omit<
+    KeyedUnitProps,
+    '_type' | '_key' | '_ref' | '_createdAt' | '_updatedAt' | '_rev'
+  > {}
+
+type homePayloadType = {
+  cityId?: string
+  property?: KeyedPropertyProps
+  propertySlug?: string
+  unit?: UnitContentProps
+  unitSlug?: string
 }
 
 type homeContextType = {
-  property: PropertyProps
+  property?: PropertyContentProps
   propertySlug: string | undefined
-  unit: UnitProps
+  unit?: UnitContentProps
   unitSlug: string | undefined
 }
 
@@ -30,35 +41,17 @@ enum ActionTypes {
 
 type SetHomeAction = {
   type: 'SET_HOME'
-  payload: {
-    cityId: string | undefined
-    property: PropertyProps
-    propertySlug: string | undefined
-    unit: UnitProps
-    unitSlug: string | undefined
-  }
+  payload: homePayloadType
 }
 
 type SetPropertyAction = {
   type: 'SET_PROPERTY'
-  payload: {
-    cityId: string | undefined
-    property: PropertyProps
-    propertySlug: string | undefined
-    unit?: UnitProps
-    unitSlug?: string
-  }
+  payload: homePayloadType
 }
 
 type SetUnitAction = {
   type: 'SET_UNIT'
-  payload: {
-    cityId?: string
-    property?: PropertyProps
-    propertySlug?: string
-    unit: UnitProps
-    unitSlug: string | undefined
-  }
+  payload: homePayloadType
 }
 
 type DispatchActionTypes = SetHomeAction | SetPropertyAction | SetUnitAction
@@ -69,14 +62,9 @@ const DEFAULT_PROPERTY = {
 }
 
 export const defaultState: homeContextType = {
-  property: {
-    ...DEFAULT_PROPERTY,
-    cityId: undefined,
-  },
+  property: undefined,
   propertySlug: undefined,
-  unit: {
-    _id: '',
-  },
+  unit: undefined,
   unitSlug: undefined,
 }
 

@@ -1,10 +1,10 @@
-import { type FC, useState, useEffect } from 'react'
-import { UnitFactSheetProps } from './types'
+import { type FC, useState } from 'react'
 import { Modal } from '@components/modal'
 import { AllenData, LAData } from '@lib/factSheets'
 import slugify from 'slugify'
+import { FactSheetProps } from './types'
 
-export const UnitFactSheet: FC<UnitFactSheetProps> = ({ unit, className }) => {
+export const FactSheet: FC<FactSheetProps> = ({ unit, className }) => {
   const [isOpen, setIsOpen] = useState(false)
   const slugifiedCity =
     unit?.property?.location?.title &&
@@ -42,4 +42,4 @@ export const UnitFactSheet: FC<UnitFactSheetProps> = ({ unit, className }) => {
   )
 }
 
-export default UnitFactSheet
+export default FactSheet

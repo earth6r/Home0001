@@ -2,77 +2,46 @@ import { HTMLAttributes } from 'react'
 import type {
   Accordion,
   Property,
+  PropertyType,
   SanityKeyed,
   SanityKeyedReference,
   Unit,
 } from '@studio/gen/sanity-schema'
 
-export interface UnitContentProps extends HTMLAttributes<HTMLElement> {
-  accordions?: SanityKeyed<Accordion>[]
-}
-
-export interface UnitFactSheetProps
-  extends Omit<HTMLAttributes<HTMLLIElement>, 'property'> {
-  unit?: UnitLocationProps
-}
-
-export interface PropertyProps extends Omit<Property, 'location'> {
-  location?: {
-    title?: string
-  }
-}
-
-export interface UnitLocationProps
-  extends Omit<
-    Unit,
-    | '_type'
-    | '_createdAt'
-    | '_rev'
-    | '_updatedAt'
-    | '_id'
-    | 'propertyType'
-    | 'property'
-  > {
-  _id?: string
-  propertyType?: {
-    typeTitle?: string
-    value?: string
-  }
-  property?: PropertyProps
+export interface KeyedPropertyType extends SanityKeyedReference<PropertyType> {
+  typeTitle?: string
+  typeValue?: string
 }
 
 export interface UnitProps
+  extends Omit<HTMLAttributes<HTMLElement>, 'property'>,
+    Unit {
+  accordions?: SanityKeyed<Accordion>[]
+  propertyType?: KeyedPropertyType
+}
+
+export interface UnitElProps
   extends Omit<
-    Unit,
+    KeyedUnit,
     | '_type'
+    | '_key'
+    | '_ref'
     | '_createdAt'
     | '_rev'
+    | '_updatedAtts'
     | '_updatedAt'
-    | '_id'
-    | 'propertyType'
-    | 'property'
-  > {
-  _id?: string
-  propertyType?: {
-    typeTitle?: string
-    value?: string
-  }
-}
+  > {}
 
 export interface KeyedUnit
-  extends SanityKeyedReference<Unit>,
-    Omit<
-      Unit,
-      '_type' | '_createdAt' | '_rev' | '_updatedAt' | '_id' | 'propertyType'
-    > {
+  extends SanityKeyedReference<UnitProps>,
+    Omit<UnitProps, '_type' | '_id'> {
   _id?: string
-  propertyType?: {
-    typeTitle?: string
-    value?: string
-  }
+  title?: string
+  available?: boolean
+  price?: string
+  area?: string
 }
 
-export interface UnitButtonProps
-  extends Omit<HTMLAttributes<HTMLLIElement>, 'property'> {
+export interface UnitListProps extends HTMLAttributes<HTMLElement> {
   unit?: KeyedUnit
 }
