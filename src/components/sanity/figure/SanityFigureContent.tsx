@@ -16,7 +16,7 @@ export const SanityFigureContent: FC<SanityFigureContentProps> = ({
 }) =>
   image?.asset ? (
     mediaRatio ? (
-      <div className={classNames(contentClass || 'contents', 'figure-content')}>
+      <div className={classNames(contentClass)}>
         <div
           className="relative w-full"
           style={{ paddingTop: `${mediaRatio * 100}%` }}
@@ -36,7 +36,7 @@ export const SanityFigureContent: FC<SanityFigureContentProps> = ({
         </div>
       </div>
     ) : (
-      <div className={classNames(contentClass || 'contents', 'figure-content')}>
+      <div className={classNames(contentClass)}>
         <SanityMedia image={image} className={mediaClass} {...props} />
       </div>
     )

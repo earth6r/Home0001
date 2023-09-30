@@ -14,19 +14,14 @@ export const Property: FC<PropertyElProps> = ({ className }) => {
     <div className={classNames(className)}>
       <div className="block relative mt-10 md:mt-20">
         {property?.image && (
-          <div className="block relative h-full mb-10">
-            <div className="relative w-full" style={{ paddingTop: `79.9%` }}>
-              <SanityMedia
-                imageProps={{
-                  alt: property?.image.alt || 'Building image',
-                  fill: true,
-                  objectFit: 'cover',
-                  width: undefined,
-                  height: undefined,
-                }}
-                {...property?.image}
-              />
-            </div>
+          <div className="block relative w-full h-full mb-10">
+            <SanityMedia
+              imageProps={{
+                alt: property?.image.alt || 'Building image',
+                layout: 'responsive',
+              }}
+              {...property?.image}
+            />
           </div>
         )}
 
