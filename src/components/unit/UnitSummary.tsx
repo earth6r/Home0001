@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { KeyedUnit, UnitListProps } from './types'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
+import { sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 
 export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
   const router = useRouter()
@@ -33,6 +34,11 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
     const slugifiedTitle = title && slugify(title, { lower: true })
     dispatchUnit(unit, slugifiedTitle)
     updatePath(slugifiedTitle)
+
+    if (unit.title) {
+      sendGoogleEvent(`clicked_unit_tile_for_${unit.title}`)
+      sendHubspotEvent('tile clicked', unit.title)
+    }
   }
 
   if (!unit) return null

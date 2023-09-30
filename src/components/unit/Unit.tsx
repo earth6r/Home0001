@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { BtnScrollToTop } from '@components/btns/BtnScrollToTop'
 import { HubspotForm } from '@components/form'
-import { scrollToEl } from '@lib/util'
+import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { AccordionModal } from '@components/accordion'
 import { FactSheet } from '@components/fact-sheet'
 
@@ -19,11 +19,9 @@ export const Unit: FC<UnitElProps> = ({ accordions, className }) => {
 
   const formButtonClick = () => {
     setFormActive(!formActive)
-    // sendHubspotClickEvent(
-    //   'clicked reserve this home',
-    //   selectedPropertyType
-    // )
-    // viewOpenedReserveFormEvent(selectedPropertyType)
+    if (!unit?.title) return
+    sendGoogleEvent(`opened_reserve_form_for_${unit?.title}`)
+    sendHubspotEvent('clicked reserve this home', unit?.title)
   }
 
   useEffect(() => {

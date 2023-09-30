@@ -8,7 +8,7 @@ import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import type { KeyedUnit, UnitProps } from '@components/unit'
 import { Unit } from '@components/unit'
-import { scrollToEl } from '@lib/util'
+import { sendGoogleEvent, scrollToEl, sendHubspotEvent } from '@lib/util'
 
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
@@ -139,9 +139,11 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                 <li key={_id}>
                   <button
                     disabled={!active || !property}
-                    onClick={() =>
+                    onClick={() => {
                       property && updateProperty(_id, property, title)
-                    }
+                      sendGoogleEvent(`click_${title}_button`)
+                      sendHubspotEvent(`clicked ${title}`, 'clicked')
+                    }}
                     className={classNames(
                       state.property?.cityId === _id ? 'font-bold' : '',
                       'p-5 -m-5 uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'

@@ -3,6 +3,7 @@ import Script from 'next/script'
 const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID
 const FACEBOOK_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
 const HOTJAR_ID = process.env.NEXT_PUBLIC_HOTJAR_ID
+const HOTJAR_SV = process.env.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION
 
 export const Scripts = () => {
   return (
@@ -49,7 +50,7 @@ export const Scripts = () => {
                 r=o.createElement('script');r.async=1;
                 r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
                 a.appendChild(r);
-            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=${HOTJAR_SV}');
           `}
         </Script>
       ) : null}

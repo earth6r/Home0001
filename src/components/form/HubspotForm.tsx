@@ -1,9 +1,11 @@
 import type { FC, MouseEvent } from 'react'
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useContext, useState } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
 import { useForm } from 'react-hook-form'
 import { submitForm } from '@lib/util/submit-forms'
+import { HomeContext } from '@contexts/home'
+import { sendGoogleEvent } from '@lib/util'
 
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
@@ -51,8 +53,16 @@ export const HubspotForm: FC<HubspotFormProps> = ({
     shouldUseNativeValidation: true,
   })
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
+  const { state } = useContext(HomeContext)
 
   const onSubmit = async (data: any) => {
+    // send form data
+    if (formType === 'unit') {
+      sendGoogleEvent('submit_reservation_form', {
+        'unit of interest': state.unit?.title,
+      })
+    }
+
     if (!audienceId || !formType) return
     try {
       const result = await submitForm(data, audienceId, formType)
