@@ -10,7 +10,6 @@ export default defineConfig({
   title: 'Home0001',
   projectId: 'cr71fv96',
   dataset: 'production',
-  basePath: '/studio',
   plugins: [
     deskTool({
       structure: deskStructure,
