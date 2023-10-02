@@ -32,5 +32,5 @@ export const IntercomProvider: React.FC<ProviderProps> = ({ children }) => {
     }
   }, [router.events])
 
-  return children
+  return <>{children}</>
 }

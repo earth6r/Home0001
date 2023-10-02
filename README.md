@@ -47,3 +47,7 @@ yarn sanity upgrade ...
 # or to install new dependencies
 yarn sanity install ...
 ```
+
+## Adding content process
+
+[tk]
