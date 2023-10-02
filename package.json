@@ -2,6 +2,7 @@
   "name": "home0001",
   "private": true,
   "scripts": {
+    "install:all": "yarn install && cd studio && yarn install",
     "prepare": "is-ci || husky install",
     "build": "npm-run-all --sequential clean generate:* --parallel build:next build:sanity",
     "dev": "npm-run-all --sequential generate:* --parallel dev:*",

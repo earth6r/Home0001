@@ -15,8 +15,7 @@ Next's development server up and running:
 
 ```bash
 # install dependencies
-yarn install
-cd studio && yarn install
+yarn install:all
 
 # run requisite generate and clean steps
 # before running all apps simultaneously
