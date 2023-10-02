@@ -1,10 +1,10 @@
-import { GrTooltip } from 'react-icons/gr'
+import { BiText } from 'react-icons/bi'
 
 export default {
   name: 'tooltip',
   type: 'object',
   title: 'Tooltip',
-  icon: GrTooltip,
+  icon: BiText,
   fields: [
     {
       title: 'Linked Copy',

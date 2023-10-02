@@ -1,4 +1,4 @@
-import { GrTooltip } from 'react-icons/gr'
+import { BiText } from 'react-icons/bi'
 
 export default {
   name: 'richText',
@@ -44,7 +44,7 @@ export default {
           title: 'Tooltip',
           name: 'tooltip',
           type: 'tooltip',
-          icon: GrTooltip,
+          icon: BiText,
         },
       ],
     },
