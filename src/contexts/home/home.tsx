@@ -20,6 +20,7 @@ type homePayloadType = {
   propertySlug?: string
   unit?: UnitContentProps
   unitSlug?: string
+  showIntercom?: boolean
 }
 
 type homeContextType = {
@@ -27,6 +28,7 @@ type homeContextType = {
   propertySlug: string | undefined
   unit?: UnitContentProps
   unitSlug: string | undefined
+  showIntercom?: boolean
 }
 
 type ProviderProps = {
@@ -37,6 +39,7 @@ enum ActionTypes {
   SET_HOME = 'SET_HOME',
   SET_PROPERTY = 'SET_PROPERTY',
   SET_UNIT = 'SET_UNIT',
+  SET_INTERCOM = 'SET_INTERCOM',
 }
 
 type SetHomeAction = {
@@ -54,18 +57,23 @@ type SetUnitAction = {
   payload: homePayloadType
 }
 
-type DispatchActionTypes = SetHomeAction | SetPropertyAction | SetUnitAction
-
-const DEFAULT_PROPERTY = {
-  _id: '',
-  header: undefined,
+type SetIntercomAction = {
+  type: 'SET_INTERCOM'
+  payload: homePayloadType
 }
+
+type DispatchActionTypes =
+  | SetHomeAction
+  | SetPropertyAction
+  | SetUnitAction
+  | SetIntercomAction
 
 export const defaultState: homeContextType = {
   property: undefined,
   propertySlug: undefined,
   unit: undefined,
   unitSlug: undefined,
+  showIntercom: false,
 }
 
 export const reducer = (
@@ -103,6 +111,11 @@ export const reducer = (
           ...payload.unit,
         },
         unitSlug: payload.unitSlug,
+      }
+    case ActionTypes.SET_INTERCOM:
+      return {
+        ...state,
+        showIntercom: payload.showIntercom,
       }
 
     default:

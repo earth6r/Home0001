@@ -31,6 +31,9 @@ export const blockMarks: Partial<PortableTextReactComponents['marks']> = {
     const text = reactNodeToString(children)
     return <SanityLink {...{ ...value, text }} />
   },
+  anchor: ({ children, value }) => {
+    return <span id={value.anchorId}>{children}</span>
+  },
 }
 
 /**

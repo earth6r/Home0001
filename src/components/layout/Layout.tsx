@@ -1,10 +1,11 @@
-import type { FC, ReactNode } from 'react'
+import { useEffect, type FC, type ReactNode, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import type { Menus, Page, SiteSettings } from '@gen/sanity-schema'
 import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
+import { HomeContext } from '@contexts/home'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page
@@ -17,7 +18,19 @@ interface LayoutProps {
 }
 
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
+  const { dispatch, state } = useContext(HomeContext)
   const { asPath } = useRouter()
+
+  useEffect(() => {
+    if (asPath.length > 1 && !asPath.includes('?')) {
+      dispatch({
+        ...state,
+        type: 'SET_INTERCOM',
+        payload: { showIntercom: true },
+      })
+    }
+  }, [asPath])
+
   return (
     <>
       <Head
