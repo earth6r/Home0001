@@ -49,4 +49,22 @@ yarn sanity install ...
 
 ## Adding content process
 
-[tk]
+### New unit
+
+- Select "Units" from Content menu
+- Select the new item icon
+- Add fields
+  - Be sure to link to property and select "Available" to show on site
+  - All media can be added in two media sections
+  - Have blocked out space for a new image field to be pulled from Sanity in the
+    Next frontend for the Unit Summary component, this field would need to be
+    added to Sanity studio ~ JLM 10/2/23
+  - Inventory does not currently show on frontend, but refers to past design ~
+    JLM 10/2/23
+  - The content is in order of current site design ~ JLM 10/2/23
+- Once content is added, publish the Unit and navigate to appropriate property
+  in Properties list in Content menu.
+- Add newly created Unit document to "Units" reference list
+- Publish Property
+- Once all new content updated/added and publish, navigate to "Deploy" on top of
+  Sanity studio and select "Deploy" from production hook
