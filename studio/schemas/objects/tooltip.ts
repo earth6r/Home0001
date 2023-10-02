@@ -1,10 +1,10 @@
-import { BsChatSquareDots } from 'react-icons/bs'
+import { GrTooltip } from 'react-icons/gr'
 
 export default {
   name: 'tooltip',
   type: 'object',
   title: 'Tooltip',
-  icon: BsChatSquareDots,
+  icon: GrTooltip,
   fields: [
     {
       title: 'Linked Copy',

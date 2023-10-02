@@ -1,4 +1,4 @@
-import { BsChatSquareDots } from 'react-icons/bs'
+import { GrTooltip } from 'react-icons/gr'
 
 export default {
   name: 'richText',
@@ -44,7 +44,7 @@ export default {
           title: 'Tooltip',
           name: 'tooltip',
           type: 'tooltip',
-          icon: BsChatSquareDots,
+          icon: GrTooltip,
         },
       ],
     },
