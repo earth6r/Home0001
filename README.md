@@ -22,7 +22,7 @@ yarn install:all
 yarn run dev
 
 # run next.js only
-yarn run dev:sanity
+yarn run dev:next
 
 # run sanity studio only
 yarn run dev:sanity
