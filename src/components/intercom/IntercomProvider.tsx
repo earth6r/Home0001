@@ -21,16 +21,22 @@ export const IntercomProvider: React.FC<ProviderProps> = ({ children }) => {
   useEffect(() => {
     const handleRouteChange = () => {
       if (typeof window !== 'undefined') {
-        updateIntercom()
+        if (router.asPath.length > 1 && !router.asPath.includes('?')) {
+          // hide = false
+          updateIntercom(false)
+        } else {
+          // hide = true
+          updateIntercom(true)
+        }
       }
     }
 
-    router.events.on('routeChangeStart', handleRouteChange)
+    router.events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
-      router.events.off('routeChangeStart', handleRouteChange)
+      router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [router.events])
+  }, [router.events, router.asPath])
 
   return <>{children}</>
 }

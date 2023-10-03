@@ -19,6 +19,10 @@ export const boot = (options = {}) => {
     window.Intercom('boot', { app_id: INTERCOM_ID, ...options })
 }
 
-export const update = () => {
-  window && window.Intercom && window.Intercom('update')
+export const update = (hide = false) => {
+  window &&
+    window.Intercom &&
+    window.Intercom('update', {
+      hide_default_launcher: hide,
+    })
 }

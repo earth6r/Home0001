@@ -12,18 +12,24 @@ export const Header: FC<HeaderProps> = ({ className, mainMenu }) => {
   const el = useRef<HTMLElement>(null)
 
   return (
-    <div id="header" className={classNames(className, 'fixed w-full z-header')}>
+    <div
+      id="header"
+      className={classNames(
+        className,
+        'fixed w-full pointer-events-none z-header'
+      )}
+    >
       <header
         ref={el}
         role="banner"
         className="flex justify-between items-center w-full h-header px-x mt-y"
       >
-        <Logo className="flex items-center h-header" />
+        <Logo className="flex items-center h-header pointer-events-auto" />
         <HeaderMenu
           customOpen={menuOpen}
           onOpen={onOpen}
           mainMenu={mainMenu as SanityMenu}
-          className="flex flex-col"
+          className="flex flex-col pointer-events-auto"
         />
       </header>
     </div>
