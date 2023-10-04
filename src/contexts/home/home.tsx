@@ -20,7 +20,6 @@ type homePayloadType = {
   propertySlug?: string
   unit?: UnitContentProps
   unitSlug?: string
-  showIntercom?: boolean
 }
 
 type homeContextType = {
@@ -28,7 +27,6 @@ type homeContextType = {
   propertySlug: string | undefined
   unit?: UnitContentProps
   unitSlug: string | undefined
-  showIntercom?: boolean
 }
 
 type ProviderProps = {
@@ -39,7 +37,7 @@ enum ActionTypes {
   SET_HOME = 'SET_HOME',
   SET_PROPERTY = 'SET_PROPERTY',
   SET_UNIT = 'SET_UNIT',
-  SET_INTERCOM = 'SET_INTERCOM',
+  RESET_HOME = 'RESET_HOME',
 }
 
 type SetHomeAction = {
@@ -47,6 +45,8 @@ type SetHomeAction = {
   payload: homePayloadType
 }
 
+// we are not currently using this but would be useful once
+// there are more than one properties per city ~ JLM 10/4/23
 type SetPropertyAction = {
   type: 'SET_PROPERTY'
   payload: homePayloadType
@@ -57,8 +57,8 @@ type SetUnitAction = {
   payload: homePayloadType
 }
 
-type SetIntercomAction = {
-  type: 'SET_INTERCOM'
+type ResetHomeAction = {
+  type: 'RESET_HOME'
   payload: homePayloadType
 }
 
@@ -66,14 +66,13 @@ type DispatchActionTypes =
   | SetHomeAction
   | SetPropertyAction
   | SetUnitAction
-  | SetIntercomAction
+  | ResetHomeAction
 
 export const defaultState: homeContextType = {
   property: undefined,
   propertySlug: undefined,
   unit: undefined,
   unitSlug: undefined,
-  showIntercom: false,
 }
 
 export const reducer = (
@@ -112,10 +111,14 @@ export const reducer = (
         },
         unitSlug: payload.unitSlug,
       }
-    case ActionTypes.SET_INTERCOM:
+    case ActionTypes.RESET_HOME:
       return {
-        ...state,
-        showIntercom: payload.showIntercom,
+        property: {
+          cityId: undefined,
+        },
+        propertySlug: undefined,
+        unit: undefined,
+        unitSlug: undefined,
       }
 
     default:

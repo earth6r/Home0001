@@ -8,7 +8,6 @@ import { sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { SanityMedia } from '@components/sanity'
 
 export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
-  console.log('unit:', unit)
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
 

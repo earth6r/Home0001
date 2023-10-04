@@ -19,6 +19,7 @@ export const IntercomProvider: React.FC<ProviderProps> = ({ children }) => {
   }
 
   useEffect(() => {
+    console.log('handleroutechange')
     const handleRouteChange = () => {
       if (typeof window !== 'undefined') {
         if (router.asPath.length > 1 && !router.asPath.includes('?')) {

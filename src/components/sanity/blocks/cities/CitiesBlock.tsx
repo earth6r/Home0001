@@ -6,7 +6,7 @@ import { HomeContext } from '@contexts/home'
 import { Property } from '@components/property'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
-import type { KeyedUnit, UnitProps } from '@components/unit'
+import type { KeyedUnit } from '@components/unit'
 import { Unit } from '@components/unit'
 import { sendGoogleEvent, scrollToEl, sendHubspotEvent } from '@lib/util'
 
@@ -41,18 +41,14 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
     })
   }
 
-  const dispatchProperty = (
-    cityId: string,
-    property: KeyedProperty,
-    propertySlug?: string
-  ) => {
+  const dispatchReset = () => {
     dispatch({
-      ...state,
-      type: 'SET_PROPERTY',
+      type: 'RESET_HOME',
       payload: {
-        cityId: cityId,
-        property,
-        propertySlug,
+        cityId: undefined,
+        propertySlug: undefined,
+        unit: undefined,
+        unitSlug: undefined,
       },
     })
   }
@@ -89,8 +85,8 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
     }
   }, [state.property?._id, state.unit?._id])
 
-  // check for path queries on first load
-  // city assumes on property and assigns ~ JLM
+  // check for path queries on path update
+  // city assumes one property and assigns to that property ~ JLM
   useEffect(() => {
     const cityQuery = router.query.city
     const unitQuery = router.query.unit
@@ -107,17 +103,18 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
         unitQuery as string
       )
 
-      unitQuery && activeUnit
-        ? dispatchHome(
-            activeCity._id,
-            property,
-            cityQuery as string,
-            activeUnit,
-            unitQuery as string
-          )
-        : dispatchProperty(activeCity._id, property, cityQuery as string)
+      dispatchHome(
+        activeCity._id,
+        property,
+        cityQuery as string,
+        activeUnit,
+        unitQuery as string
+      )
+    } else {
+      // just reset if path has been changed and no queries ~ JLM
+      dispatchReset()
     }
-  }, [])
+  }, [router.asPath])
 
   return (
     <Block className={classNames(className)}>
