@@ -56,11 +56,11 @@ export default {
       title: 'Amenities',
       type: 'richText',
     },
-    // {
-    //   name: 'headlineImage',
-    //   title: 'Headline Image',
-    //   type: 'media',
-    // },
+    {
+      name: 'headlineImage',
+      title: 'Headline Image',
+      type: 'media',
+    },
     {
       name: 'photographs',
       title: 'Photographs',

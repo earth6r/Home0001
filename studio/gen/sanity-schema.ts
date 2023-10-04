@@ -284,6 +284,13 @@ export interface Unit extends SanityDocument {
   amenities?: RichText;
 
   /**
+   * Headline Image — `media`
+   *
+   *
+   */
+  headlineImage?: Media;
+
+  /**
    * Photographs — `array`
    *
    *

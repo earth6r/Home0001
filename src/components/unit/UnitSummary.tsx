@@ -5,8 +5,10 @@ import { KeyedUnit, UnitListProps } from './types'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import { sendGoogleEvent, sendHubspotEvent } from '@lib/util'
+import { SanityMedia } from '@components/sanity'
 
 export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
+  console.log('unit:', unit)
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
 
@@ -49,15 +51,15 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
         onClick={() => updateUnit(unit, unit.title)}
         className={`transition-colors disabled:opacity-30 disabled:bg-white disabled:shadow-none px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`}
       >
-        {/* TODO: replace */}
-        <div className="w-full h-[300px] bg-[lightgray] mb-5"></div>
-        {/* <img
-          className="h-auto w-auto mb-5"
-          src={}
-          height="487"
-          width="560"
-          alt="apartment preview image"
-        /> */}
+        <div className="mb-5">
+          <SanityMedia
+            image={unit.headlineImage?.image}
+            imageProps={{
+              alt: unit.headlineImage?.alt || 'Home0001 Headline Image',
+              style: { maxWidth: '100%', height: 'auto' },
+            }}
+          />
+        </div>
         <div className="justify-self-stretch w-full">
           <div className="grid">
             <p className="col-start-1 text-left uppercase">
