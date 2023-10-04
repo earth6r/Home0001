@@ -49,6 +49,20 @@ yarn sanity install ...
 
 ## Adding content process
 
+### New object property
+
+To add a new property to an object, like an image to an existing object, follow
+the below example:
+
+- Select the object to edit, like `studio/schemas/documents/unit.ts`
+- To add an image, use the media object type
+- Add a name, title (for the Sanity admin), and the type, in this case `media`
+- Save the file and generate the Sanity schema using either
+  `yarn generate:sanity` or just `yarn dev` which runs the generate script as
+  well as dev server
+- Add the new object property to the frontend, in this case in appropriate
+  component in `src/components/unit/`
+
 ### New unit
 
 - Select "Units" from Content menu
