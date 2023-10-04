@@ -39,7 +39,7 @@ export const IntercomProvider: React.FC<ProviderProps> = ({ children }) => {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [router.events, router.asPath])
+  }, [router.events, router.pathname, router.query.city])
 
   return <>{children}</>
 }
