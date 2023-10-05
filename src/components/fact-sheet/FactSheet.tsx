@@ -23,7 +23,7 @@ export const FactSheet: FC<FactSheetProps> = ({ unit, className }) => {
             </p>
           </div>
           {slugifiedCity == 'nyc' ? (
-            <AllenData type={unit?.propertyType?.value} area={unit?.area} />
+            <AllenData type={unit?.propertyType?.typeValue} area={unit?.area} />
           ) : (
             <LAData />
           )}

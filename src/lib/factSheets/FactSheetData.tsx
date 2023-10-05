@@ -21,7 +21,7 @@ interface CityDataProps extends HTMLAttributes<HTMLDivElement> {
 
 export const LAData = () => {
   return (
-    <div className="pb-10" id="buyers-guide">
+    <div className="pb-ylg" id="buyers-guide">
       <div className="mt-10 mb-4 uppercase px-4 md:px-0">
         Taxes and Fees (Estimated)
       </div>
@@ -148,7 +148,7 @@ export const AllenData: FC<CityDataProps> = ({ type, area }) => {
   const commonPrice = type && getCommonPrice(type)
   const propertyTax = type && getPropertyTax(type)
   return (
-    <div className="pb-10">
+    <div className="pb-ylg">
       <div className=" mt-10 mb-4 uppercase tracking-caps px-4 md:px-0">
         Taxes and Fees (Estimated)
       </div>

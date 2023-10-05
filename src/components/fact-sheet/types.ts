@@ -19,7 +19,7 @@ export interface UnitLocationProps
   property?: LocationPropertyProps
   propertyType?: {
     typeTitle?: string
-    value?: string
+    typeValue?: string
   }
 }
 
