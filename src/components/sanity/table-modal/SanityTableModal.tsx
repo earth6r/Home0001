@@ -15,7 +15,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
   return (
     <div className={className}>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="py-6 md:py-10 px-10 h-full flex flex-col">
+        <div className="py-6 md:py-10 px-x md:px-10 h-full flex flex-col">
           <div className="">
             {table.rows &&
               table.rows.length > 0 &&
@@ -31,7 +31,9 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
                         <div
                           key={cell + i}
                           className={classNames(
-                            i === 0 ? 'w-[250px] xs:w-[300px] md:w-[200px]' : ''
+                            i === 0
+                              ? 'w-[250px] xs:w-[300px] md:w-[200px]'
+                              : 'w-[calc(100%-250px)]'
                           )}
                         >
                           {cell}
