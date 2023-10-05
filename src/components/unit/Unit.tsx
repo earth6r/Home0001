@@ -10,7 +10,7 @@ import { HubspotForm } from '@components/form'
 import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { AccordionModal } from '@components/accordion'
 // import { FactSheet } from '@components/fact-sheet'
-import { SanityTable } from '@components/sanity/table'
+import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 
 export const Unit: FC<UnitElProps> = ({ accordions, className }) => {
   const { state } = useContext(HomeContext)
@@ -58,7 +58,10 @@ export const Unit: FC<UnitElProps> = ({ accordions, className }) => {
 
           {/* <FactSheet unit={unit} className="pr-menu md:pr-0" /> */}
           {unit?.factSheet?.rows && (
-            <SanityTable table={unit.factSheet} className="pr-menu md:pr-0" />
+            <SanityTableModal
+              table={unit.factSheet}
+              className="pr-menu md:pr-0"
+            />
           )}
 
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (

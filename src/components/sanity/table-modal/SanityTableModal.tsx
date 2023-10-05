@@ -2,12 +2,14 @@ import { useState, type FC, type HTMLAttributes } from 'react'
 import { Modal } from '@components/modal'
 import classNames from 'classnames'
 
-interface SanityTableProps extends HTMLAttributes<HTMLElement> {
+interface SanityTableModalProps extends HTMLAttributes<HTMLElement> {
   table: any
 }
 
-export const SanityTable: FC<SanityTableProps> = ({ table, className }) => {
-  console.log('table: ', table)
+export const SanityTableModal: FC<SanityTableModalProps> = ({
+  table,
+  className,
+}) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -54,4 +56,4 @@ export const SanityTable: FC<SanityTableProps> = ({ table, className }) => {
   )
 }
 
-export default SanityTable
+export default SanityTableModal
