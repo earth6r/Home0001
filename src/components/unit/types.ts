@@ -1,7 +1,6 @@
 import { HTMLAttributes } from 'react'
 import type {
   Accordion,
-  Property,
   PropertyType,
   SanityKeyed,
   SanityKeyedReference,

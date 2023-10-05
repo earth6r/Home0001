@@ -305,11 +305,11 @@ export interface Unit extends SanityDocument {
   details?: RichText;
 
   /**
-   * Inventory — `inventoryModule`
+   * Fact Sheet — `table`
    *
    *
    */
-  inventory?: InventoryModule;
+  factSheet?: Table;
 
   /**
    * Layout Images — `array`
@@ -470,16 +470,6 @@ export type Figure = {
   media?: Media;
 };
 
-export type TableRow = {
-  _type: "tableRow";
-  /**
-   * Cells — `array`
-   *
-   *
-   */
-  cells?: Array<SanityKeyed<string>>;
-};
-
 export type Media = {
   _type: "media";
   /**
@@ -595,11 +585,11 @@ export type InventoryModule = {
   headers?: Array<SanityKeyed<string>>;
 
   /**
-   * Rows — `array`
+   * Rows — `table`
    *
    *
    */
-  rows?: Array<SanityKeyed<TableRow>>;
+  rows?: Table;
 };
 
 export type BlockContent = Array<
@@ -717,3 +707,10 @@ export type Documents =
   | PropertyType
   | Unit
   | SiteSettings;
+
+/**
+ * This interface is a stub. It was referenced in your sanity schema but
+ * the definition was not actually found. Future versions of
+ * sanity-codegen will let you type this explicity.
+ */
+type Table = any;

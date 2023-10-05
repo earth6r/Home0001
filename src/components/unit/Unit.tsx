@@ -9,7 +9,8 @@ import { BtnScrollToTop } from '@components/btns/BtnScrollToTop'
 import { HubspotForm } from '@components/form'
 import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { AccordionModal } from '@components/accordion'
-import { FactSheet } from '@components/fact-sheet'
+// import { FactSheet } from '@components/fact-sheet'
+import { SanityTable } from '@components/sanity/table'
 
 export const Unit: FC<UnitElProps> = ({ accordions, className }) => {
   const { state } = useContext(HomeContext)
@@ -55,7 +56,10 @@ export const Unit: FC<UnitElProps> = ({ accordions, className }) => {
             </div>
           </div>
 
-          <FactSheet unit={unit} className="pr-menu md:pr-0" />
+          {/* <FactSheet unit={unit} className="pr-menu md:pr-0" /> */}
+          {unit?.factSheet?.rows && (
+            <SanityTable table={unit.factSheet} className="pr-menu md:pr-0" />
+          )}
 
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (
             <ImageCarousel slides={unit?.layoutImages} className="w-full" />

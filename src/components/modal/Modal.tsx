@@ -9,7 +9,7 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
-    <div className="z-50 fixed top-4 right-4 md:p-10 md:top-10 md:right-10">
+    <div className="z-50 fixed md:p-10 top-10 right-10">
       <button onClick={onClose}>
         <IconX className="w-[16px] md:w-[40px] h-[16px] md:h-[40px] stroke-2 md:stroke-1" />
       </button>
@@ -36,7 +36,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => (
         className="fixed inset-0 flex items-center justify-center bg-[#00000066] bg-opacity-75 z-0"
         onClick={onClose}
       ></div>
-      <div className="fixed inset-0 flex w-full min-h-full items-center justify-center p-10">
+      <div className="fixed inset-0 flex w-full min-h-full items-center justify-center md:p-10">
         <Dialog.Panel className="block w-full h-full overflow-scroll bg-white z-modal">
           <div
             className="relative w-full h-full"

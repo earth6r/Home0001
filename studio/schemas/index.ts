@@ -21,7 +21,6 @@ import citiesBlock from './blocks/cities-block'
 import property from './documents/property'
 import unit from './documents/unit'
 import inventoryModule from './modules/inventory-module'
-import tableRow from './objects/table-row'
 import propertyType from './documents/property-type'
 import newsletterBlock from './blocks/newsletter-block'
 import tooltip from './objects/tooltip'
@@ -34,7 +33,6 @@ export const schemaTypes = [
   coordinates,
   cta,
   figure,
-  tableRow,
   media,
   menuItem,
   seo,

@@ -76,10 +76,16 @@ export default {
       title: 'Details',
       type: 'richText',
     },
+    // {
+    //   name: 'inventory',
+    //   title: 'Inventory',
+    //   type: 'inventoryModule',
+    // },
     {
-      name: 'inventory',
-      title: 'Inventory',
-      type: 'inventoryModule',
+      name: 'factSheet',
+      title: 'Fact Sheet',
+      type: 'table',
+      options: { collapsable: true, collapsed: true },
     },
     {
       name: 'layoutImages',

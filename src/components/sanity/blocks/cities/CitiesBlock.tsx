@@ -41,6 +41,33 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
     })
   }
 
+  const dispatchProperty = (
+    cityId: string,
+    property: KeyedProperty,
+    propertySlug?: string
+  ) => {
+    dispatch({
+      ...state,
+      type: 'SET_PROPERTY',
+      payload: {
+        cityId: cityId,
+        property,
+        propertySlug,
+      },
+    })
+  }
+
+  const dispatchUnit = (unit: KeyedUnit, title?: string) => {
+    dispatch({
+      ...state,
+      type: 'SET_UNIT',
+      payload: {
+        unit: unit,
+        unitSlug: title,
+      },
+    })
+  }
+
   const dispatchReset = () => {
     dispatch({
       type: 'RESET_HOME',
@@ -58,13 +85,8 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
       router.push(`?city=${title}`, undefined, { shallow: true })
   }
 
-  const updateProperty = (
-    cityId: string,
-    property: KeyedProperty,
-    title?: string
-  ) => {
+  const updateProperty = (title?: string) => {
     const slugifiedTitle = title && slugify(title, { lower: true })
-    dispatchHome(cityId, property, slugifiedTitle)
     updatePath(slugifiedTitle)
   }
 
@@ -103,13 +125,19 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
         unitQuery as string
       )
 
-      dispatchHome(
-        activeCity._id,
-        property,
-        cityQuery as string,
-        activeUnit,
-        unitQuery as string
-      )
+      if (cityQuery !== state?.property?.cityId && !activeUnit && !state.unit) {
+        dispatchProperty(activeCity._id, property, cityQuery as string)
+      } else if (cityQuery === state?.property?.cityId && activeUnit) {
+        dispatchUnit(activeUnit, unitQuery as string)
+      } else {
+        dispatchHome(
+          activeCity._id,
+          property,
+          cityQuery as string,
+          activeUnit,
+          unitQuery as string
+        )
+      }
     } else {
       // just reset if path has been changed and no queries ~ JLM
       dispatchReset()
@@ -137,7 +165,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                   <button
                     disabled={!active || !property}
                     onClick={() => {
-                      property && updateProperty(_id, property, title)
+                      property && updateProperty(title)
                       sendGoogleEvent(`click_${title}_button`)
                       sendHubspotEvent(`clicked ${title}`, 'clicked')
                     }}

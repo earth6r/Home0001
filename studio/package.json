@@ -17,6 +17,7 @@
     "@sanity/components": "^2.14.0",
     "@sanity/eslint-config-studio": "^3.0.1",
     "@sanity/production-preview": "^2.35.3",
+    "@sanity/table": "^1.0.1",
     "eslint": "^8.49.0",
     "lodash": "^4.17.21",
     "prop-types": "^15.7",

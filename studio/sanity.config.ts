@@ -3,6 +3,7 @@ import { schemaTypes } from './schemas'
 import { deskTool } from 'sanity/desk'
 import { vercelDeployTool } from 'sanity-plugin-vercel-deploy'
 import { media } from 'sanity-plugin-media'
+import { table } from '@sanity/table'
 import deskStructure, { getDefaultDocumentNode } from './parts/desk-structure'
 
 export default defineConfig({
@@ -17,6 +18,7 @@ export default defineConfig({
     }),
     vercelDeployTool(),
     media(),
+    table(),
   ],
   schema: {
     types: schemaTypes,

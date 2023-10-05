@@ -16,8 +16,7 @@ export default {
     {
       name: 'rows',
       title: 'Rows',
-      type: 'array',
-      of: [{ type: 'tableRow' }],
+      type: 'table',
     },
   ],
   options: {

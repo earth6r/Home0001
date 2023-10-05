@@ -45,8 +45,6 @@ type SetHomeAction = {
   payload: homePayloadType
 }
 
-// we are not currently using this but would be useful once
-// there are more than one properties per city ~ JLM 10/4/23
 type SetPropertyAction = {
   type: 'SET_PROPERTY'
   payload: homePayloadType
@@ -113,6 +111,7 @@ export const reducer = (
       }
     case ActionTypes.RESET_HOME:
       return {
+        ...state,
         property: {
           cityId: undefined,
         },
