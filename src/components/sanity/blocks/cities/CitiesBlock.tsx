@@ -6,7 +6,7 @@ import { HomeContext } from '@contexts/home'
 import { Property } from '@components/property'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
-import type { KeyedUnit } from '@components/unit'
+import type { KeyedUnitProps } from '@components/unit'
 import { Unit } from '@components/unit'
 import { sendGoogleEvent, scrollToEl, sendHubspotEvent } from '@lib/util'
 
@@ -25,7 +25,7 @@ export const CitiesBlockComponent: FC<CitiesBlockProps> = ({
     cityId: string,
     property: KeyedProperty,
     propertySlug?: string,
-    unit?: KeyedUnit,
+    unit?: KeyedUnitProps,
     unitSlug?: string
   ) => {
     dispatch({
@@ -57,7 +57,7 @@ export const CitiesBlockComponent: FC<CitiesBlockProps> = ({
     })
   }
 
-  const dispatchUnit = (unit: KeyedUnit, title?: string) => {
+  const dispatchUnit = (unit: KeyedUnitProps, title?: string) => {
     dispatch({
       ...state,
       type: 'SET_UNIT',
@@ -190,15 +190,15 @@ export const CitiesBlockComponent: FC<CitiesBlockProps> = ({
       {state.property?._id && (
         <div ref={propertyRef} className="md:grid md:grid-cols-3 md:pr-menu">
           <Property
-            className="md:col-start-2 md:col-span-1"
             property={state.property}
+            className="md:col-start-2 md:col-span-1"
           />
         </div>
       )}
 
       {state.unit?._id && (
         <div ref={unitRef}>
-          <Unit accordions={howItWorksContent} />
+          <Unit unit={state.unit} accordions={howItWorksContent} />
         </div>
       )}
     </Block>

@@ -1,12 +1,6 @@
 import { KeyedPropertyProps, PropertyContentProps } from '@components/property'
-import { KeyedUnit as KeyedUnitProps } from '@components/unit'
+import { UnitContentProps } from '@components/unit'
 import React, { createContext, useReducer } from 'react'
-
-interface UnitContentProps
-  extends Omit<
-    KeyedUnitProps,
-    '_type' | '_key' | '_ref' | '_createdAt' | '_updatedAt' | '_rev'
-  > {}
 
 type homePayloadType = {
   cityId?: string

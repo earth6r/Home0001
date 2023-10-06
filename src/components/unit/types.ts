@@ -1,47 +1,52 @@
 import { HTMLAttributes } from 'react'
 import type {
   Accordion,
+  Media,
   PropertyType,
+  RichText,
   SanityKeyed,
   SanityKeyedReference,
-  Unit,
+  SanityReference,
+  Unit as UnitProps,
 } from '@studio/gen/sanity-schema'
+import { Property, Table } from 'schema-dts'
 
 export interface KeyedPropertyType extends SanityKeyedReference<PropertyType> {
   typeTitle?: string
   typeValue?: string
 }
 
-export interface UnitProps
-  extends Omit<HTMLAttributes<HTMLElement>, 'property'>,
-    Unit {
+export interface UnitContentProps
+  extends Omit<KeyedUnitProps, '_type' | '_key' | '_ref'> {}
+
+export interface KeyedUnitProps
+  extends SanityKeyedReference<UnitProps>,
+    Omit<HTMLAttributes<HTMLElement>, 'property'> {
+  _id?: string
+  title?: string
+  available?: boolean
+  property?: SanityReference<Property>
+  propertyType?: KeyedPropertyType
+  price?: string
+  area?: string
+  amenities?: RichText
+  headlineImage?: Media
+  photographs?: Array<SanityKeyed<Media>>
+  details?: RichText
+  factSheet?: any
+  layoutImages?: Array<SanityKeyed<Media>>
+  moreInfo?: RichText
+}
+
+export interface UnitElProps
+  extends Omit<KeyedUnitProps, '_type' | '_key' | '_ref' | 'property'>,
+    HTMLAttributes<HTMLElement> {
+  unit?: UnitContentProps
   accordions?: SanityKeyed<Accordion>[]
   propertyType?: KeyedPropertyType
 }
 
-export interface UnitElProps
-  extends Omit<
-    KeyedUnit,
-    | '_type'
-    | '_key'
-    | '_ref'
-    | '_createdAt'
-    | '_rev'
-    | '_updatedAtts'
-    | '_updatedAt'
-  > {}
-
-export interface KeyedUnit
-  extends SanityKeyedReference<UnitProps>,
-    Omit<UnitProps, '_type' | '_id'> {
-  _id?: string
-  title?: string
-  available?: boolean
-  price?: string
-  area?: string
-}
-
 export interface UnitListProps extends HTMLAttributes<HTMLElement> {
-  unitList?: KeyedUnit[]
-  unit?: KeyedUnit
+  unitList?: KeyedUnitProps[]
+  unit?: KeyedUnitProps
 }

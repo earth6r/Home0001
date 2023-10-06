@@ -5,11 +5,11 @@ import type {
   SanityKeyedReference,
 } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
-import { KeyedUnit } from '@components/unit'
+import { KeyedUnitProps } from '@components/unit'
 
 export interface KeyedProperty extends SanityKeyedReference<Property> {
   _id?: string
-  unitsList?: KeyedUnit[]
+  unitsList?: KeyedUnitProps[]
 }
 
 export interface KeyedCity extends SanityKeyedReference<City> {

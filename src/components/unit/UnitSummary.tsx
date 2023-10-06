@@ -1,7 +1,7 @@
 import { type FC, useContext } from 'react'
 import { HomeContext } from '@contexts/home'
 import classNames from 'classnames'
-import { KeyedUnit, UnitListProps } from './types'
+import { KeyedUnitProps, UnitListProps } from './types'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import { sendGoogleEvent, sendHubspotEvent } from '@lib/util'
@@ -11,7 +11,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
 
-  const dispatchUnit = (unit: KeyedUnit, title?: string) => {
+  const dispatchUnit = (unit: KeyedUnitProps, title?: string) => {
     dispatch({
       ...state,
       type: 'SET_UNIT',
@@ -30,7 +30,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
     }
   }
 
-  const updateUnit = (unit: KeyedUnit, title?: string) => {
+  const updateUnit = (unit: KeyedUnitProps, title?: string) => {
     if (unit._id === state.unit?._id) return
     const slugifiedTitle = title && slugify(title, { lower: true })
     dispatchUnit(unit, slugifiedTitle)

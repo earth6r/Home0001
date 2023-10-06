@@ -1,5 +1,5 @@
 import { type HTMLAttributes } from 'react'
-import { KeyedUnit as KeyedUnitProps } from '@components/unit'
+import { KeyedUnitProps } from '@components/unit'
 import type {
   Property as PropertyProps,
   RichText as RichTextProps,
