@@ -6,6 +6,8 @@ const nextConfig = {
   images: {
     domains: ['cdn.sanity.io'],
     loader: 'custom',
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   eslint: {
     dirs: ['lib', 'pages', 'styles'],

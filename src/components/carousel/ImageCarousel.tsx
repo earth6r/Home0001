@@ -18,12 +18,13 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt }) => {
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className="block relative w-full h-full overflow-hidden">
       <SanityMedia
         image={image}
         imageProps={{
           alt,
-          style: { maxWidth: '100%', height: 'auto' },
+          sizes: '100vw',
+          style: { width: '100%', height: 'auto' },
         }}
       />
     </div>
