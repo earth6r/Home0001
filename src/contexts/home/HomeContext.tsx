@@ -1,12 +1,6 @@
-import { KeyedPropertyProps } from '@components/property'
+import { KeyedPropertyProps, PropertyContentProps } from '@components/property'
 import { KeyedUnit as KeyedUnitProps } from '@components/unit'
 import React, { createContext, useReducer } from 'react'
-
-interface PropertyContentProps
-  extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref'> {
-  cityId?: string
-  unitsList?: KeyedUnitProps[]
-}
 
 interface UnitContentProps
   extends Omit<

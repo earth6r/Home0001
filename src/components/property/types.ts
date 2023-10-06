@@ -1,5 +1,5 @@
 import { type HTMLAttributes } from 'react'
-import { KeyedUnit } from '@components/unit'
+import { KeyedUnit as KeyedUnitProps } from '@components/unit'
 import type {
   Property as PropertyProps,
   RichText as RichTextProps,
@@ -8,9 +8,16 @@ import type {
   SanityReference,
 } from '@studio/gen/sanity-schema'
 import { City } from 'schema-dts'
+import { KeyedProperty } from '@components/sanity/blocks/cities/types'
 
 export interface KeyedLocationProps extends SanityReference<City> {
   title?: string
+}
+
+export interface PropertyContentProps
+  extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref'> {
+  cityId?: string
+  unitsList?: KeyedUnitProps[]
 }
 
 export interface KeyedPropertyProps
@@ -26,9 +33,11 @@ export interface KeyedPropertyProps
   }
   coordinates?: { lat: string; long: string }
   description?: RichTextProps
-  unitsList?: KeyedUnit[]
+  unitsList?: KeyedUnitProps[]
   location?: KeyedLocationProps
 }
 export interface PropertyElProps
-  extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref'>,
-    HTMLAttributes<HTMLElement> {}
+  extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref' | 'property'>,
+    Omit<HTMLAttributes<HTMLElement>, 'property'> {
+  property?: PropertyContentProps
+}

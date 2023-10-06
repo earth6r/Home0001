@@ -187,11 +187,12 @@ export const CitiesBlockComponent: FC<CitiesBlockProps> = ({
           })}
       </ul>
 
-      {/* Probably overkill to rely on context for everything but 
-      will be useful down the line and cleaner for the moment ~ JLM */}
       {state.property?._id && (
         <div ref={propertyRef} className="md:grid md:grid-cols-3 md:pr-menu">
-          <Property className="md:col-start-2 md:col-span-1" />
+          <Property
+            className="md:col-start-2 md:col-span-1"
+            property={state.property}
+          />
         </div>
       )}
 

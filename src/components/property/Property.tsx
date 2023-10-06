@@ -1,15 +1,14 @@
-import { type FC, useContext, memo } from 'react'
+import { type FC, memo } from 'react'
 import classNames from 'classnames'
-import { HomeContext } from '@contexts/home'
 import { RichText, SanityMedia } from '@components/sanity'
 import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/unit'
 import { PropertyElProps } from './types'
 
-export const PropertyComponent: FC<PropertyElProps> = ({ className }) => {
-  const { state } = useContext(HomeContext)
-  const property = state.property
-
+export const PropertyComponent: FC<PropertyElProps> = ({
+  property,
+  className,
+}) => {
   return (
     <div className={classNames(className)}>
       <div className="block relative mt-10 md:mt-20">
