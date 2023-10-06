@@ -4,14 +4,11 @@ import classNames from 'classnames'
 import { KeyedUnit, UnitListProps } from './types'
 import UnitSummary from './UnitSummary'
 
-export const UnitsList: FC<UnitListProps> = ({ className }) => {
-  const { state } = useContext(HomeContext)
-  const units = state.property?.unitsList
-
+export const UnitsList: FC<UnitListProps> = ({ unitList, className }) => {
   return (
     <ul className={classNames(className)}>
-      {units &&
-        units.map((unit: KeyedUnit) => {
+      {unitList &&
+        unitList.map((unit: KeyedUnit) => {
           return <UnitSummary key={unit._id} unit={unit} />
         })}
     </ul>

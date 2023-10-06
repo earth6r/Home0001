@@ -1,4 +1,4 @@
-import { type FC, useContext, useState, useEffect, useRef } from 'react'
+import { type FC, useContext, useState, useEffect, useRef, memo } from 'react'
 import { HomeContext } from '@contexts/home'
 import { ImageCarousel } from '@components/carousel'
 import { RichText } from '@components/sanity'
@@ -12,7 +12,7 @@ import { AccordionModal } from '@components/accordion'
 // import { FactSheet } from '@components/fact-sheet'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 
-export const Unit: FC<UnitElProps> = ({ accordions, className }) => {
+export const UnitComponent: FC<UnitElProps> = ({ accordions, className }) => {
   const { state } = useContext(HomeContext)
   const unit = state.unit
   const formRef = useRef(null)
@@ -133,5 +133,7 @@ export const Unit: FC<UnitElProps> = ({ accordions, className }) => {
     </div>
   )
 }
+
+export const Unit = memo(UnitComponent)
 
 export default Unit

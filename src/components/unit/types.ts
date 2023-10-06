@@ -42,5 +42,6 @@ export interface KeyedUnit
 }
 
 export interface UnitListProps extends HTMLAttributes<HTMLElement> {
+  unitList?: KeyedUnit[]
   unit?: KeyedUnit
 }

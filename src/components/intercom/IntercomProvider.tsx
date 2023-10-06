@@ -27,7 +27,6 @@ export const IntercomProvider: React.FC<ProviderProps> = ({ children }) => {
           (router.query.city && router.query.city.length > 0)
         ) {
           // shows Intercom
-          console.log('here')
           updateIntercom(false)
         } else {
           // does not show Intercom
@@ -41,7 +40,7 @@ export const IntercomProvider: React.FC<ProviderProps> = ({ children }) => {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [router.events, router.pathname, router.query.city])
+  }, [router.events, router.asPath, router.query.city])
 
   return <>{children}</>
 }

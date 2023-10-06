@@ -1,4 +1,4 @@
-import { type FC, useContext } from 'react'
+import { type FC, useContext, memo } from 'react'
 import classNames from 'classnames'
 import { HomeContext } from '@contexts/home'
 import { RichText, SanityMedia } from '@components/sanity'
@@ -6,7 +6,7 @@ import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/unit'
 import { PropertyElProps } from './types'
 
-export const Property: FC<PropertyElProps> = ({ className }) => {
+export const PropertyComponent: FC<PropertyElProps> = ({ className }) => {
   const { state } = useContext(HomeContext)
   const property = state.property
 
@@ -45,12 +45,17 @@ export const Property: FC<PropertyElProps> = ({ className }) => {
         {property?.unitsList && (
           <>
             <div className="mt-9">Choose an available 0001 home here:</div>
-            <UnitsList className="mx-[-1rem] animate-in flex flex-col gap-3 mt-7" />
+            <UnitsList
+              className="mx-[-1rem] animate-in flex flex-col gap-3 mt-7"
+              unitList={property?.unitsList}
+            />
           </>
         )}
       </div>
     </div>
   )
 }
+
+export const Property = memo(PropertyComponent)
 
 export default Property

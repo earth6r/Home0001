@@ -1,20 +1,19 @@
 import classNames from 'classnames'
-import { useContext, type FC, type HTMLProps } from 'react'
+import { type FC, type HTMLProps } from 'react'
 import type { FooterProps } from './types'
 import { SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
-import { HomeContext } from '@contexts/home'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   mainMenu,
   path,
+  query,
 }) => {
-  const { state } = useContext(HomeContext)
   const year = new Date().getFullYear()
   return (
     <footer
       className={classNames(
-        state.property?.cityId || path !== '/' ? '' : 'hidden',
+        query?.city || path !== '/' ? '' : 'hidden',
         'px-x mt-20 md:mt-y'
       )}
     >

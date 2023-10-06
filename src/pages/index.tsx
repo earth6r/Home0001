@@ -1,5 +1,4 @@
 import groq from 'groq'
-import { useContext } from 'react'
 import type { InferGetStaticPropsType, GetStaticProps, NextPage } from 'next'
 import type { Page as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'

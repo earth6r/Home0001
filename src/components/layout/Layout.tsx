@@ -17,7 +17,7 @@ interface LayoutProps {
 }
 
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
-  const { asPath } = useRouter()
+  const { asPath, query } = useRouter()
 
   return (
     <>
@@ -42,6 +42,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <main className="flex-auto">{children}</main>
         <Footer
           path={asPath}
+          query={query}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
       </div>

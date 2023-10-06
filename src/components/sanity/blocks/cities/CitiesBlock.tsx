@@ -1,4 +1,4 @@
-import { type FC, useContext, useEffect, useRef } from 'react'
+import { type FC, useContext, useEffect, useRef, memo } from 'react'
 import classNames from 'classnames'
 import type { CitiesBlockProps, KeyedProperty } from './types'
 import { Block } from '@components/sanity'
@@ -10,7 +10,7 @@ import type { KeyedUnit } from '@components/unit'
 import { Unit } from '@components/unit'
 import { sendGoogleEvent, scrollToEl, sendHubspotEvent } from '@lib/util'
 
-export const CitiesBlock: FC<CitiesBlockProps> = ({
+export const CitiesBlockComponent: FC<CitiesBlockProps> = ({
   headers,
   citiesList,
   howItWorksContent,
@@ -203,5 +203,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
     </Block>
   )
 }
+
+export const CitiesBlock = memo(CitiesBlockComponent)
 
 export default CitiesBlock
