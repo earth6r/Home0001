@@ -20,12 +20,6 @@ export default {
       of: [{ type: 'reference', to: [{ type: 'city' }] }],
       validation: (Rule: Rule): Rule => Rule.required().min(1),
     },
-    {
-      name: 'howItWorksContent',
-      title: 'How It Works Content',
-      type: 'array',
-      of: [{ type: 'accordion', title: 'Accordion' }],
-    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Cities block' }),

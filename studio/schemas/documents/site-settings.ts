@@ -9,12 +9,16 @@ export default {
   groups: [
     {
       name: 'global',
-      title: 'Global Settings',
+      title: 'Meta Settings',
       default: true,
     },
     {
       name: 'header',
       title: 'Header Settings',
+    },
+    {
+      name: 'content',
+      title: 'Global Content',
     },
   ],
   fields: [
@@ -52,6 +56,14 @@ export default {
       description: 'Select menu for main navigation',
       to: { type: 'menus' },
       group: 'header',
+    },
+    {
+      name: 'howItWorksContent',
+      title: 'How It Works Accordions',
+      description: 'Currently shows in how to modal on unit',
+      type: 'array',
+      of: [{ type: 'accordion', title: 'Accordion' }],
+      group: 'content',
     },
   ],
   // eslint-disable-next-line camelcase

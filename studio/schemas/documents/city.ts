@@ -21,7 +21,7 @@ export default {
       validation: (Rule: Rule): Rule => Rule.required(),
     },
     {
-      title: 'Propertys',
+      title: 'Properties',
       name: 'properties',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'property' }] }],

@@ -373,6 +373,13 @@ export interface SiteSettings extends SanityDocument {
    * Select menu for main navigation
    */
   mainMenu?: SanityReference<Menus>;
+
+  /**
+   * How It Works Content — `array`
+   *
+   *
+   */
+  howItWorksContent?: Array<SanityKeyed<Accordion>>;
 }
 
 export type Link = {
@@ -625,13 +632,6 @@ export type CitiesBlock = {
    *
    */
   citiesList?: Array<SanityKeyedReference<City>>;
-
-  /**
-   * How It Works Content — `array`
-   *
-   *
-   */
-  howItWorksContent?: Array<SanityKeyed<Accordion>>;
 };
 
 export type NewsletterBlock = {
