@@ -130,10 +130,10 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                 <>
                   <p className="mt-4">Where do you want to live?</p>
                   {LOCATIONS.map(({ label, name }) => (
-                    <div className="mb-4" key={name}>
+                    <div className="mb-1 md:mb-4" key={name}>
                       <input type="checkbox" name={name} id={name} />
                       <label
-                        className="text-left ml-xhalf cursor-pointer"
+                        className="text-left ml-x md:ml-xhalf cursor-pointer"
                         htmlFor={name}
                       >
                         {label}
@@ -148,7 +148,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                       onChange={() => setHiddenInputShown(!hiddenInputShown)}
                     />
                     <label
-                      className="text-left ml-xhalf cursor-pointer"
+                      className="text-left ml-x md:ml-xhalf cursor-pointer"
                       htmlFor={'else'}
                     >
                       {`Somewhere else`}
@@ -168,7 +168,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
             </div>
             <div
               className={classNames(
-                formType === 'unit' ? 'mt-10' : 'mt-6',
+                formType === 'unit' ? 'mt-10' : 'mt-1 md:mt-6',
                 'relative flex flex-col gap-2 md:gap-4'
               )}
             >

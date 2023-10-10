@@ -22,7 +22,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
         'md:grid md:grid-cols-3 relative pr-menu'
       )}
     >
-      <div className="relative w-[100vw] -left-x bg-whitesmoke z-behind"></div>
+      <div className="absolute md:relative w-[100vw] h-full -left-x bg-whitesmoke z-behind"></div>
       <div className="py-12">
         {header && <h2 className="pb-ylg uppercase">{header}</h2>}
 

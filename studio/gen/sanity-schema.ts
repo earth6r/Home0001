@@ -59,7 +59,7 @@ export interface City extends SanityDocument {
   active?: boolean;
 
   /**
-   * Propertys — `array`
+   * Properties — `array`
    *
    *
    */
@@ -375,9 +375,9 @@ export interface SiteSettings extends SanityDocument {
   mainMenu?: SanityReference<Menus>;
 
   /**
-   * How It Works Content — `array`
+   * How It Works Accordions — `array`
    *
-   *
+   * Currently shows in how to modal on unit
    */
   howItWorksContent?: Array<SanityKeyed<Accordion>>;
 }

@@ -25,7 +25,9 @@ export const Accordion: FC<AccordionProps> = ({ header, text, className }) => {
         {({ open }) => (
           <>
             <Disclosure.Button
-              className={'flex justify-between items-center w-full p-4'}
+              className={
+                'flex justify-between text-left items-center w-full p-4'
+              }
             >
               <h2 className="uppercase">{header}</h2>
               {open ? (
@@ -48,7 +50,10 @@ export const Accordion: FC<AccordionProps> = ({ header, text, className }) => {
             >
               <Disclosure.Panel>
                 {text && (
-                  <RichText blocks={text} className="pt-2 pl-4 pr-x pb-5" />
+                  <RichText
+                    blocks={text}
+                    className="pt-2 pl-4 pr-10 md:pr-x pb-5"
+                  />
                 )}
               </Disclosure.Panel>
             </Transition>

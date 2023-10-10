@@ -70,7 +70,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
             </p>
             <p className="col-start-2 text-right">{unit.price}</p>
           </div>
-          <div className="mt-4 mb-2 text-left">
+          <div className="mt-4 mb-2 text-left rich-text">
             {unit.area && (
               <p className="mb-5">
                 {unit.area}
