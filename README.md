@@ -60,6 +60,7 @@ the below example:
 - Save the file and generate the Sanity schema using either
   `yarn generate:sanity` or just `yarn dev` which runs the generate script as
   well as dev server
+- Add type definition to types.ts file for all References
 - Add the new object property to the frontend, in this case in appropriate
   component in `src/components/unit/`
 

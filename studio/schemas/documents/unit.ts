@@ -98,6 +98,11 @@ export default {
       ],
     },
     {
+      name: 'reserveFormCopy',
+      title: 'Reservation Form Info',
+      type: 'richText',
+    },
+    {
       name: 'moreInfo',
       title: 'More Info',
       type: 'richText',
