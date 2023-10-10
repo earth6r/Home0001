@@ -38,6 +38,8 @@ const Page: NextPage<PageProps> = ({
   })
   const citiesBlock: any = filteredBlocks && filteredBlocks[0]
 
+  console.log('siteSettings: ', siteSettings)
+
   // handle scrolling after state change
   useEffect(() => {
     if (state.unit?._id && unitRef.current) {
@@ -114,7 +116,7 @@ const Page: NextPage<PageProps> = ({
         },
       })
     }
-  }, [router.asPath])
+  }, [router.asPath, router.query])
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <article>
@@ -128,7 +130,7 @@ const Page: NextPage<PageProps> = ({
           {state.property?._id && (
             <div
               ref={propertyRef}
-              className="md:grid md:grid-cols-3 md:pr-menu"
+              className="px-x md:px-0 md:grid md:grid-cols-3 md:pr-menu"
             >
               <Property
                 property={state.property}
@@ -141,7 +143,7 @@ const Page: NextPage<PageProps> = ({
             <div ref={unitRef}>
               <Unit
                 unit={state.unit}
-                accordions={siteSettings.howItWorksContent}
+                accordions={siteSettings?.howItWorksContent}
               />
             </div>
           )}

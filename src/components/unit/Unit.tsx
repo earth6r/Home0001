@@ -32,7 +32,7 @@ export const UnitComponent: FC<UnitElProps> = ({
 
   return (
     <div className={className}>
-      <div className="md:grid md:grid-cols-3 md:pr-menu">
+      <div className="md:grid md:grid-cols-3 md:pr-menu px-x md:px-0">
         <div className="md:col-start-2 md:col-span-1">
           <div className="flex flex-col relative mt-10">
             {unit?.photographs && unit?.photographs.length > 0 && (
@@ -96,8 +96,8 @@ export const UnitComponent: FC<UnitElProps> = ({
           ref={formRef}
           className="md:grid md:grid-cols-3 relative pr-10 md:pr-menu animate-fadeIn opacity-0"
         >
-          <div className="w-screen h-full -ml-4 md:-ml-10 absolute bg-whitesmoke z-behind"></div>
-          <div className="md:col-start-2 md:col-span-1 py-12 z-above">
+          <div className="w-screen h-full md:-ml-10 absolute bg-whitesmoke z-behind"></div>
+          <div className="md:col-start-2 md:col-span-1 pl-x md:pl-0 pr-menu md:pr-0 py-12 z-above">
             {unit?.title && (
               <div className="rich-text pb-4">
                 {unit.reserveFormCopy && (
@@ -110,7 +110,7 @@ export const UnitComponent: FC<UnitElProps> = ({
           </div>
         </div>
       ) : (
-        <div className="md:grid md:grid-cols-3 pr-menu">
+        <div className="md:grid md:grid-cols-3 pl-x md:pl-0 pr-menu">
           <div className="md:col-start-2 md:col-span-1 rich-text">
             <p>
               {`Not the home for you? `}
@@ -119,7 +119,7 @@ export const UnitComponent: FC<UnitElProps> = ({
               </Link>
               {` for updates on new buildings in new locations.`}
             </p>
-            <BtnScrollToTop className="mt-9" />
+            <BtnScrollToTop className="mt-[50px]" />
           </div>
         </div>
       )}
