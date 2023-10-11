@@ -18,6 +18,8 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               imageProps={{
                 alt: property?.image.alt || 'Building image',
                 layout: 'responsive',
+                quality: 15,
+                lqip: property?.image?.image?.asset.metadata.lqip,
               }}
               {...property?.image}
             />

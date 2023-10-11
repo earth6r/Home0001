@@ -5,15 +5,17 @@ import { Navigation } from 'swiper'
 import { IconLeftArrow, IconRightArrow } from '@components/icons'
 import classNames from 'classnames'
 import { SanityKeyed } from 'sanity-codegen'
-import { Media } from '@studio/gen/sanity-schema'
+import { UnitAssetProps } from '@components/unit'
 
-export interface ImageSlideProps extends SanityMediaProps {
+export interface ImageSlideProps
+  extends UnitAssetProps,
+    HTMLAttributes<HTMLElement> {
   _key?: string
   alt: string
 }
 
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
-  slides?: SanityKeyed<Media>[]
+  slides?: SanityKeyed<UnitAssetProps>[]
 }
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt }) => {
@@ -23,8 +25,9 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt }) => {
         image={image}
         imageProps={{
           alt,
-          sizes: '100vw',
+          quality: 2,
           style: { width: '100%', height: 'auto' },
+          lqip: image?.asset?.metadata.lqip,
         }}
       />
     </div>

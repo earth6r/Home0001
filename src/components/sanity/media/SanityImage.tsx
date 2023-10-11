@@ -4,6 +4,7 @@ import { useNextSanityImage } from 'next-sanity-image'
 import type { SanityImageObject } from '@sanity/image-url/lib/types/types'
 import type { SanityImageProps as SanityImagePropsType } from './types'
 import { client } from '@studio/lib'
+import { SanityImageAsset, SanityReference } from 'sanity-codegen'
 
 interface SanityImageProps extends SanityImageObject {
   props: SanityImagePropsType
@@ -16,7 +17,15 @@ export const SanityImage: FC<SanityImageProps> = ({
   props,
 }) => {
   const image = useNextSanityImage(client, asset)
-  return image ? <NextImage {...{ ...image, ...props, className }} /> : null
+  const placeholder = props?.lqip ? 'blur' : 'empty'
+
+  return image ? (
+    <NextImage
+      placeholder={placeholder}
+      blurDataURL={props?.lqip}
+      {...{ ...image, ...props, className }}
+    />
+  ) : null
 }
 
 export default SanityImage

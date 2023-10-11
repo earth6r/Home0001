@@ -1,15 +1,25 @@
 import { HTMLAttributes } from 'react'
 import type {
   Accordion,
-  Media,
   PropertyType,
   RichText,
+  SanityImageAsset,
   SanityKeyed,
   SanityKeyedReference,
   SanityReference,
   Unit as UnitProps,
 } from '@studio/gen/sanity-schema'
-import { Property, Table } from 'schema-dts'
+import { Property } from 'schema-dts'
+
+export interface UnitAssetProps {
+  _type?: 'image'
+  asset?: SanityReference<SanityImageAsset>
+  alt: string
+  image?: {
+    _type: 'image'
+    asset: SanityImageAsset
+  }
+}
 
 export interface KeyedPropertyType extends SanityKeyedReference<PropertyType> {
   typeTitle?: string
@@ -30,11 +40,11 @@ export interface KeyedUnitProps
   price?: string
   area?: string
   amenities?: RichText
-  headlineImage?: Media
-  photographs?: Array<SanityKeyed<Media>>
+  headlineImage?: UnitAssetProps
+  photographs?: Array<SanityKeyed<UnitAssetProps>>
   details?: RichText
   factSheet?: any
-  layoutImages?: Array<SanityKeyed<Media>>
+  layoutImages?: Array<SanityKeyed<UnitAssetProps>>
   moreInfo?: RichText
 }
 

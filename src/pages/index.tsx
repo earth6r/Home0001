@@ -38,8 +38,6 @@ const Page: NextPage<PageProps> = ({
   })
   const citiesBlock: any = filteredBlocks && filteredBlocks[0]
 
-  console.log('siteSettings: ', siteSettings)
-
   // handle scrolling after state change
   useEffect(() => {
     if (state.unit?._id && unitRef.current) {
