@@ -1,5 +1,5 @@
-import { type FC, HTMLAttributes, useRef } from 'react'
-import { SanityMedia, SanityMediaProps } from '@components/sanity'
+import { type FC, HTMLAttributes } from 'react'
+import { SanityMedia } from '@components/sanity'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 import { IconLeftArrow, IconRightArrow } from '@components/icons'
@@ -26,7 +26,6 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt }) => {
         imageProps={{
           alt,
           quality: 1,
-          loading: 'eager',
           style: { width: '100%', height: 'auto' },
           lqip: image?.asset?.metadata.lqip,
         }}
