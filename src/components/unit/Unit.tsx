@@ -100,17 +100,9 @@ export const UnitComponent: FC<UnitElProps> = ({
           <div className="md:col-start-2 md:col-span-1 pl-x md:pl-0 pr-menu md:pr-0 py-12 z-above">
             {unit?.title && (
               <div className="rich-text pb-4">
-                <h2 className="pb-9 uppercase">{`Join the waitlist for ${unit?.title}`}</h2>
-
-                <p className="m-0">
-                  {`${unit?.title} will be released for sale soon to buyers on the waitlist. Homebuyers will be offered this home in the order they joined.`}
-                </p>
-
-                <p>
-                  {`Once you receive an offer, you can secure it with a small deposit and will have the chance to spend a few nights in the property to see how it feels before going ahead with the purchase. The Home0001 team will be available to answer questions, help secure financing, etc.`}
-                </p>
-
-                <p>{`Join the waitlist for ${unit?.title} here:`}</p>
+                {unit.reserveFormCopy && (
+                  <RichText blocks={unit?.reserveFormCopy} />
+                )}
               </div>
             )}
 

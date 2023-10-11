@@ -25,6 +25,7 @@
     "@sanity/client": "^6.4.9",
     "@sanity/icons": "^2.0.0",
     "@sanity/image-url": "^1.0.2",
+    "@sanity/table": "^1.0.1",
     "@sanity/types": "^3.0.0",
     "@sanity/ui": "^1.0.0",
     "axios": "^1.5.1",

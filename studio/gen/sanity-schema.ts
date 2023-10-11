@@ -319,6 +319,13 @@ export interface Unit extends SanityDocument {
   layoutImages?: Array<SanityKeyed<Media>>;
 
   /**
+   * Reservation Form Info — `richText`
+   *
+   *
+   */
+  reserveFormCopy?: RichText;
+
+  /**
    * More Info — `richText`
    *
    *
