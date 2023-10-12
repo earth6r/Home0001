@@ -21,8 +21,8 @@ export const SanityImage: FC<SanityImageProps> = ({
 
   return image ? (
     <NextImage
-      placeholder="empty"
-      // blurDataURL={props?.lqip}
+      placeholder={placeholder}
+      blurDataURL={props?.lqip}
       {...{ ...image, ...props, className }}
     />
   ) : null
