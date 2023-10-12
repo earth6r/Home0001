@@ -8,7 +8,6 @@ import type {
   SanityReference,
 } from '@studio/gen/sanity-schema'
 import { City } from 'schema-dts'
-import { KeyedProperty } from '@components/sanity/blocks/cities/types'
 
 export interface KeyedLocationProps extends SanityReference<City> {
   title?: string
@@ -30,6 +29,10 @@ export interface KeyedPropertyProps
     _type: 'image'
     asset: SanityReference<SanityImageAsset>
     alt: string
+    image?: {
+      _type: 'image'
+      asset: SanityImageAsset
+    }
   }
   coordinates?: { lat: string; long: string }
   description?: RichTextProps

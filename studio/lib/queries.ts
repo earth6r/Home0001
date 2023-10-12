@@ -47,17 +47,16 @@ export const UNITS_QUERY = `
     typeTitle,
     typeValue,
   },
+  "headlineImage": headlineImage{
+    ${MEDIA_QUERY}
+  },
   "photographs": photographs[]{
     ...,
-    "media": media{
-      ${MEDIA_QUERY}
-    },
+    ${MEDIA_QUERY}
   },
   "layoutImages": layoutImages[]{
     ...,
-    "media": media{
-      ${MEDIA_QUERY}
-    },
+    ${MEDIA_QUERY}
   },
   "property": property->{
     ...,
