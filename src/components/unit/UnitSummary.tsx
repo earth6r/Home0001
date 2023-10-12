@@ -57,7 +57,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
               alt: unit.headlineImage?.alt || 'Home0001 Headline Image',
               style: { maxWidth: '100%', height: 'auto' },
               lqip: unit.headlineImage?.image?.asset.metadata.lqip,
-              quality: 15,
+              quality: 8,
             }}
           />
         </div>
