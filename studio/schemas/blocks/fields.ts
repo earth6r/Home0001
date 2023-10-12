@@ -54,4 +54,4 @@ export const idField = {
 }
 
 export const topFields = [slugField]
-export const newsletterFields = [headerField, plainTextField, idField]
+export const newsletterFields = [headerField, textField, idField]
