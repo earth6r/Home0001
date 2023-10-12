@@ -19,6 +19,7 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
 }
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt }) => {
+  console.log('image?.asset?.metadata', image?.asset?.metadata)
   return (
     <div className="block relative w-full h-full overflow-hidden">
       <SanityMedia
@@ -27,6 +28,7 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt }) => {
           alt,
           quality: 1,
           style: { width: '100%', height: 'auto' },
+          priority: true,
           lqip: image?.asset?.metadata.lqip,
         }}
       />
