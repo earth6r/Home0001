@@ -48,7 +48,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                     onClick={() => {
                       property && updateProperty(title)
                       sendGoogleEvent(`click_${title}_button`)
-                      sendHubspotEvent(`clicked ${title}`, 'clicked')
+                      // sendHubspotEvent(`clicked ${title}`, 'clicked')
                     }}
                     className={classNames(
                       state.property?.cityId === _id ? 'font-bold' : '',
