@@ -30,13 +30,13 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
       {headers &&
         headers.map(header => (
           <div key={header} className="-menu">
-            <h2 className="max-w-[390px] mobile-landing uppercase pr-10 md:pr-0 mb-12 md:mb-16">
+            <h2 className="max-w-[390px] mobile-landing uppercase pr-10 mb-12 md:mb-16">
               {header}
             </h2>
           </div>
         ))}
 
-      <ul className="mobile-landing pr-10 md:pr-menu">
+      <ul className="mobile-landing grid grid-cols-1 pr-10 md:pr-menu mb-20">
         {citiesList &&
           citiesList.map(({ _id, title, active, properties }) => {
             const property = properties && properties[0]
