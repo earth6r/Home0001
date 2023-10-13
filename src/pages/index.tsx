@@ -120,7 +120,7 @@ const Page: NextPage<PageProps> = ({
     <article>
       <BlockContent
         blocks={page?.body}
-        className="flex flex-col w-full px-x pt-page"
+        className="flex flex-col w-full px-x md:pr-0 pt-page"
       />
 
       {citiesBlock && (
@@ -128,7 +128,7 @@ const Page: NextPage<PageProps> = ({
           {state.property?._id && (
             <div
               ref={propertyRef}
-              className="px-x md:px-0 md:grid md:grid-cols-3 md:pr-menu"
+              className="px-x md:grid md:grid-cols-3 md:pr-menu"
             >
               <Property
                 property={state.property}
