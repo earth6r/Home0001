@@ -55,13 +55,14 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
           </div>
         ))}
 
-      <ul className="mobile-landing grid grid-cols-1 pr-10 md:pr-menu mb-20">
+      <ul className="max-w-[390px] grid grid-cols-1 gap-y-0 sm:gap-y-2 pr-10 md:pr-0 mb-20">
         {citiesList &&
           citiesList.map(({ _id, title, active, properties }) => {
             const property = properties && properties[0]
             if (_id)
               return (
-                <li key={_id}>
+                <li key={_id} className="text-left flex gap-2">
+                  <img src="https://ik.imagekit.io/ljqwnqnom/arrow_4KHlnGx0T.svg?updatedAt=1696980257065"></img>
                   <button
                     disabled={!active || !property}
                     onClick={() => {
@@ -71,12 +72,12 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                     }}
                     className={classNames(
                       state.property?.cityId === _id ? 'font-bold' : '',
-                      'uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
+                      'mobile-landing text-left uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
                     )}
                   >
                     <span
                       className={classNames(
-                        active && property ? 'border-bottom' : ''
+                        active && property ? 'border-bottom border-b-[3px]' : ''
                       )}
                     >
                       {title}
