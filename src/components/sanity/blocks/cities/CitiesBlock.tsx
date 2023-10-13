@@ -27,7 +27,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
 
   const cityOrder = [
     'Los Angeles',
-    'New York City',
+    'New York',
     'Paris',
     'London',
     'Berlin',
