@@ -29,14 +29,14 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
     <Block className={classNames(className)}>
       {headers &&
         headers.map(header => (
-          <div key={header} className="rich-text md:pr-menu">
-            <h2 className="uppercase pr-[40%] sm:pr-[30%] md:pr-0 mb-12 md:mb-16">
+          <div key={header} className="-menu">
+            <h2 className="max-w-[390px] mobile-landing uppercase pr-10 md:pr-0 mb-12 md:mb-16">
               {header}
             </h2>
           </div>
         ))}
 
-      <ul className="grid grid-cols-3 gap-y-16 md:gap-y-20 pr-10 md:pr-menu">
+      <ul className="mobile-landing pr-10 md:pr-menu">
         {citiesList &&
           citiesList.map(({ _id, title, active, properties }) => {
             const property = properties && properties[0]
@@ -52,7 +52,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                     }}
                     className={classNames(
                       state.property?.cityId === _id ? 'font-bold' : '',
-                      'p-5 -m-5 uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
+                      'uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
                     )}
                   >
                     <span
