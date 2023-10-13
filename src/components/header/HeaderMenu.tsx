@@ -70,7 +70,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                           {({ close }) => (
                             <SanityLink
                               text={text}
-                              onClick={close}
+                              onClick={() => setTimeout(close, 100)}
                               {...(link as SanityLinkType)}
                             />
                           )}

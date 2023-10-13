@@ -651,11 +651,11 @@ export type NewsletterBlock = {
   header?: string;
 
   /**
-   * Text — `plainText`
+   * Text — `richText`
    *
    *
    */
-  text?: PlainText;
+  text?: RichText;
 
   /**
    * Audience ID — `string`
@@ -685,11 +685,11 @@ export type WaitlistBlock = {
   header?: string;
 
   /**
-   * Text — `plainText`
+   * Text — `richText`
    *
    *
    */
-  text?: PlainText;
+  text?: RichText;
 
   /**
    * Audience ID — `string`
