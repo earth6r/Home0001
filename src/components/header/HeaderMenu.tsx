@@ -62,7 +62,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                   <Menu.Items
                     as="ul"
                     ref={items}
-                    className="container flex flex-col gap-12 w-full"
+                    className="container flex flex-col gap-12 w-full outline-none"
                   >
                     {mainMenu?.items?.map(({ _key, text, link }) => {
                       return text && link ? (
