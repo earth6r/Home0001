@@ -11,6 +11,8 @@ import { AccordionModal } from '@components/accordion'
 // import { FactSheet } from '@components/fact-sheet'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 
+const UNIT_AUDIENCE_ID = process.env.NEXT_PUBLIC_HUBSPOT_UNIT_WAITLIST_ID
+
 export const UnitComponent: FC<UnitElProps> = ({
   unit,
   accordions,
@@ -106,7 +108,7 @@ export const UnitComponent: FC<UnitElProps> = ({
               </div>
             )}
 
-            <HubspotForm formType="unit" />
+            <HubspotForm formType="unit" audienceId={UNIT_AUDIENCE_ID} />
           </div>
         </div>
       ) : (

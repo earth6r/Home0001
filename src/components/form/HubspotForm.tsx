@@ -66,6 +66,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
     if (!audienceId || !formType) return
     try {
       const result = await submitForm(data, audienceId, formType)
+      setSubmitted(true)
       setResult('success')
       setSuccessMessage(SUCCESS_COPY)
     } catch (error) {
@@ -95,7 +96,6 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                     id="first_name"
                     className="input"
                     placeholder="FIRST NAME"
-                    required
                     {...register('first_name', { required: true })}
                   />
                   <input
@@ -103,7 +103,6 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                     id="last_name"
                     className="input"
                     placeholder="LAST NAME"
-                    required
                     {...register('last_name', { required: true })}
                   />
                 </div>
@@ -114,24 +113,19 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                 type="email"
                 id="email"
                 className="input"
-                required
                 {...register('email', { required: true })}
               />
-              <input
-                type="text"
-                className="absolute top-0 left-0 w-0 h-0 opacity-0 z-behind"
-                value="no-data"
-                tabIndex={-1}
-                autoComplete="off"
-                {...register('fax_data', { required: true })}
-              />
 
-              {formType !== 'unit' && (
+              {formType !== 'unit' ? (
                 <>
                   <p className="mt-4">Where do you want to live?</p>
                   {LOCATIONS.map(({ label, name }) => (
                     <div className="mb-1 md:mb-4" key={name}>
-                      <input type="checkbox" name={name} id={name} />
+                      <input
+                        type="checkbox"
+                        id={name}
+                        {...register(name, { required: false })}
+                      />
                       <label
                         className="text-left ml-x md:ml-xhalf cursor-pointer"
                         htmlFor={name}
@@ -140,16 +134,18 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                       </label>
                     </div>
                   ))}
-                  <div className="mb-4" key={'else'}>
+                  <div className="mb-4" key={'Else'}>
                     <input
                       type="checkbox"
-                      name={'else'}
-                      id={'else'}
-                      onChange={() => setHiddenInputShown(!hiddenInputShown)}
+                      id={'Else'}
+                      {...register('Else', {
+                        required: false,
+                        onChange: () => setHiddenInputShown(!hiddenInputShown),
+                      })}
                     />
                     <label
                       className="text-left ml-x md:ml-xhalf cursor-pointer"
-                      htmlFor={'else'}
+                      htmlFor={'Else'}
                     >
                       {`Somewhere else`}
                     </label>
@@ -157,13 +153,19 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                   <input
                     type="text"
                     placeholder="WHERE?"
-                    name="City"
+                    {...register('City', { required: false })}
                     className={classNames(
                       hiddenInputShown ? 'mb-4' : 'hidden',
                       'input'
                     )}
                   />
                 </>
+              ) : (
+                <input
+                  type="hidden"
+                  value={state.unit?.title}
+                  {...register('unit_of_interest', { required: false })}
+                />
               )}
             </div>
             <div

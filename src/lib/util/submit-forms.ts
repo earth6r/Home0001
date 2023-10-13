@@ -78,11 +78,11 @@ const postUnitFields = async (
       fields: [
         {
           name: 'firstname',
-          value: data.firstName,
+          value: data.first_name,
         },
         {
           name: 'lastname',
-          value: data.lastName,
+          value: data.last_name,
         },
 
         {
@@ -91,7 +91,7 @@ const postUnitFields = async (
         },
         {
           name: 'unit_of_interest',
-          value: data.unitOfInterest,
+          value: data.unit_of_interest,
         },
       ],
     },
