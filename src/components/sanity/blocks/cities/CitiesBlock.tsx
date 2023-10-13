@@ -25,6 +25,25 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
     updatePath(slugifiedTitle)
   }
 
+  const cityOrder = [
+    'Los Angeles',
+    'New York City',
+    'Paris',
+    'London',
+    'Berlin',
+    'Mexico City',
+  ]
+
+  function customSort(a: Record<any, any>, b: Record<any, any>) {
+    const indexA = cityOrder.indexOf(a.title)
+    const indexB = cityOrder.indexOf(b.title)
+
+    return indexA - indexB
+  }
+
+  const sortedCities = citiesList?.sort(customSort)
+  console.log('sortedCities:', sortedCities)
+
   return (
     <Block className={classNames(className)}>
       {headers &&
