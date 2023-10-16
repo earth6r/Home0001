@@ -46,8 +46,11 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   return (
     <Block className={classNames(className)}>
       {headers &&
-        headers.map(header => (
-          <div key={header} className="-menu">
+        headers.map((header, index) => (
+          <div
+            key={header}
+            className={`-menu ${index == 1 ? 'lg:order-last' : ''}`}
+          >
             <h2 className="max-w-[390px] mobile-landing uppercase pr-10 mb-12 md:mb-16">
               {header}
             </h2>
