@@ -99,6 +99,16 @@ export const BODY_QUERY = `
         ${LINK_MARKDEFS_QUERY}
       },
     },
+    "accordions": accordions[]{
+      ...,
+      "text": text[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      }
+    },
     "media": media{
       ${MEDIA_QUERY}
     },
