@@ -6,10 +6,12 @@ import { useForm } from 'react-hook-form'
 import { submitForm } from '@lib/util/submit-forms'
 import { HomeContext } from '@contexts/home'
 import { sendGoogleEvent } from '@lib/util'
-
+import { RichText } from '@components/sanity'
+import type { TypedObject } from '@portabletext/types'
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
   formType?: 'unit' | 'general' | 'newsletter'
+  unitFormSuccessMessage?: TypedObject
 }
 
 const LOCATIONS = [
@@ -39,16 +41,17 @@ const LOCATIONS = [
   },
 ]
 
-const SUCCESS_COPY = `You're on the waitlist. We’ll be in touch as homes are released for sale.`
+const GENERAL_SUCCESS_COPY = `You're on the waitlist. We’ll be in touch as homes are released for sale.`
 
 export const HubspotForm: FC<HubspotFormProps> = ({
   audienceId,
   formType,
   className,
+  unitFormSuccessMessage,
 }) => {
   const [submitted, setSubmitted] = useState(false)
-  const [succesMessage, setSuccessMessage] = useState('')
-  const [result, setResult] = useState({})
+  const [succesMessage, setSuccessMessage] = useState<TypedObject>()
+  const [formError, setFormError] = useState<unknown | string | null>(null)
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -67,23 +70,26 @@ export const HubspotForm: FC<HubspotFormProps> = ({
     try {
       const result = await submitForm(data, audienceId, formType)
       setSubmitted(true)
-      setResult('success')
-      setSuccessMessage(SUCCESS_COPY)
+      if (unitFormSuccessMessage) {
+        setSuccessMessage(unitFormSuccessMessage)
+      }
     } catch (error) {
-      setResult('error')
+      setFormError(error)
       console.log(error)
     }
   }
 
-  return result === 'success' ? (
-    <div className="relative mb-4 rich-text">
-      <p>{`Your data — our harvest.`}</p>
-    </div>
-  ) : (
+  return (
     <div className={classNames(className)}>
       {submitted ? (
         <div className="relative mb-2 text-mobile-body md:text-desktop-body">
-          <p>{succesMessage}</p>
+          {succesMessage ? (
+            <RichText blocks={succesMessage} />
+          ) : formType == 'newsletter' ? (
+            <p>Your data — our harvest.</p>
+          ) : (
+            <p>{GENERAL_SUCCESS_COPY}</p>
+          )}
         </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
@@ -191,7 +197,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
               )}
             </div>
           </div>
-          {result === 'error' && (
+          {formError != null && (
             <div className="mt-yhalf text-center py-4 text-[red] border-1 border-solid border-red text-base">
               <p>{`Error submitting form`}</p>
             </div>

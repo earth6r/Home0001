@@ -326,6 +326,13 @@ export interface Unit extends SanityDocument {
   reserveFormCopy?: RichText;
 
   /**
+   * Form Confirmation Message — `richText`
+   *
+   *
+   */
+  confirmationCopy?: RichText;
+
+  /**
    * More Info — `richText`
    *
    *

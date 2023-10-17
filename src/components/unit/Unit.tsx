@@ -18,6 +18,7 @@ export const UnitComponent: FC<UnitElProps> = ({
   accordions,
   className,
 }) => {
+  console.log('unit', unit)
   const formRef = useRef(null)
   const [formActive, setFormActive] = useState(false)
 
@@ -108,7 +109,11 @@ export const UnitComponent: FC<UnitElProps> = ({
               </div>
             )}
 
-            <HubspotForm formType="unit" audienceId={UNIT_AUDIENCE_ID} />
+            <HubspotForm
+              formType="unit"
+              audienceId={UNIT_AUDIENCE_ID}
+              // unitFormSuccessMessage={unit?.confirmationCopy}
+            />
           </div>
         </div>
       ) : (

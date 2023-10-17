@@ -103,6 +103,11 @@ export default {
       type: 'richText',
     },
     {
+      name: 'confirmationCopy',
+      title: 'Form Confirmation Message',
+      type: 'richText',
+    },
+    {
       name: 'moreInfo',
       title: 'More Info',
       type: 'richText',
