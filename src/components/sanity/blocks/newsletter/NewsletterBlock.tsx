@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { useState } from 'react'
 import classNames from 'classnames'
 import type { NewsletterBlock as NewsletterBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
@@ -17,6 +18,8 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
   audienceId,
   className,
 }) => {
+  const [formSubmitted, setFormSubmitted] = useState(false)
+
   return (
     <Block
       className={classNames(
@@ -31,7 +34,12 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
           <RichText blocks={text} className={classNames('mb-4 clear-both')} />
         )}
 
-        <HubspotForm formType={'newsletter'} audienceId={audienceId} />
+        <HubspotForm
+          formType={'newsletter'}
+          audienceId={audienceId}
+          formSubmitted={formSubmitted}
+          setFormSubmitted={setFormSubmitted}
+        />
       </div>
     </Block>
   )

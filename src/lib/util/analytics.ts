@@ -1,7 +1,6 @@
 declare const window: any
 
 export const sendGoogleEvent = (event: string, options?: {}) => {
-  console.log('event:', event)
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
     window.gtag('event', event, { ...options })
   }

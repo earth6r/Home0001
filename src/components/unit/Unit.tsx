@@ -18,10 +18,9 @@ export const UnitComponent: FC<UnitElProps> = ({
   accordions,
   className,
 }) => {
-  console.log('unit', unit)
   const formRef = useRef(null)
   const [formActive, setFormActive] = useState(false)
-
+  const [formSubmitted, setFormSubmitted] = useState(false)
   const formButtonClick = () => {
     setFormActive(!formActive)
     if (!unit?.title) return
@@ -103,9 +102,11 @@ export const UnitComponent: FC<UnitElProps> = ({
           <div className="md:col-start-2 md:col-span-1 pl-x md:pl-0 pr-menu md:pr-0 py-12 z-above">
             {unit?.title && (
               <div className="rich-text pb-4">
-                {unit.reserveFormCopy && (
-                  <RichText blocks={unit?.reserveFormCopy} />
-                )}
+                {!formSubmitted
+                  ? unit.reserveFormCopy && (
+                      <RichText blocks={unit?.reserveFormCopy} />
+                    )
+                  : null}
               </div>
             )}
 
@@ -113,6 +114,8 @@ export const UnitComponent: FC<UnitElProps> = ({
               formType="unit"
               audienceId={UNIT_AUDIENCE_ID}
               unitFormSuccessMessage={unit?.confirmationCopy}
+              formSubmitted={formSubmitted}
+              setFormSubmitted={setFormSubmitted}
             />
           </div>
         </div>
