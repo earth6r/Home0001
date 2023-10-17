@@ -27,7 +27,7 @@
   --btn-space-y: 0.625em;
 
   /* header height */
-  --header-height: 16px;
+  --header-height: 52px;
 
   /* speeds */
   --speed-fast: 0.2s;
@@ -46,7 +46,7 @@
     --space-menu: 5.625rem;
     --space-page: 126px;
 
-    --header-height: 40px;
+    --header-height: 101px;
   }
 }
 

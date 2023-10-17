@@ -65,6 +65,7 @@ export default {
       },
       zIndex: {
         auto: 'auto',
+        back: '-2',
         behind: '-1',
         base: '1',
         above: '2',
@@ -96,6 +97,10 @@ export default {
         },
         '.border-bottom': {
           borderBottom: '1.5px solid black',
+        },
+        '.header-gradient': {
+          background:
+            'linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)',
         },
       })
     },
