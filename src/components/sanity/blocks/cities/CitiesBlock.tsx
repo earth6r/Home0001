@@ -73,7 +73,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                     }}
                     className={classNames(
                       state.property?.cityId === _id ? 'font-bold' : '',
-                      'mobile-landing text-left uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
+                      'leading-none mobile-landing text-left uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
                     )}
                   >
                     <img
@@ -83,7 +83,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                     <span
                       className={classNames(
                         active && property
-                          ? 'border-bottom border-b-[0.1em]'
+                          ? 'leading-none border-bottom border-b-[0.1em]'
                           : ''
                       )}
                     >
