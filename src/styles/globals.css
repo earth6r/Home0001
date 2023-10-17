@@ -4,7 +4,7 @@
   --space-x-half: calc(var(--space-x) * 0.5);
   --space-x-double: calc(var(--space-x) * 2);
   --space-x-lg: 2rem;
-  --space-y: 1.5rem;
+  --space-y: 1.3rem;
   --space-y-half: calc(var(--space-y) * 0.5);
   --space-y-double: calc(var(--space-y) * 2);
   --space-y-lg: 2.5rem;

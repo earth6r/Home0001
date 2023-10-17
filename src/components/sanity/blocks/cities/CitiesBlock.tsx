@@ -49,9 +49,9 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
         headers.map((header, index) => (
           <div
             key={header}
-            className={`-menu ${index == 1 ? 'lg:order-last' : ''}`}
+            className={`-menu ${index == 1 ? 'md:order-last' : ''}`}
           >
-            <h2 className="max-w-[390px] mobile-landing uppercase pr-10 mb-12 md:mb-16">
+            <h2 className="max-w-[390px] mobile-landing uppercase pr-8 mb-12 md:mb-16">
               {header}
             </h2>
           </div>
@@ -63,8 +63,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
             const property = properties && properties[0]
             if (_id)
               return (
-                <li key={_id} className="text-left flex gap-2">
-                  <img src="https://ik.imagekit.io/ljqwnqnom/arrow_4KHlnGx0T.svg?updatedAt=1696980257065"></img>
+                <li key={_id} className="text-left">
                   <button
                     disabled={!active || !property}
                     onClick={() => {
@@ -74,12 +73,18 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                     }}
                     className={classNames(
                       state.property?.cityId === _id ? 'font-bold' : '',
-                      'mobile-landing text-left uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
+                      'leading-none mobile-landing text-left uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
                     )}
                   >
+                    <img
+                      className="mr-1 home-svg disabled:bg-transparent disabled:opacity-30 disabled:shadow-none"
+                      src="https://ik.imagekit.io/ljqwnqnom/arrow_4KHlnGx0T.svg?updatedAt=1696980257065"
+                    ></img>
                     <span
                       className={classNames(
-                        active && property ? 'border-bottom border-b-[3px]' : ''
+                        active && property
+                          ? 'leading-none border-bottom border-b-[0.1em]'
+                          : ''
                       )}
                     >
                       {title}

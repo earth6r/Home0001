@@ -13,6 +13,8 @@ interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
   formType?: 'unit' | 'general' | 'newsletter'
   unitFormSuccessMessage?: RichTextType
+  formSubmitted: boolean
+  setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const LOCATIONS = [
@@ -49,8 +51,9 @@ export const HubspotForm: FC<HubspotFormProps> = ({
   formType,
   className,
   unitFormSuccessMessage,
+  formSubmitted,
+  setFormSubmitted,
 }) => {
-  const [submitted, setSubmitted] = useState(false)
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
@@ -59,7 +62,6 @@ export const HubspotForm: FC<HubspotFormProps> = ({
   const { state } = useContext(HomeContext)
 
   const onSubmit = async (data: any) => {
-    // send form data
     if (formType === 'unit') {
       sendGoogleEvent('submit_reservation_form', {
         'unit of interest': state.unit?.title,
@@ -69,7 +71,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
     if (!audienceId || !formType) return
     try {
       const result = await submitForm(data, audienceId, formType)
-      setSubmitted(true)
+      setFormSubmitted(true)
     } catch (error) {
       setFormError(error)
       console.log(error)
@@ -78,7 +80,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
 
   return (
     <div className={classNames(className)}>
-      {submitted ? (
+      {formSubmitted ? (
         <div className="relative mb-2 text-mobile-body md:text-desktop-body">
           {unitFormSuccessMessage ? (
             <RichText blocks={unitFormSuccessMessage} />

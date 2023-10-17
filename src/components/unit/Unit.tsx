@@ -8,7 +8,6 @@ import { BtnScrollToTop } from '@components/btns/BtnScrollToTop'
 import { HubspotForm } from '@components/form'
 import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { AccordionModal } from '@components/accordion'
-// import { FactSheet } from '@components/fact-sheet'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 
 const UNIT_AUDIENCE_ID = process.env.NEXT_PUBLIC_HUBSPOT_UNIT_WAITLIST_ID
@@ -18,10 +17,9 @@ export const UnitComponent: FC<UnitElProps> = ({
   accordions,
   className,
 }) => {
-  console.log('unit', unit)
   const formRef = useRef(null)
   const [formActive, setFormActive] = useState(false)
-
+  const [formSubmitted, setFormSubmitted] = useState(false)
   const formButtonClick = () => {
     setFormActive(!formActive)
     if (!unit?.title) return
@@ -60,11 +58,12 @@ export const UnitComponent: FC<UnitElProps> = ({
             </div>
           </div>
 
-          {/* <FactSheet unit={unit} className="pr-menu md:pr-0" /> */}
           {unit?.factSheet?.rows && (
             <SanityTableModal
               table={unit.factSheet}
               className="pr-menu md:pr-0"
+              modalType="fact sheet"
+              unit={unit?.title}
             />
           )}
 
@@ -97,15 +96,17 @@ export const UnitComponent: FC<UnitElProps> = ({
       {formActive ? (
         <div
           ref={formRef}
-          className="md:grid md:grid-cols-3 relative pr-10 md:pr-menu animate-fadeIn opacity-0"
+          className="px-x md:grid md:grid-cols-3 relative pr-10 md:pr-menu animate-fadeIn opacity-0"
         >
           <div className="w-screen h-full absolute bg-whitesmoke z-behind"></div>
           <div className="md:col-start-2 md:col-span-1 pl-x md:pl-0 pr-menu md:pr-0 py-12 z-above">
             {unit?.title && (
               <div className="rich-text pb-4">
-                {unit.reserveFormCopy && (
-                  <RichText blocks={unit?.reserveFormCopy} />
-                )}
+                {!formSubmitted
+                  ? unit.reserveFormCopy && (
+                      <RichText blocks={unit?.reserveFormCopy} />
+                    )
+                  : null}
               </div>
             )}
 
@@ -113,6 +114,8 @@ export const UnitComponent: FC<UnitElProps> = ({
               formType="unit"
               audienceId={UNIT_AUDIENCE_ID}
               unitFormSuccessMessage={unit?.confirmationCopy}
+              formSubmitted={formSubmitted}
+              setFormSubmitted={setFormSubmitted}
             />
           </div>
         </div>
