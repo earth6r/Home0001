@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { useState } from 'react'
 import classNames from 'classnames'
 import type { WaitlistBlock as WaitlistBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
@@ -15,6 +16,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   formType,
   className,
 }) => {
+  const [formSubmitted, setFormSubmitted] = useState(false)
   return (
     <Block
       className={classNames(
@@ -26,11 +28,18 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
       <div className="py-12">
         {header && <h2 className="pb-ylg uppercase">{header}</h2>}
 
-        {text && (
-          <RichText blocks={text} className={classNames('mb-4 clear-both')} />
-        )}
+        {text ? (
+          formSubmitted ? (
+            <RichText blocks={text} className={classNames('mb-4 clear-both')} />
+          ) : null
+        ) : null}
 
-        <HubspotForm formType={formType} audienceId={audienceId} />
+        <HubspotForm
+          formType={formType}
+          audienceId={audienceId}
+          formSubmitted={formSubmitted}
+          setFormSubmitted={setFormSubmitted}
+        />
       </div>
     </Block>
   )
