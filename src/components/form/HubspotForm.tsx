@@ -8,11 +8,12 @@ import { HomeContext } from '@contexts/home'
 import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
 import { TypedObject } from 'sanity'
+import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
   formType?: 'unit' | 'general' | 'newsletter'
-  unitFormSuccessMessage?: TypedObject
+  unitFormSuccessMessage?: RichTextType
 }
 
 const LOCATIONS = [
@@ -51,7 +52,6 @@ export const HubspotForm: FC<HubspotFormProps> = ({
   unitFormSuccessMessage,
 }) => {
   const [submitted, setSubmitted] = useState(false)
-  const [succesMessage, setSuccessMessage] = useState<TypedObject>()
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
@@ -71,9 +71,6 @@ export const HubspotForm: FC<HubspotFormProps> = ({
     try {
       const result = await submitForm(data, audienceId, formType)
       setSubmitted(true)
-      if (unitFormSuccessMessage) {
-        setSuccessMessage(unitFormSuccessMessage)
-      }
     } catch (error) {
       setFormError(error)
       console.log(error)
@@ -84,8 +81,8 @@ export const HubspotForm: FC<HubspotFormProps> = ({
     <div className={classNames(className)}>
       {submitted ? (
         <div className="relative mb-2 text-mobile-body md:text-desktop-body">
-          {succesMessage ? (
-            <RichText blocks={succesMessage} />
+          {unitFormSuccessMessage ? (
+            <RichText blocks={unitFormSuccessMessage} />
           ) : formType == 'newsletter' ? (
             <p>Your data — our harvest.</p>
           ) : (
