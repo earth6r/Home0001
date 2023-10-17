@@ -112,7 +112,7 @@ export const UnitComponent: FC<UnitElProps> = ({
             <HubspotForm
               formType="unit"
               audienceId={UNIT_AUDIENCE_ID}
-              // unitFormSuccessMessage={unit?.confirmationCopy}
+              unitFormSuccessMessage={unit?.confirmationCopy}
             />
           </div>
         </div>

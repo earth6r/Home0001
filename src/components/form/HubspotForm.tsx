@@ -7,7 +7,8 @@ import { submitForm } from '@lib/util/submit-forms'
 import { HomeContext } from '@contexts/home'
 import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
-import type { TypedObject } from '@portabletext/types'
+import { TypedObject } from 'sanity'
+
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
   formType?: 'unit' | 'general' | 'newsletter'
