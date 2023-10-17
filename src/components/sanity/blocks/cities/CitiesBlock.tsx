@@ -63,11 +63,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
             const property = properties && properties[0]
             if (_id)
               return (
-                <li key={_id} className="text-left flex gap-2">
-                  <img
-                    className="home-svg"
-                    src="https://ik.imagekit.io/ljqwnqnom/arrow_4KHlnGx0T.svg?updatedAt=1696980257065"
-                  ></img>
+                <li key={_id} className="text-left">
                   <button
                     disabled={!active || !property}
                     onClick={() => {
@@ -80,9 +76,15 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                       'mobile-landing text-left uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none leading-none'
                     )}
                   >
+                    <img
+                      className="mr-1 home-svg disabled:bg-transparent disabled:opacity-30 disabled:shadow-none"
+                      src="https://ik.imagekit.io/ljqwnqnom/arrow_4KHlnGx0T.svg?updatedAt=1696980257065"
+                    ></img>
                     <span
                       className={classNames(
-                        active && property ? 'border-bottom border-b-[3px]' : ''
+                        active && property
+                          ? 'border-bottom border-b-[0.1em]'
+                          : ''
                       )}
                     >
                       {title}
