@@ -7,7 +7,6 @@ import { submitForm } from '@lib/util/submit-forms'
 import { HomeContext } from '@contexts/home'
 import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
-import { TypedObject } from 'sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
