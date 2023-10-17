@@ -49,9 +49,9 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
         headers.map((header, index) => (
           <div
             key={header}
-            className={`-menu ${index == 1 ? 'lg:order-last' : ''}`}
+            className={`-menu ${index == 1 ? 'md:order-last' : ''}`}
           >
-            <h2 className="max-w-[390px] mobile-landing uppercase pr-10 mb-12 md:mb-16">
+            <h2 className="max-w-[390px] mobile-landing uppercase pr-8 mb-12 md:mb-16">
               {header}
             </h2>
           </div>
@@ -64,7 +64,10 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
             if (_id)
               return (
                 <li key={_id} className="text-left flex gap-2">
-                  <img src="https://ik.imagekit.io/ljqwnqnom/arrow_4KHlnGx0T.svg?updatedAt=1696980257065"></img>
+                  <img
+                    className="home-svg"
+                    src="https://ik.imagekit.io/ljqwnqnom/arrow_4KHlnGx0T.svg?updatedAt=1696980257065"
+                  ></img>
                   <button
                     disabled={!active || !property}
                     onClick={() => {
