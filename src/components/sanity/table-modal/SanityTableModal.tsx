@@ -1,17 +1,35 @@
 import { useState, type FC, type HTMLAttributes } from 'react'
 import { Modal } from '@components/modal'
 import classNames from 'classnames'
-
+import { sendGoogleEvent } from '@lib/util'
 interface SanityTableModalProps extends HTMLAttributes<HTMLElement> {
   table: any
+  modalType: 'fact sheet' | 'inventory'
+  unit?: string
 }
 
 export const SanityTableModal: FC<SanityTableModalProps> = ({
   table,
+  modalType,
   className,
+  unit,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
+  const handleGoogleEvent = () => {
+    if (unit) {
+      switch (modalType) {
+        case 'fact sheet': {
+          sendGoogleEvent(`Click Fact Sheet for ${unit}`)
+          break
+        }
+        case 'inventory': {
+          sendGoogleEvent(`Click Inventory for ${unit}`)
+          break
+        }
+      }
+    }
+  }
   return (
     <div className={className}>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -48,10 +66,13 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
 
       <div className="pr-mobile-menu md:pr-0">
         <button
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setIsOpen(true)
+            handleGoogleEvent()
+          }}
           className="outline-none mt-9 mb-9 tracking-caps block w-full h-12 max-h-12 py-2 px-3 text-center uppercase border-1 border-solid border-black bg-white text-black"
         >
-          {`Fact sheet`}
+          {modalType}
         </button>
       </div>
     </div>
