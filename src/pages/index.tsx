@@ -19,7 +19,17 @@ const HOME_QUERY = groq`
     ${BODY_QUERY}
   }
 `
-
+declare global {
+  interface Window {
+    hsConversations: {
+      widget: {
+        close: () => void
+        open: () => void
+        status: boolean
+      }
+    }
+  }
+}
 export const getStaticProps: GetStaticProps = context =>
   getPageStaticProps({ ...context, query: HOME_QUERY })
 
@@ -61,18 +71,16 @@ const Page: NextPage<PageProps> = ({
     const cityQuery = router.query.city as string
     const unitQuery = router.query.unit as string
 
-    // if (router.asPath == '/' && typeof window != 'undefined') {
-    //   console.log('window', window)
-    //   //@ts-ignore
-    //   window.hsConversations.widget.close()
-    // } else {
-    //   //@ts-ignore
-    //   const status = window.HubSpotConversations.widget.status()
-    //   if (!status.loaded) {
-    //     //@ts-ignore
-    //     window.hsConversations.widget.open()
-    //   }
-    // }
+    if (typeof window != 'undefined' && window.hsConversations) {
+      //   if(router.asPath == '/' && ){
+      //   }
+      //   window.hsConversations.widget.close()
+      // } else {
+      //   const status = window.HubSpotConversations.widget.status()
+      //   if (!status.loaded) {
+      //     window.hsConversations.widget.open()
+      //   }
+    }
 
     if ((cityQuery || unitQuery) && citiesBlock?.citiesList) {
       const activeCity = filterListByTitleProp(
