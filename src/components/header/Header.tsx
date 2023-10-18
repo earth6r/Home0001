@@ -30,7 +30,7 @@ export const Header: FC<HeaderProps> = ({ className, mainMenu }) => {
         <div className="flex items-center gap-5 md:gap-16">
           <Btn
             type="button"
-            className="flex p-[5px] md:p-[6px] bg-black text-white uppercase z-header"
+            className="leading-none flex pt-[8px] p-[7px] md:p-[6px] bg-black text-white uppercase z-header"
           >
             <IconSmallArrow width="13" height="9" className="mr-[3px]" />
             {`Waitlist`}
