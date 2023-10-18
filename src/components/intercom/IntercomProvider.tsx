@@ -21,16 +21,20 @@ export const IntercomProvider: React.FC<ProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const handleRouteChange = () => {
-      if (typeof window !== 'undefined') {
-        if (
-          router.asPath !== '/' ||
-          (router.query.city && router.query.city.length > 0)
-        ) {
-          // shows Intercom
-          updateIntercom(false)
+      //@ts-ignore
+      console.log('window', window.hsConversationsOnReady)
+      if (
+        typeof window !== 'undefined' &&
+        (window as any).hsConversationsOnReady
+      ) {
+        if (router.asPath == '/' && router.query.city == undefined) {
+          // hide hubspot chat
+          //@ts-ignore
+          window.hsConversations.widget.close()
         } else {
-          // does not show Intercom
-          updateIntercom(true)
+          // show hubspot chat
+          //@ts-ignore
+          window.hsConversations.widget.open()
         }
       }
     }
