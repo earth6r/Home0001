@@ -103,10 +103,10 @@ export default {
             'linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)',
         },
         '.mobile-landing': {
-          fontSize: '4.5vh',
+          fontSize: '4.5vw',
           lineHeight: '1.2',
           '@screen md': {
-            fontSize: '2.6vh',
+            fontSize: '2.6vw',
           },
         },
         '.home-svg': {
