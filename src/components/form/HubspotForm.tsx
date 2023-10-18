@@ -186,7 +186,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                 {formType === 'newsletter' ? `Submit` : `Join the waitlist`}
               </button>
               {formType !== 'newsletter' && (
-                <p className="mt-5">
+                <p className="mt-5 md:my-5">
                   {`Got questions?${' '}`}
                   <Link href="/contact" className="border-bottom">
                     Ask us anything
