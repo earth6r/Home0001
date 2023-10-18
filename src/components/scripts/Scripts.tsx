@@ -4,6 +4,7 @@ const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID
 const FACEBOOK_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
 const HOTJAR_ID = process.env.NEXT_PUBLIC_HOTJAR_ID
 const HOTJAR_SV = process.env.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION
+const HUBSPOT_ID = process.env.NEXT_PUBLIC_HUBSPOT_ID
 
 export const Scripts = () => {
   return (
@@ -53,6 +54,15 @@ export const Scripts = () => {
             })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=${HOTJAR_SV}');
           `}
         </Script>
+      ) : null}
+      {HUBSPOT_ID && HUBSPOT_ID.length > 0 ? (
+        <script
+          type="text/javascript"
+          id="hs-script-loader"
+          async
+          defer
+          src={`//js.hs-scripts.com/${HUBSPOT_ID}.js`}
+        ></script>
       ) : null}
     </>
   )
