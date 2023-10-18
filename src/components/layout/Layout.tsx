@@ -35,7 +35,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         pageUrl={`${BASE_URL}${asPath}`}
       />
       <div className="flex flex-col min-h-full">
-        <div className="fixed md:hidden w-full h-header header-gradient z-base" />
+        <div className="fixed w-full h-header header-gradient z-base" />
         <Header
           className="flex-initial"
           waitlistId={siteSettings?.waitlistId}
