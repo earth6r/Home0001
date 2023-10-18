@@ -38,6 +38,9 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <div className="fixed md:hidden w-full h-header header-gradient z-base" />
         <Header
           className="flex-initial"
+          waitlistId={siteSettings?.waitlistId}
+          waitlistCopy={siteSettings?.waitlistCopy}
+          waitlistHeader={siteSettings?.waitlistHeader}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
         <main className="flex-auto">{children}</main>
