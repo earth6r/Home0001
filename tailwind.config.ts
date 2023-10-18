@@ -102,6 +102,19 @@ export default {
           background:
             'linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)',
         },
+        '.mobile-landing': {
+          fontSize: '4.5vh',
+          lineHeight: '1.2',
+          '@screen md': {
+            fontSize: '2.6vh',
+          },
+        },
+        '.home-svg': {
+          '@screen md': {
+            maxWidth: '4vw',
+            width: '3vw',
+          },
+        },
       })
     },
   ],

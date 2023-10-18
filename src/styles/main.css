@@ -9,19 +9,3 @@
 @layer utilities {
   @import url('./rich-text.css');
 }
-
-.mobile-landing {
-  font-size: 4.5vh;
-  line-height: 120%;
-}
-
-@media only screen and (min-width: 768px) {
-  .mobile-landing {
-    font-size: 2.6vw;
-    line-height: 120%;
-  }
-  .home-svg {
-    max-width: 4vw;
-    width: 3vw;
-  }
-}

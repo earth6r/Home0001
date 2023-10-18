@@ -41,7 +41,7 @@ export const Header: FC<HeaderProps> = ({
 
         <div className="flex items-center gap-5 md:gap-16">
           <Modal isOpen={waitlistOpen} onClose={() => setWaitlistOpen(false)}>
-            <div className="flex flex-col max-w-md mx-auto h-full py-6 md:py-10 px-x md:px-10">
+            <div className="flex flex-col max-w-md h-full py-6 md:py-10 px-x md:px-10">
               {waitlistHeader && (
                 <h2 className="pb-ylg uppercase">
                   {waitlistHeader || `Join waitlist`}
