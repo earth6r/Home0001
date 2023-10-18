@@ -66,7 +66,7 @@ export const Header: FC<HeaderProps> = ({
           <Btn
             type="button"
             onClick={() => setWaitlistOpen(true)}
-            className="pointer-events-auto flex pt-[8px] px-[7px] pb-[7px] md:p-[6px] bg-black text-white leading-none uppercase z-header"
+            className="pointer-events-auto flex py-[6px] px-[7px] md:p-[6px] bg-black text-white leading-[0.75rem] uppercase z-header"
           >
             <IconSmallArrow width="13" height="9" className="mr-[3px]" />
             {`Waitlist`}
