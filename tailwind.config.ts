@@ -100,7 +100,7 @@ export default {
         },
         '.header-gradient': {
           background:
-            'linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)',
+            'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);',
         },
         '.mobile-landing': {
           fontSize: '4.5vw',

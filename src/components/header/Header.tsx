@@ -39,7 +39,7 @@ export const Header: FC<HeaderProps> = ({
       >
         <Logo className="flex items-center h-header pointer-events-auto" />
 
-        <div className="flex items-center gap-5 md:gap-16">
+        <div className="flex items-center gap-[1.12rem] md:gap-16">
           <Modal isOpen={waitlistOpen} onClose={() => setWaitlistOpen(false)}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 px-x md:px-10">
               {waitlistHeader && (
@@ -66,7 +66,7 @@ export const Header: FC<HeaderProps> = ({
           <Btn
             type="button"
             onClick={() => setWaitlistOpen(true)}
-            className="pointer-events-auto flex py-[6px] px-[7px] md:p-[6px] bg-black text-white leading-[0.75rem] uppercase z-header"
+            className="pointer-events-auto flex pt-[5px] pb-[4px] px-[7px] bg-black text-white leading-[1rem] uppercase z-header"
           >
             <IconSmallArrow width="13" height="9" className="mr-[3px]" />
             {`Waitlist`}
