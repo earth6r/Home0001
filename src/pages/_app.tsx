@@ -37,12 +37,12 @@ function App({
     </PreviewProvider>
   ) : (
     <HomeProvider>
-      {/* <IntercomProvider> */}
-      <Layout {...pageProps}>
-        <Component {...pageProps} />
-        <Scripts />
-      </Layout>
-      {/* </IntercomProvider> */}
+      <IntercomProvider>
+        <Layout {...pageProps}>
+          <Component {...pageProps} />
+          <Scripts />
+        </Layout>
+      </IntercomProvider>
     </HomeProvider>
   )
 }
