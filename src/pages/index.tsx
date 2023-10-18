@@ -21,11 +21,11 @@ const HOME_QUERY = groq`
 `
 declare global {
   interface Window {
-    hsConversations: {
+    HubSpotConversations: {
       widget: {
         close: () => void
         open: () => void
-        status: boolean
+        status: () => any
       }
     }
   }
@@ -71,15 +71,15 @@ const Page: NextPage<PageProps> = ({
     const cityQuery = router.query.city as string
     const unitQuery = router.query.unit as string
 
-    if (typeof window != 'undefined' && window.hsConversations) {
-      //   if(router.asPath == '/' && ){
-      //   }
-      //   window.hsConversations.widget.close()
-      // } else {
-      //   const status = window.HubSpotConversations.widget.status()
-      //   if (!status.loaded) {
-      //     window.hsConversations.widget.open()
-      //   }
+    if (typeof window != 'undefined' && window.HubSpotConversations) {
+      const status = window.HubSpotConversations.widget.status()
+      if (router.asPath == '/' && !router.query.city && status.loaded) {
+        window.HubSpotConversations.widget.close()
+      } else {
+        if (!status.loaded) {
+          window.HubSpotConversations.widget.open()
+        }
+      }
     }
 
     if ((cityQuery || unitQuery) && citiesBlock?.citiesList) {
