@@ -58,6 +58,24 @@ export default {
       group: 'header',
     },
     {
+      name: 'waitlistId',
+      title: 'Waitlist Audience ID',
+      type: 'string',
+      group: 'header',
+    },
+    {
+      name: 'waitlistHeader',
+      title: 'Waitlist Header',
+      type: 'string',
+      group: 'header',
+    },
+    {
+      name: 'waitlistCopy',
+      title: 'Waitlist Copy',
+      type: 'richText',
+      group: 'header',
+    },
+    {
       name: 'howItWorksContent',
       title: 'How It Works Accordions',
       description: 'Currently shows in how to modal on unit',

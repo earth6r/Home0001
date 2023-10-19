@@ -13,7 +13,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
     <div className={classNames(className)}>
       <div className="block relative mt-10 md:mt-20">
         {property?.image && (
-          <div className="block relative w-full h-full mb-10">
+          <div className="block relative w-full h-full mb-10 z-base">
             <SanityMedia
               imageProps={{
                 alt: property?.image.alt || 'Building image',

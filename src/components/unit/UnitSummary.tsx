@@ -50,7 +50,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
         onClick={() => updateUnit(unit, unit.title)}
         className={`transition-colors disabled:opacity-30 disabled:bg-white disabled:shadow-none px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`}
       >
-        <div className="mb-5">
+        <div className="mb-5 z-above">
           <SanityMedia
             image={unit.headlineImage?.image}
             imageProps={{

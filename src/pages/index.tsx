@@ -12,6 +12,7 @@ import { Property } from '@components/property'
 import { Unit } from '@components/unit'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
+import animateScrollTo from 'animated-scroll-to'
 
 const HOME_QUERY = groq`
   *[_type == "page"]{
@@ -43,8 +44,8 @@ const Page: NextPage<PageProps> = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
-  const propertyRef = useRef(null)
-  const unitRef = useRef(null)
+  const propertyRef = useRef<HTMLInputElement>(null)
+  const unitRef = useRef<HTMLInputElement>(null)
   const page: SanityPage = filterDataToSingleItem(data)
   const filteredBlocks = page?.body?.filter(block => {
     return block._type === 'citiesBlock'

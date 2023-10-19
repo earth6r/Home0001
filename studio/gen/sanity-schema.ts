@@ -389,6 +389,27 @@ export interface SiteSettings extends SanityDocument {
   mainMenu?: SanityReference<Menus>;
 
   /**
+   * Waitlist Audience ID — `string`
+   *
+   *
+   */
+  waitlistId?: string;
+
+  /**
+   * Waitlist Header — `string`
+   *
+   *
+   */
+  waitlistHeader?: string;
+
+  /**
+   * Waitlist Copy — `richText`
+   *
+   *
+   */
+  waitlistCopy?: RichText;
+
+  /**
    * How It Works Accordions — `array`
    *
    * Currently shows in how to modal on unit

@@ -11,7 +11,7 @@ import { Logo } from '@components/logos'
 
 export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
   <Btn
-    className="z-header"
+    className="w-[40px] z-header"
     innerRef={ref as Ref<HTMLButtonElement | HTMLAnchorElement>}
     custom={true}
     {...props}
@@ -55,7 +55,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                   pointerEvents: customOpen ? 'all' : 'none',
                 }}
               >
-                <div className="flex items-center absolute h-header px-x mt-y md:mt-[40px]">
+                <div className="flex items-center absolute h-header px-x">
                   <Logo />
                 </div>
                 <nav className="overflow-auto z-40 md:shadow-none pt-[88px] md:pt-[126px] left-0 w-full h-full fade-enter-done">
