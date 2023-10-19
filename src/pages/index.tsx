@@ -55,7 +55,7 @@ const Page: NextPage<PageProps> = ({
   // handle scrolling after state change
   useEffect(() => {
     if (state.unit?._id && unitRef.current) {
-      scrollToEl(unitRef.current)
+      scrollToEl(unitRef.current, true)
     } else if (state.property?._id && propertyRef.current) {
       scrollToEl(propertyRef.current)
     }
