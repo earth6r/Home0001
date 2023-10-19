@@ -25,6 +25,7 @@ declare global {
       widget: {
         close: () => void
         open: () => void
+        remove: () => void
         status: () => any
       }
     }
@@ -78,7 +79,7 @@ const Page: NextPage<PageProps> = ({
       console.log('router.query.city', router.query.city)
       if (router.asPath == '/' && !router.query.city && status.loaded) {
         console.log('we are inside')
-        window.HubSpotConversations.widget.close()
+        window.HubSpotConversations.widget.remove()
         console.log('it closed?')
       } else {
         if (!status.loaded) {
