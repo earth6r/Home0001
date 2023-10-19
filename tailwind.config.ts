@@ -41,6 +41,7 @@ export default {
         btnx: 'var(--btn-space-x)',
         btny: 'var(--btn-space-y)',
         header: 'var(--header-height)',
+        gradient: 'var(--gradient-height)',
         wrap: 'var(--wrap)',
         wrap2xs: 'var(--wrap-2xs)',
         wrapxs: 'var(--wrap-xs)',
