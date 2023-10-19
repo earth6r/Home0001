@@ -28,6 +28,7 @@
 
   /* header height */
   --header-height: 52px;
+  --gradient-height: 68px;
 
   /* speeds */
   --speed-fast: 0.2s;
@@ -46,7 +47,8 @@
     --space-menu: 5.625rem;
     --space-page: 126px;
 
-    --header-height: 101px;
+    --header-height: 80px;
+    --gradient-height: 160px;
   }
 }
 
