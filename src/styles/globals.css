@@ -28,7 +28,7 @@
 
   /* header height */
   --header-height: 52px;
-  --gradient-height: 96px;
+  --gradient-height: 72px;
 
   /* speeds */
   --speed-fast: 0.2s;
@@ -48,7 +48,7 @@
     --space-page: 126px;
 
     --header-height: 80px;
-    --gradient-height: 160px;
+    --gradient-height: 120px;
   }
 }
 
