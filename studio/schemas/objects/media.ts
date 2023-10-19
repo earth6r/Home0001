@@ -2,15 +2,16 @@ import { IoIosImage } from 'react-icons/io'
 import type { PreviewValue } from '@sanity/types'
 import type { Media } from '@gen/sanity-schema'
 import type { Rule } from '@sanity/types'
+import { toPlainText } from '@portabletext/react'
 
 interface MediaSelectProps {
-  caption?: Media['caption']
+  alt?: Media['alt']
   image?: string
 }
 
 const MediaObject = {
   name: 'media',
-  title: 'Link',
+  title: 'Media',
   type: 'object',
   icon: IoIosImage,
   fields: [
@@ -41,14 +42,15 @@ const MediaObject = {
   ],
   preview: {
     select: {
-      caption: 'caption',
-      imageUrl: 'image',
+      alt: 'alt',
+      image: 'image',
     },
-    prepare({ image }: MediaSelectProps): PreviewValue {
+    prepare({ alt, image }: MediaSelectProps): PreviewValue {
       let title = 'Media'
       if (image) title = 'Image'
       return {
-        title,
+        title: alt || 'Media',
+        subtitle: 'Image',
         media: image,
       }
     },
