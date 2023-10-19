@@ -12,7 +12,6 @@ import { Property } from '@components/property'
 import { Unit } from '@components/unit'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
-import animateScrollTo from 'animated-scroll-to'
 
 const HOME_QUERY = groq`
   *[_type == "page"]{
