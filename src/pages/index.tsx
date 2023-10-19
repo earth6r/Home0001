@@ -68,17 +68,17 @@ const Page: NextPage<PageProps> = ({
     return filteredList?.length === 1 && filteredList[0]
   }
 
-  useEffect(() => {
-    if (window.HubSpotConversations) {
-      window.HubSpotConversations.widget.remove()
-    } else {
-      window.hsConversationsOnReady = [
-        () => {
-          window.HubSpotConversations.widget.remove()
-        },
-      ]
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (window.HubSpotConversations) {
+  //     window.HubSpotConversations.widget.remove()
+  //   } else {
+  //     window.hsConversationsOnReady = [
+  //       () => {
+  //         window.HubSpotConversations.widget.remove()
+  //       },
+  //     ]
+  //   }
+  // }, [])
 
   // check for path queries on path update
   // city assumes one property and assigns to that property ~ JLM
