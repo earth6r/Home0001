@@ -76,6 +76,7 @@ const Page: NextPage<PageProps> = ({
       console.log('status:', status)
       console.log('window', window)
       if (router.asPath == '/' && !router.query.city && status.loaded) {
+        console.log('we are inside')
         window.HubSpotConversations.widget.close()
       } else {
         if (!status.loaded) {
