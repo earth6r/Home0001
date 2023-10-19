@@ -96,7 +96,7 @@ export const UnitComponent: FC<UnitElProps> = ({
       {formActive ? (
         <div
           ref={formRef}
-          className="px-x md:grid md:grid-cols-3 relative pr-10 md:pr-menu animate-fadeIn opacity-0"
+          className="md:grid md:grid-cols-3 relative pr-10 md:pr-menu animate-fadeIn opacity-0"
         >
           <div className="w-screen h-full absolute bg-whitesmoke z-behind"></div>
           <div className="md:col-start-2 md:col-span-1 pl-x md:pl-0 pr-menu md:pr-0 py-12 z-above">

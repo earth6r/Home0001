@@ -25,6 +25,9 @@ export const SITE_SETTINGS_QUERY = groq`
         }
       }
     },
+    waitlistHeader,
+    waitlistCopy,
+    waitlistId,
     howItWorksContent,
   }
 `

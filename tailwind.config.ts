@@ -65,6 +65,7 @@ export default {
       },
       zIndex: {
         auto: 'auto',
+        back: '-2',
         behind: '-1',
         base: '1',
         above: '2',
@@ -96,6 +97,23 @@ export default {
         },
         '.border-bottom': {
           borderBottom: '1.5px solid black',
+        },
+        '.header-gradient': {
+          background:
+            'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.5) 70%, rgba(255,255,255,0) 100%);',
+        },
+        '.mobile-landing': {
+          fontSize: '4.5vh',
+          lineHeight: '1.2',
+          '@screen md': {
+            fontSize: '2.6vw',
+          },
+        },
+        '.home-svg': {
+          '@screen md': {
+            maxWidth: '4vw',
+            width: '3vw',
+          },
         },
       })
     },

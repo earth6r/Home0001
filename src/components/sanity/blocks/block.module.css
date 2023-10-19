@@ -1,7 +1,6 @@
 .block {
   @apply mt-ylg;
   position: relative;
-  z-index: 2;
 }
 
 .block:first-of-type {

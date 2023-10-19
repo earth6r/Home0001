@@ -35,8 +35,12 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         pageUrl={`${BASE_URL}${asPath}`}
       />
       <div className="flex flex-col min-h-full">
+        <div className="fixed w-full h-header header-gradient z-base" />
         <Header
           className="flex-initial"
+          waitlistId={siteSettings?.waitlistId}
+          waitlistCopy={siteSettings?.waitlistCopy}
+          waitlistHeader={siteSettings?.waitlistHeader}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
         <main className="flex-auto">{children}</main>
