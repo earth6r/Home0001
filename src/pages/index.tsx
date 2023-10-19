@@ -30,6 +30,7 @@ declare global {
         status: () => any
       }
     }
+    hsConversationsOnReady: any[]
   }
 }
 export const getStaticProps: GetStaticProps = context =>
@@ -67,6 +68,18 @@ const Page: NextPage<PageProps> = ({
     return filteredList?.length === 1 && filteredList[0]
   }
 
+  useEffect(() => {
+    if (window.HubSpotConversations) {
+      window.HubSpotConversations.widget.remove()
+    } else {
+      window.hsConversationsOnReady = [
+        () => {
+          window.HubSpotConversations.widget.remove()
+        },
+      ]
+    }
+  }, [])
+
   // check for path queries on path update
   // city assumes one property and assigns to that property ~ JLM
   useEffect(() => {
@@ -81,8 +94,6 @@ const Page: NextPage<PageProps> = ({
       } else {
         if (!status.loaded) {
           window.HubSpotConversations.widget.load()
-
-          // window.HubSpotConversations.widget.open()
         }
       }
     }
