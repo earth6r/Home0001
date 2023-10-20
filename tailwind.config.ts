@@ -101,7 +101,7 @@ export default {
         },
         '.header-gradient': {
           background:
-            'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.5) 70%, rgba(255,255,255,0) 100%);',
+            'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0.96) 50%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,0) 100%)',
         },
         '.mobile-landing': {
           fontSize: '4.5vh',
