@@ -1,4 +1,4 @@
-import type { PreviewValue, Rule } from '@sanity/types'
+import type { PreviewValue } from '@sanity/types'
 import { MdMeetingRoom } from 'react-icons/md'
 
 interface PreviewProps {
@@ -65,11 +65,7 @@ export default {
       name: 'photographs',
       title: 'Photographs',
       type: 'array',
-      of: [
-        {
-          type: 'media',
-        },
-      ],
+      of: [{ type: 'media' }],
     },
     {
       name: 'details',
