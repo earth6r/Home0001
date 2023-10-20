@@ -35,7 +35,7 @@ export const Header: FC<HeaderProps> = ({
       <header
         ref={el}
         role="banner"
-        className="flex justify-between items-center relative w-full h-header px-[15px]"
+        className="flex justify-between items-center relative w-full h-header px-x"
       >
         <Logo className="flex items-center h-header pointer-events-auto" />
 
