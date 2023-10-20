@@ -44,13 +44,13 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
 
   if (!unit) return null
   return (
-    <li className="z-modal">
+    <li>
       <button
         disabled={!unit?.available}
         onClick={() => updateUnit(unit, unit.title)}
         className={`transition-colors disabled:opacity-30 disabled:bg-white disabled:shadow-none px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`}
       >
-        <div className="mb-5">
+        <div className="mb-5 z-above">
           <SanityMedia
             image={unit.headlineImage?.image}
             imageProps={{
@@ -61,7 +61,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
             }}
           />
         </div>
-        <div className="justify-self-stretch w-full">
+        <div className="justify-self-stretch w-full ">
           <div className="grid">
             <p className="col-start-1 text-left uppercase">
               {unit.propertyType && (
@@ -86,7 +86,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
           <div
             className={classNames(
               state.unit?._id === unit._id ? 'bg-black text-white' : 'bg-white',
-              `border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12`
+              `border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 relative z-above`
             )}
           >
             <p className="mb-0 py-2 text-left pl-4 uppercase">
