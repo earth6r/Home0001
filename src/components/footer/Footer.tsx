@@ -28,7 +28,13 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
           })}
         </ul>
       </div>
-      <p className="mb-4 md:mb-9 mt-20">&copy;{` ${year} HOME0001`}</p>
+
+      <p className="mb-4 md:mb-9 mt-20">
+        &copy;{` ${year} HOME0001`}
+        <br />
+        <br />
+        NY DRE #10351211814 | CA DRE #01427385
+      </p>
     </footer>
   )
 }
