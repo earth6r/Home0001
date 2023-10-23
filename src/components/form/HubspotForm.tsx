@@ -13,6 +13,7 @@ interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
   formType?: 'unit' | 'general' | 'newsletter'
   unitFormSuccessMessage?: RichTextType
+  menuModal?: boolean
   formSubmitted: boolean
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -53,6 +54,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
   unitFormSuccessMessage,
   formSubmitted,
   setFormSubmitted,
+  menuModal,
 }) => {
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const { register, handleSubmit } = useForm({
@@ -67,6 +69,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
         'unit of interest': state.unit?.title,
       })
     }
+    if (menuModal) sendGoogleEvent('submit_modal_waitlist_form')
 
     if (!audienceId || !formType) return
     try {
