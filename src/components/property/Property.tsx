@@ -9,6 +9,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   property,
   className,
 }) => {
+  console.log('property', property)
   return (
     <div className={classNames(className)}>
       <div className="block relative mt-10 md:mt-20">
