@@ -68,8 +68,9 @@ export const HubspotForm: FC<HubspotFormProps> = ({
       sendGoogleEvent('submit_reservation_form', {
         'unit of interest': state.unit?.title,
       })
-    }
-    if (menuModal) sendGoogleEvent('submit_modal_waitlist_form')
+    } else if (menuModal) sendGoogleEvent('submit_modal_waitlist_form')
+    else if (formType == 'general')
+      sendGoogleEvent('submit_general_waitlist_form')
 
     if (!audienceId || !formType) return
     try {
