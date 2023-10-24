@@ -2,6 +2,7 @@ import { type FC, useState } from 'react'
 import Map from './Map'
 import { Dialog } from '@headlessui/react'
 import { MapDialogProps } from './types'
+import { sendGoogleEvent } from '@lib/util/analytics'
 
 export const MapDialog: FC<MapDialogProps> = ({
   text,
@@ -14,7 +15,10 @@ export const MapDialog: FC<MapDialogProps> = ({
     <div className={className}>
       <button
         aria-label={`Open Map`}
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          sendGoogleEvent(`opened_map_for_${coordinates?.lat}`)
+          setIsOpen(true)
+        }}
         className="hover:font-bold border-bottom"
       >
         {text}
