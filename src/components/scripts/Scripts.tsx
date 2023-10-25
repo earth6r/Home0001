@@ -13,13 +13,13 @@ export const Scripts = () => {
         <>
           <Script id="google-analytics" strategy="afterInteractive">
             <noscript>
-              <div style={{ display: 'none', visibility: 'hidden' }}>
-                <iframe
-                  src={`https://www.googletagmanager.com/ns.html?id=${GOOGLE_ID}`}
-                  height="0"
-                  width="0"
-                ></iframe>
-              </div>
+              {/* <div style={{ display: 'none', visibility: 'hidden' }}> */}
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${GOOGLE_ID}`}
+                height="0"
+                width="0"
+              ></iframe>
+              {/* </div> */}
             </noscript>
           </Script>
         </>
