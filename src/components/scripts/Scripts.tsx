@@ -1,6 +1,6 @@
 import Script from 'next/script'
 
-const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID
+const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID
 const FACEBOOK_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
 const HOTJAR_ID = process.env.NEXT_PUBLIC_HOTJAR_ID
 const HOTJAR_SV = process.env.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION
