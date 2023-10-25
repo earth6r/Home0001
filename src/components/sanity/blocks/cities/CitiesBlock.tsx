@@ -68,7 +68,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                     disabled={!active || !property}
                     onClick={() => {
                       property && updateProperty(title)
-                      sendGoogleEvent(`click_${title}_button`)
+                      // sendGoogleEvent(`click_${title}_button`)
                       // sendHubspotEvent(`clicked ${title}`, 'clicked')
                     }}
                     className={classNames(

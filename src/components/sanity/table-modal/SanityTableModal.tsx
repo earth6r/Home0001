@@ -20,11 +20,11 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
     if (unit) {
       switch (modalType) {
         case 'fact sheet': {
-          sendGoogleEvent(`Click Fact Sheet for ${unit}`)
+          // sendGoogleEvent(`Click Fact Sheet for ${unit}`)
           break
         }
         case 'inventory': {
-          sendGoogleEvent(`Click Inventory for ${unit}`)
+          // sendGoogleEvent(`Click Inventory for ${unit}`)
           break
         }
       }

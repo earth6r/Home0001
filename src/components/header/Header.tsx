@@ -69,7 +69,7 @@ export const Header: FC<HeaderProps> = ({
             type="button"
             onClick={() => {
               setWaitlistOpen(true)
-              sendGoogleEvent('opened waitlist modal')
+              // sendGoogleEvent('opened waitlist modal')
             }}
             className="pointer-events-auto flex pt-[5.5px] pb-[5px] px-[5.5px] md:pt-[8px] md:pb-[7px] md:px-[7px] bg-black text-white leading-[11px] uppercase z-header"
           >
