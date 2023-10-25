@@ -13,9 +13,9 @@ export const Scripts = () => {
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ID}`}
-            strategy="beforeInteractive"
+            strategy="afterInteractive"
           />
-          <Script id="google-analytics" strategy="beforeInteractive">
+          <Script id="google-analytics" strategy="afterInteractive">
             {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
