@@ -23,8 +23,8 @@ export const UnitComponent: FC<UnitElProps> = ({
   const formButtonClick = () => {
     setFormActive(!formActive)
     if (!unit?.title) return
-    sendGoogleEvent(`opened_reserve_form_for_${unit?.title}`)
-    sendHubspotEvent('clicked reserve this home', unit?.title)
+    // sendGoogleEvent(`opened_reserve_form_for_${unit?.title}`)
+    // sendHubspotEvent('clicked reserve this home', unit?.title)
   }
 
   useEffect(() => {

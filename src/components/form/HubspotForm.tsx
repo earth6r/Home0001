@@ -64,13 +64,13 @@ export const HubspotForm: FC<HubspotFormProps> = ({
   const { state } = useContext(HomeContext)
 
   const onSubmit = async (data: any) => {
-    if (formType === 'unit') {
-      sendGoogleEvent('submit_reservation_form', {
-        'unit of interest': state.unit?.title,
-      })
-    } else if (menuModal) sendGoogleEvent('submit_modal_waitlist_form')
-    else if (formType == 'general')
-      sendGoogleEvent('submit_general_waitlist_form')
+    // if (formType === 'unit') {
+    //   sendGoogleEvent('submit_reservation_form', {
+    //     'unit of interest': state.unit?.title,
+    //   })
+    // } else if (menuModal) sendGoogleEvent('submit_modal_waitlist_form')
+    // else if (formType == 'general')
+    //   sendGoogleEvent('submit_general_waitlist_form')
 
     if (!audienceId || !formType) return
     try {

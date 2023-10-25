@@ -16,7 +16,7 @@ export const MapDialog: FC<MapDialogProps> = ({
       <button
         aria-label={`Open Map`}
         onClick={() => {
-          sendGoogleEvent(`opened_map_for_${coordinates?.lat}`)
+          // sendGoogleEvent(`opened_map_for_${coordinates?.lat}`)
           setIsOpen(true)
         }}
         className="hover:font-bold border-bottom"
