@@ -4,6 +4,7 @@ import type { HeadProps } from './types'
 import { useHeadTitle } from './use-title'
 import { useHeadImages } from './use-images'
 import { COLORS } from '@globals/colors'
+const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID
 
 export const Head: FC<HeadProps> = props => {
   const title = useHeadTitle({
@@ -15,8 +16,18 @@ export const Head: FC<HeadProps> = props => {
     pageImage: props.pageImage,
     siteImage: props.siteImage,
   })
+
   return (
     <NextHead>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','${GOOGLE_ID}');`,
+        }}
+      ></script>
       <title key="title">{title}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta

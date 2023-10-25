@@ -11,18 +11,16 @@ export const Scripts = () => {
     <>
       {GOOGLE_ID && GOOGLE_ID.length > 0 ? (
         <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ID}`}
-            strategy="afterInteractive"
-          />
           <Script id="google-analytics" strategy="afterInteractive">
-            {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-    
-            gtag('config', '${GOOGLE_ID}');
-          `}
+            <noscript>
+              <div style={{ display: 'none', visibility: 'hidden' }}>
+                <iframe
+                  src={`https://www.googletagmanager.com/ns.html?id=${GOOGLE_ID}`}
+                  height="0"
+                  width="0"
+                ></iframe>
+              </div>
+            </noscript>
           </Script>
         </>
       ) : null}
