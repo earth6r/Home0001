@@ -30,8 +30,8 @@ function App({
     <PreviewProvider token={token}>
       <HomeProvider>
         <Layout {...pageProps}>
-          <Component {...pageProps} />
           <Scripts />
+          <Component {...pageProps} />
         </Layout>
       </HomeProvider>
     </PreviewProvider>
