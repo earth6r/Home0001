@@ -39,8 +39,8 @@ function App({
     <HomeProvider>
       {/* <IntercomProvider> */}
       <Layout {...pageProps}>
-        <Component {...pageProps} />
         <Scripts />
+        <Component {...pageProps} />
       </Layout>
       {/* </IntercomProvider> */}
     </HomeProvider>
