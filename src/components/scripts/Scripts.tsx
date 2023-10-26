@@ -24,7 +24,7 @@ export const Scripts = () => {
           </Script>
         </>
       ) : null}
-      {FACEBOOK_ID && FACEBOOK_ID.length > 0 ? (
+      {/* {FACEBOOK_ID && FACEBOOK_ID.length > 0 ? (
         <Script id="facebook-pixel-analytics" strategy="afterInteractive">
           {`
               !function(f,b,e,v,n,t,s)
@@ -38,7 +38,7 @@ export const Scripts = () => {
               fbq('init', '${FACEBOOK_ID}');
             `}
         </Script>
-      ) : null}
+      ) : null} */}
       {HOTJAR_ID && HOTJAR_ID.length > 0 ? (
         <Script id="hotjar-analytics" strategy="afterInteractive">
           {`
