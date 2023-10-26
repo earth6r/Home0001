@@ -1,5 +1,5 @@
 import type { FC, MouseEvent } from 'react'
-import { HTMLAttributes, useContext, useState } from 'react'
+import { HTMLAttributes, useContext, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
 import { useForm } from 'react-hook-form'
@@ -8,6 +8,7 @@ import { HomeContext } from '@contexts/home'
 import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
+import { useCookies } from 'react-cookie'
 
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
@@ -56,6 +57,15 @@ export const HubspotForm: FC<HubspotFormProps> = ({
   setFormSubmitted,
   menuModal,
 }) => {
+  const [cookies, setCookie, removeCookie] = useCookies()
+  const [hutk, setHutk] = useState<string | undefined>()
+
+  useEffect(() => {
+    if (cookies.hubspotutk) {
+      setHutk(cookies.hubspotutk)
+    }
+  }, [])
+
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
@@ -74,7 +84,8 @@ export const HubspotForm: FC<HubspotFormProps> = ({
 
     if (!audienceId || !formType) return
     try {
-      const result = await submitForm(data, audienceId, formType)
+      if (hutk) await submitForm(data, audienceId, formType, hutk)
+      else await submitForm(data, audienceId, formType)
       setFormSubmitted(true)
     } catch (error) {
       setFormError(error)

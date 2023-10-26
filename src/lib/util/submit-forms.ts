@@ -6,7 +6,8 @@ const postNewsletterFields = async (
   data: any,
   portalId?: string,
   formGuid?: string,
-  config?: any
+  config?: any,
+  hutk?: string
 ) => {
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
@@ -27,6 +28,11 @@ const postNewsletterFields = async (
         { name: 'else', value: data.Else },
         { name: 'city', value: data.City },
       ],
+      context: {
+        hutk: hutk,
+        pageUri: document.URL,
+        pageName: document.title,
+      },
     },
     config
   )
@@ -36,7 +42,8 @@ const postGeneralFields = async (
   data: any,
   portalId?: string,
   formGuid?: string,
-  config?: any
+  config?: any,
+  hutk?: string
 ) => {
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
@@ -59,6 +66,7 @@ const postGeneralFields = async (
         { name: 'else_general', value: data.Else },
         { name: 'city_general', value: data.City },
       ],
+      context: { hutk: hutk, pageUri: document.URL, pageName: document.title },
     },
     config
   )
@@ -68,7 +76,8 @@ const postUnitFields = async (
   data: any,
   portalId?: string,
   formGuid?: string,
-  config?: any
+  config?: any,
+  hutk?: string
 ) => {
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
@@ -94,6 +103,7 @@ const postUnitFields = async (
           value: data.unit_of_interest,
         },
       ],
+      context: { hutk: hutk, pageUri: document.URL, pageName: document.title },
     },
     config
   )
@@ -102,7 +112,8 @@ const postUnitFields = async (
 export const submitForm = async (
   data: any,
   audienceId: string,
-  formType: string
+  formType: string,
+  hutk?: string
 ) => {
   const portalId = HUBSPOT_ID
   const formGuid = audienceId
@@ -113,12 +124,29 @@ export const submitForm = async (
   }
 
   let response = null
-  if (formType === 'newsletter') {
-    response = await postNewsletterFields(data, portalId, formGuid, config)
-  } else if (formType === 'general') {
-    response = await postGeneralFields(data, portalId, formGuid, config)
-  } else if (formType === 'unit') {
-    response = await postUnitFields(data, portalId, formGuid, config)
+  if (hutk) {
+    if (formType === 'newsletter') {
+      response = await postNewsletterFields(
+        data,
+        portalId,
+        formGuid,
+        config,
+        hutk
+      )
+    } else if (formType === 'general') {
+      response = await postGeneralFields(data, portalId, formGuid, config, hutk)
+    } else if (formType === 'unit') {
+      response = await postUnitFields(data, portalId, formGuid, config, hutk)
+    }
+  } else {
+    if (formType === 'newsletter') {
+      response = await postNewsletterFields(data, portalId, formGuid, config)
+    } else if (formType === 'general') {
+      response = await postGeneralFields(data, portalId, formGuid, config)
+    } else if (formType === 'unit') {
+      response = await postUnitFields(data, portalId, formGuid, config)
+    }
   }
+
   return response
 }
