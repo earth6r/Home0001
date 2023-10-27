@@ -38,8 +38,8 @@ const postContactFields = async (
       formGuid,
       fields: [
         { name: 'email', value: data.email },
-        { name: 'firstname', value: data.firstname },
-        { name: 'lastname', value: data.lastname },
+        { name: 'firstname', value: data.first_name },
+        { name: 'lastname', value: data.last_name },
         { name: 'hs_persona', value: data.hs_persona },
         { name: 'message', value: data.message },
       ],
@@ -60,6 +60,8 @@ const postNewsletterFields = async (
   config?: any,
   hutk?: string
 ) => {
+  console.log('data', data)
+  console.log('hutk', hutk)
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
     {
@@ -195,6 +197,8 @@ export const submitForm = async (
     response = await postGeneralFields(data, portalId, formGuid, config, hutk)
   } else if (formType === 'unit') {
     response = await postUnitFields(data, portalId, formGuid, config, hutk)
+  } else if (formType === 'contact') {
+    response = await postContactFields(data, portalId, formGuid, config, hutk)
   }
 
   return response
