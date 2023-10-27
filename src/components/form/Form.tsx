@@ -1,0 +1,75 @@
+import type { FC } from 'react'
+import { HTMLAttributes, useState } from 'react'
+import classNames from 'classnames'
+import { useForm } from 'react-hook-form'
+import { submitForm } from '@lib/util/submit-forms'
+import { sendGoogleEvent } from '@lib/util'
+import { RichText } from '@components/sanity'
+import { RichText as RichTextType } from '@studio/gen/sanity-schema'
+
+interface FormProps extends HTMLAttributes<HTMLElement> {
+  audienceId?: string
+  formType?: 'unit' | 'general' | 'newsletter'
+  successMessage?: RichTextType | string
+  formSubmitted: boolean
+  setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const Form: FC<FormProps> = ({
+  audienceId,
+  formType,
+  className,
+  successMessage,
+  formSubmitted,
+  setFormSubmitted,
+  children,
+}) => {
+  const [formError, setFormError] = useState<unknown | string | null>(null)
+  const { handleSubmit } = useForm({
+    shouldUseNativeValidation: true,
+  })
+
+  const onSubmit = async (data: any) => {
+    // if (formType === 'unit') {
+    //   sendGoogleEvent('submit_reservation_form', {
+    //     'unit of interest': state.unit?.title,
+    //   })
+    // } else if (menuModal) sendGoogleEvent('submit_modal_waitlist_form')
+    // else if (formType == 'general')
+    //   sendGoogleEvent('submit_general_waitlist_form')
+
+    if (!audienceId || !formType) return
+    try {
+      const result = await submitForm(data, audienceId, formType)
+      setFormSubmitted(true)
+    } catch (error) {
+      setFormError(error)
+      console.log(error)
+    }
+  }
+
+  return (
+    <div className={classNames(className)}>
+      {formSubmitted ? (
+        <div className="relative mb-2 text-mobile-body md:text-desktop-body">
+          {typeof successMessage === 'string' ? (
+            <p>{successMessage}</p>
+          ) : (
+            successMessage && <RichText blocks={successMessage} />
+          )}
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+          {children}
+          {formError != null && (
+            <div className="mt-yhalf text-center py-4 text-[red] border-1 border-solid border-red text-base">
+              <p>{`Error submitting form`}</p>
+            </div>
+          )}
+        </form>
+      )}
+    </div>
+  )
+}
+
+export default Form

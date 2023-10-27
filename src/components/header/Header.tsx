@@ -8,7 +8,7 @@ import type { Menus as SanityMenu } from '@gen/sanity-schema'
 import { Btn } from '@components/btns'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Modal } from '@components/modal'
-import { HubspotForm } from '@components/form'
+import { Form, HubspotForm } from '@components/form'
 import { RichText } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util/analytics'
 
@@ -55,13 +55,17 @@ export const Header: FC<HeaderProps> = ({
                   className={classNames('mb-4 clear-both')}
                 />
               )}
-              <HubspotForm
+              <Form
                 formType={'general'}
                 audienceId={waitlistId}
+                successMessage={
+                  "You're on the waitlist. We’ll be in touch as homes are released for sale."
+                }
                 formSubmitted={formSubmitted}
                 setFormSubmitted={setFormSubmitted}
-                menuModal={true}
-              />
+              >
+                <HubspotForm submitButtonCopy="Join the waitlist" />
+              </Form>
             </div>
           </Modal>
 

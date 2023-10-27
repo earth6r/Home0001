@@ -1,21 +1,16 @@
-import type { FC, MouseEvent } from 'react'
+import type { FC } from 'react'
 import { HTMLAttributes, useContext, useState } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
 import { useForm } from 'react-hook-form'
-import { submitForm } from '@lib/util/submit-forms'
 import { HomeContext } from '@contexts/home'
-import { sendGoogleEvent } from '@lib/util'
-import { RichText } from '@components/sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
-  audienceId?: string
-  formType?: 'unit' | 'general' | 'newsletter'
-  unitFormSuccessMessage?: RichTextType
-  menuModal?: boolean
-  formSubmitted: boolean
-  setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>
+  showLocationFields?: boolean
+  showContactLink?: boolean
+  showNameFields?: boolean
+  submitButtonCopy?: string
 }
 
 const LOCATIONS = [
@@ -45,168 +40,123 @@ const LOCATIONS = [
   },
 ]
 
-const GENERAL_SUCCESS_COPY = `You're on the waitlist. We’ll be in touch as homes are released for sale.`
-
 export const HubspotForm: FC<HubspotFormProps> = ({
-  audienceId,
-  formType,
+  showNameFields,
+  showLocationFields,
+  submitButtonCopy,
+  showContactLink,
   className,
-  unitFormSuccessMessage,
-  formSubmitted,
-  setFormSubmitted,
-  menuModal,
 }) => {
-  const [formError, setFormError] = useState<unknown | string | null>(null)
-  const { register, handleSubmit } = useForm({
+  const { state } = useContext(HomeContext)
+  const { register } = useForm({
     shouldUseNativeValidation: true,
   })
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
-  const { state } = useContext(HomeContext)
-
-  const onSubmit = async (data: any) => {
-    // if (formType === 'unit') {
-    //   sendGoogleEvent('submit_reservation_form', {
-    //     'unit of interest': state.unit?.title,
-    //   })
-    // } else if (menuModal) sendGoogleEvent('submit_modal_waitlist_form')
-    // else if (formType == 'general')
-    //   sendGoogleEvent('submit_general_waitlist_form')
-
-    if (!audienceId || !formType) return
-    try {
-      const result = await submitForm(data, audienceId, formType)
-      setFormSubmitted(true)
-    } catch (error) {
-      setFormError(error)
-      console.log(error)
-    }
-  }
 
   return (
-    <div className={classNames(className)}>
-      {formSubmitted ? (
-        <div className="relative mb-2 text-mobile-body md:text-desktop-body">
-          {unitFormSuccessMessage ? (
-            <RichText blocks={unitFormSuccessMessage} />
-          ) : formType == 'newsletter' ? (
-            <p>Your data — our harvest.</p>
-          ) : (
-            <p>{GENERAL_SUCCESS_COPY}</p>
-          )}
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <div className="w-full">
-            <div className="relative flex flex-col gap-4">
-              {formType !== 'newsletter' && (
-                <div className="flex flex-row gap-4">
-                  <input
-                    type="text"
-                    id="first_name"
-                    className="input"
-                    placeholder="FIRST NAME"
-                    {...register('first_name', { required: true })}
-                  />
-                  <input
-                    type="text"
-                    id="last_name"
-                    className="input"
-                    placeholder="LAST NAME"
-                    {...register('last_name', { required: true })}
-                  />
-                </div>
-              )}
-
-              <input
-                placeholder="YOUR EMAIL"
-                type="email"
-                id="email"
-                className="input"
-                {...register('email', { required: true })}
-              />
-
-              {formType !== 'unit' ? (
-                <>
-                  <p className="mt-4">Where do you want to live?</p>
-                  {LOCATIONS.map(({ label, name }) => (
-                    <div className="mb-1 md:mb-4" key={name}>
-                      <input
-                        type="checkbox"
-                        id={name}
-                        {...register(name, { required: false })}
-                      />
-                      <label
-                        className="text-left ml-x md:ml-xhalf cursor-pointer"
-                        htmlFor={name}
-                      >
-                        {label}
-                      </label>
-                    </div>
-                  ))}
-                  <div className="mb-4" key={'Else'}>
-                    <input
-                      type="checkbox"
-                      id={'Else'}
-                      {...register('Else', {
-                        required: false,
-                        onChange: () => setHiddenInputShown(!hiddenInputShown),
-                      })}
-                    />
-                    <label
-                      className="text-left ml-x md:ml-xhalf cursor-pointer"
-                      htmlFor={'Else'}
-                    >
-                      {`Somewhere else`}
-                    </label>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="WHERE?"
-                    {...register('City', { required: false })}
-                    className={classNames(
-                      hiddenInputShown ? 'mb-4' : 'hidden',
-                      'input'
-                    )}
-                  />
-                </>
-              ) : (
-                <input
-                  type="hidden"
-                  value={state.unit?.title}
-                  {...register('unit_of_interest', { required: false })}
-                />
-              )}
-            </div>
-            <div
-              className={classNames(
-                formType === 'unit' ? 'mt-10' : 'mt-1 md:mt-6',
-                'relative flex flex-col gap-2 md:gap-4'
-              )}
-            >
-              <button
-                className="tracking-normal h-12 max-h-12 text-center tracking-caps uppercase text-white bg-black text-mobile-body md:text-desktop-body"
-                type="submit"
-              >
-                {formType === 'newsletter' ? `Submit` : `Join the waitlist`}
-              </button>
-              {formType !== 'newsletter' && (
-                <p className="mt-5 md:my-5">
-                  {`Got questions?${' '}`}
-                  <Link href="/contact" className="border-bottom">
-                    Ask us anything
-                  </Link>
-                  {`.`}
-                </p>
-              )}
-            </div>
+    <div className={classNames(className, 'w-full')}>
+      <div className="relative flex flex-col gap-4">
+        {showNameFields && (
+          <div className="flex flex-row gap-4">
+            <input
+              type="text"
+              id="first_name"
+              className="input"
+              placeholder="FIRST NAME"
+              {...register('first_name', { required: true })}
+            />
+            <input
+              type="text"
+              id="last_name"
+              className="input"
+              placeholder="LAST NAME"
+              {...register('last_name', { required: true })}
+            />
           </div>
-          {formError != null && (
-            <div className="mt-yhalf text-center py-4 text-[red] border-1 border-solid border-red text-base">
-              <p>{`Error submitting form`}</p>
+        )}
+
+        <input
+          placeholder="YOUR EMAIL"
+          type="email"
+          id="email"
+          className="input"
+          {...register('email', { required: true })}
+        />
+
+        {showLocationFields ? (
+          <>
+            <p className="mt-4">Where do you want to live?</p>
+            {LOCATIONS.map(({ label, name }) => (
+              <div className="mb-1 md:mb-4" key={name}>
+                <input
+                  type="checkbox"
+                  id={name}
+                  {...register(name, { required: false })}
+                />
+                <label
+                  className="text-left ml-x md:ml-xhalf cursor-pointer"
+                  htmlFor={name}
+                >
+                  {label}
+                </label>
+              </div>
+            ))}
+            <div className="mb-4" key={'Else'}>
+              <input
+                type="checkbox"
+                id={'Else'}
+                {...register('Else', {
+                  required: false,
+                  onChange: () => setHiddenInputShown(!hiddenInputShown),
+                })}
+              />
+              <label
+                className="text-left ml-x md:ml-xhalf cursor-pointer"
+                htmlFor={'Else'}
+              >
+                {`Somewhere else`}
+              </label>
             </div>
-          )}
-        </form>
-      )}
+            <input
+              type="text"
+              placeholder="WHERE?"
+              {...register('City', { required: false })}
+              className={classNames(
+                hiddenInputShown ? 'mb-4' : 'hidden',
+                'input'
+              )}
+            />
+          </>
+        ) : (
+          <input
+            type="hidden"
+            value={state.unit?.title}
+            {...register('unit_of_interest', { required: false })}
+          />
+        )}
+      </div>
+      <div
+        className={classNames(
+          showLocationFields ? 'mt-10' : 'mt-1 md:mt-6',
+          'relative flex flex-col gap-2 md:gap-4'
+        )}
+      >
+        <button
+          className="tracking-normal h-12 max-h-12 text-center tracking-caps uppercase text-white bg-black text-mobile-body md:text-desktop-body"
+          type="submit"
+        >
+          {submitButtonCopy || 'Submit'}
+        </button>
+        {showContactLink && (
+          <p className="mt-5 md:my-5">
+            {`Got questions?${' '}`}
+            <Link href="/contact" className="border-bottom">
+              Ask us anything
+            </Link>
+            {`.`}
+          </p>
+        )}
+      </div>
     </div>
   )
 }
