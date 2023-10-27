@@ -32,7 +32,7 @@ export const ContactBlock: FC<ContactBlockProps> = ({
         )}
 
         <HubspotForm
-          formType={'newsletter'}
+          formType={'contact'}
           audienceId={audienceId}
           formSubmitted={formSubmitted}
           setFormSubmitted={setFormSubmitted}

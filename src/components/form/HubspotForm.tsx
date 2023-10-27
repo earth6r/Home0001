@@ -85,8 +85,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
 
     if (!audienceId || !formType) return
     try {
-      if (hutk) await submitForm(data, audienceId, formType, hutk)
-      else await submitForm(data, audienceId, formType)
+      const result = await submitForm(data, audienceId, formType, hutk)
       setFormSubmitted(true)
     } catch (error) {
       setFormError(error)
@@ -138,7 +137,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                 className="input"
                 {...register('email', { required: true })}
               />
-              {formType == 'general' ? (
+              {formType == 'general' || 'newsletter' ? (
                 <>
                   <p className="mt-4">Where do you want to live?</p>
                   {LOCATIONS.map(({ label, name }) => (
@@ -188,21 +187,25 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                   <select
                     id="hs_persona"
                     {...register('hs_persona', { required: true })}
+                    className="input"
                   >
+                    <option disabled selected>
+                      -- select an option --
+                    </option>
                     <option value="purchasing">
                       I am interested in purchasing a home.
                     </option>
                     <option value="learn_more">
-                      I am not interested in purchasing a home right now, but
-                      want to learn more about Home0001.
+                      I am not currently interested in purchasing a home but
+                      want to learn about Home0001.
                     </option>
                     <option value="realitor">I am a realtor.</option>
                   </select>
-                  <input
-                    type="text"
+                  <textarea
+                    rows={5}
                     id="message"
-                    className="input"
-                    placeholder="Leave us a message"
+                    className="block p-5"
+                    placeholder="LEAVE US A MESSAGE"
                     {...register('message', { required: true })}
                   />
                 </>
