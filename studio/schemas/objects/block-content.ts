@@ -19,6 +19,11 @@ export default {
       title: 'Newsletter Block',
     },
     {
+      name: 'contactBlock',
+      type: 'contactBlock',
+      title: 'Contact Block',
+    },
+    {
       name: 'textBlock',
       type: 'textBlock',
       title: 'Text Block',

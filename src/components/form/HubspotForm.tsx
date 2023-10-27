@@ -12,7 +12,7 @@ import { useCookies } from 'react-cookie'
 
 interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
-  formType?: 'unit' | 'general' | 'newsletter'
+  formType?: 'unit' | 'general' | 'newsletter' | 'contact'
   unitFormSuccessMessage?: RichTextType
   menuModal?: boolean
   formSubmitted: boolean
@@ -47,6 +47,7 @@ const LOCATIONS = [
 ]
 
 const GENERAL_SUCCESS_COPY = `You're on the waitlist. We’ll be in touch as homes are released for sale.`
+const CONTACT_SUCCESS_COPY = `Thanks for reaching out. We’ll be in touch soon.`
 
 export const HubspotForm: FC<HubspotFormProps> = ({
   audienceId,
@@ -101,6 +102,8 @@ export const HubspotForm: FC<HubspotFormProps> = ({
             <RichText blocks={unitFormSuccessMessage} />
           ) : formType == 'newsletter' ? (
             <p>Your data — our harvest.</p>
+          ) : formType == 'contact' ? (
+            <p>{CONTACT_SUCCESS_COPY}</p>
           ) : (
             <p>{GENERAL_SUCCESS_COPY}</p>
           )}
@@ -135,8 +138,7 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                 className="input"
                 {...register('email', { required: true })}
               />
-
-              {formType !== 'unit' ? (
+              {formType == 'general' ? (
                 <>
                   <p className="mt-4">Where do you want to live?</p>
                   {LOCATIONS.map(({ label, name }) => (
@@ -178,6 +180,30 @@ export const HubspotForm: FC<HubspotFormProps> = ({
                       hiddenInputShown ? 'mb-4' : 'hidden',
                       'input'
                     )}
+                  />
+                </>
+              ) : formType == 'contact' ? (
+                <>
+                  <label htmlFor="hs_persona">Which best describes you?</label>
+                  <select
+                    id="hs_persona"
+                    {...register('hs_persona', { required: true })}
+                  >
+                    <option value="purchasing">
+                      I am interested in purchasing a home.
+                    </option>
+                    <option value="learn_more">
+                      I am not interested in purchasing a home right now, but
+                      want to learn more about Home0001.
+                    </option>
+                    <option value="realitor">I am a realtor.</option>
+                  </select>
+                  <input
+                    type="text"
+                    id="message"
+                    className="input"
+                    placeholder="Leave us a message"
+                    {...register('message', { required: true })}
                   />
                 </>
               ) : (

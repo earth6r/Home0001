@@ -2,6 +2,57 @@ import axios from 'axios'
 
 const HUBSPOT_ID = process.env.NEXT_PUBLIC_HUBSPOT_ID
 
+const postModalFields = async (
+  data: any,
+  portalId?: string,
+  formGuid?: string,
+  config?: any,
+  hutk?: string
+) => {
+  return await axios.post(
+    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+    {
+      portalId,
+      formGuid,
+      fields: [{ name: '', value: '' }],
+      context: {
+        hutk: hutk ? hutk : 'none available',
+        pageUri: document.URL,
+        pageName: document.title,
+      },
+    },
+    config
+  )
+}
+const postContactFields = async (
+  data: any,
+  portalId?: string,
+  formGuid?: string,
+  config?: any,
+  hutk?: string
+) => {
+  return await axios.post(
+    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+    {
+      portalId,
+      formGuid,
+      fields: [
+        { name: 'email', value: data.email },
+        { name: 'firstname', value: data.firstname },
+        { name: 'lastname', value: data.lastname },
+        { name: 'hs_persona', value: data.hs_persona },
+        { name: 'message', value: data.message },
+      ],
+      context: {
+        hutk: hutk ? hutk : 'none available',
+        pageUri: document.URL,
+        pageName: document.title,
+      },
+    },
+    config
+  )
+}
+
 const postNewsletterFields = async (
   data: any,
   portalId?: string,
@@ -29,7 +80,7 @@ const postNewsletterFields = async (
         { name: 'city', value: data.City },
       ],
       context: {
-        hutk: hutk,
+        hutk: hutk ? hutk : 'none available',
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -66,7 +117,11 @@ const postGeneralFields = async (
         { name: 'else_general', value: data.Else },
         { name: 'city_general', value: data.City },
       ],
-      context: { hutk: hutk, pageUri: document.URL, pageName: document.title },
+      context: {
+        hutk: hutk ? hutk : 'none available',
+        pageUri: document.URL,
+        pageName: document.title,
+      },
     },
     config
   )
@@ -103,7 +158,11 @@ const postUnitFields = async (
           value: data.unit_of_interest,
         },
       ],
-      context: { hutk: hutk, pageUri: document.URL, pageName: document.title },
+      context: {
+        hutk: hutk ? hutk : 'none available',
+        pageUri: document.URL,
+        pageName: document.title,
+      },
     },
     config
   )
@@ -124,28 +183,18 @@ export const submitForm = async (
   }
 
   let response = null
-  if (hutk) {
-    if (formType === 'newsletter') {
-      response = await postNewsletterFields(
-        data,
-        portalId,
-        formGuid,
-        config,
-        hutk
-      )
-    } else if (formType === 'general') {
-      response = await postGeneralFields(data, portalId, formGuid, config, hutk)
-    } else if (formType === 'unit') {
-      response = await postUnitFields(data, portalId, formGuid, config, hutk)
-    }
-  } else {
-    if (formType === 'newsletter') {
-      response = await postNewsletterFields(data, portalId, formGuid, config)
-    } else if (formType === 'general') {
-      response = await postGeneralFields(data, portalId, formGuid, config)
-    } else if (formType === 'unit') {
-      response = await postUnitFields(data, portalId, formGuid, config)
-    }
+  if (formType === 'newsletter') {
+    response = await postNewsletterFields(
+      data,
+      portalId,
+      formGuid,
+      config,
+      hutk
+    )
+  } else if (formType === 'general') {
+    response = await postGeneralFields(data, portalId, formGuid, config, hutk)
+  } else if (formType === 'unit') {
+    response = await postUnitFields(data, portalId, formGuid, config, hutk)
   }
 
   return response
