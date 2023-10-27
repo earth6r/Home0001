@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import type { NewsletterBlock as NewsletterBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
-import { HubspotForm } from '@components/form'
+import { Form, HubspotForm } from '@components/form'
 
 type NewsletterBlockProps = Omit<
   SanityBlockElement,
@@ -34,12 +34,15 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
           <RichText blocks={text} className={classNames('mb-4 clear-both')} />
         )}
 
-        <HubspotForm
+        <Form
           formType={'newsletter'}
           audienceId={audienceId}
           formSubmitted={formSubmitted}
           setFormSubmitted={setFormSubmitted}
-        />
+          successMessage={'Your data — our harvest.'}
+        >
+          <HubspotForm showNameFields={false} />
+        </Form>
       </div>
     </Block>
   )
