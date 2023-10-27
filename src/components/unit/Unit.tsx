@@ -111,7 +111,7 @@ export const UnitComponent: FC<UnitElProps> = ({
             )}
 
             <Form
-              formType={'unit'}
+              formType={'general'}
               audienceId={UNIT_AUDIENCE_ID}
               successMessage={unit?.confirmationCopy}
               formSubmitted={formSubmitted}

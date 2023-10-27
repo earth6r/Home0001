@@ -9,7 +9,7 @@ import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 
 interface FormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
-  formType?: 'unit' | 'general' | 'newsletter'
+  formType?: 'general' | 'newsletter' | 'contact'
   successMessage?: RichTextType | string
   formSubmitted: boolean
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>

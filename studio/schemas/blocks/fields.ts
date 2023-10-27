@@ -55,3 +55,4 @@ export const idField = {
 
 export const topFields = [slugField]
 export const newsletterFields = [headerField, textField, idField]
+export const contactFields = [headerField, textField, idField]

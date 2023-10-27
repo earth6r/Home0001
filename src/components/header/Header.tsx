@@ -64,7 +64,10 @@ export const Header: FC<HeaderProps> = ({
                 formSubmitted={formSubmitted}
                 setFormSubmitted={setFormSubmitted}
               >
-                <HubspotForm submitButtonCopy="Join the waitlist" />
+                <HubspotForm
+                  showNameFields={true}
+                  submitButtonCopy="Join the waitlist"
+                />
               </Form>
             </div>
           </Modal>
