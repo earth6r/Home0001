@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import type { WaitlistBlock as WaitlistBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
-import { Form, HubspotForm } from '@components/form'
+import { Form, SinglePaneInputs } from '@components/form'
 
 type WaitlistBlockProps = Omit<SanityBlockElement, keyof WaitlistBlockType> &
   WaitlistBlockType
@@ -40,7 +40,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
           formSubmitted={formSubmitted}
           setFormSubmitted={setFormSubmitted}
         >
-          <HubspotForm
+          <SinglePaneInputs
             showLocationFields={true}
             showContactLink={true}
             submitButtonCopy="Join the waitlist"

@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import type { ContactBlock as ContactBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
-import { Form, HubspotForm } from '@components/form'
+import { Form, SinglePaneInputs } from '@components/form'
 
 type ContactBlockProps = Omit<SanityBlockElement, keyof ContactBlockType> &
   ContactBlockType
@@ -38,7 +38,7 @@ export const ContactBlock: FC<ContactBlockProps> = ({
           setFormSubmitted={setFormSubmitted}
           successMessage="Thanks for reaching out. We’ll be in touch soon."
         >
-          <HubspotForm showContactFields={true} showNameFields={true} />
+          <SinglePaneInputs showContactFields={true} showNameFields={true} />
         </Form>
       </div>
     </Block>

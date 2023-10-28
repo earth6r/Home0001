@@ -7,7 +7,7 @@ import { HomeContext } from '@contexts/home'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { useCookies } from 'react-cookie'
 
-interface HubspotFormProps extends HTMLAttributes<HTMLElement> {
+interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   showNameFields?: boolean
   showContactFields?: boolean
   showLocationFields?: boolean
@@ -42,7 +42,7 @@ const LOCATIONS = [
   },
 ]
 
-export const HubspotForm: FC<HubspotFormProps> = ({
+export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   showNameFields,
   showLocationFields,
   submitButtonCopy,
@@ -204,4 +204,4 @@ export const HubspotForm: FC<HubspotFormProps> = ({
   )
 }
 
-export default HubspotForm
+export default SinglePaneInputs

@@ -76,6 +76,13 @@ export default {
       group: 'header',
     },
     {
+      name: 'waitlistUnits',
+      title: 'Waitlist Units',
+      type: 'array',
+      of: [{ type: 'unitGroup' }],
+      group: 'header',
+    },
+    {
       name: 'howItWorksContent',
       title: 'How It Works Accordions',
       description: 'Currently shows in how to modal on unit',

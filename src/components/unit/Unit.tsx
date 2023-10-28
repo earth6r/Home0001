@@ -5,7 +5,7 @@ import { UnitElProps } from './types'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { BtnScrollToTop } from '@components/btns/BtnScrollToTop'
-import { Form, HubspotForm } from '@components/form'
+import { Form, SinglePaneInputs } from '@components/form'
 import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { AccordionModal } from '@components/accordion'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
@@ -117,7 +117,7 @@ export const UnitComponent: FC<UnitElProps> = ({
               formSubmitted={formSubmitted}
               setFormSubmitted={setFormSubmitted}
             >
-              <HubspotForm
+              <SinglePaneInputs
                 showContactLink={true}
                 submitButtonCopy="Join the waitlist"
               />

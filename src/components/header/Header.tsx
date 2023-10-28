@@ -8,7 +8,7 @@ import type { Menus as SanityMenu } from '@gen/sanity-schema'
 import { Btn } from '@components/btns'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Modal } from '@components/modal'
-import { Form, HubspotForm } from '@components/form'
+import { Form, MultiPaneInputs } from '@components/form'
 import { RichText } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util/analytics'
 
@@ -16,6 +16,7 @@ export const Header: FC<HeaderProps> = ({
   waitlistId,
   waitlistHeader,
   waitlistCopy,
+  waitlistUnits,
   mainMenu,
   className,
 }) => {
@@ -42,19 +43,7 @@ export const Header: FC<HeaderProps> = ({
 
         <div className="flex items-center gap-[1.12rem] md:gap-16">
           <Modal isOpen={waitlistOpen} onClose={() => setWaitlistOpen(false)}>
-            <div className="flex flex-col max-w-md h-full py-6 md:py-10 px-x md:px-10">
-              {waitlistHeader && (
-                <h2 className="pb-ylg uppercase">
-                  {waitlistHeader || `Join waitlist`}
-                </h2>
-              )}
-
-              {waitlistCopy && !formSubmitted && (
-                <RichText
-                  blocks={waitlistCopy}
-                  className={classNames('mb-4 clear-both')}
-                />
-              )}
+            <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
                 formType={'general'}
                 audienceId={waitlistId}
@@ -64,9 +53,11 @@ export const Header: FC<HeaderProps> = ({
                 formSubmitted={formSubmitted}
                 setFormSubmitted={setFormSubmitted}
               >
-                <HubspotForm
-                  showNameFields={true}
-                  submitButtonCopy="Join the waitlist"
+                <MultiPaneInputs
+                  header={waitlistHeader}
+                  copy={waitlistCopy}
+                  unitGroups={waitlistUnits}
+                  buttonCopy="Join waitlist"
                 />
               </Form>
             </div>

@@ -19,6 +19,8 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath, query } = useRouter()
 
+  console.log('siteSettings: ', siteSettings)
+
   return (
     <>
       <Head
@@ -41,6 +43,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           waitlistId={siteSettings?.waitlistId}
           waitlistCopy={siteSettings?.waitlistCopy}
           waitlistHeader={siteSettings?.waitlistHeader}
+          waitlistUnits={siteSettings?.waitlistUnits}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
         <main className="flex-auto">{children}</main>

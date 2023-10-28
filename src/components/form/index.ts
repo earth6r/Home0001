@@ -1,3 +1,3 @@
 export * from './Form'
-export * from './HubspotForm'
-export * from './HubspotWaitlistForm'
+export * from './SinglePaneInputs'
+export * from './MultiPaneInputs'
