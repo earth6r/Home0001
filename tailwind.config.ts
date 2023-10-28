@@ -38,6 +38,7 @@ export default {
         menu: 'var(--space-menu)',
         input: 'var(--input-size)',
         block: 'var(--space-block)',
+        btn: 'var(--btn-height)',
         btnx: 'var(--btn-space-x)',
         btny: 'var(--btn-space-y)',
         header: 'var(--header-height)',
@@ -102,6 +103,10 @@ export default {
         '.header-gradient': {
           background:
             'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0.96) 50%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,0) 100%)',
+        },
+        '.modal-gradient': {
+          background:
+            'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0.96) 50%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,0) 100%)',
         },
         '.mobile-landing': {
           fontSize: '4.5vh',

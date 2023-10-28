@@ -1,11 +1,12 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import { submitForm } from '@lib/util/submit-forms'
 import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
+import { useCookies } from 'react-cookie'
 
 interface FormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
@@ -28,6 +29,14 @@ export const Form: FC<FormProps> = ({
   const { handleSubmit } = useForm({
     shouldUseNativeValidation: true,
   })
+  const [cookies, setCookie, removeCookie] = useCookies()
+  const [hutk, setHutk] = useState<string | undefined>()
+
+  useEffect(() => {
+    if (cookies.hubspotutk) {
+      setHutk(cookies.hubspotutk)
+    }
+  }, [])
 
   const onSubmit = async (data: any) => {
     // if (formType === 'unit') {
@@ -40,7 +49,7 @@ export const Form: FC<FormProps> = ({
 
     if (!audienceId || !formType) return
     try {
-      const result = await submitForm(data, audienceId, formType)
+      const result = await submitForm(data, audienceId, formType, hutk)
       setFormSubmitted(true)
     } catch (error) {
       setFormError(error)

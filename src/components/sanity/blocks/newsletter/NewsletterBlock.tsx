@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import type { NewsletterBlock as NewsletterBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
-import { Form, HubspotForm } from '@components/form'
+import { Form, SinglePaneInputs } from '@components/form'
 
 type NewsletterBlockProps = Omit<
   SanityBlockElement,
@@ -41,7 +41,7 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
           setFormSubmitted={setFormSubmitted}
           successMessage={'Your data — our harvest.'}
         >
-          <HubspotForm showNameFields={false} />
+          <SinglePaneInputs showNameFields={false} />
         </Form>
       </div>
     </Block>

@@ -410,6 +410,13 @@ export interface SiteSettings extends SanityDocument {
   waitlistCopy?: RichText;
 
   /**
+   * Waitlist Units — `array`
+   *
+   *
+   */
+  waitlistUnits?: Array<SanityKeyed<UnitGroup>>;
+
+  /**
    * How It Works Accordions — `array`
    *
    * Currently shows in how to modal on unit
@@ -617,6 +624,23 @@ export type Tooltip = {
   tooltipContent?: PlainText;
 };
 
+export type UnitGroup = {
+  _type: "unitGroup";
+  /**
+   * Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Units — `array`
+   *
+   *
+   */
+  units?: Array<SanityKeyedReference<Unit>>;
+};
+
 export type InventoryModule = {
   _type: "inventoryModule";
   /**
@@ -750,13 +774,6 @@ export type WaitlistBlock = {
    *
    */
   audienceId?: string;
-
-  /**
-   * Form Type — `string`
-   *
-   *
-   */
-  formType?: "general" | "unit";
 };
 
 export type Documents =
