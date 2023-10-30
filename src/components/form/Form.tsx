@@ -68,7 +68,7 @@ export const Form: FC<FormProps> = ({
           )}
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           {children}
           {formError != null && (
             <div className="mt-yhalf text-center py-4 text-[red] border-1 border-solid border-red text-base">
