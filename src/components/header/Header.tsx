@@ -52,12 +52,14 @@ export const Header: FC<HeaderProps> = ({
                 }
                 formSubmitted={formSubmitted}
                 setFormSubmitted={setFormSubmitted}
+                className="w-full h-full"
               >
                 <MultiPaneInputs
                   header={waitlistHeader}
                   copy={waitlistCopy}
                   unitGroups={waitlistUnits}
                   buttonCopy="Join waitlist"
+                  className="w-full h-full"
                 />
               </Form>
             </div>

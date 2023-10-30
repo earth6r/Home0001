@@ -80,25 +80,25 @@ const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
 
 const UnitsPane: FC<PaneProps> = ({ unitGroups, register, className }) => {
   return (
-    <div>
+    <div className={className}>
       {unitGroups &&
         unitGroups.map(({ _key, header, units }) => {
           return (
-            <>
+            <div key={_key}>
               {header && <p>{header}</p>}
 
               {units &&
-                units.map((unit: KeyedUnitProps) => {
+                units.map((unit: KeyedUnitProps, index) => {
                   return (
                     <input
-                      key={_key}
+                      key={`${index}-${_key}`}
                       type="checkbox"
                       value={unit.title}
                       {...register('unit_of_interest', { required: false })}
                     />
                   )
                 })}
-            </>
+            </div>
           )
         })}
     </div>
@@ -181,7 +181,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         header={header}
         copy={copy}
         buttonCopy={`Next`}
-        className={currentStep !== 0 ? 'hidden' : ''}
+        className={classNames(currentStep !== 0 ? 'hidden' : '')}
         onClick={() => setCurrentStep(currentStep + 1)}
       >
         <NameEmailPane
