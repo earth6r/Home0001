@@ -14,6 +14,15 @@ export default {
       validation: (Rule: Rule): Rule => Rule.required(),
     },
     {
+      title: 'Property',
+      name: 'property',
+      type: 'reference',
+      to: [{ type: 'property' }],
+      options: {
+        getOptionLabel: (reference: any) => `${reference.title}`,
+      },
+    },
+    {
       name: 'units',
       title: 'Units',
       type: 'array',
