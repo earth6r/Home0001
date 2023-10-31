@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useContext, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormRegister, useForm } from 'react-hook-form'
 import {
@@ -10,6 +10,7 @@ import {
 import Pane from './Pane'
 import { KeyedUnitProps } from '@components/unit'
 import { SanityImage } from '@components/sanity'
+import { HomeContext } from '@contexts/home'
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
   unitGroups?: (UnitGroup & {
@@ -121,6 +122,8 @@ const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
 }
 
 const UnitsPane: FC<PaneProps> = ({ unitGroups, register, className }) => {
+  const { state } = useContext(HomeContext)
+
   return (
     <div className={classNames(className)}>
       {unitGroups &&
@@ -138,6 +141,9 @@ const UnitsPane: FC<PaneProps> = ({ unitGroups, register, className }) => {
                         type="checkbox"
                         value={unit.title}
                         className="unit-checkbox"
+                        checked={
+                          state?.unit?.title === unit.title ? true : undefined
+                        }
                         {...register('cities_of_interest', {
                           required: false,
                         })}
