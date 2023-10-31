@@ -10,6 +10,7 @@ export interface HeaderProps extends HTMLAttributes<HTMLElement> {
   waitlistId?: string
   waitlistHeader?: string
   waitlistCopy?: RichTextType
+  waitlistSuccess?: RichTextType
   waitlistUnits?: (UnitGroup & {
     _key: string
   })[]

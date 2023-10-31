@@ -410,6 +410,13 @@ export interface SiteSettings extends SanityDocument {
   waitlistCopy?: RichText;
 
   /**
+   * Waitlist Success — `richText`
+   *
+   *
+   */
+  waitlistSuccess?: RichText;
+
+  /**
    * Waitlist Units — `array`
    *
    *

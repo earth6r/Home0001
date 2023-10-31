@@ -15,6 +15,7 @@ export default {
     extend: {
       backgroundColor: {
         whitesmoke: '#F3F3F3',
+        gray: '#EDEDED',
       },
       screens,
       fontFamily: {
