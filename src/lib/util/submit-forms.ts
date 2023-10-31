@@ -60,8 +60,6 @@ const postNewsletterFields = async (
   config?: any,
   hutk?: string
 ) => {
-  console.log('data', data)
-  console.log('hutk', hutk)
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
     {

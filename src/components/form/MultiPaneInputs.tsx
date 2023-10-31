@@ -134,7 +134,7 @@ const UnitsPane: FC<PaneProps> = ({ unitGroups, register, className }) => {
                   return (
                     <div key={`${index}-${_key}`} className="relative mb-4">
                       <input
-                        id={`unit-of-interest-${index}`}
+                        id={`unit-of-interest-${index}-${_key}`}
                         type="checkbox"
                         value={unit.title}
                         className="unit-checkbox"
@@ -143,7 +143,7 @@ const UnitsPane: FC<PaneProps> = ({ unitGroups, register, className }) => {
                         })}
                       />
                       <label
-                        htmlFor={`unit-of-interest-${index}`}
+                        htmlFor={`unit-of-interest-${index}-${_key}`}
                         className="checkbox-label flex justify-between relative p-4 z-above"
                       >
                         <div>
@@ -219,13 +219,13 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
           type="text"
           className="input w-1/2"
           placeholder="COUNTRY"
-          // {...register('City', { required: false })}
+          {...register('current_country', { required: false })}
         />
         <input
           type="text"
           className="input w-1/2"
           placeholder="ZIP CODE"
-          // {...register('City', { required: false })}
+          {...register('current_zip_code', { required: false })}
         />
       </div>
     </div>
@@ -253,7 +253,7 @@ const MoreInfoPane: FC<PaneProps> = ({ register, className }) => {
         {TIMELINE.map(({ label }, index) => (
           <div className="mb-1" key={`timeline-key-${index}`}>
             <input
-              type="checkbox"
+              type="radio"
               id={`timeline-${index}`}
               {...register('when_are_you_looking_to_buy', { required: false })}
             />
@@ -318,7 +318,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         />
         {currentStep === 1 && (
           <button
-            className="sticky bottom-2 border-black left-0 animate-fadeIn duration-300 transition-delay-300 opacity-0 w-full px-x md:px-xhalf tracking-normal h-btn tracking-caps uppercase text-black bg-gray text-center z-header"
+            className="sticky bottom-2 border-black left-0 animate-fadeInDelay opacity-0 w-full px-x md:px-xhalf tracking-normal h-btn tracking-caps uppercase text-black bg-gray text-center z-header"
             type="button"
             onClick={() => setCurrentStep(currentStep + 1)}
           >
