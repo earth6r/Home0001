@@ -5,6 +5,7 @@ import type { WaitlistBlock as WaitlistBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
 import { Form, SinglePaneInputs } from '@components/form'
+import { useForm } from 'react-hook-form'
 
 type WaitlistBlockProps = Omit<SanityBlockElement, keyof WaitlistBlockType> &
   WaitlistBlockType
@@ -15,6 +16,9 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   audienceId,
   className,
 }) => {
+  const { register, handleSubmit } = useForm({
+    shouldUseNativeValidation: true,
+  })
   const [formSubmitted, setFormSubmitted] = useState(false)
   return (
     <Block
@@ -37,11 +41,13 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
           formType={'general'}
           audienceId={audienceId}
           formSubmitted={formSubmitted}
+          handleSubmit={handleSubmit}
           setFormSubmitted={setFormSubmitted}
         >
           <SinglePaneInputs
             showLocationFields={true}
             showContactLink={true}
+            register={register}
             submitButtonCopy="Join the waitlist"
           />
         </Form>

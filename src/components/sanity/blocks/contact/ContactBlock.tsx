@@ -5,6 +5,7 @@ import type { ContactBlock as ContactBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
 import { Form, SinglePaneInputs } from '@components/form'
+import { useForm } from 'react-hook-form'
 
 type ContactBlockProps = Omit<SanityBlockElement, keyof ContactBlockType> &
   ContactBlockType
@@ -15,6 +16,9 @@ export const ContactBlock: FC<ContactBlockProps> = ({
   audienceId,
   className,
 }) => {
+  const { register, handleSubmit } = useForm({
+    shouldUseNativeValidation: true,
+  })
   const [formSubmitted, setFormSubmitted] = useState(false)
 
   return (
@@ -35,10 +39,15 @@ export const ContactBlock: FC<ContactBlockProps> = ({
           formType={'contact'}
           audienceId={audienceId}
           formSubmitted={formSubmitted}
+          handleSubmit={handleSubmit}
           setFormSubmitted={setFormSubmitted}
           successMessage="Thanks for reaching out. We’ll be in touch soon."
         >
-          <SinglePaneInputs showContactFields={true} showNameFields={true} />
+          <SinglePaneInputs
+            register={register}
+            showContactFields={true}
+            showNameFields={true}
+          />
         </Form>
       </div>
     </Block>

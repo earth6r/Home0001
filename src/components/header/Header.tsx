@@ -11,6 +11,7 @@ import { Modal } from '@components/modal'
 import { Form, MultiPaneInputs } from '@components/form'
 import { RichText } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util/analytics'
+import { useForm } from 'react-hook-form'
 
 export const Header: FC<HeaderProps> = ({
   waitlistId,
@@ -24,6 +25,9 @@ export const Header: FC<HeaderProps> = ({
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [waitlistOpen, setWaitlistOpen] = useState(false)
+  const { register, handleSubmit } = useForm({
+    shouldUseNativeValidation: true,
+  })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const el = useRef<HTMLElement>(null)
 
@@ -50,6 +54,7 @@ export const Header: FC<HeaderProps> = ({
                 audienceId={waitlistId}
                 successMessage={waitlistSuccess}
                 formSubmitted={formSubmitted}
+                handleSubmit={handleSubmit}
                 setFormSubmitted={setFormSubmitted}
                 className="w-full h-full"
               >
@@ -58,6 +63,7 @@ export const Header: FC<HeaderProps> = ({
                   copy={waitlistCopy}
                   unitGroups={waitlistUnits}
                   buttonCopy="Join waitlist"
+                  register={register}
                   className={classNames('h-full')}
                 />
               </Form>

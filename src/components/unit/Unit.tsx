@@ -9,6 +9,7 @@ import { Form, SinglePaneInputs } from '@components/form'
 import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { AccordionModal } from '@components/accordion'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
+import { useForm } from 'react-hook-form'
 
 const UNIT_AUDIENCE_ID = process.env.NEXT_PUBLIC_HUBSPOT_UNIT_WAITLIST_ID
 
@@ -20,6 +21,9 @@ export const UnitComponent: FC<UnitElProps> = ({
   const formRef = useRef(null)
   const [formActive, setFormActive] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const { register, handleSubmit } = useForm({
+    shouldUseNativeValidation: true,
+  })
   const formButtonClick = () => {
     setFormActive(!formActive)
     if (!unit?.title) return
@@ -114,10 +118,12 @@ export const UnitComponent: FC<UnitElProps> = ({
               formType={'general'}
               audienceId={UNIT_AUDIENCE_ID}
               successMessage={unit?.confirmationCopy}
+              handleSubmit={handleSubmit}
               formSubmitted={formSubmitted}
               setFormSubmitted={setFormSubmitted}
             >
               <SinglePaneInputs
+                register={register}
                 showContactLink={true}
                 submitButtonCopy="Join the waitlist"
               />
