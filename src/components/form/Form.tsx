@@ -1,7 +1,7 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useEffect, useState } from 'react'
+import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { useForm } from 'react-hook-form'
+import { FieldValues, UseFormHandleSubmit } from 'react-hook-form'
 import { submitForm } from '@lib/util/submit-forms'
 import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
@@ -12,6 +12,7 @@ interface FormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
   formType?: 'general' | 'newsletter' | 'contact'
   successMessage?: RichTextType | string
+  handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
   formSubmitted: boolean
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -21,14 +22,12 @@ export const Form: FC<FormProps> = ({
   formType,
   className,
   successMessage,
+  handleSubmit,
   formSubmitted,
   setFormSubmitted,
   children,
 }) => {
   const [formError, setFormError] = useState<unknown | string | null>(null)
-  const { handleSubmit } = useForm({
-    shouldUseNativeValidation: true,
-  })
   const [cookies, setCookie, removeCookie] = useCookies()
   const [hutk, setHutk] = useState<string | undefined>()
 
@@ -39,6 +38,7 @@ export const Form: FC<FormProps> = ({
   }, [])
 
   const onSubmit = async (data: any) => {
+    console.log('data: ', data)
     // if (formType === 'unit') {
     //   sendGoogleEvent('submit_reservation_form', {
     //     'unit of interest': state.unit?.title,

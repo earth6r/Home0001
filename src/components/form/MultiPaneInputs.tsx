@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { HTMLAttributes, useContext, useState } from 'react'
 import classNames from 'classnames'
-import { FieldValues, UseFormRegister, useForm } from 'react-hook-form'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 import {
   RichText as RichTextType,
   SanityImageAsset,
@@ -26,6 +26,7 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
     _key: string
   })[]
   buttonCopy?: string
+  register: UseFormRegister<FieldValues>
 }
 
 const LOCATIONS = [
@@ -281,11 +282,9 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   copy,
   unitGroups,
   buttonCopy,
+  register,
   className,
 }) => {
-  const { register } = useForm({
-    shouldUseNativeValidation: true,
-  })
   const [currentStep, setCurrentStep] = useState(0)
 
   return (

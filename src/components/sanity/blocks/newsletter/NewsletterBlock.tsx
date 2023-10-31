@@ -5,6 +5,7 @@ import type { NewsletterBlock as NewsletterBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
 import { Form, SinglePaneInputs } from '@components/form'
+import { useForm } from 'react-hook-form'
 
 type NewsletterBlockProps = Omit<
   SanityBlockElement,
@@ -18,6 +19,9 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
   audienceId,
   className,
 }) => {
+  const { register, handleSubmit } = useForm({
+    shouldUseNativeValidation: true,
+  })
   const [formSubmitted, setFormSubmitted] = useState(false)
 
   return (
@@ -37,11 +41,12 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
         <Form
           formType={'newsletter'}
           audienceId={audienceId}
+          handleSubmit={handleSubmit}
           formSubmitted={formSubmitted}
           setFormSubmitted={setFormSubmitted}
           successMessage={'Your data — our harvest.'}
         >
-          <SinglePaneInputs showNameFields={false} />
+          <SinglePaneInputs register={register} showNameFields={false} />
         </Form>
       </div>
     </Block>

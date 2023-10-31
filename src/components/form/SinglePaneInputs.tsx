@@ -2,9 +2,8 @@ import type { FC, MouseEvent } from 'react'
 import { HTMLAttributes, useContext, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
-import { useForm } from 'react-hook-form'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
-import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { useCookies } from 'react-cookie'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
@@ -13,6 +12,7 @@ interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   showLocationFields?: boolean
   showContactLink?: boolean
   submitButtonCopy?: string
+  register: UseFormRegister<FieldValues>
 }
 
 const LOCATIONS = [
@@ -48,6 +48,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   submitButtonCopy,
   showContactLink,
   showContactFields,
+  register,
   className,
 }) => {
   const [cookies, setCookie, removeCookie] = useCookies()
@@ -59,9 +60,6 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
     }
   }, [])
 
-  const { register, handleSubmit } = useForm({
-    shouldUseNativeValidation: true,
-  })
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
   const { state } = useContext(HomeContext)
 
