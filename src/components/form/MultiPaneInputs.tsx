@@ -122,64 +122,84 @@ const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
   )
 }
 
-const UnitsPane: FC<PaneProps> = ({ unitGroups, register, className }) => {
+const UnitsPane: FC<PaneProps> = ({
+  unitGroups,
+  onClick,
+  register,
+  className,
+}) => {
   const { state } = useContext(HomeContext)
+  const [showNextButton, setShowNextButton] = useState(true)
 
   return (
-    <div className={classNames(className)}>
-      {unitGroups &&
-        unitGroups.map(({ _key, header, units }) => {
-          return (
-            <div key={_key} className="mb-y">
-              {header && <p className="mb-2">{header}</p>}
+    <>
+      <div className={classNames(className)}>
+        {unitGroups &&
+          unitGroups.map(({ _key, header, units }) => {
+            return (
+              <div key={_key} className="mb-y">
+                {header && <p className="mb-2">{header}</p>}
 
-              {units &&
-                units.map((unit: KeyedUnitProps, index) => {
-                  return (
-                    <div key={`${index}-${_key}`} className="relative mb-4">
-                      <input
-                        id={`unit-of-interest-${index}-${_key}`}
-                        type="checkbox"
-                        value={unit.title}
-                        className="unit-checkbox"
-                        checked={
-                          state?.unit?.title === unit.title ? true : undefined
-                        }
-                        {...register('cities_of_interest', {
-                          required: false,
-                        })}
-                      />
-                      <label
-                        htmlFor={`unit-of-interest-${index}-${_key}`}
-                        className="checkbox-label flex justify-between relative p-4 z-above"
-                      >
-                        <div>
-                          <span className="block">{`${unit.propertyType?.typeTitle} ${unit.title}`}</span>
-                          <span className="block">{unit.price}</span>
-                          <span className="block">{unit.area}</span>
-                        </div>
-                        {unit.headlineImage && unit.headlineImage.image && (
-                          <SanityImage
-                            asset={
-                              unit.headlineImage.image.asset as SanityImageAsset
-                            }
-                            props={{
-                              alt: unit.headlineImage.alt,
-                              width: 90,
-                              height: 90,
-                              quality: 1,
-                              priority: false,
-                            }}
-                          />
-                        )}
-                      </label>
-                    </div>
-                  )
-                })}
-            </div>
-          )
-        })}
-    </div>
+                {units &&
+                  units.map((unit: KeyedUnitProps, index) => {
+                    return (
+                      <div key={`${index}-${_key}`} className="relative mb-4">
+                        <input
+                          id={`unit-of-interest-${index}-${_key}`}
+                          type="checkbox"
+                          value={unit.title}
+                          className="unit-checkbox"
+                          checked={
+                            state?.unit?.title === unit.title ? true : undefined
+                          }
+                          {...register('cities_of_interest', {
+                            required: false,
+                          })}
+                        />
+                        <label
+                          htmlFor={`unit-of-interest-${index}-${_key}`}
+                          onClick={() => setShowNextButton(false)}
+                          className="checkbox-label flex justify-between relative p-4 cursor-pointer z-above"
+                        >
+                          <div>
+                            <span className="block">{`${unit.propertyType?.typeTitle} ${unit.title}`}</span>
+                            <span className="block">{unit.price}</span>
+                            <span className="block">{unit.area}</span>
+                          </div>
+                          {unit.headlineImage && unit.headlineImage.image && (
+                            <SanityImage
+                              asset={
+                                unit.headlineImage.image
+                                  .asset as SanityImageAsset
+                              }
+                              props={{
+                                alt: unit.headlineImage.alt,
+                                width: 90,
+                                height: 90,
+                                quality: 1,
+                                priority: false,
+                              }}
+                            />
+                          )}
+                        </label>
+                      </div>
+                    )
+                  })}
+              </div>
+            )
+          })}
+      </div>
+
+      {showNextButton && (
+        <button
+          className="sticky bottom-2 border-black left-0 animate-fadeInDelay opacity-0 w-full px-x md:px-xhalf tracking-normal h-btn tracking-caps uppercase text-black bg-gray text-center z-header"
+          type="button"
+          onClick={onClick}
+        >
+          {'Looking for something else?'}
+        </button>
+      )}
+    </>
   )
 }
 
@@ -316,20 +336,12 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         <UnitsPane
           unitGroups={unitGroups}
           register={register}
+          onClick={() => setCurrentStep(currentStep + 1)}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
             'block mt-y uppercase'
           )}
         />
-        {currentStep === 1 && (
-          <button
-            className="sticky bottom-2 border-black left-0 animate-fadeInDelay opacity-0 w-full px-x md:px-xhalf tracking-normal h-btn tracking-caps uppercase text-black bg-gray text-center z-header"
-            type="button"
-            onClick={() => setCurrentStep(currentStep + 1)}
-          >
-            {'Looking for something else?'}
-          </button>
-        )}
       </Pane>
 
       <Pane
