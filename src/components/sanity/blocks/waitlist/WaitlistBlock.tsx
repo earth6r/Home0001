@@ -13,7 +13,6 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   header,
   text,
   audienceId,
-  formType,
   className,
 }) => {
   const [formSubmitted, setFormSubmitted] = useState(false)

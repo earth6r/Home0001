@@ -25,10 +25,10 @@ const Pane: FC<PaneProps> = ({
     <div
       className={classNames(
         className,
-        'flex flex-wrap items-stretch relative h-full'
+        'flex flex-wrap items-stretch relative w-full h-full'
       )}
     >
-      <div className="h-[calc(100%-var(--btn-height))]">
+      <div className="w-full h-[calc(100%-var(--btn-height))] overflow-scroll">
         {header && (
           <h2 className="pb-ylg uppercase">{header || `Join waitlist`}</h2>
         )}
@@ -48,10 +48,10 @@ const Pane: FC<PaneProps> = ({
       </div>
 
       <div className={classNames('relative w-full h-btn bottom-0')}>
-        <div className="absolute w-full h-[175%] modal-gradient left-0 bottom-0 z-base" />
+        <div className="absolute w-full h-[175%] modal-gradient left-0 bottom-0 z-above" />
         <button
           className="relative flex justify-between items-center w-full px-x md:px-xhalf tracking-normal h-btn text-center tracking-caps uppercase text-white bg-black z-above"
-          type="button"
+          type={buttonType || 'submit'}
           onClick={onClick}
         >
           {buttonCopy || 'Submit'}

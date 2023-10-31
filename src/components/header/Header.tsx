@@ -16,6 +16,7 @@ export const Header: FC<HeaderProps> = ({
   waitlistId,
   waitlistHeader,
   waitlistCopy,
+  waitlistSuccess,
   waitlistUnits,
   mainMenu,
   className,
@@ -47,9 +48,7 @@ export const Header: FC<HeaderProps> = ({
               <Form
                 formType={'general'}
                 audienceId={waitlistId}
-                successMessage={
-                  "You're on the waitlist. We’ll be in touch as homes are released for sale."
-                }
+                successMessage={waitlistSuccess}
                 formSubmitted={formSubmitted}
                 setFormSubmitted={setFormSubmitted}
                 className="w-full h-full"
@@ -59,7 +58,7 @@ export const Header: FC<HeaderProps> = ({
                   copy={waitlistCopy}
                   unitGroups={waitlistUnits}
                   buttonCopy="Join waitlist"
-                  className="w-full h-full"
+                  className={classNames('h-full')}
                 />
               </Form>
             </div>
