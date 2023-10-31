@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { useForm } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { submitForm } from '@lib/util/submit-forms'
 import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
@@ -14,6 +14,8 @@ interface FormProps extends HTMLAttributes<HTMLElement> {
   successMessage?: RichTextType | string
   formSubmitted: boolean
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>
+  formError: unknown | string | null
+  setFormError: React.Dispatch<React.SetStateAction<unknown | string | null>>
 }
 
 export const Form: FC<FormProps> = ({
@@ -23,10 +25,12 @@ export const Form: FC<FormProps> = ({
   successMessage,
   formSubmitted,
   setFormSubmitted,
+  formError,
+  setFormError,
   children,
 }) => {
-  const [formError, setFormError] = useState<unknown | string | null>(null)
-  const { handleSubmit } = useForm({
+  console.log('formError', formError)
+  const { handleSubmit, getValues } = useForm({
     shouldUseNativeValidation: true,
   })
   const [cookies, setCookie, removeCookie] = useCookies()
@@ -38,7 +42,9 @@ export const Form: FC<FormProps> = ({
     }
   }, [])
 
-  const onSubmit = async (data: any) => {
+  //! todo  submit data type
+  const onSubmit: SubmitHandler<any> = async (data: any) => {
+    console.log('data:', data)
     // if (formType === 'unit') {
     //   sendGoogleEvent('submit_reservation_form', {
     //     'unit of interest': state.unit?.title,
@@ -49,8 +55,11 @@ export const Form: FC<FormProps> = ({
 
     if (!audienceId || !formType) return
     try {
-      const result = await submitForm(data, audienceId, formType, hutk)
-      setFormSubmitted(true)
+      console.log('getvalues', getValues())
+      console.log('audienceId', audienceId)
+      console.log('hutk', hutk)
+      // const result = await submitForm(data, audienceId, formType, hutk)
+      // setFormSubmitted(true)
     } catch (error) {
       setFormError(error)
       console.log(error)
@@ -73,7 +82,9 @@ export const Form: FC<FormProps> = ({
           {formError != null && (
             <div className="py-yhalf">
               <div className="relative text-center py-4 text-[red] border-1 border-solid border-red text-base">
-                <p>{`Error submitting form`}</p>
+                {formError && typeof formError === 'string' ? (
+                  <p>{formError.replace(/'/g, '&apos;')}</p>
+                ) : null}
               </div>
             </div>
           )}

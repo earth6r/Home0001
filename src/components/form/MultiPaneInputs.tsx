@@ -26,6 +26,7 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
     _key: string
   })[]
   buttonCopy?: string
+  setFormError: React.Dispatch<React.SetStateAction<unknown | string | null>>
 }
 
 const LOCATIONS = [
@@ -91,7 +92,12 @@ const TIMELINE = [
     label: `I'm a realtor/broker`,
   },
 ]
-
+const validateNamePanel = (data: any) => {
+  if (!data.first_name || !data.last_name || !data.email) {
+    return false
+  }
+  return true
+}
 const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
   return (
     <div className={className}>
@@ -282,8 +288,9 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   unitGroups,
   buttonCopy,
   className,
+  setFormError,
 }) => {
-  const { register } = useForm({
+  const { register, getValues } = useForm({
     shouldUseNativeValidation: true,
   })
   const [currentStep, setCurrentStep] = useState(0)
@@ -296,7 +303,14 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         buttonType={`button`}
         buttonCopy={`Next`}
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
-        onClick={() => setCurrentStep(currentStep + 1)}
+        onClick={() => {
+          if (!validateNamePanel(getValues()))
+            setFormError('Please fill out all fields')
+          else {
+            setFormError(null)
+            setCurrentStep(currentStep + 1)
+          }
+        }}
       >
         <NameEmailPane
           register={register}

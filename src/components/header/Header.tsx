@@ -26,6 +26,7 @@ export const Header: FC<HeaderProps> = ({
   const [waitlistOpen, setWaitlistOpen] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const el = useRef<HTMLElement>(null)
+  const [formError, setFormError] = useState<unknown | string | null>(null)
 
   return (
     <div
@@ -50,6 +51,8 @@ export const Header: FC<HeaderProps> = ({
                 audienceId={waitlistId}
                 successMessage={waitlistSuccess}
                 formSubmitted={formSubmitted}
+                formError={formError}
+                setFormError={setFormError}
                 setFormSubmitted={setFormSubmitted}
                 className="w-full h-full"
               >
@@ -57,6 +60,7 @@ export const Header: FC<HeaderProps> = ({
                   header={waitlistHeader}
                   copy={waitlistCopy}
                   unitGroups={waitlistUnits}
+                  setFormError={setFormError}
                   buttonCopy="Join waitlist"
                   className={classNames('h-full')}
                 />
