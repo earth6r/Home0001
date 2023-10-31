@@ -12,7 +12,7 @@ import { KeyedUnitProps } from '@components/unit'
 import { SanityImage } from '@components/sanity'
 import { HomeContext } from '@contexts/home'
 
-interface PaneProps extends HTMLAttributes<HTMLElement> {
+interface PaneContentProps extends HTMLAttributes<HTMLElement> {
   unitGroups?: (UnitGroup & {
     _key: string
   })[]
@@ -93,7 +93,7 @@ const TIMELINE = [
   },
 ]
 
-const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
+const NameEmailPane: FC<PaneContentProps> = ({ register, className }) => {
   return (
     <div className={className}>
       <input
@@ -122,7 +122,7 @@ const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
   )
 }
 
-const UnitsPane: FC<PaneProps> = ({
+const UnitsPane: FC<PaneContentProps> = ({
   unitGroups,
   onClick,
   register,
@@ -159,7 +159,7 @@ const UnitsPane: FC<PaneProps> = ({
                         <label
                           htmlFor={`unit-of-interest-${index}-${_key}`}
                           onClick={() => setShowNextButton(false)}
-                          className="checkbox-label flex justify-between relative p-4 cursor-pointer z-above"
+                          className="checkbox-label flex justify-between relative py-4 pl-8 border-bottom cursor-pointer z-above"
                         >
                           <div>
                             <span className="block">{`${unit.propertyType?.typeTitle} ${unit.title}`}</span>
@@ -203,7 +203,7 @@ const UnitsPane: FC<PaneProps> = ({
   )
 }
 
-const LocationsPane: FC<PaneProps> = ({ register, className }) => {
+const LocationsPane: FC<PaneContentProps> = ({ register, className }) => {
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
 
   return (
@@ -259,7 +259,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
   )
 }
 
-const MoreInfoPane: FC<PaneProps> = ({ register, className }) => {
+const MoreInfoPane: FC<PaneContentProps> = ({ register, className }) => {
   return (
     <div className={className}>
       {SIZES.map(({ label, name }) => (
@@ -310,10 +310,11 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   return (
     <div className={classNames(className, 'w-full pr-menu')}>
       <Pane
+        enter={currentStep === 0}
+        currentStep={currentStep}
         header={header}
         copy={copy}
         buttonType={`button`}
-        buttonCopy={`Next`}
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
         onClick={() => setCurrentStep(currentStep + 1)}
       >
@@ -327,10 +328,13 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       </Pane>
 
       <Pane
+        enter={currentStep === 1}
+        currentStep={currentStep}
         header={`Current Homes`}
         copy={`Select any homes you’re interested in to join the waitlist`}
         buttonType="submit"
         buttonCopy={buttonCopy}
+        onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 1 ? 'hidden' : ''}
       >
         <UnitsPane
@@ -345,10 +349,13 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       </Pane>
 
       <Pane
+        enter={currentStep === 2}
+        currentStep={currentStep}
         header={`Where do you want to live?`}
         buttonCopy={`Next`}
         buttonType={`button`}
         onClick={() => setCurrentStep(currentStep + 1)}
+        onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 2 ? 'hidden' : ''}
       >
         <LocationsPane
@@ -361,9 +368,12 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       </Pane>
 
       <Pane
+        enter={currentStep === 3}
+        currentStep={currentStep}
         header={`What size are you looking for?`}
         buttonCopy={buttonCopy}
         buttonType="submit"
+        onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 3 ? 'hidden' : ''}
       >
         <MoreInfoPane

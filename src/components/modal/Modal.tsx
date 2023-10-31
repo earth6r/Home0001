@@ -36,7 +36,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => (
         className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-0"
         onClick={onClose}
       ></div>
-      <div className="fixed inset-0 flex min-h-full items-center justify-center px-x pt-header md:p-10">
+      <div className="fixed inset-0 flex min-h-full items-center justify-center px-x pt-header pb-y md:p-10">
         <Dialog.Panel className="block w-full h-full overflow-scroll bg-white border-black z-modal">
           <div
             className="relative w-full h-full"
