@@ -12,8 +12,14 @@ import { KeyedUnitProps } from '@components/unit'
 import { SanityImage } from '@components/sanity'
 import { HomeContext } from '@contexts/home'
 
+interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
+  property?: {
+    _id?: string
+  }
+}
+
 interface PaneContentProps extends HTMLAttributes<HTMLElement> {
-  unitGroups?: (UnitGroup & {
+  unitGroups?: (UnitGroupContent & {
     _key: string
   })[]
   register: UseFormRegister<FieldValues>
@@ -130,6 +136,17 @@ const UnitsPane: FC<PaneContentProps> = ({
 }) => {
   const { state } = useContext(HomeContext)
   const [showNextButton, setShowNextButton] = useState(true)
+
+  if (state.property?._id) {
+    const index = unitGroups?.findIndex(
+      ({ property }) => property?._id === state.property?._id
+    )
+
+    if (index) {
+      const slicedGroups = unitGroups?.splice(index, 1)
+      if (slicedGroups) unitGroups?.unshift(slicedGroups[0])
+    }
+  }
 
   return (
     <>

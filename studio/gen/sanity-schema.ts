@@ -641,6 +641,13 @@ export type UnitGroup = {
   header?: string;
 
   /**
+   * Property — `reference`
+   *
+   *
+   */
+  property?: SanityReference<Property>;
+
+  /**
    * Units — `array`
    *
    *
