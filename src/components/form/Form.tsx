@@ -14,8 +14,8 @@ interface FormProps extends HTMLAttributes<HTMLElement> {
   successMessage?: RichTextType | string
   formSubmitted: boolean
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>
-  formError: unknown | string | null
-  setFormError: React.Dispatch<React.SetStateAction<unknown | string | null>>
+  formError?: unknown | string | null
+  setFormError?: React.Dispatch<React.SetStateAction<unknown | string | null>>
 }
 
 export const Form: FC<FormProps> = ({
@@ -61,7 +61,7 @@ export const Form: FC<FormProps> = ({
       // const result = await submitForm(data, audienceId, formType, hutk)
       // setFormSubmitted(true)
     } catch (error) {
-      setFormError(error)
+      setFormError && setFormError(error)
       console.log(error)
     }
   }
