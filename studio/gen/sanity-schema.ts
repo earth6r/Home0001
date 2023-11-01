@@ -421,7 +421,9 @@ export interface SiteSettings extends SanityDocument {
    *
    *
    */
-  waitlistUnits?: Array<SanityKeyed<UnitGroupContent>>
+  waitlistUnits?: (UnitGroupContent & {
+    _key: string
+  })[]
 
   /**
    * How It Works Accordions — `array`
