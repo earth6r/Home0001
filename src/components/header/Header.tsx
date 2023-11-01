@@ -50,7 +50,7 @@ export const Header: FC<HeaderProps> = ({
           <Modal isOpen={waitlistOpen} onClose={() => setWaitlistOpen(false)}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
-                formType={'general'}
+                formType={'modal'}
                 audienceId={waitlistId}
                 successMessage={waitlistSuccess}
                 formSubmitted={formSubmitted}
