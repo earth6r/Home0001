@@ -10,7 +10,7 @@ import { useCookies } from 'react-cookie'
 
 interface FormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
-  formType?: 'modal' | 'newsletter' | 'contact'
+  formType?: 'modal' | 'newsletter' | 'contact' | 'general' | 'unit'
   successMessage?: RichTextType | string
   handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
   formSubmitted: boolean
