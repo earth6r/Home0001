@@ -60,7 +60,7 @@ const Pane: FC<PaneProps> = ({
             )
           )}
 
-          <div className="relative flex flex-col gap-4">{children}</div>
+          <div className="relative flex flex-col gap-4 pb-y">{children}</div>
         </div>
 
         <div className={classNames('relative flex w-full h-btn bottom-0')}>
