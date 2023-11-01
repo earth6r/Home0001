@@ -77,7 +77,7 @@ const SIZES = [
   },
   {
     label: '3 Bedrooms +',
-    name: 'n3_bedrooms_',
+    name: 'n3_bedrooms',
   },
 ]
 
@@ -168,7 +168,7 @@ const UnitsPane: FC<PaneContentProps> = ({
                           checked={
                             state?.unit?.title === unit.title ? true : undefined
                           }
-                          {...register('cities_of_interest', {
+                          {...register('units_interested', {
                             required: false,
                           })}
                         />
@@ -298,6 +298,7 @@ const MoreInfoPane: FC<PaneContentProps> = ({ register, className }) => {
             <input
               type="radio"
               id={`timeline-${index}`}
+              value={`timeline-${index}`}
               {...register('when_are_you_looking_to_buy', { required: false })}
             />
             <label

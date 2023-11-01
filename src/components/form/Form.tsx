@@ -10,7 +10,7 @@ import { useCookies } from 'react-cookie'
 
 interface FormProps extends HTMLAttributes<HTMLElement> {
   audienceId?: string
-  formType?: 'general' | 'newsletter' | 'contact'
+  formType?: 'modal' | 'newsletter' | 'contact'
   successMessage?: RichTextType | string
   handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
   formSubmitted: boolean
@@ -38,7 +38,6 @@ export const Form: FC<FormProps> = ({
   }, [])
 
   const onSubmit = async (data: any) => {
-    console.log('data:', data)
     // if (formType === 'unit') {
     //   sendGoogleEvent('submit_reservation_form', {
     //     'unit of interest': state.unit?.title,
@@ -47,14 +46,14 @@ export const Form: FC<FormProps> = ({
     // else if (formType == 'general')
     //   sendGoogleEvent('submit_general_waitlist_form')
 
-    // if (!audienceId || !formType) return
-    // try {
-    //   const result = await submitForm(data, audienceId, formType, hutk)
-    //   setFormSubmitted(true)
-    // } catch (error) {
-    //   setFormError(error)
-    //   console.log(error)
-    // }
+    if (!audienceId || !formType) return
+    try {
+      const result = await submitForm(data, audienceId, formType, hutk)
+      setFormSubmitted(true)
+    } catch (error) {
+      setFormError(error)
+      console.log(error)
+    }
   }
 
   return (
