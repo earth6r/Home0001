@@ -29,7 +29,10 @@ export const Head: FC<HeadProps> = props => {
         }}
       ></script>
       <title key="title">{title}</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1 maximum-scale=1"
+      />
       <meta
         name="description"
         content={props.pageDescription || props.siteDescription}
