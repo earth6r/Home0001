@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useState } from 'react'
+import React, { HTMLAttributes, forwardRef, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormHandleSubmit } from 'react-hook-form'
 import { submitForm } from '@lib/util/submit-forms'
@@ -8,7 +8,7 @@ import { RichText } from '@components/sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { useCookies } from 'react-cookie'
 
-interface FormProps extends HTMLAttributes<HTMLElement> {
+interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
   formType?: 'modal' | 'newsletter' | 'contact' | 'general' | 'unit'
   successMessage?: RichTextType | string
@@ -67,7 +67,11 @@ export const Form: FC<FormProps> = ({
           )}
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
+        <form
+          id={'waitlist-form'}
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full h-full"
+        >
           {children}
           {formError != null && (
             <div className="py-yhalf">
