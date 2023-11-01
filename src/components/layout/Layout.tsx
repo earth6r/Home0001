@@ -42,6 +42,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           waitlistHeader={siteSettings?.waitlistHeader}
           waitlistCopy={siteSettings?.waitlistCopy}
           waitlistSuccess={siteSettings?.waitlistSuccess}
+          //@ts-ignore
           waitlistUnits={siteSettings?.waitlistUnits}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
