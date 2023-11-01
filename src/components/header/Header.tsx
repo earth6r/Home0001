@@ -30,6 +30,17 @@ export const Header: FC<HeaderProps> = ({
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const el = useRef<HTMLElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const onClose = () => {
+    setWaitlistOpen(false)
+    if (typeof document !== 'undefined') {
+      const waitlistForm = document.getElementById(
+        'waitlist-form'
+      ) as HTMLFormElement
+      waitlistForm?.reset()
+    }
+  }
 
   return (
     <div
@@ -47,7 +58,7 @@ export const Header: FC<HeaderProps> = ({
         <Logo className="flex items-center h-header pointer-events-auto" />
 
         <div className="flex items-center gap-[1.12rem] md:gap-16">
-          <Modal isOpen={waitlistOpen} onClose={() => setWaitlistOpen(false)}>
+          <Modal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
                 formType={'modal'}
