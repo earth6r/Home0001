@@ -18,6 +18,10 @@ interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   }
 }
 
+export interface KeyedUnitGroup extends UnitGroupContent {
+  _key: string
+}
+
 interface PaneContentProps extends HTMLAttributes<HTMLElement> {
   unitGroups?: (UnitGroupContent & {
     _key: string
@@ -28,9 +32,7 @@ interface PaneContentProps extends HTMLAttributes<HTMLElement> {
 interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   header?: string
   copy?: RichTextType | string
-  unitGroups?: (UnitGroupContent & {
-    _key: string
-  })[]
+  unitGroups?: KeyedUnitGroup[]
   buttonCopy?: string
   register: UseFormRegister<FieldValues>
 }

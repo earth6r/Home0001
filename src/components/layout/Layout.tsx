@@ -5,6 +5,7 @@ import type { Menus, Page, SiteSettings } from '@gen/sanity-schema'
 import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
+import { KeyedUnitGroup } from '@components/form'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page
@@ -42,8 +43,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           waitlistHeader={siteSettings?.waitlistHeader}
           waitlistCopy={siteSettings?.waitlistCopy}
           waitlistSuccess={siteSettings?.waitlistSuccess}
-          //@ts-ignore
-          waitlistUnits={siteSettings?.waitlistUnits}
+          waitlistUnits={siteSettings?.waitlistUnits as KeyedUnitGroup[]}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
         <main className="flex-auto">{children}</main>

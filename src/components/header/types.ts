@@ -1,3 +1,4 @@
+import { KeyedUnitGroup } from '@components/form'
 import type {
   RichText as RichTextType,
   Menus as SanityMenu,
@@ -10,15 +11,14 @@ export interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
     _id?: string
   }
 }
+
 export interface HeaderProps extends HTMLAttributes<HTMLElement> {
   mainMenu?: SanityMenu
   waitlistId?: string
   waitlistHeader?: string
   waitlistCopy?: RichTextType
   waitlistSuccess?: RichTextType
-  waitlistUnits?: (UnitGroupContent & {
-    _key: string
-  })[]
+  waitlistUnits?: KeyedUnitGroup[]
 }
 
 export interface HeaderMenuProps extends HeaderProps {
