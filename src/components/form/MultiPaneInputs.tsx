@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useContext, useState } from 'react'
+import { HTMLAttributes, useContext, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import {
@@ -137,6 +137,7 @@ const UnitsPane: FC<PaneContentProps> = ({
   className,
 }) => {
   const { state } = useContext(HomeContext)
+  const [checkedCount, setCheckedCount] = useState(0)
   const [showNextButton, setShowNextButton] = useState(true)
   if (state.property?._id) {
     const index = unitGroups?.findIndex(
@@ -148,6 +149,10 @@ const UnitsPane: FC<PaneContentProps> = ({
       if (slicedGroups) unitGroups?.unshift(slicedGroups[0])
     }
   }
+
+  useEffect(() => {
+    if (checkedCount === 0) setShowNextButton(true)
+  }, [checkedCount])
 
   return (
     <>
@@ -173,6 +178,11 @@ const UnitsPane: FC<PaneContentProps> = ({
                           {...register('units_interested', {
                             required: false,
                           })}
+                          onChange={e => {
+                            e.target.checked
+                              ? setCheckedCount(checkedCount + 1)
+                              : setCheckedCount(checkedCount - 1)
+                          }}
                         />
                         <label
                           htmlFor={`unit-of-interest-${index}-${_key}`}
