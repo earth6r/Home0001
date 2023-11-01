@@ -28,7 +28,7 @@ interface PaneContentProps extends HTMLAttributes<HTMLElement> {
 interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   header?: string
   copy?: RichTextType | string
-  unitGroups?: (UnitGroup & {
+  unitGroups?: (UnitGroupContent & {
     _key: string
   })[]
   buttonCopy?: string
@@ -136,8 +136,9 @@ const UnitsPane: FC<PaneContentProps> = ({
 }) => {
   const { state } = useContext(HomeContext)
   const [showNextButton, setShowNextButton] = useState(true)
-
+  console.log('unitGroups', unitGroups)
   if (state.property?._id) {
+    console.log('state.property:', state.property)
     const index = unitGroups?.findIndex(
       ({ property }) => property?._id === state.property?._id
     )
