@@ -114,12 +114,12 @@ export default {
           fontSize: '4.5vh',
           lineHeight: '1.2',
           '@screen md': {
-            fontSize: '2.6vw',
+            fontSize: 'clamp(12px,2.6vw,40px)',
           },
         },
         '.home-svg': {
           '@screen md': {
-            maxWidth: '4vw',
+            maxWidth: '49px',
             width: '3vw',
           },
         },
