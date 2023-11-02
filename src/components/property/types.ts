@@ -21,6 +21,7 @@ export interface PropertyContentProps
   unitsList?: KeyedUnitProps[]
   propertyDetails?: SanityKeyed<Accordion>[]
   waitlistLinkText?: string
+  availableText?: string
 }
 
 export interface KeyedPropertyProps
