@@ -72,6 +72,16 @@ export const PROPERTIES_QUERY = `
   "image": image{
     ${MEDIA_QUERY}
   },
+  "propertyDetails": propertyDetails[]{
+      ...,
+      "text": text[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      }
+  },
   "unitsList": unitsList[]->{
     ...,
     ${UNITS_QUERY}
