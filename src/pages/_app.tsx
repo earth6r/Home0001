@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import { Layout } from '@components/layout'
 import { Scripts } from '@components/scripts'
-import { HomeProvider } from '@contexts/home'
+import ContextProvider from '@/contexts'
 import { IntercomProvider } from '@components/intercom'
 
 import 'focus-visible'
@@ -28,22 +28,22 @@ function App({
 
   return draftMode && token ? (
     <PreviewProvider token={token}>
-      <HomeProvider>
+      <ContextProvider>
         <Layout {...pageProps}>
           <Scripts />
           <Component {...pageProps} />
         </Layout>
-      </HomeProvider>
+      </ContextProvider>
     </PreviewProvider>
   ) : (
-    <HomeProvider>
+    <ContextProvider>
       {/* <IntercomProvider> */}
       <Layout {...pageProps}>
         <Scripts />
         <Component {...pageProps} />
       </Layout>
       {/* </IntercomProvider> */}
-    </HomeProvider>
+    </ContextProvider>
   )
 }
 

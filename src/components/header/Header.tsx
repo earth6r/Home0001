@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import type { HeaderProps } from './types'
 import { Logo } from '@components/logos'
@@ -8,22 +8,39 @@ import type { Menus as SanityMenu } from '@gen/sanity-schema'
 import { Btn } from '@components/btns'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Modal } from '@components/modal'
-import { HubspotForm } from '@components/form'
+import { Form, MultiPaneInputs } from '@components/form'
 import { RichText } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util/analytics'
+import { useForm } from 'react-hook-form'
+import { useWaitlisModal } from '@contexts/modals'
 
 export const Header: FC<HeaderProps> = ({
   waitlistId,
   waitlistHeader,
   waitlistCopy,
+  waitlistSuccess,
+  waitlistUnits,
   mainMenu,
   className,
 }) => {
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
-  const [waitlistOpen, setWaitlistOpen] = useState(false)
+  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const { register, handleSubmit, reset } = useForm({
+    shouldUseNativeValidation: true,
+  })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const el = useRef<HTMLElement>(null)
+
+  const openWaitlist = () => {
+    setWaitlistOpen(true)
+    // sendGoogleEvent('opened waitlist modal')
+  }
+
+  const onClose = () => {
+    setWaitlistOpen(false)
+    reset({})
+  }
 
   return (
     <div
@@ -41,36 +58,32 @@ export const Header: FC<HeaderProps> = ({
         <Logo className="flex items-center h-header pointer-events-auto" />
 
         <div className="flex items-center gap-[1.12rem] md:gap-16">
-          <Modal isOpen={waitlistOpen} onClose={() => setWaitlistOpen(false)}>
-            <div className="flex flex-col max-w-md h-full py-6 md:py-10 px-x md:px-10">
-              {waitlistHeader && (
-                <h2 className="pb-ylg uppercase">
-                  {waitlistHeader || `Join waitlist`}
-                </h2>
-              )}
-
-              {waitlistCopy && !formSubmitted && (
-                <RichText
-                  blocks={waitlistCopy}
-                  className={classNames('mb-4 clear-both')}
-                />
-              )}
-              <HubspotForm
-                formType={'general'}
+          <Modal isOpen={waitlistOpen} onClose={onClose}>
+            <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
+              <Form
+                formType={'modal'}
                 audienceId={waitlistId}
+                successMessage={waitlistSuccess}
                 formSubmitted={formSubmitted}
+                handleSubmit={handleSubmit}
                 setFormSubmitted={setFormSubmitted}
-                menuModal={true}
-              />
+                className="w-full h-full"
+              >
+                <MultiPaneInputs
+                  header={waitlistHeader}
+                  copy={waitlistCopy}
+                  unitGroups={waitlistUnits}
+                  buttonCopy="Join waitlist"
+                  register={register}
+                  className={classNames('h-full')}
+                />
+              </Form>
             </div>
           </Modal>
 
           <Btn
             type="button"
-            onClick={() => {
-              setWaitlistOpen(true)
-              // sendGoogleEvent('opened waitlist modal')
-            }}
+            onClick={openWaitlist}
             className="pointer-events-auto flex pt-[5.5px] pb-[5px] px-[5.5px] md:pt-[8px] md:pb-[7px] md:px-[7px] bg-black text-white leading-[11px] uppercase z-header"
           >
             <IconSmallArrow width="13" height="9" className="mr-[3px]" />

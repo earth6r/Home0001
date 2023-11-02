@@ -9,7 +9,6 @@ export const AccordionModal: FC<AccordionModalProps> = ({
   className,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-
   return (
     <div className={className}>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

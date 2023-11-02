@@ -23,7 +23,9 @@ import unit from './documents/unit'
 import inventoryModule from './modules/inventory-module'
 import propertyType from './documents/property-type'
 import newsletterBlock from './blocks/newsletter-block'
+import contactBlock from './blocks/contact-block'
 import tooltip from './objects/tooltip'
+import unitGroup from './objects/unit-group'
 
 export const schemaTypes = [
   // objects
@@ -39,6 +41,7 @@ export const schemaTypes = [
   richText,
   plainText,
   tooltip,
+  unitGroup,
 
   // modules
   inventoryModule,
@@ -48,6 +51,7 @@ export const schemaTypes = [
   accordionBlock,
   citiesBlock,
   newsletterBlock,
+  contactBlock,
   textBlock,
   waitlistBlock,
 

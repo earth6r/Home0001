@@ -1,10 +1,13 @@
 .input {
-  @apply outline-none border-black bg-transparent placeholder:opacity-[36] px-4 py-2 h-12 w-full rounded-none;
+  @apply outline-none border-black bg-transparent placeholder:opacity-[36] px-4 py-2 h-10 w-full rounded-none;
 }
 
 input[type='checkbox'],
 input[type='checkbox']:focus,
-input[type='checkbox']:active {
+input[type='checkbox']:active,
+input[type='radio'],
+input[type='radio']:focus,
+input[type='radio']:active {
   -webkit-appearance: none;
   width: 16px;
   height: 16px;
@@ -18,25 +21,35 @@ input[type='checkbox']:active {
   left: 0.3em;
   padding: 0.3em;
   position: relative;
-  margin-right: 0.3em;
+  margin-right: 0.8em;
 }
 
-input[type='checkbox']:checked:before {
+input[type='checkbox']:checked:before,
+input[type='radio']:checked:before {
   top: 1px;
 }
 
-input[type='checkbox']:checked {
+input[type='checkbox']:checked,
+input[type='radio']:checked {
   background: black;
+}
+
+input[type='checkbox'].unit-checkbox {
+  position: absolute;
+  left: 0;
+  top: 18px;
 }
 
 @screen md {
   input[type='checkbox'],
   input[type='checkbox']:focus,
-  input[type='checkbox']:active {
-    left: 12px;
+  input[type='checkbox']:active,
+  input[type='radio'],
+  input[type='radio']:focus,
+  input[type='radio']:active {
+    left: 0;
     width: 1rem;
     height: 1rem;
     padding: 0.3em;
-    margin-left: 2px;
   }
 }

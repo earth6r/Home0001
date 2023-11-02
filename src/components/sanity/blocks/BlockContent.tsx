@@ -8,6 +8,7 @@ import {
   WaitlistBlock,
   CitiesBlock,
   NewsletterBlock,
+  ContactBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
@@ -36,6 +37,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             waitlistBlock: ({ index, value }) => (
               <WaitlistBlock index={index} {...value} />
+            ),
+            contactBlock: ({ index, value }) => (
+              <ContactBlock index={index} {...value} />
             ),
           },
           marks: blockMarks,
