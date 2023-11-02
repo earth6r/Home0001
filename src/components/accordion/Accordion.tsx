@@ -61,7 +61,7 @@ export const Accordion: FC<AccordionProps> = ({
                   {text && <RichText blocks={text} />}
 
                   {cta && (
-                    <div className="flex my-yhalf">
+                    <div className="flex h-[2em] mt-yhalf">
                       <IconSmallBlackArrow
                         width="13"
                         height="32"
@@ -70,7 +70,7 @@ export const Accordion: FC<AccordionProps> = ({
                       <SanityLink
                         text={cta.text}
                         {...(cta.link as SanityLinkType)}
-                        className="hover:font-bold border-bottom mt-2 mb-6 ml-2"
+                        className="hover:font-bold border-bottom mt-2 ml-2"
                       />
                     </div>
                   )}
