@@ -29,6 +29,8 @@ export default {
       type: 'richText',
       title: 'Description',
     },
+    { name: 'waitlistLinkText', title: 'Waitlist Link Text', type: 'string' },
+
     {
       title: 'Location',
       name: 'location',
@@ -52,7 +54,6 @@ export default {
       type: 'array',
       of: [{ type: 'accordion', title: 'Property Details' }],
     },
-    { name: 'waitlistLinkText', title: 'Waitlist Link Text', type: 'string' },
   ],
   preview: {
     select: {
