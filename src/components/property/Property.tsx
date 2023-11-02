@@ -70,7 +70,9 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 
         {property?.unitsList && (
           <>
-            <div className="mt-9 uppercase">Available at 48 Allen</div>
+            {property?.availableText && (
+              <div className="mt-9 uppercase">{property?.availableText}</div>
+            )}
             <UnitsList
               className="mx-[-1rem] animate-in flex flex-col gap-3 mt-7"
               unitList={property?.unitsList}
