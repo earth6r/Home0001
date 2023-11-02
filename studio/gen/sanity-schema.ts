@@ -520,6 +520,13 @@ export type Accordion = {
    *
    */
   text?: RichText;
+
+  /**
+   * CTA — `cta`
+   *
+   *
+   */
+  cta?: Cta;
 };
 
 export type Color = "black" | "white";
