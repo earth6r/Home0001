@@ -12,6 +12,7 @@ type SanityLinkProps = SanityLinkType &
 export const SanityLink: FC<SanityLinkProps> = ({
   text,
   internalLink,
+  query,
   externalLink,
   anchor,
   onClick,
@@ -22,6 +23,7 @@ export const SanityLink: FC<SanityLinkProps> = ({
     internalLink,
     externalLink,
     anchor,
+    query,
   } as SanityLinkType)
   const external = !!externalLink
   return (

@@ -41,6 +41,29 @@ export default {
               return true
             }),
         },
+        {
+          name: 'query',
+          type: 'slug',
+          title: 'Query Parameter',
+          description:
+            'Use on a page with a Cities Block to move to a specified property or unit, starts with ?',
+          options: {
+            slugify: (input?: string): string | undefined => {
+              if (!input) return
+              const slug = slugify(input)
+              if (slug.charAt(0) !== '?') return `?${slug}`
+              return slug
+            },
+            disableArrayWarning: true,
+          },
+          validation: (Rule: Rule) =>
+            Rule.custom<Slug>(input => {
+              if (typeof input?.current !== 'string') return true
+              if (input?.current.charAt(0) !== '?')
+                return 'Slug must start with ?'
+              return true
+            }),
+        },
       ],
     },
     {
