@@ -68,8 +68,8 @@ export default {
       of: [{ type: 'media' }],
     },
     {
-      name: 'details',
-      title: 'Details',
+      name: 'summary',
+      title: 'Summary',
       type: 'richText',
     },
     // {
@@ -107,6 +107,12 @@ export default {
       name: 'moreInfo',
       title: 'More Info',
       type: 'richText',
+    },
+    {
+      name: 'unitDetails',
+      title: 'Unit Details',
+      type: 'array',
+      of: [{ type: 'accordion', title: 'Unit Details' }],
     },
   ],
   preview: {

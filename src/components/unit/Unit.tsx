@@ -10,6 +10,7 @@ import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { AccordionModal } from '@components/accordion'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { useForm } from 'react-hook-form'
+import { Accordion } from '@components/accordion'
 
 const UNIT_AUDIENCE_ID = process.env.NEXT_PUBLIC_HUBSPOT_UNIT_WAITLIST_ID
 
@@ -58,18 +59,26 @@ export const UnitComponent: FC<UnitElProps> = ({
                 {unit?.price == 'Inquire' ? 'Price upon request' : unit?.price}
               </p>
               {unit?.area && <p className="mb-4">{unit?.area}</p>}
-              {unit?.details && <RichText blocks={unit?.details} />}
+              {unit?.summary && <RichText blocks={unit?.summary} />}
+              {unit?.factSheet?.rows && (
+                <SanityTableModal
+                  table={unit.factSheet}
+                  modalType="View Fact Sheet"
+                  className="inline-block"
+                />
+              )}
+              {unit?.unitDetails &&
+                unit.unitDetails.length > 0 &&
+                unit.unitDetails.map(({ _key, header, text }) => (
+                  <Accordion
+                    key={_key}
+                    header={header}
+                    text={text}
+                    className="mt-2 mb-8 border-x-0 border-t-0"
+                  />
+                ))}
             </div>
           </div>
-
-          {unit?.factSheet?.rows && (
-            <SanityTableModal
-              table={unit.factSheet}
-              className="pr-menu md:pr-0"
-              modalType="fact sheet"
-              unit={unit?.title}
-            />
-          )}
 
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (
             <ImageCarousel slides={unit?.layoutImages} className="w-full" />
