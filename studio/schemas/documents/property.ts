@@ -39,6 +39,7 @@ export default {
         getOptionLabel: (reference: any) => `${reference.title}`,
       },
     },
+    { name: 'availableText', title: 'Available Text', type: 'string' },
     {
       name: 'unitsList',
       title: 'Units',
