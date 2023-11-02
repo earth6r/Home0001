@@ -22,6 +22,7 @@ export const LINK_QUERY = `
     slug,
   },
   "anchor": internalLink.anchor,
+  "query": internalLink.query,
 `
 
 export const LINK_MARKDEFS_QUERY = `
@@ -32,6 +33,7 @@ export const LINK_MARKDEFS_QUERY = `
       slug,
     },
     "anchor": @.internalLink.anchor,
+    "query": @.internalLink.query,
   },
 `
 
@@ -72,6 +74,26 @@ export const PROPERTIES_QUERY = `
   "image": image{
     ${MEDIA_QUERY}
   },
+  "description": description[]{
+      ...,
+      markDefs[]{
+        ...,
+        ${LINK_MARKDEFS_QUERY}
+      },
+  },
+  "propertyDetails": propertyDetails[]{
+      ...,
+      "text": text[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      },
+      cta{
+        ${CTA_QUERY}
+      }
+  },
   "unitsList": unitsList[]->{
     ...,
     ${UNITS_QUERY}
@@ -107,19 +129,13 @@ export const BODY_QUERY = `
           ...,
           ${LINK_MARKDEFS_QUERY}
         },
-      }
-    },
-    "media": media{
-      ${MEDIA_QUERY}
-    },
-    "figures": figures[]{
-      ...,
-      media{
-        ${MEDIA_QUERY}
       },
       cta{
         ${CTA_QUERY}
       }
+    },
+    "media": media{
+      ${MEDIA_QUERY}
     },
     "citiesList": citiesList[]->{
       ${CITY_QUERY}
