@@ -47,15 +47,15 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           />
         )}
         {property?.waitlistLinkText && (
-          <Btn
-            type="button"
+          <button
+            aria-label={property.waitlistLinkText}
             onClick={() => {
               setWaitlistOpen(true)
             }}
-            className="pointer-events-auto flex pt-[5.5px] pb-[5px] px-[5.5px] md:pt-[8px] md:pb-[7px] md:px-[7px] bg-black text-white leading-[11px] uppercase z-header"
+            className="hover:font-bold border-bottom mb-8"
           >
             {property.waitlistLinkText}
-          </Btn>
+          </button>
         )}
         {property?.propertyDetails &&
           property.propertyDetails.length > 0 &&
