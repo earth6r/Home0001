@@ -89,6 +89,9 @@ export const PROPERTIES_QUERY = `
           ...,
           ${LINK_MARKDEFS_QUERY}
         },
+      },
+      cta{
+        ${CTA_QUERY}
       }
   },
   "unitsList": unitsList[]->{
@@ -126,19 +129,13 @@ export const BODY_QUERY = `
           ...,
           ${LINK_MARKDEFS_QUERY}
         },
-      }
-    },
-    "media": media{
-      ${MEDIA_QUERY}
-    },
-    "figures": figures[]{
-      ...,
-      media{
-        ${MEDIA_QUERY}
       },
       cta{
         ${CTA_QUERY}
       }
+    },
+    "media": media{
+      ${MEDIA_QUERY}
     },
     "citiesList": citiesList[]->{
       ${CITY_QUERY}

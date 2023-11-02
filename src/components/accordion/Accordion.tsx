@@ -1,17 +1,25 @@
 import { useRef, type FC, useEffect, HTMLAttributes } from 'react'
 import classNames from 'classnames'
-import type { RichText as RichTextType } from '@studio/gen/sanity-schema'
+import type { Cta, RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { Disclosure, Transition } from '@headlessui/react'
-import { RichText } from '@components/sanity'
+import { RichText, SanityLink } from '@components/sanity'
 import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
+import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
+import { CTA_QUERY, SanityLinkType } from '@studio/lib'
 
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
   text?: RichTextType
+  cta?: Cta
 }
 
-export const Accordion: FC<AccordionProps> = ({ header, text, className }) => {
+export const Accordion: FC<AccordionProps> = ({
+  header,
+  text,
+  cta,
+  className,
+}) => {
   const ref = useRef<HTMLDivElement>(null)
 
   const setHeight = () => {
@@ -49,12 +57,24 @@ export const Accordion: FC<AccordionProps> = ({ header, text, className }) => {
               }}
             >
               <Disclosure.Panel>
-                {text && (
-                  <RichText
-                    blocks={text}
-                    className="pt-2 pl-4 pr-10 md:pr-x pb-5"
-                  />
-                )}
+                <div className="pt-2 pl-4 pr-10 md:pr-x pb-5">
+                  {text && <RichText blocks={text} />}
+
+                  {cta && (
+                    <div className="flex my-yhalf">
+                      <IconSmallBlackArrow
+                        width="13"
+                        height="32"
+                        className="mr-[3px]"
+                      />
+                      <SanityLink
+                        text={cta.text}
+                        {...(cta.link as SanityLinkType)}
+                        className="hover:font-bold border-bottom mt-2 mb-6 ml-2"
+                      />
+                    </div>
+                  )}
+                </div>
               </Disclosure.Panel>
             </Transition>
           </>

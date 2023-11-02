@@ -12,6 +12,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  console.log(property?.propertyDetails)
   return (
     <div className={classNames(className)}>
       <div className="block relative mt-10 md:mt-20">
@@ -59,11 +60,12 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         )}
         {property?.propertyDetails &&
           property.propertyDetails.length > 0 &&
-          property.propertyDetails.map(({ _key, header, text }) => (
+          property.propertyDetails.map(({ _key, header, text, cta }) => (
             <Accordion
               key={_key}
               header={header}
               text={text}
+              cta={cta}
               className="mt-2 border-x-0 border-t-0"
             />
           ))}
