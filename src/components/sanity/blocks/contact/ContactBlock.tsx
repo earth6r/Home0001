@@ -1,16 +1,16 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 import classNames from 'classnames'
-import type { WaitlistBlock as WaitlistBlockType } from '@gen/sanity-schema'
+import type { ContactBlock as ContactBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
 import { Form, SinglePaneInputs } from '@components/form'
 import { useForm } from 'react-hook-form'
 
-type WaitlistBlockProps = Omit<SanityBlockElement, keyof WaitlistBlockType> &
-  WaitlistBlockType
+type ContactBlockProps = Omit<SanityBlockElement, keyof ContactBlockType> &
+  ContactBlockType
 
-export const WaitlistBlock: FC<WaitlistBlockProps> = ({
+export const ContactBlock: FC<ContactBlockProps> = ({
   header,
   text,
   audienceId,
@@ -20,6 +20,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
+
   return (
     <Block
       className={classNames(
@@ -27,28 +28,25 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
         'md:grid md:grid-cols-3 relative pr-menu'
       )}
     >
-      <div className="absolute md:relative w-[100vw] h-full -left-x bg-whitesmoke z-behind"></div>
-      <div className="py-12">
+      <div className="md:col-start-2 md:col-span-1 pb-12">
         {header && <h2 className="pb-ylg uppercase">{header}</h2>}
 
-        {text ? (
-          formSubmitted ? (
-            <RichText blocks={text} className={classNames('mb-4 clear-both')} />
-          ) : null
-        ) : null}
+        {text && (
+          <RichText blocks={text} className={classNames('mb-4 clear-both')} />
+        )}
 
         <Form
-          formType={'general'}
+          formType={'contact'}
           audienceId={audienceId}
           formSubmitted={formSubmitted}
           handleSubmit={handleSubmit}
           setFormSubmitted={setFormSubmitted}
+          successMessage="Thanks for reaching out. We’ll be in touch soon."
         >
           <SinglePaneInputs
-            showLocationFields={true}
-            showContactLink={true}
             register={register}
-            submitButtonCopy="Join the waitlist"
+            showContactFields={true}
+            showNameFields={true}
           />
         </Form>
       </div>
@@ -56,4 +54,4 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   )
 }
 
-export default WaitlistBlock
+export default ContactBlock

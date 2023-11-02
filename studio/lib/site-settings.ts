@@ -5,6 +5,7 @@ import {
   previewClient,
   filterDataToSingleItem,
   LINK_QUERY,
+  MEDIA_QUERY,
 } from '.'
 
 export const SITE_SETTINGS_QUERY = groq`
@@ -27,7 +28,21 @@ export const SITE_SETTINGS_QUERY = groq`
     },
     waitlistHeader,
     waitlistCopy,
+    waitlistSuccess,
     waitlistId,
+    "waitlistUnits": waitlistUnits[]{
+      ...,
+      property->{
+        _id,
+      },
+      "units": units[]->{
+        title,
+        propertyType->,
+        headlineImage,
+        area,
+        price,
+      }
+    },
     howItWorksContent,
   }
 `

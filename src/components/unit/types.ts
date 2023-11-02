@@ -44,8 +44,9 @@ export interface KeyedUnitProps
   photographs?: Array<SanityKeyed<UnitAssetProps>>
   reserveFormCopy?: RichText
   confirmationCopy?: RichText
-  details?: RichText
+  summary?: RichText
   factSheet?: any
+  unitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: Array<SanityKeyed<UnitAssetProps>>
   moreInfo?: RichText
 }
