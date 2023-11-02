@@ -114,6 +114,12 @@ export default {
       type: 'array',
       of: [{ type: 'accordion', title: 'Unit Details' }],
     },
+    {
+      name: 'secondUnitDetails',
+      title: 'Second Unit Details',
+      type: 'array',
+      of: [{ type: 'accordion', title: 'Unit Details' }],
+    },
   ],
   preview: {
     select: {

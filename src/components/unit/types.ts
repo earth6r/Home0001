@@ -47,6 +47,7 @@ export interface KeyedUnitProps
   summary?: RichText
   factSheet?: any
   unitDetails?: SanityKeyed<Accordion>[]
+  secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: Array<SanityKeyed<UnitAssetProps>>
   moreInfo?: RichText
 }
