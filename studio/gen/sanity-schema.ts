@@ -201,6 +201,13 @@ export interface Property extends SanityDocument {
    *
    */
   propertyDetails?: Array<SanityKeyed<Accordion>>;
+
+  /**
+   * Waitlist Link Text — `richText`
+   *
+   *
+   */
+  waitlistLinkText?: RichText;
 }
 
 /**
