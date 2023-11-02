@@ -2,9 +2,11 @@ import { useState, type FC, type HTMLAttributes } from 'react'
 import { Modal } from '@components/modal'
 import classNames from 'classnames'
 import { sendGoogleEvent } from '@lib/util'
+import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
+
 interface SanityTableModalProps extends HTMLAttributes<HTMLElement> {
   table: any
-  modalType: 'fact sheet' | 'inventory'
+  modalType: 'View Fact Sheet' | 'inventory'
   unit?: string
 }
 
@@ -19,7 +21,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
   const handleGoogleEvent = () => {
     if (unit) {
       switch (modalType) {
-        case 'fact sheet': {
+        case 'View Fact Sheet': {
           // sendGoogleEvent(`Click Fact Sheet for ${unit}`)
           break
         }
@@ -64,13 +66,14 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
         </div>
       </Modal>
 
-      <div className="pr-mobile-menu md:pr-0">
+      <div className="pr-mobile-menu md:pr-0 flex mt-2">
+        <IconSmallBlackArrow width="13" height="32" className="mr-[3px]" />
         <button
           onClick={() => {
             setIsOpen(true)
             handleGoogleEvent()
           }}
-          className="outline-none mt-9 mb-9 tracking-caps block w-full h-12 max-h-12 py-2 px-3 text-center uppercase border-1 border-solid border-black bg-white text-black"
+          className="hover:font-bold border-bottom mt-2 mb-8 ml-2"
         >
           {modalType}
         </button>
