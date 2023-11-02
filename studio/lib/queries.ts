@@ -22,6 +22,7 @@ export const LINK_QUERY = `
     slug,
   },
   "anchor": internalLink.anchor,
+  "query": internalLink.query,
 `
 
 export const LINK_MARKDEFS_QUERY = `
@@ -32,6 +33,7 @@ export const LINK_MARKDEFS_QUERY = `
       slug,
     },
     "anchor": @.internalLink.anchor,
+    "query": @.internalLink.query,
   },
 `
 
@@ -71,6 +73,13 @@ export const PROPERTIES_QUERY = `
   _id,
   "image": image{
     ${MEDIA_QUERY}
+  },
+  "description": description[]{
+      ...,
+      markDefs[]{
+        ...,
+        ${LINK_MARKDEFS_QUERY}
+      },
   },
   "propertyDetails": propertyDetails[]{
       ...,

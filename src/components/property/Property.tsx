@@ -12,6 +12,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  console.log('property: ', property)
   return (
     <div className={classNames(className)}>
       <div className="block relative mt-10 md:mt-20">
