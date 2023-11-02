@@ -90,8 +90,16 @@ export const UnitComponent: FC<UnitElProps> = ({
             </div>
           )}
 
-          {accordions && <AccordionModal accordions={accordions} />}
-
+          {unit?.secondUnitDetails &&
+            unit.secondUnitDetails.length > 0 &&
+            unit.secondUnitDetails.map(({ _key, header, text }) => (
+              <Accordion
+                key={_key}
+                header={header}
+                text={text}
+                className="mt-2 mb-8 border-x-0 border-t-0"
+              />
+            ))}
           <div className="pr-menu md:pr-0">
             <button
               onClick={() => formButtonClick()}
