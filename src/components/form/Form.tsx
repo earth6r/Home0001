@@ -67,11 +67,7 @@ export const Form: FC<FormProps> = ({
           )}
         </div>
       ) : (
-        <form
-          id={'waitlist-form'}
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full h-full"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           {children}
           {formError != null && (
             <div className="py-yhalf">

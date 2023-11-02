@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import type { HeaderProps } from './types'
 import { Logo } from '@components/logos'
@@ -26,21 +26,20 @@ export const Header: FC<HeaderProps> = ({
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const el = useRef<HTMLElement>(null)
-  const formRef = useRef<HTMLFormElement>(null)
+
+  const openWaitlist = () => {
+    setWaitlistOpen(true)
+    // sendGoogleEvent('opened waitlist modal')
+  }
 
   const onClose = () => {
     setWaitlistOpen(false)
-    if (typeof document !== 'undefined') {
-      const waitlistForm = document.getElementById(
-        'waitlist-form'
-      ) as HTMLFormElement
-      waitlistForm?.reset()
-    }
+    reset({})
   }
 
   return (
@@ -84,10 +83,7 @@ export const Header: FC<HeaderProps> = ({
 
           <Btn
             type="button"
-            onClick={() => {
-              setWaitlistOpen(true)
-              // sendGoogleEvent('opened waitlist modal')
-            }}
+            onClick={openWaitlist}
             className="pointer-events-auto flex pt-[5.5px] pb-[5px] px-[5.5px] md:pt-[8px] md:pb-[7px] md:px-[7px] bg-black text-white leading-[11px] uppercase z-header"
           >
             <IconSmallArrow width="13" height="9" className="mr-[3px]" />

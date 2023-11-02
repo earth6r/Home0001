@@ -58,7 +58,7 @@ export default {
       },
       animation: {
         fadeIn: 'fade-in 250ms linear forwards',
-        fadeInDelay: 'fade-in 250ms linear 1200ms forwards',
+        fadeInDelay: 'fade-in 250ms linear 600ms forwards',
       },
       transitionDuration: {
         snail: 'var(--speed-snail)',
