@@ -43,6 +43,12 @@ export default {
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'unit' }] }],
     },
+    {
+      name: 'propertyDetails',
+      title: 'Property Details',
+      type: 'array',
+      of: [{ type: 'accordion', title: 'Property Details' }],
+    },
   ],
   preview: {
     select: {

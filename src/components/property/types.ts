@@ -6,6 +6,8 @@ import type {
   SanityImageAsset,
   SanityKeyedReference,
   SanityReference,
+  Accordion,
+  SanityKeyed,
 } from '@studio/gen/sanity-schema'
 import { City } from 'schema-dts'
 
@@ -17,6 +19,7 @@ export interface PropertyContentProps
   extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref'> {
   cityId?: string
   unitsList?: KeyedUnitProps[]
+  propertyDetails?: SanityKeyed<Accordion>[]
 }
 
 export interface KeyedPropertyProps
