@@ -5,12 +5,13 @@ import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/unit'
 import { PropertyElProps } from './types'
 import { Accordion } from '@components/accordion'
-
+import { Btn } from '@components/btns'
+import { useWaitlisModal } from '@contexts/modals'
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,
   className,
 }) => {
-  console.log(property)
+  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
     <div className={classNames(className)}>
       <div className="block relative mt-10 md:mt-20">
@@ -44,6 +45,17 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             blocks={property?.description}
             className="pr-menu md:pr-0 mt-8 mb-8"
           />
+        )}
+        {property?.waitlistLinkText && (
+          <Btn
+            type="button"
+            onClick={() => {
+              setWaitlistOpen(true)
+            }}
+            className="pointer-events-auto flex pt-[5.5px] pb-[5px] px-[5.5px] md:pt-[8px] md:pb-[7px] md:px-[7px] bg-black text-white leading-[11px] uppercase z-header"
+          >
+            {property.waitlistLinkText}
+          </Btn>
         )}
         {property?.propertyDetails &&
           property.propertyDetails.length > 0 &&

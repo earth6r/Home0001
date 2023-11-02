@@ -12,6 +12,7 @@ import { Form, MultiPaneInputs } from '@components/form'
 import { RichText } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util/analytics'
 import { useForm } from 'react-hook-form'
+import { useWaitlisModal } from '@contexts/modals'
 
 export const Header: FC<HeaderProps> = ({
   waitlistId,
@@ -24,7 +25,7 @@ export const Header: FC<HeaderProps> = ({
 }) => {
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
-  const [waitlistOpen, setWaitlistOpen] = useState(false)
+  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
   })

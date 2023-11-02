@@ -1,5 +1,7 @@
 import type { Rule } from '@sanity/types'
+import { string } from 'prop-types'
 import { MdHomeWork } from 'react-icons/md'
+import richText from 'schemas/objects/rich-text'
 
 export default {
   name: 'property',
@@ -49,6 +51,7 @@ export default {
       type: 'array',
       of: [{ type: 'accordion', title: 'Property Details' }],
     },
+    { name: 'waitlistLinkText', title: 'Waitlist Link Text', type: 'string' },
   ],
   preview: {
     select: {

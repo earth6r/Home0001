@@ -20,6 +20,7 @@ export interface PropertyContentProps
   cityId?: string
   unitsList?: KeyedUnitProps[]
   propertyDetails?: SanityKeyed<Accordion>[]
+  waitlistLinkText?: string
 }
 
 export interface KeyedPropertyProps
