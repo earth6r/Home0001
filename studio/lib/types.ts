@@ -43,4 +43,5 @@ export interface SanityLinkType {
   externalLink?: string
   internalLink?: SanityInternalLink
   anchor?: Slug
+  query?: Slug
 }

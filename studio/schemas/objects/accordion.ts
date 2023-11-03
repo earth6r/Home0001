@@ -19,5 +19,10 @@ export default {
       type: 'richText',
       validation: (Rule: Rule): Rule => Rule.required(),
     },
+    {
+      name: 'cta',
+      type: 'cta',
+      title: 'CTA',
+    },
   ],
 }
