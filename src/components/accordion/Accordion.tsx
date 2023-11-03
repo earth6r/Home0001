@@ -25,9 +25,9 @@ export const Accordion: FC<AccordionProps> = ({ header, text, className }) => {
         {({ open }) => (
           <>
             <Disclosure.Button
-              className={
-                'flex justify-between text-left items-center w-full p-4 pl-0'
-              }
+              className={`flex justify-between text-left ${
+                className?.includes('border-x-0') ? 'pl-0' : null
+              } items-center w-full p-4 `}
             >
               <h2 className="uppercase">{header}</h2>
               {open ? (
