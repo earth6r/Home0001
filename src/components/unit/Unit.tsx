@@ -11,6 +11,7 @@ import { AccordionModal } from '@components/accordion'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { useForm } from 'react-hook-form'
 import { Accordion } from '@components/accordion'
+import { useWaitlisModal } from '@contexts/modals'
 
 const UNIT_AUDIENCE_ID = process.env.NEXT_PUBLIC_HUBSPOT_UNIT_WAITLIST_ID
 
@@ -19,6 +20,7 @@ export const UnitComponent: FC<UnitElProps> = ({
   accordions,
   className,
 }) => {
+  const [waitlistModal, setWaitlistModal] = useWaitlisModal()
   const formRef = useRef(null)
   const [formActive, setFormActive] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -102,7 +104,7 @@ export const UnitComponent: FC<UnitElProps> = ({
             ))}
           <div className="pr-menu md:pr-0">
             <button
-              onClick={() => formButtonClick()}
+              onClick={() => setWaitlistModal(true)}
               className={classNames(
                 formActive ? 'bg-white text-black' : 'bg-black text-white',
                 'my-9 text-center uppercase block w-full h-12 max-h-12 py-2 px-3 border border-solid border-[#000]'
