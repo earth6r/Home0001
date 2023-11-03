@@ -13,4 +13,4 @@ export const getHrefBySanityLink = (link?: SanityLinkType): string =>
   link?.externalLink ||
   `${getSanityLinkPath(link?.internalLink)}${
     link?.internalLink?.slug?.current || ''
-  }${link?.anchor?.current || ''}`
+  }${link?.anchor?.current || ''}${link?.query?.current || ''}`
