@@ -115,54 +115,6 @@ export const UnitComponent: FC<UnitElProps> = ({
           </div>
         </div>
       </div>
-
-      {formActive ? (
-        <div
-          ref={formRef}
-          className="md:grid md:grid-cols-3 relative pr-10 md:pr-menu animate-fadeIn opacity-0"
-        >
-          <div className="w-screen h-full absolute bg-whitesmoke z-behind"></div>
-          <div className="md:col-start-2 md:col-span-1 pl-x md:pl-0 pr-menu md:pr-0 py-12 z-above">
-            {unit?.title && (
-              <div className="rich-text pb-4">
-                {!formSubmitted
-                  ? unit.reserveFormCopy && (
-                      <RichText blocks={unit?.reserveFormCopy} />
-                    )
-                  : null}
-              </div>
-            )}
-
-            <Form
-              formType={'general'}
-              audienceId={UNIT_AUDIENCE_ID}
-              successMessage={unit?.confirmationCopy}
-              handleSubmit={handleSubmit}
-              formSubmitted={formSubmitted}
-              setFormSubmitted={setFormSubmitted}
-            >
-              <SinglePaneInputs
-                register={register}
-                showContactLink={true}
-                submitButtonCopy="Join the waitlist"
-              />
-            </Form>
-          </div>
-        </div>
-      ) : (
-        <div className="md:grid md:grid-cols-3 px-x md:pr-menu">
-          <div className="md:col-start-2 md:col-span-1 rich-text">
-            <p>
-              {`Not the home for you? `}
-              <Link href="/newsletter" className="border-bottom">
-                {`Sign up here`}
-              </Link>
-              {` for updates on new buildings in new locations.`}
-            </p>
-            <BtnScrollToTop className="mt-[50px]" />
-          </div>
-        </div>
-      )}
     </div>
   )
 }

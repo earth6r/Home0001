@@ -1,4 +1,4 @@
-import { type FC, memo } from 'react'
+import { type FC, memo, useContext } from 'react'
 import classNames from 'classnames'
 import { RichText, SanityMedia } from '@components/sanity'
 import MapDialog from '@components/map/MapDialog'
@@ -7,12 +7,12 @@ import { PropertyElProps } from './types'
 import { Accordion } from '@components/accordion'
 import { Btn } from '@components/btns'
 import { useWaitlisModal } from '@contexts/modals'
+import { HomeContext } from '@contexts/home'
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,
   className,
 }) => {
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
-  console.log(property?.propertyDetails)
   return (
     <div className={classNames(className)}>
       <div className="block relative mt-10 md:mt-20">

@@ -165,6 +165,7 @@ const UnitsPane: FC<PaneContentProps> = ({
 
                 {units &&
                   units.map((unit: KeyedUnitProps, index) => {
+                    console.log('unit:', unit)
                     return (
                       <div key={`${index}-${_key}`} className="relative mb-4">
                         <input
