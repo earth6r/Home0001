@@ -150,7 +150,7 @@ export const UnitComponent: FC<UnitElProps> = ({
           </div>
         </div>
       ) : (
-        <div className="md:grid md:grid-cols-3 pl-x md:pl-0 pr-menu">
+        <div className="md:grid md:grid-cols-3 px-x md:pr-menu">
           <div className="md:col-start-2 md:col-span-1 rich-text">
             <p>
               {`Not the home for you? `}
