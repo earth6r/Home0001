@@ -76,6 +76,12 @@ export default {
       group: 'header',
     },
     {
+      name: 'waitlistUnitSelection',
+      title: 'Waitlist Unit Selection',
+      type: 'richText',
+      group: 'header',
+    },
+    {
       name: 'waitlistSuccess',
       title: 'Waitlist Success',
       type: 'richText',
