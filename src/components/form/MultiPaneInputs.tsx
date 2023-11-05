@@ -35,6 +35,7 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   unitGroups?: KeyedUnitGroup[]
   buttonCopy?: string
   register: UseFormRegister<FieldValues>
+  trigger: () => Promise<boolean>
 }
 
 const LOCATIONS = [
@@ -124,7 +125,13 @@ const NameEmailPane: FC<PaneContentProps> = ({ register, className }) => {
         type="email"
         id="email"
         className="input"
-        {...register('email', { required: true })}
+        {...register('email', {
+          required: true,
+          pattern: {
+            value: /\S+@\S+\.\S+/,
+            message: 'Please enter a valid email',
+          },
+        })}
       />
     </div>
   )
@@ -165,7 +172,7 @@ const UnitsPane: FC<PaneContentProps> = ({
 
                 {units &&
                   units.map((unit: KeyedUnitProps, index) => {
-                    console.log('unit:', unit)
+                    // console.log('unit:', unit)
                     return (
                       <div key={`${index}-${_key}`} className="relative mb-4">
                         <input
@@ -334,6 +341,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   buttonCopy,
   register,
   className,
+  trigger,
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
 
@@ -346,7 +354,10 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         copy={copy}
         buttonType={`button`}
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
-        onClick={() => setCurrentStep(currentStep + 1)}
+        onClick={async () => {
+          const triggerResult = await trigger()
+          if (triggerResult) setCurrentStep(currentStep + 1)
+        }}
       >
         <NameEmailPane
           register={register}

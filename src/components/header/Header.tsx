@@ -26,7 +26,7 @@ export const Header: FC<HeaderProps> = ({
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, trigger } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -76,6 +76,7 @@ export const Header: FC<HeaderProps> = ({
                   buttonCopy="Join waitlist"
                   register={register}
                   className={classNames('h-full')}
+                  trigger={trigger}
                 />
               </Form>
             </div>
