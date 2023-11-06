@@ -110,14 +110,14 @@ const NameEmailPane: FC<PaneContentProps> = ({ register, className }) => {
         id="first_name"
         className="input"
         placeholder="FIRST NAME"
-        {...register('first_name', { required: true })}
+        {...register('first_name', { required: 'First name is required' })}
       />
       <input
         type="text"
         id="last_name"
         className="input"
         placeholder="LAST NAME"
-        {...register('last_name', { required: true })}
+        {...register('last_name', { required: 'Last name is required' })}
       />
 
       <input
@@ -126,7 +126,7 @@ const NameEmailPane: FC<PaneContentProps> = ({ register, className }) => {
         id="email"
         className="input"
         {...register('email', {
-          required: true,
+          required: 'Email is required',
           pattern: {
             value: /\S+@\S+\.\S+/,
             message: 'Please enter a valid email',
@@ -173,8 +173,17 @@ const UnitsPane: FC<PaneContentProps> = ({
                 {units &&
                   units.map((unit: KeyedUnitProps, index) => {
                     // console.log('unit:', unit)
+                    // console.log('values', values)
                     return (
                       <div key={`${index}-${_key}`} className="relative mb-4">
+                        <div className="hidden">
+                          <input
+                            type="checkbox"
+                            id="generalForm"
+                            defaultChecked={false}
+                            {...register('generalForm', { required: true })}
+                          />
+                        </div>
                         <input
                           id={`unit-of-interest-${index}-${_key}`}
                           type="checkbox"
