@@ -146,6 +146,7 @@ const UnitsPane: FC<PaneContentProps> = ({
   const { state } = useContext(HomeContext)
   const [checkedCount, setCheckedCount] = useState(0)
   const [showNextButton, setShowNextButton] = useState(true)
+  const [unitOfInterestRequired, setUnitOfInterestRequired] = useState(true)
   if (state.property?._id) {
     const index = unitGroups?.findIndex(
       ({ property }) => property?._id === state.property?._id
@@ -172,18 +173,8 @@ const UnitsPane: FC<PaneContentProps> = ({
 
                 {units &&
                   units.map((unit: KeyedUnitProps, index) => {
-                    // console.log('unit:', unit)
-                    // console.log('values', values)
                     return (
                       <div key={`${index}-${_key}`} className="relative mb-4">
-                        <div className="hidden">
-                          <input
-                            type="checkbox"
-                            id="generalForm"
-                            defaultChecked={false}
-                            {...register('generalForm', { required: true })}
-                          />
-                        </div>
                         <input
                           id={`unit-of-interest-${index}-${_key}`}
                           type="checkbox"
@@ -193,7 +184,10 @@ const UnitsPane: FC<PaneContentProps> = ({
                             state?.unit?.title === unit.title ? true : undefined
                           }
                           {...register('units_interested', {
-                            required: false,
+                            required: {
+                              value: unitOfInterestRequired,
+                              message: 'Please select at least one unit',
+                            },
                           })}
                           onChange={e => {
                             e.target.checked
@@ -239,7 +233,10 @@ const UnitsPane: FC<PaneContentProps> = ({
         <button
           className="sticky bottom-2 border-black left-0 animate-fadeInDelay opacity-0 w-full px-x md:px-xhalf tracking-normal h-btn tracking-caps uppercase text-black bg-gray text-center z-header"
           type="button"
-          onClick={onClick}
+          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            setUnitOfInterestRequired(false)
+            onClick && onClick(event)
+          }}
         >
           {'Looking for something else?'}
         </button>
@@ -390,7 +387,10 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         <UnitsPane
           unitGroups={unitGroups}
           register={register}
-          onClick={() => setCurrentStep(currentStep + 1)}
+          onClick={async () => {
+            const triggerResult = await trigger()
+            if (triggerResult) setCurrentStep(currentStep + 1)
+          }}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
             'block mt-y uppercase'
