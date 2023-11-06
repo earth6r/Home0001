@@ -69,17 +69,18 @@ export const UnitComponent: FC<UnitElProps> = ({
                   className="inline-block"
                 />
               )}
-              {unit?.unitDetails &&
-                unit.unitDetails.length > 0 &&
-                unit.unitDetails.map(({ _key, header, text }) => (
-                  <Accordion
-                    key={_key}
-                    header={header}
-                    text={text}
-                    className="mt-2 mb-8 border-x-0 border-t-0"
-                  />
-                ))}
             </div>
+
+            {unit?.unitDetails &&
+              unit.unitDetails.length > 0 &&
+              unit.unitDetails.map(({ _key, header, text }) => (
+                <Accordion
+                  key={_key}
+                  header={header}
+                  text={text}
+                  className="mt-2 mb-8 border-x-0 border-t-0"
+                />
+              ))}
           </div>
 
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (

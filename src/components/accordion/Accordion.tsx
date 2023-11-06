@@ -6,7 +6,7 @@ import { RichText, SanityLink } from '@components/sanity'
 import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
 import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
-import { CTA_QUERY, SanityLinkType } from '@studio/lib'
+import { SanityLinkType } from '@studio/lib'
 
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
@@ -57,7 +57,12 @@ export const Accordion: FC<AccordionProps> = ({
               }}
             >
               <Disclosure.Panel>
-                <div className="pt-2 pl-4 pr-10 md:pr-x pb-5">
+                <div
+                  className={classNames(
+                    className?.includes('border-x-0') ? '' : 'pl-4',
+                    'pt-2 pr-10 md:pr-x pb-5'
+                  )}
+                >
                   {text && <RichText blocks={text} />}
 
                   {cta && (
