@@ -182,9 +182,6 @@ const UnitsPane: FC<PaneContentProps> = ({
                           type="checkbox"
                           value={unit.title}
                           className="unit-checkbox"
-                          checked={
-                            checkedUnitTitle === unit.title ? true : undefined
-                          }
                           {...register('units_interested', {
                             required: {
                               value: unitOfInterestRequired,
