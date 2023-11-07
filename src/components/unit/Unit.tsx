@@ -40,7 +40,7 @@ export const UnitComponent: FC<UnitElProps> = ({
 
   return (
     <div className={className}>
-      <div className="md:grid md:grid-cols-3 md:pr-0 md:pr-menu px-x">
+      <div className="md:grid md:grid-cols-3 md:pr-menu px-x">
         <div className="md:col-start-2 md:col-span-1">
           <div className="flex flex-col relative mt-10">
             {unit?.photographs && unit?.photographs.length > 0 && (
