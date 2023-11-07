@@ -68,19 +68,19 @@ const LOCATIONS = [
 const SIZES = [
   {
     label: 'Studio',
-    name: 'studio',
+    name: 'Studio',
   },
   {
     label: '1 Bedroom',
-    name: 'n1_bedroom',
+    name: '1bdrm',
   },
   {
     label: '2 Bedrooms',
-    name: 'n2_bedrooms',
+    name: '2bdrm',
   },
   {
     label: '3 Bedrooms +',
-    name: 'n3_bedrooms',
+    name: '3+bdrm',
   },
 ]
 
@@ -256,8 +256,9 @@ const LocationsPane: FC<PaneContentProps> = ({ register, className }) => {
         <div className="mb-1" key={name}>
           <input
             type="checkbox"
+            value={name}
             id={name}
-            {...register(name, { required: false })}
+            {...register('locations_of_interest', { required: false })}
           />
           <label className="text-left cursor-pointer" htmlFor={name}>
             {label}
@@ -311,7 +312,8 @@ const MoreInfoPane: FC<PaneContentProps> = ({ register, className }) => {
           <input
             type="checkbox"
             id={name}
-            {...register(name, { required: false })}
+            value={name}
+            {...register('bedrooms', { required: false })}
           />
           <label className="text-left cursor-pointer" htmlFor={name}>
             {label}
