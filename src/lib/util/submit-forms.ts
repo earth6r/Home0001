@@ -20,24 +20,24 @@ const postModalFields = async (
         { name: 'email', value: data.email },
         {
           name: 'units_interested',
-          value: data.units_interested ? data.units_interested.join(';') : null,
+          value: data.units_interested ? data.units_interested.join(';') : '',
         },
 
-        // {
-        //   name: 'bedroom_preference',
-        //   value: data.bedrooms ? data.bedrooms.join(';') : null,
-        // },
-        // {
-        //   name: 'interested_cities',
-        //   value: data.locations_of_interest
-        //     ? data.locations_of_interest.join(';')
-        //     : null,
-        // },
+        {
+          name: 'bedroom_preference',
+          value: data.bedrooms ? data.bedrooms.join(';') : '',
+        },
+        {
+          name: 'interested_cities',
+          value: data.locations_of_interest
+            ? data.locations_of_interest.join(';')
+            : '',
+        },
         {
           name: 'when_are_you_looking_to_buy',
           value: data.when_are_you_looking_to_buy
             ? data.when_are_you_looking_to_buy
-            : 'NA',
+            : '',
         },
         { name: 'city_general', value: data.City ? data.City : '' },
         {

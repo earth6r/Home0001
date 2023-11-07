@@ -39,10 +39,6 @@ export const Form: FC<FormProps> = ({
 
   const onSubmit = async (data: any) => {
     console.log('data:', data)
-    console.log(
-      "data.units_interested.join(';')",
-      data.units_interested.join(';')
-    )
 
     // if (formType === 'unit') {
     //   sendGoogleEvent('submit_reservation_form', {
