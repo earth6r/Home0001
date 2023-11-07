@@ -144,6 +144,7 @@ const UnitsPane: FC<PaneContentProps> = ({
   className,
 }) => {
   const { state } = useContext(HomeContext)
+  const [checkedUnitTitle, setCheckedUnitTitle] = useState('')
   const [checkedCount, setCheckedCount] = useState(0)
   const [showNextButton, setShowNextButton] = useState(true)
   const [unitOfInterestRequired, setUnitOfInterestRequired] = useState(true)
@@ -160,7 +161,8 @@ const UnitsPane: FC<PaneContentProps> = ({
 
   useEffect(() => {
     if (checkedCount === 0) setShowNextButton(true)
-  }, [checkedCount])
+    if (state.unit?.title) setCheckedUnitTitle(state.unit?.title)
+  }, [checkedCount, state?.unit?.title])
 
   return (
     <>
@@ -181,7 +183,7 @@ const UnitsPane: FC<PaneContentProps> = ({
                           value={unit.title}
                           className="unit-checkbox"
                           checked={
-                            state?.unit?.title === unit.title ? true : undefined
+                            checkedUnitTitle === unit.title ? true : undefined
                           }
                           {...register('units_interested', {
                             required: {

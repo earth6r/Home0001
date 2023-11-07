@@ -445,6 +445,13 @@ export interface SiteSettings extends SanityDocument {
   waitlistCopy?: RichText;
 
   /**
+   * Waitlist Unit Selection — `richText`
+   *
+   *
+   */
+  waitlistUnitSelection?: RichText;
+
+  /**
    * Waitlist Success — `richText`
    *
    *
