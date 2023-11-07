@@ -9,9 +9,6 @@ const postModalFields = async (
   config?: any,
   hutk?: string
 ) => {
-  console.log(
-    `${data.LA};${data.NYC};${data.Paris};${data.London};${data.Berlin};${data.CDMX};${data.Else}`
-  )
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
     {
@@ -23,34 +20,24 @@ const postModalFields = async (
         { name: 'email', value: data.email },
         {
           name: 'units_interested',
-          value: !data.units_interested
-            ? 'false;false;false;false;false'
-            : `${data.units_interested?.includes(
-                '#6'
-              )};${data.units_interested?.includes(
-                '#7'
-              )};${data.units_interested?.includes(
-                'Unit 3B'
-              )};${data.units_interested?.includes(
-                'Unit 4A'
-              )};${data.units_interested?.includes('Unit 6B')}`,
+          value: data.units_interested ? data.units_interested.join(';') : '',
         },
+
         {
           name: 'bedroom_preference',
-          value: `${data.n1_bedroom};${data.n2_bedrooms};${data.n3_bedrooms};${data.studio}`,
+          value: data.bedrooms ? data.bedrooms.join(';') : '',
         },
         {
           name: 'interested_cities',
-          value:
-            data.LA == undefined
-              ? 'false;false;false;false;false;false;false'
-              : `${data.LA};${data.NYC};${data.Paris};${data.London};${data.Berlin};${data.CDMX};${data.Else}`,
+          value: data.locations_of_interest
+            ? data.locations_of_interest.join(';')
+            : '',
         },
         {
           name: 'when_are_you_looking_to_buy',
           value: data.when_are_you_looking_to_buy
             ? data.when_are_you_looking_to_buy
-            : 'NA',
+            : '',
         },
         { name: 'city_general', value: data.City ? data.City : '' },
         {
