@@ -42,6 +42,8 @@ export const Header: FC<HeaderProps> = ({
     setWaitlistOpen(false)
     reset({})
   }
+  if (typeof window != 'undefined')
+    console.log('location.pathname', window.location.pathname)
 
   return (
     <div
@@ -56,7 +58,11 @@ export const Header: FC<HeaderProps> = ({
         role="banner"
         className="flex justify-between items-center relative w-full h-header px-x"
       >
-        <Logo className="flex items-center h-header pointer-events-auto" />
+        <div className="flex items-baseline">
+          <Logo className="flex items-center h-header pointer-events-auto" />
+          <div>&nbsp; &gt;</div>
+          {/* {location.pathname != '/' ? location.pathname == ""} */}
+        </div>
 
         <div className="flex items-center gap-[1.12rem] md:gap-16">
           <Modal isOpen={waitlistOpen} onClose={onClose}>

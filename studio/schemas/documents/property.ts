@@ -18,6 +18,7 @@ export default {
         maxLength: 96,
       },
     },
+    { name: 'navigationSlug', type: 'string', title: 'Navigation Slug' },
     {
       name: 'header',
       type: 'richText',
