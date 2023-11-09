@@ -8,6 +8,7 @@ import type {
   SanityReference,
   Accordion,
   SanityKeyed,
+  Media,
 } from '@studio/gen/sanity-schema'
 import { City } from 'schema-dts'
 
@@ -33,16 +34,18 @@ export interface KeyedPropertyProps
   _id?: string
   cityId?: string
   header?: RichTextProps
-  image?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    alt: string
-    image?: {
-      _type: 'image'
-      asset: SanityImageAsset
-    }
-  }
-  coordinates?: { lat: string; long: string }
+  image?:
+    | {
+        _type: 'image'
+        asset: SanityReference<SanityImageAsset>
+        alt: string
+        image?: {
+          _type: 'image'
+          asset: SanityImageAsset
+        }
+      }
+    | Media
+  coordinates?: { lat?: string; long?: string }
   description?: RichTextProps
   unitsList?: KeyedUnitProps[]
   location?: KeyedLocationProps

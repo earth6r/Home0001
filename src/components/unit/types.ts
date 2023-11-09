@@ -32,7 +32,17 @@ export interface KeyedUnitProps
   price?: string
   area?: string
   amenities?: RichText
-  headlineImage?: Media
+  headlineImage?:
+    | {
+        _type: 'image'
+        asset: SanityReference<SanityImageAsset>
+        alt: string
+        image?: {
+          _type: 'image'
+          asset: SanityImageAsset
+        }
+      }
+    | Media
   photographs?: SanityKeyed<Media>[]
   reserveFormCopy?: RichText
   confirmationCopy?: RichText
