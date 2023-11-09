@@ -10,7 +10,7 @@ export default defineConfig({
   name: 'Home0001',
   title: 'Home0001',
   projectId: 'cr71fv96',
-  dataset: 'production',
+  dataset: 'dev',
   plugins: [
     deskTool({
       structure: deskStructure,

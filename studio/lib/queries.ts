@@ -105,10 +105,6 @@ export const CITY_QUERY = `
   _type,
   title,
   active,
-  "properties": properties[]->{
-    ...,
-    ${PROPERTIES_QUERY}
-  },
 `
 
 export const BODY_QUERY = `
@@ -138,6 +134,7 @@ export const BODY_QUERY = `
       ${MEDIA_QUERY}
     },
     "citiesList": citiesList[]->{
+      ...,
       ${CITY_QUERY}
     }
   },
