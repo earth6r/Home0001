@@ -2,7 +2,11 @@ declare const window: any
 
 export const sendGoogleEvent = (event: string, options?: {}) => {
   if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-    window.gtag('event', event, { ...options })
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: event,
+      options,
+    })
   }
 }
 
