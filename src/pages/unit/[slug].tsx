@@ -8,7 +8,7 @@ import type {
 import type { Unit as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
-import { PROPERTIES_QUERY, client, filterDataToSingleItem } from '@studio/lib'
+import { UNIT_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { Property } from '@components/property'
 import { Unit } from '@components/unit'
 
@@ -16,7 +16,7 @@ const ALL_SLUGS_QUERY = groq`*[_type == "unit" && defined(slug.current)][].slug.
 const PROPERTY_QUERY = groq`
   *[_type == "unit" && slug.current == $slug]{
     ...,
-    ${PROPERTIES_QUERY}
+    ${UNIT_QUERY}
   }
 `
 

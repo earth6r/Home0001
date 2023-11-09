@@ -8,7 +8,6 @@ import type {
   SanityReference,
   Accordion,
   SanityKeyed,
-  Property,
 } from '@studio/gen/sanity-schema'
 import { City } from 'schema-dts'
 
@@ -23,6 +22,7 @@ export interface PropertyContentProps
   propertyDetails?: SanityKeyed<Accordion>[]
   waitlistLinkText?: string
   availableText?: string
+  slug?: { _type: 'slug'; current: string }
 }
 
 export interface KeyedPropertyProps
@@ -48,6 +48,5 @@ export interface KeyedPropertyProps
 export interface PropertyElProps
   extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref' | 'property'>,
     Omit<HTMLAttributes<HTMLElement>, 'property'> {
-  // property?: PropertyContentProps
-  property?: Property
+  property?: PropertyContentProps
 }

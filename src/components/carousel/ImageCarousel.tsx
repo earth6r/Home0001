@@ -1,22 +1,20 @@
 import { type FC, HTMLAttributes } from 'react'
-import { SanityMedia } from '@components/sanity'
+import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 import { IconLeftArrow, IconRightArrow } from '@components/icons'
 import classNames from 'classnames'
-import { SanityKeyed } from 'sanity-codegen'
-import { UnitAssetProps } from '@components/unit'
+import { Media } from '@studio/gen/sanity-schema'
 
-export interface ImageSlideProps
-  extends UnitAssetProps,
-    HTMLAttributes<HTMLElement> {
+export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
   alt: string
   index?: number
 }
 
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
-  slides?: SanityKeyed<UnitAssetProps>[]
+  index?: string
+  slides?: (Media & { _key: string })[]
 }
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
@@ -29,7 +27,7 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
           quality: 1,
           priority: index && index <= 2 ? true : false,
           style: { width: '100%', height: 'auto' },
-          lqip: image?.asset?.metadata.lqip,
+          lqip: image?.asset?.metadata?.lqip,
         }}
       />
     </div>
@@ -37,6 +35,7 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
 }
 
 export const ImageCarousel: FC<ImageCarouselProps> = ({
+  index = '0',
   slides,
   className,
 }) => {
@@ -47,22 +46,26 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           loop={true}
           slidesPerView={1}
           navigation={{
-            nextEl: '.swiper-next',
-            prevEl: '.swiper-prev',
+            nextEl: `.swiper-next-${index}`,
+            prevEl: `.swiper-prev-${index}`,
           }}
           mousewheel={{ forceToAxis: true }}
           modules={[Navigation]}
           speed={600}
           className="max-w-[560px] md:max-w-[unset] w-full"
         >
-          <div className="swiper-prev hidden md:block cursor-pointer w-1/2 h-full absolute top-0 left-0 z-10" />
-          <div className="swiper-next hidden md:block cursor-pointer w-1/2 h-full absolute top-0 right-0 z-10" />
+          <div
+            className={`swiper-prev-${index} hidden md:block cursor-pointer w-1/2 h-full absolute top-0 left-0 z-10`}
+          />
+          <div
+            className={`swiper-next-${index} hidden md:block cursor-pointer w-1/2 h-full absolute top-0 right-0 z-10`}
+          />
           {slides.map(({ _key, image, alt }, index) => (
-            <SwiperSlide key={_key}>
+            <SwiperSlide key={`${_key}-${alt}`}>
               {image && alt && (
                 <ImageSlide
                   className="max-w-[560px] md:max-w-[unset] px-4 h-full w-full object-cover"
-                  image={image}
+                  image={image as any}
                   index={index}
                   alt={alt}
                 />
@@ -84,7 +87,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
       ) : (
         <div className="flex items-center overflow-hidden">
           {slides && slides[0].alt && (
-            <ImageSlide image={slides[0].image} alt={slides[0].alt} />
+            <ImageSlide image={slides[0].image as any} alt={slides[0].alt} />
           )}
         </div>
       )}
