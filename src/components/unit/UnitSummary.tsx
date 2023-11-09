@@ -37,7 +37,8 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
     updatePath(slugifiedTitle)
 
     if (unit.title) {
-      // sendGoogleEvent(`clicked_unit_tile_for_${unit.title}`)
+      const options = { unit: unit.title }
+      sendGoogleEvent('clicked unit', options)
       // sendHubspotEvent('tile clicked', unit.title)
     }
   }

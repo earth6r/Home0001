@@ -39,14 +39,13 @@ export const Form: FC<FormProps> = ({
 
   const onSubmit = async (data: any) => {
     console.log('data:', data)
-
-    // if (formType === 'unit') {
-    //   sendGoogleEvent('submit_reservation_form', {
-    //     'unit of interest': state.unit?.title,
-    //   })
-    // } else if (menuModal) sendGoogleEvent('submit_modal_waitlist_form')
-    // else if (formType == 'general')
-    //   sendGoogleEvent('submit_general_waitlist_form')
+    const options = {
+      units: data.units_interested ? data.units_interested : [],
+      locations_of_interest: data.locations_of_interest
+        ? data.locations_of_interest
+        : [],
+    }
+    sendGoogleEvent('submit waitlist form', options)
 
     if (!audienceId || !formType) return
     try {

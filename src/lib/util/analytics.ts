@@ -1,14 +1,14 @@
 declare const window: any
+const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID
 
 export const sendGoogleEvent = (event: string, options?: {}) => {
-  console.log('running sendGoogleEvent')
-  if (typeof window !== 'undefined') {
-    console.log('running dataLayer')
+  if (typeof window !== 'undefined' && GOOGLE_ID) {
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({
       event: event,
       options,
     })
+    window['google_tag_manager'][GOOGLE_ID].dataLayer.reset()
   }
 }
 
