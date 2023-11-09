@@ -22,6 +22,8 @@ export interface PropertyContentProps
   propertyDetails?: SanityKeyed<Accordion>[]
   waitlistLinkText?: string
   availableText?: string
+  headerText?: string
+  navigationSlug?: string
   slug?: { _type: 'slug'; current: string }
 }
 
