@@ -8,22 +8,11 @@ import type {
   SanityKeyed,
   SanityKeyedReference,
   SanityReference,
-  Unit,
   Unit as UnitProps,
 } from '@studio/gen/sanity-schema'
 import { Property } from 'schema-dts'
 
-export interface UnitAssetProps {
-  _type?: 'image'
-  asset?: SanityReference<SanityImageAsset>
-  alt: string
-  image?: {
-    _type: 'image'
-    asset: SanityImageAsset
-  }
-}
-
-export interface KeyedPropertyType extends SanityKeyedReference<PropertyType> {
+export interface KeyedPropertyType extends SanityReference<PropertyType> {
   typeTitle?: string
   typeValue?: string
 }
@@ -43,7 +32,7 @@ export interface KeyedUnitProps
   price?: string
   area?: string
   amenities?: RichText
-  headlineImage?: UnitAssetProps
+  headlineImage?: Media
   photographs?: SanityKeyed<Media>[]
   reserveFormCopy?: RichText
   confirmationCopy?: RichText
@@ -59,7 +48,6 @@ export interface UnitElProps
   extends Omit<KeyedUnitProps, '_type' | '_key' | '_ref' | 'property'>,
     HTMLAttributes<HTMLElement> {
   unit?: UnitContentProps
-  // unit?: Unit
   accordions?: SanityKeyed<Accordion>[]
   propertyType?: KeyedPropertyType
 }

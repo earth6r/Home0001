@@ -45,7 +45,6 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   }
 
   const sortedCities = citiesList?.sort(customSort)
-  console.log('citiesList: ', citiesList)
 
   return (
     <Block className={classNames(className)}>
