@@ -20,6 +20,7 @@ export const Header: FC<HeaderProps> = ({
   waitlistCopy,
   waitlistSuccess,
   waitlistUnits,
+  path,
   mainMenu,
   className,
 }) => {
@@ -42,8 +43,8 @@ export const Header: FC<HeaderProps> = ({
     setWaitlistOpen(false)
     reset({})
   }
-  if (typeof window != 'undefined')
-    console.log('location.pathname', window.location.pathname)
+
+  console.log('path: ', path)
 
   return (
     <div
@@ -60,8 +61,8 @@ export const Header: FC<HeaderProps> = ({
       >
         <div className="flex items-baseline">
           <Logo className="flex items-center h-header pointer-events-auto" />
-          <div>&nbsp; &gt;</div>
-          {/* {location.pathname != '/' ? location.pathname == ""} */}
+          {path !== '/' && <span>&nbsp; &gt;</span>}
+          {path?.includes('property') && <span>&nbsp; Property</span>}
         </div>
 
         <div className="flex items-center gap-[1.12rem] md:gap-16">
