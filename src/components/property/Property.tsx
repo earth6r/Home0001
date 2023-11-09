@@ -24,7 +24,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
                 layout: 'responsive',
                 quality: 8,
                 priority: true,
-                lqip: property?.image?.image?.asset.metadata.lqip,
+                // lqip: property?.image?.image?.asset.metadata.lqip,
               }}
               {...property?.image}
             />
