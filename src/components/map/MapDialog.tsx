@@ -3,7 +3,7 @@ import Map from './Map'
 import { Dialog } from '@headlessui/react'
 import { MapDialogProps } from './types'
 import { sendGoogleEvent } from '@lib/util/analytics'
-
+import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 export const MapDialog: FC<MapDialogProps> = ({
   text,
   coordinates,
@@ -13,17 +13,20 @@ export const MapDialog: FC<MapDialogProps> = ({
 
   return (
     <div className={className}>
-      <button
-        aria-label={`Open Map`}
-        onClick={() => {
-          const options = { location: window.location.pathname }
-          sendGoogleEvent('opened map', options)
-          setIsOpen(true)
-        }}
-        className="hover:font-bold border-bottom"
-      >
-        {text}
-      </button>
+      <div className="flex h-[2em] mt-yhalf">
+        <IconSmallBlackArrow width="13" height="32" className="mr-[3px]" />
+        <button
+          aria-label={`Open Map`}
+          onClick={() => {
+            const options = { location: window.location.pathname }
+            sendGoogleEvent('opened map', options)
+            setIsOpen(true)
+          }}
+          className="hover:font-bold border-bottom mt-2 ml-2"
+        >
+          {text}
+        </button>
+      </div>
 
       <Dialog
         open={isOpen}
