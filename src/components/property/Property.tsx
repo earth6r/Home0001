@@ -15,6 +15,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  console.log('property', property)
   return (
     <div className={classNames(className)}>
       <h2 className="text-2xl">
@@ -86,9 +87,14 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             onClick={() => {
               setWaitlistOpen(true)
             }}
-            className="hover:font-bold border-bottom mb-8"
+            className={classNames(
+              `w-full mt-12 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white z-above`
+            )}
           >
-            {property.waitlistLinkText}
+            <span className="mb-0 py-2 text-left pl-4 uppercase">
+              {property.waitlistLinkText}
+            </span>
+            <p className=" py-2 pb-[0.55rem] text-[16px] text-right pr-4">→</p>
           </button>
         )}
       </div>
