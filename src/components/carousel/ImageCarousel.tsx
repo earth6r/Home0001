@@ -45,6 +45,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         <Swiper
           loop={true}
           slidesPerView={1}
+          spaceBetween={16}
           navigation={{
             nextEl: `.swiper-next-${index}`,
             prevEl: `.swiper-prev-${index}`,
@@ -52,7 +53,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           mousewheel={{ forceToAxis: true }}
           modules={[Navigation]}
           speed={600}
-          className="max-w-[560px] md:max-w-[unset] w-full"
+          className="max-w-[560px] md:max-w-[unset] w-full overflow-visible"
         >
           <div
             className={`swiper-prev-${index} hidden md:block cursor-pointer w-1/2 h-full absolute top-0 left-0 z-10`}
