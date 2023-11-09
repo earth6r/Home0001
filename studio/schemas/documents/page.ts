@@ -34,7 +34,7 @@ export default {
       type: 'image',
       group: 'metadata',
       options: {
-        hotspot: true,
+        hotspot: false,
       },
     },
     {
