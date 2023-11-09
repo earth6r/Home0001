@@ -17,6 +17,11 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
     <div className={classNames(className)}>
+      <h2 className="text-2xl">
+        HOME0001
+        <br />
+        {property?.navigationSlug}
+      </h2>
       <div className="block relative mt-10 md:mt-20">
         {property?.image && (
           <div className="block relative w-full h-full mb-10 z-base">
@@ -49,17 +54,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             className="pr-menu md:pr-0 mt-8 mb-8"
           />
         )}
-        {property?.waitlistLinkText && (
-          <button
-            aria-label={property.waitlistLinkText}
-            onClick={() => {
-              setWaitlistOpen(true)
-            }}
-            className="hover:font-bold border-bottom mb-8"
-          >
-            {property.waitlistLinkText}
-          </button>
-        )}
+
         {property?.propertyDetails &&
           property.propertyDetails.length > 0 &&
           property.propertyDetails.map(({ _key, header, text, cta }) => (
@@ -73,6 +68,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             />
           ))}
 
+        <h2 className="text-2xl mt-12 uppercase">Available Homes:</h2>
         {property?.unitsList && (
           <>
             {property?.availableText && (
@@ -83,6 +79,17 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               unitList={property?.unitsList}
             />
           </>
+        )}
+        {property?.waitlistLinkText && (
+          <button
+            aria-label={property.waitlistLinkText}
+            onClick={() => {
+              setWaitlistOpen(true)
+            }}
+            className="hover:font-bold border-bottom mb-8"
+          >
+            {property.waitlistLinkText}
+          </button>
         )}
       </div>
     </div>
