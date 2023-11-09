@@ -70,7 +70,8 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                   <SanityLink
                     onClick={() => {
                       // property && updateProperty(title)
-                      // sendGoogleEvent(`click_${title}_button`)
+                      const options = { city: title }
+                      sendGoogleEvent(`clicked city button`, options)
                       // sendHubspotEvent(`clicked ${title}`, 'clicked')
                     }}
                     {...(propertyLink as SanityLinkType)}

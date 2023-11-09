@@ -34,7 +34,8 @@ export const Header: FC<HeaderProps> = ({
 
   const openWaitlist = () => {
     setWaitlistOpen(true)
-    // sendGoogleEvent('opened waitlist modal')
+    const options = { location: window.location.pathname }
+    sendGoogleEvent('opened waitlist modal', options)
   }
 
   const onClose = () => {
