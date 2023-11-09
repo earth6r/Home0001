@@ -7,12 +7,12 @@ import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
 import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 import { SanityLinkType } from '@studio/lib'
-
+import { sendGoogleEvent } from '@lib/util'
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
   text?: RichTextType
   cta?: Cta
-  location?: 'property' | 'unit'
+  location?: { property: string; unit: string }
 }
 
 export const Accordion: FC<AccordionProps> = ({
@@ -25,14 +25,6 @@ export const Accordion: FC<AccordionProps> = ({
   const ref = useRef<HTMLDivElement>(null)
   const [openedOnce, setOpenedOnce] = useState(false)
 
-  useEffect(() => {
-    if (location === 'property') {
-      if (openedOnce) {
-        setHeight()
-      }
-    }
-  }, [openedOnce])
-
   const setHeight = () => {
     if (ref.current)
       ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
@@ -43,8 +35,11 @@ export const Accordion: FC<AccordionProps> = ({
       <Disclosure>
         {({ open }) => {
           if (!openedOnce && open) {
-            console.log(`opened ${header} once`)
-            setOpenedOnce(true)
+            const options = {
+              accordion_header: header,
+              accordion_location: location,
+            }
+            sendGoogleEvent('opened_accordion', options)
           }
           return (
             <>
