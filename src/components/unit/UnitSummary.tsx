@@ -56,6 +56,12 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
           `transition-colors   px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`
         )}
       >
+        <div className="flex flex-col gap-1 mb-4">
+          <p className="col-start-1 text-left uppercase">
+            {unit.title && <span>{unit.title}</span>}
+          </p>
+          <p className="col-start-2 text-left">{unit.price}</p>
+        </div>
         <div className="mb-5 z-above">
           <SanityMedia
             image={unit.headlineImage?.image as any}
@@ -68,16 +74,6 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
           />
         </div>
         <div className="justify-self-stretch w-full ">
-          <div className="grid">
-            <p className="col-start-1 text-left uppercase">
-              {unit.propertyType && (
-                <span>{unit?.propertyType?.typeTitle}</span>
-              )}
-              <span>&nbsp;—&nbsp;</span>
-              {unit.title && <span>{unit.title}</span>}
-            </p>
-            <p className="col-start-2 text-right">{unit.price}</p>
-          </div>
           <div className="mt-4 mb-2 text-left rich-text">
             {unit.area && (
               <p className="mb-5">
