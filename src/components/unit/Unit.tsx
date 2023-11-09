@@ -43,9 +43,9 @@ export const UnitComponent: FC<UnitElProps> = ({
       <div className="md:grid md:grid-cols-3 md:pr-menu px-x">
         <div className="md:col-start-2 md:col-span-1">
           <div className="flex flex-col relative mt-10">
-            {/* {unit?.photographs && unit?.photographs.length > 0 && (
+            {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel slides={unit?.photographs} className="w-full" />
-            )} */}
+            )}
 
             <div className="mt-10">
               {unit?.propertyType && (
@@ -83,9 +83,9 @@ export const UnitComponent: FC<UnitElProps> = ({
               ))}
           </div>
 
-          {/* {unit?.layoutImages && unit?.layoutImages.length > 0 && (
+          {unit?.layoutImages && unit?.layoutImages.length > 0 && (
             <ImageCarousel slides={unit?.layoutImages} className="w-full" />
-          )} */}
+          )}
 
           {unit?.moreInfo && (
             <div className="mt-10 pr-menu md:pr-0">
