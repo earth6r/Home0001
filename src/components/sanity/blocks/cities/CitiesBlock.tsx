@@ -13,6 +13,7 @@ import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
   citiesList,
+  headersBottom,
   className,
 }) => {
   const router = useRouter()
@@ -45,16 +46,12 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   }
 
   const sortedCities = citiesList?.sort(customSort)
-  console.log('citiesList: ', citiesList)
 
   return (
     <Block className={classNames(className)}>
       {headers &&
         headers.map((header, index) => (
-          <div
-            key={header}
-            className={`-menu ${index == 1 ? 'md:order-last' : ''}`}
-          >
+          <div key={header} className={`-menu `}>
             <h2 className="max-w-[390px] mobile-landing md:mobile-landing uppercase pr-8 mb-12 md:mb-16">
               {header}
             </h2>
@@ -110,6 +107,33 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
             )
           })}
       </ul>
+      <div className="grid">
+        <div className="flex flex-row">
+          <div className="flex flex-col">
+            {headersBottom &&
+              headersBottom.map((header, index) => (
+                <div key={header} className={`-menu `}>
+                  <h2 className="max-w-[390px] mobile-landing md:mobile-landing uppercase pr-8 mb-12 md:mb-16">
+                    {header}
+                  </h2>
+                </div>
+              ))}
+          </div>
+          <div className="pr-menu md:pr-0 max-w-[390px]">
+            <button
+              onClick={() => console.log('logged')}
+              className={classNames(
+                `w-full bg-black text-white border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 relative z-above`
+              )}
+            >
+              <p className="mb-0 py-2 text-left pl-4 uppercase">How It Works</p>{' '}
+              <p className=" py-2 pb-[0.55rem] text-[16px] text-right pr-4">
+                →
+              </p>
+            </button>
+          </div>
+        </div>
+      </div>
     </Block>
   )
 }
