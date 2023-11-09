@@ -8,7 +8,19 @@ export default {
   title: 'Property',
   type: 'document',
   icon: MdHomeWork,
+  groups: [
+    {
+      name: 'metadata',
+      title: 'Metadata',
+    },
+  ],
   fields: [
+    {
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      validation: (Rule: Rule): Rule => Rule.required(),
+    },
     {
       name: 'slug',
       title: 'Slug',
@@ -64,6 +76,21 @@ export default {
       title: 'Property Details',
       type: 'array',
       of: [{ type: 'accordion', title: 'Property Details' }],
+    },
+    {
+      name: 'previewImage',
+      title: 'Preview Image',
+      type: 'image',
+      group: 'metadata',
+      options: {
+        hotspot: false,
+      },
+    },
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+      group: 'metadata',
     },
   ],
   preview: {

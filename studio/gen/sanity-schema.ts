@@ -154,6 +154,13 @@ export interface Property extends SanityDocument {
   _type: "property";
 
   /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
    * Slug — `slug`
    *
    *
@@ -236,6 +243,25 @@ export interface Property extends SanityDocument {
    *
    */
   propertyDetails?: Array<SanityKeyed<Accordion>>;
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
 }
 
 /**

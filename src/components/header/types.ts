@@ -14,6 +14,7 @@ export interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
 
 export interface HeaderProps extends HTMLAttributes<HTMLElement> {
   path?: string
+  propertySlug?: { _type: 'slug'; current: string }
   mainMenu?: SanityMenu
   waitlistId?: string
   waitlistHeader?: string
