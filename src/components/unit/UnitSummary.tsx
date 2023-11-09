@@ -48,10 +48,13 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
   if (!unit) return null
   return (
     <li>
-      <button
-        disabled={!unit?.available}
+      <Link
+        href={`/unit/${unit.slug?.current}`}
         onClick={() => updateUnit(unit, unit.title)}
-        className={`transition-colors disabled:opacity-30 disabled:bg-white disabled:shadow-none px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`}
+        className={classNames(
+          unit.available ? '' : 'bg-white shadow-none opacity-30',
+          `transition-colors   px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`
+        )}
       >
         <div className="flex flex-col gap-1 mb-4">
           <p className="col-start-1 text-left uppercase">
@@ -61,11 +64,11 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
         </div>
         <div className="mb-5 z-above">
           <SanityMedia
-            image={unit.headlineImage?.image}
+            image={unit.headlineImage?.image as any}
             imageProps={{
               alt: unit.headlineImage?.alt || 'Home0001 Headline Image',
               style: { maxWidth: '100%', height: 'auto' },
-              lqip: unit.headlineImage?.image?.asset.metadata.lqip,
+              lqip: (unit.headlineImage?.image as any)?.asset?.metadata.lqip,
               quality: 8,
             }}
           />
@@ -83,22 +86,21 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
             )}
           </div>
           {unit.slug && (
-            <Link
-              href={`/unit/${unit.slug.current}`}
+            <button
               className={classNames(
-                `relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 hover:bg-black hover:text-white bg-white z-above`
+                `relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-full h-12 max-h-12 hover:bg-black hover:text-white bg-white z-above`
               )}
             >
               <span className="mb-0 py-2 text-left pl-4 uppercase">
                 {`Explore ${unit?.title}`}
               </span>
-              <span className=" py-2 pb-[0.55rem] text-[16px] text-right pr-4">
+              <span className="py-2 pb-[0.55rem] text-[16px] text-right pr-4">
                 →
               </span>
-            </Link>
+            </button>
           )}
         </div>
-      </button>
+      </Link>
     </li>
   )
 }
