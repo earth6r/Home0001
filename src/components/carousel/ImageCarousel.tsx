@@ -43,24 +43,18 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
     <div className={classNames(className, 'relative')}>
       {slides && slides.length > 1 ? (
         <Swiper
-          loop={true}
+          loop={false}
           slidesPerView={1}
           spaceBetween={16}
           navigation={{
             nextEl: `.swiper-next-${index}`,
             prevEl: `.swiper-prev-${index}`,
           }}
-          mousewheel={{ forceToAxis: true }}
+          // mousewheel={{ forceToAxis: true }}
           modules={[Navigation]}
           speed={600}
           className="max-w-[560px] md:max-w-[unset] w-full overflow-visible"
         >
-          <div
-            className={`swiper-prev-${index} hidden md:block cursor-pointer w-1/2 h-full absolute top-0 left-0 z-10`}
-          />
-          <div
-            className={`swiper-next-${index} hidden md:block cursor-pointer w-1/2 h-full absolute top-0 right-0 z-10`}
-          />
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide key={`${_key}-${alt}`}>
               {image && alt && (
@@ -76,10 +70,18 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
 
           <div className="mt-4">
             <div className="flex justify-center items-center max-w-[560px] md:max-w-[unset]">
-              <button className="swiper-prev review-swiper-button-prev disabled:shadow-none disabled:bg-transparent disabled:opacity-40 mr-2">
+              <button
+                className={classNames(
+                  `swiper-prev-${index} review-swiper-button-prev disabled:shadow-none disabled:bg-transparent disabled:opacity-40 mr-2`
+                )}
+              >
                 <IconLeftArrow width="22" height="10" />
               </button>
-              <button className="swiper-next disabled:shadow-none disabled:bg-transparent disabled:opacity-40">
+              <button
+                className={classNames(
+                  `swiper-next-${index} disabled:shadow-none disabled:bg-transparent disabled:opacity-40`
+                )}
+              >
                 <IconRightArrow width="22" height="10" />
               </button>
             </div>
