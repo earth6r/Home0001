@@ -7,6 +7,7 @@ import type {
   SanityKeyed,
   SanityKeyedReference,
   SanityReference,
+  Unit,
   Unit as UnitProps,
 } from '@studio/gen/sanity-schema'
 import { Property } from 'schema-dts'
@@ -55,7 +56,8 @@ export interface KeyedUnitProps
 export interface UnitElProps
   extends Omit<KeyedUnitProps, '_type' | '_key' | '_ref' | 'property'>,
     HTMLAttributes<HTMLElement> {
-  unit?: UnitContentProps
+  // unit?: UnitContentProps
+  unit?: Unit
   accordions?: SanityKeyed<Accordion>[]
   propertyType?: KeyedPropertyType
 }

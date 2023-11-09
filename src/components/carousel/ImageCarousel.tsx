@@ -6,6 +6,7 @@ import { IconLeftArrow, IconRightArrow } from '@components/icons'
 import classNames from 'classnames'
 import { SanityKeyed } from 'sanity-codegen'
 import { UnitAssetProps } from '@components/unit'
+import { Media } from '@studio/gen/sanity-schema'
 
 export interface ImageSlideProps
   extends UnitAssetProps,
@@ -16,7 +17,7 @@ export interface ImageSlideProps
 }
 
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
-  slides?: SanityKeyed<UnitAssetProps>[]
+  slides?: Array<SanityKeyed<Media>>
 }
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
