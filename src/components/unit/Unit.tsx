@@ -38,6 +38,8 @@ export const UnitComponent: FC<UnitElProps> = ({
     if (formRef.current) scrollToEl(formRef.current)
   }, [formActive])
 
+  console.log('unit: ', unit)
+
   return (
     <div className={className}>
       <div className="md:grid md:grid-cols-3 md:pr-menu px-x">
