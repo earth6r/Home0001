@@ -1,11 +1,14 @@
 import { type FC, useContext } from 'react'
 import classNames from 'classnames'
 import type { CitiesBlockProps } from './types'
-import { Block } from '@components/sanity'
+import { Block, SanityLink } from '@components/sanity'
 import { HomeContext } from '@contexts/home'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import { sendGoogleEvent, sendHubspotEvent } from '@lib/util'
+import Image from 'next/image'
+import { SanityLinkType } from '@studio/lib'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
@@ -42,6 +45,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   }
 
   const sortedCities = citiesList?.sort(customSort)
+  console.log('citiesList: ', citiesList)
 
   return (
     <Block className={classNames(className)}>
@@ -59,39 +63,50 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
 
       <ul className="max-w-[390px] grid grid-cols-1 gap-y-2 md:gap-y-0 pr-10 md:pr-0 mb-20">
         {citiesList &&
-          citiesList.map(({ _id, title, active, properties }) => {
-            const property = properties && properties[0]
-            if (_id)
-              return (
-                <li key={_id} className="text-left">
-                  <button
-                    disabled={!active || !property}
+          citiesList.map(({ _id, title, active, propertyLink }) => {
+            return (
+              <li key={_id} className="text-left">
+                {propertyLink ? (
+                  <SanityLink
                     onClick={() => {
-                      property && updateProperty(title)
+                      // property && updateProperty(title)
                       // sendGoogleEvent(`click_${title}_button`)
                       // sendHubspotEvent(`clicked ${title}`, 'clicked')
                     }}
-                    className={classNames(
-                      state.property?.cityId === _id ? 'font-bold' : '',
-                      'mobile-landing text-left uppercase disabled:bg-transparent disabled:opacity-30 disabled:shadow-none'
-                    )}
+                    {...(propertyLink as SanityLinkType)}
+                    className={classNames('mobile-landing text-left uppercase')}
                   >
-                    <img
-                      className="mr-1 home-svg disabled:bg-transparent disabled:opacity-30 disabled:shadow-none"
-                      src="https://ik.imagekit.io/ljqwnqnom/arrow_4KHlnGx0T.svg?updatedAt=1696980257065"
-                    ></img>
+                    <IconRightArrowBold className="mr-1 home-svg" />
                     <span
                       className={classNames(
-                        active && property
+                        active && propertyLink
                           ? 'leading-none border-bottom border-b-[0.1em]'
                           : ''
                       )}
                     >
                       {title}
                     </span>
-                  </button>
-                </li>
-              )
+                  </SanityLink>
+                ) : (
+                  <div
+                    className={classNames(
+                      'mobile-landing text-left uppercase bg-transparent opacity-30 shadow-none'
+                    )}
+                  >
+                    <IconRightArrowBold className="mr-1 home-svg" />
+                    <span
+                      className={classNames(
+                        active && propertyLink
+                          ? 'leading-none border-bottom border-b-[0.1em]'
+                          : ''
+                      )}
+                    >
+                      {title}
+                    </span>
+                  </div>
+                )}
+              </li>
+            )
           })}
       </ul>
     </Block>

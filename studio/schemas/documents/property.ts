@@ -10,6 +10,15 @@ export default {
   icon: MdHomeWork,
   fields: [
     {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
+    },
+    {
       name: 'header',
       type: 'richText',
       title: 'Header',

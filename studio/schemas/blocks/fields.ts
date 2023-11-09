@@ -53,6 +53,6 @@ export const idField = {
   title: 'Audience ID',
 }
 
-export const topFields = [slugField]
+export const topFields = [titleField, slugField]
 export const newsletterFields = [headerField, textField, idField]
 export const contactFields = [headerField, textField, idField]

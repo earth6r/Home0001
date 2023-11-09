@@ -59,11 +59,11 @@ export interface City extends SanityDocument {
   active?: boolean;
 
   /**
-   * Properties — `array`
+   * Property Link — `link`
    *
    *
    */
-  properties?: Array<SanityKeyedReference<Property>>;
+  propertyLink?: Link;
 }
 
 /**
@@ -152,6 +152,13 @@ export interface Page extends SanityDocument {
  */
 export interface Property extends SanityDocument {
   _type: "property";
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Header — `richText`
@@ -487,7 +494,7 @@ export type Link = {
      *
      *
      */
-    reference?: SanityReference<Page>;
+    reference?: SanityReference<Page | Property>;
 
     /**
      * Anchor Slug — `slug`
