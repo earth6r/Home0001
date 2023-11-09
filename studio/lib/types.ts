@@ -14,6 +14,7 @@ export interface BlockHeading {
 
 export enum SANITY_DOCUMENT_TYPES {
   PAGE = 'page',
+  PROPERTY = 'property',
 }
 
 export interface SanityInternalLink {

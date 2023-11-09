@@ -105,6 +105,9 @@ export const CITY_QUERY = `
   _type,
   title,
   active,
+  "propertyLink": propertyLink{
+    ${LINK_QUERY}
+  }
 `
 
 export const BODY_QUERY = `

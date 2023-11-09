@@ -7,9 +7,6 @@ import { getPageStaticProps } from '@lib/next'
 import { BODY_QUERY, filterDataToSingleItem } from '@studio/lib'
 import { BlockContent } from '@components/sanity'
 import { HomeContext } from '@contexts/home'
-import { scrollToEl } from '@lib/util'
-import { Property } from '@components/property'
-import { Unit } from '@components/unit'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
 
@@ -39,26 +36,14 @@ export const getStaticProps: GetStaticProps = context =>
 const Page: NextPage<PageProps> = ({
   data,
   preview,
-  siteSettings,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
-  const propertyRef = useRef<HTMLInputElement>(null)
-  const unitRef = useRef<HTMLInputElement>(null)
   const page: SanityPage = filterDataToSingleItem(data)
   const filteredBlocks = page?.body?.filter(block => {
     return block._type === 'citiesBlock'
   })
   const citiesBlock: any = filteredBlocks && filteredBlocks[0]
-
-  // handle scrolling after state change
-  useEffect(() => {
-    if (state.unit?._id && unitRef.current) {
-      scrollToEl(unitRef.current, true)
-    } else if (state.property?._id && propertyRef.current) {
-      scrollToEl(propertyRef.current)
-    }
-  }, [state.property?._id, state.unit?._id])
 
   const filterListByTitleProp = (list: any[] | undefined, query: string) => {
     const filteredList = list?.filter(({ title }: any) => {
@@ -159,31 +144,6 @@ const Page: NextPage<PageProps> = ({
         blocks={page?.body}
         className="flex flex-col w-full px-x md:pr-0 pt-page"
       />
-
-      {citiesBlock && (
-        <>
-          {state.property?._id && (
-            <div
-              ref={propertyRef}
-              className="px-x md:grid md:grid-cols-3 md:pr-menu"
-            >
-              <Property
-                property={state.property}
-                className="md:col-start-2 md:col-span-1"
-              />
-            </div>
-          )}
-
-          {state.unit?._id && (
-            <div ref={unitRef}>
-              <Unit
-                unit={state.unit}
-                accordions={siteSettings?.howItWorksContent}
-              />
-            </div>
-          )}
-        </>
-      )}
     </article>
   ) : null
 }
