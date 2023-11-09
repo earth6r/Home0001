@@ -206,12 +206,11 @@ const UnitsPane: FC<PaneContentProps> = ({
                           </div>
                           {unit.headlineImage && unit.headlineImage.image && (
                             <SanityImage
-                              asset={
-                                unit.headlineImage.image
-                                  .asset as SanityImageAsset
-                              }
+                              asset={unit.headlineImage.image.asset}
                               props={{
-                                alt: unit.headlineImage.alt,
+                                alt:
+                                  unit.headlineImage.alt ||
+                                  'Unit headline image',
                                 width: 90,
                                 height: 90,
                                 quality: 1,
