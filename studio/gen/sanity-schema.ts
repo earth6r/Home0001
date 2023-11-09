@@ -270,6 +270,13 @@ export interface Unit extends SanityDocument {
   title?: string;
 
   /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
    * Available — `boolean`
    *
    *
