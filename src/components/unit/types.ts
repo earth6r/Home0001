@@ -1,6 +1,7 @@
 import { HTMLAttributes } from 'react'
 import type {
   Accordion,
+  Media,
   PropertyType,
   RichText,
   SanityImageAsset,
@@ -43,22 +44,22 @@ export interface KeyedUnitProps
   area?: string
   amenities?: RichText
   headlineImage?: UnitAssetProps
-  photographs?: Array<SanityKeyed<UnitAssetProps>>
+  photographs?: SanityKeyed<Media>[]
   reserveFormCopy?: RichText
   confirmationCopy?: RichText
   summary?: RichText
   factSheet?: any
   unitDetails?: SanityKeyed<Accordion>[]
   secondUnitDetails?: SanityKeyed<Accordion>[]
-  layoutImages?: Array<SanityKeyed<UnitAssetProps>>
+  layoutImages?: SanityKeyed<Media>[]
   moreInfo?: RichText
 }
 
 export interface UnitElProps
   extends Omit<KeyedUnitProps, '_type' | '_key' | '_ref' | 'property'>,
     HTMLAttributes<HTMLElement> {
-  // unit?: UnitContentProps
-  unit?: Unit
+  unit?: UnitContentProps
+  // unit?: Unit
   accordions?: SanityKeyed<Accordion>[]
   propertyType?: KeyedPropertyType
 }

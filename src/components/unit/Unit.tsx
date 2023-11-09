@@ -44,13 +44,17 @@ export const UnitComponent: FC<UnitElProps> = ({
         <div className="md:col-start-2 md:col-span-1">
           <div className="flex flex-col relative mt-10">
             {unit?.photographs && unit?.photographs.length > 0 && (
-              <ImageCarousel slides={unit?.photographs} className="w-full" />
+              <ImageCarousel
+                index="0"
+                slides={unit?.photographs}
+                className="w-full"
+              />
             )}
 
             <div className="mt-10">
               {unit?.propertyType && (
                 <p className="m-0 uppercase tracking-caps">
-                  {/* <span>{unit?.propertyType.typeTitle}</span> */}
+                  <span>{unit?.propertyType?.typeTitle}</span>
                   <span>&nbsp;—&nbsp;</span>
                   <span>{unit?.title}</span>
                 </p>
@@ -84,7 +88,11 @@ export const UnitComponent: FC<UnitElProps> = ({
           </div>
 
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (
-            <ImageCarousel slides={unit?.layoutImages} className="w-full" />
+            <ImageCarousel
+              index="1"
+              slides={unit?.layoutImages}
+              className="w-full"
+            />
           )}
 
           {unit?.moreInfo && (
