@@ -1,14 +1,14 @@
 import { type FC, type ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
-import type { Menus, Page, SiteSettings } from '@gen/sanity-schema'
+import type { Menus, Page, Property, SiteSettings } from '@gen/sanity-schema'
 import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { KeyedUnitGroup } from '@components/form'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
-type PageData = Page
+type PageData = Page | Property
 
 interface LayoutProps {
   children?: ReactNode | undefined
@@ -19,6 +19,8 @@ interface LayoutProps {
 
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath, query } = useRouter()
+
+  console.log('data: ', data)
 
   return (
     <>
@@ -39,6 +41,8 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <div className="fixed w-full h-gradient header-gradient z-base" />
         <Header
           className="flex-initial"
+          path={asPath}
+          propertySlug={data?.slug}
           waitlistId={siteSettings?.waitlistId}
           waitlistHeader={siteSettings?.waitlistHeader}
           waitlistCopy={siteSettings?.waitlistCopy}
