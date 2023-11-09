@@ -100,6 +100,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                 key={_key}
                 header={header}
                 text={text}
+                location={{ property: 'property', unit: 'unit' }}
                 className="mt-2 mb-8 border-x-0 border-t-0"
               />
             ))}
