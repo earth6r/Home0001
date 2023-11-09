@@ -1,22 +1,19 @@
 import { type FC, HTMLAttributes } from 'react'
-import { SanityMedia } from '@components/sanity'
+import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 import { IconLeftArrow, IconRightArrow } from '@components/icons'
 import classNames from 'classnames'
-import { SanityKeyed } from 'sanity-codegen'
-import { UnitAssetProps } from '@components/unit'
+import { Media } from '@studio/gen/sanity-schema'
 
-export interface ImageSlideProps
-  extends UnitAssetProps,
-    HTMLAttributes<HTMLElement> {
+export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
   alt: string
   index?: number
 }
 
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
-  slides?: SanityKeyed<UnitAssetProps>[]
+  slides?: (Media & { _key: string })[]
 }
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
@@ -29,7 +26,7 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
           quality: 1,
           priority: index && index <= 2 ? true : false,
           style: { width: '100%', height: 'auto' },
-          lqip: image?.asset?.metadata.lqip,
+          lqip: image?.asset?.metadata?.lqip,
         }}
       />
     </div>
@@ -62,7 +59,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               {image && alt && (
                 <ImageSlide
                   className="max-w-[560px] md:max-w-[unset] px-4 h-full w-full object-cover"
-                  image={image}
+                  image={image as any}
                   index={index}
                   alt={alt}
                 />
@@ -84,7 +81,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
       ) : (
         <div className="flex items-center overflow-hidden">
           {slides && slides[0].alt && (
-            <ImageSlide image={slides[0].image} alt={slides[0].alt} />
+            <ImageSlide image={slides[0].image as any} alt={slides[0].alt} />
           )}
         </div>
       )}

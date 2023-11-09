@@ -35,6 +35,7 @@ export interface KeyedUnitProps
     Omit<HTMLAttributes<HTMLElement>, 'property'> {
   _id?: string
   title?: string
+  slug?: { _type: 'slug'; current: string }
   available?: boolean
   property?: SanityReference<Property>
   propertyType?: KeyedPropertyType

@@ -8,6 +8,8 @@ import { Accordion } from '@components/accordion'
 import { Btn } from '@components/btns'
 import { useWaitlisModal } from '@contexts/modals'
 import { HomeContext } from '@contexts/home'
+import { SanityImageAsset } from 'sanity-codegen'
+import { Media } from '@studio/gen/sanity-schema'
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,
   className,
@@ -24,9 +26,9 @@ export const PropertyComponent: FC<PropertyElProps> = ({
                 layout: 'responsive',
                 quality: 8,
                 priority: true,
-                // lqip: property?.image?.image?.asset.metadata.lqip,
+                lqip: property?.image?.image?.asset?.metadata?.lqip,
               }}
-              {...property?.image}
+              {...(property?.image as any)}
             />
           </div>
         )}
