@@ -40,6 +40,8 @@ export const Accordion: FC<AccordionProps> = ({
               accordion_location: location,
             }
             sendGoogleEvent('opened_accordion', options)
+            setOpenedOnce(true)
+            console.log('opened accordion', options)
           }
           return (
             <>

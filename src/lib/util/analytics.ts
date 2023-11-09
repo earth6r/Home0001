@@ -1,7 +1,9 @@
 declare const window: any
 
 export const sendGoogleEvent = (event: string, options?: {}) => {
-  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+  console.log('running sendGoogleEvent')
+  if (typeof window !== 'undefined') {
+    console.log('running dataLayer')
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({
       event: event,

@@ -67,7 +67,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               text={text}
               cta={cta}
               className="mt-2 border-x-0 border-t-0"
-              location={{ property: 'property', unit: 'unit' }}
+              location={{ property: property?.slug?.current || '', unit: '' }}
             />
           ))}
 
