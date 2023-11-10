@@ -9,6 +9,7 @@ import { sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import Image from 'next/image'
 import { SanityLinkType } from '@studio/lib'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import NextLink from 'next/link'
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
@@ -118,16 +119,14 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                       <div className="pr-menu md:pr-0 max-w-[390px] mb-12">
                         <NextLink
                           className={classNames(
-                            `w-full bg-black text-white border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 relative z-above`
+                            `w-full bg-black text-white border-1 border-black border-solid mb-[2px] p-4 flex flex-row justify-between items-center h-12 max-h-12 relative z-above`
                           )}
                           href="/how-it-works"
                         >
-                          <p className="mb-0 py-2 text-left pl-4 uppercase">
+                          <p className="mb-0 py-2 text-left uppercase">
                             How It Works
                           </p>{' '}
-                          <p className=" py-2 pb-[0.55rem] text-[16px] text-right pr-4">
-                            →
-                          </p>
+                          <IconSmallArrow width="22" height="10" />
                         </NextLink>
                       </div>
                     )}

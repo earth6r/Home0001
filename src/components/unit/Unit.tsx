@@ -10,6 +10,7 @@ import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { AccordionModal } from '@components/accordion'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { useForm } from 'react-hook-form'
+import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
 import { useWaitlisModal } from '@contexts/modals'
 
@@ -116,10 +117,11 @@ export const UnitComponent: FC<UnitElProps> = ({
               onClick={() => setWaitlistModal(true)}
               className={classNames(
                 formActive ? 'bg-white text-black' : 'bg-black text-white',
-                'my-9 text-center uppercase block w-full h-12 max-h-12 py-2 px-3 border border-solid border-[#000]'
+                'w-full mt-12 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white z-above p-4'
               )}
             >
-              {`Reserve this home`}
+              {`RESERVE THIS HOME`}
+              <IconSmallArrow width="22" height="10" className="" />
             </button>
           </div>
         </div>
