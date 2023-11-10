@@ -73,7 +73,7 @@ export const Header: FC<HeaderProps> = ({
               }`}
             >
               <span className="uppercase pointer-events-auto">
-                &nbsp;&nbsp;{`${(property as unknown as Property)?.title}`}
+                &nbsp;&nbsp;{`${(property as unknown as Property)?.headerText}`}
               </span>
             </Link>
           )}
