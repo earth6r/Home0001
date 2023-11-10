@@ -81,7 +81,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
                 quality: 8,
               }}
             />
-            <div className="flex flex-col relative mt-10">
+            <div className="flex flex-col relative mt-4">
               {/* {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel
                 index="0"
@@ -90,7 +90,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
               />
             )} */}
               <div className="justify-self-stretch w-full ">
-                <div className="mt-4 mb-2 text-left rich-text">
+                <div className="mb-2 text-left rich-text">
                   {unit.area && (
                     <p className="mb-5">
                       {unit.area}
