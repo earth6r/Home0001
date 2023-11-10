@@ -58,7 +58,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
           </div>
         ))}
 
-      <ul className="max-w-[390px] grid grid-cols-1 gap-y-2 md:gap-y-0 pr-10 md:pr-0 mb-12">
+      <ul className="max-w-[390px] grid grid-cols-1 gap-y-0 md:gap-y-0 pr-10 md:pr-0 mb-12">
         {citiesList &&
           citiesList.map(({ _id, title, active, propertyLink }) => {
             return (
