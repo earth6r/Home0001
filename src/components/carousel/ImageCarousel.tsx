@@ -19,7 +19,7 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
   return (
-    <div className="block relative w-full h-full overflow-hidden">
+    <div className="block relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none">
       <SanityMedia
         image={image}
         imageProps={{
