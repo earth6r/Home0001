@@ -46,8 +46,6 @@ export const Header: FC<HeaderProps> = ({
     reset({})
   }
 
-  console.log('property: ', property)
-
   return (
     <div
       id="header"

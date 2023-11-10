@@ -1,3 +1,4 @@
+import { ForwardRefRenderFunction, forwardRef } from 'react'
 import groq from 'groq'
 import type {
   GetStaticPaths,
@@ -10,6 +11,9 @@ import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
 import { BODY_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { BlockContent } from '@components/sanity'
+import PageTransition from '@components/transition/PageTransition'
+
+type PageRefType = React.ForwardedRef<HTMLDivElement>
 
 const ALL_SLUGS_QUERY = groq`*[_type == "page" && defined(slug.current)][].slug.current`
 const PAGE_QUERY = groq`
@@ -30,20 +34,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = context =>
   getPageStaticProps({ ...context, query: PAGE_QUERY })
 
-const Page: NextPage<PageProps> = ({
-  data,
-  preview,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Page: NextPage<PageProps> = (
+  { data, preview }: InferGetStaticPropsType<typeof getStaticProps>,
+  ref: PageRefType
+) => {
   const page: SanityPage = filterDataToSingleItem(data)
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
-    <article>
-      <BlockContent
-        blocks={page?.body}
-        className="flex flex-col container pt-page"
-      />
-    </article>
+    <PageTransition ref={ref}>
+      <article>
+        <BlockContent
+          blocks={page?.body}
+          className="flex flex-col container pt-page"
+        />
+      </article>
+    </PageTransition>
   ) : null
 }
 
-export default Page
+export default forwardRef(Page as ForwardRefRenderFunction<unknown, {}>)

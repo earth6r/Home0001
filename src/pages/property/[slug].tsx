@@ -1,3 +1,4 @@
+import { ForwardRefRenderFunction, forwardRef } from 'react'
 import groq from 'groq'
 import type {
   GetStaticPaths,
@@ -11,6 +12,9 @@ import { getPageStaticProps } from '@lib/next'
 import { PROPERTIES_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { BlockContent, RichText } from '@components/sanity'
 import { Property } from '@components/property'
+import PageTransition from '@components/transition/PageTransition'
+
+type PageRefType = React.ForwardedRef<HTMLDivElement>
 
 const ALL_SLUGS_QUERY = groq`*[_type == "property" && defined(slug.current)][].slug.current`
 const PROPERTY_QUERY = groq`
@@ -31,19 +35,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = context =>
   getPageStaticProps({ ...context, query: PROPERTY_QUERY })
 
-const Page: NextPage<PageProps> = ({
-  data,
-  preview,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const PropertyPage: NextPage<PageProps> = (
+  { data, preview }: InferGetStaticPropsType<typeof getStaticProps>,
+  ref: PageRefType
+) => {
   const page: SanityPage = filterDataToSingleItem(data)
 
   return page?.header && (!page?._id.includes('drafts.') || preview) ? (
-    <article>
-      <div className="px-x md:grid md:grid-cols-3 md:pr-menu mt-[80px]">
-        <Property property={page} className="md:col-start-2 md:col-span-1" />
-      </div>
-    </article>
+    <PageTransition ref={ref}>
+      <article>
+        <div className="px-x md:grid md:grid-cols-3 md:pr-menu mt-[80px]">
+          <Property property={page} className="md:col-start-2 md:col-span-1" />
+        </div>
+      </article>
+    </PageTransition>
   ) : null
 }
 
-export default Page
+export default forwardRef(PropertyPage as ForwardRefRenderFunction<unknown, {}>)
