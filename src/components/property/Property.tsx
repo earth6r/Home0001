@@ -14,7 +14,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
     <div className={classNames(className)}>
-      <h2 className="text-2xl">
+      <h2 className="text-2xl uppercase">
         HOME0001
         <br />
         {property?.title}
