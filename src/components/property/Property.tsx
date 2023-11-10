@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { RichText, SanityMedia } from '@components/sanity'
 import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/unit'
+import { IconSmallArrowComponent } from '@components/icons/IconSmallArrow'
 import { PropertyElProps } from './types'
 import { Accordion } from '@components/accordion'
 import { useWaitlisModal } from '@contexts/modals'
@@ -14,7 +15,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
     <div className={classNames(className)}>
-      <h2 className="text-2xl uppercase">
+      <h2 className="mobile-landing uppercase mb-12">
         HOME0001
         <br />
         {property?.title}
@@ -67,7 +68,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             ))}
         </div>
         <div>
-          <h2 className="text-2xl uppercase">Available Homes:</h2>
+          <h2 className="mobile-landing uppercase">Available Homes:</h2>
           {property?.unitsList && (
             <>
               {property?.availableText && (
