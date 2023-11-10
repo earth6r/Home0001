@@ -1,3 +1,4 @@
+import { ForwardRefRenderFunction, forwardRef } from 'react'
 import groq from 'groq'
 import type {
   GetStaticPaths,
@@ -11,6 +12,9 @@ import { getPageStaticProps } from '@lib/next'
 import { UNIT_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { Property } from '@components/property'
 import { Unit } from '@components/unit'
+import PageTransition from '@components/transition/PageTransition'
+
+type PageRefType = React.ForwardedRef<HTMLDivElement>
 
 const ALL_SLUGS_QUERY = groq`*[_type == "unit" && defined(slug.current)][].slug.current`
 const PROPERTY_QUERY = groq`
@@ -31,18 +35,23 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = context =>
   getPageStaticProps({ ...context, query: PROPERTY_QUERY })
 
-const Page: NextPage<PageProps> = ({
-  data,
-  preview,
-  siteSettings,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const UnitPage: NextPage<PageProps> = (
+  {
+    data,
+    preview,
+    siteSettings,
+  }: InferGetStaticPropsType<typeof getStaticProps>,
+  ref: PageRefType
+) => {
   const page: SanityPage = filterDataToSingleItem(data)
 
   return page?.title && (!page?._id.includes('drafts.') || preview) ? (
-    <article>
-      <Unit unit={page} accordions={siteSettings?.howItWorksContent} />
-    </article>
+    <PageTransition ref={ref}>
+      <article>
+        <Unit unit={page} accordions={siteSettings?.howItWorksContent} />
+      </article>
+    </PageTransition>
   ) : null
 }
 
-export default Page
+export default forwardRef(UnitPage as ForwardRefRenderFunction<unknown, {}>)
