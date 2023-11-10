@@ -12,13 +12,12 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
-  console.log('property', property)
   return (
     <div className={classNames(className)}>
       <h2 className="text-2xl">
         HOME0001
         <br />
-        {property?.navigationSlug}
+        {property?.title}
       </h2>
       <div className="block relative mt-10 md:mt-20">
         {property?.image && (

@@ -12,6 +12,12 @@ export default {
   title: 'unit',
   type: 'document',
   icon: MdMeetingRoom,
+  groups: [
+    {
+      name: 'metadata',
+      title: 'Metadata',
+    },
+  ],
   fields: [
     {
       title: 'Title',
@@ -128,6 +134,21 @@ export default {
       title: 'Second Unit Details',
       type: 'array',
       of: [{ type: 'accordion', title: 'Unit Details' }],
+    },
+    {
+      name: 'previewImage',
+      title: 'Preview Image',
+      type: 'image',
+      group: 'metadata',
+      options: {
+        hotspot: false,
+      },
+    },
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+      group: 'metadata',
     },
   ],
   preview: {

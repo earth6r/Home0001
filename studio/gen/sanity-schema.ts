@@ -175,13 +175,6 @@ export interface Property extends SanityDocument {
   headerText?: string;
 
   /**
-   * Navigation Slug — `string`
-   *
-   *
-   */
-  navigationSlug?: string;
-
-  /**
    * Header — `richText`
    *
    *
@@ -427,6 +420,25 @@ export interface Unit extends SanityDocument {
    *
    */
   secondUnitDetails?: Array<SanityKeyed<Accordion>>;
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
 }
 
 /**
