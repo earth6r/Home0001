@@ -27,7 +27,7 @@ interface LayoutProps {
 
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath, query } = useRouter()
-  const page: SanityPage | Unit = filterDataToSingleItem(data)
+  const page: PageData = filterDataToSingleItem(data)
 
   return (
     <>
@@ -50,7 +50,9 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           className="flex-initial"
           path={asPath}
           property={(page as Unit)?.property}
-          currentTitle={page?.title}
+          currentTitle={
+            ((page as Property) || (page as Unit))?.headerText || page?.title
+          }
           waitlistId={siteSettings?.waitlistId}
           waitlistHeader={siteSettings?.waitlistHeader}
           waitlistCopy={siteSettings?.waitlistCopy}

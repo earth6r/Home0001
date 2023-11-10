@@ -25,6 +25,11 @@ export default {
       type: 'string',
     },
     {
+      title: 'Header Text',
+      name: 'headerText',
+      type: 'string',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
