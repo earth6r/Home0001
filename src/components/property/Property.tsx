@@ -67,7 +67,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               />
             ))}
         </div>
-        <div>
+        <div className="mt-10">
           <h2 className="mobile-landing uppercase">Available Homes:</h2>
           {property?.unitsList && (
             <>
