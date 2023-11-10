@@ -45,7 +45,7 @@ const PropertyPage: NextPage<PageProps> = (
     <PageTransition ref={ref}>
       <article>
         <div className="px-x  md:pr-menu">
-          <Property property={page} className="mt-10 md:mt-20" />
+          <Property property={page} className="pt-page" />
         </div>
       </article>
     </PageTransition>
