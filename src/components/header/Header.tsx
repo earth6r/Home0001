@@ -64,7 +64,10 @@ export const Header: FC<HeaderProps> = ({
         <div className="flex items-baseline">
           <Logo className="flex items-center h-header pointer-events-auto" />
 
-          {path !== '/' && <span>&nbsp; &gt;</span>}
+          {(path?.includes('property') || path?.includes('unit')) && (
+            <span>&nbsp; &gt;</span>
+          )}
+
           {path?.includes('unit') && (
             <Link
               href={`/property/${
