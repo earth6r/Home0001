@@ -20,15 +20,20 @@ export default {
       initialValue: false,
       validation: (Rule: Rule): Rule => Rule.required(),
     },
+    // {
+    //   title: 'Properties',
+    //   name: 'properties',
+    //   type: 'array',
+    //   of: [{ type: 'reference', to: [{ type: 'property' }] }],
+    //   validation: (Rule: Rule): Rule => Rule.max(1),
+    //   options: {
+    //     getOptionLabel: (reference: any) => `${reference.title}`,
+    //   },
+    // },
     {
-      title: 'Properties',
-      name: 'properties',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'property' }] }],
-      validation: (Rule: Rule): Rule => Rule.max(1),
-      options: {
-        getOptionLabel: (reference: any) => `${reference.title}`,
-      },
+      name: 'propertyLink',
+      type: 'link',
+      title: 'Property Link',
     },
   ],
   preview: {

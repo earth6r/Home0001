@@ -10,6 +10,7 @@ import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
 import { AccordionModal } from '@components/accordion'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { useForm } from 'react-hook-form'
+import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
 import { useWaitlisModal } from '@contexts/modals'
 
@@ -41,17 +42,20 @@ export const UnitComponent: FC<UnitElProps> = ({
   return (
     <div className={className}>
       <div className="md:grid md:grid-cols-3 md:pr-menu px-x">
-        <div className="md:col-start-2 md:col-span-1">
-          <div className="flex flex-col relative mt-10">
+        <div className="md:col-start-1 col-start-2 md:col-span-1">
+          <div className="flex flex-col relative">
+            <h2 className="mobile-landing mb-12 uppercase">{unit?.title}</h2>
             {unit?.photographs && unit?.photographs.length > 0 && (
-              <ImageCarousel slides={unit?.photographs} className="w-full" />
+              <ImageCarousel
+                index="0"
+                slides={unit?.photographs}
+                className="w-full"
+              />
             )}
 
-            <div className="mt-10">
+            <div>
               {unit?.propertyType && (
-                <p className="m-0 uppercase tracking-caps">
-                  <span>{unit?.propertyType.typeTitle}</span>
-                  <span>&nbsp;—&nbsp;</span>
+                <p className="mt-4 uppercase tracking-caps">
                   <span>{unit?.title}</span>
                 </p>
               )}
@@ -84,7 +88,11 @@ export const UnitComponent: FC<UnitElProps> = ({
           </div>
 
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (
-            <ImageCarousel slides={unit?.layoutImages} className="w-full" />
+            <ImageCarousel
+              index="1"
+              slides={unit?.layoutImages}
+              className="w-full"
+            />
           )}
 
           {unit?.moreInfo && (
@@ -100,6 +108,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                 key={_key}
                 header={header}
                 text={text}
+                location={{ property: 'property', unit: 'unit' }}
                 className="mt-2 mb-8 border-x-0 border-t-0"
               />
             ))}
@@ -108,10 +117,11 @@ export const UnitComponent: FC<UnitElProps> = ({
               onClick={() => setWaitlistModal(true)}
               className={classNames(
                 formActive ? 'bg-white text-black' : 'bg-black text-white',
-                'my-9 text-center uppercase block w-full h-12 max-h-12 py-2 px-3 border border-solid border-[#000]'
+                'w-full mt-12 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white z-above p-4'
               )}
             >
-              {`Reserve this home`}
+              {`RESERVE THIS HOME`}
+              <IconSmallArrow width="22" height="10" className="" />
             </button>
           </div>
         </div>

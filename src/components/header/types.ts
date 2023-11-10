@@ -1,7 +1,9 @@
 import { KeyedUnitGroup } from '@components/form'
 import type {
+  Property,
   RichText as RichTextType,
   Menus as SanityMenu,
+  SanityReference,
   UnitGroup,
 } from '@gen/sanity-schema'
 import type { HTMLAttributes } from 'react'
@@ -12,7 +14,11 @@ export interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   }
 }
 
-export interface HeaderProps extends HTMLAttributes<HTMLElement> {
+export interface HeaderProps
+  extends Omit<HTMLAttributes<HTMLElement>, 'property'> {
+  path?: string
+  currentTitle?: string
+  property?: SanityReference<Property>
   mainMenu?: SanityMenu
   waitlistId?: string
   waitlistHeader?: string

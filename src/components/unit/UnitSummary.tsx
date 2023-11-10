@@ -5,8 +5,12 @@ import { KeyedUnitProps, UnitListProps } from './types'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import { sendGoogleEvent, sendHubspotEvent } from '@lib/util'
-import { SanityMedia } from '@components/sanity'
-
+import { SanityLink, SanityMedia } from '@components/sanity'
+import { SanityLinkType } from '@studio/lib'
+import Link from 'next/link'
+import { ImageCarousel } from '@components/carousel'
+import { IconSmallArrow } from '@components/icons/IconSmallArrow'
+import { redirect } from 'next/navigation'
 export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
@@ -37,67 +41,88 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
     updatePath(slugifiedTitle)
 
     if (unit.title) {
-      // sendGoogleEvent(`clicked_unit_tile_for_${unit.title}`)
+      const options = { unit: unit.title }
+      sendGoogleEvent('clicked unit', options)
       // sendHubspotEvent('tile clicked', unit.title)
     }
   }
 
   if (!unit) return null
+  const summaryPhotos = unit?.photographs?.slice(0, 4)
+
   return (
     <li>
-      <button
-        disabled={!unit?.available}
-        onClick={() => updateUnit(unit, unit.title)}
-        className={`transition-colors disabled:opacity-30 disabled:bg-white disabled:shadow-none px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`}
+      <Link
+        href={`/unit/${unit.slug?.current}`}
+        onClick={() => {
+          updateUnit(unit, unit.title)
+        }}
       >
-        <div className="mb-5 z-above">
-          <SanityMedia
-            image={unit.headlineImage?.image}
-            imageProps={{
-              alt: unit.headlineImage?.alt || 'Home0001 Headline Image',
-              style: { maxWidth: '100%', height: 'auto' },
-              lqip: unit.headlineImage?.image?.asset.metadata.lqip,
-              quality: 8,
-            }}
-          />
-        </div>
-        <div className="justify-self-stretch w-full ">
-          <div className="grid">
+        <div
+          className={classNames(
+            unit.available ? '' : 'bg-white shadow-none opacity-30',
+            `transition-colors   px-4 pt-4 pb-0 min-h-[16rem] w-full grid justify-stretch flex-col`
+          )}
+        >
+          <div className="flex flex-col gap-1 mb-4">
             <p className="col-start-1 text-left uppercase">
-              {unit.propertyType && (
-                <span>{unit?.propertyType?.typeTitle}</span>
-              )}
-              <span>&nbsp;—&nbsp;</span>
               {unit.title && <span>{unit.title}</span>}
             </p>
-            <p className="col-start-2 text-right">{unit.price}</p>
-          </div>
-          <div className="mt-4 mb-2 text-left rich-text">
-            {unit.area && (
-              <p className="mb-5">
-                {unit.area}
-                <br />
-                Fully equipped
-                <br />
-                Access to homes in other locations
-              </p>
-            )}
-          </div>
-          <div
-            className={classNames(
-              state.unit?._id === unit._id ? 'bg-black text-white' : 'bg-white',
-              `border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 relative z-above`
-            )}
-          >
-            <p className="mb-0 py-2 text-left pl-4 uppercase">
-              {state.unit?._id === unit._id
-                ? 'Selected'
-                : `Explore ${unit?.title}`}
+            <p className="md:col-start-1 col-start-2 md:col-span-1 text-left">
+              {unit.price}
             </p>
-            <p className=" py-2 pb-[0.55rem] text-[16px] text-right pr-4">→</p>
+          </div>
+          <div className="mb-5 z-above">
+            <SanityMedia
+              image={unit.headlineImage?.image as any}
+              imageProps={{
+                alt: unit.headlineImage?.alt || 'Home0001 Headline Image',
+                style: { maxWidth: '100%', height: 'auto' },
+                lqip: (unit.headlineImage?.image as any)?.asset?.metadata.lqip,
+                quality: 8,
+              }}
+            />
+            <div className="flex flex-col relative mt-4">
+              {/* {unit?.photographs && unit?.photographs.length > 0 && (
+              <ImageCarousel
+                index="0"
+                slides={summaryPhotos}
+                className="md:max-w-[400px] max-w-[50%]"
+              />
+            )} */}
+              <div className="justify-self-stretch w-full ">
+                <div className="mb-2 text-left rich-text">
+                  {unit.area && (
+                    <p className="mb-5">
+                      {unit.area}
+                      <br />
+                      Fully equipped
+                      <br />
+                      Access to homes in other locations
+                    </p>
+                  )}
+                </div>
+
+                {unit.slug && (
+                  <button
+                    className={classNames(
+                      `relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-full h-12 max-h-12 hover:invert bg-white z-above p-4`
+                    )}
+                    onClick={() => {
+                      updateUnit(unit, unit.title)
+                    }}
+                  >
+                    <span className="mb-0 py-2 text-left uppercase">
+                      {`Explore ${unit?.title}`}
+                    </span>
+                    <IconSmallArrow width="22" height="10" className="invert" />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-      </button>
+      </Link>
     </li>
   )
 }

@@ -118,6 +118,8 @@ export default {
           },
         },
         '.home-svg': {
+          maxWidth: '49px',
+          width: '10vw',
           '@screen md': {
             maxWidth: '49px',
             width: '3vw',
