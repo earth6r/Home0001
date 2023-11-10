@@ -48,7 +48,9 @@ const UnitPage: NextPage<PageProps> = (
   return page?.title && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
-        <Unit unit={page} accordions={siteSettings?.howItWorksContent} />
+        <div className="md:mt-[95px] mt-[80px]">
+          <Unit unit={page} accordions={siteSettings?.howItWorksContent} />
+        </div>
       </article>
     </PageTransition>
   ) : null
