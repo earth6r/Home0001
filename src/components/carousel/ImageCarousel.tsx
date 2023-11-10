@@ -19,7 +19,7 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
   return (
-    <div className="block relative w-full h-full overflow-hidden">
+    <div className="block relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none">
       <SanityMedia
         image={image}
         imageProps={{
@@ -69,7 +69,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           ))}
 
           <div className="mt-4">
-            <div className="flex justify-center items-center max-w-[560px] md:max-w-[unset]">
+            <div className="flex justify-center md:justify-start items-center max-w-[560px] md:max-w-[unset]">
               <button
                 className={classNames(
                   `swiper-prev-${index} review-swiper-button-prev disabled:shadow-none disabled:bg-transparent disabled:opacity-40 mr-2`
