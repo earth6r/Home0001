@@ -303,6 +303,13 @@ export interface Unit extends SanityDocument {
   title?: string;
 
   /**
+   * Header Text — `string`
+   *
+   *
+   */
+  headerText?: string;
+
+  /**
    * Slug — `slug`
    *
    *
