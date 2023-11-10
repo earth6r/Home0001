@@ -40,7 +40,9 @@ const Page: NextPage<PageProps> = ({
 
   return page?.title && (!page?._id.includes('drafts.') || preview) ? (
     <article>
-      <Unit unit={page} accordions={siteSettings?.howItWorksContent} />
+      <div className="md:mt-[95px] mt-[80px]">
+        <Unit unit={page} accordions={siteSettings?.howItWorksContent} />
+      </div>
     </article>
   ) : null
 }
