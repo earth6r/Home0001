@@ -31,7 +31,6 @@ export default {
       },
     },
     { name: 'headerText', type: 'string', title: 'Header Text' },
-    { name: 'navigationSlug', type: 'string', title: 'Navigation Slug' },
     {
       name: 'header',
       type: 'richText',

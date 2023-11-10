@@ -4,15 +4,15 @@ import classNames from 'classnames'
 import type { HeaderProps } from './types'
 import { Logo } from '@components/logos'
 import HeaderMenu from './HeaderMenu'
-import type { Menus as SanityMenu } from '@gen/sanity-schema'
+import type { Property, Menus as SanityMenu } from '@gen/sanity-schema'
 import { Btn } from '@components/btns'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Modal } from '@components/modal'
 import { Form, MultiPaneInputs } from '@components/form'
-import { RichText } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util/analytics'
 import { useForm } from 'react-hook-form'
 import { useWaitlisModal } from '@contexts/modals'
+import Link from 'next/link'
 
 export const Header: FC<HeaderProps> = ({
   waitlistId,
@@ -21,6 +21,8 @@ export const Header: FC<HeaderProps> = ({
   waitlistSuccess,
   waitlistUnits,
   path,
+  currentTitle,
+  property,
   mainMenu,
   className,
 }) => {
@@ -44,7 +46,7 @@ export const Header: FC<HeaderProps> = ({
     reset({})
   }
 
-  console.log('path: ', path)
+  console.log('property: ', property)
 
   return (
     <div
@@ -61,8 +63,27 @@ export const Header: FC<HeaderProps> = ({
       >
         <div className="flex items-baseline">
           <Logo className="flex items-center h-header pointer-events-auto" />
-          {path !== '/' && <span>&nbsp; &gt;</span>}
-          {path?.includes('property') && <span>&nbsp; Property</span>}
+
+          {(path?.includes('property') || path?.includes('unit')) && (
+            <span>&nbsp; &gt;</span>
+          )}
+
+          {path?.includes('unit') && (
+            <Link
+              href={`/property/${
+                (property as unknown as Property)?.slug?.current
+              }`}
+            >
+              <span className="uppercase pointer-events-auto">
+                &nbsp;&nbsp;{`${(property as unknown as Property)?.title}`}
+              </span>
+            </Link>
+          )}
+
+          {path?.includes('unit') && <span>&nbsp; &gt;</span>}
+          {(path?.includes('property') || path?.includes('unit')) && (
+            <span className="uppercase">&nbsp;&nbsp;{`${currentTitle}`}</span>
+          )}
         </div>
 
         <div className="flex items-center gap-[1.12rem] md:gap-16">
