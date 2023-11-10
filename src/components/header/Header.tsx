@@ -84,7 +84,7 @@ export const Header: FC<HeaderProps> = ({
           )}
         </div>
 
-        <div className="flex items-center gap-[1.12rem] md:gap-16">
+        <div className="flex items-center gap-[1.12rem] md:gap-5">
           <Modal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
