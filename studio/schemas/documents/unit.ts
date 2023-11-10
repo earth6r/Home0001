@@ -12,11 +12,31 @@ export default {
   title: 'unit',
   type: 'document',
   icon: MdMeetingRoom,
+  groups: [
+    {
+      name: 'metadata',
+      title: 'Metadata',
+    },
+  ],
   fields: [
     {
       title: 'Title',
       name: 'title',
       type: 'string',
+    },
+    {
+      title: 'Header Text',
+      name: 'headerText',
+      type: 'string',
+    },
+    {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
     },
     {
       title: 'Available',
@@ -119,6 +139,21 @@ export default {
       title: 'Second Unit Details',
       type: 'array',
       of: [{ type: 'accordion', title: 'Unit Details' }],
+    },
+    {
+      name: 'previewImage',
+      title: 'Preview Image',
+      type: 'image',
+      group: 'metadata',
+      options: {
+        hotspot: false,
+      },
+    },
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+      group: 'metadata',
     },
   ],
   preview: {

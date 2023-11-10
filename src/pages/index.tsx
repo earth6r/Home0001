@@ -1,3 +1,4 @@
+import { ForwardRefRenderFunction, forwardRef } from 'react'
 import groq from 'groq'
 import { useContext, useEffect, useRef } from 'react'
 import type { InferGetStaticPropsType, GetStaticProps, NextPage } from 'next'
@@ -7,11 +8,11 @@ import { getPageStaticProps } from '@lib/next'
 import { BODY_QUERY, filterDataToSingleItem } from '@studio/lib'
 import { BlockContent } from '@components/sanity'
 import { HomeContext } from '@contexts/home'
-import { scrollToEl } from '@lib/util'
-import { Property } from '@components/property'
-import { Unit } from '@components/unit'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
+import PageTransition from '@components/transition/PageTransition'
+
+type PageRefType = React.ForwardedRef<HTMLDivElement>
 
 const HOME_QUERY = groq`
   *[_type == "page"]{
@@ -36,29 +37,17 @@ declare global {
 export const getStaticProps: GetStaticProps = context =>
   getPageStaticProps({ ...context, query: HOME_QUERY })
 
-const Page: NextPage<PageProps> = ({
-  data,
-  preview,
-  siteSettings,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Page: NextPage<PageProps> = (
+  { data, preview }: InferGetStaticPropsType<typeof getStaticProps>,
+  ref: PageRefType
+) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
-  const propertyRef = useRef<HTMLInputElement>(null)
-  const unitRef = useRef<HTMLInputElement>(null)
   const page: SanityPage = filterDataToSingleItem(data)
   const filteredBlocks = page?.body?.filter(block => {
     return block._type === 'citiesBlock'
   })
   const citiesBlock: any = filteredBlocks && filteredBlocks[0]
-
-  // handle scrolling after state change
-  useEffect(() => {
-    if (state.unit?._id && unitRef.current) {
-      scrollToEl(unitRef.current, true)
-    } else if (state.property?._id && propertyRef.current) {
-      scrollToEl(propertyRef.current)
-    }
-  }, [state.property?._id, state.unit?._id])
 
   const filterListByTitleProp = (list: any[] | undefined, query: string) => {
     const filteredList = list?.filter(({ title }: any) => {
@@ -154,38 +143,15 @@ const Page: NextPage<PageProps> = ({
   }, [router.asPath, router.query])
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
-    <article>
-      <BlockContent
-        blocks={page?.body}
-        className="flex flex-col w-full px-x md:pr-0 pt-page"
-      />
-
-      {citiesBlock && (
-        <>
-          {state.property?._id && (
-            <div
-              ref={propertyRef}
-              className="px-x md:grid md:grid-cols-3 md:pr-menu"
-            >
-              <Property
-                property={state.property}
-                className="md:col-start-2 md:col-span-1"
-              />
-            </div>
-          )}
-
-          {state.unit?._id && (
-            <div ref={unitRef}>
-              <Unit
-                unit={state.unit}
-                accordions={siteSettings?.howItWorksContent}
-              />
-            </div>
-          )}
-        </>
-      )}
-    </article>
+    <PageTransition ref={ref}>
+      <article>
+        <BlockContent
+          blocks={page?.body}
+          className="flex flex-col w-full px-x md:pr-0 pt-page"
+        />
+      </article>
+    </PageTransition>
   ) : null
 }
 
-export default Page
+export default forwardRef(Page as ForwardRefRenderFunction<unknown, {}>)

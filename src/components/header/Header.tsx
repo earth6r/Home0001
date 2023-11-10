@@ -4,15 +4,15 @@ import classNames from 'classnames'
 import type { HeaderProps } from './types'
 import { Logo } from '@components/logos'
 import HeaderMenu from './HeaderMenu'
-import type { Menus as SanityMenu } from '@gen/sanity-schema'
+import type { Property, Menus as SanityMenu } from '@gen/sanity-schema'
 import { Btn } from '@components/btns'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Modal } from '@components/modal'
 import { Form, MultiPaneInputs } from '@components/form'
-import { RichText } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util/analytics'
 import { useForm } from 'react-hook-form'
 import { useWaitlisModal } from '@contexts/modals'
+import Link from 'next/link'
 
 export const Header: FC<HeaderProps> = ({
   waitlistId,
@@ -20,6 +20,9 @@ export const Header: FC<HeaderProps> = ({
   waitlistCopy,
   waitlistSuccess,
   waitlistUnits,
+  path,
+  currentTitle,
+  property,
   mainMenu,
   className,
 }) => {
@@ -34,7 +37,8 @@ export const Header: FC<HeaderProps> = ({
 
   const openWaitlist = () => {
     setWaitlistOpen(true)
-    // sendGoogleEvent('opened waitlist modal')
+    const options = { location: window.location.pathname }
+    sendGoogleEvent('opened waitlist modal', options)
   }
 
   const onClose = () => {
@@ -55,9 +59,32 @@ export const Header: FC<HeaderProps> = ({
         role="banner"
         className="flex justify-between items-center relative w-full h-header px-x"
       >
-        <Logo className="flex items-center h-header pointer-events-auto" />
+        <div className="flex items-baseline">
+          <Logo className="flex items-center h-header pointer-events-auto" />
 
-        <div className="flex items-center gap-[1.12rem] md:gap-16">
+          {(path?.includes('property') || path?.includes('unit')) && (
+            <span>&nbsp; &gt;</span>
+          )}
+
+          {path?.includes('unit') && (
+            <Link
+              href={`/property/${
+                (property as unknown as Property)?.slug?.current
+              }`}
+            >
+              <span className="uppercase pointer-events-auto">
+                &nbsp;&nbsp;{`${(property as unknown as Property)?.headerText}`}
+              </span>
+            </Link>
+          )}
+
+          {path?.includes('unit') && <span>&nbsp; &gt;</span>}
+          {(path?.includes('property') || path?.includes('unit')) && (
+            <span className="uppercase">&nbsp;&nbsp;{`${currentTitle}`}</span>
+          )}
+        </div>
+
+        <div className="flex items-center gap-[1.12rem] md:gap-5">
           <Modal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <Form

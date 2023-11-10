@@ -6,11 +6,13 @@ import { media } from 'sanity-plugin-media'
 import { table } from '@sanity/table'
 import deskStructure, { getDefaultDocumentNode } from './parts/desk-structure'
 
+const DATASET = process.env.SANITY_STUDIO_API_DATASET
+
 export default defineConfig({
   name: 'Home0001',
   title: 'Home0001',
   projectId: 'cr71fv96',
-  dataset: 'production',
+  dataset: DATASET,
   plugins: [
     deskTool({
       structure: deskStructure,

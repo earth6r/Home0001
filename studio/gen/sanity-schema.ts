@@ -59,11 +59,11 @@ export interface City extends SanityDocument {
   active?: boolean;
 
   /**
-   * Properties — `array`
+   * Property Link — `link`
    *
    *
    */
-  properties?: Array<SanityKeyedReference<Property>>;
+  propertyLink?: Link;
 }
 
 /**
@@ -154,6 +154,27 @@ export interface Property extends SanityDocument {
   _type: "property";
 
   /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Header Text — `string`
+   *
+   *
+   */
+  headerText?: string;
+
+  /**
    * Header — `richText`
    *
    *
@@ -215,6 +236,25 @@ export interface Property extends SanityDocument {
    *
    */
   propertyDetails?: Array<SanityKeyed<Accordion>>;
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
 }
 
 /**
@@ -261,6 +301,20 @@ export interface Unit extends SanityDocument {
    *
    */
   title?: string;
+
+  /**
+   * Header Text — `string`
+   *
+   *
+   */
+  headerText?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Available — `boolean`
@@ -373,6 +427,25 @@ export interface Unit extends SanityDocument {
    *
    */
   secondUnitDetails?: Array<SanityKeyed<Accordion>>;
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
 }
 
 /**
@@ -487,7 +560,7 @@ export type Link = {
      *
      *
      */
-    reference?: SanityReference<Page>;
+    reference?: SanityReference<Page | Property>;
 
     /**
      * Anchor Slug — `slug`
@@ -762,6 +835,13 @@ export type CitiesBlock = {
    *
    */
   citiesList?: Array<SanityKeyedReference<City>>;
+
+  /**
+   * Headers Bottom — `array`
+   *
+   *
+   */
+  headersBottom?: Array<SanityKeyed<string>>;
 };
 
 export type NewsletterBlock = {

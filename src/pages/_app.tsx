@@ -12,6 +12,8 @@ import 'swiper/css/pagination'
 import 'swiper/css/virtual'
 import '../styles/main.css'
 import '../styles/toast.css'
+import { AnimatePresence } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 const PreviewProvider = dynamic(
   () => import('@components/preview/PreviewProvider')
@@ -40,7 +42,9 @@ function App({
       {/* <IntercomProvider> */}
       <Layout {...pageProps}>
         <Scripts />
-        <Component {...pageProps} />
+        <AnimatePresence initial={false} mode="popLayout">
+          <Component {...pageProps} />
+        </AnimatePresence>
       </Layout>
       {/* </IntercomProvider> */}
     </ContextProvider>

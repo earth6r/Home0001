@@ -44,8 +44,9 @@ export const CTA_QUERY = `
   },
 `
 
-export const UNITS_QUERY = `
+export const UNIT_QUERY = `
   "propertyType": propertyType->{
+    ...,
     typeTitle,
     typeValue,
   },
@@ -66,7 +67,7 @@ export const UNITS_QUERY = `
       ...,
       title,
     },
-  }
+  },
 `
 
 export const PROPERTIES_QUERY = `
@@ -96,7 +97,7 @@ export const PROPERTIES_QUERY = `
   },
   "unitsList": unitsList[]->{
     ...,
-    ${UNITS_QUERY}
+    ${UNIT_QUERY}
   },
 `
 
@@ -105,10 +106,9 @@ export const CITY_QUERY = `
   _type,
   title,
   active,
-  "properties": properties[]->{
-    ...,
-    ${PROPERTIES_QUERY}
-  },
+  "propertyLink": propertyLink{
+    ${LINK_QUERY}
+  }
 `
 
 export const BODY_QUERY = `
@@ -138,6 +138,7 @@ export const BODY_QUERY = `
       ${MEDIA_QUERY}
     },
     "citiesList": citiesList[]->{
+      ...,
       ${CITY_QUERY}
     }
   },

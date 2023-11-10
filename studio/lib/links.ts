@@ -2,6 +2,10 @@ import type { SanityInternalLink, SanityLinkType } from './types'
 
 export const getSanityLinkPath = (link?: SanityInternalLink): string => {
   switch (link?._type) {
+    case 'property':
+      return '/property/'
+    case 'unit':
+      return '/unit/'
     case 'page':
       return '/'
     default:
