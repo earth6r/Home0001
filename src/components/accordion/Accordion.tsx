@@ -25,23 +25,24 @@ export const Accordion: FC<AccordionProps> = ({
   const ref = useRef<HTMLDivElement>(null)
   const [openedOnce, setOpenedOnce] = useState(false)
 
-  const setHeight = () => {
+  const beforeEnter = () => {
     if (ref.current)
       ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
+
+    if (!openedOnce) {
+      const options = {
+        accordion_header: header,
+        accordion_location: location,
+      }
+      sendGoogleEvent('opened accordion', options)
+      setOpenedOnce(true)
+    }
   }
 
   return (
     <div className={classNames(className, 'border-black')}>
       <Disclosure>
         {({ open }) => {
-          if (!openedOnce && open) {
-            const options = {
-              accordion_header: header,
-              accordion_location: location,
-            }
-            sendGoogleEvent('opened accordion', options)
-            setOpenedOnce(true)
-          }
           return (
             <>
               <Disclosure.Button
@@ -62,7 +63,7 @@ export const Accordion: FC<AccordionProps> = ({
                 className="overflow-hidden will-change-[maxHeight]"
                 enter="maxHeight duration-200 ease-in-out"
                 enterFrom="max-h-0"
-                beforeEnter={setHeight}
+                beforeEnter={beforeEnter}
                 leave="maxHeight duration-200 ease-in-out"
                 beforeLeave={() => {
                   if (ref.current) ref.current.style.maxHeight = '0px'
