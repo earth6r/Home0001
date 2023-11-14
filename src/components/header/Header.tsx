@@ -63,7 +63,7 @@ export const Header: FC<HeaderProps> = ({
           <Logo className="flex items-center h-header pointer-events-auto" />
 
           {(path?.includes('property') || path?.includes('unit')) && (
-            <span>&nbsp; &gt;</span>
+            <span>&nbsp;&gt;</span>
           )}
 
           {path?.includes('unit') && (
@@ -73,14 +73,14 @@ export const Header: FC<HeaderProps> = ({
               }`}
             >
               <span className="uppercase pointer-events-auto">
-                &nbsp;&nbsp;{`${(property as unknown as Property)?.headerText}`}
+                &nbsp;{`${(property as unknown as Property)?.headerText}`}
               </span>
             </Link>
           )}
 
-          {path?.includes('unit') && <span>&nbsp; &gt;</span>}
+          {path?.includes('unit') && <span>&nbsp;&gt;</span>}
           {(path?.includes('property') || path?.includes('unit')) && (
-            <span className="uppercase">&nbsp;&nbsp;{`${currentTitle}`}</span>
+            <span className="uppercase">&nbsp;{`${currentTitle}`}</span>
           )}
         </div>
 
