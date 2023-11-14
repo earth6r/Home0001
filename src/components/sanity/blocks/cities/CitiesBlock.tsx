@@ -1,145 +1,170 @@
-import { type FC, useContext } from 'react'
+import { type FC } from 'react'
 import classNames from 'classnames'
-import type { CitiesBlockProps } from './types'
-import { Block, SanityLink } from '@components/sanity'
-import { HomeContext } from '@contexts/home'
-import slugify from 'slugify'
-import { useRouter } from 'next/router'
-import { sendGoogleEvent, sendHubspotEvent } from '@lib/util'
-import Image from 'next/image'
+import type { CitiesBlockProps, CitiesListProps, KeyedProperty } from './types'
+import { Block, SanityLink, SanityMedia } from '@components/sanity'
+import { sendGoogleEvent } from '@lib/util'
 import { SanityLinkType } from '@studio/lib'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import NextLink from 'next/link'
+import { useWaitlisModal } from '@contexts/modals'
+import { Property } from '@studio/gen/sanity-schema'
+import Link from 'next/link'
+
+const CITY_ORDER = [
+  'Los Angeles',
+  'New York',
+  'Paris',
+  'London',
+  'Berlin',
+  'Mexico City',
+]
+
+const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
+  <ul className="max-w-[390px]">
+    {citiesList &&
+      citiesList.map(({ _id, title, active, propertyLink }) => {
+        return (
+          <li key={_id} className="text-left">
+            {propertyLink ? (
+              <SanityLink
+                onClick={() =>
+                  sendGoogleEvent(`clicked city button`, { city: title })
+                }
+                {...(propertyLink as SanityLinkType)}
+                className={classNames('mobile-landing text-left uppercase')}
+              >
+                <IconRightArrowBold className="mr-1 home-svg" />
+                <span
+                  className={classNames(
+                    active && propertyLink
+                      ? 'leading-none border-bottom border-b-[0.1em]'
+                      : ''
+                  )}
+                >
+                  {title}
+                </span>
+              </SanityLink>
+            ) : (
+              <div
+                className={classNames(
+                  'mobile-landing text-left uppercase bg-transparent opacity-30 shadow-none'
+                )}
+              >
+                <IconRightArrowBold className="mr-1 home-svg" />
+                <span
+                  className={classNames(
+                    active && propertyLink
+                      ? 'leading-none border-bottom border-b-[0.1em]'
+                      : ''
+                  )}
+                >
+                  {title}
+                </span>
+              </div>
+            )}
+          </li>
+        )
+      })}
+  </ul>
+)
+
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
   citiesList,
-  headersBottom,
+  citiesPosition,
+  howItWorksPosition,
+  properties,
   className,
 }) => {
-  const router = useRouter()
-  const { state } = useContext(HomeContext)
-
-  const updatePath = (title?: string) => {
-    if (title !== router.query.city)
-      router.push(`?city=${title}`, undefined, { shallow: true })
-  }
-
-  const updateProperty = (title?: string) => {
-    const slugifiedTitle = title && slugify(title, { lower: true })
-    updatePath(slugifiedTitle)
-  }
-
-  const cityOrder = [
-    'Los Angeles',
-    'New York',
-    'Paris',
-    'London',
-    'Berlin',
-    'Mexico City',
-  ]
+  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
 
   function customSort(a: Record<any, any>, b: Record<any, any>) {
-    const indexA = cityOrder.indexOf(a.title)
-    const indexB = cityOrder.indexOf(b.title)
+    const indexA = CITY_ORDER.indexOf(a.title)
+    const indexB = CITY_ORDER.indexOf(b.title)
 
     return indexA - indexB
   }
 
   const sortedCities = citiesList?.sort(customSort)
 
-  return (
-    <Block className={classNames(className)}>
-      {headers &&
-        headers.map((header, index) => (
-          <div key={header} className={`-menu `}>
-            <h2 className="max-w-[390px] mobile-landing md:mobile-landing uppercase pr-8 mb-12 md:mb-16">
-              {header}
-            </h2>
-          </div>
-        ))}
+  console.log('properties: ', properties)
 
-      <ul className="max-w-[390px] grid grid-cols-1 gap-y-0 md:gap-y-0 pr-10 md:pr-0 mb-12">
-        {citiesList &&
-          citiesList.map(({ _id, title, active, propertyLink }) => {
-            return (
-              <li key={_id} className="text-left">
-                {propertyLink ? (
-                  <SanityLink
-                    onClick={() => {
-                      // property && updateProperty(title)
-                      const options = { city: title }
-                      sendGoogleEvent(`clicked city button`, options)
-                      // sendHubspotEvent(`clicked ${title}`, 'clicked')
-                    }}
-                    {...(propertyLink as SanityLinkType)}
-                    className={classNames('mobile-landing text-left uppercase')}
-                  >
-                    <IconRightArrowBold className="mr-1 home-svg" />
-                    <span
-                      className={classNames(
-                        active && propertyLink
-                          ? 'leading-none border-bottom border-b-[0.1em]'
-                          : ''
-                      )}
-                    >
-                      {title}
-                    </span>
-                  </SanityLink>
-                ) : (
-                  <div
-                    className={classNames(
-                      'mobile-landing text-left uppercase bg-transparent opacity-30 shadow-none'
-                    )}
-                  >
-                    <IconRightArrowBold className="mr-1 home-svg" />
-                    <span
-                      className={classNames(
-                        active && propertyLink
-                          ? 'leading-none border-bottom border-b-[0.1em]'
-                          : ''
-                      )}
-                    >
-                      {title}
-                    </span>
+  return (
+    <Block className={classNames(className, 'mb-page')} grid={false}>
+      <div className="grid grid-cols-3 gap-16">
+        <div className="flex flex-col gap-12 md:gap-16">
+          {headers &&
+            headers.map((header, index) => {
+              return (
+                <div key={header}>
+                  <h2 className="max-w-[390px] mobile-landing md:mobile-landing uppercase pr-[10%]">
+                    {header}
+                  </h2>
+
+                  {index + 1 === citiesPosition && (
+                    <div className=" mt-12 md:mt-16">
+                      <CitiesList citiesList={sortedCities} />
+                    </div>
+                  )}
+
+                  {index + 1 === howItWorksPosition && (
+                    <div className="pr-menu md:pr-0 max-w-[390px] mt-12 md:mt-16">
+                      <NextLink
+                        className={classNames(
+                          `w-full bg-black text-white border-1 border-black border-solid mb-[2px] p-4 flex flex-row justify-between items-center h-12 max-h-12 relative z-above`
+                        )}
+                        href="/how-it-works"
+                      >
+                        <p className="mb-0 py-2 text-left uppercase">
+                          How It Works
+                        </p>{' '}
+                        <IconSmallArrow width="22" height="10" />
+                      </NextLink>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+
+          <button
+            aria-label={`Join waitlist`}
+            onClick={() => {
+              setWaitlistOpen(true)
+            }}
+            className={classNames(
+              `w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 bg-black text-white z-above p-4`
+            )}
+          >
+            <span className="mb-0 py-2 text-left uppercase">
+              {`Join waitlist`}
+            </span>
+            <IconSmallArrow width="22" height="10" />
+          </button>
+        </div>
+
+        {properties &&
+          (properties as KeyedProperty[])?.map(({ image, longTitle, slug }) => (
+            <div key={slug.current}>
+              <Link href={`/property/${slug.current}`}>
+                {image && (
+                  <div className="block relative w-full mb-yhalf z-base">
+                    <SanityMedia
+                      imageProps={{
+                        alt: image.alt || 'Building image',
+                        layout: 'responsive',
+                        quality: 8,
+                        priority: true,
+                        lqip: (image?.image as any)?.asset?.metadata?.lqip,
+                      }}
+                      {...(image as any)}
+                    />
                   </div>
                 )}
-              </li>
-            )
-          })}
-      </ul>
-      <div className="grid">
-        <div className="flex flex-row">
-          <div className="flex flex-col">
-            {headersBottom &&
-              headersBottom.map((header, index) => {
-                return (
-                  <>
-                    {index === 3 && (
-                      <div className="pr-menu md:pr-0 max-w-[390px] mb-12">
-                        <NextLink
-                          className={classNames(
-                            `w-full bg-black text-white border-1 border-black border-solid mb-[2px] p-4 flex flex-row justify-between items-center h-12 max-h-12 relative z-above`
-                          )}
-                          href="/how-it-works"
-                        >
-                          <p className="mb-0 py-2 text-left uppercase">
-                            How It Works
-                          </p>{' '}
-                          <IconSmallArrow width="22" height="10" />
-                        </NextLink>
-                      </div>
-                    )}
-                    <div key={header} className={`-menu `}>
-                      <h2 className="max-w-[390px] mobile-landing md:mobile-landing uppercase pr-8 mb-12 md:mb-16">
-                        {header}
-                      </h2>
-                    </div>
-                  </>
-                )
-              })}
-          </div>
-        </div>
+                {longTitle && <h2>{longTitle}</h2>}
+              </Link>
+            </div>
+          ))}
       </div>
     </Block>
   )
