@@ -11,6 +11,22 @@ import type { SanityBlockElement } from '@components/sanity'
 import { KeyedUnitProps } from '@components/unit'
 import { SanityLinkType } from '@studio/lib'
 
+export type CityBlockPropertyType = {
+  image?:
+    | {
+        _type: 'image'
+        asset: SanityReference<SanityImageAsset>
+        alt: string
+        image?: {
+          _type: 'image'
+          asset: SanityImageAsset
+        }
+      }
+    | Media
+  longTitle?: string
+  slug: { _type: 'slug'; current: string }
+}
+
 export interface KeyedProperty extends SanityKeyedReference<Property> {
   image?:
     | {

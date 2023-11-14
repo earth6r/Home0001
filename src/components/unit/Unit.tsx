@@ -40,7 +40,7 @@ export const UnitComponent: FC<UnitElProps> = ({
   }, [formActive])
 
   return (
-    <div className={className}>
+    <div className={classNames(className, 'overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 md:pr-menu px-x">
         <div className="md:col-start-1 col-start-2 md:col-span-1">
           <div className="flex flex-col relative">

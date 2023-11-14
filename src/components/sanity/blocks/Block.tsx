@@ -25,7 +25,7 @@ export const Block: FC<BlockProps> = ({
         styles.block,
         className,
         grid ? 'md:grid md:grid-cols-3' : '',
-        `relative flex-auto md:pr-menu`
+        `relative flex-auto md:pr-fullmenu`
       )}
       {...props}
     >

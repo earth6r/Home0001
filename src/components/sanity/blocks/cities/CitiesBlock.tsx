@@ -1,6 +1,11 @@
 import { type FC } from 'react'
 import classNames from 'classnames'
-import type { CitiesBlockProps, CitiesListProps, KeyedProperty } from './types'
+import type {
+  CitiesBlockProps,
+  CitiesListProps,
+  CityBlockPropertyType,
+  KeyedProperty,
+} from './types'
 import { Block, SanityLink, SanityMedia } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util'
 import { SanityLinkType } from '@studio/lib'
@@ -8,7 +13,6 @@ import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import NextLink from 'next/link'
 import { useWaitlisModal } from '@contexts/modals'
-import { Property } from '@studio/gen/sanity-schema'
 import Link from 'next/link'
 
 const CITY_ORDER = [
@@ -69,6 +73,47 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
   </ul>
 )
 
+const PropertySummary: FC<CityBlockPropertyType> = ({
+  image,
+  longTitle,
+  slug,
+}) => (
+  <div className="hidden md:flex md:sticky md:top-[var(--gradient-height)] md:left-0 md:self-start">
+    <Link href={`/property/${slug.current}`}>
+      {image && (
+        <div className="block relative w-full mb-yhalf z-base">
+          <SanityMedia
+            imageProps={{
+              alt: image.alt || 'Building image',
+              layout: 'responsive',
+              quality: 8,
+              priority: true,
+              lqip: (image?.image as any)?.asset?.metadata?.lqip,
+            }}
+            {...(image as any)}
+          />
+        </div>
+      )}
+      {longTitle && (
+        <div
+          className={classNames(
+            'flex gap-1 items-start mobile-landing text-left uppercase'
+          )}
+        >
+          <IconRightArrowBold className="mt-1 home-svg" />
+          <span
+            className={classNames(
+              'inline-block w-[calc(100%-49px)] leading-none underline'
+            )}
+          >
+            {longTitle}
+          </span>
+        </div>
+      )}
+    </Link>
+  </div>
+)
+
 export const CitiesBlock: FC<CitiesBlockProps> = ({
   headers,
   citiesList,
@@ -88,11 +133,9 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
 
   const sortedCities = citiesList?.sort(customSort)
 
-  console.log('properties: ', properties)
-
   return (
     <Block className={classNames(className, 'mb-page')} grid={false}>
-      <div className="grid grid-cols-3 gap-16">
+      <div className="grid md:grid-cols-3 gap-12 md:gap-16">
         <div className="flex flex-col gap-12 md:gap-16">
           {headers &&
             headers.map((header, index) => {
@@ -123,6 +166,51 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                       </NextLink>
                     </div>
                   )}
+
+                  {index === headers.length - 2 && (
+                    <>
+                      {properties &&
+                        (properties as KeyedProperty[])?.map(
+                          ({ image, longTitle, slug }) => (
+                            <div key={slug.current} className="md:hidden mt-12">
+                              <Link href={`/property/${slug.current}`}>
+                                {image && (
+                                  <div className="block relative w-full mb-yhalf z-base">
+                                    <SanityMedia
+                                      imageProps={{
+                                        alt: image.alt || 'Building image',
+                                        layout: 'responsive',
+                                        quality: 8,
+                                        priority: true,
+                                        lqip: (image?.image as any)?.asset
+                                          ?.metadata?.lqip,
+                                      }}
+                                      {...(image as any)}
+                                    />
+                                  </div>
+                                )}
+                                {longTitle && (
+                                  <div
+                                    className={classNames(
+                                      'flex gap-1 items-start mobile-landing text-left uppercase'
+                                    )}
+                                  >
+                                    <IconRightArrowBold className="mt-1 home-svg" />
+                                    <span
+                                      className={classNames(
+                                        'inline-block w-[calc(100%-49px)] leading-none underline'
+                                      )}
+                                    >
+                                      {longTitle}
+                                    </span>
+                                  </div>
+                                )}
+                              </Link>
+                            </div>
+                          )
+                        )}
+                    </>
+                  )}
                 </div>
               )
             })}
@@ -145,25 +233,12 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
 
         {properties &&
           (properties as KeyedProperty[])?.map(({ image, longTitle, slug }) => (
-            <div key={slug.current}>
-              <Link href={`/property/${slug.current}`}>
-                {image && (
-                  <div className="block relative w-full mb-yhalf z-base">
-                    <SanityMedia
-                      imageProps={{
-                        alt: image.alt || 'Building image',
-                        layout: 'responsive',
-                        quality: 8,
-                        priority: true,
-                        lqip: (image?.image as any)?.asset?.metadata?.lqip,
-                      }}
-                      {...(image as any)}
-                    />
-                  </div>
-                )}
-                {longTitle && <h2>{longTitle}</h2>}
-              </Link>
-            </div>
+            <PropertySummary
+              key={slug.current}
+              image={image}
+              longTitle={longTitle}
+              slug={slug}
+            />
           ))}
       </div>
     </Block>

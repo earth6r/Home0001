@@ -45,6 +45,7 @@
     --space-y: 2.5rem;
 
     --space-menu: 5.625rem;
+    --space-full-menu: 15rem;
     --space-page: 126px;
 
     --header-height: 80px;
@@ -59,10 +60,6 @@ body,
   height: 100%;
 }
 /* stylelint-enable selector-id-pattern */
-
-article {
-  overflow-x: hidden;
-}
 
 ::selection {
   color: white;
