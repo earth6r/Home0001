@@ -37,6 +37,7 @@ export default {
         ydouble: 'var(--space-y-double)',
         ylg: 'var(--space-y-lg)',
         menu: 'var(--space-menu)',
+        fullmenu: 'var(--space-full-menu)',
         input: 'var(--input-size)',
         block: 'var(--space-block)',
         btn: 'var(--btn-height)',
