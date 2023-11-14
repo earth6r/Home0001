@@ -161,6 +161,13 @@ export interface Property extends SanityDocument {
   title?: string;
 
   /**
+   * Long Title — `string`
+   *
+   * Used on the Cities Block property link
+   */
+  longTitle?: string;
+
+  /**
    * Slug — `slug`
    *
    *
@@ -170,7 +177,7 @@ export interface Property extends SanityDocument {
   /**
    * Header Text — `string`
    *
-   *
+   * Used for page breadcrumb
    */
   headerText?: string;
 
@@ -830,6 +837,13 @@ export type CitiesBlock = {
   headers?: Array<SanityKeyed<string>>;
 
   /**
+   * Properties — `array`
+   *
+   *
+   */
+  properties?: Array<SanityKeyedReference<Property>>;
+
+  /**
    * Cities — `array`
    *
    *
@@ -837,11 +851,18 @@ export type CitiesBlock = {
   citiesList?: Array<SanityKeyedReference<City>>;
 
   /**
-   * Headers Bottom — `array`
+   * Cities Position — `number`
    *
    *
    */
-  headersBottom?: Array<SanityKeyed<string>>;
+  citiesPosition?: number;
+
+  /**
+   * How It Works Position — `number`
+   *
+   *
+   */
+  howItWorksPosition?: number;
 };
 
 export type NewsletterBlock = {
