@@ -6,10 +6,12 @@ import styles from './block.module.css'
 
 export interface BlockProps extends HTMLAttributes<HTMLDivElement> {
   slug?: Slug | undefined
+  grid?: boolean
 }
 
 export const Block: FC<BlockProps> = ({
   slug,
+  grid = true,
   children,
   className,
   ...props
@@ -22,7 +24,8 @@ export const Block: FC<BlockProps> = ({
       className={classNames(
         styles.block,
         className,
-        `md:grid md:grid-cols-3 relative flex-auto md:pr-menu`
+        grid ? 'md:grid md:grid-cols-3' : '',
+        `relative flex-auto md:pr-fullmenu`
       )}
       {...props}
     >

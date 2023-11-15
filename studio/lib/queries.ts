@@ -139,7 +139,14 @@ export const BODY_QUERY = `
     },
     "citiesList": citiesList[]->{
       ...,
-      ${CITY_QUERY}
-    }
+      ${CITY_QUERY},
+    },
+    "properties": properties[]->{
+      "image": image{
+        ${MEDIA_QUERY}
+      },
+      longTitle,
+      slug,
+    },
   },
 `

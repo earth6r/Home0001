@@ -14,6 +14,13 @@ export default {
       of: [{ type: 'string', name: 'header' }],
     },
     {
+      name: 'properties',
+      type: 'array',
+      title: 'Properties',
+      of: [{ type: 'reference', to: [{ type: 'property' }] }],
+      validation: (Rule: Rule): Rule => Rule.max(2),
+    },
+    {
       name: 'citiesList',
       title: 'Cities',
       type: 'array',
@@ -21,10 +28,14 @@ export default {
       validation: (Rule: Rule): Rule => Rule.required().min(1),
     },
     {
-      name: 'headersBottom',
-      title: 'Headers Bottom',
-      type: 'array',
-      of: [{ type: 'string', name: 'header' }],
+      name: 'citiesPosition',
+      title: 'Cities Position',
+      type: 'number',
+    },
+    {
+      name: 'howItWorksPosition',
+      title: 'How It Works Position',
+      type: 'number',
     },
   ],
   preview: {
