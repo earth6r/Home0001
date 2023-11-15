@@ -22,6 +22,12 @@ export default {
       validation: (Rule: Rule): Rule => Rule.required(),
     },
     {
+      name: 'longTitle',
+      title: 'Long Title',
+      type: 'string',
+      description: 'Used on the Cities Block property link',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -30,7 +36,12 @@ export default {
         maxLength: 96,
       },
     },
-    { name: 'headerText', type: 'string', title: 'Header Text' },
+    {
+      name: 'headerText',
+      type: 'string',
+      title: 'Header Text',
+      description: 'Used for page breadcrumb',
+    },
     {
       name: 'header',
       type: 'richText',
