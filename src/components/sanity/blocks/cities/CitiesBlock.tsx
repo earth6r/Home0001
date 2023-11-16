@@ -103,7 +103,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           <IconRightArrowBold className="mt-1 home-svg" />
           <span
             className={classNames(
-              'inline-block w-[calc(100%-49px)] underline underline-offset-[8px]'
+              'inline-block w-[calc(100%-49px)] underline underline-offset-[0.2em]'
             )}
           >
             {longTitle}
@@ -195,10 +195,10 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                                       'flex gap-1 items-start mobile-landing text-left uppercase'
                                     )}
                                   >
-                                    <IconRightArrowBold className="mt-1 home-svg" />
+                                    <IconRightArrowBold className="mt-2 home-svg" />
                                     <span
                                       className={classNames(
-                                        'pr-menu inline-block w-[calc(100%-49px)] text-under underline underline-offset-[8px]'
+                                        'pr-menu inline-block w-[calc(100%-49px)] text-under underline underline-offset-[0.2em]'
                                       )}
                                     >
                                       {longTitle}
