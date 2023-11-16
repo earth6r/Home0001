@@ -103,7 +103,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           <IconRightArrowBold className="mt-1 home-svg" />
           <span
             className={classNames(
-              'inline-block w-[calc(100%-49px)] leading-none underline'
+              'inline-block w-[calc(100%-49px)] underline underline-offset-[8px]'
             )}
           >
             {longTitle}
@@ -141,7 +141,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
             headers.map((header, index) => {
               return (
                 <div key={header}>
-                  <h2 className="max-w-[390px] mobile-landing md:mobile-landing uppercase pr-[10%]">
+                  <h2 className="max-w-[390px] mobile-landing md:mobile-landing uppercase pr-menu md:pr-0">
                     {header}
                   </h2>
 
@@ -198,7 +198,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                                     <IconRightArrowBold className="mt-1 home-svg" />
                                     <span
                                       className={classNames(
-                                        'inline-block w-[calc(100%-49px)] leading-none underline'
+                                        'pr-menu inline-block w-[calc(100%-49px)] text-under underline underline-offset-[8px]'
                                       )}
                                     >
                                       {longTitle}
@@ -214,21 +214,22 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                 </div>
               )
             })}
-
-          <button
-            aria-label={`Join waitlist`}
-            onClick={() => {
-              setWaitlistOpen(true)
-            }}
-            className={classNames(
-              `w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 bg-black text-white z-above p-4`
-            )}
-          >
-            <span className="mb-0 py-2 text-left uppercase">
-              {`Join waitlist`}
-            </span>
-            <IconSmallArrow width="22" height="10" />
-          </button>
+          <div className="pr-menu md:pr-0">
+            <button
+              aria-label={`Join waitlist`}
+              onClick={() => {
+                setWaitlistOpen(true)
+              }}
+              className={classNames(
+                `w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 bg-black text-white z-above p-4`
+              )}
+            >
+              <span className="mb-0 py-2 text-left uppercase">
+                {`Join waitlist`}
+              </span>
+              <IconSmallArrow width="22" height="10" />
+            </button>
+          </div>
         </div>
 
         {properties &&

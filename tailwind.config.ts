@@ -112,10 +112,10 @@ export default {
             'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0.96) 50%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,0) 100%)',
         },
         '.mobile-landing': {
-          fontSize: '4.5vh',
+          fontSize: '1.9rem',
           lineHeight: '1.2',
           '@screen md': {
-            fontSize: 'clamp(12px,2.6vw,40px)',
+            fontSize: 'clamp(12px,2.5vw,40px)',
           },
         },
         '.home-svg': {
