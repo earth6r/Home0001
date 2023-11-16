@@ -65,7 +65,8 @@ const Pane: FC<PaneProps> = ({
 
         <div className={classNames('relative flex w-full h-btn bottom-0')}>
           <div className="absolute w-full h-[175%] modal-gradient left-0 bottom-0 z-above" />
-          {currentStep && currentStep > 0 && (
+
+          {currentStep && currentStep > 0 ? (
             <button
               className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"
               type={'button'}
@@ -78,7 +79,8 @@ const Pane: FC<PaneProps> = ({
                 className="transform rotate-180"
               />
             </button>
-          )}
+          ) : null}
+
           <button
             className="relative flex justify-between items-center w-full px-x md:px-xhalf tracking-normal h-btn text-center tracking-caps uppercase text-white bg-black z-above"
             type={buttonType || 'submit'}
