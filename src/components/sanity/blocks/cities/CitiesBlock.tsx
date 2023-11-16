@@ -78,7 +78,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   longTitle,
   slug,
 }) => (
-  <div className="hidden md:flex md:sticky md:top-[var(--gradient-height)] md:left-0 md:self-start">
+  <div className="hidden md:flex md:sticky md:top-[126px] md:left-0 md:self-start">
     <Link href={`/property/${slug.current}`}>
       {image && (
         <div className="block relative w-full mb-yhalf z-base">
@@ -134,7 +134,10 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   const sortedCities = citiesList?.sort(customSort)
 
   return (
-    <Block className={classNames(className, 'mb-page')} grid={false}>
+    <Block
+      className={classNames(className, 'mb-page', '-ml-[2px]')}
+      grid={false}
+    >
       <div className="grid md:grid-cols-3 gap-12 md:gap-16">
         <div className="flex flex-col gap-12 md:gap-16">
           {headers &&
