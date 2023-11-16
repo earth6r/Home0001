@@ -78,7 +78,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   longTitle,
   slug,
 }) => (
-  <div className="hidden md:flex md:sticky md:top-[var(--gradient-height)] md:left-0 md:self-start">
+  <div className="hidden md:flex md:sticky md:top-[126px] md:left-0 md:self-start">
     <Link href={`/property/${slug.current}`}>
       {image && (
         <div className="block relative w-full mb-yhalf z-base">
