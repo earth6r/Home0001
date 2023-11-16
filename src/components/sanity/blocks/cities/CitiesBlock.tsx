@@ -134,7 +134,10 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   const sortedCities = citiesList?.sort(customSort)
 
   return (
-    <Block className={classNames(className, 'mb-page')} grid={false}>
+    <Block
+      className={classNames(className, 'mb-page', '-ml-[2px]')}
+      grid={false}
+    >
       <div className="grid md:grid-cols-3 gap-12 md:gap-16">
         <div className="flex flex-col gap-12 md:gap-16">
           {headers &&
