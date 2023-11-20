@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 import { IconLeftArrow, IconRightArrow } from '@components/icons'
 import classNames from 'classnames'
+import { SCREENS } from '@/globals'
 import { Media } from '@studio/gen/sanity-schema'
 
 export interface ImageSlideProps extends SanityMediaProps {
@@ -39,6 +40,14 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   slides,
   className,
 }) => {
+  const breakpoints: SwiperOptions['breakpoints'] = {
+    0: {
+      slidesPerView: 1.1,
+    },
+    [SCREENS.md]: {
+      slidesPerView: 'auto',
+    },
+  }
   return (
     <div className={classNames(className, 'relative')}>
       {slides && slides.length > 1 ? (
@@ -46,6 +55,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           loop={false}
           slidesPerView={1}
           spaceBetween={16}
+          breakpoints={breakpoints}
           navigation={{
             nextEl: `.swiper-next-${index}`,
             prevEl: `.swiper-prev-${index}`,
