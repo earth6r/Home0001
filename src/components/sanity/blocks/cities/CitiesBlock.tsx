@@ -195,7 +195,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                                 {longTitle && (
                                   <div
                                     className={classNames(
-                                      'flex gap-1 items-start mobile-landing text-left uppercase'
+                                      'flex gap-1 items-start mobile-landing items-center text-left uppercase'
                                     )}
                                   >
                                     <IconRightArrowBold className="mt-2 home-svg" />
