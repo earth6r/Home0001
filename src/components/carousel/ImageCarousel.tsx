@@ -1,10 +1,16 @@
-import { type FC, HTMLAttributes } from 'react'
+import { type FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
+import { Media } from '@studio/gen/sanity-schema'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
+import type { SwiperOptions } from 'swiper'
 import { IconLeftArrow, IconRightArrow } from '@components/icons'
 import classNames from 'classnames'
-import { Media } from '@studio/gen/sanity-schema'
+import { SCREENS } from '@/globals'
+
+// eslint-disable-next-line import/no-unresolved
+import PhotoSwipeLightbox from 'photoswipe/lightbox'
+import 'photoswipe/style.css'
 
 export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
@@ -14,6 +20,9 @@ export interface ImageSlideProps extends SanityMediaProps {
 
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   index?: string
+  carousel?: boolean
+  zoomWidth?: number
+  zoomHeight?: number
   slides?: (Media & { _key: string })[]
 }
 
@@ -36,16 +45,55 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
 
 export const ImageCarousel: FC<ImageCarouselProps> = ({
   index = '0',
+  carousel,
+  // zoomWidth,
+  // zoomHeight,
   slides,
   className,
 }) => {
+  const slidesRef = useRef(null)
+  const breakpoints: SwiperOptions['breakpoints'] = {
+    0: {
+      slidesPerView: 1.1,
+    },
+    [SCREENS.md]: {
+      slidesPerView: 'auto',
+    },
+  }
+
+  useEffect(() => {
+    if (!slidesRef?.current || typeof window === 'undefined') return
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: slidesRef.current,
+      children: '.swiper-slide',
+
+      showHideAnimationType: 'none',
+      zoomAnimationDuration: false,
+
+      counter: false,
+
+      initialZoomLevel: 'fit',
+      secondaryZoomLevel: 2.0,
+      maxZoomLevel: 2.0,
+
+      pswpModule: () => import('photoswipe'),
+    })
+    lightbox.init()
+
+    return () => {
+      lightbox.destroy()
+    }
+  }, [])
+
   return (
     <div className={classNames(className, 'relative')}>
       {slides && slides.length > 1 ? (
         <Swiper
+          ref={slidesRef}
           loop={false}
           slidesPerView={1}
           spaceBetween={16}
+          breakpoints={breakpoints}
           navigation={{
             nextEl: `.swiper-next-${index}`,
             prevEl: `.swiper-prev-${index}`,
@@ -58,12 +106,31 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide key={`${_key}-${alt}`}>
               {image && alt && (
-                <ImageSlide
-                  className="max-w-[560px] md:max-w-[unset] px-4 h-full w-full object-cover"
-                  image={image as any}
-                  index={index}
-                  alt={alt}
-                />
+                <>
+                  {carousel ? (
+                    <a
+                      href={`https://cdn.sanity.io/${
+                        (image.asset as any).path
+                      }`}
+                      data-pswp-width={1000}
+                      data-pswp-height={1100}
+                    >
+                      <ImageSlide
+                        className="max-w-[560px] md:max-w-[unset] px-4 h-full w-full object-cover"
+                        image={image as any}
+                        index={index}
+                        alt={alt}
+                      />
+                    </a>
+                  ) : (
+                    <ImageSlide
+                      className="max-w-[560px] md:max-w-[unset] px-4 h-full w-full object-cover"
+                      image={image as any}
+                      index={index}
+                      alt={alt}
+                    />
+                  )}
+                </>
               )}
             </SwiperSlide>
           ))}

@@ -51,6 +51,11 @@ export interface KeyedUnitProps
   unitDetails?: SanityKeyed<Accordion>[]
   secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]
+  layoutImagesOptions?: {
+    carousel?: boolean
+    zoomWidth?: number
+    zoomHeight?: number
+  }
   moreInfo?: RichText
 }
 

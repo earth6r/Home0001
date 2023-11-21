@@ -14,7 +14,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 }) => {
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
-    <div className={classNames(className)}>
+    <div className={classNames(className, 'overflow-x-hidden')}>
       <h2 className="mobile-landing uppercase mb-12">
         HOME0001
         <br />
