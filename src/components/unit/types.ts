@@ -44,11 +44,6 @@ export interface KeyedUnitProps
       }
     | Media
   photographs?: SanityKeyed<Media>[]
-  photoOptions?: {
-    carousel?: boolean
-    zoomWidth?: number
-    zoomHeight?: number
-  }
   reserveFormCopy?: RichText
   confirmationCopy?: RichText
   summary?: RichText
