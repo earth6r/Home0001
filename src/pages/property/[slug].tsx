@@ -44,8 +44,11 @@ const PropertyPage: NextPage<PageProps> = (
   return page?.header && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
-        <div className="px-x  md:pr-menu">
-          <Property property={page} className="pt-page" />
+        <div className="">
+          <Property
+            property={page}
+            className="w-full pt-page px-x md:pr-menu"
+          />
         </div>
       </article>
     </PageTransition>
