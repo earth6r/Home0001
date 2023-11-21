@@ -380,6 +380,35 @@ export interface Unit extends SanityDocument {
   photographs?: Array<SanityKeyed<Media>>;
 
   /**
+   * Photo Options — `object`
+   *
+   *
+   */
+  photoOptions?: {
+    _type: "photoOptions";
+    /**
+     * Carousel — `boolean`
+     *
+     *
+     */
+    carousel?: boolean;
+
+    /**
+     * Zoom Width — `number`
+     *
+     *
+     */
+    zoomWidth?: number;
+
+    /**
+     * Zoom Height — `number`
+     *
+     *
+     */
+    zoomHeight?: number;
+  };
+
+  /**
    * Summary — `richText`
    *
    *
@@ -399,6 +428,35 @@ export interface Unit extends SanityDocument {
    *
    */
   layoutImages?: Array<SanityKeyed<Media>>;
+
+  /**
+   * Layout Images Options — `object`
+   *
+   *
+   */
+  layoutImagesOptions?: {
+    _type: "layoutImagesOptions";
+    /**
+     * Carousel — `boolean`
+     *
+     *
+     */
+    carousel?: boolean;
+
+    /**
+     * Zoom Width — `number`
+     *
+     *
+     */
+    zoomWidth?: number;
+
+    /**
+     * Zoom Height — `number`
+     *
+     *
+     */
+    zoomHeight?: number;
+  };
 
   /**
    * Reservation Form Info — `richText`

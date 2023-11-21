@@ -98,6 +98,15 @@ body {
   right: 0.625rem !important;
 }
 
+.pswp img {
+  max-width: none;
+  object-fit: contain;
+}
+
+.pswp__img--placeholder {
+  display: none !important;
+}
+
 @media (min-width: 768px) {
   .intercom-lightweight-app-launcher {
     right: 2.5rem !important;

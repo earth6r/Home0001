@@ -44,6 +44,11 @@ export interface KeyedUnitProps
       }
     | Media
   photographs?: SanityKeyed<Media>[]
+  photoOptions?: {
+    carousel?: boolean
+    zoomWidth?: number
+    zoomHeight?: number
+  }
   reserveFormCopy?: RichText
   confirmationCopy?: RichText
   summary?: RichText
@@ -51,6 +56,11 @@ export interface KeyedUnitProps
   unitDetails?: SanityKeyed<Accordion>[]
   secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]
+  layoutImagesOptions?: {
+    carousel?: boolean
+    zoomWidth?: number
+    zoomHeight?: number
+  }
   moreInfo?: RichText
 }
 

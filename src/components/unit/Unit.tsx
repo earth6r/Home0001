@@ -39,6 +39,8 @@ export const UnitComponent: FC<UnitElProps> = ({
     if (formRef.current) scrollToEl(formRef.current)
   }, [formActive])
 
+  console.log(unit)
+
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 md:pr-menu px-x">
@@ -49,6 +51,7 @@ export const UnitComponent: FC<UnitElProps> = ({
               <ImageCarousel
                 index="0"
                 slides={unit?.photographs}
+                carousel={true}
                 className="w-full"
               />
             )}
@@ -90,6 +93,7 @@ export const UnitComponent: FC<UnitElProps> = ({
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (
             <ImageCarousel
               index="1"
+              carousel={true}
               slides={unit?.layoutImages}
               className="w-full"
             />
