@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { ImageCarousel } from '@components/carousel'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { redirect } from 'next/navigation'
+
 export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
@@ -50,6 +51,8 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
   if (!unit) return null
   const summaryPhotos = unit?.photographs?.slice(0, 4)
 
+  console.log(unit.photographs)
+
   return (
     <li>
       <Link
@@ -73,23 +76,15 @@ export const UnitSummary: FC<UnitListProps> = ({ unit }) => {
             </p>
           </div>
           <div className="mb-5 z-above">
-            <SanityMedia
-              image={unit.headlineImage?.image as any}
-              imageProps={{
-                alt: unit.headlineImage?.alt || 'Home0001 Headline Image',
-                style: { maxWidth: '100%', height: 'auto' },
-                lqip: (unit.headlineImage?.image as any)?.asset?.metadata.lqip,
-                quality: 8,
-              }}
-            />
             <div className="flex flex-col relative mt-4">
-              {/* {unit?.photographs && unit?.photographs.length > 0 && (
-              <ImageCarousel
-                index="0"
-                slides={summaryPhotos}
-                className="md:max-w-[400px] max-w-[50%]"
-              />
-            )} */}
+              {unit?.photographs && unit?.photographs.length > 0 && (
+                <ImageCarousel
+                  index="0"
+                  slides={unit?.photographs}
+                  carousel={true}
+                  className="md:max-w-[400px] max-w-[50%]"
+                />
+              )}
               <div className="justify-self-stretch w-full ">
                 <div className="mb-2 text-left rich-text">
                   {unit.area && (
