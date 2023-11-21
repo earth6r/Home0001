@@ -61,8 +61,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
     },
   }
 
-  console.log('carousel: ', carousel)
-
   useEffect(() => {
     if (!slidesRef?.current || typeof window === 'undefined') return
     const lightbox = new PhotoSwipeLightbox({
