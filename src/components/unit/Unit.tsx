@@ -61,7 +61,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                 </p>
               )}
             </div>
-            <div className="pr-menu md:pr-0 my-ydouble md:my-y text-xs font-bold">
+            <div className="pr-menu md:pr-0 mb-ydouble md:mb-y text-xs font-bold">
               <p className="m-0">
                 {unit?.price == 'Inquire' ? 'Price upon request' : unit?.price}
               </p>
@@ -83,7 +83,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                   key={_key}
                   header={header}
                   text={text}
-                  className="mb-ydouble md:mb-y mr-menu md:mr-0 border-x-0 border-t-0 font-bold"
+                  className="mb-ydouble md:mb-y mr-menu md:mr-0 border-x-0 border-t-0 font-bold text-xs"
                 />
               ))}
 
@@ -92,7 +92,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                 onClick={() => setWaitlistModal(true)}
                 className={classNames(
                   formActive ? 'bg-white text-black' : 'bg-black text-white',
-                  'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white uppercase font-bold z-above p-4'
+                  'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-bold z-above p-4'
                 )}
               >
                 {`Join the waitlist for this home`}

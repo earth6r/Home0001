@@ -46,7 +46,9 @@ const Pane: FC<PaneProps> = ({
       <>
         <div className="w-full h-[calc(100%-var(--btn-height))] overflow-scroll">
           {header && (
-            <h2 className="pb-ylg uppercase">{header || `Join waitlist`}</h2>
+            <h2 className="pb-ylg uppercase text-xs font-bold">
+              {header || `Join waitlist`}
+            </h2>
           )}
 
           {typeof copy === 'string' ? (
@@ -82,7 +84,7 @@ const Pane: FC<PaneProps> = ({
           ) : null}
 
           <button
-            className="relative flex justify-between items-center w-full px-x md:px-xhalf tracking-normal h-btn text-center tracking-caps uppercase text-white bg-black z-above"
+            className="relative flex justify-between items-center w-full px-x md:px-xhalf tracking-normal h-btn text-center tracking-caps uppercase text-white bg-black font-bold text-xs z-above"
             type={buttonType || 'submit'}
             onClick={onClick}
           >
