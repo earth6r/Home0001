@@ -11,8 +11,8 @@ export const Waitlist: FC<WaitlistProps> = ({ buttonText, className }) => {
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
     <div className={classNames(className)}>
-      <div className="pl-x pr-menu md:px-x py-ydouble md:p-14 bg-yellow">
-        <div className="max-w-[436px]">
+      <div className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] md:px-x py-ydouble md:p-14 bg-yellow">
+        <div className="md:max-w-[436px]">
           <h2 className="text-title md:text-xl md:tracking-tighter uppercase">{`Join the waitlist:`}</h2>
 
           <div className="rich-text my-ydouble md:my-y">

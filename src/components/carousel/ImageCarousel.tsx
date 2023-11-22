@@ -25,8 +25,8 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   slides?: (Media & { _key: string })[]
 }
 
-const ICON_LEFT = `<svg style="transform: rotate(180deg)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 10" > <path fill="#FFF" d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z" /> </svg>`
-const ICON_RIGHT = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 10" > <path fill="#FFF" d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z" /> </svg>`
+const ICON_LEFT = `<svg width="30" style="transform: rotate(180deg); position: relative; left: -15px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 10" > <path fill="#FFF" d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z" /> </svg>`
+const ICON_RIGHT = `<svg width="30" style="position: relative; right: -15px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 10" > <path fill="#FFF" d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z" /> </svg>`
 const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 40 40"> <path stroke="#FFF" d="m8 8 24 24m0-24L8 32" /> </svg>`
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
@@ -47,15 +47,15 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
 }
 
 export const ImageCarousel: FC<ImageCarouselProps> = ({
-  index = '0',
   carousel,
   slides,
   className,
 }) => {
+  console.log(slides)
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
-      slidesPerView: 1.1,
+      slidesPerView: 1.18,
     },
     [SCREENS.md]: {
       slidesPerView: 'auto',
@@ -63,14 +63,14 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   }
 
   useEffect(() => {
-    if (!slidesRef?.current || typeof window === 'undefined') return
+    if (!slidesRef?.current || typeof window === 'undefined' || !carousel)
+      return
     const lightbox = new PhotoSwipeLightbox({
       gallery: slidesRef.current,
       children: '.swiper-slide',
       arrowPrevSVG: ICON_LEFT,
       arrowNextSVG: ICON_RIGHT,
       closeSVG: ICON_CLOSE,
-      zoomSVG: '',
 
       showHideAnimationType: 'none',
       zoomAnimationDuration: false,

@@ -16,7 +16,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         HOME0001: {property?.title}
       </h2>
       <div className="md:grid md:grid-cols-3 gap-14 md:col-start-1 block relative">
-        <div className="flex flex-col justify-start items-start md:sticky top-[var(--header-height)] left-0 md:h-[600px]">
+        <div className="flex flex-col justify-start items-start md:sticky top-[var(--header-height)] left-0 md:h-[48vw]">
           {property?.image && (
             <div className="block relative w-full mb-10 z-base">
               <SanityMedia
