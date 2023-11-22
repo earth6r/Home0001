@@ -78,7 +78,7 @@ export const Header: FC<HeaderProps> = ({
             </Link>
           )}
 
-          {path?.includes('unit') && <span>&nbsp;&gt;</span>}
+          {path?.includes('unit') && <span>:</span>}
           {(path?.includes('property') || path?.includes('unit')) && (
             <span className="uppercase">&nbsp;{`${currentTitle}`}</span>
           )}

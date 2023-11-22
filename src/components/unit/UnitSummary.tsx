@@ -77,7 +77,6 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 index="0"
                 slides={unit?.photographs}
                 carousel={true}
-                arrows={false}
                 className="md:max-w-[346px] mb-4"
               />
             )}
