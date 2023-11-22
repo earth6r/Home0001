@@ -9,6 +9,7 @@ import {
   CitiesBlock,
   NewsletterBlock,
   ContactBlock,
+  CarouselBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
@@ -25,6 +26,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ...blockTypes,
             accordionBlock: ({ index, value }) => (
               <AccordionBlock index={index} {...value} />
+            ),
+            carouselBlock: ({ index, value }) => (
+              <CarouselBlock index={index} {...value} />
             ),
             citiesBlock: ({ index, value }) => (
               <CitiesBlock index={index} {...value} />

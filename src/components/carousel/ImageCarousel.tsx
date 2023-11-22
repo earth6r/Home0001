@@ -21,8 +21,7 @@ export interface ImageSlideProps extends SanityMediaProps {
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   index?: string
   carousel?: boolean
-  zoomWidth?: number
-  zoomHeight?: number
+  arrows?: boolean
   slides?: (Media & { _key: string })[]
 }
 
@@ -46,8 +45,7 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
 export const ImageCarousel: FC<ImageCarouselProps> = ({
   index = '0',
   carousel,
-  // zoomWidth,
-  // zoomHeight,
+  arrows = true,
   slides,
   className,
 }) => {
@@ -135,24 +133,26 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             </SwiperSlide>
           ))}
 
-          <div className="mt-4">
-            <div className="flex justify-start items-center max-w-[560px] md:max-w-[unset]">
-              <button
-                className={classNames(
-                  `swiper-prev-${index} review-swiper-button-prev disabled:shadow-none disabled:bg-transparent disabled:opacity-40 mr-2`
-                )}
-              >
-                <IconLeftArrow width="22" height="10" />
-              </button>
-              <button
-                className={classNames(
-                  `swiper-next-${index} disabled:shadow-none disabled:bg-transparent disabled:opacity-40`
-                )}
-              >
-                <IconRightArrow width="22" height="10" />
-              </button>
+          {arrows && (
+            <div className="mt-4">
+              <div className="flex justify-start items-center max-w-[560px] md:max-w-[unset]">
+                <button
+                  className={classNames(
+                    `swiper-prev-${index} review-swiper-button-prev disabled:shadow-none disabled:bg-transparent disabled:opacity-40 mr-2`
+                  )}
+                >
+                  <IconLeftArrow width="22" height="10" />
+                </button>
+                <button
+                  className={classNames(
+                    `swiper-next-${index} disabled:shadow-none disabled:bg-transparent disabled:opacity-40`
+                  )}
+                >
+                  <IconRightArrow width="22" height="10" />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </Swiper>
       ) : (
         <div className="flex items-center overflow-hidden">

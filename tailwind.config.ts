@@ -16,6 +16,7 @@ export default {
       backgroundColor: {
         whitesmoke: '#F3F3F3',
         gray: '#EDEDED',
+        darkgray: '#E9E9E9',
       },
       screens,
       fontFamily: {
@@ -99,6 +100,9 @@ export default {
         },
         '.border-black': {
           border: '1px solid black',
+        },
+        '.border-top': {
+          borderTop: '1px solid black',
         },
         '.border-bottom': {
           borderBottom: '1.5px solid black',

@@ -57,13 +57,21 @@ export default {
       type: 'coordinates',
       name: 'coordinates',
     },
+    // {
+    //   name: 'description',
+    //   type: 'richText',
+    //   title: 'Description',
+    // },
     {
-      name: 'description',
-      type: 'richText',
-      title: 'Description',
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
     },
-    { name: 'waitlistLinkText', title: 'Waitlist Link Text', type: 'string' },
-
+    {
+      name: 'waitlistLinkText',
+      title: 'Waitlist Link Text',
+      type: 'string',
+    },
     {
       title: 'Location',
       name: 'location',
@@ -74,19 +82,23 @@ export default {
         getOptionLabel: (reference: any) => `${reference.title}`,
       },
     },
-    { name: 'availableText', title: 'Available Text', type: 'string' },
+    {
+      name: 'availableText',
+      title: 'Available Text',
+      type: 'string',
+    },
     {
       name: 'unitsList',
       title: 'Units',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'unit' }] }],
     },
-    {
-      name: 'propertyDetails',
-      title: 'Property Details',
-      type: 'array',
-      of: [{ type: 'accordion', title: 'Property Details' }],
-    },
+    // {
+    //   name: 'propertyDetails',
+    //   title: 'Property Details',
+    //   type: 'array',
+    //   of: [{ type: 'accordion', title: 'Property Details' }],
+    // },
     {
       name: 'previewImage',
       title: 'Preview Image',
