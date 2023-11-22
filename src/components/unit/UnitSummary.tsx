@@ -56,7 +56,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
       <div
         className={classNames(
           unit.available ? '' : 'bg-white shadow-none opacity-30',
-          `w-full flex-col px-4`
+          `w-full flex-col px-4 md:px-0`
         )}
       >
         <div className="flex flex-col gap-1 mb-4">
@@ -72,10 +72,10 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                 slides={unit?.photographs}
                 carousel={true}
                 arrows={false}
-                className="md:max-w-[400px] mb-4"
+                className="md:max-w-[346px] mb-4"
               />
             )}
-            <div className="block w-full bg-darkgray py-x pl-x pr-menu">
+            <div className="block w-full max-w-[467px] bg-darkgray py-x pl-x pr-menu">
               <div className="mb-2 text-left rich-text">
                 <p className="small md:col-start-1 col-start-2 md:col-span-1 text-left">
                   {unit.price}

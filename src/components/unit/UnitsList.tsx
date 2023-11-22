@@ -14,7 +14,7 @@ export const UnitsList: FC<UnitListProps> = ({ unitList, className }) => {
               key={unit._id}
               unit={unit}
               className={classNames(
-                index !== 0 ? 'border-top pt-ylg mt-ylg' : ''
+                index !== 0 ? 'border-top pt-ylg md:pt-page mt-ylg' : ''
               )}
             />
           )

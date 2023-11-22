@@ -51,7 +51,7 @@ export const Header: FC<HeaderProps> = ({
       id="header"
       className={classNames(
         className,
-        'fixed w-full pointer-events-none z-header'
+        'fixed w-full pointer-events-none font-bold tracking-tighter text-xs z-header'
       )}
     >
       <header

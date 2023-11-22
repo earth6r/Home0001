@@ -597,7 +597,7 @@ export type Accordion = {
   /**
    * Initial Text — `richText`
    *
-   * Copy shown before accordion is expanded
+   * Copy shown before accordion is expanded (Read More accordions only)
    */
   initialText?: RichText;
 

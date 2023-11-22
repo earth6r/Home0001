@@ -13,6 +13,7 @@ type WaitlistBlockProps = Omit<SanityBlockElement, keyof WaitlistBlockType> &
 export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   header,
   text,
+  grid,
   audienceId,
   className,
 }) => {
@@ -24,7 +25,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'md:grid md:grid-cols-3 relative pr-menu'
+        grid ? 'md:grid md:grid-cols-3 pr-menu' : '',
+        'relative'
       )}
     >
       <div className="absolute md:relative w-[100vw] h-full -left-x bg-whitesmoke z-behind"></div>

@@ -44,6 +44,7 @@ const Page: NextPage<PageProps> = (
     <PageTransition ref={ref}>
       <article>
         <BlockContent
+          grid={true}
           blocks={page?.body}
           className="flex flex-col container pt-page"
         />
