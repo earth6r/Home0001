@@ -17,6 +17,7 @@ export default {
         whitesmoke: '#F3F3F3',
         gray: '#EDEDED',
         darkgray: '#E9E9E9',
+        yellow: '#FAFF00',
       },
       screens,
       fontFamily: {

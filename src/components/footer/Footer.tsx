@@ -13,10 +13,13 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer className={classNames('px-x mt-20 md:mt-y')}>
       <div>
-        <ul className="flex flex-col gap-10 md:gap-12 w-full">
+        <ul className="flex flex-col gap-14 md:gap-12 w-full">
           {mainMenu?.items?.map(({ _key, text, link }) => {
             return text && link ? (
-              <li key={_key} className="uppercase">
+              <li
+                key={_key}
+                className="font-bold text-xs tracking-tighter uppercase"
+              >
                 <SanityLink text={text} {...(link as SanityLinkType)} />
               </li>
             ) : null
@@ -24,9 +27,8 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         </ul>
       </div>
 
-      <p className="mb-4 md:mb-9 mt-20">
+      <p className="font-bold text-xs tracking-tighter leading-normal mb-4 md:mb-9 mt-20">
         &copy;{` ${year} HOME0001`}
-        <br />
         <br />
         NY DRE #10351211814 | CA DRE #01427385
       </p>
