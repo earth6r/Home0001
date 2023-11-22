@@ -4,7 +4,7 @@ fieldset {
 }
 
 .input {
-  @apply outline-none border-black bg-transparent placeholder:opacity-[36] px-4 py-2 h-10 w-full rounded-none;
+  @apply outline-none font-bold text-xs border-black bg-transparent placeholder:opacity-[36] px-4 py-2 h-10 w-full rounded-none;
 }
 
 input[type='checkbox'],
