@@ -21,7 +21,7 @@ export default {
       },
       screens,
       fontFamily: {
-        sans: ['Haas Gros Display', 'Arial', 'sans-serif', 'arial-unicode'],
+        sans: ['"Haas Grot Display"', 'Arial', 'sans-serif', 'arial-unicode'],
         serif: ['ui-serif', 'serif'],
         mono: ['ui-monospace', 'SFMono-Regular'],
       },
