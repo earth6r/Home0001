@@ -13,9 +13,8 @@ export const UnitsList: FC<UnitListProps> = ({ unitList, className }) => {
             <UnitSummary
               key={unit._id}
               unit={unit}
-              className={classNames(
-                index !== 0 ? 'border-top pt-ylg md:pt-page mt-ylg' : ''
-              )}
+              border={index !== 0}
+              className={classNames(index !== 0 ? 'mt-ylg' : '')}
             />
           )
         })}
