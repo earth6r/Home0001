@@ -60,7 +60,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
         )}
       >
         <div className="flex flex-col gap-1 mb-4">
-          <p className="col-start-1 text-left uppercase">
+          <p className="col-start-1 text-left text-lg uppercase">
             {unit.title && <span>{unit.title}</span>}
           </p>
         </div>
@@ -77,11 +77,11 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
             )}
             <div className="block w-full bg-darkgray py-x pl-x pr-menu">
               <div className="mb-2 text-left rich-text">
-                <p className="md:col-start-1 col-start-2 md:col-span-1 text-left">
+                <p className="small md:col-start-1 col-start-2 md:col-span-1 text-left">
                   {unit.price}
                 </p>
                 {unit.area && (
-                  <p className="mb-5">
+                  <p className="small mb-5">
                     {unit.area}
                     <br />
                     Fully furnished & equipped.
@@ -100,7 +100,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                 >
                   <button
                     className={classNames(
-                      `relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-full h-12 max-h-12 hover:invert bg-white z-above p-4`
+                      `relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-full h-12 max-h-12 hover:invert bg-white font-bold text-xs z-above p-4`
                     )}
                     onClick={() => {
                       updateUnit(unit, unit.title)
@@ -109,7 +109,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                     <span className="mb-0 py-2 text-left uppercase">
                       {`Explore ${unit?.title}`}
                     </span>
-                    <IconSmallArrow width="22" height="10" className="invert" />
+                    <IconSmallArrow width="22" height="12" className="invert" />
                   </button>
                 </Link>
               )}

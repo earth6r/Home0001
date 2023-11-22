@@ -43,5 +43,5 @@ export const blockBlock: Record<
   PortableTextBlockStyle,
   PortableTextBlockComponent | undefined
 > = {
-  center: ({ children }) => <div className="text-center">{children}</div>,
+  small: ({ children }) => <p className="small">{children}</p>,
 }

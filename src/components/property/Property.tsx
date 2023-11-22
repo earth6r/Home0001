@@ -5,7 +5,6 @@ import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/unit'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { PropertyElProps } from './types'
-import { Accordion } from '@components/accordion'
 import { useWaitlisModal } from '@contexts/modals'
 
 export const PropertyComponent: FC<PropertyElProps> = ({
@@ -15,11 +14,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
-      <h2 className="mobile-landing uppercase mb-12 px-x">
-        HOME0001:
-        <br />
-        {property?.title}
-      </h2>
+      <h2 className="mb-12 px-x text-title">HOME0001: {property?.title}</h2>
       <div className="md:grid md:grid-cols-3 gap-14 md:col-start-1 block relative ">
         {property?.image && (
           <div className="block relative w-full h-full mb-10 z-base">
@@ -45,7 +40,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             <MapDialog
               text="Map"
               coordinates={property?.coordinates}
-              className="px-xlg"
+              className="px-xlg text-xs font-bold"
             />
           )}
         </div>
@@ -55,7 +50,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         )}
 
         <div className="mt-ylg mx-x pt-ylg border-top">
-          <h2 className="mobile-landing uppercase">Available Homes:</h2>
+          <h2 className="text-title uppercase">Available Homes:</h2>
           {property?.unitsList && (
             <>
               {property?.availableText && (

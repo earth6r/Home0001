@@ -39,19 +39,22 @@
   @apply mx-auto;
 }
 
-.rich-text h1,
-.rich-text h2,
-.rich-text h3,
-.rich-text h4,
-.rich-text h5,
-.rich-text h6 {
-  @apply text-base uppercase;
+.rich-text h1 {
+  @apply text-xl uppercase;
+}
+
+.rich-text h2 {
+  @apply text-lg uppercase;
 }
 
 .rich-text p,
 .rich-text span,
 .rich-text li {
-  @apply tracking-body leading-[130%] md:leading-[135%];
+  @apply text-md font-bold tracking-tight;
+}
+
+.rich-text p.small {
+  @apply text-xs font-bold;
 }
 
 .rich-text ul,
