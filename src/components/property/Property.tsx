@@ -11,12 +11,12 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   return (
-    <div className={classNames(className, 'md:pl-x overflow-x-hidden')}>
+    <div className={classNames(className, 'md:pl-x')}>
       <h2 className="mb-12 px-x md:px-0 text-title">
         HOME0001: {property?.title}
       </h2>
       <div className="md:grid md:grid-cols-3 gap-14 md:col-start-1 block relative">
-        <div className="flex flex-col justify-start items-start">
+        <div className="flex flex-col justify-start items-start md:sticky top-[var(--header-height)] left-0 md:h-[600px]">
           {property?.image && (
             <div className="block relative w-full mb-10 z-base">
               <SanityMedia
@@ -48,7 +48,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           )}
         </div>
 
-        <div className="col-span-2">
+        <div className="col-span-2 overflow-x-hidden">
           {property?.body && (
             <BlockContent
               blocks={property?.body}
@@ -59,12 +59,15 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         </div>
       </div>
 
-      <div className="mt-ylg mx-x md:ml-0 md:mr-x pt-ylg md:pt-page border-top">
-        <h2 className="text-title uppercase">Available Homes:</h2>
+      <div className="mx-x md:mx-0 md:pt-0">
+        <div className="w-auto md:mr-x mt-ylg pt-ylg md:pt-page border-top"></div>
+        <h2 className="text-title uppercase md:mr-x">Available Homes:</h2>
         {property?.unitsList && (
           <>
             {property?.availableText && (
-              <div className="mt-9 uppercase">{property?.availableText}</div>
+              <div className="mt-9 md:mr-x uppercase">
+                {property?.availableText}
+              </div>
             )}
             <UnitsList
               className="mx-[-1rem] md:mx-0 animate-in flex flex-col mt-ydouble"

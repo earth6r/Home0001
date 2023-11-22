@@ -12,7 +12,7 @@ import { ImageCarousel } from '@components/carousel'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { redirect } from 'next/navigation'
 
-export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
+export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
 
@@ -55,17 +55,23 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
     <li className={className}>
       <div
         className={classNames(
+          border ? 'pt-ylg md:pt-page border-top' : '',
+          'w-auto mx-x md:ml-0'
+        )}
+      ></div>
+      <div
+        className={classNames(
           unit.available ? '' : 'bg-white shadow-none opacity-30',
-          `w-full flex-col px-4 md:px-0`
+          `w-auto flex-col pl-4 md:pl-0`
         )}
       >
-        <div className="flex flex-col gap-1 mb-4">
+        <div className="flex flex-col gap-1 mb-4 pr-4 md:pr-0">
           <p className="col-start-1 text-left text-lg uppercase">
             {unit.title && <span>{unit.title}</span>}
           </p>
         </div>
         <div className="z-above">
-          <div className="flex flex-col relative mt-4">
+          <div className="flex flex-col relative mt-4 overflow-x-hidden">
             {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel
                 index="0"
@@ -75,7 +81,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                 className="md:max-w-[346px] mb-4"
               />
             )}
-            <div className="block w-full max-w-[467px] bg-darkgray py-x pl-x pr-menu">
+            <div className="block w-auto max-w-[467px] bg-darkgray py-x pl-x mr-4 md:mr-0 pr-menu">
               <div className="mb-2 text-left rich-text">
                 <p className="small md:col-start-1 col-start-2 md:col-span-1 text-left">
                   {unit.price}

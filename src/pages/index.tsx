@@ -147,7 +147,7 @@ const Page: NextPage<PageProps> = (
       <article>
         <BlockContent
           blocks={page?.body}
-          className="flex flex-col w-full px-x md:pr-0 pt-page"
+          className="flex flex-col w-full md:px-x md:pr-0 pt-page"
         />
       </article>
     </PageTransition>
