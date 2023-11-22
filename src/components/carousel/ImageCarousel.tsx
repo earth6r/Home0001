@@ -51,7 +51,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   slides,
   className,
 }) => {
-  console.log(slides)
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {

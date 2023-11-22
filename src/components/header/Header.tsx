@@ -112,11 +112,14 @@ export const Header: FC<HeaderProps> = ({
           <Btn
             type="button"
             onClick={openWaitlist}
-            className="pointer-events-auto flex pt-[5.5px] pb-[5px] px-[5.5px] md:pt-[8px] md:pb-[7px] md:px-[7px] bg-black text-white leading-[11px] uppercase z-header"
+            className="flex p-3 -m-3 pointer-events-auto z-header"
           >
-            <IconSmallArrow width="13" height="9" className="mr-[3px]" />
-            {`Waitlist`}
+            <div className="pt-[5.5px] pb-[5px] px-[5.5px] md:pt-[8px] md:pb-[7px] md:px-[7px] bg-black text-white leading-[11px] uppercase">
+              <IconSmallArrow width="13" height="9" className="mr-[3px]" />
+              {`Waitlist`}
+            </div>
           </Btn>
+
           <HeaderMenu
             customOpen={menuOpen}
             onOpen={onOpen}
