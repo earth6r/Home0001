@@ -58,7 +58,7 @@ export const Accordion: FC<AccordionProps> = ({
               >
                 <h2
                   className={classNames(
-                    readMore ? 'text-lg tracking-tighter' : '',
+                    readMore ? 'text-lg tracking-tight' : '',
                     'uppercase'
                   )}
                 >

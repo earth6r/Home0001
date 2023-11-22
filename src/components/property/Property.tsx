@@ -59,7 +59,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         </div>
       </div>
 
-      <div className="mt-ylg mx-x pt-ylg md:pt-page border-top">
+      <div className="mt-ylg mx-x md:ml-0 md:mr-x pt-ylg md:pt-page border-top">
         <h2 className="text-title uppercase">Available Homes:</h2>
         {property?.unitsList && (
           <>
@@ -67,7 +67,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               <div className="mt-9 uppercase">{property?.availableText}</div>
             )}
             <UnitsList
-              className="mx-[-1rem] animate-in flex flex-col mt-ydouble"
+              className="mx-[-1rem] md:mx-0 animate-in flex flex-col mt-ydouble"
               unitList={property?.unitsList}
             />
           </>
@@ -77,7 +77,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
       {property?.waitlistLinkText && (
         <Waitlist
           buttonText={property?.waitlistLinkText}
-          className="mt-ydouble"
+          className="mt-ydouble md:mt-14 lg:ml-[467px]"
         />
       )}
     </div>

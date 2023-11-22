@@ -9,23 +9,29 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 }) => {
   const year = new Date().getFullYear()
   return (
-    <footer className={classNames('px-x mt-20 md:mt-y')}>
-      <div>
-        <ul className="flex flex-col gap-14 md:gap-12 w-full">
-          {mainMenu?.items?.map(({ _key, text, link }) => {
-            return text && link ? (
-              <li
-                key={_key}
-                className="font-bold text-xs tracking-tighter uppercase"
-              >
-                <SanityLink text={text} {...(link as SanityLinkType)} />
-              </li>
-            ) : null
-          })}
-        </ul>
-      </div>
+    <footer
+      className={classNames(
+        'lg:flex lg:flex-row lg:justify-between lg:items-start px-x mt-20 lg:mt-14 lg:mb-ydouble'
+      )}
+    >
+      <ul className="flex flex-col lg:flex-row md:justify-between gap-14 lg:gap-0 w-full">
+        {mainMenu?.items?.map(({ _key, text, link }) => {
+          return text && link ? (
+            <li
+              key={_key}
+              className="font-bold text-xs tracking-tight uppercase"
+            >
+              <SanityLink text={text} {...(link as SanityLinkType)} />
+            </li>
+          ) : null
+        })}
+      </ul>
 
-      <p className="font-bold text-xs tracking-tighter leading-normal mb-4 md:mb-9 mt-20">
+      <p className="hidden lg:block w-[50%] ml-[5%] font-bold text-xs tracking-tight leading-none">
+        &copy;{` ${year} HOME0001`} NY DRE #10351211814 | CA DRE #01427385
+      </p>
+
+      <p className="lg:hidden font-bold text-xs tracking-tight leading-normal mb-4 lg:mb-9 mt-20">
         &copy;{` ${year} HOME0001`}
         <br />
         NY DRE #10351211814 | CA DRE #01427385
