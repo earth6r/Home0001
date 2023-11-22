@@ -16,6 +16,7 @@ type NewsletterBlockProps = Omit<
 export const NewsletterBlock: FC<NewsletterBlockProps> = ({
   header,
   text,
+  grid,
   audienceId,
   className,
 }) => {
@@ -28,7 +29,8 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'md:grid md:grid-cols-3 relative pr-menu'
+        grid ? 'md:grid md:grid-cols-3 pr-menu' : '',
+        'relative'
       )}
     >
       <div className="md:col-start-2 md:col-span-1 pb-12">

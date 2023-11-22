@@ -12,7 +12,7 @@ export const Waitlist: FC<WaitlistProps> = ({ buttonText, className }) => {
   return (
     <div className={classNames(className)}>
       <div className="px-x py-ydouble bg-yellow">
-        <h2 className="text-title uppercase">{`Join the waitlist:`}</h2>
+        <h2 className="text-title md:text-xl uppercase">{`Join the waitlist:`}</h2>
 
         <div className="rich-text my-ydouble">
           <p>{`HOME0001 homes are sold exclusively to members on our waitlist.`}</p>

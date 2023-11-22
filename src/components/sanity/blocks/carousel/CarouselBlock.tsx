@@ -10,17 +10,23 @@ type CarouselBlockProps = Omit<SanityBlockElement, keyof CarouselBlockType> &
 
 export const CarouselBlock: FC<CarouselBlockProps> = ({
   images,
+  grid,
   className,
 }) => {
   return (
-    <Block className={classNames(className)}>
+    <Block
+      className={classNames(
+        className,
+        grid ? 'md:grid md:grid-cols-3 pr-menu' : ''
+      )}
+    >
       {images && images.length > 0 && (
         <ImageCarousel
           index="0"
           slides={images}
           carousel={true}
           arrows={false}
-          className="w-full"
+          className="w-full md:max-w-[346px]"
         />
       )}
     </Block>
