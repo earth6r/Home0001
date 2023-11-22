@@ -3,15 +3,13 @@ import classNames from 'classnames'
 import { BlockContent, RichText, SanityMedia } from '@components/sanity'
 import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/unit'
-import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { PropertyElProps } from './types'
-import { useWaitlisModal } from '@contexts/modals'
+import { Waitlist } from '@components/waitlist'
 
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,
   className,
 }) => {
-  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
       <h2 className="mb-12 px-x text-title">HOME0001: {property?.title}</h2>
@@ -62,23 +60,14 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               />
             </>
           )}
-          {property?.waitlistLinkText && (
-            <button
-              aria-label={property.waitlistLinkText}
-              onClick={() => {
-                setWaitlistOpen(true)
-              }}
-              className={classNames(
-                `w-full mt-12 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white z-above p-4`
-              )}
-            >
-              <span className="mb-0 py-2 text-left uppercase">
-                {property.waitlistLinkText}
-              </span>
-              <IconSmallArrow width="22" height="10" />
-            </button>
-          )}
         </div>
+
+        {property?.waitlistLinkText && (
+          <Waitlist
+            buttonText={property?.waitlistLinkText}
+            className="mt-ydouble"
+          />
+        )}
       </div>
     </div>
   )
