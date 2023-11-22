@@ -203,11 +203,11 @@ export interface Property extends SanityDocument {
   coordinates?: Coordinates;
 
   /**
-   * Description — `richText`
+   * Body — `blockContent`
    *
    *
    */
-  description?: RichText;
+  body?: BlockContent;
 
   /**
    * Waitlist Link Text — `string`
@@ -236,13 +236,6 @@ export interface Property extends SanityDocument {
    *
    */
   unitsList?: Array<SanityKeyedReference<Unit>>;
-
-  /**
-   * Property Details — `array`
-   *
-   *
-   */
-  propertyDetails?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Preview Image — `image`
@@ -602,6 +595,13 @@ export type Accordion = {
   header?: string;
 
   /**
+   * Initial Text — `richText`
+   *
+   * Copy shown before accordion is expanded
+   */
+  initialText?: RichText;
+
+  /**
    * Accordion Text — `richText`
    *
    *
@@ -810,6 +810,7 @@ export type InventoryModule = {
 
 export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
+  | SanityKeyed<CarouselBlock>
   | SanityKeyed<CitiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
@@ -825,6 +826,23 @@ export type AccordionBlock = {
    *
    */
   accordions?: Array<SanityKeyed<Accordion>>;
+
+  /**
+   * Read More — `boolean`
+   *
+   * Set to true to hide plus and minus and show read more copy
+   */
+  readMore?: boolean;
+};
+
+export type CarouselBlock = {
+  _type: "carouselBlock";
+  /**
+   * Images — `array`
+   *
+   *
+   */
+  images?: Array<SanityKeyed<Media>>;
 };
 
 export type CitiesBlock = {

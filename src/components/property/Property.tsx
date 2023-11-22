@@ -1,6 +1,6 @@
 import { type FC, memo } from 'react'
 import classNames from 'classnames'
-import { RichText, SanityMedia } from '@components/sanity'
+import { BlockContent, RichText, SanityMedia } from '@components/sanity'
 import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/unit'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
@@ -15,8 +15,8 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
-      <h2 className="mobile-landing uppercase mb-12">
-        HOME0001
+      <h2 className="mobile-landing uppercase mb-12 px-x">
+        HOME0001:
         <br />
         {property?.title}
       </h2>
@@ -35,39 +35,26 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             />
           </div>
         )}
+
         <div>
-          {property?.header && <RichText blocks={property?.header} />}
+          {property?.header && (
+            <RichText blocks={property?.header} className="px-xlg" />
+          )}
 
           {property?.coordinates && (
             <MapDialog
               text="Map"
               coordinates={property?.coordinates}
-              className="-mt-5"
+              className="px-xlg"
             />
           )}
+        </div>
 
-          {property?.description && (
-            <RichText
-              blocks={property?.description}
-              className="pr-menu md:pr-0 mt-8 mb-8"
-            />
-          )}
-        </div>
-        <div className="mb-10">
-          {property?.propertyDetails &&
-            property.propertyDetails.length > 0 &&
-            property.propertyDetails.map(({ _key, header, text, cta }) => (
-              <Accordion
-                key={_key}
-                header={header}
-                text={text}
-                cta={cta}
-                className="mt-2 border-x-0 border-t-0"
-                location={{ property: property?.slug?.current || '', unit: '' }}
-              />
-            ))}
-        </div>
-        <div className="mt-10">
+        {property?.body && (
+          <BlockContent blocks={property?.body} className="mt-ydouble px-x" />
+        )}
+
+        <div className="mt-ylg mx-x pt-ylg border-top">
           <h2 className="mobile-landing uppercase">Available Homes:</h2>
           {property?.unitsList && (
             <>
@@ -75,7 +62,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
                 <div className="mt-9 uppercase">{property?.availableText}</div>
               )}
               <UnitsList
-                className="mx-[-1rem] animate-in flex flex-col gap-3 mt-7"
+                className="mx-[-1rem] animate-in flex flex-col mt-ydouble"
                 unitList={property?.unitsList}
               />
             </>

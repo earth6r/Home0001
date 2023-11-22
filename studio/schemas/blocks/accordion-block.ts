@@ -14,6 +14,12 @@ export default {
       of: [{ type: 'accordion', title: 'Accordion' }],
       validation: (Rule: Rule): Rule => Rule.required().min(1),
     },
+    {
+      name: 'readMore',
+      title: 'Read More',
+      type: 'boolean',
+      description: 'Set to true to hide plus and minus and show read more copy',
+    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Accordion block' }),
