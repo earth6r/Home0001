@@ -12,7 +12,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 }) => {
   return (
     <div className={classNames(className, 'md:pl-x')}>
-      <h2 className="mb-12 px-x md:px-0 text-title">
+      <h2 className="mb-12 px-x md:px-0 md:ml-[-8px] text-title">
         HOME0001: {property?.title}
       </h2>
       <div className="md:grid md:grid-cols-3 gap-14 md:col-start-1 block relative">

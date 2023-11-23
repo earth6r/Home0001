@@ -42,7 +42,9 @@ export const UnitComponent: FC<UnitElProps> = ({
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 md:pr-menu px-x">
-        <h2 className="text-title mb-12 uppercase col-span-2">{unit?.title}</h2>
+        <h2 className="text-title mb-12 md:ml-[-2px] uppercase col-span-2">
+          {unit?.title}
+        </h2>
         <div className="md:col-start-1 col-start-2 md:col-span-1">
           <div className="flex flex-col relative">
             {unit?.photographs && unit?.photographs.length > 0 && (
