@@ -26,7 +26,7 @@ const CITY_ORDER = [
 ]
 
 const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
-  <ul className="max-w-[390px]">
+  <ul className="">
     {citiesList &&
       citiesList.map(({ _id, title, active, propertyLink }) => {
         return (
@@ -142,7 +142,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
             headers.map((header, index) => {
               return (
                 <div key={header}>
-                  <h2 className="max-w-[390px] mobile-landing md:mobile-landing uppercase pl-x md:pl-0 pr-menu md:pr-0">
+                  <h2 className="mobile-landing md:mobile-landing uppercase pl-x md:pl-0 pr-menu md:pr-0">
                     {header}
                   </h2>
 
@@ -153,7 +153,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                   )}
 
                   {index + 1 === howItWorksPosition && (
-                    <div className="pl-x md:pl-0 pr-menu md:pr-0 max-w-[390px] mt-12 md:mt-16 md:mr-x">
+                    <div className="pl-x md:pl-0 pr-menu md:pr-0 mt-12 md:mt-16 md:mr-x">
                       <NextLink
                         className={classNames(
                           `w-full bg-black text-white border-1 border-black border-solid mb-[2px] p-4 flex flex-row justify-between items-center h-12 max-h-12 relative z-above`
