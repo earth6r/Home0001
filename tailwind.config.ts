@@ -127,6 +127,7 @@ export default {
         '.mobile-landing': {
           fontSize: '7.9vw',
           lineHeight: '1.2',
+          letterSpacing: '-0.03em',
           '@screen md': {
             fontSize: 'clamp(12px,2.5vw,40px)',
           },
