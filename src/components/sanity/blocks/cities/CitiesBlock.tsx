@@ -160,7 +160,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                         )}
                         href="/how-it-works"
                       >
-                        <p className="mb-0 py-2 text-left uppercase">
+                        <p className="font-bold mb-0 py-2 text-left uppercase">
                           How It Works
                         </p>{' '}
                         <IconSmallArrow width="22" height="10" />
