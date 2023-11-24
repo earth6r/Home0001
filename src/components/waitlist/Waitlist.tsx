@@ -23,7 +23,7 @@ export const Waitlist: FC<WaitlistProps> = ({ buttonText, className }) => {
             </p>
           </div>
 
-          <div className="md:pr-menu">
+          <div className="">
             <button
               aria-label={buttonText || 'Join the waitlist'}
               onClick={() => {
