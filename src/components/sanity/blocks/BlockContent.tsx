@@ -9,10 +9,12 @@ import {
   CitiesBlock,
   NewsletterBlock,
   ContactBlock,
+  CarouselBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
+  grid,
   className,
   style,
 }) =>
@@ -24,22 +26,25 @@ export const BlockContent: FC<SanityBlockElement> = ({
           types: {
             ...blockTypes,
             accordionBlock: ({ index, value }) => (
-              <AccordionBlock index={index} {...value} />
+              <AccordionBlock index={index} grid={grid} {...value} />
+            ),
+            carouselBlock: ({ index, value }) => (
+              <CarouselBlock index={index} grid={grid} {...value} />
             ),
             citiesBlock: ({ index, value }) => (
-              <CitiesBlock index={index} {...value} />
+              <CitiesBlock index={index} grid={grid} {...value} />
             ),
             newsletterBlock: ({ index, value }) => (
-              <NewsletterBlock index={index} {...value} />
+              <NewsletterBlock index={index} grid={grid} {...value} />
             ),
             textBlock: ({ index, value }) => (
-              <TextBlock index={index} {...value} />
+              <TextBlock index={index} grid={grid} {...value} />
             ),
             waitlistBlock: ({ index, value }) => (
-              <WaitlistBlock index={index} {...value} />
+              <WaitlistBlock index={index} grid={grid} {...value} />
             ),
             contactBlock: ({ index, value }) => (
-              <ContactBlock index={index} {...value} />
+              <ContactBlock index={index} grid={grid} {...value} />
             ),
           },
           marks: blockMarks,

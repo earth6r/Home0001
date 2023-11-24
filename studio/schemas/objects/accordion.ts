@@ -14,6 +14,13 @@ export default {
       validation: (Rule: Rule): Rule => Rule.required(),
     },
     {
+      name: 'initialText',
+      title: 'Initial Text',
+      type: 'richText',
+      description:
+        'Copy shown before accordion is expanded (Read More accordions only)',
+    },
+    {
       name: 'text',
       title: 'Accordion Text',
       type: 'richText',

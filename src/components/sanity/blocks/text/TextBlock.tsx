@@ -7,9 +7,14 @@ import { Block, RichText } from '@components/sanity'
 type TextBlockProps = Omit<SanityBlockElement, keyof TextBlockType> &
   TextBlockType
 
-export const TextBlock: FC<TextBlockProps> = ({ text, className }) => {
+export const TextBlock: FC<TextBlockProps> = ({ text, grid, className }) => {
   return (
-    <Block className={classNames(className, 'md:grid md:grid-cols-3 pr-menu')}>
+    <Block
+      className={classNames(
+        className,
+        grid ? 'md:grid md:grid-cols-3 pr-menu' : ''
+      )}
+    >
       <div className="md:col-start-2 md:col-span-1">
         {text && (
           <RichText blocks={text} className={classNames('clear-both')} />

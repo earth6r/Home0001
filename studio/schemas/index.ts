@@ -26,6 +26,7 @@ import newsletterBlock from './blocks/newsletter-block'
 import contactBlock from './blocks/contact-block'
 import tooltip from './objects/tooltip'
 import unitGroup from './objects/unit-group'
+import carouselBlock from './blocks/carousel-block'
 
 export const schemaTypes = [
   // objects
@@ -49,6 +50,7 @@ export const schemaTypes = [
   // blocks
   blockContent,
   accordionBlock,
+  carouselBlock,
   citiesBlock,
   newsletterBlock,
   contactBlock,

@@ -11,7 +11,6 @@ export interface BlockProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Block: FC<BlockProps> = ({
   slug,
-  grid = true,
   children,
   className,
   ...props
@@ -21,12 +20,7 @@ export const Block: FC<BlockProps> = ({
     <div
       ref={el}
       id={slug?.current}
-      className={classNames(
-        styles.block,
-        className,
-        grid ? 'md:grid md:grid-cols-3' : '',
-        `relative flex-auto md:pr-fullmenu`
-      )}
+      className={classNames(styles.block, className, `relative flex-auto`)}
       {...props}
     >
       {children}

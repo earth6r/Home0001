@@ -11,7 +11,7 @@ import { Logo } from '@components/logos'
 
 export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
   <Btn
-    className="w-[40px] z-header"
+    className="inline-block w-[63px] p-3 -m-3 z-header"
     innerRef={ref as Ref<HTMLButtonElement | HTMLAnchorElement>}
     custom={true}
     {...props}

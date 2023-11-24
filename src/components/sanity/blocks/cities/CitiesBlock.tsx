@@ -14,6 +14,7 @@ import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import NextLink from 'next/link'
 import { useWaitlisModal } from '@contexts/modals'
 import Link from 'next/link'
+import { Waitlist } from '@components/waitlist'
 
 const CITY_ORDER = [
   'Los Angeles',
@@ -25,7 +26,7 @@ const CITY_ORDER = [
 ]
 
 const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
-  <ul className="max-w-[390px]">
+  <ul className="">
     {citiesList &&
       citiesList.map(({ _id, title, active, propertyLink }) => {
         return (
@@ -134,35 +135,32 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
   const sortedCities = citiesList?.sort(customSort)
 
   return (
-    <Block
-      className={classNames(className, 'mb-page', '-ml-[2px]')}
-      grid={false}
-    >
+    <Block className={classNames(className, 'md:mb-page', '-ml-[2px]')}>
       <div className="grid md:grid-cols-3 gap-12 md:gap-16">
         <div className="flex flex-col gap-12 md:gap-16">
           {headers &&
             headers.map((header, index) => {
               return (
                 <div key={header}>
-                  <h2 className="max-w-[390px] mobile-landing md:mobile-landing uppercase pr-menu md:pr-0">
+                  <h2 className="mobile-landing md:mobile-landing uppercase pl-x md:pl-0 pr-menu md:pr-0">
                     {header}
                   </h2>
 
                   {index + 1 === citiesPosition && (
-                    <div className=" mt-12 md:mt-16">
+                    <div className="px-x md:px-0 mt-12 md:mt-16">
                       <CitiesList citiesList={sortedCities} />
                     </div>
                   )}
 
                   {index + 1 === howItWorksPosition && (
-                    <div className="pr-menu md:pr-0 max-w-[390px] mt-12 md:mt-16">
+                    <div className="pl-x md:pl-0 pr-menu md:pr-0 mt-12 md:mt-16 md:mr-x">
                       <NextLink
                         className={classNames(
                           `w-full bg-black text-white border-1 border-black border-solid mb-[2px] p-4 flex flex-row justify-between items-center h-12 max-h-12 relative z-above`
                         )}
                         href="/how-it-works"
                       >
-                        <p className="mb-0 py-2 text-left uppercase">
+                        <p className="font-bold mb-0 py-2 text-left uppercase">
                           How It Works
                         </p>{' '}
                         <IconSmallArrow width="22" height="10" />
@@ -195,7 +193,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                                 {longTitle && (
                                   <div
                                     className={classNames(
-                                      'flex gap-1 items-start mobile-landing items-center text-left uppercase'
+                                      'flex gap-1 items-start mobile-landing text-left uppercase px-x'
                                     )}
                                   >
                                     <IconRightArrowBold className="mt-2 home-svg" />
@@ -217,21 +215,8 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                 </div>
               )
             })}
-          <div className="pr-menu md:pr-0">
-            <button
-              aria-label={`Join waitlist`}
-              onClick={() => {
-                setWaitlistOpen(true)
-              }}
-              className={classNames(
-                `w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 bg-black text-white z-above p-4`
-              )}
-            >
-              <span className="mb-0 py-2 text-left uppercase">
-                {`Join waitlist`}
-              </span>
-              <IconSmallArrow width="22" height="10" />
-            </button>
+          <div>
+            <Waitlist />
           </div>
         </div>
 

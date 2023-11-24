@@ -10,16 +10,20 @@ import { SanityLinkType } from '@studio/lib'
 import { sendGoogleEvent } from '@lib/util'
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
+  initialText?: RichTextType
   text?: RichTextType
   cta?: Cta
+  readMore?: boolean
   location?: { property: string; unit: string }
 }
 
 export const Accordion: FC<AccordionProps> = ({
   header,
+  initialText,
   text,
   cta,
   location,
+  readMore,
   className,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -40,23 +44,49 @@ export const Accordion: FC<AccordionProps> = ({
   }
 
   return (
-    <div className={classNames(className, 'border-black')}>
+    <div className={classNames(className, readMore ? '' : 'border-black')}>
       <Disclosure>
         {({ open }) => {
           return (
             <>
               <Disclosure.Button
-                className={`flex justify-between text-left ${
-                  className?.includes('border-x-0') ? 'pl-0' : null
-                } items-center w-full p-4 `}
+                className={classNames(
+                  readMore ? '' : 'flex justify-between items-center p-4',
+                  className?.includes('border-x-0') ? 'pl-0' : null,
+                  `w-full text-left`
+                )}
               >
-                <h2 className="uppercase">{header}</h2>
-                {open ? (
-                  <IconMinus width="8" height="12" />
+                <h2
+                  className={classNames(
+                    readMore ? 'text-lg tracking-tight' : 'font-bold text-xs',
+                    'uppercase'
+                  )}
+                >
+                  {header}
+                </h2>
+
+                {readMore ? (
+                  <div className="px-x md:pl-xhalf md:pr-fullmenu pt-yhalf">
+                    {initialText && <RichText blocks={initialText} />}
+
+                    <span
+                      className={classNames(
+                        open ? 'opacity-0' : '',
+                        'pt-yhalf underline underline-offset-2 font-bold text-sm'
+                      )}
+                    >{`Read more`}</span>
+                  </div>
                 ) : (
-                  <IconPlus width="12" height="12" />
+                  <>
+                    {open ? (
+                      <IconMinus width="8" height="12" />
+                    ) : (
+                      <IconPlus width="12" height="12" />
+                    )}
+                  </>
                 )}
               </Disclosure.Button>
+
               <Transition
                 show={open}
                 ref={ref}
@@ -72,8 +102,9 @@ export const Accordion: FC<AccordionProps> = ({
                 <Disclosure.Panel>
                   <div
                     className={classNames(
-                      className?.includes('border-x-0') ? '' : 'pl-4',
-                      'pt-2 pr-10 md:pr-x pb-5'
+                      className?.includes('border-x-0') ? '' : 'pl-x',
+                      readMore ? 'pr-fullmenu' : 'pr-10 pt-2 pb-5 ',
+                      'md:pl-xhalf'
                     )}
                   >
                     {text && <RichText blocks={text} />}
