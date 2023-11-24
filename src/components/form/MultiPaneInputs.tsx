@@ -352,7 +352,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   const [currentStep, setCurrentStep] = useState(0)
 
   return (
-    <div className={classNames(className, 'w-full pr-menu')}>
+    <div className={classNames(className, 'w-full pr-menu text-xs font-bold')}>
       <Pane
         enter={currentStep === 0}
         currentStep={currentStep}

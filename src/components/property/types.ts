@@ -9,6 +9,7 @@ import type {
   Accordion,
   SanityKeyed,
   Media,
+  BlockContent,
 } from '@studio/gen/sanity-schema'
 import { City } from 'schema-dts'
 
@@ -25,6 +26,7 @@ export interface PropertyContentProps
   availableText?: string
   headerText?: string
   slug?: { _type: 'slug'; current: string }
+  body?: BlockContent
 }
 
 export interface KeyedPropertyProps

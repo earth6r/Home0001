@@ -16,14 +16,24 @@ export default {
       backgroundColor: {
         whitesmoke: '#F3F3F3',
         gray: '#EDEDED',
+        darkgray: '#E9E9E9',
+        yellow: '#FAFF00',
       },
       screens,
       fontFamily: {
-        sans: ['Arial', 'Helvetica', 'sans-serif', 'arial-unicode'],
+        sans: ['"Haas Grot Display"', 'Arial', 'sans-serif', 'arial-unicode'],
         serif: ['ui-serif', 'serif'],
         mono: ['ui-monospace', 'SFMono-Regular'],
       },
-      fontSize: { base: '13px' },
+      fontSize: {
+        base: '14px',
+        xs: ['14px', '1.2'], // small
+        sm: ['16px', '1'], // read more
+        md: ['20px', '1.2'], // body
+        lg: ['24px', '1.2'], // heading 2
+        xl: ['54px', '1'], // heading 1
+        '2xl': ['7.2vw', '1'], // title
+      },
       letterSpacing: {
         body: '0.005em',
       },
@@ -100,6 +110,9 @@ export default {
         '.border-black': {
           border: '1px solid black',
         },
+        '.border-top': {
+          borderTop: '1px solid black',
+        },
         '.border-bottom': {
           borderBottom: '1.5px solid black',
         },
@@ -114,8 +127,22 @@ export default {
         '.mobile-landing': {
           fontSize: '7.9vw',
           lineHeight: '1.2',
+          letterSpacing: '-0.03em',
           '@screen md': {
             fontSize: 'clamp(12px,2.5vw,40px)',
+          },
+        },
+        '.text-title': {
+          fontSize: '52px',
+          lineHeight: '1',
+          leadingTrim: 'both',
+          textEdge: 'cap',
+          fontWeight: '500',
+          letterSpacing: '-2.7px',
+          textTransform: 'uppercase',
+          '@screen md': {
+            fontSize: 'clamp(12px,8.2vw,140px)',
+            letterSpacing: '-7px',
           },
         },
         '.home-svg': {

@@ -2,9 +2,9 @@ import { type FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import { Media } from '@studio/gen/sanity-schema'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper'
+// import { Navigation } from 'swiper'
 import type { SwiperOptions } from 'swiper'
-import { IconLeftArrow, IconRightArrow } from '@components/icons'
+import { IconLeftArrow, IconRightArrow, IconX } from '@components/icons'
 import classNames from 'classnames'
 import { SCREENS } from '@/globals'
 
@@ -21,10 +21,13 @@ export interface ImageSlideProps extends SanityMediaProps {
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   index?: string
   carousel?: boolean
-  zoomWidth?: number
-  zoomHeight?: number
+  arrows?: boolean
   slides?: (Media & { _key: string })[]
 }
+
+const ICON_LEFT = `<svg width="30" style="transform: rotate(180deg); position: relative; left: -15px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 10" > <path fill="#FFF" d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z" /> </svg>`
+const ICON_RIGHT = `<svg width="30" style="position: relative; right: -15px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 10" > <path fill="#FFF" d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z" /> </svg>`
+const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 40 40"> <path stroke="#FFF" d="m8 8 24 24m0-24L8 32" /> </svg>`
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
   return (
@@ -44,17 +47,14 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
 }
 
 export const ImageCarousel: FC<ImageCarouselProps> = ({
-  index = '0',
   carousel,
-  // zoomWidth,
-  // zoomHeight,
   slides,
   className,
 }) => {
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
-      slidesPerView: 1.1,
+      slidesPerView: 1.18,
     },
     [SCREENS.md]: {
       slidesPerView: 'auto',
@@ -62,10 +62,14 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   }
 
   useEffect(() => {
-    if (!slidesRef?.current || typeof window === 'undefined') return
+    if (!slidesRef?.current || typeof window === 'undefined' || !carousel)
+      return
     const lightbox = new PhotoSwipeLightbox({
       gallery: slidesRef.current,
       children: '.swiper-slide',
+      arrowPrevSVG: ICON_LEFT,
+      arrowNextSVG: ICON_RIGHT,
+      closeSVG: ICON_CLOSE,
 
       showHideAnimationType: 'none',
       zoomAnimationDuration: false,
@@ -94,12 +98,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           slidesPerView={1}
           spaceBetween={16}
           breakpoints={breakpoints}
-          navigation={{
-            nextEl: `.swiper-next-${index}`,
-            prevEl: `.swiper-prev-${index}`,
-          }}
-          // mousewheel={{ forceToAxis: true }}
-          modules={[Navigation]}
           speed={600}
           className="max-w-[560px] md:max-w-[unset] w-full overflow-visible"
         >
@@ -134,25 +132,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               )}
             </SwiperSlide>
           ))}
-
-          <div className="mt-4">
-            <div className="flex justify-start items-center max-w-[560px] md:max-w-[unset]">
-              <button
-                className={classNames(
-                  `swiper-prev-${index} review-swiper-button-prev disabled:shadow-none disabled:bg-transparent disabled:opacity-40 mr-2`
-                )}
-              >
-                <IconLeftArrow width="22" height="10" />
-              </button>
-              <button
-                className={classNames(
-                  `swiper-next-${index} disabled:shadow-none disabled:bg-transparent disabled:opacity-40`
-                )}
-              >
-                <IconRightArrow width="22" height="10" />
-              </button>
-            </div>
-          </div>
         </Swiper>
       ) : (
         <div className="flex items-center overflow-hidden">

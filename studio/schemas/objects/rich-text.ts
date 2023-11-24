@@ -9,6 +9,7 @@ export default {
       type: 'block',
       styles: [
         { title: 'Normal', value: 'normal' },
+        { title: 'Small', value: 'small' },
         { title: 'H1', value: 'h1' },
         { title: 'H2', value: 'h2' },
       ],

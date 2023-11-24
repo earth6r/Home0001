@@ -70,4 +70,5 @@ export interface UnitElProps
 export interface UnitListProps extends HTMLAttributes<HTMLElement> {
   unitList?: KeyedUnitProps[]
   unit?: KeyedUnitProps
+  border?: boolean
 }

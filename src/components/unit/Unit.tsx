@@ -39,14 +39,14 @@ export const UnitComponent: FC<UnitElProps> = ({
     if (formRef.current) scrollToEl(formRef.current)
   }, [formActive])
 
-  console.log(unit)
-
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 md:pr-menu px-x">
+        <h2 className="text-title mb-12 md:ml-[-2px] uppercase col-span-2">
+          {unit?.title}
+        </h2>
         <div className="md:col-start-1 col-start-2 md:col-span-1">
           <div className="flex flex-col relative">
-            <h2 className="mobile-landing mb-12 uppercase">{unit?.title}</h2>
             {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel
                 index="0"
@@ -56,19 +56,18 @@ export const UnitComponent: FC<UnitElProps> = ({
               />
             )}
 
-            <div>
+            <div className="text-xs font-bold">
               {unit?.propertyType && (
                 <p className="mt-4 uppercase tracking-caps">
                   <span>{unit?.title}</span>
                 </p>
               )}
             </div>
-            <div className="pr-menu md:pr-0">
+            <div className="pr-menu md:pr-0 mb-ydouble md:mb-y text-xs font-bold">
               <p className="m-0">
                 {unit?.price == 'Inquire' ? 'Price upon request' : unit?.price}
               </p>
               {unit?.area && <p className="mb-4">{unit?.area}</p>}
-              {unit?.summary && <RichText blocks={unit?.summary} />}
               {unit?.factSheet?.rows && (
                 <SanityTableModal
                   table={unit.factSheet}
@@ -76,6 +75,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                   className="inline-block"
                 />
               )}
+              {unit?.summary && <RichText blocks={unit?.summary} />}
             </div>
 
             {unit?.unitDetails &&
@@ -85,9 +85,22 @@ export const UnitComponent: FC<UnitElProps> = ({
                   key={_key}
                   header={header}
                   text={text}
-                  className="mt-2 mb-8 border-x-0 border-t-0"
+                  className="mb-ydouble md:mb-y mr-menu md:mr-0 border-x-0 border-t-0 font-bold text-xs"
                 />
               ))}
+
+            <div className="pr-menu md:pr-0 mb-ydouble md:mb-y">
+              <button
+                onClick={() => setWaitlistModal(true)}
+                className={classNames(
+                  formActive ? 'bg-white text-black' : 'bg-black text-white',
+                  'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-bold z-above p-4'
+                )}
+              >
+                {`Join the waitlist for this home`}
+                <IconSmallArrow width="22" height="10" className="" />
+              </button>
+            </div>
           </div>
 
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (
@@ -116,18 +129,6 @@ export const UnitComponent: FC<UnitElProps> = ({
                 className="mt-2 mb-8 border-x-0 border-t-0"
               />
             ))}
-          <div className="pr-menu md:pr-0">
-            <button
-              onClick={() => setWaitlistModal(true)}
-              className={classNames(
-                formActive ? 'bg-white text-black' : 'bg-black text-white',
-                'w-full mt-12 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white z-above p-4'
-              )}
-            >
-              {`RESERVE THIS HOME`}
-              <IconSmallArrow width="22" height="10" className="" />
-            </button>
-          </div>
         </div>
       </div>
     </div>
