@@ -57,6 +57,7 @@
   font-family: 'Haas Grot Display';
   src: url('../../public/fonts/haas-grot-display/HaasGrotDisp-regular.woff2')
     format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -64,6 +65,7 @@
   font-style: italic;
   src: url('../../public/fonts/haas-grot-display/HaasGrotDisp-regular-italic.woff2')
     format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -71,6 +73,7 @@
   font-weight: bold;
   src: url('../../public/fonts/haas-grot-display/HaasGrotDisp-medium.woff2')
     format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -79,6 +82,7 @@
   font-weight: bold;
   src: url('../../public/fonts/haas-grot-display/HaasGrotDisp-medium-italic.woff2')
     format('woff2');
+  font-display: swap;
 }
 
 /* stylelint-disable selector-id-pattern */
