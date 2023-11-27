@@ -33,22 +33,25 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
           <li key={_id} className="text-left">
             {propertyLink ? (
               <SanityLink
-                onClick={() =>
-                  sendGoogleEvent(`clicked city button`, { city: title })
-                }
                 {...(propertyLink as SanityLinkType)}
                 className={classNames('mobile-landing text-left uppercase')}
               >
-                <IconRightArrowBold className="mr-1 home-svg" />
-                <span
-                  className={classNames(
-                    active && propertyLink
-                      ? 'leading-none border-bottom border-b-[0.1em]'
-                      : ''
-                  )}
+                <div
+                  onClick={() =>
+                    sendGoogleEvent(`clicked city button`, { city: title })
+                  }
                 >
-                  {title}
-                </span>
+                  <IconRightArrowBold className="mr-1 home-svg" />
+                  <span
+                    className={classNames(
+                      active && propertyLink
+                        ? 'leading-none border-bottom border-b-[0.1em]'
+                        : ''
+                    )}
+                  >
+                    {title}
+                  </span>
+                </div>
               </SanityLink>
             ) : (
               <div
@@ -86,11 +89,11 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           <SanityMedia
             imageProps={{
               alt: image.alt || 'Building image',
-              layout: 'responsive',
               quality: 8,
               priority: true,
               lqip: (image?.image as any)?.asset?.metadata?.lqip,
             }}
+            className="w-full h-auto object-contain"
             {...(image as any)}
           />
         </div>
@@ -180,13 +183,13 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                                     <SanityMedia
                                       imageProps={{
                                         alt: image.alt || 'Building image',
-                                        layout: 'responsive',
                                         quality: 8,
                                         priority: true,
                                         lqip: (image?.image as any)?.asset
                                           ?.metadata?.lqip,
                                       }}
                                       {...(image as any)}
+                                      className="w-full h-auto object-contain"
                                     />
                                   </div>
                                 )}

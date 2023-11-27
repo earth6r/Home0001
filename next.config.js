@@ -16,6 +16,9 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   transpilePackages: ['sanity'],
+  experimental: {
+    largePageDataBytes: 132 * 1000,
+  },
 }
 
 module.exports = nextConfig

@@ -22,12 +22,12 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               <SanityMedia
                 imageProps={{
                   alt: property?.image.alt || 'Building image',
-                  layout: 'responsive',
                   quality: 8,
                   priority: true,
                   lqip: (property?.image?.image as any)?.asset?.metadata?.lqip,
                 }}
                 {...(property?.image as any)}
+                className="w-full h-auto object-contain"
               />
             </div>
           )}

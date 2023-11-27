@@ -16,7 +16,7 @@ type PageRefType = React.ForwardedRef<HTMLDivElement>
 
 const HOME_QUERY = groq`
   *[_type == "page"]{
-    ...,
+    _id,
     ${BODY_QUERY}
   }
 `
