@@ -76,6 +76,7 @@ export const UNIT_QUERY = `
   },
   "property": property->{
     headerText,
+    slug,
     "location": location->{
       title,
     },
