@@ -15,7 +15,7 @@ import PageTransition from '@components/transition/PageTransition'
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 
 const HOME_QUERY = groq`
-  *[_type == "page"]{
+  *[_type == "page" && slug.current == $slug]{
     _id,
     ${BODY_QUERY}
   }
