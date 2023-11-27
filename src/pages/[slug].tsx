@@ -18,7 +18,7 @@ type PageRefType = React.ForwardedRef<HTMLDivElement>
 const ALL_SLUGS_QUERY = groq`*[_type == "page" && defined(slug.current)][].slug.current`
 const PAGE_QUERY = groq`
   *[_type == "page" && slug.current == $slug]{
-    ...,
+    _id,
     ${BODY_QUERY}
   }
 `

@@ -142,7 +142,9 @@ export const BODY_QUERY = `
     "accordions": accordions[]{
       ...,
       "text": text[]{
+        ...,
         markDefs[]{
+          ...,
           ${LINK_MARKDEFS_QUERY}
         },
       },
