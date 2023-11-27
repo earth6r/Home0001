@@ -45,8 +45,23 @@ export const CTA_QUERY = `
 `
 
 export const UNIT_QUERY = `
+  _key,
+  _id,
+  slug,
+  title,
+  headerText,
+  available,
+  price,
+  area,
+  amenities,
+  summary,
+  factSheet,
+  reserveFormCopy,
+  confirmationCopy,
+  moreInfo,
+  unitDetails,
+  secondUnitDetails,
   "propertyType": propertyType->{
-    ...,
     typeTitle,
     typeValue,
   },
@@ -54,50 +69,52 @@ export const UNIT_QUERY = `
     ${MEDIA_QUERY}
   },
   "photographs": photographs[]{
-    ...,
     ${MEDIA_QUERY}
   },
   "layoutImages": layoutImages[]{
-    ...,
     ${MEDIA_QUERY}
   },
   "property": property->{
-    ...,
+    headerText,
     "location": location->{
-      ...,
       title,
     },
+  },
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
   },
 `
 
 export const PROPERTIES_QUERY = `
+  _key,
   _id,
+  title,
+  slug,
+  longTitle,
+  headerText,
+  header,
+  coordinates,
   "image": image{
     ${MEDIA_QUERY}
   },
-  "description": description[]{
-      ...,
-      markDefs[]{
-        ...,
-        ${LINK_MARKDEFS_QUERY}
-      },
-  },
-  "propertyDetails": propertyDetails[]{
-      ...,
-      "text": text[]{
-        ...,
-        markDefs[]{
-          ...,
-          ${LINK_MARKDEFS_QUERY}
-        },
-      },
-      cta{
-        ${CTA_QUERY}
-      }
-  },
+  body,
+  waitlistLinkText,
+  availableText,
   "unitsList": unitsList[]->{
-    ...,
-    ${UNIT_QUERY}
+    _key,
+    slug,
+    title,
+    available,
+    price,
+    area,
+    "photographs": photographs[]{
+      ${MEDIA_QUERY}
+    },
+  },
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
   },
 `
 
@@ -124,9 +141,7 @@ export const BODY_QUERY = `
     "accordions": accordions[]{
       ...,
       "text": text[]{
-        ...,
         markDefs[]{
-          ...,
           ${LINK_MARKDEFS_QUERY}
         },
       },
@@ -138,7 +153,6 @@ export const BODY_QUERY = `
       ${MEDIA_QUERY}
     },
     "citiesList": citiesList[]->{
-      ...,
       ${CITY_QUERY},
     },
     "properties": properties[]->{

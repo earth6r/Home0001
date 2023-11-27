@@ -92,11 +92,6 @@ export default {
       title: 'Summary',
       type: 'richText',
     },
-    // {
-    //   name: 'inventory',
-    //   title: 'Inventory',
-    //   type: 'inventoryModule',
-    // },
     {
       name: 'factSheet',
       title: 'Fact Sheet',
