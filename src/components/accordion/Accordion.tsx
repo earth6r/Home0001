@@ -66,7 +66,7 @@ export const Accordion: FC<AccordionProps> = ({
                 </h2>
 
                 {readMore ? (
-                  <div className="px-x md:pl-xhalf md:pr-fullmenu pt-yhalf">
+                  <div className="px-x md:pl-xhalf pr-menu md:pr-fullmenu pt-yhalf">
                     {initialText && <RichText blocks={initialText} />}
 
                     <span
