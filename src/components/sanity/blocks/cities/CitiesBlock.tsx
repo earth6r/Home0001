@@ -91,6 +91,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
               alt: image.alt || 'Building image',
               quality: 8,
               priority: true,
+              sizes: '(max-width: 768px) 0, 33vw',
               lqip: (image?.image as any)?.asset?.metadata?.lqip,
             }}
             className="w-full h-auto object-contain"
@@ -185,6 +186,7 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                                         alt: image.alt || 'Building image',
                                         quality: 8,
                                         priority: true,
+                                        sizes: '(max-width: 768px) 100vw, 0px',
                                         lqip: (image?.image as any)?.asset
                                           ?.metadata?.lqip,
                                       }}

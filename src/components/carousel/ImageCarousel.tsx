@@ -38,6 +38,7 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
           alt,
           quality: 1,
           priority: index && index <= 2 ? true : false,
+          sizes: '(max-width: 768px) 100vw, 1038px',
           style: { width: '100%', height: 'auto' },
           lqip: image?.asset?.metadata?.lqip,
         }}
@@ -95,10 +96,14 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         <Swiper
           ref={slidesRef}
           loop={false}
-          slidesPerView={1}
           spaceBetween={16}
           breakpoints={breakpoints}
           speed={600}
+          followFinger={true}
+          freeMode={true}
+          mousewheel={{
+            releaseOnEdges: true,
+          }}
           className="max-w-[560px] md:max-w-[unset] w-full overflow-visible"
         >
           {slides.map(({ _key, image, alt }, index) => (

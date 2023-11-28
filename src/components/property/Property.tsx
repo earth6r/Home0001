@@ -53,7 +53,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             <BlockContent
               blocks={property?.body}
               grid={false}
-              className="mt-ydouble md:mt-0 px-x md:pl-0 overflow-hidden"
+              className="mt-ydouble md:mt-0 px-x md:px-0 overflow-hidden"
             />
           )}
         </div>

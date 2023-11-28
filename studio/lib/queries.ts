@@ -44,6 +44,55 @@ export const CTA_QUERY = `
   },
 `
 
+export const CITY_QUERY = `
+  _id,
+  _type,
+  title,
+  active,
+  "propertyLink": propertyLink{
+    ${LINK_QUERY}
+  }
+`
+
+export const BODY_QUERY = `
+  "body": body[]{
+    ...,
+    "text": text[]{
+      ...,
+      markDefs[]{
+        ...,
+        ${LINK_MARKDEFS_QUERY}
+      },
+    },
+    "accordions": accordions[]{
+      ...,
+      "text": text[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      },
+      cta{
+        ${CTA_QUERY}
+      }
+    },
+    "media": media{
+      ${MEDIA_QUERY}
+    },
+    "citiesList": citiesList[]->{
+      ${CITY_QUERY},
+    },
+    "properties": properties[]->{
+      "image": image{
+        ${MEDIA_QUERY}
+      },
+      longTitle,
+      slug,
+    },
+  },
+`
+
 export const UNIT_QUERY = `
   _key,
   _id,
@@ -99,11 +148,11 @@ export const PROPERTIES_QUERY = `
   "image": image{
     ${MEDIA_QUERY}
   },
-  body,
   waitlistLinkText,
   availableText,
   "unitsList": unitsList[]->{
     _key,
+    _id,
     slug,
     title,
     available,
@@ -117,53 +166,5 @@ export const PROPERTIES_QUERY = `
   "previewImage": previewImage{
     ${MEDIA_QUERY}
   },
-`
-
-export const CITY_QUERY = `
-  _id,
-  _type,
-  title,
-  active,
-  "propertyLink": propertyLink{
-    ${LINK_QUERY}
-  }
-`
-
-export const BODY_QUERY = `
-  "body": body[]{
-    ...,
-    "text": text[]{
-      ...,
-      markDefs[]{
-        ...,
-        ${LINK_MARKDEFS_QUERY}
-      },
-    },
-    "accordions": accordions[]{
-      ...,
-      "text": text[]{
-        ...,
-        markDefs[]{
-          ...,
-          ${LINK_MARKDEFS_QUERY}
-        },
-      },
-      cta{
-        ${CTA_QUERY}
-      }
-    },
-    "media": media{
-      ${MEDIA_QUERY}
-    },
-    "citiesList": citiesList[]->{
-      ${CITY_QUERY},
-    },
-    "properties": properties[]->{
-      "image": image{
-        ${MEDIA_QUERY}
-      },
-      longTitle,
-      slug,
-    },
-  },
+  ${BODY_QUERY}
 `
