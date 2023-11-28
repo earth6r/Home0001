@@ -104,7 +104,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             nextEl: '.swiper-next',
             prevEl: '.swiper-prev',
           }}
-          className="max-w-[560px] md:max-w-[unset] w-full overflow-visible"
+          className="max-w-[620px] md:max-w-[unset] w-full overflow-visible"
         >
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide key={`${_key}-${alt}`} className="w-auto">
@@ -119,7 +119,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       data-pswp-height={1100}
                     >
                       <ImageSlide
-                        className="max-w-[560px] md:max-w-[unset] px-4 h-full w-full object-cover"
+                        className="max-w-[620px] md:max-w-[unset] px-4 h-full w-full object-cover"
                         image={image as any}
                         index={index}
                         alt={alt}
@@ -127,7 +127,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                     </a>
                   ) : (
                     <ImageSlide
-                      className="max-w-[560px] md:max-w-[unset] px-4 h-full w-full object-cover"
+                      className="max-w-[620px] md:max-w-[unset] px-4 h-full w-full object-cover"
                       image={image as any}
                       index={index}
                       alt={alt}
