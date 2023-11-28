@@ -99,11 +99,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           spaceBetween={16}
           breakpoints={breakpoints}
           speed={600}
-          followFinger={true}
-          freeMode={true}
-          mousewheel={{
-            releaseOnEdges: true,
-          }}
           className="max-w-[560px] md:max-w-[unset] w-full overflow-visible"
         >
           {slides.map(({ _key, image, alt }, index) => (
