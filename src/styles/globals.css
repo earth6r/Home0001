@@ -140,6 +140,10 @@ body {
   display: none !important;
 }
 
+.swiper-button-disabled {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .intercom-lightweight-app-launcher {
     right: 2.5rem !important;

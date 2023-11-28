@@ -3,7 +3,7 @@ import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import { Media } from '@studio/gen/sanity-schema'
 import { Swiper, SwiperSlide } from 'swiper/react'
 // import { Navigation } from 'swiper'
-import type { SwiperOptions } from 'swiper'
+import { Navigation, type SwiperOptions } from 'swiper'
 import { IconLeftArrow, IconRightArrow, IconX } from '@components/icons'
 import classNames from 'classnames'
 import { SCREENS } from '@/globals'
@@ -31,7 +31,7 @@ const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox=
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
   return (
-    <div className="block relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none">
+    <div className="block relative w-full md:max-w-[346px] h-full overflow-hidden cursor-grab active:cursor-grabbing select-none">
       <SanityMedia
         image={image}
         imageProps={{
@@ -95,14 +95,33 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
       {slides && slides.length > 1 ? (
         <Swiper
           ref={slidesRef}
+          modules={[Navigation]}
           loop={false}
           spaceBetween={16}
           breakpoints={breakpoints}
           speed={600}
+          navigation={{
+            nextEl: '.swiper-next',
+            prevEl: '.swiper-prev',
+          }}
           className="max-w-[560px] md:max-w-[unset] w-full overflow-visible"
         >
+          <nav className="hidden md:block w-full h-full top-0 left-0 absolute z-above pointer-events-none">
+            <IconLeftArrow
+              width="42"
+              className={classNames(
+                'absolute top-1/2 transform -translate-y-1/2 rotate-180 swiper-prev left-xhalf pointer-events-auto'
+              )}
+            />
+            <IconRightArrow
+              width="42"
+              className={classNames(
+                'absolute top-1/2 transform -translate-y-1/2 swiper-next right-xhalf pointer-events-auto'
+              )}
+            />
+          </nav>
           {slides.map(({ _key, image, alt }, index) => (
-            <SwiperSlide key={`${_key}-${alt}`}>
+            <SwiperSlide key={`${_key}-${alt}`} className="w-auto">
               {image && alt && (
                 <>
                   {carousel ? (
