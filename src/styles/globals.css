@@ -141,7 +141,7 @@ body {
 }
 
 .swiper-button-disabled {
-  display: none;
+  opacity: 0.4;
 }
 
 @media (min-width: 768px) {

@@ -106,20 +106,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           }}
           className="max-w-[560px] md:max-w-[unset] w-full overflow-visible"
         >
-          <nav className="hidden md:block w-full h-full top-0 left-0 absolute z-above pointer-events-none">
-            <IconLeftArrow
-              width="42"
-              className={classNames(
-                'absolute top-1/2 transform -translate-y-1/2 rotate-180 swiper-prev left-xhalf pointer-events-auto'
-              )}
-            />
-            <IconRightArrow
-              width="42"
-              className={classNames(
-                'absolute top-1/2 transform -translate-y-1/2 swiper-next right-xhalf pointer-events-auto'
-              )}
-            />
-          </nav>
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide key={`${_key}-${alt}`} className="w-auto">
               {image && alt && (
@@ -151,6 +137,18 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               )}
             </SwiperSlide>
           ))}
+          <nav className="hidden md:flex gap-[7px] my-yhalf cursor-pointer">
+            <IconLeftArrow
+              width="24"
+              className={classNames(
+                'rotate-180 swiper-prev pointer-events-auto'
+              )}
+            />
+            <IconRightArrow
+              width="24"
+              className={classNames('swiper-next pointer-events-auto')}
+            />
+          </nav>
         </Swiper>
       ) : (
         <div className="flex items-center overflow-hidden">
