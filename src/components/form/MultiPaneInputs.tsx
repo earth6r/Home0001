@@ -168,15 +168,18 @@ const UnitsPane: FC<PaneContentProps> = ({
     <>
       <div className={classNames(className)}>
         {unitGroups &&
-          unitGroups.map(({ _key, header, units }) => {
+          unitGroups.map(({ _key, header, units }, index) => {
             return (
-              <div key={_key} className="mb-y">
+              <div key={index} className="mb-y">
                 {header && <p className="mb-2">{header}</p>}
 
                 {units &&
                   units.map((unit: KeyedUnitProps, index) => {
                     return (
-                      <div key={`${index}-${_key}`} className="relative mb-4">
+                      <div
+                        key={`${index}-${unit._key}`}
+                        className="relative mb-4"
+                      >
                         <input
                           id={`unit-of-interest-${index}-${_key}`}
                           type="checkbox"

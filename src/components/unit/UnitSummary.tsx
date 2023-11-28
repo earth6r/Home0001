@@ -4,13 +4,10 @@ import classNames from 'classnames'
 import { KeyedUnitProps, UnitListProps } from './types'
 import slugify from 'slugify'
 import { useRouter } from 'next/router'
-import { sendGoogleEvent, sendHubspotEvent } from '@lib/util'
-import { SanityLink, SanityMedia } from '@components/sanity'
-import { SanityLinkType } from '@studio/lib'
+import { sendGoogleEvent } from '@lib/util'
 import Link from 'next/link'
 import { ImageCarousel } from '@components/carousel'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
-import { redirect } from 'next/navigation'
 
 export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
   const router = useRouter()
@@ -77,7 +74,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 index="0"
                 slides={unit?.photographs}
                 carousel={true}
-                className="md:max-w-[346px] mb-3"
+                className="mb-3"
               />
             )}
             <div className="block w-auto max-w-[467px] bg-darkgray py-x pl-x mr-4 md:mr-0 pr-menu">
