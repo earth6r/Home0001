@@ -44,63 +44,6 @@ export const CTA_QUERY = `
   },
 `
 
-export const UNIT_QUERY = `
-  "propertyType": propertyType->{
-    ...,
-    typeTitle,
-    typeValue,
-  },
-  "headlineImage": headlineImage{
-    ${MEDIA_QUERY}
-  },
-  "photographs": photographs[]{
-    ...,
-    ${MEDIA_QUERY}
-  },
-  "layoutImages": layoutImages[]{
-    ...,
-    ${MEDIA_QUERY}
-  },
-  "property": property->{
-    ...,
-    "location": location->{
-      ...,
-      title,
-    },
-  },
-`
-
-export const PROPERTIES_QUERY = `
-  _id,
-  "image": image{
-    ${MEDIA_QUERY}
-  },
-  "description": description[]{
-      ...,
-      markDefs[]{
-        ...,
-        ${LINK_MARKDEFS_QUERY}
-      },
-  },
-  "propertyDetails": propertyDetails[]{
-      ...,
-      "text": text[]{
-        ...,
-        markDefs[]{
-          ...,
-          ${LINK_MARKDEFS_QUERY}
-        },
-      },
-      cta{
-        ${CTA_QUERY}
-      }
-  },
-  "unitsList": unitsList[]->{
-    ...,
-    ${UNIT_QUERY}
-  },
-`
-
 export const CITY_QUERY = `
   _id,
   _type,
@@ -138,7 +81,6 @@ export const BODY_QUERY = `
       ${MEDIA_QUERY}
     },
     "citiesList": citiesList[]->{
-      ...,
       ${CITY_QUERY},
     },
     "properties": properties[]->{
@@ -149,4 +91,80 @@ export const BODY_QUERY = `
       slug,
     },
   },
+`
+
+export const UNIT_QUERY = `
+  _key,
+  _id,
+  slug,
+  title,
+  headerText,
+  available,
+  price,
+  area,
+  amenities,
+  summary,
+  factSheet,
+  reserveFormCopy,
+  confirmationCopy,
+  moreInfo,
+  unitDetails,
+  secondUnitDetails,
+  "propertyType": propertyType->{
+    typeTitle,
+    typeValue,
+  },
+  "headlineImage": headlineImage{
+    ${MEDIA_QUERY}
+  },
+  "photographs": photographs[]{
+    ${MEDIA_QUERY}
+  },
+  "layoutImages": layoutImages[]{
+    ${MEDIA_QUERY}
+  },
+  "property": property->{
+    headerText,
+    slug,
+    "location": location->{
+      title,
+    },
+  },
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
+  },
+`
+
+export const PROPERTIES_QUERY = `
+  _key,
+  _id,
+  title,
+  slug,
+  longTitle,
+  headerText,
+  header,
+  coordinates,
+  "image": image{
+    ${MEDIA_QUERY}
+  },
+  waitlistLinkText,
+  availableText,
+  "unitsList": unitsList[]->{
+    _key,
+    _id,
+    slug,
+    title,
+    available,
+    price,
+    area,
+    "photographs": photographs[]{
+      ${MEDIA_QUERY}
+    },
+  },
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
+  },
+  ${BODY_QUERY}
 `

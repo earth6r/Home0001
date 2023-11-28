@@ -11,7 +11,7 @@ export const IconLeftArrowComponent = (props: SVGProps<SVGSVGElement>) => {
       {...props}
     >
       <path
-        fill="#000"
+        fill={props.fill || '#000'}
         d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z"
       />
     </svg>

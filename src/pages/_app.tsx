@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { Layout } from '@components/layout'
 import { Scripts } from '@components/scripts'
 import ContextProvider from '@/contexts'
-import { IntercomProvider } from '@components/intercom'
+// import { IntercomProvider } from '@components/intercom'
 
 import 'focus-visible'
 import 'swiper/css'
@@ -13,7 +13,6 @@ import 'swiper/css/virtual'
 import '../styles/main.css'
 import '../styles/toast.css'
 import { AnimatePresence } from 'framer-motion'
-import { useRouter } from 'next/router'
 
 const PreviewProvider = dynamic(
   () => import('@components/preview/PreviewProvider')

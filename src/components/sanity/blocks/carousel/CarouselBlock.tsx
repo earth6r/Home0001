@@ -25,7 +25,7 @@ export const CarouselBlock: FC<CarouselBlockProps> = ({
           index="0"
           slides={images}
           carousel={false}
-          className="w-full md:max-w-[346px]"
+          className="w-full"
         />
       )}
     </Block>

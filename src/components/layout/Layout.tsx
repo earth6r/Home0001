@@ -12,7 +12,6 @@ import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { KeyedUnitGroup } from '@components/form'
-import type { Page as SanityPage } from '@gen/sanity-schema'
 import { filterDataToSingleItem } from '@studio/lib'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL

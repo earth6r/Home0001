@@ -150,10 +150,11 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             <label htmlFor="hs_persona">Which best describes you?</label>
             <select
               id="hs_persona"
+              defaultValue={'default'}
               {...register('hs_persona', { required: true })}
               className="input"
             >
-              <option disabled selected>
+              <option disabled selected value={'default'}>
                 -- select an option --
               </option>
               <option value="purchasing">

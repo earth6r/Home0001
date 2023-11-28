@@ -1,5 +1,4 @@
-import { type FC, HTMLAttributes, useContext } from 'react'
-import { HomeContext } from '@contexts/home'
+import { type FC } from 'react'
 import classNames from 'classnames'
 import { KeyedUnitProps, UnitListProps } from './types'
 import UnitSummary from './UnitSummary'

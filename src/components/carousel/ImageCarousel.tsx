@@ -3,7 +3,7 @@ import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import { Media } from '@studio/gen/sanity-schema'
 import { Swiper, SwiperSlide } from 'swiper/react'
 // import { Navigation } from 'swiper'
-import type { SwiperOptions } from 'swiper'
+import { Navigation, type SwiperOptions } from 'swiper'
 import { IconLeftArrow, IconRightArrow, IconX } from '@components/icons'
 import classNames from 'classnames'
 import { SCREENS } from '@/globals'
@@ -31,13 +31,14 @@ const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox=
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
   return (
-    <div className="block relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none">
+    <div className="block relative w-full md:max-w-[346px] h-full overflow-hidden cursor-grab active:cursor-grabbing select-none">
       <SanityMedia
         image={image}
         imageProps={{
           alt,
           quality: 1,
           priority: index && index <= 2 ? true : false,
+          sizes: '(max-width: 768px) 100vw, 1038px',
           style: { width: '100%', height: 'auto' },
           lqip: image?.asset?.metadata?.lqip,
         }}
@@ -94,15 +95,19 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
       {slides && slides.length > 1 ? (
         <Swiper
           ref={slidesRef}
+          modules={[Navigation]}
           loop={false}
-          slidesPerView={1}
           spaceBetween={16}
           breakpoints={breakpoints}
           speed={600}
-          className="max-w-[560px] md:max-w-[unset] w-full overflow-visible"
+          navigation={{
+            nextEl: '.swiper-next',
+            prevEl: '.swiper-prev',
+          }}
+          className="max-w-[620px] md:max-w-[unset] w-full overflow-visible"
         >
           {slides.map(({ _key, image, alt }, index) => (
-            <SwiperSlide key={`${_key}-${alt}`}>
+            <SwiperSlide key={`${_key}-${alt}`} className="w-auto">
               {image && alt && (
                 <>
                   {carousel ? (
@@ -114,7 +119,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       data-pswp-height={1100}
                     >
                       <ImageSlide
-                        className="max-w-[560px] md:max-w-[unset] px-4 h-full w-full object-cover"
+                        className="max-w-[620px] md:max-w-[unset] px-4 h-full w-full object-cover"
                         image={image as any}
                         index={index}
                         alt={alt}
@@ -122,7 +127,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                     </a>
                   ) : (
                     <ImageSlide
-                      className="max-w-[560px] md:max-w-[unset] px-4 h-full w-full object-cover"
+                      className="max-w-[620px] md:max-w-[unset] px-4 h-full w-full object-cover"
                       image={image as any}
                       index={index}
                       alt={alt}
@@ -132,6 +137,18 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               )}
             </SwiperSlide>
           ))}
+          <nav className="hidden md:flex gap-[7px] my-yhalf cursor-pointer">
+            <IconLeftArrow
+              width="24"
+              className={classNames(
+                'rotate-180 swiper-prev pointer-events-auto'
+              )}
+            />
+            <IconRightArrow
+              width="24"
+              className={classNames('swiper-next pointer-events-auto')}
+            />
+          </nav>
         </Swiper>
       ) : (
         <div className="flex items-center overflow-hidden">
