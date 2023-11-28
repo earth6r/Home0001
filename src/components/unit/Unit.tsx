@@ -41,18 +41,18 @@ export const UnitComponent: FC<UnitElProps> = ({
 
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
-      <div className="md:grid md:grid-cols-3 md:pr-menu px-x">
+      <div className="md:grid md:grid-cols-3 px-x md:pr-0">
         <h2 className="text-title mb-12 md:ml-[-2px] uppercase col-span-2">
           {unit?.title}
         </h2>
-        <div className="md:col-start-1 col-start-2 md:col-span-1">
+        <div className="md:col-start-1 col-start-2 md:col-span-3">
           <div className="flex flex-col relative">
             {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel
                 index="0"
                 slides={unit?.photographs}
                 carousel={true}
-                className="w-full"
+                className="relative w-full"
               />
             )}
 
@@ -75,7 +75,9 @@ export const UnitComponent: FC<UnitElProps> = ({
                   className="inline-block"
                 />
               )}
-              {unit?.summary && <RichText blocks={unit?.summary} />}
+              {unit?.summary && (
+                <RichText blocks={unit?.summary} className="max-w-[500px]" />
+              )}
             </div>
 
             {unit?.unitDetails &&
@@ -85,11 +87,11 @@ export const UnitComponent: FC<UnitElProps> = ({
                   key={_key}
                   header={header}
                   text={text}
-                  className="mb-ydouble md:mb-y mr-menu md:mr-0 border-x-0 border-t-0 font-bold text-xs"
+                  className="mb-ydouble md:mb-y mr-menu md:mr-0 md:max-w-[346px] border-x-0 border-t-0 font-bold text-xs"
                 />
               ))}
 
-            <div className="pr-menu md:pr-0 mb-ydouble md:mb-y">
+            <div className="pr-menu md:pr-0 mb-ydouble md:mb-y md:max-w-[346px]">
               <button
                 onClick={() => setWaitlistModal(true)}
                 className={classNames(
