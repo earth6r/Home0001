@@ -30,7 +30,7 @@ export default {
         xs: ['14px', '1.2'], // small
         sm: ['16px', '1'], // read more
         md: ['20px', '1.2'], // body
-        lg: ['24px', '1.2'], // heading 2
+        lg: ['20px', '1.2'], // heading 2
         xl: ['54px', '1'], // heading 1
         '2xl': ['7.2vw', '1'], // title
       },
