@@ -122,6 +122,7 @@ body {
   overscroll-behavior-y: none;
 }
 
+/* 3rd party styling */
 .chakra-portal {
   position: relative;
   z-index: theme('zIndex.modal');

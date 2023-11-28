@@ -115,7 +115,7 @@ export const UnitComponent: FC<UnitElProps> = ({
           )}
 
           {unit?.moreInfo && (
-            <div className="mt-10 pr-menu md:pr-0">
+            <div className="mt-10 pr-menu">
               <RichText blocks={unit?.moreInfo} />
             </div>
           )}
