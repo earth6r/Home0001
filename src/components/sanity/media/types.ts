@@ -15,6 +15,7 @@ export interface SanityImageProps extends Omit<ImageProps, 'src'> {
 }
 
 export interface SanityMediaProps extends HTMLAttributes<HTMLImageElement> {
+  alt: string
   image?: {
     asset: SanityImageAsset
     crop?: SanityImageCrop

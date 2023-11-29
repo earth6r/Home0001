@@ -13,7 +13,7 @@ export const Figure: FC<FigureProps> = ({
 }) => (
   <figure className={classNames(styles.figure, className, 'figure')} {...props}>
     {content}
-    <figcaption className={classNames(styles.figcaption, captionClass)}>
+    <figcaption className={classNames(captionClass)}>
       {caption}
       {children}
     </figcaption>

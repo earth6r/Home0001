@@ -44,7 +44,7 @@
 }
 
 .rich-text h2 {
-  @apply text-lg uppercase;
+  @apply text-lg font-bold uppercase;
 }
 
 .rich-text p,

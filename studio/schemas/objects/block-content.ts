@@ -9,6 +9,11 @@ export default {
       title: 'Accordion Block',
     },
     {
+      name: 'animatingBlock',
+      type: 'animatingBlock',
+      title: 'Animating Block',
+    },
+    {
       name: 'carouselBlock',
       type: 'carouselBlock',
       title: 'Carousel Block',
