@@ -10,23 +10,11 @@ export const SanityFigureContent: FC<SanityFigureContentProps> = ({
   contentClass,
   mediaClass,
   ...props
-}) => {
-  console.log('props: ', props)
-  return (
-    image?.asset && (
-      <div className={classNames(contentClass)}>
-        <SanityMedia
-          image={image}
-          imageProps={{
-            alt: props.alt,
-            objectFit: 'contain',
-          }}
-          className={mediaClass}
-          {...props}
-        />
-      </div>
-    )
-  )
-}
+}) =>
+  image?.asset ? (
+    <div className={classNames(contentClass)}>
+      <SanityMedia image={image} className={mediaClass} {...props} />
+    </div>
+  ) : null
 
 export default SanityFigureContent
