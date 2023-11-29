@@ -44,17 +44,17 @@
 }
 
 .rich-text h2 {
-  @apply text-lg font-bold uppercase tracking-[-0.82px];
+  @apply text-lg font-bold uppercase tracking-header;
 }
 
 .rich-text p,
 .rich-text span,
 .rich-text li {
-  @apply text-md font-bold tracking-tight;
+  @apply text-md font-medium tracking-body;
 }
 
 .rich-text p.small {
-  @apply text-xs font-bold;
+  @apply text-xs font-medium;
 }
 
 .rich-text ul,

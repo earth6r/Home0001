@@ -1,5 +1,5 @@
 import type {
-  CitiesBlock as CitiesBlockType,
+  PropertiesBlock as CitiesBlockType,
   City,
   Media,
   Property,

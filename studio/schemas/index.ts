@@ -17,7 +17,7 @@ import accordion from './objects/accordion'
 import waitlistBlock from './blocks/waitlist-block'
 import coordinates from './objects/coordinates'
 import city from './documents/city'
-import citiesBlock from './blocks/cities-block'
+import propertiesBlock from './blocks/properties-block'
 import property from './documents/property'
 import unit from './documents/unit'
 import inventoryModule from './modules/inventory-module'
@@ -55,7 +55,7 @@ export const schemaTypes = [
   accordionBlock,
   animatingBlock,
   carouselBlock,
-  citiesBlock,
+  propertiesBlock,
   newsletterBlock,
   contactBlock,
   textBlock,

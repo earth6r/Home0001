@@ -2,9 +2,9 @@ import type { Rule } from '@sanity/types'
 import { FaLocationDot } from 'react-icons/fa6'
 
 export default {
-  name: 'citiesBlock',
+  name: 'propertiesBlock',
   type: 'object',
-  title: 'Cities Block',
+  title: 'Properties Block',
   icon: FaLocationDot,
   fields: [
     {
@@ -15,6 +15,6 @@ export default {
     },
   ],
   preview: {
-    prepare: (): { title: string } => ({ title: 'Cities block' }),
+    prepare: (): { title: string } => ({ title: 'Properties block' }),
   },
 }

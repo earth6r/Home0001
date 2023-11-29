@@ -58,8 +58,8 @@ export const Accordion: FC<AccordionProps> = ({
               >
                 <h2
                   className={classNames(
-                    readMore ? 'text-lg tracking-tight' : 'font-bold text-xs',
-                    'uppercase'
+                    readMore ? 'text-lg tracking-details' : 'text-xs',
+                    'font-bold uppercase'
                   )}
                 >
                   {header}
@@ -72,7 +72,7 @@ export const Accordion: FC<AccordionProps> = ({
                     <span
                       className={classNames(
                         open ? 'opacity-0' : '',
-                        'pt-yhalf underline underline-offset-2 font-bold text-sm'
+                        'pt-yhalf underline underline-offset-2 text-sm'
                       )}
                     >{`Read more`}</span>
                   </div>

@@ -232,7 +232,7 @@ const UnitsPane: FC<PaneContentProps> = ({
 
       {showNextButton && (
         <button
-          className="sticky bottom-2 border-black left-0 animate-fadeInDelay opacity-0 w-full px-x md:px-xhalf tracking-normal h-btn tracking-caps uppercase text-black bg-gray text-center z-header"
+          className="sticky bottom-2 border-black left-0 animate-fadeInDelay opacity-0 w-full px-x md:px-xhalf tracking-details h-btn uppercase text-black bg-gray text-center z-header"
           type="button"
           onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             setUnitOfInterestRequired(false)

@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { useRef, type FC } from 'react'
 import classNames from 'classnames'
 import type {
   CitiesBlockProps,
@@ -9,6 +9,7 @@ import { Block, SanityMedia } from '@components/sanity'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import Link from 'next/link'
 import { Waitlist } from '@components/waitlist'
+import { motion } from 'framer-motion'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -52,13 +53,19 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   </div>
 )
 
-export const CitiesBlock: FC<CitiesBlockProps> = ({
+export const PropertiesBlock: FC<CitiesBlockProps> = ({
   properties,
   className,
 }) => {
   return (
     <Block className={classNames(className, 'md:mb-page', '-ml-[2px]')}>
-      <div className="grid md:grid-cols-3 gap-12 md:gap-16">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ amount: 'some' }}
+        className="grid md:grid-cols-3 gap-12 md:gap-16 opacity-0"
+      >
         <div className="flex flex-col gap-12 md:gap-16">
           {properties &&
             (properties as KeyedProperty[])?.map(
@@ -116,9 +123,9 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
               slug={slug}
             />
           ))}
-      </div>
+      </motion.div>
     </Block>
   )
 }
 
-export default CitiesBlock
+export default PropertiesBlock
