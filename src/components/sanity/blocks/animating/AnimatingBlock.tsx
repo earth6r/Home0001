@@ -1,4 +1,4 @@
-import { useRef, type FC, type HTMLAttributes } from 'react'
+import { useRef, type FC, type HTMLAttributes, useEffect } from 'react'
 import classNames from 'classnames'
 import type {
   AnimatingBlock as AnimatingBlockType,
@@ -9,7 +9,8 @@ import { Block, RichText, SanityLink, SanityMedia } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util'
 import { CitiesListProps } from '../properties/types'
 import { SanityLinkType } from '@studio/lib'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { useHeaderLinks } from '@contexts/header'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
   AnimatingBlockType
@@ -126,25 +127,39 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   citiesPosition,
   citiesList,
   className,
-}) => (
-  <Block className={classNames(className, 'px-x mt-0 mb-[50vh]')}>
-    <div className="md:col-start-2 md:col-span-1">
-      {textAndImages &&
-        textAndImages.map(({ _key, aspect, media, text }, index) => (
-          <div key={_key}>
-            {media && <AnimatingImage media={media} aspect={aspect} />}
+}) => {
+  const scrollRef = useRef(null)
+  const isInView = useInView(scrollRef)
 
-            {text && <RichText blocks={text} className="relative mt-3" />}
+  const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
 
-            {index === citiesPosition && (
-              <div className="mt-3">
-                <CitiesList citiesList={citiesList} />
-              </div>
-            )}
-          </div>
-        ))}
-    </div>
-  </Block>
-)
+  useEffect(() => {
+    setHeaderLinksShown(false)
+    if (!isInView) {
+      setHeaderLinksShown(true)
+    }
+  }, [isInView])
+
+  return (
+    <Block className={classNames(className, 'px-x mt-0 mb-[50vh]')}>
+      <div ref={scrollRef} className="md:col-start-2 md:col-span-1">
+        {textAndImages &&
+          textAndImages.map(({ _key, aspect, media, text }, index) => (
+            <div key={_key}>
+              {media && <AnimatingImage media={media} aspect={aspect} />}
+
+              {text && <RichText blocks={text} className="relative mt-3" />}
+
+              {index === citiesPosition && (
+                <div className="mt-3">
+                  <CitiesList citiesList={citiesList} />
+                </div>
+              )}
+            </div>
+          ))}
+      </div>
+    </Block>
+  )
+}
 
 export default AnimatingBlock
