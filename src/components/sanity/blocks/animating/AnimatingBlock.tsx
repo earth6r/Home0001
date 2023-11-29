@@ -16,6 +16,7 @@ type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
 
 interface AnimatingImageProps extends HTMLAttributes<HTMLDivElement> {
   media: Media
+  aspect: 'square' | 'tall' | 'short'
 }
 
 const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
@@ -64,7 +65,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
   </ul>
 )
 
-const AnimatingImage: FC<AnimatingImageProps> = ({ media }) => {
+const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -78,8 +79,27 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media }) => {
   )
 
   return (
-    <div ref={ref} className="relative aspect-[1.3] overflow-hidden z-above">
-      <div className="aspect-[1.3] relative w-full h-[284px]">
+    <div
+      ref={ref}
+      className={classNames(
+        aspect === 'short'
+          ? 'aspect-[1.3]'
+          : aspect === 'tall'
+          ? 'aspect-[0.8]'
+          : 'aspect-square',
+        'relative overflow-hidden z-above'
+      )}
+    >
+      <div
+        className={classNames(
+          aspect === 'short'
+            ? 'aspect-[1.3] h-[284px]'
+            : aspect === 'tall'
+            ? 'aspect-[0.8] h-[472px]'
+            : 'aspect-square',
+          'relative w-full'
+        )}
+      >
         <motion.div
           style={{ transform, transformOrigin: 'center bottom' }}
           className="absolute w-full h-full will-change-transform"
@@ -110,9 +130,9 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   <Block className={classNames(className, 'px-x m-0')}>
     <div className="md:col-start-2 md:col-span-1">
       {textAndImages &&
-        textAndImages.map(({ _key, media, text }, index) => (
+        textAndImages.map(({ _key, aspect, media, text }, index) => (
           <div key={_key}>
-            {media && <AnimatingImage media={media} />}
+            {media && <AnimatingImage media={media} aspect={aspect} />}
 
             {text && <RichText blocks={text} className="relative mt-3" />}
 

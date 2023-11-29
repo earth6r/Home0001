@@ -14,6 +14,18 @@ export default {
   icon: IoIosImage,
   fields: [
     {
+      name: 'aspect',
+      type: 'string',
+      title: 'Aspect',
+      options: {
+        list: [
+          { title: 'Short', value: 'short' },
+          { title: 'Square', value: 'square' },
+          { title: 'Tall', value: 'tall' },
+        ],
+      },
+    },
+    {
       name: 'media',
       type: 'media',
       title: 'Media',
