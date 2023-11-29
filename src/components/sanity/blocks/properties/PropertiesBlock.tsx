@@ -1,4 +1,4 @@
-import { useRef, type FC } from 'react'
+import { type FC } from 'react'
 import classNames from 'classnames'
 import type {
   CitiesBlockProps,
@@ -16,7 +16,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   longTitle,
   slug,
 }) => (
-  <div className="hidden md:flex md:sticky md:top-[126px] md:left-0 md:self-start">
+  <div className="flex">
     <Link href={`/property/${slug.current}`}>
       {image && (
         <div className="block relative w-full mb-yhalf z-base">
@@ -25,7 +25,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
               alt: image.alt || 'Building image',
               quality: 8,
               priority: true,
-              sizes: '(max-width: 768px) 0, 33vw',
+              sizes: '(max-width: 768px) 100vw, 33vw',
               lqip: (image?.image as any)?.asset?.metadata?.lqip,
             }}
             className="w-full h-auto object-contain"
@@ -36,10 +36,10 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       {longTitle && (
         <div
           className={classNames(
-            'flex gap-1 items-start mobile-landing text-left uppercase'
+            'flex gap-1 items-start px-x md:px-0 text-xl font-bold leading-tight text-left uppercase'
           )}
         >
-          <IconRightArrowBold className="mt-1 home-svg" />
+          <IconRightArrowBold fill="black" className="mt-3 home-svg" />
           <span
             className={classNames(
               'inline-block w-[calc(100%-49px)] underline underline-offset-[0.2em]'
@@ -64,65 +64,25 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
         viewport={{ amount: 'some' }}
-        className="grid md:grid-cols-3 gap-12 md:gap-16 opacity-0"
+        className="opacity-0"
       >
-        <div className="flex flex-col gap-12 md:gap-16">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 md:px-fullmenu">
           {properties &&
             (properties as KeyedProperty[])?.map(
               ({ image, longTitle, slug }) => (
-                <div key={slug.current} className="md:hidden mt-12">
-                  <Link href={`/property/${slug.current}`}>
-                    {image && (
-                      <div className="block relative w-full mb-yhalf z-base">
-                        <SanityMedia
-                          imageProps={{
-                            alt: image.alt || 'Building image',
-                            quality: 8,
-                            priority: true,
-                            sizes: '(max-width: 768px) 100vw, 0px',
-                            lqip: (image?.image as any)?.asset?.metadata?.lqip,
-                          }}
-                          {...(image as any)}
-                          className="w-full h-auto object-contain"
-                        />
-                      </div>
-                    )}
-                    {longTitle && (
-                      <div
-                        className={classNames(
-                          'flex gap-1 items-start mobile-landing font-bold text-left uppercase px-x'
-                        )}
-                      >
-                        <IconRightArrowBold
-                          fill="black"
-                          className="mt-[4px] home-svg"
-                        />
-                        <span
-                          className={classNames(
-                            'pr-menu inline-block w-[calc(100%-49px)] text-under underline underline-offset-[0.2em]'
-                          )}
-                        >
-                          {longTitle}
-                        </span>
-                      </div>
-                    )}
-                  </Link>
-                </div>
+                <PropertySummary
+                  key={slug.current}
+                  image={image}
+                  longTitle={longTitle}
+                  slug={slug}
+                />
               )
             )}
-
-          <Waitlist />
         </div>
 
-        {properties &&
-          (properties as KeyedProperty[])?.map(({ image, longTitle, slug }) => (
-            <PropertySummary
-              key={slug.current}
-              image={image}
-              longTitle={longTitle}
-              slug={slug}
-            />
-          ))}
+        <div className="md:grid md:grid-cols-3 mt-16">
+          <Waitlist className="md:col-span-2 md:col-start-2" />
+        </div>
       </motion.div>
     </Block>
   )
