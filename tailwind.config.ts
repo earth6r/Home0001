@@ -21,18 +21,18 @@ export default {
       },
       screens,
       fontFamily: {
-        sans: ['"Haas Grot Display"', 'Arial', 'sans-serif', 'arial-unicode'],
+        sans: ['"Haas Grot"', 'Arial', 'sans-serif', 'arial-unicode'],
         serif: ['ui-serif', 'serif'],
         mono: ['ui-monospace', 'SFMono-Regular'],
       },
       fontSize: {
         base: '14px',
         xs: ['14px', '1.2'], // small
-        sm: ['16px', '1'], // read more
-        md: ['20px', '1.2'], // body
-        lg: ['20px', '1.2'], // heading 2
-        xl: ['54px', '1'], // heading 1
-        '2xl': ['7.2vw', '1'], // title
+        sm: ['14px', '1'], // read more
+        md: ['18px', '1.2'], // body
+        lg: ['41px', '1'], // heading 2
+        xl: ['41px', '1'], // heading 1
+        '2xl': ['41px', '1'], // title
       },
       letterSpacing: {
         body: '0.005em',
@@ -133,12 +133,12 @@ export default {
           },
         },
         '.text-title': {
-          fontSize: '52px',
+          fontSize: '41px',
           lineHeight: '1',
           leadingTrim: 'both',
           textEdge: 'cap',
-          fontWeight: '500',
-          letterSpacing: '-2.7px',
+          fontWeight: '800',
+          letterSpacing: '-0.82px',
           textTransform: 'uppercase',
           '@screen md': {
             fontSize: 'clamp(12px,8.2vw,140px)',
@@ -146,7 +146,7 @@ export default {
           },
         },
         '.home-svg': {
-          maxWidth: '49px',
+          maxWidth: '40px',
           width: '10vw',
           '@screen md': {
             maxWidth: '49px',
