@@ -44,12 +44,12 @@
     --space-x: 2.5rem;
     --space-y: 2.5rem;
 
-    --space-menu: 5.625rem;
-    --space-full-menu: 15rem;
-    --space-page: 126px;
-
     --header-height: 80px;
     --gradient-height: 100px;
+
+    --space-menu: 5.625rem;
+    --space-full-menu: 12rem;
+    --space-page: var(--header-height);
   }
 }
 

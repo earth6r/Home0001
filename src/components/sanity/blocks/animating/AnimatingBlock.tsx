@@ -29,7 +29,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
             {propertyLink ? (
               <SanityLink
                 {...(propertyLink as SanityLinkType)}
-                className={classNames('text-lg font-bold uppercase')}
+                className={classNames('text-lg font-bold uppercase underline')}
               >
                 <div
                   onClick={() =>
@@ -41,7 +41,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
                       active && propertyLink ? 'leading-none' : ''
                     )}
                   >
-                    {title}
+                    {`${title},`}
                   </span>
                 </div>
               </SanityLink>
@@ -88,7 +88,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
           : aspect === 'tall'
           ? 'aspect-[0.8]'
           : 'aspect-square',
-        'relative overflow-hidden mt-3 z-above'
+        'relative overflow-hidden mt-3 md:mt-5 z-above'
       )}
     >
       <div
@@ -134,24 +134,35 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
 
   useEffect(() => {
-    setHeaderLinksShown(false)
-    if (!isInView) {
+    if (isInView) {
+      setHeaderLinksShown(false)
+    } else {
       setHeaderLinksShown(true)
     }
-  }, [isInView])
+  }, [isInView, setHeaderLinksShown])
 
   return (
-    <Block className={classNames(className, 'px-x mt-0 mb-[50vh]')}>
+    <Block
+      className={classNames(className, 'px-x md:px-fullmenu mt-0 mb-[50vh]')}
+    >
       <div ref={scrollRef} className="md:col-start-2 md:col-span-1">
         {textAndImages &&
           textAndImages.map(({ _key, aspect, media, text }, index) => (
             <div key={_key}>
               {media && <AnimatingImage media={media} aspect={aspect} />}
 
-              {text && <RichText blocks={text} className="relative mt-3" />}
+              {text && (
+                <RichText
+                  blocks={text}
+                  className={classNames(
+                    index !== 0 ? 'mt-3 md:mt-5' : '',
+                    'relative'
+                  )}
+                />
+              )}
 
               {index === citiesPosition && (
-                <div className="mt-3">
+                <div className="mt-3 md:mt-5">
                   <CitiesList citiesList={citiesList} />
                 </div>
               )}
