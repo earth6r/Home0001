@@ -85,15 +85,15 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                       sizes: '(max-width: 768px) 100vw, 33vw',
                       lqip: (media?.image as any)?.asset?.metadata?.lqip,
                     }}
-                    className="w-full h-auto object-contain mt-2"
+                    className="w-full h-auto object-contain mt-3"
                     {...(media as any)}
                   />
                 )}
 
-                {text && <RichText blocks={text} className="mt-2" />}
+                {text && <RichText blocks={text} className="mt-3" />}
 
                 {index === citiesPosition && (
-                  <div className="mt-2">
+                  <div className="mt-3">
                     <CitiesList citiesList={citiesList} />
                   </div>
                 )}

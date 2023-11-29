@@ -13,7 +13,7 @@ export const Waitlist: FC<WaitlistProps> = ({ buttonText, className }) => {
     <div className={classNames(className)}>
       <div className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] md:px-x py-ydouble md:p-14 bg-yellow">
         <div className="md:max-w-[436px]">
-          <h2 className="text-title md:text-xl md:tracking-tighter uppercase">{`Join the waitlist:`}</h2>
+          <h2 className="text-title">{`Join the waitlist:`}</h2>
 
           <div className="rich-text my-ydouble md:my-y">
             <p>0001 homes are released exclusively to our waitlist.</p>

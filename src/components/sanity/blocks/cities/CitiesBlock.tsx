@@ -83,10 +83,13 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                     {longTitle && (
                       <div
                         className={classNames(
-                          'flex gap-1 items-start mobile-landing text-left uppercase px-x'
+                          'flex gap-1 items-start mobile-landing font-bold text-left uppercase px-x'
                         )}
                       >
-                        <IconRightArrowBold className="mt-2 home-svg" />
+                        <IconRightArrowBold
+                          fill="black"
+                          className="mt-[4px] home-svg"
+                        />
                         <span
                           className={classNames(
                             'pr-menu inline-block w-[calc(100%-49px)] text-under underline underline-offset-[0.2em]'
@@ -100,9 +103,8 @@ export const CitiesBlock: FC<CitiesBlockProps> = ({
                 </div>
               )
             )}
-          <div>
-            <Waitlist />
-          </div>
+
+          <Waitlist />
         </div>
 
         {properties &&
