@@ -753,6 +753,13 @@ export type PlainText = Array<SanityKeyed<SanityBlock>>;
 export type TextAndImage = {
   _type: "textAndImage";
   /**
+   * Aspect — `string`
+   *
+   *
+   */
+  aspect?: "short" | "square" | "tall";
+
+  /**
    * Media — `media`
    *
    *
