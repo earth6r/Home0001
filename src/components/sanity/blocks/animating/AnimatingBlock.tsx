@@ -78,7 +78,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media }) => {
   )
 
   return (
-    <div ref={ref} className="relative aspect-[1.3] overflow-hidden z-modal">
+    <div ref={ref} className="relative aspect-[1.3] overflow-hidden z-above">
       <div className="aspect-[1.3] relative w-full h-[284px]">
         <motion.div
           style={{ transform, transformOrigin: 'center bottom' }}
