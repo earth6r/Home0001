@@ -11,7 +11,7 @@ export const IconRightArrowBoldComponent = (props: SVGProps<SVGSVGElement>) => {
     >
       <path
         stroke={props.fill || '#fff'}
-        stroke-width="5.5"
+        strokeWidth="5.5"
         d="M0 15.278h40.5m0 0L28.094 2.872M40.5 15.278 28.094 27.684"
       />
     </svg>
