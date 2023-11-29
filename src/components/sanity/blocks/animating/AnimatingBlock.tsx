@@ -83,19 +83,19 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
       ref={ref}
       className={classNames(
         aspect === 'short'
-          ? 'aspect-[1.3]'
+          ? 'aspect-[1.4]'
           : aspect === 'tall'
           ? 'aspect-[0.8]'
           : 'aspect-square',
-        'relative overflow-hidden z-above'
+        'relative overflow-hidden mt-3 z-above'
       )}
     >
       <div
         className={classNames(
           aspect === 'short'
-            ? 'aspect-[1.3] h-[284px] md:h-auto'
+            ? 'aspect-[1.4] h-auto'
             : aspect === 'tall'
-            ? 'aspect-[0.8] h-[472px] md:h-auto'
+            ? 'aspect-[0.8] h-auto'
             : 'aspect-square',
           'relative w-full'
         )}
@@ -112,7 +112,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
               sizes: '(max-width: 768px) 100vw, 33vw',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
             }}
-            className="relative w-full h-auto object-contain mt-3"
+            className="relative w-full h-auto object-contain mt-0"
             {...(media as any)}
           />
         </motion.div>
