@@ -863,6 +863,13 @@ export type AccordionBlock = {
 export type AnimatingBlock = {
   _type: "animatingBlock";
   /**
+   * Header — `array`
+   *
+   *
+   */
+  header?: Array<SanityKeyed<string>>;
+
+  /**
    * Text and Images — `array`
    *
    *
