@@ -10,6 +10,7 @@ import {
   NewsletterBlock,
   ContactBlock,
   CarouselBlock,
+  AnimatingBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
@@ -27,6 +28,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ...blockTypes,
             accordionBlock: ({ index, value }) => (
               <AccordionBlock index={index} grid={grid} {...value} />
+            ),
+            animatingBlock: ({ index, value }) => (
+              <AnimatingBlock index={index} grid={grid} {...value} />
             ),
             carouselBlock: ({ index, value }) => (
               <CarouselBlock index={index} grid={grid} {...value} />

@@ -750,6 +750,23 @@ export type RichText = Array<SanityKeyed<SanityBlock>>;
 
 export type PlainText = Array<SanityKeyed<SanityBlock>>;
 
+export type TextAndImage = {
+  _type: "textAndImage";
+  /**
+   * Media — `media`
+   *
+   *
+   */
+  media?: Media;
+
+  /**
+   * Text — `richText`
+   *
+   *
+   */
+  text?: RichText;
+};
+
 export type Tooltip = {
   _type: "tooltip";
   /**
@@ -810,6 +827,7 @@ export type InventoryModule = {
 
 export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
+  | SanityKeyed<AnimatingBlock>
   | SanityKeyed<CarouselBlock>
   | SanityKeyed<CitiesBlock>
   | SanityKeyed<NewsletterBlock>
@@ -835,31 +853,14 @@ export type AccordionBlock = {
   readMore?: boolean;
 };
 
-export type CarouselBlock = {
-  _type: "carouselBlock";
+export type AnimatingBlock = {
+  _type: "animatingBlock";
   /**
-   * Images — `array`
+   * Text and Images — `array`
    *
    *
    */
-  images?: Array<SanityKeyed<Media>>;
-};
-
-export type CitiesBlock = {
-  _type: "citiesBlock";
-  /**
-   * Headers — `array`
-   *
-   *
-   */
-  headers?: Array<SanityKeyed<string>>;
-
-  /**
-   * Properties — `array`
-   *
-   *
-   */
-  properties?: Array<SanityKeyedReference<Property>>;
+  textAndImages?: Array<SanityKeyed<TextAndImage>>;
 
   /**
    * Cities — `array`
@@ -874,13 +875,26 @@ export type CitiesBlock = {
    *
    */
   citiesPosition?: number;
+};
 
+export type CarouselBlock = {
+  _type: "carouselBlock";
   /**
-   * How It Works Position — `number`
+   * Images — `array`
    *
    *
    */
-  howItWorksPosition?: number;
+  images?: Array<SanityKeyed<Media>>;
+};
+
+export type CitiesBlock = {
+  _type: "citiesBlock";
+  /**
+   * Properties — `array`
+   *
+   *
+   */
+  properties?: Array<SanityKeyedReference<Property>>;
 };
 
 export type NewsletterBlock = {

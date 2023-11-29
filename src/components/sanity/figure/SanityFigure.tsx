@@ -13,24 +13,27 @@ export const SanityFigure: FC<SanityFigureProps> = ({
   mediaRatio,
   className,
   ...props
-}) => (
-  <Figure
-    className={className}
-    media={
-      <SanityFigureContent
-        mediaRatio={mediaRatio}
-        contentClass={contentClass}
-        mediaClass={mediaClass}
-        {...props}
-      />
-    }
-    caption={
-      caption ? <SanityFigureCaption caption={caption} {...props} /> : null
-    }
-    captionClass={captionClass}
-  >
-    {children}
-  </Figure>
-)
+}) => {
+  console.log(props)
+
+  return (
+    <Figure
+      className={className}
+      media={
+        <SanityFigureContent
+          contentClass={contentClass}
+          mediaClass={mediaClass}
+          {...props}
+        />
+      }
+      caption={
+        caption ? <SanityFigureCaption caption={caption} {...props} /> : null
+      }
+      captionClass={captionClass}
+    >
+      {children}
+    </Figure>
+  )
+}
 
 export default Figure
