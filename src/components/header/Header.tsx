@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import classNames from 'classnames'
 import type { HeaderProps } from './types'
 import { Logo } from '@components/logos'
@@ -13,6 +13,7 @@ import { sendGoogleEvent } from '@lib/util/analytics'
 import { useForm } from 'react-hook-form'
 import { useWaitlisModal } from '@contexts/modals'
 import Link from 'next/link'
+import { useHeaderLinks } from '@contexts/header'
 
 export const Header: FC<HeaderProps> = ({
   waitlistId,
@@ -29,6 +30,7 @@ export const Header: FC<HeaderProps> = ({
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const { register, handleSubmit, reset, trigger } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -84,7 +86,12 @@ export const Header: FC<HeaderProps> = ({
           )}
         </div>
 
-        <div className="flex items-center gap-[1.12rem] md:gap-5">
+        <div
+          className={classNames(
+            headerLinksShown ? 'opacity-100' : 'opacity-0',
+            'flex items-center gap-[1.12rem] md:gap-5 transition-all duration-200'
+          )}
+        >
           <Modal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
