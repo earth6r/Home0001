@@ -58,8 +58,10 @@ export const Accordion: FC<AccordionProps> = ({
               >
                 <h2
                   className={classNames(
-                    readMore ? 'text-lg tracking-details' : 'text-xs',
-                    'font-bold uppercase'
+                    readMore
+                      ? 'text-md font-medium tracking-details'
+                      : 'font-bold text-xs',
+                    'uppercase'
                   )}
                 >
                   {header}

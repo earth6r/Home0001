@@ -12,8 +12,10 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 }) => {
   return (
     <div className={classNames(className, 'md:pl-x')}>
-      <h2 className="mb-12 px-x md:px-0 md:ml-[-8px] text-title">
-        HOME0001: {property?.title}
+      <h2 className="mb-12 px-x md:px-0 md:ml-[-8px] text-xl font-bold uppercase">
+        HOME0001:
+        <br />
+        {property?.title}
       </h2>
       <div className="md:grid md:grid-cols-8 gap-10 md:col-start-1 block relative">
         <div className="md:col-span-3 flex flex-col justify-start items-start md:sticky top-[var(--header-height)] left-0 md:h-[48vw]">
@@ -61,7 +63,9 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 
       <div className="mx-x md:mx-0 md:pt-0">
         <div className="w-auto md:mr-x mt-ylg pt-ylg md:pt-page border-top"></div>
-        <h2 className="text-title uppercase md:mr-x">Available Homes:</h2>
+        <h2 className="text-lg font-bold uppercase md:mr-x">
+          Available Homes:
+        </h2>
         {property?.unitsList && (
           <>
             {property?.availableText && (
