@@ -8,6 +8,12 @@ export default {
   icon: IoImagesSharp,
   fields: [
     {
+      name: 'header',
+      title: 'Header',
+      type: 'array',
+      of: [{ type: 'string', name: 'item' }],
+    },
+    {
       name: 'textAndImages',
       title: 'Text and Images',
       type: 'array',
@@ -25,6 +31,7 @@ export default {
       name: 'citiesPosition',
       title: 'Cities Position',
       type: 'number',
+      validation: (Rule: Rule): Rule => Rule.required(),
     },
   ],
   preview: {

@@ -123,6 +123,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
 }
 
 export const AnimatingBlock: FC<AnimatingBlockProps> = ({
+  header,
   textAndImages,
   citiesPosition,
   citiesList,
@@ -132,6 +133,47 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   const isInView = useInView(scrollRef)
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
+
+  const headerVariants = {
+    initial: {
+      height: '80vh',
+    },
+    active: {
+      height: 'auto',
+      transition: {
+        delay: 2,
+        duration: 1.2,
+      },
+    },
+  }
+
+  const spanVariants = {
+    initial: {
+      opacity: 0,
+    },
+    active: (i: number) => ({
+      opacity: 1,
+      transition: {
+        delay: i * 0.25,
+        duration: 0,
+      },
+    }),
+  }
+
+  const blockVariants = {
+    initial: {
+      scale: 0.8,
+      opacity: 0,
+    },
+    active: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        delay: 2.2,
+        duration: 1.4,
+      },
+    },
+  }
 
   useEffect(() => {
     if (isInView) {
@@ -145,7 +187,37 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(className, 'px-x md:px-fullmenu mt-0 mb-[50vh]')}
     >
-      <div ref={scrollRef} className="md:col-start-2 md:col-span-1">
+      {header && (
+        <motion.h1
+          initial="initial"
+          animate="active"
+          variants={headerVariants}
+          className="flex flex-wrap items-center relative text-lg font-bold tracking-header uppercase"
+        >
+          <div>
+            {header.map((item, index) => (
+              <motion.span
+                key={`${item}-${index}`}
+                custom={index}
+                initial="initial"
+                animate="active"
+                variants={spanVariants}
+                className="opacity-0"
+              >
+                {`${item} `}
+              </motion.span>
+            ))}
+          </div>
+        </motion.h1>
+      )}
+
+      <motion.div
+        ref={scrollRef}
+        initial="initial"
+        animate="active"
+        variants={blockVariants}
+        className="relative opacity-0"
+      >
         {textAndImages &&
           textAndImages.map(({ _key, aspect, media, text }, index) => (
             <div key={_key}>
@@ -168,7 +240,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
               )}
             </div>
           ))}
-      </div>
+      </motion.div>
     </Block>
   )
 }

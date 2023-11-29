@@ -1,20 +1,12 @@
-import { type FC, useState, useEffect, useRef, memo } from 'react'
+import { type FC, memo } from 'react'
 import { ImageCarousel } from '@components/carousel'
 import { RichText } from '@components/sanity'
 import { UnitElProps } from './types'
 import classNames from 'classnames'
-import Link from 'next/link'
-import { BtnScrollToTop } from '@components/btns/BtnScrollToTop'
-import { Form, SinglePaneInputs } from '@components/form'
-import { scrollToEl, sendGoogleEvent, sendHubspotEvent } from '@lib/util'
-import { AccordionModal } from '@components/accordion'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
-import { useForm } from 'react-hook-form'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
 import { useWaitlisModal } from '@contexts/modals'
-
-const UNIT_AUDIENCE_ID = process.env.NEXT_PUBLIC_HUBSPOT_UNIT_WAITLIST_ID
 
 export const UnitComponent: FC<UnitElProps> = ({
   unit,
@@ -22,22 +14,6 @@ export const UnitComponent: FC<UnitElProps> = ({
   className,
 }) => {
   const [waitlistModal, setWaitlistModal] = useWaitlisModal()
-  const formRef = useRef(null)
-  const [formActive, setFormActive] = useState(false)
-  const [formSubmitted, setFormSubmitted] = useState(false)
-  const { register, handleSubmit } = useForm({
-    shouldUseNativeValidation: true,
-  })
-  const formButtonClick = () => {
-    setFormActive(!formActive)
-    if (!unit?.title) return
-    // sendGoogleEvent(`opened_reserve_form_for_${unit?.title}`)
-    // sendHubspotEvent('clicked reserve this home', unit?.title)
-  }
-
-  useEffect(() => {
-    if (formRef.current) scrollToEl(formRef.current)
-  }, [formActive])
 
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
@@ -95,7 +71,7 @@ export const UnitComponent: FC<UnitElProps> = ({
               <button
                 onClick={() => setWaitlistModal(true)}
                 className={classNames(
-                  formActive ? 'bg-white text-black' : 'bg-black text-white',
+                  'bg-black text-white',
                   'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-bold z-above p-4'
                 )}
               >
