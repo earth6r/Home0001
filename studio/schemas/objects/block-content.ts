@@ -19,9 +19,9 @@ export default {
       title: 'Carousel Block',
     },
     {
-      name: 'citiesBlock',
-      type: 'citiesBlock',
-      title: 'Cities Block',
+      name: 'propertiesBlock',
+      type: 'propertiesBlock',
+      title: 'Properties Block',
     },
     {
       name: 'newsletterBlock',

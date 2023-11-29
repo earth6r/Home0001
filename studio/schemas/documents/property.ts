@@ -25,7 +25,7 @@ export default {
       name: 'longTitle',
       title: 'Long Title',
       type: 'string',
-      description: 'Used on the Cities Block property link',
+      description: 'Used on the Properties Block property link',
     },
     {
       name: 'slug',

@@ -58,7 +58,7 @@ export const UnitComponent: FC<UnitElProps> = ({
 
             <div className="text-xs font-bold">
               {unit?.propertyType && (
-                <p className="mt-4 uppercase tracking-caps">
+                <p className="mt-4 uppercase tracking-details">
                   <span>{unit?.title}</span>
                 </p>
               )}

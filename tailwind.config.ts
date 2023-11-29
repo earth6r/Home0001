@@ -35,7 +35,9 @@ export default {
         '2xl': ['41px', '1'], // title
       },
       letterSpacing: {
-        body: '0.005em',
+        details: '-0.02em',
+        body: '-0.021em',
+        header: '-0.02em',
       },
       spacing: {
         x: 'var(--space-x)',

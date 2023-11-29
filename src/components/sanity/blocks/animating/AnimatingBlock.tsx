@@ -4,10 +4,10 @@ import type {
   AnimatingBlock as AnimatingBlockType,
   Media,
 } from '@gen/sanity-schema'
-import type { SanityBlockElement, SanityMediaProps } from '@components/sanity'
+import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText, SanityLink, SanityMedia } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util'
-import { CitiesListProps } from '../cities/types'
+import { CitiesListProps } from '../properties/types'
 import { SanityLinkType } from '@studio/lib'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
@@ -127,7 +127,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   citiesList,
   className,
 }) => (
-  <Block className={classNames(className, 'px-x m-0')}>
+  <Block className={classNames(className, 'px-x mt-0 mb-[50vh]')}>
     <div className="md:col-start-2 md:col-span-1">
       {textAndImages &&
         textAndImages.map(({ _key, aspect, media, text }, index) => (

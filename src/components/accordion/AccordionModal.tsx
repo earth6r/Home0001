@@ -14,7 +14,7 @@ export const AccordionModal: FC<AccordionModalProps> = ({
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className="md:grid md:grid-cols-3 pl-4 md:pl-10 pr-menu">
           <div className="md:col-start-2 md:col-span-1 pt-6 md:pt-12">
-            <h2 className="uppercase tracking-caps leading-none">
+            <h2 className="uppercase tracking-header leading-none">
               {`How it works`}
             </h2>
 

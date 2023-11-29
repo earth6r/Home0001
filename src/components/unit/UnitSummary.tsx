@@ -63,7 +63,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
         )}
       >
         <div className="flex flex-col gap-1 mb-4 pr-4 md:pr-0">
-          <p className="col-start-1 text-left text-lg uppercase">
+          <p className="col-start-1 text-left text-lg font-bold uppercase">
             {unit.title && <span>{unit.title}</span>}
           </p>
         </div>

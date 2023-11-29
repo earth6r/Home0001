@@ -84,7 +84,7 @@ const Pane: FC<PaneProps> = ({
           ) : null}
 
           <button
-            className="relative flex justify-between items-center w-full px-x md:px-xhalf tracking-normal h-btn text-center tracking-caps uppercase text-white bg-black font-bold text-xs z-above"
+            className="relative flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-bold text-xs z-above"
             type={buttonType || 'submit'}
             onClick={onClick}
           >
