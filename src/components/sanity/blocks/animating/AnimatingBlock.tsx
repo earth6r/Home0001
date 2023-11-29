@@ -16,7 +16,7 @@ type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
 
 interface AnimatingImageProps extends HTMLAttributes<HTMLDivElement> {
   media: Media
-  aspect: 'square' | 'tall' | 'short'
+  aspect?: 'square' | 'tall' | 'short'
 }
 
 const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
