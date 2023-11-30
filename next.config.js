@@ -17,7 +17,7 @@ const nextConfig = {
   },
   transpilePackages: ['sanity'],
   experimental: {
-    largePageDataBytes: 132 * 1000,
+    largePageDataBytes: 136 * 1000,
   },
 }
 
