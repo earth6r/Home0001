@@ -83,7 +83,12 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   slug,
 }) => (
   <div className="hidden md:flex md:sticky md:top-[126px] md:left-0 md:self-start">
-    <Link href={`/property/${slug.current}`}>
+    <Link
+      href={`/property/${slug.current}`}
+      onClick={() =>
+        sendGoogleEvent('home page property click', { property: slug.current })
+      }
+    >
       {image && (
         <div className="block relative w-full mb-yhalf z-base">
           <SanityMedia
