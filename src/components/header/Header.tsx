@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import type { HeaderProps } from './types'
 import { Logo } from '@components/logos'
@@ -14,6 +14,7 @@ import { useForm } from 'react-hook-form'
 import { useWaitlisModal } from '@contexts/modals'
 import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
+import { useRouter } from 'next/router'
 
 export const Header: FC<HeaderProps> = ({
   waitlistId,
@@ -27,6 +28,7 @@ export const Header: FC<HeaderProps> = ({
   mainMenu,
   className,
 }) => {
+  const router = useRouter()
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
@@ -47,6 +49,12 @@ export const Header: FC<HeaderProps> = ({
     setWaitlistOpen(false)
     reset({})
   }
+
+  useEffect(() => {
+    if (router.asPath !== '/') {
+      setHeaderLinksShown(true)
+    }
+  }, [])
 
   return (
     <div
@@ -89,7 +97,7 @@ export const Header: FC<HeaderProps> = ({
         <div
           className={classNames(
             headerLinksShown ? 'opacity-100' : 'opacity-0',
-            'flex items-center gap-[1.12rem] md:gap-5 transition-all duration-100 delay-100 opacity-0'
+            'flex items-center gap-[1.12rem] md:gap-5 transition-all duration-100'
           )}
         >
           <Modal isOpen={waitlistOpen} onClose={onClose}>
