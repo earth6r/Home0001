@@ -1,4 +1,10 @@
-import { useRef, type FC, type HTMLAttributes, useEffect } from 'react'
+import {
+  useRef,
+  type FC,
+  type HTMLAttributes,
+  useEffect,
+  useState,
+} from 'react'
 import classNames from 'classnames'
 import type {
   AnimatingBlock as AnimatingBlockType,
@@ -144,8 +150,16 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 }) => {
   const scrollRef = useRef(null)
   const isInView = useInView(scrollRef)
+  const [animateActive, setAnimateActive] = useState(
+    (typeof sessionStorage !== 'undefined'
+      ? sessionStorage.getItem('firstTime')
+      : false) || true
+  )
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
+
+  // account for header ~ JLM
+  const citiesPos = header && citiesPosition && citiesPosition - 1
 
   const headerVariants = {
     initial: {
@@ -175,7 +189,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   const blockVariants = {
     initial: {
-      scale: 0.8,
+      scale: 0.85,
       opacity: 0,
     },
     active: {
@@ -189,15 +203,15 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   }
 
   useEffect(() => {
-    if (isInView) {
-      setHeaderLinksShown(false)
-    } else {
+    if (typeof window !== 'undefined' && !isInView && window.scrollY > 200) {
       setHeaderLinksShown(true)
     }
-  }, [isInView, setHeaderLinksShown])
+  }, [isInView])
 
   useEffect(() => {
-    setHeaderLinksShown(false)
+    if (!sessionStorage.getItem('firstTime')) {
+      sessionStorage.setItem('firstTime', 'false')
+    }
   }, [])
 
   return (
@@ -208,7 +222,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
         {header && (
           <motion.h1
             key="animate-1"
-            initial="initial"
+            initial={animateActive ? 'initial' : 'active'}
             animate="active"
             variants={headerVariants}
             className="flex flex-wrap items-center relative text-lg font-bold tracking-header uppercase"
@@ -218,7 +232,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                 <motion.span
                   key={`${item}-${index}`}
                   custom={index}
-                  initial="initial"
+                  initial={animateActive ? 'initial' : 'active'}
                   animate="active"
                   variants={spanVariants}
                   className="opacity-0"
@@ -233,7 +247,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
         <motion.div
           key="animate-2"
           ref={scrollRef}
-          initial="initial"
+          initial={animateActive ? 'initial' : 'active'}
           animate="active"
           variants={blockVariants}
           className="relative opacity-0"
@@ -253,7 +267,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                   />
                 )}
 
-                {index === citiesPosition && (
+                {index === citiesPos && (
                   <div className="mt-3 md:mt-5">
                     <CitiesList citiesList={citiesList} />
                   </div>

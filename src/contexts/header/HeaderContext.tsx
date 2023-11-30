@@ -24,7 +24,7 @@ function useHeaderContext() {
 }
 
 export function HeaderProvider({ children }: { children: ReactNode }) {
-  const [headerLinksShown, setHeaderLinksShown] = useState(true)
+  const [headerLinksShown, setHeaderLinksShown] = useState(false)
 
   return (
     <HeaderContext.Provider
