@@ -127,9 +127,9 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
           <SanityMedia
             imageProps={{
               alt: media?.alt || 'Building image',
-              quality: 8,
+              quality: 12,
               priority: true,
-              sizes: '(max-width: 768px) 100vw, 90vw',
+              sizes: '(max-width: 768px) 100vw, 1700px',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
             }}
             className="relative w-full h-auto object-contain mt-0"
@@ -150,11 +150,8 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 }) => {
   const scrollRef = useRef(null)
   const isInView = useInView(scrollRef)
-  const [animateActive, setAnimateActive] = useState(
-    (typeof sessionStorage !== 'undefined'
-      ? sessionStorage.getItem('firstTime')
-      : false) || true
-  )
+  const [animateActive, setAnimateActive] = useState(true)
+  const [showContent, setShowContent] = useState(true)
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
 
@@ -163,13 +160,13 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   const headerVariants = {
     initial: {
-      height: '70vh',
+      marginTop: '30vh',
     },
     active: {
-      height: 'auto',
+      marginTop: 0,
       transition: {
         delay: 2,
-        duration: 1.2,
+        duration: 0.5,
       },
     },
   }
@@ -181,7 +178,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     active: (i: number) => ({
       opacity: 1,
       transition: {
-        delay: i * 0.25,
+        delay: i * 0.2,
         duration: 0,
       },
     }),
@@ -189,15 +186,15 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   const blockVariants = {
     initial: {
-      scale: 0.85,
+      scale: 0.94,
       opacity: 0,
     },
     active: {
       scale: 1,
       opacity: 1,
       transition: {
-        delay: 2.2,
-        duration: 1.4,
+        delay: 1.9,
+        duration: 0.7,
       },
     },
   }
@@ -210,72 +207,81 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   useEffect(() => {
     if (!sessionStorage.getItem('firstTime')) {
+      setAnimateActive(true)
+      setShowContent(true)
       sessionStorage.setItem('firstTime', 'false')
+    } else {
+      setShowContent(true)
     }
   }, [])
 
   return (
     <Block
-      className={classNames(className, 'px-x md:px-fullmenu mt-0 mb-[50vh]')}
+      className={classNames(
+        className,
+        'max-w-[850px] md:mx-auto px-x md:px-fullmenu mt-0 mb-[50vh]'
+      )}
     >
-      <AnimatePresence>
-        {header && (
-          <motion.h1
-            key="animate-1"
+      {showContent && (
+        <AnimatePresence>
+          {header && (
+            <motion.h1
+              key={`${animateActive}-1`}
+              initial={animateActive ? 'initial' : 'active'}
+              animate="active"
+              variants={headerVariants}
+              className="flex flex-wrap items-center relative text-lg font-bold tracking-header uppercase"
+            >
+              <div>
+                {header.map((item, index) => (
+                  <motion.span
+                    key={`${item}-${index}`}
+                    custom={index}
+                    initial={animateActive ? 'initial' : 'active'}
+                    animate="active"
+                    variants={spanVariants}
+                    className="opacity-0"
+                  >
+                    {`${item} `}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.h1>
+          )}
+
+          <motion.div
+            key={`${animateActive}-2`}
+            ref={scrollRef}
             initial={animateActive ? 'initial' : 'active'}
             animate="active"
-            variants={headerVariants}
-            className="flex flex-wrap items-center relative text-lg font-bold tracking-header uppercase"
+            variants={blockVariants}
+            className="relative opacity-0"
           >
-            <div>
-              {header.map((item, index) => (
-                <motion.span
-                  key={`${item}-${index}`}
-                  custom={index}
-                  initial={animateActive ? 'initial' : 'active'}
-                  animate="active"
-                  variants={spanVariants}
-                  className="opacity-0"
-                >
-                  {`${item} `}
-                </motion.span>
+            {textAndImages &&
+              textAndImages.map(({ _key, aspect, media, text }, index) => (
+                <div key={_key}>
+                  {media && <AnimatingImage media={media} aspect={aspect} />}
+
+                  {text && (
+                    <RichText
+                      blocks={text}
+                      className={classNames(
+                        index !== 0 ? 'mt-3 md:mt-5' : '',
+                        'relative'
+                      )}
+                    />
+                  )}
+
+                  {index === citiesPos && (
+                    <div className="mt-3 md:mt-5">
+                      <CitiesList citiesList={citiesList} />
+                    </div>
+                  )}
+                </div>
               ))}
-            </div>
-          </motion.h1>
-        )}
-
-        <motion.div
-          key="animate-2"
-          ref={scrollRef}
-          initial={animateActive ? 'initial' : 'active'}
-          animate="active"
-          variants={blockVariants}
-          className="relative opacity-0"
-        >
-          {textAndImages &&
-            textAndImages.map(({ _key, aspect, media, text }, index) => (
-              <div key={_key}>
-                {media && <AnimatingImage media={media} aspect={aspect} />}
-
-                {text && (
-                  <RichText
-                    blocks={text}
-                    className={classNames(
-                      index !== 0 ? 'mt-3 md:mt-5' : '',
-                      'relative'
-                    )}
-                  />
-                )}
-
-                {index === citiesPos && (
-                  <div className="mt-3 md:mt-5">
-                    <CitiesList citiesList={citiesList} />
-                  </div>
-                )}
-              </div>
-            ))}
-        </motion.div>
-      </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
+      )}
     </Block>
   )
 }

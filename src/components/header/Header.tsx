@@ -129,8 +129,8 @@ export const Header: FC<HeaderProps> = ({
             onClick={openWaitlist}
             className="flex p-3 -m-3 pointer-events-auto z-header"
           >
-            <div className="pt-[5.5px] pb-[5px] px-[5.5px] md:pt-[8px] md:pb-[7px] md:px-[7px] bg-black text-white leading-[11px] uppercase">
-              <IconSmallArrow width="13" height="9" className="mr-[3px]" />
+            <div className="w-[97px] h-[27px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+              <IconSmallArrow width="13" height="9" className="mr-[5px]" />
               {`Waitlist`}
             </div>
           </Btn>
