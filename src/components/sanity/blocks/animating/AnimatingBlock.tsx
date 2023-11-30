@@ -9,7 +9,13 @@ import { Block, RichText, SanityLink, SanityMedia } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util'
 import { CitiesListProps } from '../properties/types'
 import { SanityLinkType } from '@studio/lib'
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+} from 'framer-motion'
 import { useHeaderLinks } from '@contexts/header'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
@@ -187,60 +193,62 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(className, 'px-x md:px-fullmenu mt-0 mb-[50vh]')}
     >
-      {header && (
-        <motion.h1
+      <AnimatePresence>
+        {header && (
+          <motion.h1
+            initial="initial"
+            animate="active"
+            variants={headerVariants}
+            className="flex flex-wrap items-center relative text-lg font-bold tracking-header uppercase"
+          >
+            <div>
+              {header.map((item, index) => (
+                <motion.span
+                  key={`${item}-${index}`}
+                  custom={index}
+                  initial="initial"
+                  animate="active"
+                  variants={spanVariants}
+                  className="opacity-0"
+                >
+                  {`${item} `}
+                </motion.span>
+              ))}
+            </div>
+          </motion.h1>
+        )}
+
+        <motion.div
+          ref={scrollRef}
           initial="initial"
           animate="active"
-          variants={headerVariants}
-          className="flex flex-wrap items-center relative text-lg font-bold tracking-header uppercase"
+          variants={blockVariants}
+          className="relative opacity-0"
         >
-          <div>
-            {header.map((item, index) => (
-              <motion.span
-                key={`${item}-${index}`}
-                custom={index}
-                initial="initial"
-                animate="active"
-                variants={spanVariants}
-                className="opacity-0"
-              >
-                {`${item} `}
-              </motion.span>
+          {textAndImages &&
+            textAndImages.map(({ _key, aspect, media, text }, index) => (
+              <div key={_key}>
+                {media && <AnimatingImage media={media} aspect={aspect} />}
+
+                {text && (
+                  <RichText
+                    blocks={text}
+                    className={classNames(
+                      index !== 0 ? 'mt-3 md:mt-5' : '',
+                      'relative'
+                    )}
+                  />
+                )}
+
+                {index === citiesPosition && (
+                  <div className="mt-3 md:mt-5">
+                    <CitiesList citiesList={citiesList} />
+                  </div>
+                )}
+              </div>
             ))}
-          </div>
-        </motion.h1>
-      )}
-
-      <motion.div
-        ref={scrollRef}
-        initial="initial"
-        animate="active"
-        variants={blockVariants}
-        className="relative opacity-0"
-      >
-        {textAndImages &&
-          textAndImages.map(({ _key, aspect, media, text }, index) => (
-            <div key={_key}>
-              {media && <AnimatingImage media={media} aspect={aspect} />}
-
-              {text && (
-                <RichText
-                  blocks={text}
-                  className={classNames(
-                    index !== 0 ? 'mt-3 md:mt-5' : '',
-                    'relative'
-                  )}
-                />
-              )}
-
-              {index === citiesPosition && (
-                <div className="mt-3 md:mt-5">
-                  <CitiesList citiesList={citiesList} />
-                </div>
-              )}
-            </div>
-          ))}
-      </motion.div>
+        </motion.div>
+      </AnimatePresence>
     </Block>
   )
 }
