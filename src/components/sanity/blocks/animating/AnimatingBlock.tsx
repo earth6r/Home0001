@@ -23,6 +23,7 @@ import {
   useTransform,
 } from 'framer-motion'
 import { useHeaderLinks } from '@contexts/header'
+import _ from 'lodash'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
   AnimatingBlockType
@@ -129,7 +130,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
               alt: media?.alt || 'Building image',
               quality: 12,
               priority: true,
-              sizes: '(max-width: 768px) 100vw, 1700px',
+              sizes: '(max-width: 768px) 190vw, 1700px',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
             }}
             className="relative w-full h-auto object-contain mt-0"
@@ -150,8 +151,8 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 }) => {
   const scrollRef = useRef(null)
   const isInView = useInView(scrollRef)
-  const [animateActive, setAnimateActive] = useState(true)
-  const [showContent, setShowContent] = useState(true)
+  const [animateActive, setAnimateActive] = useState(false)
+  const [showContent, setShowContent] = useState(false)
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
 
@@ -167,6 +168,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
       transition: {
         delay: 2,
         duration: 0.5,
+        ease: 'easeInOut',
       },
     },
   }
@@ -186,8 +188,8 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   const blockVariants = {
     initial: {
-      scale: 0.94,
-      opacity: 0,
+      scale: 0.79,
+      opacity: 0.4,
     },
     active: {
       scale: 1,
@@ -195,15 +197,27 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
       transition: {
         delay: 1.9,
         duration: 0.7,
+        ease: 'easeInOut',
       },
     },
   }
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !isInView && window.scrollY > 200) {
-      setHeaderLinksShown(true)
+  const trackScroll = () => {
+    if (typeof window !== 'undefined' && scrollRef.current) {
+      0 >=
+        (scrollRef.current as HTMLDivElement).getBoundingClientRect().bottom &&
+        setHeaderLinksShown(true)
     }
-  }, [isInView])
+  }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener(
+        'scroll',
+        _.debounce(() => trackScroll(), 5)
+      )
+    }
+  }, [])
 
   useEffect(() => {
     if (!sessionStorage.getItem('firstTime')) {
@@ -219,7 +233,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'max-w-[850px] md:mx-auto px-x md:px-fullmenu mt-0 mb-[50vh]'
+        'max-w-[850px] lg:max-w-[900px] md:mx-auto px-x md:px-fullmenu mt-0 mb-[200px] md:mb-[25vh]'
       )}
     >
       {showContent && (

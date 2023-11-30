@@ -15,6 +15,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
   longTitle,
   slug,
+  index,
 }) => (
   <div className="flex">
     <Link href={`/property/${slug.current}`}>
@@ -36,10 +37,11 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       {longTitle && (
         <div
           className={classNames(
+            index === 0 ? 'lg:max-w-[330px]' : '',
             'flex gap-1 items-start px-x md:px-0 text-xl font-bold leading-tight text-left uppercase'
           )}
         >
-          <IconRightArrowBold fill="black" className="mt-3 home-svg" />
+          <IconRightArrowBold fill="black" className="mt-3 lg:mt-2 home-svg" />
           <span
             className={classNames(
               'leading-none inline-block w-[calc(100%-49px)] underline underline-offset-[0.1em]'
@@ -69,12 +71,13 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 md:px-fullmenu">
           {properties &&
             (properties as KeyedProperty[])?.map(
-              ({ image, longTitle, slug }) => (
+              ({ image, longTitle, slug }, index) => (
                 <PropertySummary
                   key={slug.current}
                   image={image}
                   longTitle={longTitle}
                   slug={slug}
+                  index={index}
                 />
               )
             )}

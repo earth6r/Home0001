@@ -12,6 +12,7 @@ import { KeyedUnitProps } from '@components/unit'
 import { SanityLinkType } from '@studio/lib'
 
 export type CityBlockPropertyType = {
+  index?: number
   image?:
     | {
         _type: 'image'
