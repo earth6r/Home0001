@@ -53,7 +53,7 @@ export const Header: FC<HeaderProps> = ({
       id="header"
       className={classNames(
         className,
-        'fixed w-full pointer-events-none font-bold tracking-details text-xs z-header'
+        'fixed w-full pointer-events-none font-medium tracking-details text-xs z-header'
       )}
     >
       <header
@@ -89,7 +89,7 @@ export const Header: FC<HeaderProps> = ({
         <div
           className={classNames(
             headerLinksShown ? 'opacity-100' : 'opacity-0',
-            'flex items-center gap-[1.12rem] md:gap-5 transition-all duration-200'
+            'flex items-center gap-[1.12rem] md:gap-5 transition-all duration-100 delay-100 opacity-0'
           )}
         >
           <Modal isOpen={waitlistOpen} onClose={onClose}>

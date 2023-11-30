@@ -26,51 +26,58 @@ interface AnimatingImageProps extends HTMLAttributes<HTMLDivElement> {
   aspect?: 'square' | 'tall' | 'short'
 }
 
-const CitiesList: FC<CitiesListProps> = ({ citiesList }) => (
-  <ul>
-    {citiesList &&
-      citiesList.map(({ _id, title, active, propertyLink }) => {
-        return (
-          <li key={_id} className="text-left">
-            {propertyLink ? (
-              <SanityLink
-                {...(propertyLink as SanityLinkType)}
-                className={classNames('text-lg font-bold uppercase underline')}
-              >
+const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
+  const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
+
+  return (
+    <ul>
+      {citiesList &&
+        citiesList.map(({ _id, title, active, propertyLink }) => {
+          return (
+            <li key={_id} className="text-left">
+              {propertyLink ? (
+                <SanityLink
+                  {...(propertyLink as SanityLinkType)}
+                  className={classNames(
+                    'text-lg font-bold uppercase underline'
+                  )}
+                >
+                  <div
+                    onClick={() => {
+                      sendGoogleEvent(`clicked city button`, { city: title })
+                      setHeaderLinksShown(true)
+                    }}
+                  >
+                    <span
+                      className={classNames(
+                        active && propertyLink ? 'leading-none' : ''
+                      )}
+                    >
+                      {`${title},`}
+                    </span>
+                  </div>
+                </SanityLink>
+              ) : (
                 <div
-                  onClick={() =>
-                    sendGoogleEvent(`clicked city button`, { city: title })
-                  }
+                  className={classNames(
+                    'text-lg font-bold uppercase bg-transparent opacity-30 shadow-none'
+                  )}
                 >
                   <span
                     className={classNames(
                       active && propertyLink ? 'leading-none' : ''
                     )}
                   >
-                    {`${title},`}
+                    {title}
                   </span>
                 </div>
-              </SanityLink>
-            ) : (
-              <div
-                className={classNames(
-                  'text-lg font-bold uppercase bg-transparent opacity-30 shadow-none'
-                )}
-              >
-                <span
-                  className={classNames(
-                    active && propertyLink ? 'leading-none' : ''
-                  )}
-                >
-                  {title}
-                </span>
-              </div>
-            )}
-          </li>
-        )
-      })}
-  </ul>
-)
+              )}
+            </li>
+          )
+        })}
+    </ul>
+  )
+}
 
 const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
   const ref = useRef(null)
@@ -142,7 +149,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   const headerVariants = {
     initial: {
-      height: '80vh',
+      height: '70vh',
     },
     active: {
       height: 'auto',
@@ -189,6 +196,10 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     }
   }, [isInView, setHeaderLinksShown])
 
+  useEffect(() => {
+    setHeaderLinksShown(false)
+  }, [])
+
   return (
     <Block
       className={classNames(className, 'px-x md:px-fullmenu mt-0 mb-[50vh]')}
@@ -196,6 +207,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
       <AnimatePresence>
         {header && (
           <motion.h1
+            key="animate-1"
             initial="initial"
             animate="active"
             variants={headerVariants}
@@ -219,6 +231,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
         )}
 
         <motion.div
+          key="animate-2"
           ref={scrollRef}
           initial="initial"
           animate="active"
