@@ -129,7 +129,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
               alt: media?.alt || 'Building image',
               quality: 8,
               priority: true,
-              sizes: '(max-width: 768px) 100vw, 33vw',
+              sizes: '(max-width: 768px) 100vw, 90vw',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
             }}
             className="relative w-full h-auto object-contain mt-0"
