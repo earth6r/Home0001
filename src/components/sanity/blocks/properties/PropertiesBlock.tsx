@@ -42,7 +42,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           <IconRightArrowBold fill="black" className="mt-3 home-svg" />
           <span
             className={classNames(
-              'inline-block w-[calc(100%-49px)] underline underline-offset-[0.2em]'
+              'leading-none inline-block w-[calc(100%-49px)] underline underline-offset-[0.1em]'
             )}
           >
             {longTitle}
