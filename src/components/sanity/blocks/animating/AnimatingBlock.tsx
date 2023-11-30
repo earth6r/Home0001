@@ -107,7 +107,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
           : aspect === 'tall'
           ? 'aspect-[0.8]'
           : 'aspect-square',
-        'relative overflow-hidden mt-3 md:mt-5 z-above'
+        'relative overflow-hidden mt-3 mb-3 md:mt-5 z-above'
       )}
     >
       <div
