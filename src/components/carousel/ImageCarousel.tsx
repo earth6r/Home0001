@@ -137,16 +137,18 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               )}
             </SwiperSlide>
           ))}
-          <nav className="hidden md:flex gap-[7px] my-yhalf cursor-pointer">
+          <nav className="hidden md:flex gap-[7px] my-yhalf">
             <IconLeftArrow
               width="24"
               className={classNames(
-                'rotate-180 swiper-prev pointer-events-auto'
+                'rotate-180 swiper-prev pointer-events-auto cursor-pointer'
               )}
             />
             <IconRightArrow
               width="24"
-              className={classNames('swiper-next pointer-events-auto')}
+              className={classNames(
+                'swiper-next pointer-events-auto cursor-pointer'
+              )}
             />
           </nav>
         </Swiper>

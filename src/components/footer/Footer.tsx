@@ -27,7 +27,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         })}
       </ul>
 
-      <p className="hidden lg:block w-[50%] ml-[5%] font-bold text-xs tracking-details leading-none">
+      <p className="hidden lg:block w-[50%] ml-[5%] font-medium text-xs tracking-details leading-none">
         &copy;{` ${year} HOME0001`} NY DRE #10351211814 | CA DRE #01427385
       </p>
 

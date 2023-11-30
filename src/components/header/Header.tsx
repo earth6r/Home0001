@@ -50,11 +50,11 @@ export const Header: FC<HeaderProps> = ({
     reset({})
   }
 
-  useEffect(() => {
-    if (router.asPath !== '/') {
-      setHeaderLinksShown(true)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (router.asPath !== '/') {
+  //     setHeaderLinksShown(true)
+  //   }
+  // }, [])
 
   return (
     <div
