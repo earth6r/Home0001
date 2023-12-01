@@ -40,7 +40,7 @@
 }
 
 .rich-text h1 {
-  @apply text-xl uppercase;
+  @apply text-xl font-bold uppercase tracking-header;
 }
 
 .rich-text h2 {

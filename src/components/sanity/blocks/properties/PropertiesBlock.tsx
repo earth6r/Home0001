@@ -17,8 +17,8 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   slug,
   index,
 }) => (
-  <div className="flex">
-    <Link href={`/property/${slug.current}`}>
+  <div className="flex w-full">
+    <Link href={`/property/${slug.current}`} className="w-full">
       {image && (
         <div className="block relative w-full mb-yhalf z-base">
           <SanityMedia
