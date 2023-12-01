@@ -256,7 +256,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                     variants={spanVariants}
                     className="opacity-0"
                   >
-                    {`${item} `}
+                    {`${item}`}
                   </motion.span>
                 ))}
               </div>

@@ -11,9 +11,9 @@ export const IconRightArrowBoldComponent = (props: SVGProps<SVGSVGElement>) => {
     >
       <path
         fill={props.fill || '#fff'}
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M30.452 0 45 14.5 30.452 29l-3.943-3.93 7.818-7.791H0V11.72h34.327l-7.818-7.79L30.452 0Z"
-        clip-rule="evenodd"
+        clipRule="evenodd"
       />
     </svg>
   )
