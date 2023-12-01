@@ -24,12 +24,13 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
       <div className="md:col-start-2 md:col-span-1">
         {accordions &&
           accordions.length > 0 &&
-          accordions.map(({ _key, header, initialText, text }) => (
+          accordions.map(({ _key, header, initialText, text, cta }) => (
             <Accordion
               key={_key}
               header={header}
               initialText={initialText}
               text={text}
+              cta={cta}
               readMore={readMore}
               className="mt-2 first-of-type:mt-0"
             />

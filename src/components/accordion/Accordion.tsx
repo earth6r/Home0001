@@ -5,7 +5,9 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { RichText, SanityLink } from '@components/sanity'
 import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
-import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
+import IconSmallBlackArrow, {
+  IconSmallArrow,
+} from '@components/icons/IconSmallBlackArrow'
 import { SanityLinkType } from '@studio/lib'
 import { sendGoogleEvent } from '@lib/util'
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
@@ -105,9 +107,9 @@ export const Accordion: FC<AccordionProps> = ({
                   <div
                     className={classNames(
                       readMore
-                        ? 'pr-fullmenu'
-                        : 'pl-x md:pl-0 pr-10 pt-2 pb-5 ',
-                      'md:pl-0'
+                        ? 'pr-fullmenu md:pl-0'
+                        : 'pl-xhalf pr-10 pt-2 pb-5 ',
+                      ''
                     )}
                   >
                     {text && (
@@ -120,17 +122,16 @@ export const Accordion: FC<AccordionProps> = ({
                     )}
 
                     {cta && (
-                      <div className="flex h-[2em] mt-yhalf">
-                        <IconSmallBlackArrow
-                          width="13"
-                          height="32"
-                          className="mr-[3px]"
-                        />
+                      <div className="w-full relative mt-y">
                         <SanityLink
-                          text={cta.text}
                           {...(cta.link as SanityLinkType)}
-                          className="hover:font-bold border-bottom mt-2 ml-2"
-                        />
+                          className="w-full border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above px-4 py-3.5"
+                        >
+                          <span className="text-left uppercase leading-none">
+                            {cta.text || 'Learn more'}
+                          </span>
+                          <IconSmallArrow width="16" fill="white" />
+                        </SanityLink>
                       </div>
                     )}
                   </div>
