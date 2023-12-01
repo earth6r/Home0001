@@ -104,9 +104,9 @@ export const Accordion: FC<AccordionProps> = ({
                 <Disclosure.Panel>
                   <div
                     className={classNames(
-                      className?.includes('border-x-0') ? '' : 'pl-x',
+                      // className?.includes('border-x-0') ? '' : 'pl-x',
                       readMore ? 'pr-fullmenu' : 'pr-10 pt-2 pb-5 ',
-                      'md:pl-xhalf'
+                      'md:pl-0'
                     )}
                   >
                     {text && <RichText blocks={text} />}
