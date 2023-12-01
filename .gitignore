@@ -42,3 +42,5 @@ yarn-error.log*
 !.gitkeep
 
 .sanity
+*.tar.gz
+studio/*.tar.gz
