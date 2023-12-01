@@ -46,7 +46,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
                 <SanityLink
                   {...(propertyLink as SanityLinkType)}
                   className={classNames(
-                    'text-xl md:text-2xl font-bold uppercase underline decoration-[0.4rem]'
+                    'text-xl md:text-2xl font-bold uppercase underline decoration-[0.3rem]'
                   )}
                 >
                   <div
