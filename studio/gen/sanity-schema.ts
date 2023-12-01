@@ -497,6 +497,13 @@ export interface SiteSettings extends SanityDocument {
   mainMenu?: SanityReference<Menus>;
 
   /**
+   * Footer Menu — `reference`
+   *
+   * Select menu for footer navigation
+   */
+  footerMenu?: SanityReference<Menus>;
+
+  /**
    * Waitlist Audience ID — `string`
    *
    *
