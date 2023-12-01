@@ -36,7 +36,7 @@ export const Waitlist: FC<WaitlistProps> = ({ buttonText, className }) => {
               <span className="text-left uppercase leading-none">
                 {buttonText || 'Join the waitlist'}
               </span>
-              <IconSmallArrow width="22" height="10" />
+              <IconSmallArrow width="16" />
             </button>
           </div>
         </div>
