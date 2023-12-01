@@ -7,7 +7,6 @@ import { SanityLinkType } from '@studio/lib'
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   footerMenu,
 }) => {
-  console.log('footerMenu', footerMenu)
   const year = new Date().getFullYear()
   return (
     <footer

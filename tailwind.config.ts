@@ -31,7 +31,7 @@ export default {
         sm: ['14px', '1'], // read more
         md: ['18px', '1.2'], // body
         lg: ['22.5px', '1'], // heading 2
-        xl: ['41px', '1'], // heading 1
+        xl: ['clamp(12px,10.5vw,54px)', '1'], // heading 1
         '2xl': ['clamp(12px,5.5vw,75px)', '1'], // title
       },
       letterSpacing: {
@@ -135,7 +135,7 @@ export default {
           },
         },
         '.text-title': {
-          fontSize: '41px',
+          fontSize: '10.5vw',
           lineHeight: '1',
           leadingTrim: 'both',
           textEdge: 'cap',
@@ -152,7 +152,7 @@ export default {
           },
         },
         '.home-svg': {
-          maxWidth: '25px',
+          width: '10.5vw',
           '@screen md': {
             maxWidth: '140px',
             width: '5vw',

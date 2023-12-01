@@ -63,7 +63,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 
       <div className="mx-x md:mx-0 md:pt-0">
         <div className="w-auto md:mr-x mt-ylg pt-ylg md:pt-page border-top"></div>
-        <h2 className="text-lg md:text-2xl font-bold uppercase md:mr-x">
+        <h2 className="text-xl md:text-2xl font-bold uppercase md:mr-x">
           Available Homes:
         </h2>
         {property?.unitsList && (

@@ -74,7 +74,7 @@ export const Accordion: FC<AccordionProps> = ({
                     <span
                       className={classNames(
                         open ? 'opacity-0' : '',
-                        'pt-yhalf underline underline-offset-2 text-sm'
+                        'pt-yhalf underline underline-offset-2 text-sm font-medium'
                       )}
                     >{`Read more`}</span>
                   </div>
@@ -104,12 +104,20 @@ export const Accordion: FC<AccordionProps> = ({
                 <Disclosure.Panel>
                   <div
                     className={classNames(
-                      // className?.includes('border-x-0') ? '' : 'pl-x',
-                      readMore ? 'pr-fullmenu' : 'pr-10 pt-2 pb-5 ',
+                      readMore
+                        ? 'pr-fullmenu'
+                        : 'pl-x md:pl-0 pr-10 pt-2 pb-5 ',
                       'md:pl-0'
                     )}
                   >
-                    {text && <RichText blocks={text} />}
+                    {text && (
+                      <RichText
+                        blocks={text}
+                        className={classNames(
+                          readMore ? 'pr-menu md:pr-0' : ''
+                        )}
+                      />
+                    )}
 
                     {cta && (
                       <div className="flex h-[2em] mt-yhalf">
