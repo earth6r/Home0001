@@ -183,7 +183,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           )}
         >
           <button
-            className="tracking-details h-12 max-h-12 text-center uppercase text-white bg-black font-bold text-xs"
+            className="tracking-details h-12 max-h-12 text-center uppercase text-white bg-black font-medium text-xs"
             type="submit"
           >
             {submitButtonCopy || 'Submit'}

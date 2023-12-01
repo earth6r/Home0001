@@ -24,9 +24,9 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           <SanityMedia
             imageProps={{
               alt: image.alt || 'Building image',
-              quality: 8,
+              quality: 12,
               priority: true,
-              sizes: '(max-width: 768px) 100vw, 33vw',
+              sizes: '(max-width: 768px) 100vw, 50vw',
               lqip: (image?.image as any)?.asset?.metadata?.lqip,
             }}
             className="w-full h-auto object-contain"
@@ -41,7 +41,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
             'flex gap-1 items-start px-x md:px-0 text-xl font-bold leading-tight text-left uppercase'
           )}
         >
-          <IconRightArrowBold fill="black" className="mt-3 lg:mt-2 home-svg" />
+          <IconRightArrowBold fill="black" className="mt-3 lg:mt-2 w-[41px]" />
           <span
             className={classNames(
               'leading-none inline-block w-[calc(100%-49px)] underline underline-offset-[0.1em]'
