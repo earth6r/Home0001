@@ -30,7 +30,7 @@ export const Waitlist: FC<WaitlistProps> = ({ buttonText, className }) => {
                 setWaitlistOpen(true)
               }}
               className={classNames(
-                `w-full relative border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above p-4`
+                `w-full relative border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above px-4 py-3.5`
               )}
             >
               <span className="text-left uppercase leading-none">
