@@ -10,6 +10,7 @@ import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import Link from 'next/link'
 import { Waitlist } from '@components/waitlist'
 import { motion } from 'framer-motion'
+import { sendGoogleEvent } from '@lib/util'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -18,7 +19,13 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   index,
 }) => (
   <div className="flex w-full">
-    <Link href={`/property/${slug.current}`} className="w-full">
+    <Link
+      href={`/property/${slug.current}`}
+      className="w-full"
+      onClick={() =>
+        sendGoogleEvent('home page property click', { property: slug.current })
+      }
+    >
       {image && (
         <div className="block relative w-full mb-yhalf z-base">
           <SanityMedia
