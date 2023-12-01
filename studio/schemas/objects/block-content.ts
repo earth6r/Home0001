@@ -9,14 +9,19 @@ export default {
       title: 'Accordion Block',
     },
     {
+      name: 'animatingBlock',
+      type: 'animatingBlock',
+      title: 'Animating Block',
+    },
+    {
       name: 'carouselBlock',
       type: 'carouselBlock',
       title: 'Carousel Block',
     },
     {
-      name: 'citiesBlock',
-      type: 'citiesBlock',
-      title: 'Cities Block',
+      name: 'propertiesBlock',
+      type: 'propertiesBlock',
+      title: 'Properties Block',
     },
     {
       name: 'newsletterBlock',

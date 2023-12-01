@@ -11,11 +11,11 @@ export const Waitlist: FC<WaitlistProps> = ({ buttonText, className }) => {
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   return (
     <div className={classNames(className)}>
-      <div className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] md:px-x py-ydouble md:p-14 bg-yellow">
+      <div className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[52px] bg-yellow">
         <div className="md:max-w-[436px]">
-          <h2 className="text-title md:text-xl md:tracking-tighter uppercase">{`Join the waitlist:`}</h2>
+          <h2 className="uppercase text-xl font-bold">{`Join the waitlist:`}</h2>
 
-          <div className="rich-text my-ydouble md:my-y">
+          <div className="rich-text mb-ydouble mt-[2.4rem] md:my-y">
             <p>0001 homes are released exclusively to our waitlist.</p>
             <p>
               Sign up here to schedule a tour and for updates on upcoming
@@ -30,13 +30,13 @@ export const Waitlist: FC<WaitlistProps> = ({ buttonText, className }) => {
                 setWaitlistOpen(true)
               }}
               className={classNames(
-                `w-full relative border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-bold text-xs z-above p-4`
+                `w-full relative border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above px-4 py-3.5`
               )}
             >
-              <span className="text-left uppercase">
+              <span className="text-left uppercase leading-none">
                 {buttonText || 'Join the waitlist'}
               </span>
-              <IconSmallArrow width="22" height="10" />
+              <IconSmallArrow width="16" />
             </button>
           </div>
         </div>

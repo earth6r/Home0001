@@ -6,12 +6,14 @@ export const IconRightArrowBoldComponent = (props: SVGProps<SVGSVGElement>) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      viewBox="0 0 43 26"
+      viewBox="0 0 45 29"
       {...props}
     >
       <path
-        fill="#000"
-        d="M0 14.625h36.5l-8.755 9.084L29.97 26 42.5 13 29.97 0l-2.208 2.291 8.74 9.084H0v3.25Z"
+        fill={props.fill || '#fff'}
+        fillRule="evenodd"
+        d="M30.452 0 45 14.5 30.452 29l-3.943-3.93 7.818-7.791H0V11.72h34.327l-7.818-7.79L30.452 0Z"
+        clipRule="evenodd"
       />
     </svg>
   )

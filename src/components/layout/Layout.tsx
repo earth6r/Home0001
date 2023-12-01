@@ -13,6 +13,7 @@ import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { KeyedUnitGroup } from '@components/form'
 import { filterDataToSingleItem } from '@studio/lib'
+// import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -44,7 +45,6 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         pageUrl={`${BASE_URL}${asPath}`}
       />
       <div className="flex flex-col min-h-full">
-        <div className="fixed w-full h-gradient header-gradient z-base" />
         <Header
           className="flex-initial"
           path={asPath}
@@ -63,7 +63,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <Footer
           path={asPath}
           query={query}
-          mainMenu={siteSettings?.mainMenu as Menus | undefined}
+          footerMenu={siteSettings?.footerMenu as Menus | undefined}
         />
       </div>
       <ToastContainer />

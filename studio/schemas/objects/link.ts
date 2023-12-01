@@ -46,7 +46,7 @@ export default {
           type: 'slug',
           title: 'Query Parameter',
           description:
-            'Use on a page with a Cities Block to move to a specified property or unit, starts with ?',
+            'Use on a page with a Properties Block to move to a specified property or unit, starts with ?',
           options: {
             slugify: (input?: string): string | undefined => {
               if (!input) return

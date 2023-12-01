@@ -40,21 +40,21 @@
 }
 
 .rich-text h1 {
-  @apply text-xl uppercase;
+  @apply text-xl md:text-2xl font-bold uppercase tracking-header;
 }
 
 .rich-text h2 {
-  @apply text-lg uppercase;
+  @apply text-lg font-bold uppercase tracking-header;
 }
 
 .rich-text p,
 .rich-text span,
 .rich-text li {
-  @apply text-md font-bold tracking-tight;
+  @apply text-md font-medium tracking-body;
 }
 
 .rich-text p.small {
-  @apply text-xs font-bold;
+  @apply text-xs font-medium;
 }
 
 .rich-text ul,
@@ -84,7 +84,14 @@
   margin-top: 0;
 }
 
-.rich-text a {
+.rich-text h1 a,
+.rich-text h2 a {
+  @apply underline;
+}
+
+.rich-text h3,
+.rich-text p a,
+.richt-text li a {
   border-bottom: 1.5px solid;
   color: theme('colors.black');
 }

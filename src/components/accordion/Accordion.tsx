@@ -5,7 +5,9 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { RichText, SanityLink } from '@components/sanity'
 import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
-import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
+import IconSmallBlackArrow, {
+  IconSmallArrow,
+} from '@components/icons/IconSmallBlackArrow'
 import { SanityLinkType } from '@studio/lib'
 import { sendGoogleEvent } from '@lib/util'
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
@@ -58,7 +60,9 @@ export const Accordion: FC<AccordionProps> = ({
               >
                 <h2
                   className={classNames(
-                    readMore ? 'text-lg tracking-tight' : 'font-bold text-xs',
+                    readMore
+                      ? 'text-lg font-bold tracking-details'
+                      : 'font-bold text-xs',
                     'uppercase'
                   )}
                 >
@@ -66,13 +70,13 @@ export const Accordion: FC<AccordionProps> = ({
                 </h2>
 
                 {readMore ? (
-                  <div className="px-x md:pl-xhalf pr-menu md:pr-fullmenu pt-yhalf">
+                  <div className="pr-menu md:pr-fullmenu pt-yhalf">
                     {initialText && <RichText blocks={initialText} />}
 
                     <span
                       className={classNames(
                         open ? 'opacity-0' : '',
-                        'pt-yhalf underline underline-offset-2 font-bold text-sm'
+                        'pt-yhalf underline underline-offset-2 text-sm font-medium'
                       )}
                     >{`Read more`}</span>
                   </div>
@@ -102,25 +106,32 @@ export const Accordion: FC<AccordionProps> = ({
                 <Disclosure.Panel>
                   <div
                     className={classNames(
-                      className?.includes('border-x-0') ? '' : 'pl-x',
-                      readMore ? 'pr-fullmenu' : 'pr-10 pt-2 pb-5 ',
-                      'md:pl-xhalf'
+                      readMore
+                        ? 'pr-fullmenu md:pl-0'
+                        : 'pl-x pr-10 pt-2 pb-5 ',
+                      ''
                     )}
                   >
-                    {text && <RichText blocks={text} />}
+                    {text && (
+                      <RichText
+                        blocks={text}
+                        className={classNames(
+                          readMore ? 'pr-menu md:pr-0' : ''
+                        )}
+                      />
+                    )}
 
                     {cta && (
-                      <div className="flex h-[2em] mt-yhalf">
-                        <IconSmallBlackArrow
-                          width="13"
-                          height="32"
-                          className="mr-[3px]"
-                        />
+                      <div className="w-full relative mt-y">
                         <SanityLink
-                          text={cta.text}
                           {...(cta.link as SanityLinkType)}
-                          className="hover:font-bold border-bottom mt-2 ml-2"
-                        />
+                          className="w-full border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above px-4 py-3.5"
+                        >
+                          <span className="text-left uppercase leading-none">
+                            {cta.text || 'Learn more'}
+                          </span>
+                          <IconSmallArrow width="16" fill="white" />
+                        </SanityLink>
                       </div>
                     )}
                   </div>

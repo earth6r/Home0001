@@ -13,6 +13,8 @@ import { sendGoogleEvent } from '@lib/util/analytics'
 import { useForm } from 'react-hook-form'
 import { useWaitlisModal } from '@contexts/modals'
 import Link from 'next/link'
+import { useHeaderLinks } from '@contexts/header'
+import { useRouter } from 'next/router'
 
 export const Header: FC<HeaderProps> = ({
   waitlistId,
@@ -26,9 +28,11 @@ export const Header: FC<HeaderProps> = ({
   mainMenu,
   className,
 }) => {
+  const router = useRouter()
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const { register, handleSubmit, reset, trigger } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -46,12 +50,18 @@ export const Header: FC<HeaderProps> = ({
     reset({})
   }
 
+  useEffect(() => {
+    if (router.asPath !== '/') {
+      setHeaderLinksShown(true)
+    }
+  }, [])
+
   return (
     <div
       id="header"
       className={classNames(
         className,
-        'fixed w-full pointer-events-none font-bold tracking-tight text-xs z-header'
+        'fixed w-full pointer-events-none font-medium tracking-details text-xs z-header'
       )}
     >
       <header
@@ -84,7 +94,12 @@ export const Header: FC<HeaderProps> = ({
           )}
         </div>
 
-        <div className="flex items-center gap-[1.12rem] md:gap-5">
+        <div
+          className={classNames(
+            headerLinksShown ? 'opacity-100' : 'opacity-0',
+            'flex items-center gap-[1.12rem] md:gap-5 transition-all duration-100'
+          )}
+        >
           <Modal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
@@ -114,8 +129,8 @@ export const Header: FC<HeaderProps> = ({
             onClick={openWaitlist}
             className="flex p-3 -m-3 pointer-events-auto z-header"
           >
-            <div className="pt-[5.5px] pb-[5px] px-[5.5px] md:pt-[8px] md:pb-[7px] md:px-[7px] bg-black text-white leading-[11px] uppercase">
-              <IconSmallArrow width="13" height="9" className="mr-[3px]" />
+            <div className="w-[97px] h-[27px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+              <IconSmallArrow width="16" className="mr-[5px]" />
               {`Waitlist`}
             </div>
           </Btn>

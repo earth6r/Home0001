@@ -60,7 +60,7 @@ const Page: NextPage<PageProps> = (
       <article>
         <BlockContent
           blocks={page?.body}
-          className="flex flex-col w-full md:px-x pt-page"
+          className="flex flex-col w-full pt-page"
         />
       </article>
     </PageTransition>
