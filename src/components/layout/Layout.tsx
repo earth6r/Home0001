@@ -63,7 +63,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <Footer
           path={asPath}
           query={query}
-          mainMenu={siteSettings?.mainMenu as Menus | undefined}
+          footerMenu={siteSettings?.footerMenu as Menus | undefined}
         />
       </div>
       <ToastContainer />

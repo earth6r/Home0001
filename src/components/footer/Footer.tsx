@@ -5,8 +5,9 @@ import { SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
-  mainMenu,
+  footerMenu,
 }) => {
+  console.log('footerMenu', footerMenu)
   const year = new Date().getFullYear()
   return (
     <footer
@@ -15,7 +16,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
       )}
     >
       <ul className="flex flex-col lg:flex-row md:justify-between gap-14 lg:gap-0 w-full">
-        {mainMenu?.items?.map(({ _key, text, link }) => {
+        {footerMenu?.items?.map(({ _key, text, link }) => {
           return text && link ? (
             <li
               key={_key}
