@@ -108,7 +108,7 @@ export const Accordion: FC<AccordionProps> = ({
                     className={classNames(
                       readMore
                         ? 'pr-fullmenu md:pl-0'
-                        : 'pl-xhalf pr-10 pt-2 pb-5 ',
+                        : 'pl-x pr-10 pt-2 pb-5 ',
                       ''
                     )}
                   >
