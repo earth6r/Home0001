@@ -40,7 +40,7 @@
 }
 
 .rich-text h1 {
-  @apply text-xl md:text-2xl font-bold font-bold uppercase tracking-header;
+  @apply text-xl md:text-2xl font-bold uppercase tracking-header;
 }
 
 .rich-text h2 {
@@ -84,7 +84,14 @@
   margin-top: 0;
 }
 
-.rich-text a {
+.rich-text h1 a,
+.rich-text h2 a {
+  @apply underline;
+}
+
+.rich-text h3,
+.rich-text p a,
+.richt-text li a {
   border-bottom: 1.5px solid;
   color: theme('colors.black');
 }
