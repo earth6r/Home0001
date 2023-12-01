@@ -55,7 +55,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
             />
             <span
               className={classNames(
-                'leading-none inline-block w-[calc(100%-49px)] underline underline-offset-[0.1em]'
+                'leading-none inline-block w-[calc(100%-49px)] underline decoration-[0.4rem]'
               )}
             >
               {longTitle}
