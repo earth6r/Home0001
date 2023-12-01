@@ -143,16 +143,19 @@ export default {
           letterSpacing: '-0.82px',
           textTransform: 'uppercase',
           '@screen md': {
+            fontSize: 'clamp(12px,4.5vw,140px)',
+            letterSpacing: '-7px',
+          },
+          '@screen lg': {
             fontSize: 'clamp(12px,8.2vw,140px)',
             letterSpacing: '-7px',
           },
         },
         '.home-svg': {
-          maxWidth: '40px',
-          width: '10vw',
+          maxWidth: '25px',
           '@screen md': {
-            maxWidth: '49px',
-            width: '3vw',
+            maxWidth: '140px',
+            width: '5vw',
           },
         },
       })

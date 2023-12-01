@@ -108,7 +108,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
           : aspect === 'tall'
           ? 'aspect-[0.8]'
           : 'aspect-square',
-        'relative overflow-hidden mt-3 mb-3 md:mt-5 z-above'
+        'relative overflow-hidden my-3 md:my-5 z-above'
       )}
     >
       <div
@@ -166,8 +166,8 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     active: {
       marginTop: 0,
       transition: {
-        delay: 2,
-        duration: 0.5,
+        delay: 2.2,
+        duration: 0.6,
         ease: 'easeInOut',
       },
     },
@@ -195,8 +195,8 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
       scale: 1,
       opacity: 1,
       transition: {
-        delay: 1.9,
-        duration: 0.7,
+        delay: 1.8,
+        duration: 0.6,
         ease: 'easeInOut',
       },
     },

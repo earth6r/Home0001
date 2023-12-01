@@ -10,7 +10,6 @@ import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import Link from 'next/link'
 import { Waitlist } from '@components/waitlist'
 import { motion } from 'framer-motion'
-import { sendGoogleEvent } from '@lib/util'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -19,13 +18,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   index,
 }) => (
   <div className="flex w-full">
-    <Link
-      href={`/property/${slug.current}`}
-      className="w-full"
-      onClick={() =>
-        sendGoogleEvent('home page property click', { property: slug.current })
-      }
-    >
+    <Link href={`/property/${slug.current}`} className="w-full">
       {image && (
         <div className="block relative w-full mb-yhalf z-base">
           <SanityMedia
@@ -44,11 +37,13 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       {longTitle && (
         <div
           className={classNames(
-            index === 0 ? 'lg:max-w-[330px]' : '',
-            'flex gap-1 items-start px-x md:px-0 text-xl font-bold leading-tight text-left uppercase'
+            'flex gap-1 items-start px-x md:px-0 text-2xl font-bold leading-tight text-left uppercase'
           )}
         >
-          <IconRightArrowBold fill="black" className="mt-3 lg:mt-2 w-[41px]" />
+          <IconRightArrowBold
+            fill="black"
+            className="mt-1 md:mt-2.5 lg:mt-3 xl:mt-4 home-svg"
+          />
           <span
             className={classNames(
               'leading-none inline-block w-[calc(100%-49px)] underline underline-offset-[0.1em]'
