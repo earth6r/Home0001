@@ -14,8 +14,6 @@ export const SanityFigure: FC<SanityFigureProps> = ({
   className,
   ...props
 }) => {
-  console.log(props)
-
   return (
     <Figure
       className={className}
