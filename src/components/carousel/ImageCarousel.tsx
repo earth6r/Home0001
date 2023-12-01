@@ -55,7 +55,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
-      slidesPerView: 1.18,
+      slidesPerView: 1.23,
     },
     [SCREENS.md]: {
       slidesPerView: 'auto',
