@@ -25,6 +25,15 @@ export const SITE_SETTINGS_QUERY = groq`
         }
       }
     },
+    footerMenu->{
+      items[]{
+        _key,
+        text,
+        link{
+          ${LINK_QUERY}
+        }
+      }
+    },
     waitlistHeader,
     waitlistCopy,
     waitlistSuccess,
