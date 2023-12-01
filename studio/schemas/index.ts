@@ -17,7 +17,7 @@ import accordion from './objects/accordion'
 import waitlistBlock from './blocks/waitlist-block'
 import coordinates from './objects/coordinates'
 import city from './documents/city'
-import citiesBlock from './blocks/cities-block'
+import propertiesBlock from './blocks/properties-block'
 import property from './documents/property'
 import unit from './documents/unit'
 import inventoryModule from './modules/inventory-module'
@@ -27,6 +27,8 @@ import contactBlock from './blocks/contact-block'
 import tooltip from './objects/tooltip'
 import unitGroup from './objects/unit-group'
 import carouselBlock from './blocks/carousel-block'
+import animatingBlock from './blocks/animating-block'
+import textAndImage from './objects/textAndImage'
 
 export const schemaTypes = [
   // objects
@@ -41,6 +43,7 @@ export const schemaTypes = [
   seo,
   richText,
   plainText,
+  textAndImage,
   tooltip,
   unitGroup,
 
@@ -50,8 +53,9 @@ export const schemaTypes = [
   // blocks
   blockContent,
   accordionBlock,
+  animatingBlock,
   carouselBlock,
-  citiesBlock,
+  propertiesBlock,
   newsletterBlock,
   contactBlock,
   textBlock,

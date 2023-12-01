@@ -36,7 +36,7 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
         image={image}
         imageProps={{
           alt,
-          quality: 1,
+          quality: 30,
           priority: index && index <= 2 ? true : false,
           sizes: '(max-width: 768px) 100vw, 1038px',
           style: { width: '100%', height: 'auto' },
@@ -55,7 +55,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
-      slidesPerView: 1.18,
+      slidesPerView: 1.23,
     },
     [SCREENS.md]: {
       slidesPerView: 'auto',
@@ -137,16 +137,18 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               )}
             </SwiperSlide>
           ))}
-          <nav className="hidden md:flex gap-[7px] my-yhalf cursor-pointer">
+          <nav className="hidden md:flex gap-[7px] my-yhalf">
             <IconLeftArrow
               width="24"
               className={classNames(
-                'rotate-180 swiper-prev pointer-events-auto'
+                'rotate-180 swiper-prev pointer-events-auto cursor-pointer'
               )}
             />
             <IconRightArrow
               width="24"
-              className={classNames('swiper-next pointer-events-auto')}
+              className={classNames(
+                'swiper-next pointer-events-auto cursor-pointer'
+              )}
             />
           </nav>
         </Swiper>

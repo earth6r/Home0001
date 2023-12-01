@@ -77,6 +77,12 @@ export const BODY_QUERY = `
         ${CTA_QUERY}
       }
     },
+    "textAndImages": textAndImages[]{
+      ...,
+      "media": media{
+        ${MEDIA_QUERY}
+      },
+    },
     "media": media{
       ${MEDIA_QUERY}
     },

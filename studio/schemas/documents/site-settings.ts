@@ -17,6 +17,10 @@ export default {
       title: 'Header Settings',
     },
     {
+      name: 'footer',
+      title: 'Footer Settings',
+    },
+    {
       name: 'content',
       title: 'Global Content',
     },
@@ -57,6 +61,15 @@ export default {
       to: { type: 'menus' },
       group: 'header',
     },
+    {
+      name: 'footerMenu',
+      title: 'Footer Menu',
+      type: 'reference',
+      description: 'Select menu for footer navigation',
+      to: { type: 'menus' },
+      group: 'footer',
+    },
+
     {
       name: 'waitlistId',
       title: 'Waitlist Audience ID',

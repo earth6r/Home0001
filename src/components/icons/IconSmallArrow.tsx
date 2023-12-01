@@ -6,12 +6,14 @@ export const IconSmallArrowComponent = (props: SVGProps<SVGSVGElement>) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      viewBox="0 0 13 9"
+      viewBox="0 0 16 10"
       {...props}
     >
       <path
         fill={props.fill || '#fff'}
-        d="M0 5.063h11.05L8.205 8.207 8.928 9 13 4.5 8.928 0 8.21.793l2.84 3.144H0v1.126Z"
+        fillRule="evenodd"
+        d="M10.667 0 15.5 5l-4.833 5-1.131-1.17 2.9-3.002H.5V4.172h11.937L9.536 1.171 10.667 0Z"
+        clipRule="evenodd"
       />
     </svg>
   )

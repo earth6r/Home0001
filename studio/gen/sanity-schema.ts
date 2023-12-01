@@ -163,7 +163,7 @@ export interface Property extends SanityDocument {
   /**
    * Long Title — `string`
    *
-   * Used on the Cities Block property link
+   * Used on the Properties Block property link
    */
   longTitle?: string;
 
@@ -497,6 +497,13 @@ export interface SiteSettings extends SanityDocument {
   mainMenu?: SanityReference<Menus>;
 
   /**
+   * Footer Menu — `reference`
+   *
+   * Select menu for footer navigation
+   */
+  footerMenu?: SanityReference<Menus>;
+
+  /**
    * Waitlist Audience ID — `string`
    *
    *
@@ -572,7 +579,7 @@ export type Link = {
     /**
      * Query Parameter — `slug`
      *
-     * Use on a page with a Cities Block to move to a specified property or unit, starts with ?
+     * Use on a page with a Properties Block to move to a specified property or unit, starts with ?
      */
     query?: { _type: "query"; current: string };
   };
@@ -750,6 +757,30 @@ export type RichText = Array<SanityKeyed<SanityBlock>>;
 
 export type PlainText = Array<SanityKeyed<SanityBlock>>;
 
+export type TextAndImage = {
+  _type: "textAndImage";
+  /**
+   * Aspect — `string`
+   *
+   *
+   */
+  aspect?: "short" | "square" | "tall";
+
+  /**
+   * Media — `media`
+   *
+   *
+   */
+  media?: Media;
+
+  /**
+   * Text — `richText`
+   *
+   *
+   */
+  text?: RichText;
+};
+
 export type Tooltip = {
   _type: "tooltip";
   /**
@@ -810,8 +841,9 @@ export type InventoryModule = {
 
 export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
+  | SanityKeyed<AnimatingBlock>
   | SanityKeyed<CarouselBlock>
-  | SanityKeyed<CitiesBlock>
+  | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
   | SanityKeyed<TextBlock>
@@ -835,31 +867,21 @@ export type AccordionBlock = {
   readMore?: boolean;
 };
 
-export type CarouselBlock = {
-  _type: "carouselBlock";
+export type AnimatingBlock = {
+  _type: "animatingBlock";
   /**
-   * Images — `array`
+   * Header — `array`
    *
    *
    */
-  images?: Array<SanityKeyed<Media>>;
-};
-
-export type CitiesBlock = {
-  _type: "citiesBlock";
-  /**
-   * Headers — `array`
-   *
-   *
-   */
-  headers?: Array<SanityKeyed<string>>;
+  header?: Array<SanityKeyed<string>>;
 
   /**
-   * Properties — `array`
+   * Text and Images — `array`
    *
    *
    */
-  properties?: Array<SanityKeyedReference<Property>>;
+  textAndImages?: Array<SanityKeyed<TextAndImage>>;
 
   /**
    * Cities — `array`
@@ -874,13 +896,26 @@ export type CitiesBlock = {
    *
    */
   citiesPosition?: number;
+};
 
+export type CarouselBlock = {
+  _type: "carouselBlock";
   /**
-   * How It Works Position — `number`
+   * Images — `array`
    *
    *
    */
-  howItWorksPosition?: number;
+  images?: Array<SanityKeyed<Media>>;
+};
+
+export type PropertiesBlock = {
+  _type: "propertiesBlock";
+  /**
+   * Properties — `array`
+   *
+   *
+   */
+  properties?: Array<SanityKeyedReference<Property>>;
 };
 
 export type NewsletterBlock = {

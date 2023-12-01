@@ -21,21 +21,23 @@ export default {
       },
       screens,
       fontFamily: {
-        sans: ['"Haas Grot Display"', 'Arial', 'sans-serif', 'arial-unicode'],
+        sans: ['"Haas Grot"', 'Arial', 'sans-serif', 'arial-unicode'],
         serif: ['ui-serif', 'serif'],
         mono: ['ui-monospace', 'SFMono-Regular'],
       },
       fontSize: {
         base: '14px',
         xs: ['14px', '1.2'], // small
-        sm: ['16px', '1'], // read more
-        md: ['20px', '1.2'], // body
-        lg: ['20px', '1.2'], // heading 2
-        xl: ['54px', '1'], // heading 1
-        '2xl': ['7.2vw', '1'], // title
+        sm: ['14px', '1'], // read more
+        md: ['18px', '1.2'], // body
+        lg: ['22.5px', '1'], // heading 2
+        xl: ['clamp(12px,10.5vw,54px)', '1'], // heading 1
+        '2xl': ['clamp(12px,5.5vw,75px)', '1'], // title
       },
       letterSpacing: {
-        body: '0.005em',
+        details: '-0.02em',
+        body: '-0.021em',
+        header: '-0.02em',
       },
       spacing: {
         x: 'var(--space-x)',
@@ -133,24 +135,27 @@ export default {
           },
         },
         '.text-title': {
-          fontSize: '52px',
+          fontSize: '10.5vw',
           lineHeight: '1',
           leadingTrim: 'both',
           textEdge: 'cap',
-          fontWeight: '500',
-          letterSpacing: '-2.7px',
+          fontWeight: '800',
+          letterSpacing: '-0.82px',
           textTransform: 'uppercase',
           '@screen md': {
+            fontSize: 'clamp(12px,4.5vw,140px)',
+            letterSpacing: '-7px',
+          },
+          '@screen lg': {
             fontSize: 'clamp(12px,8.2vw,140px)',
             letterSpacing: '-7px',
           },
         },
         '.home-svg': {
-          maxWidth: '49px',
-          width: '10vw',
+          width: '10.5vw',
           '@screen md': {
-            maxWidth: '49px',
-            width: '3vw',
+            maxWidth: '140px',
+            width: '5vw',
           },
         },
       })

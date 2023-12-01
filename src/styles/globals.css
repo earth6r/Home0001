@@ -44,43 +44,60 @@
     --space-x: 2.5rem;
     --space-y: 2.5rem;
 
-    --space-menu: 5.625rem;
-    --space-full-menu: 15rem;
-    --space-page: 126px;
-
     --header-height: 80px;
-    --gradient-height: 100px;
+    --gradient-height: 90px;
+
+    --space-menu: 5.625rem;
+    --space-full-menu: 12rem;
+    --space-page: var(--header-height);
   }
 }
 
 @font-face {
-  font-family: 'Haas Grot Display';
-  src: url('../../public/fonts/haas-grot-display/HaasGrotDisp-regular.woff2')
+  font-family: 'Haas Grot';
+  src: url('../../public/fonts/haas-grot/NeueHaasGrotText-55Roman.woff2')
     format('woff2');
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Haas Grot Display';
+  font-family: 'Haas Grot';
   font-style: italic;
-  src: url('../../public/fonts/haas-grot-display/HaasGrotDisp-regular-italic.woff2')
+  src: url('../../public/fonts/haas-grot/NeueHaasGrotText-56Italic.woff2')
     format('woff2');
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Haas Grot Display';
+  font-family: 'Haas Grot';
+  font-weight: 500;
+  src: url('../../public/fonts/haas-grot/NeueHaasGrotText-65Medium.woff2')
+    format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Haas Grot';
+  font-style: italic;
+  font-weight: 500;
+  src: url('../../public/fonts/haas-grot/NeueHaasGrotText-66MediumItalic.woff2')
+    format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Haas Grot';
   font-weight: bold;
-  src: url('../../public/fonts/haas-grot-display/HaasGrotDisp-medium.woff2')
+  src: url('../../public/fonts/haas-grot/NeueHaasGrotDisp-75Bold.woff2')
     format('woff2');
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Haas Grot Display';
+  font-family: 'Haas Grot';
   font-style: italic;
   font-weight: bold;
-  src: url('../../public/fonts/haas-grot-display/HaasGrotDisp-medium-italic.woff2')
+  src: url('../../public/fonts/haas-grot/NeueHaasGrotDisp-76BoldItalic.woff2')
     format('woff2');
   font-display: swap;
 }
