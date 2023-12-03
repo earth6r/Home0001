@@ -18,7 +18,7 @@ export const UnitComponent: FC<UnitElProps> = ({
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 px-x md:pr-0">
-        <h2 className="text-lg font-bold mb-12 md:ml-[-2px] uppercase col-span-2">
+        <h2 className="text-lg font-bold mb-12 uppercase col-span-2">
           {unit?.title}
         </h2>
         <div className="md:col-start-1 col-start-2 md:col-span-3">
