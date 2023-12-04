@@ -11,7 +11,7 @@ const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
     <div className="z-50 fixed top-[calc(var(--header-height)+var(--space-y)+3px)] right-xdouble md:p-10 md:top-10 md:right-10">
       <button onClick={onClose}>
-        <IconX className="w-[16px] md:w-[40px] h-[16px] md:h-[40px] stroke-2 md:stroke-1" />
+        <IconX className="w-[16px] md:w-[34px] h-[16px] md:h-[34px] stroke-2 md:stroke-1" />
       </button>
     </div>
   )
