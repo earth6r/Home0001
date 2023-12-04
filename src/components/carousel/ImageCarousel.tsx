@@ -27,7 +27,7 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
 
 const ICON_LEFT = `<svg width="30" style="transform: rotate(180deg); position: relative; left: -15px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 10" > <path fill="#FFF" d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z" /> </svg>`
 const ICON_RIGHT = `<svg width="30" style="position: relative; right: -15px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 10" > <path fill="#FFF" d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z" /> </svg>`
-const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 40 40"> <path stroke="#FFF" d="m8 8 24 24m0-24L8 32" /> </svg>`
+const ICON_CLOSE = `<svg width="34" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 10"><path fill='white' fillRule="evenodd" d="M3.761 5 0 1.239 1.239 0 5 3.761 8.761 0 10 1.239 6.239 5 10 8.761 8.761 10 5 6.239 1.239 10 0 8.761 3.761 5Z" clipRule="evenodd" /></svg>`
 
 const ImageSlide: FC<ImageSlideProps> = ({ image, alt, index }) => {
   return (
@@ -55,7 +55,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
-      slidesPerView: 1.23,
+      slidesPerView: 1,
     },
     [SCREENS.md]: {
       slidesPerView: 'auto',
@@ -104,7 +104,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             nextEl: '.swiper-next',
             prevEl: '.swiper-prev',
           }}
-          className="max-w-[620px] md:max-w-[unset] w-full overflow-visible"
+          className="w-[calc(100%-60px)] md:w-auto max-w-[620px] md:max-w-[unset] ml-0 md:mx-auto overflow-visible"
         >
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide key={`${_key}-${alt}`} className="w-auto">

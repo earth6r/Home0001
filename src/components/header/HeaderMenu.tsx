@@ -19,7 +19,7 @@ export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
     {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
       // @ts-ignore  */}
     {props['aria-expanded'] ? (
-      <IconX className="w-[16px] md:w-[40px] h-[16px] md:h-[40px] stroke-2 md:stroke-1" />
+      <IconX className="w-[16px] md:w-[34px] h-[16px] md:h-[34px] stroke-2 md:stroke-1" />
     ) : (
       <span className="uppercase">Menu</span>
     )}
