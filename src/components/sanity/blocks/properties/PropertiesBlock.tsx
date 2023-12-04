@@ -9,7 +9,7 @@ import { Block, SanityMedia } from '@components/sanity'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import Link from 'next/link'
 import { Waitlist } from '@components/waitlist'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -18,52 +18,54 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   index,
 }) => {
   return (
-    <motion.div
-      key={`${slug.current}-${index}`}
-      custom={index}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, delay: index ? index * 0.2 : 0 }}
-      viewport={{ amount: 'some' }}
-      className="flex w-full opacity-0"
-    >
-      <Link href={`/property/${slug.current}`} className="w-full">
-        {image && (
-          <div className="block relative w-full mb-yhalf z-base">
-            <SanityMedia
-              imageProps={{
-                alt: image.alt || 'Building image',
-                quality: 12,
-                priority: true,
-                sizes: '(max-width: 768px) 100vw, 50vw',
-                lqip: (image?.image as any)?.asset?.metadata?.lqip,
-              }}
-              className="w-full h-auto object-contain"
-              {...(image as any)}
-            />
-          </div>
-        )}
-        {longTitle && (
-          <div
-            className={classNames(
-              'flex gap-1 items-start px-x md:px-0 text-xl md:text-2xl font-bold leading-tight text-left uppercase'
-            )}
-          >
-            <IconRightArrowBold
-              fill="black"
-              className="mt-2 md:mt-2.5 lg:mt-3 xl:mt-4 home-svg"
-            />
-            <span
+    <AnimatePresence>
+      <motion.div
+        key={`${slug.current}-${index}`}
+        custom={index}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: index ? index * 0.2 : 0 }}
+        viewport={{ amount: 'some', once: true }}
+        className="flex w-full opacity-0"
+      >
+        <Link href={`/property/${slug.current}`} className="w-full">
+          {image && (
+            <div className="block relative w-full mb-yhalf z-base">
+              <SanityMedia
+                imageProps={{
+                  alt: image.alt || 'Building image',
+                  quality: 12,
+                  priority: true,
+                  sizes: '(max-width: 768px) 100vw, 50vw',
+                  lqip: (image?.image as any)?.asset?.metadata?.lqip,
+                }}
+                className="w-full h-auto object-contain"
+                {...(image as any)}
+              />
+            </div>
+          )}
+          {longTitle && (
+            <div
               className={classNames(
-                'leading-none inline-block w-[calc(100%-49px)] underline decoration-[0.3rem]'
+                'flex gap-1 items-start px-x md:px-0 text-xl md:text-2xl font-bold leading-tight text-left uppercase'
               )}
             >
-              {longTitle}
-            </span>
-          </div>
-        )}
-      </Link>
-    </motion.div>
+              <IconRightArrowBold
+                fill="black"
+                className="mt-2 md:mt-2.5 lg:mt-3 xl:mt-4 home-svg"
+              />
+              <span
+                className={classNames(
+                  'leading-none inline-block w-[calc(100%-49px)] underline decoration-[0.3rem]'
+                )}
+              >
+                {longTitle}
+              </span>
+            </div>
+          )}
+        </Link>
+      </motion.div>
+    </AnimatePresence>
   )
 }
 

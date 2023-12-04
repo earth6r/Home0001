@@ -46,6 +46,7 @@ export default {
         xlg: 'var(--space-x-lg)',
         y: 'var(--space-y)',
         yhalf: 'var(--space-y-half)',
+        yquarter: 'var(--space-y-quarter)',
         ydouble: 'var(--space-y-double)',
         ylg: 'var(--space-y-lg)',
         menu: 'var(--space-menu)',

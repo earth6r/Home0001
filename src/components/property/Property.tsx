@@ -18,9 +18,9 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         {property?.title}
       </h2>
       <div className="md:grid md:grid-cols-8 gap-10 md:col-start-1 block relative">
-        <div className="md:col-span-3 flex flex-col justify-start items-start md:sticky top-[var(--header-height)] left-0 md:h-[48vw]">
+        <div className="grid grid-cols-[1fr_177px] md:flex md:flex-col md:col-span-3 md:justify-start md:items-start md:sticky top-[var(--header-height)] left-0 md:h-[48vw]">
           {property?.image && (
-            <div className="block relative w-full mb-10 z-base">
+            <div className="col-span-2 block relative w-full mb-10 z-base">
               <SanityMedia
                 imageProps={{
                   alt: property?.image.alt || 'Building image',
@@ -34,20 +34,17 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             </div>
           )}
 
-          {property?.header && (
-            <RichText
-              blocks={property?.header}
-              className="px-xlg md:px-xhalf"
-            />
-          )}
+          <div className="col-start-2 pr-xhalf md:px-xhalf">
+            {property?.header && <RichText blocks={property?.header} />}
 
-          {property?.coordinates && (
-            <MapDialog
-              text="Map"
-              coordinates={property?.coordinates}
-              className="px-xlg md:px-xhalf text-xs font-bold"
-            />
-          )}
+            {property?.coordinates && (
+              <MapDialog
+                text="Map"
+                coordinates={property?.coordinates}
+                className="text-xs font-bold"
+              />
+            )}
+          </div>
         </div>
 
         <div className="col-span-5 overflow-x-hidden">
