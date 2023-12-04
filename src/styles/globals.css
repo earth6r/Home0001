@@ -5,6 +5,7 @@
   --space-x-double: calc(var(--space-x) * 2);
   --space-x-lg: 2rem;
   --space-y: 1.3rem;
+  --space-y-quarter: calc(var(--space-y) * 0.25);
   --space-y-half: calc(var(--space-y) * 0.5);
   --space-y-double: calc(var(--space-y) * 2);
   --space-y-lg: 2.5rem;
