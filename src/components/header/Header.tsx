@@ -94,12 +94,7 @@ export const Header: FC<HeaderProps> = ({
           )}
         </div>
 
-        <div
-          className={classNames(
-            headerLinksShown ? 'opacity-100' : 'opacity-0',
-            'flex items-center gap-[1.12rem] md:gap-5 transition-all duration-100'
-          )}
-        >
+        <div className={classNames('flex items-center gap-[1.12rem] md:gap-5')}>
           <Modal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
@@ -127,7 +122,10 @@ export const Header: FC<HeaderProps> = ({
           <Btn
             type="button"
             onClick={openWaitlist}
-            className="flex p-3 -m-3 pointer-events-auto z-header"
+            className={classNames(
+              headerLinksShown ? 'opacity-100' : 'opacity-0',
+              'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
+            )}
           >
             <div className="w-[100px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
               <IconSmallArrow width="16" className="mr-[5px]" />
