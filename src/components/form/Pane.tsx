@@ -8,6 +8,7 @@ import { Transition } from '@headlessui/react'
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
   enter?: boolean
+  largeHeader?: boolean
   currentStep?: number
   header?: string
   copy?: RichTextType | string
@@ -18,6 +19,7 @@ interface PaneProps extends HTMLAttributes<HTMLElement> {
 
 const Pane: FC<PaneProps> = ({
   enter = true,
+  largeHeader,
   currentStep,
   header,
   copy,
@@ -46,13 +48,18 @@ const Pane: FC<PaneProps> = ({
       <>
         <div className="w-full h-[calc(100%-var(--btn-height))] overflow-scroll">
           {header && (
-            <h2 className="pb-ylg uppercase text-xs font-bold">
-              {header || `Join waitlist`}
+            <h2
+              className={classNames(
+                largeHeader ? 'text-xl' : 'text-lg',
+                'pt-ylg pb-page uppercase font-bold'
+              )}
+            >
+              {header || `Join the waitlist:`}
             </h2>
           )}
 
           {typeof copy === 'string' ? (
-            <p>{copy}</p>
+            <p className="mb-ylg text-md font-medium">{copy}</p>
           ) : (
             copy && (
               <RichText
@@ -62,12 +69,10 @@ const Pane: FC<PaneProps> = ({
             )
           )}
 
-          <div className="relative flex flex-col gap-4 pb-y">{children}</div>
+          <div className="relative flex flex-col gap-3 pb-y">{children}</div>
         </div>
 
         <div className={classNames('relative flex w-full h-btn bottom-0')}>
-          <div className="absolute w-full h-[175%] modal-gradient left-0 bottom-0 z-above" />
-
           {currentStep && currentStep > 0 ? (
             <button
               className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"

@@ -11,9 +11,9 @@ export const IconXComponent = (props: SVGProps<SVGSVGElement>) => {
     >
       <path
         fill={props.fill || '#000'}
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M3.761 5 0 1.239 1.239 0 5 3.761 8.761 0 10 1.239 6.239 5 10 8.761 8.761 10 5 6.239 1.239 10 0 8.761 3.761 5Z"
-        clip-rule="evenodd"
+        clipRule="evenodd"
       />
     </svg>
   )

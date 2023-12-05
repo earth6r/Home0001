@@ -38,18 +38,6 @@ export const SITE_SETTINGS_QUERY = groq`
     waitlistCopy,
     waitlistSuccess,
     waitlistId,
-    "waitlistUnits": waitlistUnits[]{
-      property->{
-        _id,
-      },
-      "units": units[]->{
-        title,
-        propertyType->,
-        headlineImage,
-        area,
-        price,
-      }
-    },
     howItWorksContent,
   }
 `
