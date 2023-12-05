@@ -1,7 +1,5 @@
-import { IconX } from '@components/icons'
-import { Dialog, Transition } from '@headlessui/react'
 import { AnimatePresence } from 'framer-motion'
-import React, { FC, Fragment, HTMLAttributes } from 'react'
+import React, { FC, HTMLAttributes } from 'react'
 import { motion } from 'framer-motion'
 
 interface AnimatedModalProps extends HTMLAttributes<HTMLElement> {

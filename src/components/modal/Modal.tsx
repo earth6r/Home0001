@@ -1,4 +1,3 @@
-import { IconX } from '@components/icons'
 import { Dialog, Transition } from '@headlessui/react'
 import React, { FC, Fragment, HTMLAttributes } from 'react'
 
@@ -10,9 +9,10 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
     <div className="z-50 fixed top-[calc(var(--header-height)+var(--space-y)+3px)] right-xdouble md:p-10 md:top-10 md:right-10">
-      <button onClick={onClose}>
-        <IconX className="w-[16px] md:w-[34px] h-[16px] md:h-[34px] stroke-2 md:stroke-1" />
-      </button>
+      <button
+        onClick={onClose}
+        className="uppercase font-medium mt-[0.5em]"
+      >{`Close`}</button>
     </div>
   )
 }
