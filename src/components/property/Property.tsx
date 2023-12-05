@@ -41,7 +41,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               <MapDialog
                 text="Map"
                 coordinates={property?.coordinates}
-                className="text-xs font-bold"
+                className="text-xs font-medium"
               />
             )}
           </div>
@@ -78,12 +78,12 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         )}
       </div>
 
-      {property?.waitlistLinkText && (
+      {/* {property?.waitlistLinkText && (
         <Waitlist
           buttonText={property?.waitlistLinkText}
           className="mt-ydouble md:mt-14 lg:ml-[467px]"
         />
-      )}
+      )} */}
     </div>
   )
 }

@@ -102,7 +102,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 >
                   <button
                     className={classNames(
-                      `relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-full h-12 max-h-12 hover:invert bg-white font-bold text-xs z-above p-4`
+                      `relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-full h-12 max-h-12 hover:invert bg-white font-medium text-xs z-above p-4`
                     )}
                     onClick={() => {
                       updateUnit(unit, unit.title)
