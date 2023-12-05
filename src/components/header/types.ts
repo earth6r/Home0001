@@ -1,4 +1,3 @@
-import { KeyedUnitGroup } from '@components/form'
 import type {
   Property,
   RichText as RichTextType,
@@ -24,7 +23,6 @@ export interface HeaderProps
   waitlistHeader?: string
   waitlistCopy?: RichTextType
   waitlistSuccess?: RichTextType
-  waitlistUnits?: KeyedUnitGroup[]
 }
 
 export interface HeaderMenuProps extends HeaderProps {

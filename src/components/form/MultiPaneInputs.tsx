@@ -1,16 +1,9 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useContext, useEffect, useState } from 'react'
+import { HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
-import {
-  RichText as RichTextType,
-  SanityImageAsset,
-  UnitGroup,
-} from '@studio/gen/sanity-schema'
+import { RichText as RichTextType, UnitGroup } from '@studio/gen/sanity-schema'
 import Pane from './Pane'
-import { KeyedUnitProps } from '@components/unit'
-import { SanityImage } from '@components/sanity'
-import { HomeContext } from '@contexts/home'
 
 interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
@@ -22,17 +15,18 @@ export interface KeyedUnitGroup extends UnitGroupContent {
   _key: string
 }
 
-interface PaneContentProps extends HTMLAttributes<HTMLElement> {
-  unitGroups?: (UnitGroupContent & {
-    _key: string
-  })[]
+interface CheckboxPaneProps extends PaneProps {
+  fieldCode: string
+  fields: { label?: string; name?: string }[]
+}
+
+interface PaneProps extends HTMLAttributes<HTMLElement> {
   register: UseFormRegister<FieldValues>
 }
 
 interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   header?: string
   copy?: RichTextType | string
-  unitGroups?: KeyedUnitGroup[]
   buttonCopy?: string
   register: UseFormRegister<FieldValues>
   trigger: () => Promise<boolean>
@@ -65,44 +59,75 @@ const LOCATIONS = [
   },
 ]
 
+const PRICES = [
+  {
+    label: '<$500,000',
+    name: 'tk',
+  },
+  {
+    label: '$500,000 - $750,000',
+    name: 'tk',
+  },
+  {
+    label: '$750,000 - $1,000,000',
+    name: 'tk',
+  },
+  {
+    label: '$1,000,000 - $1,500,000',
+    name: 'tk',
+  },
+  {
+    label: '$1,500,000+',
+    name: 'tk',
+  },
+]
+
+const TIMELINE = [
+  {
+    label: 'Immediately',
+    name: 'tk',
+  },
+  {
+    label: 'In 1 - 3 months',
+    name: 'tk',
+  },
+  {
+    label: 'In 3 - 6 months',
+    name: 'tk',
+  },
+  {
+    label: 'In 6 - 12 months',
+    name: 'tk',
+  },
+  {
+    label: `Not sure yet`,
+  },
+]
+
 const SIZES = [
   {
     label: 'Studio',
     name: 'Studio',
   },
   {
-    label: '1 Bedroom',
+    label: 'At least 1 Bedroom',
     name: '1bdrm',
   },
   {
-    label: '2 Bedrooms',
+    label: 'At least 2 Bedrooms',
     name: '2bdrm',
   },
   {
     label: '3 Bedrooms +',
     name: '3+bdrm',
   },
-]
-
-const TIMELINE = [
   {
-    label: 'Next 3 months',
-  },
-  {
-    label: '3-6 Months',
-  },
-  {
-    label: '6-12 Months',
-  },
-  {
-    label: `I'm just browsing`,
-  },
-  {
-    label: `I'm a realtor/broker`,
+    label: 'Depends',
+    name: 'tk',
   },
 ]
 
-const NameEmailPane: FC<PaneContentProps> = ({ register, className }) => {
+const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
   return (
     <div className={className}>
       <input
@@ -137,134 +162,28 @@ const NameEmailPane: FC<PaneContentProps> = ({ register, className }) => {
   )
 }
 
-const UnitsPane: FC<PaneContentProps> = ({
-  unitGroups,
-  onClick,
-  register,
-  className,
-}) => {
-  const { state } = useContext(HomeContext)
-  const [checkedUnitTitle, setCheckedUnitTitle] = useState('')
-  const [checkedCount, setCheckedCount] = useState(0)
-  const [showNextButton, setShowNextButton] = useState(true)
-  const [unitOfInterestRequired, setUnitOfInterestRequired] = useState(true)
-  if (state.property?._id) {
-    const index = unitGroups?.findIndex(
-      ({ property }) => property?._id === state.property?._id
-    )
-
-    if (index) {
-      const slicedGroups = unitGroups?.splice(index, 1)
-      if (slicedGroups) unitGroups?.unshift(slicedGroups[0])
-    }
-  }
-
-  useEffect(() => {
-    if (checkedCount === 0) setShowNextButton(true)
-    if (state.unit?.title) setCheckedUnitTitle(state.unit?.title)
-  }, [checkedCount, state?.unit?.title])
-
-  return (
-    <>
-      <div className={classNames(className)}>
-        {unitGroups &&
-          unitGroups.map(({ _key, header, units }, index) => {
-            return (
-              <div key={index} className="mb-y">
-                {header && <p className="mb-2">{header}</p>}
-
-                {units &&
-                  units.map((unit: KeyedUnitProps, index) => {
-                    return (
-                      <div
-                        key={`${index}-${unit._key}`}
-                        className="relative mb-4"
-                      >
-                        <input
-                          id={`unit-of-interest-${index}-${_key}`}
-                          type="checkbox"
-                          value={unit.title}
-                          className="unit-checkbox"
-                          {...register('units_interested', {
-                            required: {
-                              value: unitOfInterestRequired,
-                              message: 'Please select at least one unit',
-                            },
-                          })}
-                          onChange={e => {
-                            e.target.checked
-                              ? setCheckedCount(checkedCount + 1)
-                              : setCheckedCount(checkedCount - 1)
-                          }}
-                        />
-                        <label
-                          htmlFor={`unit-of-interest-${index}-${_key}`}
-                          onClick={() => setShowNextButton(false)}
-                          className="checkbox-label flex justify-between relative py-4 pl-8 border-bottom cursor-pointer z-above"
-                        >
-                          <div>
-                            <span className="block">{`${unit.propertyType?.typeTitle} ${unit.title}`}</span>
-                            <span className="block">{unit.price}</span>
-                            <span className="block">{unit.area}</span>
-                          </div>
-                          {unit.headlineImage && unit.headlineImage.image && (
-                            <SanityImage
-                              asset={unit.headlineImage.image.asset}
-                              props={{
-                                alt:
-                                  unit.headlineImage.alt ||
-                                  'Unit headline image',
-                                width: 90,
-                                height: 90,
-                                quality: 1,
-                                priority: false,
-                              }}
-                            />
-                          )}
-                        </label>
-                      </div>
-                    )
-                  })}
-              </div>
-            )
-          })}
-      </div>
-
-      {showNextButton && (
-        <button
-          className="sticky bottom-2 border-black left-0 animate-fadeInDelay opacity-0 w-full px-x md:px-xhalf tracking-details h-btn uppercase text-black bg-gray text-center z-header"
-          type="button"
-          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            setUnitOfInterestRequired(false)
-            onClick && onClick(event)
-          }}
-        >
-          {'Looking for something else?'}
-        </button>
-      )}
-    </>
-  )
-}
-
-const LocationsPane: FC<PaneContentProps> = ({ register, className }) => {
+const LocationsPane: FC<PaneProps> = ({ register, className }) => {
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
 
   return (
     <div className={className}>
       {LOCATIONS.map(({ label, name }) => (
-        <div className="mb-1" key={name}>
+        <div key={name}>
           <input
             type="checkbox"
             value={name}
             id={name}
             {...register('locations_of_interest', { required: false })}
           />
-          <label className="text-left cursor-pointer" htmlFor={name}>
+          <label
+            className="text-left cursor-pointer font-medium text-md"
+            htmlFor={name}
+          >
             {label}
           </label>
         </div>
       ))}
-      <div className="mb-4" key={'Else'}>
+      <div key={'Else'}>
         <input
           type="checkbox"
           id={'Else'}
@@ -273,7 +192,10 @@ const LocationsPane: FC<PaneContentProps> = ({ register, className }) => {
             onChange: () => setHiddenInputShown(!hiddenInputShown),
           })}
         />
-        <label className="text-left cursor-pointer" htmlFor={'Else'}>
+        <label
+          className="text-left cursor-pointer font-medium text-md"
+          htmlFor={'Else'}
+        >
           {`Somewhere else`}
         </label>
       </div>
@@ -283,62 +205,34 @@ const LocationsPane: FC<PaneContentProps> = ({ register, className }) => {
         {...register('City', { required: false })}
         className={classNames(hiddenInputShown ? 'mb-4' : 'hidden', 'input')}
       />
-
-      <p className="uppercase my-yhalf">Where do you currently live?</p>
-      <div className="flex gap-4 w-full uppercase">
-        <input
-          type="text"
-          className="input w-1/2"
-          placeholder="COUNTRY"
-          {...register('current_country', { required: false })}
-        />
-        <input
-          type="text"
-          className="input w-1/2"
-          placeholder="ZIP CODE"
-          {...register('current_zip_code', { required: false })}
-        />
-      </div>
     </div>
   )
 }
 
-const MoreInfoPane: FC<PaneContentProps> = ({ register, className }) => {
+const CheckboxPane: FC<CheckboxPaneProps> = ({
+  fields,
+  fieldCode,
+  register,
+  className,
+}) => {
   return (
-    <div className={className}>
-      {SIZES.map(({ label, name }) => (
-        <div className="mb-1" key={name}>
+    <div className={classNames(className)}>
+      {fields.map(({ label, name }: any) => (
+        <div key={name}>
           <input
             type="checkbox"
-            id={name}
             value={name}
-            {...register('bedrooms', { required: false })}
+            id={name}
+            {...register(fieldCode, { required: false })}
           />
-          <label className="text-left cursor-pointer" htmlFor={name}>
+          <label
+            className="text-left cursor-pointer font-medium text-md"
+            htmlFor={name}
+          >
             {label}
           </label>
         </div>
       ))}
-
-      <p className="uppercase my-yhalf">When are you looking to buy?</p>
-      <div className="flex flex-col gap-4 w-full">
-        {TIMELINE.map(({ label }, index) => (
-          <div className="mb-1" key={`timeline-key-${index}`}>
-            <input
-              type="radio"
-              id={`timeline-${index}`}
-              value={`timeline-${index}`}
-              {...register('when_are_you_looking_to_buy', { required: false })}
-            />
-            <label
-              className="text-left cursor-pointer"
-              htmlFor={`timeline-${index}`}
-            >
-              {label}
-            </label>
-          </div>
-        ))}
-      </div>
     </div>
   )
 }
@@ -346,7 +240,6 @@ const MoreInfoPane: FC<PaneContentProps> = ({ register, className }) => {
 export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   header,
   copy,
-  unitGroups,
   buttonCopy,
   register,
   className,
@@ -357,6 +250,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   return (
     <div className={classNames(className, 'w-full pr-menu text-xs font-bold')}>
       <Pane
+        largeHeader={true}
         enter={currentStep === 0}
         currentStep={currentStep}
         header={header}
@@ -372,7 +266,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 0 ? 'hidden' : '',
-            'flex flex-col gap-4'
+            'flex flex-col gap-3'
           )}
         />
       </Pane>
@@ -380,23 +274,19 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       <Pane
         enter={currentStep === 1}
         currentStep={currentStep}
-        header={`Current Homes`}
-        copy={`Select any homes you’re interested in to join the waitlist`}
-        buttonType="submit"
-        buttonCopy={buttonCopy}
+        header={`Join the waitlist`}
+        copy={'Where do you want to own?'}
+        buttonCopy={`Submit`}
+        buttonType={`button`}
+        onClick={() => setCurrentStep(currentStep + 1)}
         onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 1 ? 'hidden' : ''}
       >
-        <UnitsPane
-          unitGroups={unitGroups}
+        <LocationsPane
           register={register}
-          onClick={async () => {
-            const triggerResult = await trigger()
-            if (triggerResult) setCurrentStep(currentStep + 1)
-          }}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
-            'block mt-y uppercase'
+            'flex flex-col gap-4'
           )}
         />
       </Pane>
@@ -404,18 +294,21 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       <Pane
         enter={currentStep === 2}
         currentStep={currentStep}
-        header={`Where do you want to live?`}
-        buttonCopy={`Next`}
-        buttonType={`button`}
-        onClick={() => setCurrentStep(currentStep + 1)}
+        header={`Join the waitlist`}
+        copy={`What's your price range?`}
+        buttonType="button"
+        buttonCopy="Submit"
         onBack={() => setCurrentStep(currentStep - 1)}
+        onClick={() => setCurrentStep(currentStep + 1)}
         className={currentStep !== 2 ? 'hidden' : ''}
       >
-        <LocationsPane
+        <CheckboxPane
+          fields={PRICES}
+          fieldCode="tk"
           register={register}
           className={classNames(
             currentStep !== 2 ? 'hidden' : '',
-            'flex flex-col gap-4 md:gap-3'
+            'flex flex-col gap-4'
           )}
         />
       </Pane>
@@ -423,16 +316,41 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       <Pane
         enter={currentStep === 3}
         currentStep={currentStep}
-        header={`What size are you looking for?`}
-        buttonCopy={buttonCopy}
-        buttonType="submit"
+        header={`Join the waitlist`}
+        copy={`When are you looking to buy?`}
+        buttonCopy="Submit"
+        buttonType="button"
+        onClick={() => setCurrentStep(currentStep + 1)}
         onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 3 ? 'hidden' : ''}
       >
-        <MoreInfoPane
+        <CheckboxPane
+          fields={TIMELINE}
+          fieldCode="tk"
           register={register}
           className={classNames(
             currentStep !== 3 ? 'hidden' : '',
+            'flex flex-col gap-4'
+          )}
+        />
+      </Pane>
+
+      <Pane
+        enter={currentStep === 4}
+        currentStep={currentStep}
+        header={`Join the waitlist`}
+        copy={`Last question: how many bedrooms are you looking for?`}
+        buttonCopy={buttonCopy}
+        buttonType="submit"
+        onBack={() => setCurrentStep(currentStep - 1)}
+        className={currentStep !== 4 ? 'hidden' : ''}
+      >
+        <CheckboxPane
+          fields={SIZES}
+          fieldCode="tk"
+          register={register}
+          className={classNames(
+            currentStep !== 4 ? 'hidden' : '',
             'flex flex-col gap-4'
           )}
         />

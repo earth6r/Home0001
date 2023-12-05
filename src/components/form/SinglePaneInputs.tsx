@@ -65,7 +65,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
   return (
     <div className={classNames(className, 'w-full')}>
-      <div className="relative flex flex-col gap-4">
+      <div className="relative flex flex-col gap-3">
         {showNameFields && (
           <div className="flex flex-row gap-4">
             <input

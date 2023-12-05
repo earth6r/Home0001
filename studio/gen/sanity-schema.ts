@@ -539,13 +539,6 @@ export interface SiteSettings extends SanityDocument {
   waitlistSuccess?: RichText;
 
   /**
-   * Waitlist Units — `array`
-   *
-   *
-   */
-  waitlistUnits?: Array<SanityKeyed<UnitGroup>>;
-
-  /**
    * How It Works Accordions — `array`
    *
    * Currently shows in how to modal on unit

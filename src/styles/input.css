@@ -4,7 +4,7 @@ fieldset {
 }
 
 .input {
-  @apply outline-none font-bold text-xs border-black bg-transparent placeholder:opacity-[36] px-4 py-2 h-10 w-full rounded-none;
+  @apply outline-none font-medium text-xs border-0 bg-white placeholder:opacity-100 placeholder:text-black px-4 py-2 h-10 w-full rounded-none;
 }
 
 input[type='checkbox'],
@@ -22,7 +22,7 @@ input[type='radio']:active {
   border-radius: 0;
   background: white;
   box-shadow: none;
-  top: 0.2em;
+  top: 0.1em;
   left: 0.3em;
   padding: 0.3em;
   position: relative;

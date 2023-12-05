@@ -7,7 +7,7 @@ import HeaderMenu from './HeaderMenu'
 import type { Property, Menus as SanityMenu } from '@gen/sanity-schema'
 import { Btn } from '@components/btns'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
-import { Modal } from '@components/modal'
+import { AnimatedModal, Modal } from '@components/modal'
 import { Form, MultiPaneInputs } from '@components/form'
 import { sendGoogleEvent } from '@lib/util/analytics'
 import { useForm } from 'react-hook-form'
@@ -21,7 +21,6 @@ export const Header: FC<HeaderProps> = ({
   waitlistHeader,
   waitlistCopy,
   waitlistSuccess,
-  waitlistUnits,
   path,
   currentTitle,
   property,
@@ -95,7 +94,7 @@ export const Header: FC<HeaderProps> = ({
         </div>
 
         <div className={classNames('flex items-center gap-[1.12rem] md:gap-5')}>
-          <Modal isOpen={waitlistOpen} onClose={onClose}>
+          <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
                 formType={'modal'}
@@ -109,7 +108,6 @@ export const Header: FC<HeaderProps> = ({
                 <MultiPaneInputs
                   header={waitlistHeader}
                   copy={waitlistCopy}
-                  unitGroups={waitlistUnits}
                   buttonCopy="Join waitlist"
                   register={register}
                   className={classNames('h-full')}
@@ -117,7 +115,7 @@ export const Header: FC<HeaderProps> = ({
                 />
               </Form>
             </div>
-          </Modal>
+          </AnimatedModal>
 
           <Btn
             type="button"

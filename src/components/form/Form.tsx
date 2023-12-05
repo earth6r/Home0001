@@ -60,9 +60,9 @@ export const Form: FC<FormProps> = ({
   return (
     <div className={classNames(className)}>
       {formSubmitted ? (
-        <div className="relative mb-2">
+        <div className="relative mt-ylg mb-2">
           {typeof successMessage === 'string' ? (
-            <p>{successMessage}</p>
+            <p className="font-bold text-lg">{successMessage}</p>
           ) : (
             successMessage && <RichText blocks={successMessage} />
           )}
