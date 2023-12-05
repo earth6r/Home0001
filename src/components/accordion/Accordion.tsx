@@ -10,6 +10,7 @@ import IconSmallBlackArrow, {
 } from '@components/icons/IconSmallBlackArrow'
 import { SanityLinkType } from '@studio/lib'
 import { sendGoogleEvent } from '@lib/util'
+
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
   initialText?: RichTextType
