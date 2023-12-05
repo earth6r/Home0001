@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import type { HeaderProps } from './types'
 import { Logo } from '@components/logos'
@@ -8,13 +8,14 @@ import type { Property, Menus as SanityMenu } from '@gen/sanity-schema'
 import { Btn } from '@components/btns'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { AnimatedModal, Modal } from '@components/modal'
-import { Form, MultiPaneInputs } from '@components/form'
+import { Form, MultiPaneInputs, SinglePaneInputs } from '@components/form'
 import { sendGoogleEvent } from '@lib/util/analytics'
 import { useForm } from 'react-hook-form'
-import { useWaitlisModal } from '@contexts/modals'
+import { useInquiryModal, useWaitlisModal } from '@contexts/modals'
 import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
+import { HomeContext } from '@contexts/home'
 
 export const Header: FC<HeaderProps> = ({
   waitlistId,
@@ -28,9 +29,11 @@ export const Header: FC<HeaderProps> = ({
   className,
 }) => {
   const router = useRouter()
+  const { state, dispatch } = useContext(HomeContext)
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const [inquiryOpen, setInquiryOpen] = useInquiryModal()
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const { register, handleSubmit, reset, trigger } = useForm({
     shouldUseNativeValidation: true,
@@ -46,6 +49,11 @@ export const Header: FC<HeaderProps> = ({
 
   const onClose = () => {
     setWaitlistOpen(false)
+    reset({})
+  }
+
+  const onInquiryClose = () => {
+    setInquiryOpen(false)
     reset({})
   }
 
@@ -114,6 +122,39 @@ export const Header: FC<HeaderProps> = ({
                   trigger={trigger}
                 />
               </Form>
+            </div>
+          </AnimatedModal>
+
+          <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
+            <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
+              <h2 className="text-xl font-bold uppercase pt-page">
+                {formSubmitted ? `Thanks!` : `Inquire`}
+              </h2>
+
+              <p className="my-ylg text-md pr-menu">
+                {formSubmitted
+                  ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
+                  : `For more information and to schedule a tour:`}
+              </p>
+
+              {!formSubmitted && (
+                <Form
+                  formType={'modal'}
+                  audienceId={waitlistId}
+                  successMessage={waitlistSuccess}
+                  formSubmitted={formSubmitted}
+                  handleSubmit={handleSubmit}
+                  setFormSubmitted={setFormSubmitted}
+                  className="w-full h-full"
+                >
+                  <SinglePaneInputs
+                    showNameFields={true}
+                    register={register}
+                    modal={true}
+                    className={classNames('h-full pr-menu')}
+                  />
+                </Form>
+              )}
             </div>
           </AnimatedModal>
 
