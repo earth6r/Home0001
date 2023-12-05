@@ -23,6 +23,8 @@ export interface HeaderProps
   waitlistHeader?: string
   waitlistCopy?: RichTextType
   waitlistSuccess?: RichTextType
+  inquiryCopy?: string
+  inquirySuccess?: string
 }
 
 export interface HeaderMenuProps extends HeaderProps {
