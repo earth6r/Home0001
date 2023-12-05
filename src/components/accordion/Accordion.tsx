@@ -63,7 +63,7 @@ export const Accordion: FC<AccordionProps> = ({
                   className={classNames(
                     readMore
                       ? 'text-lg font-bold tracking-details'
-                      : 'font-bold text-xs',
+                      : 'font-medium text-xs',
                     'uppercase'
                   )}
                 >

@@ -75,7 +75,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
             setIsOpen(true)
             handleGoogleEvent()
           }}
-          className="hover:font-bold border-bottom mt-2 mb-8 ml-2"
+          className="font-medium border-bottom mt-2 mb-8 ml-2"
         >
           {modalType}
         </button>
