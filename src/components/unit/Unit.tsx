@@ -6,14 +6,14 @@ import classNames from 'classnames'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
-import { useWaitlisModal } from '@contexts/modals'
+import { useInquiryModal } from '@contexts/modals'
 
 export const UnitComponent: FC<UnitElProps> = ({
   unit,
   accordions,
   className,
 }) => {
-  const [waitlistModal, setWaitlistModal] = useWaitlisModal()
+  const [inquiryModal, setInquiryOpen] = useInquiryModal()
 
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
@@ -69,7 +69,7 @@ export const UnitComponent: FC<UnitElProps> = ({
 
             <div className="pr-menu md:pr-0 mb-ydouble md:mb-y md:max-w-[346px]">
               <button
-                onClick={() => setWaitlistModal(true)}
+                onClick={() => setInquiryOpen(true)}
                 className={classNames(
                   'bg-black text-white',
                   'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium z-above p-4'

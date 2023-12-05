@@ -12,6 +12,7 @@ interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   showLocationFields?: boolean
   showContactLink?: boolean
   submitButtonCopy?: string
+  modal?: boolean
   register: UseFormRegister<FieldValues>
 }
 
@@ -48,6 +49,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   submitButtonCopy,
   showContactLink,
   showContactFields,
+  modal,
   register,
   className,
 }) => {
@@ -65,33 +67,47 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
   return (
     <div className={classNames(className, 'w-full')}>
-      <div className="relative flex flex-col gap-3">
-        {showNameFields && (
-          <div className="flex flex-row gap-4">
-            <input
-              type="text"
-              id="first_name"
-              className="input"
-              placeholder="FIRST NAME"
-              {...register('first_name', { required: true })}
-            />
-            <input
-              type="text"
-              id="last_name"
-              className="input"
-              placeholder="LAST NAME"
-              {...register('last_name', { required: true })}
-            />
-          </div>
+      <div
+        className={classNames(
+          modal
+            ? 'flex justify-between h-[calc(100%-var(--btn-height))] overflow-scroll'
+            : '',
+          'relative flex flex-col gap-3'
         )}
+      >
+        <div className="relative flex flex-col gap-3">
+          {showNameFields && (
+            <div
+              className={classNames(
+                modal ? 'flex-col' : 'flex-row',
+                'flex gap-3'
+              )}
+            >
+              <input
+                type="text"
+                id="first_name"
+                className="input"
+                placeholder="FIRST NAME"
+                {...register('first_name', { required: true })}
+              />
+              <input
+                type="text"
+                id="last_name"
+                className="input"
+                placeholder="LAST NAME"
+                {...register('last_name', { required: true })}
+              />
+            </div>
+          )}
 
-        <input
-          placeholder="YOUR EMAIL"
-          type="email"
-          id="email"
-          className="input"
-          {...register('email', { required: true })}
-        />
+          <input
+            placeholder="YOUR EMAIL"
+            type="email"
+            id="email"
+            className="input"
+            {...register('email', { required: true })}
+          />
+        </div>
 
         {showLocationFields ? (
           <>
@@ -183,7 +199,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           )}
         >
           <button
-            className="tracking-details h-12 max-h-12 text-center uppercase text-white bg-black font-medium text-xs"
+            className="tracking-details h-[42px] max-h-12 text-center uppercase text-white bg-black font-medium text-xs"
             type="submit"
           >
             {submitButtonCopy || 'Submit'}
