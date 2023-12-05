@@ -22,6 +22,8 @@ export const Header: FC<HeaderProps> = ({
   waitlistHeader,
   waitlistCopy,
   waitlistSuccess,
+  inquiryCopy,
+  inquirySuccess,
   path,
   currentTitle,
   property,
@@ -128,13 +130,14 @@ export const Header: FC<HeaderProps> = ({
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
             <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
               <h2 className="text-xl font-bold uppercase pt-page">
-                {formSubmitted ? `Thanks!` : `Inquire`}
+                {formSubmitted ? inquirySuccess || `Thanks!` : `Inquire`}
               </h2>
 
               <p className="my-ylg text-md pr-menu">
                 {formSubmitted
                   ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
-                  : `For more information and to schedule a tour:`}
+                  : inquiryCopy ||
+                    `For more information and to schedule a tour:`}
               </p>
 
               {!formSubmitted && (

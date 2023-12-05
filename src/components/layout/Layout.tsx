@@ -13,7 +13,6 @@ import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { KeyedUnitGroup } from '@components/form'
 import { filterDataToSingleItem } from '@studio/lib'
-// import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -56,7 +55,8 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           waitlistHeader={siteSettings?.waitlistHeader}
           waitlistCopy={siteSettings?.waitlistCopy}
           waitlistSuccess={siteSettings?.waitlistSuccess}
-          waitlistUnits={siteSettings?.waitlistUnits as KeyedUnitGroup[]}
+          inquiryCopy={siteSettings?.inquiryCopy}
+          inquirySuccess={siteSettings?.inquirySuccess}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
         <main className="flex-auto">{children}</main>

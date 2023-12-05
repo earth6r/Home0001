@@ -525,18 +525,25 @@ export interface SiteSettings extends SanityDocument {
   waitlistCopy?: RichText;
 
   /**
-   * Waitlist Unit Selection — `richText`
-   *
-   *
-   */
-  waitlistUnitSelection?: RichText;
-
-  /**
    * Waitlist Success — `richText`
    *
    *
    */
   waitlistSuccess?: RichText;
+
+  /**
+   * Inquiry Copy — `string`
+   *
+   *
+   */
+  inquiryCopy?: string;
+
+  /**
+   * Inquiry Success — `string`
+   *
+   *
+   */
+  inquirySuccess?: string;
 
   /**
    * How It Works Accordions — `array`

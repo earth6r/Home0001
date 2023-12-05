@@ -89,15 +89,21 @@ export default {
       group: 'header',
     },
     {
-      name: 'waitlistUnitSelection',
-      title: 'Waitlist Unit Selection',
+      name: 'waitlistSuccess',
+      title: 'Waitlist Success',
       type: 'richText',
       group: 'header',
     },
     {
-      name: 'waitlistSuccess',
-      title: 'Waitlist Success',
-      type: 'richText',
+      name: 'inquiryCopy',
+      title: 'Inquiry Copy',
+      type: 'string',
+      group: 'header',
+    },
+    {
+      name: 'inquirySuccess',
+      title: 'Inquiry Success',
+      type: 'string',
       group: 'header',
     },
     {
