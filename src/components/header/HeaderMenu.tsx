@@ -6,7 +6,6 @@ import type { SanityLinkType } from '@studio/lib'
 import { SanityLink } from '@components/sanity'
 import { Btn } from '@components/btns'
 import type { HeaderMenuProps } from './types'
-import { IconX } from '@components/icons'
 import { Logo } from '@components/logos'
 
 export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
@@ -19,7 +18,7 @@ export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
     {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
       // @ts-ignore  */}
     {props['aria-expanded'] ? (
-      <IconX className="w-[16px] md:w-[34px] h-[16px] md:h-[34px] stroke-2 md:stroke-1" />
+      <span className="uppercase">Close</span>
     ) : (
       <span className="uppercase">Menu</span>
     )}
