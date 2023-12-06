@@ -42,37 +42,43 @@ const Pane: FC<PaneProps> = ({
       leaveTo="top-1 opacity-0"
       className={classNames(
         className,
-        'flex flex-wrap items-stretch relative w-full h-full'
+        'flex flex-wrap items-stretch md:items-start relative w-full h-full'
       )}
     >
       <>
-        <div className="w-full h-[calc(100%-var(--btn-height))] overflow-scroll">
+        <div className="w-full h-[calc(100%-var(--btn-height))] md:h-auto overflow-scroll">
           {header && (
             <h2
               className={classNames(
                 largeHeader ? 'text-xl' : 'text-lg',
-                'pt-ylg pb-page uppercase font-bold'
+                'pt-ylg md:pt-0 pb-page uppercase font-bold'
               )}
             >
               {header || `Join the waitlist:`}
             </h2>
           )}
 
-          {typeof copy === 'string' ? (
-            <p className="mb-ylg text-md font-medium">{copy}</p>
-          ) : (
-            copy && (
-              <RichText
-                blocks={copy}
-                className={classNames('mb-ylg clear-both')}
-              />
-            )
-          )}
+          <div className="md:w-full md:grid md:grid-cols-2 md:gap-20 md:pr-menu">
+            {typeof copy === 'string' ? (
+              <p className="mb-ylg text-md font-medium">{copy}</p>
+            ) : (
+              copy && (
+                <RichText
+                  blocks={copy}
+                  className={classNames('mb-ylg clear-both')}
+                />
+              )
+            )}
 
-          <div className="relative flex flex-col gap-3 pb-y">{children}</div>
+            <div className="relative flex flex-col gap-3 pb-y">{children}</div>
+          </div>
         </div>
 
-        <div className={classNames('relative flex w-full h-btn bottom-0')}>
+        <div
+          className={classNames(
+            'relative flex w-full md:w-1/2 h-btn bottom-0 md:bottom-auto md:pr-menu md:ml-auto'
+          )}
+        >
           {currentStep && currentStep > 0 ? (
             <button
               className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"

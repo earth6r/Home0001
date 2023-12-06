@@ -19,12 +19,17 @@ export interface HeaderProps
   currentTitle?: string
   property?: SanityReference<Property>
   mainMenu?: SanityMenu
-  waitlistId?: string
-  waitlistHeader?: string
-  waitlistCopy?: RichTextType
-  waitlistSuccess?: RichTextType
-  inquiryCopy?: string
-  inquirySuccess?: string
+  waitlist?: {
+    id?: string
+    header?: string
+    copy?: RichTextType
+    success?: RichTextType
+  }
+  inquiry?: {
+    id?: string
+    copy?: string
+    success?: string
+  }
 }
 
 export interface HeaderMenuProps extends HeaderProps {
