@@ -9,7 +9,7 @@ interface AnimatedModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<AnimatedModalProps> = ({ onClose }) => {
   return (
-    <div className="absolute top-[calc(var(--space-y)+3px)] right-x md:p-10 md:top-10 md:right-10">
+    <div className="absolute top-[calc(var(--space-y)+3px)] md:top-0 right-x md:right-xhalf md:p-10">
       <button
         onClick={onClose}
         className="uppercase font-medium"
@@ -42,9 +42,9 @@ export const AnimatedModal: FC<AnimatedModalProps> = ({
           animate={{ top: 0 }}
           exit={{ top: '-100%' }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
-          className="fixed inset-0 flex h-[100vh] items-center justify-center md:p-10 z-modal pointer-events-none"
+          className="fixed inset-0 flex h-[100vh] items-center md:items-start justify-center z-modal pointer-events-none"
         >
-          <div className="block w-full h-full overflow-scroll bg-yellow z-modal">
+          <div className="block w-full h-full md:h-[50vh] md:min-h-[523px] overflow-scroll bg-yellow z-modal">
             <div
               className="relative w-full h-full pointer-events-auto"
               onClick={e => e.stopPropagation()}

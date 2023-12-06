@@ -532,6 +532,13 @@ export interface SiteSettings extends SanityDocument {
   waitlistSuccess?: RichText;
 
   /**
+   * Inquiry Audience ID — `string`
+   *
+   *
+   */
+  inquiryId?: string;
+
+  /**
    * Inquiry Copy — `string`
    *
    *

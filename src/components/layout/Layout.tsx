@@ -11,7 +11,6 @@ import type {
 import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
-import { KeyedUnitGroup } from '@components/form'
 import { filterDataToSingleItem } from '@studio/lib'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
@@ -51,12 +50,17 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           currentTitle={
             ((page as Property) || (page as Unit))?.headerText || page?.title
           }
-          waitlistId={siteSettings?.waitlistId}
-          waitlistHeader={siteSettings?.waitlistHeader}
-          waitlistCopy={siteSettings?.waitlistCopy}
-          waitlistSuccess={siteSettings?.waitlistSuccess}
-          inquiryCopy={siteSettings?.inquiryCopy}
-          inquirySuccess={siteSettings?.inquirySuccess}
+          waitlist={{
+            id: siteSettings?.waitlistId,
+            copy: siteSettings?.waitlistCopy,
+            header: siteSettings?.waitlistHeader,
+            success: siteSettings?.waitlistSuccess,
+          }}
+          inquiry={{
+            id: siteSettings?.inquiryId,
+            copy: siteSettings?.inquiryCopy,
+            success: siteSettings?.inquirySuccess,
+          }}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
         <main className="flex-auto">{children}</main>
