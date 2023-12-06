@@ -66,11 +66,11 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   const { state } = useContext(HomeContext)
 
   return (
-    <div className={classNames(className, 'w-full')}>
+    <div className={classNames(className, 'w-full md:max-w-[526px]')}>
       <div
         className={classNames(
           modal
-            ? 'flex justify-between h-[calc(100%-var(--btn-height))] overflow-scroll'
+            ? 'flex justify-between h-[calc(100%-var(--btn-height))] md:h-auto overflow-scroll'
             : '',
           'relative flex flex-col gap-3'
         )}
