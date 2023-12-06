@@ -46,11 +46,11 @@ const Pane: FC<PaneProps> = ({
       )}
     >
       <>
-        <div className="w-full h-[calc(100%-var(--btn-height))] md:h-auto overflow-scroll">
+        <div className="w-full h-[calc(100%-var(--btn-height)-[6rem])] md:h-auto overflow-scroll">
           {header && (
             <h2
               className={classNames(
-                largeHeader ? 'text-xl' : 'text-lg',
+                largeHeader ? 'text-xl' : 'md:mt-y md:-mb-y text-lg',
                 'pt-ylg md:pt-0 pb-page uppercase font-bold'
               )}
             >

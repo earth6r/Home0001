@@ -9,10 +9,10 @@ interface AnimatedModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<AnimatedModalProps> = ({ onClose }) => {
   return (
-    <div className="absolute top-[calc(var(--space-y)+3px)] md:top-0 right-x md:right-xhalf md:p-10">
+    <div className="z-modal">
       <button
         onClick={onClose}
-        className="uppercase font-medium"
+        className="absolute uppercase font-medium right-0 md:top-[2px] px-x py-y md:p-10"
       >{`Close`}</button>
     </div>
   )
@@ -32,7 +32,7 @@ export const AnimatedModal: FC<AnimatedModalProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-base"
+          className="fixed inset-0 flex items-center justify-center h-[100vh] md:h-auto bg-yellow md:bg-transparent md:backdrop-blur-sm z-base"
           onClick={onClose}
         ></motion.div>
 
