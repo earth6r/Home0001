@@ -37,7 +37,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
         'relative'
       )}
     >
-      <div className="md:grid md:grid-cols-3 mt-16">
+      <div className="w-full mt-16">
         <Waitlist
           waitlist={{
             header: header,
@@ -55,10 +55,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
           setFullWidth={() => setFullWidth(true)}
           fullWidth={fullWidth}
           className={classNames(
-            fullWidth
-              ? 'md:col-start-1 md:col-span-3'
-              : 'md:col-start-2 md:col-span-2',
-            ''
+            fullWidth ? 'md:left-0 md:w-full' : 'md:left-1/3 md:w-2/3',
+            'relative transition-all duration-200 ease-in-out'
           )}
         />
       </div>
