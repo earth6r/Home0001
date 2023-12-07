@@ -62,45 +62,46 @@ const LOCATIONS = [
 const PRICES = [
   {
     label: '<$500,000',
-    name: 'tk',
+    name: 'lt5k',
   },
   {
     label: '$500,000 - $750,000',
-    name: 'tk',
+    name: '5kto7.5k',
   },
   {
     label: '$750,000 - $1,000,000',
-    name: 'tk',
+    name: '7.5kto1m',
   },
   {
     label: '$1,000,000 - $1,500,000',
-    name: 'tk',
+    name: '1mto1.5m',
   },
   {
     label: '$1,500,000+',
-    name: 'tk',
+    name: 'gt1.5m',
   },
 ]
 
 const TIMELINE = [
   {
     label: 'Immediately',
-    name: 'tk',
+    name: 'now',
   },
   {
     label: 'In 1 - 3 months',
-    name: 'tk',
+    name: '1to30mos',
   },
   {
     label: 'In 3 - 6 months',
-    name: 'tk',
+    name: '3to6mos',
   },
   {
     label: 'In 6 - 12 months',
-    name: 'tk',
+    name: '6to12mos',
   },
   {
     label: `Not sure yet`,
+    name: 'notsure',
   },
 ]
 
@@ -123,7 +124,7 @@ const SIZES = [
   },
   {
     label: 'Depends',
-    name: 'tk',
+    name: 'Depends',
   },
 ]
 
@@ -304,7 +305,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       >
         <CheckboxPane
           fields={PRICES}
-          fieldCode="tk"
+          fieldCode="price_range"
           register={register}
           className={classNames(
             currentStep !== 2 ? 'hidden' : '',
@@ -326,7 +327,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       >
         <CheckboxPane
           fields={TIMELINE}
-          fieldCode="tk"
+          fieldCode="buyingtimelinedec2023"
           register={register}
           className={classNames(
             currentStep !== 3 ? 'hidden' : '',
@@ -347,7 +348,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       >
         <CheckboxPane
           fields={SIZES}
-          fieldCode="tk"
+          fieldCode="bedroom_preference"
           register={register}
           className={classNames(
             currentStep !== 4 ? 'hidden' : '',
