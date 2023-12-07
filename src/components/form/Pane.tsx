@@ -78,7 +78,14 @@ const Pane: FC<PaneProps> = ({
               )
             )}
 
-            <div className="relative flex flex-col gap-3 pb-y">{children}</div>
+            <div
+              className={classNames(
+                block ? '' : 'md:min-h-[328px]',
+                'relative flex flex-col gap-3 pb-y'
+              )}
+            >
+              {children}
+            </div>
           </div>
         </div>
 

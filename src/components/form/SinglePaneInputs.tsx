@@ -86,14 +86,14 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
               <input
                 type="text"
                 id="first_name"
-                className="input"
+                className={classNames(modal ? 'waitlist' : '', 'input')}
                 placeholder="FIRST NAME"
                 {...register('first_name', { required: true })}
               />
               <input
                 type="text"
                 id="last_name"
-                className="input"
+                className={classNames(modal ? 'waitlist' : '', 'input')}
                 placeholder="LAST NAME"
                 {...register('last_name', { required: true })}
               />
@@ -104,7 +104,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             placeholder="YOUR EMAIL"
             type="email"
             id="email"
-            className="input"
+            className={classNames(modal ? 'waitlist' : '', 'input')}
             {...register('email', { required: true })}
           />
         </div>
