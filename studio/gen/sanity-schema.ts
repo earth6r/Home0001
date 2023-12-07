@@ -947,6 +947,13 @@ export type NewsletterBlock = {
    *
    */
   audienceId?: string;
+
+  /**
+   * Success Message — `richText`
+   *
+   *
+   */
+  successMessage?: RichText;
 };
 
 export type ContactBlock = {
@@ -1005,6 +1012,13 @@ export type WaitlistBlock = {
    *
    */
   audienceId?: string;
+
+  /**
+   * Success Message — `richText`
+   *
+   *
+   */
+  successMessage?: RichText;
 };
 
 export type Documents =

@@ -4,7 +4,11 @@ fieldset {
 }
 
 .input {
-  @apply outline-none font-medium text-xs border-0 bg-white placeholder:opacity-100 placeholder:text-black px-4 py-2 h-10 w-full rounded-none;
+  @apply outline-none border-black font-medium text-xs bg-white placeholder:opacity-100 placeholder:text-black px-4 py-2 h-10 w-full rounded-none;
+}
+
+.input.waitlist {
+  @apply border-0;
 }
 
 input[type='checkbox'],
