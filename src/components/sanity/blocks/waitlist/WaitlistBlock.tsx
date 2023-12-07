@@ -53,6 +53,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
             register,
           }}
           setFullWidth={() => setFullWidth(true)}
+          fullWidth={fullWidth}
           className={classNames(
             fullWidth
               ? 'md:col-start-1 md:col-span-3'
