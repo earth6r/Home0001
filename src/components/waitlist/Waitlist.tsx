@@ -1,45 +1,61 @@
-import { type FC, HTMLAttributes } from 'react'
+import { type FC, HTMLAttributes, Dispatch, SetStateAction } from 'react'
 import classNames from 'classnames'
-import { IconSmallArrow } from '@components/icons/IconSmallArrow'
-import { useWaitlisModal } from '@contexts/modals'
+import { RichText } from '@studio/gen/sanity-schema'
+import {
+  FieldValues,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormTrigger,
+} from 'react-hook-form'
+import { Form, MultiPaneInputs } from '@components/form'
 
 interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
-  buttonText?: string
+  waitlist: {
+    header?: string
+    text?: RichText | string
+    id?: string
+    successMessage?: RichText
+  }
+  formActions: {
+    formSubmitted: boolean
+    setFormSubmitted: Dispatch<SetStateAction<boolean>>
+    handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
+    trigger: UseFormTrigger<FieldValues>
+    register: UseFormRegister<FieldValues>
+  }
+  setFullWidth?: () => void
+  fullWidth?: boolean
 }
 
-export const Waitlist: FC<WaitlistProps> = ({ buttonText, className }) => {
-  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+export const Waitlist: FC<WaitlistProps> = ({
+  waitlist,
+  formActions,
+  fullWidth,
+  setFullWidth,
+  className,
+}) => {
   return (
     <div className={classNames(className)}>
-      <div className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[52px] bg-yellow">
-        <div className="md:max-w-[436px]">
-          <h2 className="uppercase text-xl font-bold">{`Join the waitlist:`}</h2>
-
-          <div className="rich-text mb-ydouble mt-[2.4rem] md:my-y">
-            <p>0001 homes are released exclusively to our waitlist.</p>
-            <p>
-              Sign up here to schedule a tour and for updates on upcoming
-              buildings and new locations.
-            </p>
-          </div>
-
-          <div className="">
-            <button
-              aria-label={buttonText || 'Join the waitlist'}
-              onClick={() => {
-                setWaitlistOpen(true)
-              }}
-              className={classNames(
-                `w-full relative border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above px-4 py-3.5`
-              )}
-            >
-              <span className="text-left uppercase leading-none">
-                {buttonText || 'Join the waitlist'}
-              </span>
-              <IconSmallArrow width="16" />
-            </button>
-          </div>
-        </div>
+      <div className="h-[669px] md:h-[585px] pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[38px] bg-yellow">
+        <Form
+          audienceId={waitlist?.id}
+          successMessage={waitlist?.successMessage}
+          formSubmitted={formActions.formSubmitted}
+          handleSubmit={formActions.handleSubmit}
+          setFormSubmitted={formActions.setFormSubmitted}
+          className="w-full h-full"
+        >
+          <MultiPaneInputs
+            block={true}
+            setFullWidth={setFullWidth}
+            header={waitlist?.header}
+            copy={waitlist?.text}
+            buttonCopy="Join waitlist"
+            register={formActions.register}
+            className={classNames(fullWidth ? '' : 'max-w-[430px]', 'h-full')}
+            trigger={formActions.trigger}
+          />
+        </Form>
       </div>
     </div>
   )

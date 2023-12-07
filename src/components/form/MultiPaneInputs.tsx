@@ -18,6 +18,7 @@ export interface KeyedUnitGroup extends UnitGroupContent {
 interface CheckboxPaneProps extends PaneProps {
   fieldCode: string
   fields: { label?: string; name?: string }[]
+  type?: 'checkbox' | 'radio'
 }
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
@@ -25,11 +26,13 @@ interface PaneProps extends HTMLAttributes<HTMLElement> {
 }
 
 interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
+  block?: boolean
   header?: string
   copy?: RichTextType | string
   buttonCopy?: string
   register: UseFormRegister<FieldValues>
   trigger: () => Promise<boolean>
+  setFullWidth?: () => void
 }
 
 const LOCATIONS = [
@@ -134,14 +137,14 @@ const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
       <input
         type="text"
         id="first_name"
-        className="input"
+        className="waitlist input"
         placeholder="FIRST NAME"
         {...register('first_name', { required: 'First name is required' })}
       />
       <input
         type="text"
         id="last_name"
-        className="input"
+        className="waitlist input"
         placeholder="LAST NAME"
         {...register('last_name', { required: 'Last name is required' })}
       />
@@ -150,7 +153,7 @@ const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
         placeholder="YOUR EMAIL"
         type="email"
         id="email"
-        className="input"
+        className="waitlist input"
         {...register('email', {
           required: 'Email is required',
           pattern: {
@@ -204,7 +207,10 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
         type="text"
         placeholder="WHERE?"
         {...register('City', { required: false })}
-        className={classNames(hiddenInputShown ? 'mb-4' : 'hidden', 'input')}
+        className={classNames(
+          hiddenInputShown ? '' : 'opacity-0',
+          'waitlist input mb-4'
+        )}
       />
     </div>
   )
@@ -213,6 +219,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
 const CheckboxPane: FC<CheckboxPaneProps> = ({
   fields,
   fieldCode,
+  type,
   register,
   className,
 }) => {
@@ -221,7 +228,7 @@ const CheckboxPane: FC<CheckboxPaneProps> = ({
       {fields.map(({ label, name }: any) => (
         <div key={name}>
           <input
-            type="checkbox"
+            type={type || 'checkbox'}
             value={name}
             id={name}
             {...register(fieldCode, { required: false })}
@@ -239,18 +246,27 @@ const CheckboxPane: FC<CheckboxPaneProps> = ({
 }
 
 export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
+  block,
   header,
   copy,
   buttonCopy,
   register,
+  setFullWidth,
   className,
   trigger,
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
 
   return (
-    <div className={classNames(className, 'w-full pr-menu text-xs font-bold')}>
+    <div
+      className={classNames(
+        className,
+        block ? '' : 'pr-menu',
+        'w-full text-xs font-bold'
+      )}
+    >
       <Pane
+        block={block}
         largeHeader={true}
         enter={currentStep === 0}
         currentStep={currentStep}
@@ -260,14 +276,18 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
         onClick={async () => {
           const triggerResult = await trigger()
-          if (triggerResult) setCurrentStep(currentStep + 1)
+          if (triggerResult) {
+            setCurrentStep(currentStep + 1)
+            setFullWidth && setFullWidth()
+          }
         }}
       >
         <NameEmailPane
           register={register}
           className={classNames(
             currentStep !== 0 ? 'hidden' : '',
-            'flex flex-col gap-3'
+            block ? 'h-[220px]' : '',
+            'flex flex-col gap-3 md:h-auto'
           )}
         />
       </Pane>
@@ -287,7 +307,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
-            'flex flex-col gap-4'
+            'flex flex-col gap-4 h-[320px]'
           )}
         />
       </Pane>
@@ -309,7 +329,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 2 ? 'hidden' : '',
-            'flex flex-col gap-4'
+            'flex flex-col gap-4 h-[320px]'
           )}
         />
       </Pane>
@@ -327,11 +347,12 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       >
         <CheckboxPane
           fields={TIMELINE}
+          type={'radio'}
           fieldCode="buyingtimelinedec2023"
           register={register}
           className={classNames(
             currentStep !== 3 ? 'hidden' : '',
-            'flex flex-col gap-4'
+            'flex flex-col gap-4 h-[320px]'
           )}
         />
       </Pane>
@@ -352,7 +373,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 4 ? 'hidden' : '',
-            'flex flex-col gap-4'
+            'flex flex-col gap-4 h-[292px] md:h-[320px]'
           )}
         />
       </Pane>
