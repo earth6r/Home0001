@@ -12,7 +12,7 @@ const CloseButton: FC<AnimatedModalProps> = ({ onClose }) => {
     <div className="z-modal">
       <button
         onClick={onClose}
-        className="absolute uppercase font-medium right-0 md:top-[2px] px-x py-y md:p-10"
+        className="absolute uppercase font-medium right-0 md:top-[2px] px-xhalf md:px-x py-y md:p-10"
       >{`Close`}</button>
     </div>
   )

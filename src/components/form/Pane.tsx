@@ -100,7 +100,7 @@ const Pane: FC<PaneProps> = ({
             onClick={onClick}
           >
             {buttonCopy || 'Submit'}
-            <IconSmallArrow width="13" height="9" />
+            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
         </div>
       </>
