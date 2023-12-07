@@ -38,7 +38,6 @@ export const Form: FC<FormProps> = ({
   }, [])
 
   const onSubmit = async (data: any) => {
-    console.log('data:', data)
     const options = {
       units: data.units_interested ? data.units_interested : [],
       locations_of_interest: data.locations_of_interest
