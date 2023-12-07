@@ -18,6 +18,7 @@ export interface KeyedUnitGroup extends UnitGroupContent {
 interface CheckboxPaneProps extends PaneProps {
   fieldCode: string
   fields: { label?: string; name?: string }[]
+  type?: 'checkbox' | 'radio'
 }
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
@@ -218,6 +219,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
 const CheckboxPane: FC<CheckboxPaneProps> = ({
   fields,
   fieldCode,
+  type,
   register,
   className,
 }) => {
@@ -226,7 +228,7 @@ const CheckboxPane: FC<CheckboxPaneProps> = ({
       {fields.map(({ label, name }: any) => (
         <div key={name}>
           <input
-            type="checkbox"
+            type={type || 'checkbox'}
             value={name}
             id={name}
             {...register(fieldCode, { required: false })}
@@ -343,6 +345,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
       >
         <CheckboxPane
           fields={TIMELINE}
+          type={'radio'}
           fieldCode="buyingtimelinedec2023"
           register={register}
           className={classNames(
