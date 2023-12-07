@@ -7,6 +7,7 @@ import { SanityLink } from '@components/sanity'
 import { Btn } from '@components/btns'
 import type { HeaderMenuProps } from './types'
 import { Logo } from '@components/logos'
+import { useHeaderLinks } from '@contexts/header'
 
 export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
   <Btn
@@ -32,6 +33,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   className,
 }) => {
   const items = useRef<HTMLDivElement | null>(null)
+  const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
 
   return (
     <div className={className}>
@@ -69,7 +71,10 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                           {({ close }) => (
                             <SanityLink
                               text={text}
-                              onClick={() => setTimeout(close, 100)}
+                              onClick={() => {
+                                setTimeout(close, 100)
+                                setHeaderLinksShown(true)
+                              }}
                               {...(link as SanityLinkType)}
                             />
                           )}
