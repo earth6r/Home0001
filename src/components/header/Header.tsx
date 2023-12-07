@@ -138,7 +138,7 @@ export const Header: FC<HeaderProps> = ({
 
               {!formSubmitted && (
                 <Form
-                  formType={'modal'}
+                  formType={'unit'}
                   audienceId={inquiry?.id}
                   successMessage={waitlist?.success}
                   formSubmitted={formSubmitted}

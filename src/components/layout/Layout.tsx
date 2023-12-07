@@ -26,7 +26,6 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath, query } = useRouter()
   const page: PageData = filterDataToSingleItem(data)
-
   return (
     <>
       <Head
