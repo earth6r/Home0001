@@ -91,7 +91,7 @@ const Pane: FC<PaneProps> = ({
 
         <div
           className={classNames(
-            block ? 'md:w-full' : 'md:w-1/2 md:ml-auto',
+            block ? 'md:w-full' : 'md:w-[calc(50%+4px)] md:ml-auto',
             'relative flex w-full h-btn bottom-0 md:bottom-auto md:pr-menu'
           )}
         >

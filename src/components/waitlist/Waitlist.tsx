@@ -36,7 +36,7 @@ export const Waitlist: FC<WaitlistProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
-      <div className="h-[669px] md:h-[585px] pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[52px] bg-yellow">
+      <div className="h-[669px] md:h-[585px] pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[38px] bg-yellow">
         <Form
           audienceId={waitlist?.id}
           successMessage={waitlist?.successMessage}
