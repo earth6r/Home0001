@@ -24,17 +24,19 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
     register: UseFormRegister<FieldValues>
   }
   setFullWidth?: () => void
+  fullWidth?: boolean
 }
 
 export const Waitlist: FC<WaitlistProps> = ({
   waitlist,
   formActions,
+  fullWidth,
   setFullWidth,
   className,
 }) => {
   return (
     <div className={classNames(className)}>
-      <div className="h-[585px] pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[52px] bg-yellow">
+      <div className="h-[669px] md:h-[585px] pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[52px] bg-yellow">
         <Form
           audienceId={waitlist?.id}
           successMessage={waitlist?.successMessage}
@@ -50,7 +52,7 @@ export const Waitlist: FC<WaitlistProps> = ({
             copy={waitlist?.text}
             buttonCopy="Join waitlist"
             register={formActions.register}
-            className={classNames('h-full')}
+            className={classNames(fullWidth ? '' : 'max-w-[430px]', 'h-full')}
             trigger={formActions.trigger}
           />
         </Form>
