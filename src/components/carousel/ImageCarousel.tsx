@@ -7,10 +7,10 @@ import { Navigation, type SwiperOptions } from 'swiper'
 import { IconLeftArrow, IconRightArrow, IconX } from '@components/icons'
 import classNames from 'classnames'
 import { SCREENS } from '@/globals'
-
 // eslint-disable-next-line import/no-unresolved
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import 'photoswipe/style.css'
+import { sendGoogleEvent } from '@lib/util'
 
 export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
@@ -23,6 +23,11 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   carousel?: boolean
   arrows?: boolean
   slides?: (Media & { _key: string })[]
+  placement?:
+    | 'property details'
+    | 'unit summary images'
+    | 'unit images'
+    | 'unit layouts'
 }
 
 const ICON_LEFT = `<svg width="30" style="transform: rotate(180deg); position: relative; left: -15px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 10" > <path fill="#FFF" d="m15.52 0 5.98 5-5.98 5-1.029-.848 4.232-3.538H.5V4.386h18.223L14.491.86 15.52 0Z" /> </svg>`
@@ -51,7 +56,9 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   carousel,
   slides,
   className,
+  placement,
 }) => {
+  const [swipedImage, setSwipedImage] = useState(false)
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
@@ -98,6 +105,12 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           modules={[Navigation]}
           loop={false}
           spaceBetween={16}
+          onSlideChange={() => {
+            if (!swipedImage) {
+              sendGoogleEvent(`Swiped through ${placement}`)
+              setSwipedImage(true)
+            }
+          }}
           breakpoints={breakpoints}
           speed={600}
           navigation={{
