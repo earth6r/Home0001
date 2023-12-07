@@ -76,7 +76,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
                       active && propertyLink ? 'leading-none' : ''
                     )}
                   >
-                    {title}
+                    {`${title},`}
                   </span>
                 </div>
               )}
