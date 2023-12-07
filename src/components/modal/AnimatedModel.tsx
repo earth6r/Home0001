@@ -32,7 +32,7 @@ export const AnimatedModal: FC<AnimatedModalProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 flex items-center justify-center h-[100vh] md:h-auto bg-yellow md:bg-transparent md:backdrop-blur-sm z-base"
+          className="fixed inset-0 flex items-center justify-center h-[100vh] md:h-auto bg-yellow md:bg-transparent md:backdrop-blur-sm pointer-events-auto z-base"
           onClick={onClose}
         ></motion.div>
 
