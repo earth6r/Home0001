@@ -8,6 +8,7 @@ import { Transition } from '@headlessui/react'
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
   enter?: boolean
+  block?: boolean
   largeHeader?: boolean
   currentStep?: number
   header?: string
@@ -19,6 +20,7 @@ interface PaneProps extends HTMLAttributes<HTMLElement> {
 
 const Pane: FC<PaneProps> = ({
   enter = true,
+  block,
   largeHeader,
   currentStep,
   header,
@@ -50,6 +52,7 @@ const Pane: FC<PaneProps> = ({
           {header && (
             <h2
               className={classNames(
+                block ? 'md:pr-menu' : '',
                 largeHeader ? 'text-xl' : 'md:mt-y md:-mb-y text-lg',
                 'pt-ylg md:pt-0 pb-page uppercase font-bold'
               )}
@@ -58,7 +61,12 @@ const Pane: FC<PaneProps> = ({
             </h2>
           )}
 
-          <div className="md:w-full md:grid md:grid-cols-2 md:gap-20 md:pr-menu">
+          <div
+            className={classNames(
+              block ? '' : 'md:grid md:grid-cols-2 md:gap-20',
+              'md:w-full md:pr-menu'
+            )}
+          >
             {typeof copy === 'string' ? (
               <p className="mb-ylg text-md font-medium">{copy}</p>
             ) : (
@@ -76,7 +84,8 @@ const Pane: FC<PaneProps> = ({
 
         <div
           className={classNames(
-            'relative flex w-full md:w-1/2 h-btn bottom-0 md:bottom-auto md:pr-menu md:ml-auto'
+            block ? 'md:w-full' : 'md:w-1/2 md:ml-auto',
+            'relative flex w-full h-btn bottom-0 md:bottom-auto md:pr-menu'
           )}
         >
           {currentStep && currentStep > 0 ? (

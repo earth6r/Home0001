@@ -14,8 +14,10 @@ export const slugField = {
   description:
     'The block can be linked to using this slug as an anchor (optional)',
   options: {
-    initialValue: (doc: Record<string, any>, { parent }: Record<string, any>) =>
-      parent.title ? toPlainText(parent.title) : '',
+    initialValue: (
+      doc: Record<string, any>,
+      { parent }: Record<string, any>
+    ) => (parent.title ? toPlainText(parent.title) : ''),
     source: (doc: Record<string, any>, { parent }: Record<string, any>) =>
       parent.title ? toPlainText(parent.title) : '',
     disableArrayWarning: true,
@@ -53,6 +55,12 @@ export const idField = {
   title: 'Audience ID',
 }
 
+export const successField = {
+  name: 'successMessage',
+  type: 'richText',
+  title: 'Success Message',
+}
+
 export const topFields = [titleField, slugField]
-export const newsletterFields = [headerField, textField, idField]
+export const newsletterFields = [headerField, textField, idField, successField]
 export const contactFields = [headerField, textField, idField]
