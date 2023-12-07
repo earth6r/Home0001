@@ -70,8 +70,8 @@ export const Form: FC<FormProps> = ({
         <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           {children}
           {formError != null && (
-            <div className="py-yhalf">
-              <div className="relative text-center py-4 text-[red] border-1 border-solid border-red text-base">
+            <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">
+              <div className="relative text-left py-4 text-[red] uppercase text-base">
                 <p>{`Error submitting form`}</p>
               </div>
             </div>

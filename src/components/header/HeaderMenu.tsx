@@ -19,7 +19,9 @@ export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
     {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
       // @ts-ignore  */}
     {props['aria-expanded'] ? (
-      <span className="uppercase">Close</span>
+      <span className="inline-block relative uppercase right-[6.5px]">
+        Close
+      </span>
     ) : (
       <span className="uppercase">Menu</span>
     )}

@@ -8,7 +8,6 @@ import type {
 import { Block, SanityMedia } from '@components/sanity'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import Link from 'next/link'
-import { Waitlist } from '@components/waitlist'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
@@ -89,10 +88,6 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
                 />
               )
             )}
-        </div>
-
-        <div className="md:grid md:grid-cols-3 mt-16">
-          <Waitlist className="md:col-span-2 md:col-start-2" />
         </div>
       </div>
     </Block>
