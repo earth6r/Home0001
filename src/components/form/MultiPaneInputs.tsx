@@ -276,8 +276,10 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
         onClick={async () => {
           const triggerResult = await trigger()
-          if (triggerResult) setCurrentStep(currentStep + 1)
-          setFullWidth && setFullWidth()
+          if (triggerResult) {
+            setCurrentStep(currentStep + 1)
+            setFullWidth && setFullWidth()
+          }
         }}
       >
         <NameEmailPane

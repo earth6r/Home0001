@@ -4,7 +4,7 @@ fieldset {
 }
 
 .input {
-  @apply outline-none border-black font-medium text-xs bg-white placeholder:opacity-100 placeholder:text-black px-4 py-2 h-10 w-full rounded-none;
+  @apply outline-none border-black font-medium text-xs bg-white placeholder:opacity-100 placeholder:text-black px-xhalf py-2 h-10 w-full rounded-none;
 }
 
 .input.waitlist {
