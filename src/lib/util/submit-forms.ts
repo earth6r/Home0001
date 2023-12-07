@@ -19,11 +19,6 @@ const postModalFields = async (
         { name: 'lastname', value: data.last_name },
         { name: 'email', value: data.email },
         {
-          name: 'units_interested',
-          value: data.units_interested ? data.units_interested.join(';') : '',
-        },
-
-        {
           name: 'bedroom_preference',
           value: data.bedrooms ? data.bedrooms.join(';') : '',
         },
@@ -34,7 +29,11 @@ const postModalFields = async (
             : '',
         },
         {
-          name: 'when_are_you_looking_to_buy',
+          name: 'price_range',
+          value: data.price_range ? data.price_range.join(';') : '',
+        },
+        {
+          name: 'buyingtimelinedec2023',
           value: data.when_are_you_looking_to_buy
             ? data.when_are_you_looking_to_buy
             : '',
