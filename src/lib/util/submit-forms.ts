@@ -143,10 +143,13 @@ const postUnitFields = async (
           name: 'lastname',
           value: data.last_name,
         },
-
         {
           name: 'email',
           value: data.email,
+        },
+        {
+          name: 'phone',
+          value: data.phone,
         },
         {
           name: 'unit_of_interest',

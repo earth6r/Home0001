@@ -45,6 +45,7 @@ export const Form: FC<FormProps> = ({
         : [],
     }
     sendGoogleEvent('submit waitlist form', options)
+    console.log('submitting form', options)
 
     if (!audienceId || !formType) return
     try {
