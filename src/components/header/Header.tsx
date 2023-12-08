@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import type { HeaderProps } from './types'
 import { Logo } from '@components/logos'
@@ -7,21 +7,23 @@ import HeaderMenu from './HeaderMenu'
 import type { Property, Menus as SanityMenu } from '@gen/sanity-schema'
 import { Btn } from '@components/btns'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
-import { Modal } from '@components/modal'
-import { Form, MultiPaneInputs } from '@components/form'
+import { AnimatedModal } from '@components/modal'
+import { Form, MultiPaneInputs, SinglePaneInputs } from '@components/form'
 import { sendGoogleEvent } from '@lib/util/analytics'
 import { useForm } from 'react-hook-form'
-import { useWaitlisModal } from '@contexts/modals'
+import {
+  useInquiryModal,
+  useWaitlisModal,
+  useBrokerInquiryModal,
+} from '@contexts/modals'
 import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
+import { HomeContext } from '@contexts/home'
 
 export const Header: FC<HeaderProps> = ({
-  waitlistId,
-  waitlistHeader,
-  waitlistCopy,
-  waitlistSuccess,
-  waitlistUnits,
+  waitlist,
+  inquiry,
   path,
   currentTitle,
   property,
@@ -29,9 +31,12 @@ export const Header: FC<HeaderProps> = ({
   className,
 }) => {
   const router = useRouter()
+  const { state, dispatch } = useContext(HomeContext)
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const [inquiryOpen, setInquiryOpen] = useInquiryModal()
+  const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const { register, handleSubmit, reset, trigger } = useForm({
     shouldUseNativeValidation: true,
@@ -47,6 +52,19 @@ export const Header: FC<HeaderProps> = ({
 
   const onClose = () => {
     setWaitlistOpen(false)
+    setFormSubmitted(false)
+    reset({})
+  }
+
+  const onInquiryClose = () => {
+    setInquiryOpen(false)
+    setFormSubmitted(false)
+    reset({})
+  }
+
+  const onBrokerInquiryClose = () => {
+    setBrokerInquiryOpen(false)
+    setFormSubmitted(false)
     reset({})
   }
 
@@ -94,27 +112,21 @@ export const Header: FC<HeaderProps> = ({
           )}
         </div>
 
-        <div
-          className={classNames(
-            headerLinksShown ? 'opacity-100' : 'opacity-0',
-            'flex items-center gap-[1.12rem] md:gap-5 transition-all duration-100'
-          )}
-        >
-          <Modal isOpen={waitlistOpen} onClose={onClose}>
-            <div className="flex flex-col max-w-md h-full py-6 md:py-10 pl-x md:pl-10">
+        <div className={classNames('flex items-center gap-[1.12rem] md:gap-5')}>
+          <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
+            <div className="flex flex-col max-w-md md:max-w-none h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
                 formType={'modal'}
-                audienceId={waitlistId}
-                successMessage={waitlistSuccess}
+                audienceId={waitlist?.id}
+                successMessage={waitlist?.success}
                 formSubmitted={formSubmitted}
                 handleSubmit={handleSubmit}
                 setFormSubmitted={setFormSubmitted}
                 className="w-full h-full"
               >
                 <MultiPaneInputs
-                  header={waitlistHeader}
-                  copy={waitlistCopy}
-                  unitGroups={waitlistUnits}
+                  header={waitlist?.header}
+                  copy={waitlist?.copy}
                   buttonCopy="Join waitlist"
                   register={register}
                   className={classNames('h-full')}
@@ -122,12 +134,87 @@ export const Header: FC<HeaderProps> = ({
                 />
               </Form>
             </div>
-          </Modal>
+          </AnimatedModal>
+
+          <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
+              <h2 className="text-xl font-bold uppercase pt-page">
+                {formSubmitted ? inquiry?.success || `Thanks!` : `Inquire`}
+              </h2>
+
+              <p className="my-ylg text-md pr-menu">
+                {formSubmitted
+                  ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
+                  : inquiry?.copy ||
+                    `For more information and to schedule a tour:`}
+              </p>
+
+              {!formSubmitted && (
+                <Form
+                  formType={'unit'}
+                  audienceId={inquiry?.id}
+                  formSubmitted={formSubmitted}
+                  handleSubmit={handleSubmit}
+                  setFormSubmitted={setFormSubmitted}
+                  className="w-full h-full"
+                >
+                  <SinglePaneInputs
+                    fields={{ showName: true, showPhone: true }}
+                    register={register}
+                    modal={true}
+                    className={classNames('h-full pr-menu')}
+                  />
+                </Form>
+              )}
+            </div>
+          </AnimatedModal>
+
+          <AnimatedModal
+            isOpen={brokerInquiryOpen}
+            onClose={onBrokerInquiryClose}
+          >
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
+              <h2 className="text-xl font-bold uppercase pt-page">
+                {formSubmitted
+                  ? `Thanks for reaching out.  We will be in touch!`
+                  : `Join our brokerage program`}
+              </h2>
+
+              <p className="my-ylg text-md pr-menu">
+                {formSubmitted
+                  ? `We’ll be in touch with information soon!`
+                  : inquiry?.brokerCopy ||
+                    `For more information and to schedule a tour:`}
+              </p>
+
+              {!formSubmitted && (
+                <Form
+                  formType={'broker'}
+                  audienceId={inquiry?.brokerId}
+                  successMessage={waitlist?.success}
+                  formSubmitted={formSubmitted}
+                  handleSubmit={handleSubmit}
+                  setFormSubmitted={setFormSubmitted}
+                  className="w-full h-full"
+                >
+                  <SinglePaneInputs
+                    fields={{ showName: true }}
+                    register={register}
+                    modal={true}
+                    className={classNames('h-full pr-menu')}
+                  />
+                </Form>
+              )}
+            </div>
+          </AnimatedModal>
 
           <Btn
             type="button"
             onClick={openWaitlist}
-            className="flex p-3 -m-3 pointer-events-auto z-header"
+            className={classNames(
+              headerLinksShown ? 'opacity-100' : 'opacity-0',
+              'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
+            )}
           >
             <div className="w-[100px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
               <IconSmallArrow width="16" className="mr-[5px]" />

@@ -7,11 +7,15 @@ import { HomeContext } from '@contexts/home'
 import { useCookies } from 'react-cookie'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
-  showNameFields?: boolean
-  showContactFields?: boolean
-  showLocationFields?: boolean
-  showContactLink?: boolean
+  fields?: {
+    showName?: boolean
+    showPhone?: boolean
+    showContact?: boolean
+    showLocation?: boolean
+    showContactLink?: boolean
+  }
   submitButtonCopy?: string
+  modal?: boolean
   register: UseFormRegister<FieldValues>
 }
 
@@ -43,11 +47,9 @@ const LOCATIONS = [
 ]
 
 export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
-  showNameFields,
-  showLocationFields,
+  fields,
   submitButtonCopy,
-  showContactLink,
-  showContactFields,
+  modal,
   register,
   className,
 }) => {
@@ -64,36 +66,60 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   const { state } = useContext(HomeContext)
 
   return (
-    <div className={classNames(className, 'w-full')}>
-      <div className="relative flex flex-col gap-4">
-        {showNameFields && (
-          <div className="flex flex-row gap-4">
-            <input
-              type="text"
-              id="first_name"
-              className="input"
-              placeholder="FIRST NAME"
-              {...register('first_name', { required: true })}
-            />
-            <input
-              type="text"
-              id="last_name"
-              className="input"
-              placeholder="LAST NAME"
-              {...register('last_name', { required: true })}
-            />
-          </div>
+    <div className={classNames(className, 'w-full md:max-w-[526px]')}>
+      <div
+        className={classNames(
+          modal
+            ? 'flex justify-between h-[calc(100%-var(--btn-height))] md:h-auto overflow-scroll'
+            : '',
+          'relative flex flex-col gap-3'
         )}
+      >
+        <div className="relative flex flex-col gap-3">
+          {fields?.showName && (
+            <div
+              className={classNames(
+                modal ? 'flex-col' : 'flex-row',
+                'flex gap-3'
+              )}
+            >
+              <input
+                type="text"
+                id="first_name"
+                className={classNames(modal ? 'waitlist' : '', 'input')}
+                placeholder="FIRST NAME"
+                {...register('first_name', { required: true })}
+              />
+              <input
+                type="text"
+                id="last_name"
+                className={classNames(modal ? 'waitlist' : '', 'input')}
+                placeholder="LAST NAME"
+                {...register('last_name', { required: true })}
+              />
+            </div>
+          )}
 
-        <input
-          placeholder="YOUR EMAIL"
-          type="email"
-          id="email"
-          className="input"
-          {...register('email', { required: true })}
-        />
+          <input
+            placeholder="YOUR EMAIL"
+            type="email"
+            id="email"
+            className={classNames(modal ? 'waitlist' : '', 'input')}
+            {...register('email', { required: true })}
+          />
 
-        {showLocationFields ? (
+          {fields?.showPhone && (
+            <input
+              type="tel"
+              id="phone"
+              className={classNames(modal ? 'waitlist' : '', 'input')}
+              placeholder="Phone Number (Optional)"
+              {...register('phone', { required: false })}
+            />
+          )}
+        </div>
+
+        {fields?.showLocation ? (
           <>
             <p className="mt-4">Where do you want to live?</p>
             {LOCATIONS.map(({ label, name }) => (
@@ -145,7 +171,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           />
         )}
 
-        {showContactFields && (
+        {fields?.showContact && (
           <>
             <label htmlFor="hs_persona">Which best describes you?</label>
             <select
@@ -161,8 +187,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 I am interested in purchasing a home.
               </option>
               <option value="learn_more">
-                I am not currently interested in purchasing a home but want to
-                learn about Home0001.
+                I want to learn more about HOME0001.
               </option>
               <option value="realitor">I am a realtor.</option>
             </select>
@@ -178,17 +203,17 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
         <div
           className={classNames(
-            showLocationFields ? 'mt-10' : 'mt-1 md:mt-6',
+            fields?.showLocation ? 'mt-10' : 'mt-1 md:mt-6',
             'relative flex flex-col gap-2 md:gap-4'
           )}
         >
           <button
-            className="tracking-details h-12 max-h-12 text-center uppercase text-white bg-black font-medium text-xs"
+            className="tracking-details h-[42px] max-h-12 text-center uppercase text-white bg-black font-medium text-xs"
             type="submit"
           >
             {submitButtonCopy || 'Submit'}
           </button>
-          {showContactLink && (
+          {fields?.showContactLink && (
             <p className="mt-5 md:my-5">
               {`Got questions?${' '}`}
               <Link href="/contact" className="border-bottom">

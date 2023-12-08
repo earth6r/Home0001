@@ -48,7 +48,7 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
           setFormSubmitted={setFormSubmitted}
           successMessage={'Your data — our harvest.'}
         >
-          <SinglePaneInputs register={register} showNameFields={false} />
+          <SinglePaneInputs register={register} fields={{ showName: true }} />
         </Form>
       </div>
     </Block>

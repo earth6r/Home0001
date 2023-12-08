@@ -4,7 +4,11 @@ fieldset {
 }
 
 .input {
-  @apply outline-none font-bold text-xs border-black bg-transparent placeholder:opacity-[36] px-4 py-2 h-10 w-full rounded-none;
+  @apply outline-none border-black font-medium text-xs bg-white placeholder:opacity-100 placeholder:text-black px-xhalf py-2 h-10 w-full rounded-none placeholder:uppercase;
+}
+
+.input.waitlist {
+  @apply border-0;
 }
 
 input[type='checkbox'],
@@ -22,7 +26,7 @@ input[type='radio']:active {
   border-radius: 0;
   background: white;
   box-shadow: none;
-  top: 0.2em;
+  top: 0.1em;
   left: 0.3em;
   padding: 0.3em;
   position: relative;
@@ -52,7 +56,8 @@ input[type='checkbox'].unit-checkbox {
   input[type='radio'],
   input[type='radio']:focus,
   input[type='radio']:active {
-    left: 0;
+    left: 4px;
+    margin-right: 1em;
     width: 1rem;
     height: 1rem;
     padding: 0.3em;

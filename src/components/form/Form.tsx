@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import React, { HTMLAttributes, forwardRef, useEffect, useState } from 'react'
+import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormHandleSubmit } from 'react-hook-form'
 import { submitForm } from '@lib/util/submit-forms'
@@ -10,7 +10,7 @@ import { useCookies } from 'react-cookie'
 
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
-  formType?: 'modal' | 'newsletter' | 'contact' | 'general' | 'unit'
+  formType?: 'modal' | 'newsletter' | 'contact' | 'general' | 'unit' | 'broker'
   successMessage?: RichTextType | string
   handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
   formSubmitted: boolean
@@ -38,7 +38,6 @@ export const Form: FC<FormProps> = ({
   }, [])
 
   const onSubmit = async (data: any) => {
-    console.log('data:', data)
     const options = {
       units: data.units_interested ? data.units_interested : [],
       locations_of_interest: data.locations_of_interest
@@ -60,9 +59,9 @@ export const Form: FC<FormProps> = ({
   return (
     <div className={classNames(className)}>
       {formSubmitted ? (
-        <div className="relative mb-2">
+        <div className="relative mt-ylg mb-2">
           {typeof successMessage === 'string' ? (
-            <p>{successMessage}</p>
+            <p className="font-bold text-lg">{successMessage}</p>
           ) : (
             successMessage && <RichText blocks={successMessage} />
           )}
@@ -71,8 +70,8 @@ export const Form: FC<FormProps> = ({
         <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           {children}
           {formError != null && (
-            <div className="py-yhalf">
-              <div className="relative text-center py-4 text-[red] border-1 border-solid border-red text-base">
+            <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">
+              <div className="relative text-left py-4 text-[red] uppercase text-base">
                 <p>{`Error submitting form`}</p>
               </div>
             </div>

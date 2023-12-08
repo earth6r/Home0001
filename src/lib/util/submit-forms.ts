@@ -19,11 +19,6 @@ const postModalFields = async (
         { name: 'lastname', value: data.last_name },
         { name: 'email', value: data.email },
         {
-          name: 'units_interested',
-          value: data.units_interested ? data.units_interested.join(';') : '',
-        },
-
-        {
           name: 'bedroom_preference',
           value: data.bedrooms ? data.bedrooms.join(';') : '',
         },
@@ -34,7 +29,11 @@ const postModalFields = async (
             : '',
         },
         {
-          name: 'when_are_you_looking_to_buy',
+          name: 'price_range',
+          value: data.price_range ? data.price_range.join(';') : '',
+        },
+        {
+          name: 'buyingtimelinedec2023',
           value: data.when_are_you_looking_to_buy
             ? data.when_are_you_looking_to_buy
             : '',
@@ -123,7 +122,7 @@ const postNewsletterFields = async (
   )
 }
 
-const postGeneralFields = async (
+const postUnitFields = async (
   data: any,
   portalId?: string,
   formGuid?: string,
@@ -136,20 +135,26 @@ const postGeneralFields = async (
       portalId,
       formGuid,
       fields: [
-        { name: 'firstname', value: data.first_name },
-        { name: 'lastname', value: data.last_name },
+        {
+          name: 'firstname',
+          value: data.first_name,
+        },
+        {
+          name: 'lastname',
+          value: data.last_name,
+        },
         {
           name: 'email',
           value: data.email,
         },
-        { name: 'berlin_general', value: data.Berlin },
-        { name: 'la_general', value: data.LA },
-        { name: 'london_general', value: data.London },
-        { name: 'nyc_general', value: data.NYC },
-        { name: 'paris_general', value: data.Paris },
-        { name: 'cdmx_general', value: data.CDMX },
-        { name: 'else_general', value: data.Else },
-        { name: 'city_general', value: data.City },
+        {
+          name: 'phone',
+          value: data.phone,
+        },
+        {
+          name: 'unit_of_interest',
+          value: data.unit_of_interest,
+        },
       ],
       context: {
         hutk: hutk ? hutk : 'none available',
@@ -160,8 +165,7 @@ const postGeneralFields = async (
     config
   )
 }
-
-const postUnitFields = async (
+const postBrokerFields = async (
   data: any,
   portalId?: string,
   formGuid?: string,
@@ -187,10 +191,6 @@ const postUnitFields = async (
           name: 'email',
           value: data.email,
         },
-        {
-          name: 'unit_of_interest',
-          value: data.unit_of_interest,
-        },
       ],
       context: {
         hutk: hutk ? hutk : 'none available',
@@ -215,7 +215,7 @@ export const submitForm = async (
       'Content-Type': 'application/json',
     },
   }
-  console.log('data', data)
+
   let response = null
   if (formType === 'newsletter') {
     response = await postNewsletterFields(
@@ -229,6 +229,10 @@ export const submitForm = async (
     response = await postModalFields(data, portalId, formGuid, config, hutk)
   } else if (formType === 'contact') {
     response = await postContactFields(data, portalId, formGuid, config, hutk)
+  } else if (formType === 'unit') {
+    response = await postUnitFields(data, portalId, formGuid, config, hutk)
+  } else if (formType === 'broker') {
+    response = await postBrokerFields(data, portalId, formGuid, config, hutk)
   }
 
   return response

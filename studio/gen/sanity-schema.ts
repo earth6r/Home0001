@@ -525,13 +525,6 @@ export interface SiteSettings extends SanityDocument {
   waitlistCopy?: RichText;
 
   /**
-   * Waitlist Unit Selection — `richText`
-   *
-   *
-   */
-  waitlistUnitSelection?: RichText;
-
-  /**
    * Waitlist Success — `richText`
    *
    *
@@ -539,11 +532,46 @@ export interface SiteSettings extends SanityDocument {
   waitlistSuccess?: RichText;
 
   /**
-   * Waitlist Units — `array`
+   * Inquiry Audience ID — `string`
    *
    *
    */
-  waitlistUnits?: Array<SanityKeyed<UnitGroup>>;
+  inquiryId?: string;
+
+  /**
+   * Inquiry Copy — `string`
+   *
+   *
+   */
+  inquiryCopy?: string;
+
+  /**
+   * Inquiry Success — `string`
+   *
+   *
+   */
+  inquirySuccess?: string;
+
+  /**
+   * Broker Inquiry Audience ID — `string`
+   *
+   *
+   */
+  brokerInquiryId?: string;
+
+  /**
+   * Broker Inquiry Copy — `string`
+   *
+   *
+   */
+  brokerInquiryCopy?: string;
+
+  /**
+   * Broker Inquiry Success — `string`
+   *
+   *
+   */
+  brokerInquirySuccess?: string;
 
   /**
    * How It Works Accordions — `array`
@@ -940,6 +968,13 @@ export type NewsletterBlock = {
    *
    */
   audienceId?: string;
+
+  /**
+   * Success Message — `richText`
+   *
+   *
+   */
+  successMessage?: RichText;
 };
 
 export type ContactBlock = {
@@ -998,6 +1033,13 @@ export type WaitlistBlock = {
    *
    */
   audienceId?: string;
+
+  /**
+   * Success Message — `richText`
+   *
+   *
+   */
+  successMessage?: RichText;
 };
 
 export type Documents =

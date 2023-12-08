@@ -1,11 +1,11 @@
 import type { FC } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import type { WaitlistBlock as WaitlistBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
-import { Block, RichText } from '@components/sanity'
-import { Form, SinglePaneInputs } from '@components/form'
+import { Block } from '@components/sanity'
 import { useForm } from 'react-hook-form'
+import { Waitlist } from '@components/waitlist'
 
 type WaitlistBlockProps = Omit<SanityBlockElement, keyof WaitlistBlockType> &
   WaitlistBlockType
@@ -15,12 +15,19 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   text,
   grid,
   audienceId,
+  successMessage,
   className,
 }) => {
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset, trigger } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [fullWidth, setFullWidth] = useState(false)
+
+  useEffect(() => {
+    console.log(trigger)
+  }, [trigger])
+
   return (
     <Block
       className={classNames(
@@ -29,30 +36,28 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
         'relative'
       )}
     >
-      <div className="absolute md:relative w-[100vw] h-full -left-x bg-whitesmoke z-behind"></div>
-      <div className="py-12">
-        {header && <h2 className="pb-ylg uppercase">{header}</h2>}
-
-        {text ? (
-          formSubmitted ? (
-            <RichText blocks={text} className={classNames('mb-4 clear-both')} />
-          ) : null
-        ) : null}
-
-        <Form
-          formType={'general'}
-          audienceId={audienceId}
-          formSubmitted={formSubmitted}
-          handleSubmit={handleSubmit}
-          setFormSubmitted={setFormSubmitted}
-        >
-          <SinglePaneInputs
-            showLocationFields={true}
-            showContactLink={true}
-            register={register}
-            submitButtonCopy="Join the waitlist"
-          />
-        </Form>
+      <div className="w-full mt-16">
+        <Waitlist
+          waitlist={{
+            header: header,
+            text: text,
+            id: audienceId,
+            successMessage: successMessage,
+          }}
+          formActions={{
+            formSubmitted,
+            setFormSubmitted,
+            handleSubmit,
+            trigger,
+            register,
+          }}
+          setFullWidth={() => setFullWidth(true)}
+          fullWidth={fullWidth}
+          className={classNames(
+            fullWidth ? 'md:left-0 md:w-full' : 'md:left-1/3 md:w-2/3',
+            'relative transition-all duration-200 ease-in-out'
+          )}
+        />
       </div>
     </Block>
   )

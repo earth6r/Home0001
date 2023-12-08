@@ -6,19 +6,19 @@ import classNames from 'classnames'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
-import { useWaitlisModal } from '@contexts/modals'
+import { useInquiryModal } from '@contexts/modals'
 
 export const UnitComponent: FC<UnitElProps> = ({
   unit,
   accordions,
   className,
 }) => {
-  const [waitlistModal, setWaitlistModal] = useWaitlisModal()
+  const [inquiryModal, setInquiryOpen] = useInquiryModal()
 
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 px-x md:pr-0">
-        <h2 className="text-lg font-bold mb-12 uppercase col-span-2">
+        <h2 className="text-xl font-bold mb-12 uppercase col-span-2">
           {unit?.title}
         </h2>
         <div className="md:col-start-1 col-start-2 md:col-span-3">
@@ -33,14 +33,14 @@ export const UnitComponent: FC<UnitElProps> = ({
               />
             )}
 
-            <div className="text-xs font-bold">
+            <div className="text-xs font-medium">
               {unit?.propertyType && (
                 <p className="mt-4 uppercase tracking-details">
                   <span>{unit?.title}</span>
                 </p>
               )}
             </div>
-            <div className="pr-menu md:pr-0 mb-ydouble md:mb-y text-xs font-bold">
+            <div className="pr-menu md:pr-0 mb-ydouble md:mb-y text-xs font-medium">
               <p className="m-0">
                 {unit?.price == 'Inquire' ? 'Price upon request' : unit?.price}
               </p>
@@ -70,14 +70,14 @@ export const UnitComponent: FC<UnitElProps> = ({
 
             <div className="pr-menu md:pr-0 mb-ydouble md:mb-y md:max-w-[346px]">
               <button
-                onClick={() => setWaitlistModal(true)}
+                onClick={() => setInquiryOpen(true)}
                 className={classNames(
                   'bg-black text-white',
-                  'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-bold z-above p-4'
+                  'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium z-above p-4'
                 )}
               >
-                {`Join the waitlist for this home`}
-                <IconSmallArrow width="22" height="10" className="" />
+                {`Inquire`}
+                <IconSmallArrow width="22" height="10" />
               </button>
             </div>
           </div>

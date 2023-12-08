@@ -13,16 +13,16 @@ export default {
       default: true,
     },
     {
-      name: 'header',
-      title: 'Header Settings',
-    },
-    {
-      name: 'footer',
-      title: 'Footer Settings',
-    },
-    {
       name: 'content',
       title: 'Global Content',
+    },
+    {
+      name: 'menus',
+      title: 'Menus',
+    },
+    {
+      name: 'forms',
+      title: 'Forms',
     },
   ],
   fields: [
@@ -59,7 +59,7 @@ export default {
       type: 'reference',
       description: 'Select menu for main navigation',
       to: { type: 'menus' },
-      group: 'header',
+      group: 'menus',
     },
     {
       name: 'footerMenu',
@@ -67,45 +67,67 @@ export default {
       type: 'reference',
       description: 'Select menu for footer navigation',
       to: { type: 'menus' },
-      group: 'footer',
+      group: 'menus',
     },
-
     {
       name: 'waitlistId',
       title: 'Waitlist Audience ID',
       type: 'string',
-      group: 'header',
+      group: 'forms',
     },
     {
       name: 'waitlistHeader',
       title: 'Waitlist Header',
       type: 'string',
-      group: 'header',
+      group: 'forms',
     },
     {
       name: 'waitlistCopy',
       title: 'Waitlist Copy',
       type: 'richText',
-      group: 'header',
-    },
-    {
-      name: 'waitlistUnitSelection',
-      title: 'Waitlist Unit Selection',
-      type: 'richText',
-      group: 'header',
+      group: 'forms',
     },
     {
       name: 'waitlistSuccess',
       title: 'Waitlist Success',
       type: 'richText',
-      group: 'header',
+      group: 'forms',
     },
     {
-      name: 'waitlistUnits',
-      title: 'Waitlist Units',
-      type: 'array',
-      of: [{ type: 'unitGroup' }],
-      group: 'header',
+      name: 'inquiryId',
+      title: 'Inquiry Audience ID',
+      type: 'string',
+      group: 'forms',
+    },
+    {
+      name: 'inquiryCopy',
+      title: 'Inquiry Copy',
+      type: 'string',
+      group: 'forms',
+    },
+    {
+      name: 'inquirySuccess',
+      title: 'Inquiry Success',
+      type: 'string',
+      group: 'forms',
+    },
+    {
+      name: 'brokerInquiryId',
+      title: 'Broker Inquiry Audience ID',
+      type: 'string',
+      group: 'forms',
+    },
+    {
+      name: 'brokerInquiryCopy',
+      title: 'Broker Inquiry Copy',
+      type: 'string',
+      group: 'forms',
+    },
+    {
+      name: 'brokerInquirySuccess',
+      title: 'Broker Inquiry Success',
+      type: 'string',
+      group: 'forms',
     },
     {
       name: 'howItWorksContent',
