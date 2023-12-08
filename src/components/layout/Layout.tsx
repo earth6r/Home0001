@@ -11,9 +11,7 @@ import type {
 import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
-import { KeyedUnitGroup } from '@components/form'
 import { filterDataToSingleItem } from '@studio/lib'
-// import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -28,7 +26,6 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath, query } = useRouter()
   const page: PageData = filterDataToSingleItem(data)
-
   return (
     <>
       <Head
@@ -52,11 +49,20 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           currentTitle={
             ((page as Property) || (page as Unit))?.headerText || page?.title
           }
-          waitlistId={siteSettings?.waitlistId}
-          waitlistHeader={siteSettings?.waitlistHeader}
-          waitlistCopy={siteSettings?.waitlistCopy}
-          waitlistSuccess={siteSettings?.waitlistSuccess}
-          waitlistUnits={siteSettings?.waitlistUnits as KeyedUnitGroup[]}
+          waitlist={{
+            id: siteSettings?.waitlistId,
+            copy: siteSettings?.waitlistCopy,
+            header: siteSettings?.waitlistHeader,
+            success: siteSettings?.waitlistSuccess,
+          }}
+          inquiry={{
+            id: siteSettings?.inquiryId,
+            copy: siteSettings?.inquiryCopy,
+            success: siteSettings?.inquirySuccess,
+            brokerId: siteSettings?.brokerInquiryId,
+            brokerCopy: siteSettings?.brokerInquiryCopy,
+            brokerSuccess: siteSettings?.brokerInquirySuccess,
+          }}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
         <main className="flex-auto">{children}</main>

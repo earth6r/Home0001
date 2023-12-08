@@ -8,6 +8,8 @@ import { Transition } from '@headlessui/react'
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
   enter?: boolean
+  block?: boolean
+  largeHeader?: boolean
   currentStep?: number
   header?: string
   copy?: RichTextType | string
@@ -18,6 +20,8 @@ interface PaneProps extends HTMLAttributes<HTMLElement> {
 
 const Pane: FC<PaneProps> = ({
   enter = true,
+  block,
+  largeHeader,
   currentStep,
   header,
   copy,
@@ -40,34 +44,59 @@ const Pane: FC<PaneProps> = ({
       leaveTo="top-1 opacity-0"
       className={classNames(
         className,
-        'flex flex-wrap items-stretch relative w-full h-full'
+        'flex flex-wrap items-stretch md:items-start relative w-full h-full'
       )}
     >
       <>
-        <div className="w-full h-[calc(100%-var(--btn-height))] overflow-scroll">
+        <div className="w-full h-[calc(100%-var(--btn-height)-[6rem])] md:h-auto overflow-scroll">
           {header && (
-            <h2 className="pb-ylg uppercase text-xs font-bold">
-              {header || `Join waitlist`}
+            <h2
+              className={classNames(
+                block ? 'md:pr-menu' : '',
+                largeHeader
+                  ? 'text-xl'
+                  : 'md:mt-y md:-mb-y text-lg pt-ylg md:pt-0',
+                'pb-page uppercase font-bold'
+              )}
+            >
+              {header || `Join the waitlist:`}
             </h2>
           )}
 
-          {typeof copy === 'string' ? (
-            <p>{copy}</p>
-          ) : (
-            copy && (
-              <RichText
-                blocks={copy}
-                className={classNames('mb-ylg clear-both')}
-              />
-            )
-          )}
+          <div
+            className={classNames(
+              block ? '' : 'md:grid md:grid-cols-2 md:gap-20',
+              'md:w-full md:pr-menu'
+            )}
+          >
+            {typeof copy === 'string' ? (
+              <p className="mb-ylg text-md font-medium">{copy}</p>
+            ) : (
+              copy && (
+                <RichText
+                  blocks={copy}
+                  className={classNames('mb-ylg clear-both')}
+                />
+              )
+            )}
 
-          <div className="relative flex flex-col gap-4 pb-y">{children}</div>
+            <div
+              className={classNames(
+                block ? '' : 'md:min-h-[328px]',
+                'relative flex flex-col gap-3 pb-y'
+              )}
+            >
+              {children}
+            </div>
+          </div>
         </div>
 
-        <div className={classNames('relative flex w-full h-btn bottom-0')}>
-          <div className="absolute w-full h-[175%] modal-gradient left-0 bottom-0 z-above" />
-
+        <div
+          className={classNames(
+            block ? 'md:w-full' : 'md:w-[calc(50%+4px)] md:ml-auto',
+            'relative flex w-full h-btn bottom-0 md:bottom-auto md:pr-menu'
+          )}
+        >
           {currentStep && currentStep > 0 ? (
             <button
               className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"
@@ -89,7 +118,7 @@ const Pane: FC<PaneProps> = ({
             onClick={onClick}
           >
             {buttonCopy || 'Submit'}
-            <IconSmallArrow width="13" height="9" />
+            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
         </div>
       </>

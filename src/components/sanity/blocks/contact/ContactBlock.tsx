@@ -47,8 +47,7 @@ export const ContactBlock: FC<ContactBlockProps> = ({
         >
           <SinglePaneInputs
             register={register}
-            showContactFields={true}
-            showNameFields={true}
+            fields={{ showContact: true, showName: true }}
           />
         </Form>
       </div>

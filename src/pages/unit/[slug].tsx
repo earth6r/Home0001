@@ -1,4 +1,9 @@
-import { ForwardRefRenderFunction, forwardRef } from 'react'
+import {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useContext,
+  useEffect,
+} from 'react'
 import groq from 'groq'
 import type {
   GetStaticPaths,
@@ -10,9 +15,9 @@ import type { Unit as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
 import { UNIT_QUERY, client, filterDataToSingleItem } from '@studio/lib'
-import { Property } from '@components/property'
 import { Unit } from '@components/unit'
 import PageTransition from '@components/transition/PageTransition'
+import { HomeContext } from '@contexts/home'
 
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 
@@ -44,6 +49,17 @@ const UnitPage: NextPage<PageProps> = (
   ref: PageRefType
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
+  const { state, dispatch } = useContext(HomeContext)
+
+  useEffect(() => {
+    dispatch({
+      type: 'SET_UNIT',
+      payload: {
+        unit: page,
+        unitSlug: page?.slug?.current,
+      },
+    })
+  }, [])
 
   return page?.title && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>

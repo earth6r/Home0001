@@ -39,7 +39,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
   return (
     <ul>
       {citiesList &&
-        citiesList.map(({ _id, title, active, propertyLink }) => {
+        citiesList.map(({ _id, title, active, propertyLink }, index) => {
           return (
             <li key={_id} className="text-left">
               {propertyLink ? (
@@ -76,7 +76,9 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
                       active && propertyLink ? 'leading-none' : ''
                     )}
                   >
-                    {title}
+                    {index + 1 === citiesList.length
+                      ? `${title}.`
+                      : `${title},`}
                   </span>
                 </div>
               )}
@@ -234,7 +236,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'md:max-w-[768px] lg:max-w-[1150px] md:mx-auto px-x md:px-fullmenu mt-0 mb-[120px] md:mb-[25vh]'
+        'md:max-w-[768px] lg:max-w-[1000px] md:mx-auto px-x md:px-fullmenu mt-0 mb-[120px] md:mb-[25vh]'
       )}
     >
       {showContent && (

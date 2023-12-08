@@ -6,8 +6,9 @@ import type { SanityLinkType } from '@studio/lib'
 import { SanityLink } from '@components/sanity'
 import { Btn } from '@components/btns'
 import type { HeaderMenuProps } from './types'
-import { IconX } from '@components/icons'
 import { Logo } from '@components/logos'
+import { useHeaderLinks } from '@contexts/header'
+import { useBrokerInquiryModal } from '@contexts/modals'
 
 export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
   <Btn
@@ -19,7 +20,9 @@ export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
     {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
       // @ts-ignore  */}
     {props['aria-expanded'] ? (
-      <IconX className="w-[16px] md:w-[34px] h-[16px] md:h-[34px] stroke-2 md:stroke-1" />
+      <span className="inline-block relative uppercase right-[6.5px]">
+        Close
+      </span>
     ) : (
       <span className="uppercase">Menu</span>
     )}
@@ -33,6 +36,8 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   className,
 }) => {
   const items = useRef<HTMLDivElement | null>(null)
+  const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
+  const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
 
   return (
     <div className={className}>
@@ -70,13 +75,28 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                           {({ close }) => (
                             <SanityLink
                               text={text}
-                              onClick={() => setTimeout(close, 100)}
+                              onClick={() => {
+                                setTimeout(close, 100)
+                                setHeaderLinksShown(true)
+                              }}
                               {...(link as SanityLinkType)}
                             />
                           )}
                         </Menu.Item>
                       ) : null
                     })}
+                    <Menu.Item as="li">
+                      {({ close }) => (
+                        <button
+                          onClick={() => {
+                            setTimeout(close, 100)
+                            setBrokerInquiryOpen(true)
+                          }}
+                        >
+                          ARE YOU A BROKER?
+                        </button>
+                      )}
+                    </Menu.Item>
                   </Menu.Items>
                 </nav>
               </div>
