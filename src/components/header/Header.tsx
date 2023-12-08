@@ -140,7 +140,7 @@ export const Header: FC<HeaderProps> = ({
                 <Form
                   formType={'unit'}
                   audienceId={inquiry?.id}
-                  successMessage={inquiry?.success}
+                  successMessage={waitlist?.success}
                   formSubmitted={formSubmitted}
                   handleSubmit={handleSubmit}
                   setFormSubmitted={setFormSubmitted}
