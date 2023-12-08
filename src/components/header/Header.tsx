@@ -147,7 +147,7 @@ export const Header: FC<HeaderProps> = ({
                   className="w-full h-full"
                 >
                   <SinglePaneInputs
-                    showNameFields={true}
+                    fields={{ showName: true, showPhone: true }}
                     register={register}
                     modal={true}
                     className={classNames('h-full pr-menu')}
