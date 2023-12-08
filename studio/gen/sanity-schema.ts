@@ -553,6 +553,27 @@ export interface SiteSettings extends SanityDocument {
   inquirySuccess?: string;
 
   /**
+   * Broker Inquiry Audience ID — `string`
+   *
+   *
+   */
+  brokerInquiryId?: string;
+
+  /**
+   * Broker Inquiry Copy — `string`
+   *
+   *
+   */
+  brokerInquiryCopy?: string;
+
+  /**
+   * Broker Inquiry Success — `string`
+   *
+   *
+   */
+  brokerInquirySuccess?: string;
+
+  /**
    * How It Works Accordions — `array`
    *
    * Currently shows in how to modal on unit

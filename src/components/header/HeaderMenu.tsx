@@ -8,6 +8,7 @@ import { Btn } from '@components/btns'
 import type { HeaderMenuProps } from './types'
 import { Logo } from '@components/logos'
 import { useHeaderLinks } from '@contexts/header'
+import { useBrokerInquiryModal } from '@contexts/modals'
 
 export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
   <Btn
@@ -36,6 +37,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
 }) => {
   const items = useRef<HTMLDivElement | null>(null)
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
+  const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
 
   return (
     <div className={className}>
@@ -83,6 +85,18 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                         </Menu.Item>
                       ) : null
                     })}
+                    <Menu.Item as="li">
+                      {({ close }) => (
+                        <button
+                          onClick={() => {
+                            setTimeout(close, 100)
+                            setBrokerInquiryOpen(true)
+                          }}
+                        >
+                          ARE YOU A BROKER?
+                        </button>
+                      )}
+                    </Menu.Item>
                   </Menu.Items>
                 </nav>
               </div>
