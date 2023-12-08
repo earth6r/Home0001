@@ -176,6 +176,7 @@ export const submitForm = async (
       'Content-Type': 'application/json',
     },
   }
+  console.log('submitting form', formType)
 
   let response = null
   if (formType === 'newsletter') {
