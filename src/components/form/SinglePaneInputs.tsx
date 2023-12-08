@@ -177,8 +177,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 I am interested in purchasing a home.
               </option>
               <option value="learn_more">
-                I am not currently interested in purchasing a home but want to
-                learn about Home0001.
+                I want to learn more about HOME0001.
               </option>
               <option value="realitor">I am a realtor.</option>
             </select>
