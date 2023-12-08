@@ -41,6 +41,9 @@ export const SITE_SETTINGS_QUERY = groq`
     inquiryId,
     inquiryCopy,
     inquirySuccess,
+    brokerInquiryId,
+    brokerInquiryCopy,
+    brokerInquirySuccess,
     howItWorksContent,
   }
 `

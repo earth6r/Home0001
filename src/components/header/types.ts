@@ -29,6 +29,9 @@ export interface HeaderProps
     id?: string
     copy?: string
     success?: string
+    brokerId?: string
+    brokerCopy?: string
+    brokerSuccess?: string
   }
 }
 

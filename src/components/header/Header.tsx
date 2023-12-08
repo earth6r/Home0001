@@ -11,7 +11,11 @@ import { AnimatedModal } from '@components/modal'
 import { Form, MultiPaneInputs, SinglePaneInputs } from '@components/form'
 import { sendGoogleEvent } from '@lib/util/analytics'
 import { useForm } from 'react-hook-form'
-import { useInquiryModal, useWaitlisModal } from '@contexts/modals'
+import {
+  useInquiryModal,
+  useWaitlisModal,
+  useBrokerInquiryModal,
+} from '@contexts/modals'
 import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
@@ -32,6 +36,7 @@ export const Header: FC<HeaderProps> = ({
   const [menuOpen, setMenuOpen] = useState(false)
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [inquiryOpen, setInquiryOpen] = useInquiryModal()
+  const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const { register, handleSubmit, reset, trigger } = useForm({
     shouldUseNativeValidation: true,
@@ -52,6 +57,10 @@ export const Header: FC<HeaderProps> = ({
 
   const onInquiryClose = () => {
     setInquiryOpen(false)
+    reset({})
+  }
+  const onBrokerInquiryClose = () => {
+    setBrokerInquiryOpen(false)
     reset({})
   }
 
@@ -140,6 +149,46 @@ export const Header: FC<HeaderProps> = ({
                 <Form
                   formType={'unit'}
                   audienceId={inquiry?.id}
+                  //! why does this say waitlist success?
+                  successMessage={waitlist?.success}
+                  formSubmitted={formSubmitted}
+                  handleSubmit={handleSubmit}
+                  setFormSubmitted={setFormSubmitted}
+                  className="w-full h-full"
+                >
+                  <SinglePaneInputs
+                    showNameFields={true}
+                    register={register}
+                    modal={true}
+                    className={classNames('h-full pr-menu')}
+                  />
+                </Form>
+              )}
+            </div>
+          </AnimatedModal>
+
+          <AnimatedModal
+            isOpen={brokerInquiryOpen}
+            onClose={onBrokerInquiryClose}
+          >
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
+              <h2 className="text-xl font-bold uppercase pt-page">
+                {formSubmitted
+                  ? `Thanks for reaching out.  We will be in touch!`
+                  : `Join our brokerage program`}
+              </h2>
+
+              <p className="my-ylg text-md pr-menu">
+                {formSubmitted
+                  ? `We’ll be in touch with information soon!`
+                  : inquiry?.brokerCopy ||
+                    `For more information and to schedule a tour:`}
+              </p>
+
+              {!formSubmitted && (
+                <Form
+                  formType={'broker'}
+                  audienceId={inquiry?.brokerId}
                   successMessage={waitlist?.success}
                   formSubmitted={formSubmitted}
                   handleSubmit={handleSubmit}

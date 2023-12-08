@@ -59,6 +59,9 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
             id: siteSettings?.inquiryId,
             copy: siteSettings?.inquiryCopy,
             success: siteSettings?.inquirySuccess,
+            brokerId: siteSettings?.brokerInquiryId,
+            brokerCopy: siteSettings?.brokerInquiryCopy,
+            brokerSuccess: siteSettings?.brokerInquirySuccess,
           }}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
