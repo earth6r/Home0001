@@ -7,10 +7,13 @@ import { HomeContext } from '@contexts/home'
 import { useCookies } from 'react-cookie'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
-  showNameFields?: boolean
-  showContactFields?: boolean
-  showLocationFields?: boolean
-  showContactLink?: boolean
+  fields?: {
+    showName?: boolean
+    showPhone?: boolean
+    showContact?: boolean
+    showLocation?: boolean
+    showContactLink?: boolean
+  }
   submitButtonCopy?: string
   modal?: boolean
   register: UseFormRegister<FieldValues>
@@ -44,11 +47,8 @@ const LOCATIONS = [
 ]
 
 export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
-  showNameFields,
-  showLocationFields,
+  fields,
   submitButtonCopy,
-  showContactLink,
-  showContactFields,
   modal,
   register,
   className,
@@ -76,7 +76,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
         )}
       >
         <div className="relative flex flex-col gap-3">
-          {showNameFields && (
+          {fields?.showName && (
             <div
               className={classNames(
                 modal ? 'flex-col' : 'flex-row',
@@ -107,9 +107,19 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             className={classNames(modal ? 'waitlist' : '', 'input')}
             {...register('email', { required: true })}
           />
+
+          {fields?.showPhone && (
+            <input
+              type="tel"
+              id="phone"
+              className={classNames(modal ? 'waitlist' : '', 'input')}
+              placeholder="Phone Number (Optional)"
+              {...register('phone', { required: false })}
+            />
+          )}
         </div>
 
-        {showLocationFields ? (
+        {fields?.showLocation ? (
           <>
             <p className="mt-4">Where do you want to live?</p>
             {LOCATIONS.map(({ label, name }) => (
@@ -161,7 +171,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           />
         )}
 
-        {showContactFields && (
+        {fields?.showContact && (
           <>
             <label htmlFor="hs_persona">Which best describes you?</label>
             <select
@@ -193,7 +203,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
         <div
           className={classNames(
-            showLocationFields ? 'mt-10' : 'mt-1 md:mt-6',
+            fields?.showLocation ? 'mt-10' : 'mt-1 md:mt-6',
             'relative flex flex-col gap-2 md:gap-4'
           )}
         >
@@ -203,7 +213,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           >
             {submitButtonCopy || 'Submit'}
           </button>
-          {showContactLink && (
+          {fields?.showContactLink && (
             <p className="mt-5 md:my-5">
               {`Got questions?${' '}`}
               <Link href="/contact" className="border-bottom">
