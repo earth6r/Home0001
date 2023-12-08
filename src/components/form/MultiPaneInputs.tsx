@@ -192,6 +192,7 @@ const UnitsPane: FC<PaneContentProps> = ({
                             },
                           })}
                           onChange={e => {
+                            setUnitOfInterestRequired(false)
                             e.target.checked
                               ? setCheckedCount(checkedCount + 1)
                               : setCheckedCount(checkedCount - 1)
