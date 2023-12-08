@@ -62,29 +62,6 @@ const LOCATIONS = [
   },
 ]
 
-const PRICES = [
-  {
-    label: '<$500,000',
-    name: 'lt5k',
-  },
-  {
-    label: '$500,000 - $750,000',
-    name: '5kto7.5k',
-  },
-  {
-    label: '$750,000 - $1,000,000',
-    name: '7.5kto1m',
-  },
-  {
-    label: '$1,000,000 - $1,500,000',
-    name: '1mto1.5m',
-  },
-  {
-    label: '$1,500,000+',
-    name: 'gt1.5m',
-  },
-]
-
 const TIMELINE = [
   {
     label: 'Immediately',
@@ -316,16 +293,17 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         enter={currentStep === 2}
         currentStep={currentStep}
         header={`Join the waitlist`}
-        copy={`What's your price range?`}
-        buttonType="button"
+        copy={`When are you looking to buy?`}
         buttonCopy="Submit"
-        onBack={() => setCurrentStep(currentStep - 1)}
+        buttonType="button"
         onClick={() => setCurrentStep(currentStep + 1)}
+        onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 2 ? 'hidden' : ''}
       >
         <CheckboxPane
-          fields={PRICES}
-          fieldCode="price_range"
+          fields={TIMELINE}
+          type={'radio'}
+          fieldCode="buyingtimelinedec2023"
           register={register}
           className={classNames(
             currentStep !== 2 ? 'hidden' : '',
@@ -338,41 +316,18 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         enter={currentStep === 3}
         currentStep={currentStep}
         header={`Join the waitlist`}
-        copy={`When are you looking to buy?`}
-        buttonCopy="Submit"
-        buttonType="button"
-        onClick={() => setCurrentStep(currentStep + 1)}
-        onBack={() => setCurrentStep(currentStep - 1)}
-        className={currentStep !== 3 ? 'hidden' : ''}
-      >
-        <CheckboxPane
-          fields={TIMELINE}
-          type={'radio'}
-          fieldCode="buyingtimelinedec2023"
-          register={register}
-          className={classNames(
-            currentStep !== 3 ? 'hidden' : '',
-            'flex flex-col gap-4 h-[320px]'
-          )}
-        />
-      </Pane>
-
-      <Pane
-        enter={currentStep === 4}
-        currentStep={currentStep}
-        header={`Join the waitlist`}
         copy={`Last question: how many bedrooms are you looking for?`}
         buttonCopy={buttonCopy}
         buttonType="submit"
         onBack={() => setCurrentStep(currentStep - 1)}
-        className={currentStep !== 4 ? 'hidden' : ''}
+        className={currentStep !== 3 ? 'hidden' : ''}
       >
         <CheckboxPane
           fields={SIZES}
           fieldCode="bedroom_preference"
           register={register}
           className={classNames(
-            currentStep !== 4 ? 'hidden' : '',
+            currentStep !== 3 ? 'hidden' : '',
             'flex flex-col gap-4 h-[292px] md:h-[320px]'
           )}
         />
