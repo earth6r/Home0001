@@ -168,7 +168,7 @@ const UnitsPane: FC<PaneContentProps> = ({
     <>
       <div className={classNames(className)}>
         {unitGroups &&
-          unitGroups.map(({ _key, header, units }, index) => {
+          unitGroups.map(({ header, units }, index) => {
             return (
               <div key={index} className="mb-y">
                 {header && <p className="mb-2">{header}</p>}
@@ -181,7 +181,7 @@ const UnitsPane: FC<PaneContentProps> = ({
                         className="relative mb-4"
                       >
                         <input
-                          id={`unit-of-interest-${index}-${_key}`}
+                          id={`unit-of-interest-${index}-${unit._id}`}
                           type="checkbox"
                           value={unit.title}
                           className="unit-checkbox"
@@ -199,7 +199,7 @@ const UnitsPane: FC<PaneContentProps> = ({
                           }}
                         />
                         <label
-                          htmlFor={`unit-of-interest-${index}-${_key}`}
+                          htmlFor={`unit-of-interest-${index}-${unit._id}`}
                           onClick={() => setShowNextButton(false)}
                           className="checkbox-label flex justify-between relative py-4 pl-8 border-bottom cursor-pointer z-above"
                         >
