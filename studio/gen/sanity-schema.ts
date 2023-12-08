@@ -539,18 +539,25 @@ export interface SiteSettings extends SanityDocument {
   inquiryId?: string;
 
   /**
-   * Inquiry Copy — `string`
+   * Inquiry Copy — `richText`
    *
    *
    */
-  inquiryCopy?: string;
+  inquiryCopy?: RichText;
 
   /**
-   * Inquiry Success — `string`
+   * Inquiry Success — `richText`
    *
    *
    */
-  inquirySuccess?: string;
+  inquirySuccess?: RichText;
+
+  /**
+   * Broker Success — `richText`
+   *
+   *
+   */
+  brokerSuccess?: RichText;
 
   /**
    * How It Works Accordions — `array`
