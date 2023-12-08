@@ -52,15 +52,19 @@ export const Header: FC<HeaderProps> = ({
 
   const onClose = () => {
     setWaitlistOpen(false)
+    setFormSubmitted(false)
     reset({})
   }
 
   const onInquiryClose = () => {
     setInquiryOpen(false)
+    setFormSubmitted(false)
     reset({})
   }
+
   const onBrokerInquiryClose = () => {
     setBrokerInquiryOpen(false)
+    setFormSubmitted(false)
     reset({})
   }
 
@@ -149,8 +153,6 @@ export const Header: FC<HeaderProps> = ({
                 <Form
                   formType={'modal'}
                   audienceId={inquiry?.id}
-                  //! why does this say waitlist success?
-                  successMessage={waitlist?.success}
                   formSubmitted={formSubmitted}
                   handleSubmit={handleSubmit}
                   setFormSubmitted={setFormSubmitted}
