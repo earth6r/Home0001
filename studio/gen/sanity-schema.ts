@@ -553,13 +553,6 @@ export interface SiteSettings extends SanityDocument {
   inquirySuccess?: string;
 
   /**
-   * Broker Success — `richText`
-   *
-   *
-   */
-  brokerSuccess?: RichText;
-
-  /**
    * How It Works Accordions — `array`
    *
    * Currently shows in how to modal on unit
