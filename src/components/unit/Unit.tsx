@@ -29,6 +29,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                 slides={unit?.photographs}
                 carousel={true}
                 className="relative w-full"
+                placement="unit images"
               />
             )}
 
@@ -87,6 +88,7 @@ export const UnitComponent: FC<UnitElProps> = ({
               carousel={true}
               slides={unit?.layoutImages}
               className="w-full"
+              placement="unit layouts"
             />
           )}
 
