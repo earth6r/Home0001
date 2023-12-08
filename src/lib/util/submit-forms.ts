@@ -99,18 +99,12 @@ const postNewsletterFields = async (
       portalId,
       formGuid,
       fields: [
+        { name: 'firstname', value: data.first_name },
+        { name: 'lastname', value: data.last_name },
         {
           name: 'email',
           value: data.email,
         },
-        { name: 'berlin', value: data.Berlin },
-        { name: 'la', value: data.LA },
-        { name: 'london', value: data.London },
-        { name: 'nyc', value: data.NYC },
-        { name: 'paris', value: data.Paris },
-        { name: 'cdmx', value: data.CDMX },
-        { name: 'else', value: data.Else },
-        { name: 'city', value: data.City },
       ],
       context: {
         hutk: hutk ? hutk : 'none available',
