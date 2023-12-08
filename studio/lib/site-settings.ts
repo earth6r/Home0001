@@ -43,6 +43,7 @@ export const SITE_SETTINGS_QUERY = groq`
         _id,
       },
       "units": units[]->{
+        _id,
         title,
         propertyType->,
         headlineImage,
