@@ -53,8 +53,10 @@ const Pane: FC<PaneProps> = ({
             <h2
               className={classNames(
                 block ? 'md:pr-menu' : '',
-                largeHeader ? 'text-xl' : 'md:mt-y md:-mb-y text-lg',
-                'pt-ylg md:pt-0 pb-page uppercase font-bold'
+                largeHeader
+                  ? 'text-xl'
+                  : 'md:mt-y md:-mb-y text-lg pt-ylg md:pt-0',
+                'pb-page uppercase font-bold'
               )}
             >
               {header || `Join the waitlist:`}
