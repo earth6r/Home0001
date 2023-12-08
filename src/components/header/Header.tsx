@@ -147,7 +147,7 @@ export const Header: FC<HeaderProps> = ({
 
               {!formSubmitted && (
                 <Form
-                  formType={'unit'}
+                  formType={'modal'}
                   audienceId={inquiry?.id}
                   //! why does this say waitlist success?
                   successMessage={waitlist?.success}
