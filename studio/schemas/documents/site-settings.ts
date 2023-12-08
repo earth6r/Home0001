@@ -112,6 +112,24 @@ export default {
       group: 'forms',
     },
     {
+      name: 'brokerInquiryId',
+      title: 'Broker Inquiry Audience ID',
+      type: 'string',
+      group: 'forms',
+    },
+    {
+      name: 'brokerInquiryCopy',
+      title: 'Broker Inquiry Copy',
+      type: 'string',
+      group: 'forms',
+    },
+    {
+      name: 'brokerInquirySuccess',
+      title: 'Broker Inquiry Success',
+      type: 'string',
+      group: 'forms',
+    },
+    {
       name: 'howItWorksContent',
       title: 'How It Works Accordions',
       description: 'Currently shows in how to modal on unit',
