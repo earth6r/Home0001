@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { RichText as RichTextType, UnitGroup } from '@studio/gen/sanity-schema'
 import Pane from './Pane'
+import { useBrokerInquiryModal } from '@contexts/modals'
 
 interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
@@ -23,6 +24,7 @@ interface CheckboxPaneProps extends PaneProps {
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
   register: UseFormRegister<FieldValues>
+  broker?: boolean
 }
 
 interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
@@ -108,7 +110,8 @@ const SIZES = [
   },
 ]
 
-const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
+const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
+  const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   return (
     <div className={className}>
       <input
@@ -139,6 +142,15 @@ const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
           },
         })}
       />
+
+      {broker && (
+        <button
+          className="text-left font-medium text-xs tracking-details underline pt-[28px] md:pt-[44px] pb-[12px]"
+          onClick={() => setBrokerInquiryOpen(true)}
+        >
+          Are you a broker?
+        </button>
+      )}
     </div>
   )
 }
@@ -260,6 +272,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         }}
       >
         <NameEmailPane
+          broker={block}
           register={register}
           className={classNames(
             currentStep !== 0 ? 'hidden' : '',
