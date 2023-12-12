@@ -159,6 +159,9 @@ export default {
             width: '5vw',
           },
         },
+        '.card-shadow': {
+          boxShadow: '5px 5px 20px 0px rgba(0, 0, 0, 0.40)',
+        },
       })
     },
   ],

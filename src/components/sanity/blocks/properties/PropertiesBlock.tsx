@@ -27,9 +27,12 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         viewport={{ amount: 'some', once: true }}
         className="flex w-full opacity-0"
       >
-        <Link href={`/property/${slug.current}`} className="w-full">
+        <Link
+          href={`/property/${slug.current}`}
+          className="w-full mx-x card-shadow"
+        >
           {image && (
-            <div className="block relative w-full mb-yhalf z-base">
+            <div className="block relative w-full p-x z-base">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
@@ -46,16 +49,12 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'flex gap-1 items-start px-x md:px-0 text-xl md:text-2xl font-bold leading-tight text-left uppercase'
+                'w-[200px] px-x pb-x text-lg md:text-2xl font-bold leading-tight text-left uppercase'
               )}
             >
-              <IconRightArrowBold
-                fill="black"
-                className="mt-2 md:mt-2.5 lg:mt-3 xl:mt-4 home-svg"
-              />
               <span
                 className={classNames(
-                  'leading-none inline-block w-[calc(100%-49px)] underline decoration-[0.3rem]'
+                  'leading-none inline-block underline decoration-[0.1rem]'
                 )}
               >
                 {longTitle}
@@ -75,7 +74,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   return (
     <Block className={classNames(className, 'md:mb-page', '-ml-[2px]')}>
       <div>
-        <div className="grid md:grid-cols-2 gap-20 md:gap-16 md:px-fullmenu">
+        <div className="grid md:grid-cols-2 gap-14 md:px-fullmenu">
           {properties &&
             (properties as KeyedProperty[])?.map(
               ({ image, longTitle, slug }, index) => (
