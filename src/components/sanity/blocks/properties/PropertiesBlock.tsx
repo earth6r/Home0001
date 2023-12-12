@@ -9,6 +9,7 @@ import { Block, SanityMedia } from '@components/sanity'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
+import { sendGoogleEvent } from '@lib/util'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -27,7 +28,15 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         viewport={{ amount: 'some', once: true }}
         className="flex w-full opacity-0"
       >
-        <Link href={`/property/${slug.current}`} className="w-full">
+        <Link
+          href={`/property/${slug.current}`}
+          className="w-full"
+          onClick={() =>
+            sendGoogleEvent('Click home property tile', {
+              property: slug.current,
+            })
+          }
+        >
           {image && (
             <div className="block relative w-full mb-yhalf z-base">
               <SanityMedia
