@@ -69,34 +69,39 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                     ref={items}
                     className="container flex flex-col gap-12 w-full outline-none"
                   >
-                    {mainMenu?.items?.map(({ _key, text, link }) => {
+                    {mainMenu?.items?.map(({ _key, text, link }, index) => {
                       return text && link ? (
-                        <Menu.Item key={_key} as="li" className="uppercase">
-                          {({ close }) => (
-                            <SanityLink
-                              text={text}
-                              onClick={() => {
-                                setTimeout(close, 100)
-                                setHeaderLinksShown(true)
-                              }}
-                              {...(link as SanityLinkType)}
-                            />
-                          )}
-                        </Menu.Item>
+                        <>
+                          {mainMenu.items &&
+                            index === mainMenu.items.length - 1 && (
+                              <Menu.Item as="li">
+                                {({ close }) => (
+                                  <button
+                                    onClick={() => {
+                                      setTimeout(close, 100)
+                                      setBrokerInquiryOpen(true)
+                                    }}
+                                  >
+                                    ARE YOU A BROKER?
+                                  </button>
+                                )}
+                              </Menu.Item>
+                            )}
+                          <Menu.Item key={_key} as="li" className="uppercase">
+                            {({ close }) => (
+                              <SanityLink
+                                text={text}
+                                onClick={() => {
+                                  setTimeout(close, 100)
+                                  setHeaderLinksShown(true)
+                                }}
+                                {...(link as SanityLinkType)}
+                              />
+                            )}
+                          </Menu.Item>
+                        </>
                       ) : null
                     })}
-                    <Menu.Item as="li">
-                      {({ close }) => (
-                        <button
-                          onClick={() => {
-                            setTimeout(close, 100)
-                            setBrokerInquiryOpen(true)
-                          }}
-                        >
-                          ARE YOU A BROKER?
-                        </button>
-                      )}
-                    </Menu.Item>
                   </Menu.Items>
                 </nav>
               </div>
