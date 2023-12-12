@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { RichText } from '@studio/gen/sanity-schema'
 import {
   FieldValues,
+  UseFormGetValues,
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormTrigger,
@@ -22,6 +23,7 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
     handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
     trigger: UseFormTrigger<FieldValues>
     register: UseFormRegister<FieldValues>
+    getValues: UseFormGetValues<FieldValues>
   }
   setFullWidth?: () => void
   fullWidth?: boolean
@@ -55,6 +57,7 @@ export const Waitlist: FC<WaitlistProps> = ({
             register={formActions.register}
             className={classNames(fullWidth ? '' : 'max-w-[430px]', 'h-full')}
             trigger={formActions.trigger}
+            formValues={formActions.getValues}
           />
         </Form>
       </div>
