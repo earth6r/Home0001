@@ -1,5 +1,5 @@
 import type { FC, HTMLProps, Ref } from 'react'
-import { useRef, useEffect, forwardRef } from 'react'
+import { useRef, useEffect, forwardRef, Fragment } from 'react'
 import classNames from 'classnames'
 import { Menu } from '@headlessui/react'
 import type { SanityLinkType } from '@studio/lib'
@@ -71,7 +71,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                   >
                     {mainMenu?.items?.map(({ _key, text, link }, index) => {
                       return text && link ? (
-                        <>
+                        <Fragment key={_key}>
                           {mainMenu.items &&
                             index === mainMenu.items.length - 1 && (
                               <Menu.Item as="li">
@@ -87,7 +87,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                 )}
                               </Menu.Item>
                             )}
-                          <Menu.Item key={_key} as="li" className="uppercase">
+                          <Menu.Item as="li" className="uppercase">
                             {({ close }) => (
                               <SanityLink
                                 text={text}
@@ -99,7 +99,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                               />
                             )}
                           </Menu.Item>
-                        </>
+                        </Fragment>
                       ) : null
                     })}
                   </Menu.Items>

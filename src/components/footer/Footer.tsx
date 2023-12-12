@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { type FC, type HTMLProps } from 'react'
+import { Fragment, type FC, type HTMLProps } from 'react'
 import type { FooterProps } from './types'
 import { SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
@@ -20,7 +20,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
       <ul className="flex flex-col lg:flex-row md:justify-between gap-14 lg:gap-0 w-full">
         {footerMenu?.items?.map(({ _key, text, link }, index) => {
           return text && link ? (
-            <>
+            <Fragment key={_key}>
               {footerMenu.items && index === footerMenu.items.length - 1 && (
                 <li className="md:hidden font-medium text-xs tracking-details uppercase">
                   <button onClick={() => setBrokerInquiryOpen(true)}>
@@ -28,13 +28,10 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
                   </button>
                 </li>
               )}
-              <li
-                key={_key}
-                className="font-medium text-xs tracking-details uppercase"
-              >
+              <li className="font-medium text-xs tracking-details uppercase">
                 <SanityLink text={text} {...(link as SanityLinkType)} />
               </li>
-            </>
+            </Fragment>
           ) : null
         })}
       </ul>
