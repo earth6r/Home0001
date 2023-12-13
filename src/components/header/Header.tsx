@@ -20,6 +20,7 @@ import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
+import { RichText } from '@components/sanity'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -180,12 +181,25 @@ export const Header: FC<HeaderProps> = ({
                   : `Join our brokerage program`}
               </h2>
 
-              <p className="my-ylg text-md pr-menu">
-                {formSubmitted
-                  ? `We’ll be in touch with information soon!`
-                  : inquiry?.brokerCopy ||
-                    `For more information and to schedule a tour:`}
-              </p>
+              <div className="my-ylg pr-menu">
+                {formSubmitted ? (
+                  <>
+                    {inquiry?.brokerSuccess ? (
+                      <RichText blocks={inquiry?.brokerSuccess} />
+                    ) : (
+                      <p className="text-md">{`We'll be in touch with more information soon!`}</p>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {inquiry?.brokerCopy ? (
+                      <RichText blocks={inquiry?.brokerCopy} />
+                    ) : (
+                      <p className="text-md">{`For more information and to schedule a tour:`}</p>
+                    )}
+                  </>
+                )}
+              </div>
 
               {!formSubmitted && (
                 <Form

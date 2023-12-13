@@ -77,7 +77,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                 )}
               >
                 {`Inquire`}
-                <IconSmallArrow width="22" height="10" />
+                <IconSmallArrow width="16" height="10" />
               </button>
             </div>
           </div>
