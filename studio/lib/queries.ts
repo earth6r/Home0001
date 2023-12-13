@@ -90,7 +90,7 @@ export const BODY_QUERY = `
       ${CITY_QUERY},
     },
     "properties": properties[]->{
-      "image": image{
+      "cardImage": cardImage{
         ${MEDIA_QUERY}
       },
       longTitle,
@@ -151,6 +151,9 @@ export const PROPERTIES_QUERY = `
   headerText,
   header,
   coordinates,
+  "cardImage": cardImage{
+    ${MEDIA_QUERY}
+  },
   "image": image{
     ${MEDIA_QUERY}
   },

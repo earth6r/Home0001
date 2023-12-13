@@ -5,8 +5,7 @@ import type {
   CityBlockPropertyType,
   KeyedProperty,
 } from './types'
-import { Block, SanityMedia } from '@components/sanity'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { Block, RichText, SanityMedia } from '@components/sanity'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -29,10 +28,10 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       >
         <Link
           href={`/property/${slug.current}`}
-          className="w-full mx-x card-shadow"
+          className="w-full mx-x md:mx-0 card-shadow"
         >
           {image && (
-            <div className="block relative w-full p-x z-base">
+            <div className="block relative w-full max-h-[426px] md:max-h-[250px] lg:max-h-[476px] xl:max-h-[635px] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
@@ -49,16 +48,10 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'w-[200px] px-x pb-x text-lg md:text-xl font-bold leading-tight text-left uppercase'
+                'w-full px-x pb-x text-card font-bold leading-tight text-left uppercase'
               )}
             >
-              <span
-                className={classNames(
-                  'leading-none inline-block underline decoration-[0.1rem]'
-                )}
-              >
-                {longTitle}
-              </span>
+              <RichText blocks={longTitle} className="card underline" />
             </div>
           )}
         </Link>
@@ -74,13 +67,13 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   return (
     <Block className={classNames(className, 'md:mb-page', '-ml-[2px]')}>
       <div>
-        <div className="grid md:grid-cols-2 gap-14 md:px-fullmenu">
+        <div className="grid md:grid-cols-2 gap-14 xl:gap-[150px] md:px-menu">
           {properties &&
             (properties as KeyedProperty[])?.map(
-              ({ image, longTitle, slug }, index) => (
+              ({ cardImage, longTitle, slug }, index) => (
                 <PropertySummary
                   key={slug.current}
-                  image={image}
+                  image={cardImage}
                   longTitle={longTitle}
                   slug={slug}
                   index={index}
