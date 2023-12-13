@@ -20,6 +20,7 @@ import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
+import { RichText } from '@components/sanity'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -174,18 +175,25 @@ export const Header: FC<HeaderProps> = ({
             onClose={onBrokerInquiryClose}
           >
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
-              <h2 className="text-xl font-bold uppercase pt-page md:pr-menu lg:pr-fullmenu">
-                {formSubmitted
-                  ? `Thanks for reaching out.  We will be in touch!`
-                  : `Join our brokerage program`}
-              </h2>
-
-              <p className="my-ylg text-md pr-menu">
-                {formSubmitted
-                  ? `We’ll be in touch with information soon!`
-                  : inquiry?.brokerCopy ||
-                    `For more information and to schedule a tour:`}
-              </p>
+              <div className="pt-page mb-ylg md:pr-menu lg:pr-fullmenu">
+                {formSubmitted ? (
+                  <>
+                    {inquiry?.brokerSuccess ? (
+                      <RichText blocks={inquiry?.brokerSuccess} />
+                    ) : (
+                      <p className="text-md">{`We'll be in touch with more information soon!`}</p>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {inquiry?.brokerCopy ? (
+                      <RichText blocks={inquiry?.brokerCopy} />
+                    ) : (
+                      <p className="text-md">{`For more information and to schedule a tour:`}</p>
+                    )}
+                  </>
+                )}
+              </div>
 
               {!formSubmitted && (
                 <Form

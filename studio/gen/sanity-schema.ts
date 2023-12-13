@@ -161,11 +161,11 @@ export interface Property extends SanityDocument {
   title?: string;
 
   /**
-   * Long Title — `string`
+   * Long Title — `richText`
    *
    * Used on the Properties Block property link
    */
-  longTitle?: string;
+  longTitle?: RichText;
 
   /**
    * Slug — `slug`
@@ -173,6 +173,13 @@ export interface Property extends SanityDocument {
    *
    */
   slug?: { _type: "slug"; current: string };
+
+  /**
+   * Card Image — `media`
+   *
+   * Used for the Properties Block image
+   */
+  cardImage?: Media;
 
   /**
    * Header Text — `string`
@@ -191,7 +198,7 @@ export interface Property extends SanityDocument {
   /**
    * Property Image — `media`
    *
-   *
+   * Used for the Property Block image
    */
   image?: Media;
 
@@ -560,18 +567,18 @@ export interface SiteSettings extends SanityDocument {
   brokerInquiryId?: string;
 
   /**
-   * Broker Inquiry Copy — `string`
+   * Broker Inquiry Copy — `richText`
    *
    *
    */
-  brokerInquiryCopy?: string;
+  brokerInquiryCopy?: RichText;
 
   /**
-   * Broker Inquiry Success — `string`
+   * Broker Inquiry Success — `richText`
    *
    *
    */
-  brokerInquirySuccess?: string;
+  brokerInquirySuccess?: RichText;
 
   /**
    * How It Works Accordions — `array`

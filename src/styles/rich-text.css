@@ -47,6 +47,10 @@
   @apply text-lg font-bold uppercase tracking-header;
 }
 
+.rich-text.card h2 {
+  @apply text-card;
+}
+
 .rich-text p,
 .rich-text span,
 .rich-text li {
