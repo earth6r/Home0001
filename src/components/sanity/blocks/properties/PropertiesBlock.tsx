@@ -8,6 +8,7 @@ import type {
 import { Block, RichText, SanityMedia } from '@components/sanity'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
+import { sendGoogleEvent } from '@lib/util'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -29,6 +30,11 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         <Link
           href={`/property/${slug.current}`}
           className="w-full mx-x md:mx-0 card-shadow"
+          onClick={() =>
+            sendGoogleEvent('Click home property tile', {
+              property: slug.current,
+            })
+          }
         >
           {image && (
             <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:max-h-[635px] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">

@@ -5,6 +5,7 @@ import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { RichText as RichTextType, UnitGroup } from '@studio/gen/sanity-schema'
 import Pane from './Pane'
 import { useBrokerInquiryModal } from '@contexts/modals'
+import { sendGoogleEvent } from '@lib/util'
 
 interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
@@ -35,6 +36,7 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   register: UseFormRegister<FieldValues>
   trigger: () => Promise<boolean>
   setFullWidth?: () => void
+  formValues: any
 }
 
 const LOCATIONS = [
@@ -243,6 +245,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   setFullWidth,
   className,
   trigger,
+  formValues,
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
 
@@ -264,6 +267,13 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         buttonType={`button`}
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
         onClick={async () => {
+          const data = formValues()
+          sendGoogleEvent('started waitlist form', {
+            location: window.location.pathname,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            email: data.email,
+          })
           const triggerResult = await trigger()
           if (triggerResult) {
             setCurrentStep(currentStep + 1)
