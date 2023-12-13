@@ -56,7 +56,7 @@ const Pane: FC<PaneProps> = ({
                 largeHeader
                   ? 'text-xl'
                   : 'md:mt-y md:-mb-y text-lg pt-ylg md:pt-0',
-                'pb-page uppercase font-bold'
+                'pb-8 md:pb-10 uppercase font-bold'
               )}
             >
               {header || `Join the waitlist:`}
