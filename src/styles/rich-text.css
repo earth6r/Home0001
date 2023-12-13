@@ -47,7 +47,7 @@
   @apply text-lg font-bold uppercase tracking-header;
 }
 
-.rich-text h2.card {
+.rich-text.card h2 {
   @apply text-card;
 }
 
