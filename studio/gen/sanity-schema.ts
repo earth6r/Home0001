@@ -567,18 +567,18 @@ export interface SiteSettings extends SanityDocument {
   brokerInquiryId?: string;
 
   /**
-   * Broker Inquiry Copy — `string`
+   * Broker Inquiry Copy — `richText`
    *
    *
    */
-  brokerInquiryCopy?: string;
+  brokerInquiryCopy?: RichText;
 
   /**
-   * Broker Inquiry Success — `string`
+   * Broker Inquiry Success — `richText`
    *
    *
    */
-  brokerInquirySuccess?: string;
+  brokerInquirySuccess?: RichText;
 
   /**
    * How It Works Accordions — `array`
