@@ -140,6 +140,9 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         image={image as any}
                         index={index}
                         alt={alt}
+                        className={classNames(
+                          index === slides.length - 1 ? 'md:mr-x' : ''
+                        )}
                       />
                     </a>
                   ) : (
