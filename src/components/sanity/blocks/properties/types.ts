@@ -3,12 +3,12 @@ import type {
   City,
   Media,
   Property,
+  RichText,
   SanityImageAsset,
   SanityKeyedReference,
   SanityReference,
 } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
-import { KeyedUnitProps } from '@components/unit'
 import { SanityLinkType } from '@studio/lib'
 
 export type CityBlockPropertyType = {
@@ -24,12 +24,12 @@ export type CityBlockPropertyType = {
         }
       }
     | Media
-  longTitle?: string
+  longTitle?: RichText
   slug: { _type: 'slug'; current: string }
 }
 
 export interface KeyedProperty extends SanityKeyedReference<Property> {
-  image?:
+  cardImage?:
     | {
         _type: 'image'
         asset: SanityReference<SanityImageAsset>
@@ -40,7 +40,7 @@ export interface KeyedProperty extends SanityKeyedReference<Property> {
         }
       }
     | Media
-  longTitle?: string
+  longTitle?: RichText
   slug: { _type: 'slug'; current: string }
 }
 
