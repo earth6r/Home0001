@@ -49,7 +49,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'w-[200px] px-x pb-x text-lg md:text-2xl font-bold leading-tight text-left uppercase'
+                'w-[200px] px-x pb-x text-lg md:text-xl font-bold leading-tight text-left uppercase'
               )}
             >
               <span
