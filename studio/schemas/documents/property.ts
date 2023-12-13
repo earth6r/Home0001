@@ -24,7 +24,7 @@ export default {
     {
       name: 'longTitle',
       title: 'Long Title',
-      type: 'string',
+      type: 'richText',
       description: 'Used on the Properties Block property link',
     },
     {
@@ -35,6 +35,12 @@ export default {
         source: 'title',
         maxLength: 96,
       },
+    },
+    {
+      name: 'cardImage',
+      title: 'Card Image',
+      type: 'media',
+      description: 'Used for the Properties Block image',
     },
     {
       name: 'headerText',
@@ -52,16 +58,12 @@ export default {
       name: 'image',
       type: 'media',
       title: 'Property Image',
+      description: 'Used for the Property Block image',
     },
     {
       type: 'coordinates',
       name: 'coordinates',
     },
-    // {
-    //   name: 'description',
-    //   type: 'richText',
-    //   title: 'Description',
-    // },
     {
       name: 'body',
       title: 'Body',
@@ -93,12 +95,6 @@ export default {
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'unit' }] }],
     },
-    // {
-    //   name: 'propertyDetails',
-    //   title: 'Property Details',
-    //   type: 'array',
-    //   of: [{ type: 'accordion', title: 'Property Details' }],
-    // },
     {
       name: 'previewImage',
       title: 'Preview Image',
