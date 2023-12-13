@@ -36,7 +36,7 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   register: UseFormRegister<FieldValues>
   trigger: () => Promise<boolean>
   setFullWidth?: () => void
-  formValues: any
+  formValues?: any
 }
 
 const LOCATIONS = [
