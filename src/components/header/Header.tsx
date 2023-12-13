@@ -176,9 +176,7 @@ export const Header: FC<HeaderProps> = ({
           >
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
               <h2 className="text-xl font-bold uppercase pt-page md:pr-menu lg:pr-fullmenu">
-                {formSubmitted
-                  ? `Thanks for reaching out.  We will be in touch!`
-                  : `Join our brokerage program`}
+                {`Join our brokerage program`}
               </h2>
 
               <div className="my-ylg pr-menu">
