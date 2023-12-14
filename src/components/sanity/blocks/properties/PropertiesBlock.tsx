@@ -32,7 +32,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           className="w-full mx-x md:mx-0 card-shadow"
           onClick={() =>
             sendGoogleEvent('Click home property tile', {
-              property: slug.current,
+              tileProperty: slug.current,
             })
           }
         >

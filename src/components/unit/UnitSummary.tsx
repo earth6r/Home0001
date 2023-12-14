@@ -41,7 +41,6 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
     if (unit.title) {
       const options = { unit: unit.title }
       sendGoogleEvent('clicked unit', options)
-      // sendHubspotEvent('tile clicked', unit.title)
     }
   }
 
