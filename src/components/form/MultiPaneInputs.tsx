@@ -268,12 +268,13 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
         onClick={async () => {
           const data = formValues()
-          sendGoogleEvent('started waitlist form', {
+          const options = {
             location: window.location.pathname,
             firstName: data.first_name,
             lastName: data.last_name,
             email: data.email,
-          })
+          }
+          sendGoogleEvent('started waitlist form', options)
           const triggerResult = await trigger()
           if (triggerResult) {
             setCurrentStep(currentStep + 1)
