@@ -24,7 +24,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         custom={index}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: index ? index * 0.2 : 0 }}
+        transition={{ duration: 1, delay: index ? index + 1 * 0.3 : 0 }}
         viewport={{ amount: 'some', once: true }}
         className="flex w-full opacity-0"
       >

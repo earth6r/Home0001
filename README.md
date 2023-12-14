@@ -55,15 +55,16 @@ the frontend, the dev database will need to be imported to production when
 pushing the code. _Note there will be some downtime or site weirdness because of
 this_ The steps to do so:
 
+- Open pull request for code changes
 - Make sure the dev database has all content updates and is exactly what should
   be reflected on the live site
 - Export production database FIRST as a backup _DON'T SKIP THIS, THIS IS THE
-  BACKUP IN CASE THINGS GO WRONG_
+  BACKUP IN CASE THINGS GO WRONG_ `npx sanity dataset export production`
 - Export the dev database, from /studio: `npx sanity dataset export dev`
 - Import the dev database into production, from /studio:
   `npx sanity dataset import [FILENAME OF EXPORTED DATABASE] production --replace`
   - This effectively replaces the production database with dev
-- Push the codebase live through Git hook
+- Push the codebase live through pull request
 
 ## Adding content process
 
