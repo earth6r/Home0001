@@ -30,8 +30,8 @@ export interface HeaderProps
     copy?: string
     success?: string
     brokerId?: string
-    brokerCopy?: string
-    brokerSuccess?: string
+    brokerCopy?: RichTextType
+    brokerSuccess?: RichTextType
   }
 }
 

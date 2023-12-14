@@ -5,8 +5,7 @@ import type {
   CityBlockPropertyType,
   KeyedProperty,
 } from './types'
-import { Block, SanityMedia } from '@components/sanity'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { Block, RichText, SanityMedia } from '@components/sanity'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 import { sendGoogleEvent } from '@lib/util'
@@ -30,15 +29,15 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       >
         <Link
           href={`/property/${slug.current}`}
-          className="w-full"
+          className="w-full mx-x md:mx-0 card-shadow"
           onClick={() =>
             sendGoogleEvent('Click home property tile', {
-              property: slug.current,
+              tileProperty: slug.current,
             })
           }
         >
           {image && (
-            <div className="block relative w-full mb-yhalf z-base">
+            <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:max-h-[635px] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
@@ -55,20 +54,10 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'flex gap-1 items-start px-x md:px-0 text-xl md:text-2xl font-bold leading-tight text-left uppercase'
+                'w-full px-x pb-x text-card font-bold leading-tight text-left uppercase'
               )}
             >
-              <IconRightArrowBold
-                fill="black"
-                className="mt-2 md:mt-2.5 lg:mt-3 xl:mt-4 home-svg"
-              />
-              <span
-                className={classNames(
-                  'leading-none inline-block w-[calc(100%-49px)] underline decoration-[0.3rem]'
-                )}
-              >
-                {longTitle}
-              </span>
+              <RichText blocks={longTitle} className="card underline" />
             </div>
           )}
         </Link>
@@ -84,13 +73,13 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   return (
     <Block className={classNames(className, 'md:mb-page', '-ml-[2px]')}>
       <div>
-        <div className="grid md:grid-cols-2 gap-20 md:gap-16 md:px-fullmenu">
+        <div className="grid md:grid-cols-2 gap-14 xl:gap-[150px] md:px-menu">
           {properties &&
             (properties as KeyedProperty[])?.map(
-              ({ image, longTitle, slug }, index) => (
+              ({ cardImage, longTitle, slug }, index) => (
                 <PropertySummary
                   key={slug.current}
-                  image={image}
+                  image={cardImage}
                   longTitle={longTitle}
                   slug={slug}
                   index={index}

@@ -120,13 +120,13 @@ export default {
     {
       name: 'brokerInquiryCopy',
       title: 'Broker Inquiry Copy',
-      type: 'string',
+      type: 'richText',
       group: 'forms',
     },
     {
       name: 'brokerInquirySuccess',
       title: 'Broker Inquiry Success',
-      type: 'string',
+      type: 'richText',
       group: 'forms',
     },
     {
