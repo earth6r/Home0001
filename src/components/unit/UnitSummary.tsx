@@ -8,10 +8,12 @@ import { sendGoogleEvent } from '@lib/util'
 import Link from 'next/link'
 import { ImageCarousel } from '@components/carousel'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
+import { useCryptoMode } from '@contexts/header'
 
 export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
+  const [cryptoMode, setCryptoMode] = useCryptoMode()
 
   const dispatchUnit = (unit: KeyedUnitProps, title?: string) => {
     dispatch({
@@ -80,7 +82,11 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
             <div className="block w-auto max-w-[467px] bg-darkgray py-x pl-x mr-4 md:mr-0 pr-menu">
               <div className="mb-2 text-left rich-text">
                 <p className="small md:col-start-1 col-start-2 md:col-span-1 text-left">
-                  {unit.price}
+                  {unit?.cryptoPrice && cryptoMode
+                    ? unit?.cryptoPrice
+                    : unit?.price == 'Inquire'
+                    ? 'Price upon request'
+                    : unit?.price}
                 </p>
                 {unit.area && (
                   <p className="small mb-5">

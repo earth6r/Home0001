@@ -352,6 +352,13 @@ export interface Unit extends SanityDocument {
   price?: string;
 
   /**
+   * Crypto Price — `string`
+   *
+   *
+   */
+  cryptoPrice?: string;
+
+  /**
    * Area — `string`
    *
    *
