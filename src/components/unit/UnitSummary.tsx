@@ -41,7 +41,6 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
     if (unit.title) {
       const options = { unit: unit.title }
       sendGoogleEvent('clicked unit', options)
-      // sendHubspotEvent('tile clicked', unit.title)
     }
   }
 
@@ -112,7 +111,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                     <span className="mb-0 py-2 text-left uppercase">
                       {`Explore ${unit?.title}`}
                     </span>
-                    <IconSmallArrow width="22" height="12" className="invert" />
+                    <IconSmallArrow width="16" height="10" className="invert" />
                   </button>
                 </Link>
               )}

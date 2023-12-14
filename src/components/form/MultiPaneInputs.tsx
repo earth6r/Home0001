@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { RichText as RichTextType, UnitGroup } from '@studio/gen/sanity-schema'
 import Pane from './Pane'
+import { useBrokerInquiryModal } from '@contexts/modals'
 import { sendGoogleEvent } from '@lib/util'
 
 interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
@@ -24,6 +25,7 @@ interface CheckboxPaneProps extends PaneProps {
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
   register: UseFormRegister<FieldValues>
+  broker?: boolean
 }
 
 interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
@@ -34,7 +36,7 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   register: UseFormRegister<FieldValues>
   trigger: () => Promise<boolean>
   setFullWidth?: () => void
-  formValues: any
+  formValues?: any
 }
 
 const LOCATIONS = [
@@ -110,7 +112,8 @@ const SIZES = [
   },
 ]
 
-const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
+const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
+  const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   return (
     <div className={className}>
       <input
@@ -141,6 +144,15 @@ const NameEmailPane: FC<PaneProps> = ({ register, className }) => {
           },
         })}
       />
+
+      {broker && (
+        <button
+          className="text-left font-medium text-xs tracking-details underline pt-[28px] md:pt-[44px] pb-[12px]"
+          onClick={() => setBrokerInquiryOpen(true)}
+        >
+          Are you a broker?
+        </button>
+      )}
     </div>
   )
 }
@@ -256,12 +268,13 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
         onClick={async () => {
           const data = formValues()
-          sendGoogleEvent('started waitlist form', {
+          const options = {
             location: window.location.pathname,
             firstName: data.first_name,
             lastName: data.last_name,
             email: data.email,
-          })
+          }
+          sendGoogleEvent('started waitlist form', options)
           const triggerResult = await trigger()
           if (triggerResult) {
             setCurrentStep(currentStep + 1)
@@ -270,6 +283,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         }}
       >
         <NameEmailPane
+          broker={block}
           register={register}
           className={classNames(
             currentStep !== 0 ? 'hidden' : '',

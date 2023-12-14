@@ -1,13 +1,16 @@
 import classNames from 'classnames'
-import { type FC, type HTMLProps } from 'react'
+import { Fragment, type FC, type HTMLProps } from 'react'
 import type { FooterProps } from './types'
 import { SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
+import { useBrokerInquiryModal } from '@contexts/modals'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   footerMenu,
 }) => {
   const year = new Date().getFullYear()
+  const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
+
   return (
     <footer
       className={classNames(
@@ -15,14 +18,20 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
       )}
     >
       <ul className="flex flex-col lg:flex-row md:justify-between gap-14 lg:gap-0 w-full">
-        {footerMenu?.items?.map(({ _key, text, link }) => {
+        {footerMenu?.items?.map(({ _key, text, link }, index) => {
           return text && link ? (
-            <li
-              key={_key}
-              className="font-medium text-xs tracking-details uppercase"
-            >
-              <SanityLink text={text} {...(link as SanityLinkType)} />
-            </li>
+            <Fragment key={_key}>
+              {footerMenu.items && index === footerMenu.items.length - 1 && (
+                <li className="md:hidden font-medium text-xs tracking-details uppercase">
+                  <button onClick={() => setBrokerInquiryOpen(true)}>
+                    ARE YOU A BROKER?
+                  </button>
+                </li>
+              )}
+              <li className="font-medium text-xs tracking-details uppercase">
+                <SanityLink text={text} {...(link as SanityLinkType)} />
+              </li>
+            </Fragment>
           ) : null
         })}
       </ul>

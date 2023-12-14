@@ -50,6 +50,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                   table={unit.factSheet}
                   modalType="View Fact Sheet"
                   className="inline-block"
+                  unit={unit.title}
                 />
               )}
               {unit?.summary && (
@@ -77,7 +78,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                 )}
               >
                 {`Inquire`}
-                <IconSmallArrow width="22" height="10" />
+                <IconSmallArrow width="16" height="10" />
               </button>
             </div>
           </div>
