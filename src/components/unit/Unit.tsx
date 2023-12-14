@@ -7,6 +7,7 @@ import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
 import { useInquiryModal } from '@contexts/modals'
+import { useCryptoMode } from '@contexts/header'
 
 export const UnitComponent: FC<UnitElProps> = ({
   unit,
@@ -14,6 +15,7 @@ export const UnitComponent: FC<UnitElProps> = ({
   className,
 }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
+  const [cryptoMode, setCryptoMode] = useCryptoMode()
 
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
@@ -42,7 +44,11 @@ export const UnitComponent: FC<UnitElProps> = ({
             </div>
             <div className="pr-menu md:pr-0 mb-ydouble md:mb-y text-xs font-medium">
               <p className="m-0">
-                {unit?.price == 'Inquire' ? 'Price upon request' : unit?.price}
+                {unit?.cryptoPrice && cryptoMode
+                  ? unit?.cryptoPrice
+                  : unit?.price == 'Inquire'
+                  ? 'Price upon request'
+                  : unit?.price}
               </p>
               {unit?.area && <p className="mb-4">{unit?.area}</p>}
               {unit?.factSheet?.rows && (
