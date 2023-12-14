@@ -36,6 +36,13 @@ export default {
       type: 'richText',
       title: 'Text',
     },
+    {
+      name: 'showCryptoMode',
+      type: 'boolean',
+      title: 'Show Crypto Mode',
+      description: 'Show only in crypto mode',
+      default: false,
+    },
   ],
   preview: {
     select: {
