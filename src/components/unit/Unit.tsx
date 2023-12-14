@@ -50,6 +50,7 @@ export const UnitComponent: FC<UnitElProps> = ({
                   table={unit.factSheet}
                   modalType="View Fact Sheet"
                   className="inline-block"
+                  unit={unit.title}
                 />
               )}
               {unit?.summary && (
