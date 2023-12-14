@@ -821,6 +821,13 @@ export type TextAndImage = {
    *
    */
   text?: RichText;
+
+  /**
+   * Show Crypto Mode — `boolean`
+   *
+   * Show only in crypto mode
+   */
+  showCryptoMode?: boolean;
 };
 
 export type Tooltip = {

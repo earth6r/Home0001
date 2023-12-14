@@ -22,7 +22,7 @@ import {
   useScroll,
   useTransform,
 } from 'framer-motion'
-import { useHeaderLinks } from '@contexts/header'
+import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import _ from 'lodash'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
@@ -158,6 +158,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   const [showContent, setShowContent] = useState(false)
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
+  const [cryptoMode, setCryptoMode] = useCryptoMode()
 
   // account for header ~ JLM
   const citiesPos = header && citiesPosition && citiesPosition - 1
@@ -275,27 +276,34 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
             className="relative opacity-0"
           >
             {textAndImages &&
-              textAndImages.map(({ _key, aspect, media, text }, index) => (
-                <div key={_key}>
-                  {media && <AnimatingImage media={media} aspect={aspect} />}
+              textAndImages.map(
+                ({ _key, aspect, media, text, showCryptoMode }, index) => (
+                  <div
+                    key={_key}
+                    className={classNames(
+                      showCryptoMode ? (cryptoMode ? 'block' : 'hidden') : ''
+                    )}
+                  >
+                    {media && <AnimatingImage media={media} aspect={aspect} />}
 
-                  {text && (
-                    <RichText
-                      blocks={text}
-                      className={classNames(
-                        index !== 0 ? 'mt-3 md:mt-5' : '',
-                        'relative'
-                      )}
-                    />
-                  )}
+                    {text && (
+                      <RichText
+                        blocks={text}
+                        className={classNames(
+                          index !== 0 ? 'mt-3 md:mt-5' : '',
+                          'relative'
+                        )}
+                      />
+                    )}
 
-                  {index === citiesPos && (
-                    <div className="mt-3 md:mt-5">
-                      <CitiesList citiesList={citiesList} />
-                    </div>
-                  )}
-                </div>
-              ))}
+                    {index === citiesPos && (
+                      <div className="mt-3 md:mt-5">
+                        <CitiesList citiesList={citiesList} />
+                      </div>
+                    )}
+                  </div>
+                )
+              )}
           </motion.div>
         </AnimatePresence>
       )}
