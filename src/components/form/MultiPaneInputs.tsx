@@ -249,7 +249,6 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   formValues,
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
-
   return (
     <div
       className={classNames(
@@ -280,6 +279,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
             last_name: last_name,
             email: email,
           }
+          //todo: should we move form ID to sanity for this one?
           const form_ID = 'e44ec9f1-928b-429b-8293-0b561d7b64b5'
           await submitForm(formData, form_ID, 'started_submit')
           const triggerResult = await trigger()

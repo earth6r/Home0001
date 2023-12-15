@@ -39,7 +39,7 @@ export const Header: FC<HeaderProps> = ({
   const [inquiryOpen, setInquiryOpen] = useInquiryModal()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
-  const { register, handleSubmit, reset, trigger } = useForm({
+  const { register, handleSubmit, reset, trigger, getValues } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -132,6 +132,7 @@ export const Header: FC<HeaderProps> = ({
                   register={register}
                   className={classNames('h-full')}
                   trigger={trigger}
+                  formValues={getValues}
                 />
               </Form>
             </div>
