@@ -7,7 +7,6 @@ import Pane from './Pane'
 import { useBrokerInquiryModal } from '@contexts/modals'
 import { sendGoogleEvent } from '@lib/util'
 import { submitForm } from '@lib/util'
-const HUBSPOT_ID = process.env.NEXT_PUBLIC_HUBSPOT_ID
 
 interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
@@ -282,7 +281,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
             email: email,
           }
           const form_ID = 'e44ec9f1-928b-429b-8293-0b561d7b64b5'
-          HUBSPOT_ID ? submitForm(formData, HUBSPOT_ID, form_ID) : null
+          await submitForm(formData, form_ID, 'started_submit')
           const triggerResult = await trigger()
           if (triggerResult) {
             setCurrentStep(currentStep + 1)

@@ -223,7 +223,6 @@ const postStartedSubmitFields = async (
         },
       ],
       context: {
-        hutk: hutk ? hutk : 'none available',
         pageUri: document.URL,
         pageName: document.title,
       },
