@@ -15,6 +15,7 @@ interface FormProps extends HTMLAttributes<HTMLFormElement> {
   handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
   formSubmitted: boolean
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>
+  isHomeBlock?: boolean
 }
 
 export const Form: FC<FormProps> = ({
@@ -25,6 +26,7 @@ export const Form: FC<FormProps> = ({
   handleSubmit,
   formSubmitted,
   setFormSubmitted,
+  isHomeBlock,
   children,
 }) => {
   const [formError, setFormError] = useState<unknown | string | null>(null)
@@ -43,6 +45,8 @@ export const Form: FC<FormProps> = ({
       locations_of_interest: data.locations_of_interest
         ? data.locations_of_interest
         : [],
+      homeWaitingBlock: isHomeBlock ? true : false,
+      unitInquiry: formType === 'unit' ? true : false,
     }
     sendGoogleEvent('submit waitlist form', options)
 
