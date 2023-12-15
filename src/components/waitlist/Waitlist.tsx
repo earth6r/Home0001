@@ -47,6 +47,7 @@ export const Waitlist: FC<WaitlistProps> = ({
           handleSubmit={formActions.handleSubmit}
           setFormSubmitted={formActions.setFormSubmitted}
           className="w-full h-full"
+          isHomeBlock={true}
         >
           <MultiPaneInputs
             block={true}
