@@ -9,11 +9,24 @@ import Link from 'next/link'
 import { ImageCarousel } from '@components/carousel'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { useCryptoMode } from '@contexts/header'
-
+import { convertUsdToEthPrice } from '@lib/util/crypto-pricing'
 export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
   const [cryptoMode, setCryptoMode] = useCryptoMode()
+
+  useEffect(() => {
+    const fetchCryptoPrice = async (usdPrice: any) => {
+      const currentPrice = await convertUsdToEthPrice(usdPrice)
+      return currentPrice
+    }
+
+    if (unit?.price != 'Inquire') {
+      const usdPrice = unit?.price
+      console.log('usdPrice:', usdPrice)
+      fetchCryptoPrice(usdPrice).then(cryptoPrice => {})
+    }
+  }, [unit])
 
   const dispatchUnit = (unit: KeyedUnitProps, title?: string) => {
     dispatch({
@@ -48,14 +61,6 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
 
   if (!unit) return null
   const summaryPhotos = unit?.photographs?.slice(0, 4)
-
-  useEffect(() => {
-    if (!cryptoMode) return
-    if (unit?.price != 'Inquire') {
-      const usdPrice = unit.price
-      console.log('usdPrice:', usdPrice)
-    }
-  }, [unit])
 
   return (
     <li className={className}>
