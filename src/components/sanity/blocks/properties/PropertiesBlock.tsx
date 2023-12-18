@@ -28,7 +28,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         style={{
           transform: isInView ? 'scale(1)' : 'scale(0.99)',
           opacity: isInView ? 1 : 0,
-          transition: `all 600ms ease-in-out ${index ? (index + 1) * 0.1 : 0}s`,
+          transition: `all 600ms ease-in-out ${index ? (index + 2) * 0.1 : 0}s`,
         }}
         className="flex w-full opacity-0"
       >
