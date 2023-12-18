@@ -25,7 +25,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   const [fullWidth, setFullWidth] = useState(false)
 
   useEffect(() => {
-    console.log(trigger)
+    // console.log(trigger)
   }, [trigger])
 
   return (

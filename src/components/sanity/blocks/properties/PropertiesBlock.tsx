@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { useRef, type FC } from 'react'
 import classNames from 'classnames'
 import type {
   CitiesBlockProps,
@@ -7,7 +7,7 @@ import type {
 } from './types'
 import { Block, RichText, SanityMedia } from '@components/sanity'
 import Link from 'next/link'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { sendGoogleEvent } from '@lib/util'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
@@ -16,15 +16,20 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   slug,
   index,
 }) => {
+  const scrollRef = useRef(null)
+  const isInView = useInView(scrollRef, { once: true, amount: 0.4 })
+
   return (
     <AnimatePresence>
       <motion.div
         key={`${slug.current}-${index}`}
+        ref={scrollRef}
         custom={index}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: index ? (index + 1) * 0.2 : 0 }}
-        viewport={{ amount: 'all', once: true }}
+        style={{
+          transform: isInView ? 'scale(1)' : 'scale(0.99)',
+          opacity: isInView ? 1 : 0,
+          transition: `all 600ms ease-in-out ${index ? (index + 1) * 0.1 : 0}s`,
+        }}
         className="flex w-full opacity-0"
       >
         <Link

@@ -153,7 +153,6 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   className,
 }) => {
   const scrollRef = useRef(null)
-  const isInView = useInView(scrollRef)
   const [animateActive, setAnimateActive] = useState(false)
   const [showContent, setShowContent] = useState(false)
 
