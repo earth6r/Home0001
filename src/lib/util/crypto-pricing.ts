@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const coinGeckoAPIKey = process.env.NEXT_PUBLIC_COINGECKO_API_Key
+const coinGeckoAPIKey = process.env.NEXT_PUBLIC_COINGECKO_API_KEY
 
 const coinGeckoConfig = {
   headers: {
