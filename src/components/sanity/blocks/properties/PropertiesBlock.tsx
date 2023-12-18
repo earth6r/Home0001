@@ -23,8 +23,8 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         custom={index}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: index ? index + 1 * 0.2 : 0 }}
-        viewport={{ amount: 'some', once: true }}
+        transition={{ duration: 0.6, delay: index ? (index + 1) * 0.2 : 0 }}
+        viewport={{ amount: 'all', once: true }}
         className="flex w-full opacity-0"
       >
         <Link
@@ -71,7 +71,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className, 'md:mb-page', '-ml-[2px]')}>
+    <Block className={classNames(className, 'mt-0 -ml-[2px]')}>
       <div>
         <div className="grid md:grid-cols-2 gap-14 xl:gap-[150px] md:px-menu">
           {properties &&
