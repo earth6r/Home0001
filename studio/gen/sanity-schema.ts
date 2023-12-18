@@ -823,11 +823,11 @@ export type TextAndImage = {
   text?: RichText;
 
   /**
-   * Show Crypto Mode — `boolean`
+   * Alt Crypto Text — `richText`
    *
-   * Show only in crypto mode
+   * Replaces text in crypto mode
    */
-  showCryptoMode?: boolean;
+  altCryptoText?: RichText;
 };
 
 export type Tooltip = {
