@@ -235,7 +235,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'md:max-w-[768px] lg:max-w-[1000px] md:mx-auto px-x md:px-fullmenu mt-0 mb-block'
+        'md:max-w-[768px] lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-block'
       )}
     >
       {showContent && (
