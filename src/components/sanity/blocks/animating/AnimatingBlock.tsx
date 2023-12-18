@@ -283,7 +283,9 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
                     {text && (
                       <RichText
-                        blocks={altCryptoText || text}
+                        blocks={
+                          cryptoMode && altCryptoText ? altCryptoText : text
+                        }
                         className={classNames(
                           index !== 0 ? 'mt-3 md:mt-5' : '',
                           'relative'
