@@ -9,45 +9,44 @@ const postModalFields = async (
   config?: any,
   hutk?: string
 ) => {
+  const dataFields = [
+    { name: 'firstname', value: data.first_name },
+    { name: 'lastname', value: data.last_name },
+    { name: 'email', value: data.email },
+    {
+      name: 'bedroom_preference',
+      value: data.bedroom_preference ? data.bedroom_preference.join(';') : '',
+    },
+    {
+      name: 'interested_cities',
+      value: data.locations_of_interest
+        ? data.locations_of_interest.join(';')
+        : '',
+    },
+    {
+      name: 'price_range',
+      value: data.price_range ? data.price_range.join(';') : '',
+    },
+    {
+      name: 'buyingtimelinedec2023',
+      value: data.buyingtimelinedec2023 ? data.buyingtimelinedec2023 : '',
+    },
+    { name: 'city_general', value: data.City ? data.City : '' },
+    {
+      name: 'current_country',
+      value: data.current_country ? data.current_country : '',
+    },
+    {
+      name: 'current_zip_code',
+      value: data.current_zip_code ? data.current_zip_code : '',
+    },
+  ]
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
     {
       portalId,
       formGuid,
-      fields: [
-        { name: 'firstname', value: data.first_name },
-        { name: 'lastname', value: data.last_name },
-        { name: 'email', value: data.email },
-        {
-          name: 'bedroom_preference',
-          value: data.bedrooms ? data.bedrooms.join(';') : '',
-        },
-        {
-          name: 'interested_cities',
-          value: data.locations_of_interest
-            ? data.locations_of_interest.join(';')
-            : '',
-        },
-        {
-          name: 'price_range',
-          value: data.price_range ? data.price_range.join(';') : '',
-        },
-        {
-          name: 'buyingtimelinedec2023',
-          value: data.when_are_you_looking_to_buy
-            ? data.when_are_you_looking_to_buy
-            : '',
-        },
-        { name: 'city_general', value: data.City ? data.City : '' },
-        {
-          name: 'current_country',
-          value: data.current_country ? data.current_country : '',
-        },
-        {
-          name: 'current_zip_code',
-          value: data.current_zip_code ? data.current_zip_code : '',
-        },
-      ],
+      fields: dataFields,
       context: {
         hutk: hutk ? hutk : 'none available',
         pageUri: document.URL,
