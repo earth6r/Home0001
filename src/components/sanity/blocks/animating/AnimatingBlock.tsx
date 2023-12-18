@@ -277,18 +277,13 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
           >
             {textAndImages &&
               textAndImages.map(
-                ({ _key, aspect, media, text, showCryptoMode }, index) => (
-                  <div
-                    key={_key}
-                    className={classNames(
-                      showCryptoMode ? (cryptoMode ? 'block' : 'hidden') : ''
-                    )}
-                  >
+                ({ _key, aspect, media, text, altCryptoText }, index) => (
+                  <div key={_key}>
                     {media && <AnimatingImage media={media} aspect={aspect} />}
 
                     {text && (
                       <RichText
-                        blocks={text}
+                        blocks={altCryptoText || text}
                         className={classNames(
                           index !== 0 ? 'mt-3 md:mt-5' : '',
                           'relative'
