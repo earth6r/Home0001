@@ -115,7 +115,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                     })}
 
                     <li className="flex items-center gap-4 uppercase">
-                      <span className="inline-block">Crypto site</span>
+                      <span className="inline-block">Fiat</span>
                       <Switch
                         checked={cryptoMode}
                         onChange={setCryptoMode}
@@ -124,6 +124,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                           `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto`
                         )}
                       >
+                        {' '}
                         <span
                           className={classNames(
                             cryptoMode ? 'translate-x-6' : 'translate-x-1',
@@ -131,6 +132,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                           )}
                         />
                       </Switch>
+                      <span className="inline-block">Crypto</span>
                     </li>
                   </Menu.Items>
                 </nav>
