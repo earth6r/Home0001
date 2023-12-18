@@ -1,4 +1,4 @@
-import { type FC, memo } from 'react'
+import { type FC, memo, useEffect, useState } from 'react'
 import { ImageCarousel } from '@components/carousel'
 import { RichText } from '@components/sanity'
 import { UnitElProps } from './types'
@@ -8,6 +8,10 @@ import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
 import { useInquiryModal } from '@contexts/modals'
 import { useCryptoMode } from '@contexts/header'
+import {
+  convertUsdToEthPrice,
+  convertUsdToBtcPrice,
+} from '@lib/util/crypto-pricing'
 
 export const UnitComponent: FC<UnitElProps> = ({
   unit,
@@ -16,6 +20,25 @@ export const UnitComponent: FC<UnitElProps> = ({
 }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
+  const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
+
+  useEffect(() => {
+    const fetchCryptoPrice = async (usdPrice: any) => {
+      const currentEthPrice = await convertUsdToEthPrice(usdPrice)
+      const roundedEthPrice = Number(currentEthPrice.toFixed(2))
+      const currentBtcPrice = await convertUsdToBtcPrice(usdPrice)
+      const roundedBtcPrice = Number(currentBtcPrice.toFixed(2))
+      return [roundedEthPrice, roundedBtcPrice]
+    }
+
+    if (unit?.price != 'Inquire') {
+      const usdPrice = unit?.price
+
+      fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
+        setCryptoPrice(cryptoPrices)
+      })
+    }
+  }, [unit])
 
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
@@ -44,10 +67,10 @@ export const UnitComponent: FC<UnitElProps> = ({
             </div>
             <div className="pr-menu md:pr-0 mb-ydouble md:mb-y text-xs font-medium">
               <p className="m-0">
-                {unit?.cryptoPrice && cryptoMode
-                  ? unit?.cryptoPrice
-                  : unit?.price == 'Inquire'
+                {unit?.price == 'Inquire'
                   ? 'Price upon request'
+                  : cryptoMode
+                  ? `${cryptoPrice[0]}ETH / ${cryptoPrice[1]}BTC`
                   : unit?.price}
               </p>
               {unit?.area && <p className="mb-4">{unit?.area}</p>}
