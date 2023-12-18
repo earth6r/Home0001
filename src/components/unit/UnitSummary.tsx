@@ -1,4 +1,4 @@
-import { type FC, useContext } from 'react'
+import { type FC, useContext, useEffect } from 'react'
 import { HomeContext } from '@contexts/home'
 import classNames from 'classnames'
 import { KeyedUnitProps, UnitListProps } from './types'
@@ -48,6 +48,14 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
 
   if (!unit) return null
   const summaryPhotos = unit?.photographs?.slice(0, 4)
+
+  useEffect(() => {
+    if (!cryptoMode) return
+    if (unit?.price != 'Inquire') {
+      const usdPrice = unit.price
+      console.log('usdPrice:', usdPrice)
+    }
+  }, [unit])
 
   return (
     <li className={className}>
