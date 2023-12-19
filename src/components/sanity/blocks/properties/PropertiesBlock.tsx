@@ -49,7 +49,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           }
         >
           {image && (
-            <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:max-h-[635px] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
+            <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:pb-[75%] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
