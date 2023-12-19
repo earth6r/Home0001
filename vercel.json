@@ -1,5 +1,12 @@
 {
   "rewrites": [
     { "source": "/studio/(.*)", "destination": "/studio/index.html" }
+  ],
+  "redirects": [
+    {
+      "source": "/echo-park",
+      "destination": "/property/echo-park",
+      "permanent": true
+    }
   ]
 }
