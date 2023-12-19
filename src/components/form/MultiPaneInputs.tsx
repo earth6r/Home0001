@@ -74,7 +74,7 @@ const TIMELINE = [
   },
   {
     label: 'In 1 - 3 months',
-    name: '1to30mos',
+    name: '1to3mos',
   },
   {
     label: 'In 3 - 6 months',
