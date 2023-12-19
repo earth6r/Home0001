@@ -122,7 +122,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                         checked={cryptoMode}
                         onChange={setCryptoMode}
                         className={classNames(
-                          cryptoMode ? 'bg-yellow' : 'bg-gray',
+                          cryptoMode ? 'bg-black' : 'bg-gray',
                           `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto -mx-[10px]`
                         )}
                       >
