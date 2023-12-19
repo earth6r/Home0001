@@ -115,6 +115,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                     })}
 
                     <li className="flex items-center gap-4 uppercase">
+                      Prices:
                       <span className="inline-block">Fiat</span>
                       <Switch
                         checked={cryptoMode}
