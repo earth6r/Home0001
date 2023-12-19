@@ -35,6 +35,10 @@ export const deskStructure = (S: StructureBuilder) =>
         .title('Units')
         .child(S.documentTypeList('unit').title('Units'))
         .icon(MdMeetingRoom),
+      S.listItem()
+        .title('Unit Details')
+        .child(S.documentTypeList('unit-details').title('Unit Details'))
+        .icon(MdMeetingRoom),
       S.divider(),
       S.listItem()
         .title('Pages')
