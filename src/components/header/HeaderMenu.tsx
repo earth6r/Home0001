@@ -115,14 +115,15 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                     })}
 
                     <li className="flex items-center gap-4 uppercase">
-                      Prices:
+                      <span className="inline-block">Prices:</span>
+
                       <span className="inline-block">Fiat</span>
                       <Switch
                         checked={cryptoMode}
                         onChange={setCryptoMode}
                         className={classNames(
                           cryptoMode ? 'bg-yellow' : 'bg-gray',
-                          `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto`
+                          `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto -mx-[10px]`
                         )}
                       >
                         {' '}
