@@ -1,4 +1,4 @@
-import { useRef, type FC } from 'react'
+import { useRef, type FC, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import type {
   CitiesBlockProps,
@@ -18,6 +18,13 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
 }) => {
   const scrollRef = useRef(null)
   const isInView = useInView(scrollRef, { once: true, amount: 0.4 })
+  const [isMobile, setIsMobile] = useState(true)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsMobile(window.innerWidth <= 768)
+    }
+  }, [])
 
   return (
     <AnimatePresence>
@@ -28,7 +35,9 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         style={{
           transform: isInView ? 'scale(1)' : 'scale(0.99)',
           opacity: isInView ? 1 : 0,
-          transition: `all 600ms ease-in-out ${index ? (index + 1) * 0.1 : 0}s`,
+          transition: `all 600ms ease-in-out ${
+            index && isMobile ? (index + 1) * 0.1 : 0
+          }s`,
         }}
         className="flex w-full opacity-0"
       >
