@@ -53,5 +53,10 @@ export default {
       type: 'waitlistBlock',
       title: 'Waitlist Block',
     },
+    {
+      name: 'flexWaitlistBlock',
+      type: 'flexWaitlistBlock',
+      title: 'Flex Waitlist Block',
+    },
   ],
 }

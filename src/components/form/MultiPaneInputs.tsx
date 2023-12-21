@@ -38,6 +38,8 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   trigger: () => Promise<boolean>
   setFullWidth?: () => void
   formValues?: any
+  broker?: boolean
+  formPanes?: string[]
 }
 
 const LOCATIONS = [
@@ -242,6 +244,8 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   header,
   copy,
   buttonCopy,
+  formPanes,
+  broker,
   register,
   setFullWidth,
   className,
@@ -290,7 +294,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         }}
       >
         <NameEmailPane
-          broker={block}
+          broker={broker === false ? false : block}
           register={register}
           className={classNames(
             currentStep !== 0 ? 'hidden' : '',
