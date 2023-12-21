@@ -40,8 +40,9 @@ const Page: NextPage<PageProps> = (
   ref: PageRefType
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
-  console.log(page.body)
-
+  const filteredBlocks = page.body?.filter(
+    (block: any) => block._type === 'propertyBlock'
+  )
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
@@ -49,7 +50,7 @@ const Page: NextPage<PageProps> = (
           grid={true}
           blocks={page?.body}
           className={classNames(
-            page.body ? 'pl-x' : 'container',
+            filteredBlocks && filteredBlocks?.length > 0 ? 'pl-x' : 'container',
             'flex flex-col pt-page'
           )}
         />
