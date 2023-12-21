@@ -7,7 +7,7 @@ import styles from './map.module.css'
 
 const MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID
 
-export const Map: FC<MapDialogProps> = ({ coordinates }) => {
+export const Map: FC<MapDialogProps> = ({ coordinates, height }) => {
   if (!coordinates?.lat || !coordinates.long) return null
   const numLat = parseFloat(coordinates.lat)
   const numLong = parseFloat(coordinates.long)
@@ -32,7 +32,7 @@ export const Map: FC<MapDialogProps> = ({ coordinates }) => {
   return (
     <div
       className={classNames(styles['map-module-wrapper'])}
-      style={{ height: '600px', width: '100%' }}
+      style={{ height: height ? height : '600px', width: '100%' }}
     >
       {MAP_API_KEY && (
         <GoogleMapReact
