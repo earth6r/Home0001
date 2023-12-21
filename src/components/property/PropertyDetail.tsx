@@ -19,7 +19,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
         {property?.title}
       </h2>
       <div className="md:grid md:grid-cols-8 gap-10 md:col-start-1 block relative">
-        <div className="grid grid-cols-[1fr_177px] md:flex md:flex-col md:col-span-3 md:justify-start md:items-start md:sticky top-[var(--header-height)] left-0 md:h-[48vw]">
+        <div className="grid grid-cols-[1fr_177px] md:flex md:flex-col md:col-span-3 md:justify-start md:items-start md:h-[48vw]">
           {property?.image && (
             <div className="col-span-2 block relative w-full mb-yhalf z-base">
               <SanityMedia
@@ -35,12 +35,15 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
             </div>
           )}
 
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-5 md:w-full">
             {property?.coordinates && (
-              <Map coordinates={property.coordinates} />
+              <Map coordinates={property.coordinates} height={415} />
             )}
             {property?.header && (
-              <RichText blocks={property?.header} className="mt-yhalf" />
+              <RichText
+                blocks={property?.header}
+                className="mt-yhalf md:px-xhalf"
+              />
             )}
           </div>
         </div>
@@ -48,14 +51,32 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
         <div className="col-span-5 overflow-x-hidden">
           {property?.body && (
             <BlockContent
-              blocks={property?.body}
+              blocks={property?.body.slice(0, property.body.length - 1)}
               grid={false}
               className="mt-ydouble md:mt-0 overflow-hidden"
             />
           )}
         </div>
+      </div>
 
-        <div className="mt-ydouble md:max-w-[346px] pr-menu">
+      <div className="md:grid md:grid-cols-5 mt-ydouble">
+        <div className="md:col-span-4 overflow-x-hidden">
+          <p className="text-md uppercase font-medium mb-2 md:mb-yhalf">
+            Smaller text
+          </p>
+          <h2 className="text-xl uppercase font-bold mb-yhalf">The network</h2>
+          {property?.body && (
+            <BlockContent
+              blocks={property?.body.slice(
+                property.body.length - 1,
+                property.body.length
+              )}
+              grid={false}
+              className="mt-ydouble md:mt-0 overflow-hidden"
+            />
+          )}
+        </div>
+        <div className="md:col-span-3 mt-ydouble md:max-w-[346px] pr-menu md:pr-0">
           <Link href={'./how-it-works'}>
             <button
               className={classNames(

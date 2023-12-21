@@ -111,7 +111,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </>
           )}
 
-          <div className="mb-yhalf md:max-w-[346px]">
+          <div className="md:hidden mb-yhalf md:max-w-[346px]">
             <a href="mailto:totest@test.com">
               <button
                 className={classNames(
@@ -124,7 +124,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </a>
           </div>
 
-          <div className="mb-ydouble md:max-w-[346px]">
+          <div className="md:hidden mb-ydouble md:max-w-[346px]">
             <a href="mailto:totest@test.com">
               <button
                 className={classNames(
