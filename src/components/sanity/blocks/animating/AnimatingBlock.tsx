@@ -153,7 +153,6 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   className,
 }) => {
   const scrollRef = useRef(null)
-  const isInView = useInView(scrollRef)
   const [animateActive, setAnimateActive] = useState(false)
   const [showContent, setShowContent] = useState(false)
 
@@ -237,7 +236,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'md:max-w-[768px] lg:max-w-[1000px] md:mx-auto px-x md:px-fullmenu mt-0 mb-[120px] md:mb-[25vh]'
+        'md:max-w-[768px] lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-block'
       )}
     >
       {showContent && (
