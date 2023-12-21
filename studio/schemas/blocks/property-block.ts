@@ -14,6 +14,11 @@ export default {
       to: [{ type: 'property' }],
       validation: (Rule: Rule): Rule => Rule.required(),
     },
+    {
+      name: 'footerCopy',
+      title: 'Footer Copy',
+      type: 'string',
+    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Property block' }),

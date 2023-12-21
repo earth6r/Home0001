@@ -58,7 +58,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             <h2 className="text-xl font-bold mb-0 uppercase col-span-2">
               {unit?.title}
             </h2>
-            <div className="mb-ydouble md:mb-y text-md font-bold">
+            <div className="mb-ydouble md:mb-y text-md font-bold mt-y">
               <p className="m-0">
                 {unit?.price == 'Inquire'
                   ? 'Price upon request'
@@ -102,7 +102,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                           'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-xs uppercase font-medium z-above p-4'
                         )}
                       >
-                        {`Inquire`}
+                        {`Ask us a question`}
                         <IconSmallArrow width="16" height="10" fill="black" />
                       </button>
                     </a>

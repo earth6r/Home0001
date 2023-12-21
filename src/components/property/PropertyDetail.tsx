@@ -1,16 +1,27 @@
 import { type FC, memo } from 'react'
 import classNames from 'classnames'
 import { BlockContent, RichText, SanityMedia } from '@components/sanity'
-import MapDialog from '@components/map/MapDialog'
-import { UnitsList } from '@components/unit'
 import { PropertyElProps } from './types'
 import { Map } from '@components/map'
 import Link from 'next/link'
 
 export const PropertyDetailComponent: FC<PropertyElProps> = ({
   property,
+  footerCopy,
   className,
 }) => {
+  const filteredBody = property?.body && [
+    property?.body[3],
+    property?.body[1],
+    property?.body[0],
+    property?.body[4],
+  ]
+
+  const filteredBodyFooter = property?.body && [
+    property?.body[2],
+    property?.body[5],
+  ]
+
   return (
     <div className={classNames(className)}>
       <h2 className="mb-12 text-xl md:text-2xl font-bold uppercase">
@@ -49,9 +60,9 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
         </div>
 
         <div className="col-span-5 overflow-x-hidden pr-x md:pr-0">
-          {property?.body && (
+          {filteredBody && (
             <BlockContent
-              blocks={property?.body.slice(0, property.body.length - 1)}
+              blocks={filteredBody}
               grid={false}
               className="mt-ydouble md:mt-0 overflow-hidden"
             />
@@ -61,18 +72,17 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
 
       <div className="md:grid md:grid-cols-5 my-ydouble pr-x md:pr-0">
         <div className="md:col-span-4 overflow-x-hidden">
-          <p className="text-sm uppercase tracking-tight font-medium mb-2">
+          {/* <p className="text-sm uppercase tracking-tight font-medium mb-2">
             Smaller text
-          </p>
-          <h2 className="text-xl uppercase font-bold mb-yhalf">The network</h2>
-          {property?.body && (
+          </p> */}
+          <h2 className="text-xl uppercase font-bold mb-yhalf">
+            {footerCopy || 'The network'}
+          </h2>
+          {filteredBodyFooter && (
             <BlockContent
-              blocks={property?.body.slice(
-                property.body.length - 1,
-                property.body.length
-              )}
+              blocks={filteredBodyFooter}
               grid={false}
-              className="mt-ydouble md:mt-0 overflow-hidden"
+              className="mt-ydouble md:mt-0 overflow-hidden hide-cta"
             />
           )}
         </div>
