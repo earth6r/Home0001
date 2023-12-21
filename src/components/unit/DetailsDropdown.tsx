@@ -30,7 +30,7 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({ details }) => {
             <>
               <Disclosure.Button className={classNames(`w-full text-left`)}>
                 {!open && (
-                  <span className="inline-block underline font-medium mt-y mb-ydouble">
+                  <span className="inline-block underline font-medium mt-y md:mt-yhalf mb-ydouble">
                     See all details
                   </span>
                 )}
