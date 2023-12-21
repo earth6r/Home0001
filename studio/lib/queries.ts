@@ -139,7 +139,7 @@ export const PROPERTY_QUERY = `
     "media": media{
       ${MEDIA_QUERY}
     },
-  }
+  },
 `
 
 export const BODY_QUERY = `
