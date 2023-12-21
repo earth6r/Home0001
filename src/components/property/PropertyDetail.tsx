@@ -12,9 +12,9 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
 }) => {
   const filteredBody = property?.body && [
     property?.body[3],
-    property?.body[1],
-    property?.body[0],
     property?.body[4],
+    property?.body[0],
+    property?.body[1],
   ]
 
   const filteredBodyFooter = property?.body && [
@@ -70,32 +70,42 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
         </div>
       </div>
 
-      <div className="md:grid md:grid-cols-5 my-ydouble pr-x md:pr-0">
+      <div className="md:grid md:grid-cols-5 mt-page mb-ydouble md:my-ydouble pr-x md:pr-0">
         <div className="md:col-span-4 overflow-x-hidden">
-          {/* <p className="text-sm uppercase tracking-tight font-medium mb-2">
-            Smaller text
-          </p> */}
+          <p className="text-sm uppercase tracking-tight font-medium mb-2">
+            HOME0001
+          </p>
           <h2 className="text-xl uppercase font-bold mb-yhalf">
             {footerCopy || 'The network'}
           </h2>
+
           {filteredBodyFooter && (
             <BlockContent
-              blocks={filteredBodyFooter}
+              blocks={filteredBodyFooter[0]}
               grid={false}
               className="mt-ydouble md:mt-0 overflow-hidden hide-cta"
             />
           )}
-        </div>
-        <div className="md:col-span-3 mt-y md:max-w-[346px] pr-menu md:pr-0">
-          <Link href={'./how-it-works'}>
-            <button
-              className={classNames(
-                'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-center items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
-              )}
-            >
-              {`how it works`}
-            </button>
-          </Link>
+
+          <div className="md:col-span-3 mb-y mt-yhalf md:max-w-[346px] pr-menu md:pr-0">
+            <Link href={'./how-it-works'}>
+              <button
+                className={classNames(
+                  'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-center items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
+                )}
+              >
+                {`how it works`}
+              </button>
+            </Link>
+          </div>
+
+          {filteredBodyFooter && (
+            <BlockContent
+              blocks={filteredBodyFooter[1]}
+              grid={false}
+              className="mt-ydouble md:mt-0 overflow-hidden hide-cta"
+            />
+          )}
         </div>
       </div>
     </div>
