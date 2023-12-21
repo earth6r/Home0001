@@ -1,13 +1,17 @@
-import { type FC, memo } from 'react'
+import { type FC, memo, useEffect, useState } from 'react'
 import { ImageCarousel } from '@components/carousel'
 import { RichText } from '@components/sanity'
 import { UnitElProps } from './types'
 import classNames from 'classnames'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
-import { Accordion } from '@components/accordion'
 import { useInquiryModal } from '@contexts/modals'
 import DetailsDropdown from './DetailsDropdown'
+import { useCryptoMode } from '@contexts/header'
+import {
+  convertUsdToEthPrice,
+  convertUsdToBtcPrice,
+} from '@lib/util/crypto-pricing'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
   unit,
@@ -15,6 +19,26 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
   className,
 }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
+  const [cryptoMode, setCryptoMode] = useCryptoMode()
+  const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
+
+  useEffect(() => {
+    const fetchCryptoPrice = async (usdPrice: any) => {
+      const currentEthPrice = await convertUsdToEthPrice(usdPrice)
+      const roundedEthPrice = Number(currentEthPrice.toFixed(2))
+      const currentBtcPrice = await convertUsdToBtcPrice(usdPrice)
+      const roundedBtcPrice = Number(currentBtcPrice.toFixed(2))
+      return [roundedEthPrice, roundedBtcPrice]
+    }
+
+    if (unit?.price != 'Inquire') {
+      const usdPrice = unit?.price
+
+      fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
+        setCryptoPrice(cryptoPrices)
+      })
+    }
+  }, [unit])
 
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
@@ -36,7 +60,15 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </h2>
             <div className="pr-menu md:pr-0 mb-ydouble md:mb-y text-md font-bold">
               <p className="m-0">
-                {unit?.price == 'Inquire' ? 'Price upon request' : unit?.price}
+                <p className="m-0">
+                  {unit?.price == 'Inquire'
+                    ? 'Price upon request'
+                    : cryptoMode
+                    ? `${unit?.price?.substring(1)} USD / ${
+                        cryptoPrice[1]
+                      } BTC / ${cryptoPrice[0]} ETH`
+                    : unit?.price}
+                </p>
               </p>
               {unit?.area && <p className="mb-ylg">{unit?.area}</p>}
 
