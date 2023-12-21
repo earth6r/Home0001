@@ -967,6 +967,13 @@ export type PropertyBlock = {
    *
    */
   propertyRef?: SanityReference<Property>;
+
+  /**
+   * Footer Copy — `string`
+   *
+   *
+   */
+  footerCopy?: string;
 };
 
 export type PropertiesBlock = {
