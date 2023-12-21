@@ -99,6 +99,11 @@ export default {
       options: { collapsable: true, collapsed: true },
     },
     {
+      name: 'unitDetails',
+      title: 'Unit Details',
+      type: 'richText',
+    },
+    {
       name: 'layoutImages',
       title: 'Layout Images',
       type: 'array',
@@ -122,12 +127,6 @@ export default {
       name: 'moreInfo',
       title: 'More Info',
       type: 'richText',
-    },
-    {
-      name: 'unitDetails',
-      title: 'Unit Details',
-      type: 'array',
-      of: [{ type: 'accordion', title: 'Unit Details' }],
     },
     {
       name: 'secondUnitDetails',
