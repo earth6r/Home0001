@@ -401,6 +401,13 @@ export interface Unit extends SanityDocument {
   factSheet?: Table;
 
   /**
+   * Unit Details — `richText`
+   *
+   *
+   */
+  unitDetails?: RichText;
+
+  /**
    * Layout Images — `array`
    *
    *
@@ -427,13 +434,6 @@ export interface Unit extends SanityDocument {
    *
    */
   moreInfo?: RichText;
-
-  /**
-   * Unit Details — `array`
-   *
-   *
-   */
-  unitDetails?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Second Unit Details — `array`

@@ -42,7 +42,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
-      <div className="md:grid md:grid-cols-3 px-x md:pr-0">
+      <div className="md:grid md:grid-cols-3 pr-[calc(var(--space-menu)+2px)] md:pr-0">
         <div className="md:col-start-1 col-start-2 md:col-span-3">
           <div className="flex flex-col relative">
             {unit?.photographs && unit?.photographs.length > 0 && (
@@ -60,15 +60,13 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </h2>
             <div className="pr-menu md:pr-0 mb-ydouble md:mb-y text-md font-bold">
               <p className="m-0">
-                <p className="m-0">
-                  {unit?.price == 'Inquire'
-                    ? 'Price upon request'
-                    : cryptoMode
-                    ? `${unit?.price?.substring(1)} USD / ${
-                        cryptoPrice[1]
-                      } BTC / ${cryptoPrice[0]} ETH`
-                    : unit?.price}
-                </p>
+                {unit?.price == 'Inquire'
+                  ? 'Price upon request'
+                  : cryptoMode
+                  ? `${unit?.price?.substring(1)} USD / ${
+                      cryptoPrice[1]
+                    } BTC / ${cryptoPrice[0]} ETH`
+                  : unit?.price}
               </p>
               {unit?.area && <p className="mb-ylg">{unit?.area}</p>}
 
@@ -113,7 +111,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </>
           )}
 
-          <div className="pr-menu md:pr-0 mb-yhalf md:max-w-[346px]">
+          <div className="mb-yhalf md:max-w-[346px]">
             <a href="mailto:totest@test.com">
               <button
                 className={classNames(
@@ -126,7 +124,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </a>
           </div>
 
-          <div className="pr-menu md:pr-0 mb-ydouble md:max-w-[346px]">
+          <div className="mb-ydouble md:max-w-[346px]">
             <a href="mailto:totest@test.com">
               <button
                 className={classNames(

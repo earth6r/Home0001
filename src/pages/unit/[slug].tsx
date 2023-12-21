@@ -41,11 +41,7 @@ export const getStaticProps: GetStaticProps = context =>
   getPageStaticProps({ ...context, query: PROPERTY_QUERY })
 
 const UnitPage: NextPage<PageProps> = (
-  {
-    data,
-    preview,
-    siteSettings,
-  }: InferGetStaticPropsType<typeof getStaticProps>,
+  { data, preview }: InferGetStaticPropsType<typeof getStaticProps>,
   ref: PageRefType
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
@@ -65,7 +61,7 @@ const UnitPage: NextPage<PageProps> = (
     <PageTransition ref={ref}>
       <article>
         <div className="pt-page">
-          <Unit unit={page} accordions={siteSettings?.howItWorksContent} />
+          <Unit unit={page} />
         </div>
       </article>
     </PageTransition>

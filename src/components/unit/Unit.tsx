@@ -14,11 +14,7 @@ import {
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
 
-export const UnitComponent: FC<UnitElProps> = ({
-  unit,
-  accordions,
-  className,
-}) => {
+export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
