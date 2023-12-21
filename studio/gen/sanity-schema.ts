@@ -878,10 +878,12 @@ export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
   | SanityKeyed<AnimatingBlock>
   | SanityKeyed<CarouselBlock>
+  | SanityKeyed<PropertyBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
   | SanityKeyed<TextBlock>
+  | SanityKeyed<UnitBlock>
   | SanityKeyed<WaitlistBlock>
 >;
 
@@ -941,6 +943,16 @@ export type CarouselBlock = {
    *
    */
   images?: Array<SanityKeyed<Media>>;
+};
+
+export type PropertyBlock = {
+  _type: "propertyBlock";
+  /**
+   * Property Reference — `reference`
+   *
+   *
+   */
+  propertyRef?: SanityReference<Property>;
 };
 
 export type PropertiesBlock = {
@@ -1016,6 +1028,16 @@ export type TextBlock = {
    *
    */
   text?: RichText;
+};
+
+export type UnitBlock = {
+  _type: "unitBlock";
+  /**
+   * Unit Reference — `reference`
+   *
+   *
+   */
+  unitRef?: SanityReference<Unit>;
 };
 
 export type WaitlistBlock = {
