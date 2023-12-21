@@ -70,15 +70,45 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               </p>
               {unit?.area && <p className="mb-ylg">{unit?.area}</p>}
 
-              {unit?.summary && (
-                <>
-                  <p className="uppercase font-bold mb-y">Overview</p>
-                  <RichText
-                    blocks={unit?.summary}
-                    className="max-w-[500px] underlined"
-                  />
-                </>
-              )}
+              <div className="md:grid md:grid-cols-7">
+                {unit?.summary && (
+                  <div className="md:col-span-3">
+                    <p className="uppercase font-bold mb-y">Overview</p>
+                    <RichText
+                      blocks={unit?.summary}
+                      className="max-w-[500px] underlined"
+                    />
+                  </div>
+                )}
+
+                <div className="hidden md:block md:col-start-5 md:col-span-3 md:pr-[calc(var(--space-full-menu)+9px)]">
+                  <div className="mb-yhalf">
+                    <a href="mailto:totest@test.com">
+                      <button
+                        className={classNames(
+                          'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
+                        )}
+                      >
+                        {`Schedule a tour for this home`}
+                        <IconSmallArrow width="16" height="10" />
+                      </button>
+                    </a>
+                  </div>
+
+                  <div className="mb-ydouble">
+                    <a href="mailto:totest@test.com">
+                      <button
+                        className={classNames(
+                          'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-xs uppercase font-medium z-above p-4'
+                        )}
+                      >
+                        {`Inquire`}
+                        <IconSmallArrow width="16" height="10" fill="black" />
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              </div>
 
               {unit?.factSheet?.rows && (
                 <SanityTableModal
@@ -92,7 +122,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
             {unit?.unitDetails && (
               <>
-                <p className="uppercase font-bold text-md mb-y">Details</p>
+                <p className="uppercase font-bold text-md mb-yhalf">Details</p>
                 <DetailsDropdown details={unit?.unitDetails} />
               </>
             )}
