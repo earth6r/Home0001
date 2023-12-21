@@ -106,24 +106,6 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               </button>
             </a>
           </div>
-
-          {unit?.moreInfo && (
-            <div className="mt-10 pr-menu">
-              <RichText blocks={unit?.moreInfo} />
-            </div>
-          )}
-
-          {unit?.secondUnitDetails &&
-            unit.secondUnitDetails.length > 0 &&
-            unit.secondUnitDetails.map(({ _key, header, text }) => (
-              <Accordion
-                key={_key}
-                header={header}
-                text={text}
-                location={{ property: 'property', unit: 'unit' }}
-                className="mt-2 mb-8 border-x-0 border-t-0"
-              />
-            ))}
         </div>
       </div>
     </div>

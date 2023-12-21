@@ -30,6 +30,7 @@ export interface KeyedUnitProps
   property?: SanityReference<Property>
   propertyType?: KeyedPropertyType
   price?: string
+  cryptoPrice?: string
   area?: string
   amenities?: RichText
   headlineImage?:

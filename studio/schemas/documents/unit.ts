@@ -67,6 +67,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'cryptoPrice',
+      title: 'Crypto Price',
+      type: 'string',
+    },
+    {
       name: 'area',
       title: 'Area',
       type: 'string',

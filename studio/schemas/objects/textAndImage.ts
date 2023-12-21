@@ -1,3 +1,4 @@
+import type { Rule } from '@sanity/types'
 import { IoIosImage } from 'react-icons/io'
 import type { PreviewValue } from '@sanity/types'
 import type { Media } from '@gen/sanity-schema'
@@ -35,6 +36,13 @@ export default {
       name: 'text',
       type: 'richText',
       title: 'Text',
+      validation: (Rule: Rule): Rule => Rule.required(),
+    },
+    {
+      name: 'altCryptoText',
+      type: 'richText',
+      title: 'Alt Crypto Text',
+      description: 'Replaces text in crypto mode',
     },
   ],
   preview: {
