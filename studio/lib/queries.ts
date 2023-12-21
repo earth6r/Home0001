@@ -62,6 +62,7 @@ export const UNIT_QUERY = `
   headerText,
   available,
   price,
+  cryptoPrice,
   area,
   amenities,
   summary,
@@ -216,6 +217,7 @@ export const PROPERTIES_QUERY = `
     title,
     available,
     price,
+    cryptoPrice,
     area,
     "photographs": photographs[]{
       ${MEDIA_QUERY}

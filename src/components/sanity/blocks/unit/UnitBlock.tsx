@@ -8,8 +8,6 @@ type UnitBlockProps = Omit<SanityBlockElement, keyof UnitBlockType> &
   UnitBlockType
 
 export const UnitBlock: FC<UnitBlockProps> = ({ unitRef, className }) => {
-  console.log('unitRef: ', unitRef)
-
   return (
     <Block className={classNames(className, '')}>
       <UnitDetail unit={unitRef as UnitContentProps} />

@@ -352,6 +352,13 @@ export interface Unit extends SanityDocument {
   price?: string;
 
   /**
+   * Crypto Price — `string`
+   *
+   *
+   */
+  cryptoPrice?: string;
+
+  /**
    * Area — `string`
    *
    *
@@ -814,6 +821,13 @@ export type TextAndImage = {
    *
    */
   text?: RichText;
+
+  /**
+   * Alt Crypto Text — `richText`
+   *
+   * Replaces text in crypto mode
+   */
+  altCryptoText?: RichText;
 };
 
 export type Tooltip = {

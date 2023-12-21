@@ -4,15 +4,14 @@ import { BlockContent, RichText, SanityMedia } from '@components/sanity'
 import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/unit'
 import { PropertyElProps } from './types'
-// import { Waitlist } from '@components/waitlist'
 
-export const PropertyComponent: FC<PropertyElProps> = ({
+export const PropertyDetailComponent: FC<PropertyElProps> = ({
   property,
   className,
 }) => {
   return (
     <div className={classNames(className, 'md:pl-x')}>
-      <h2 className="mb-12 px-x md:px-0 text-xl md:text-2xl font-bold uppercase">
+      <h2 className="mb-12 text-xl md:text-2xl font-bold uppercase">
         HOME0001:
         <br />
         {property?.title}
@@ -77,17 +76,10 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           </>
         )}
       </div>
-
-      {/* {property?.waitlistLinkText && (
-        <Waitlist
-          buttonText={property?.waitlistLinkText}
-          className="mt-ydouble md:mt-14 lg:ml-[467px]"
-        />
-      )} */}
     </div>
   )
 }
 
-export const Property = memo(PropertyComponent)
+export const PropertyDetail = memo(PropertyDetailComponent)
 
-export default Property
+export default PropertyDetail

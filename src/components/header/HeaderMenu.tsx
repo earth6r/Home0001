@@ -1,13 +1,13 @@
 import type { FC, HTMLProps, Ref } from 'react'
 import { useRef, useEffect, forwardRef, Fragment } from 'react'
 import classNames from 'classnames'
-import { Menu } from '@headlessui/react'
+import { Menu, Switch } from '@headlessui/react'
 import type { SanityLinkType } from '@studio/lib'
 import { SanityLink } from '@components/sanity'
 import { Btn } from '@components/btns'
 import type { HeaderMenuProps } from './types'
 import { Logo } from '@components/logos'
-import { useHeaderLinks } from '@contexts/header'
+import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import { useBrokerInquiryModal } from '@contexts/modals'
 
 export const HeaderToggleBtn = forwardRef<typeof Btn>((props, ref) => (
@@ -37,6 +37,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
 }) => {
   const items = useRef<HTMLDivElement | null>(null)
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
+  const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
 
   return (
@@ -52,7 +53,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               <Menu.Button as={HeaderToggleBtn} />
               <div
                 className={classNames(
-                  'fixed w-[100vw] h-[100vh] top-0 left-0 overflow-hidden bg-white text-left'
+                  'fixed w-[100vw] h-[100vh] top-0 left-0 overflow-hidden bg-white text-left pointer-events-none'
                 )}
                 style={{
                   transition: 'opacity var(--speed-fast)',
@@ -60,10 +61,20 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                   pointerEvents: customOpen ? 'all' : 'none',
                 }}
               >
-                <div className="flex items-center absolute h-header px-x">
+                <div
+                  className={classNames(
+                    open ? 'pointer-events-auto' : '',
+                    'flex items-center absolute h-header px-x pointer-events-auto'
+                  )}
+                >
                   <Logo />
                 </div>
-                <nav className="overflow-auto z-40 md:shadow-none pt-[88px] md:pt-[126px] left-0 w-full h-full fade-enter-done">
+                <nav
+                  className={classNames(
+                    open ? 'pointer-events-auto' : '',
+                    'overflow-auto z-40 md:shadow-none pt-[88px] md:pt-[126px] left-0 w-full h-full fade-enter-done'
+                  )}
+                >
                   <Menu.Items
                     as="ul"
                     ref={items}
@@ -102,6 +113,29 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                         </Fragment>
                       ) : null
                     })}
+
+                    <li className="flex items-center gap-4 uppercase">
+                      <span className="inline-block">Prices:</span>
+
+                      <span className="inline-block">Fiat</span>
+                      <Switch
+                        checked={cryptoMode}
+                        onChange={setCryptoMode}
+                        className={classNames(
+                          cryptoMode ? 'bg-black' : 'bg-gray',
+                          `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto -mx-[10px]`
+                        )}
+                      >
+                        {' '}
+                        <span
+                          className={classNames(
+                            cryptoMode ? 'translate-x-6' : 'translate-x-1',
+                            `block h-4 w-4 transform rounded-full bg-white transition`
+                          )}
+                        />
+                      </Switch>
+                      <span className="inline-block">Crypto</span>
+                    </li>
                   </Menu.Items>
                 </nav>
               </div>
