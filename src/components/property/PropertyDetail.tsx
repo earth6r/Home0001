@@ -12,7 +12,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   return (
-    <div className={classNames(className, '')}>
+    <div className={classNames(className, 'pr-x md:pr-0')}>
       <h2 className="mb-12 text-xl md:text-2xl font-bold uppercase">
         HOME0001:
         <br />
