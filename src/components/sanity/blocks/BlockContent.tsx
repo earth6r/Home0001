@@ -11,6 +11,8 @@ import {
   ContactBlock,
   CarouselBlock,
   AnimatingBlock,
+  UnitBlock,
+  PropertyBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
@@ -35,6 +37,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             carouselBlock: ({ index, value }) => (
               <CarouselBlock index={index} grid={grid} {...value} />
             ),
+            propertyBlock: ({ index, value }) => (
+              <PropertyBlock index={index} grid={grid} {...value} />
+            ),
             propertiesBlock: ({ index, value }) => (
               <PropertiesBlock index={index} grid={grid} {...value} />
             ),
@@ -43,6 +48,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             textBlock: ({ index, value }) => (
               <TextBlock index={index} grid={grid} {...value} />
+            ),
+            unitBlock: ({ index, value }) => (
+              <UnitBlock index={index} grid={grid} {...value} />
             ),
             waitlistBlock: ({ index, value }) => (
               <WaitlistBlock index={index} grid={grid} {...value} />

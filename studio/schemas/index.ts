@@ -29,6 +29,8 @@ import unitGroup from './objects/unit-group'
 import carouselBlock from './blocks/carousel-block'
 import animatingBlock from './blocks/animating-block'
 import textAndImage from './objects/textAndImage'
+import unitBlock from './blocks/unit-block'
+import propertyBlock from './blocks/property-block'
 
 export const schemaTypes = [
   // objects
@@ -55,10 +57,12 @@ export const schemaTypes = [
   accordionBlock,
   animatingBlock,
   carouselBlock,
+  propertyBlock,
   propertiesBlock,
   newsletterBlock,
   contactBlock,
   textBlock,
+  unitBlock,
   waitlistBlock,
 
   // documents
