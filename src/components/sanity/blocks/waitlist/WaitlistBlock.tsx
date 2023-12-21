@@ -25,7 +25,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   const [fullWidth, setFullWidth] = useState(false)
 
   useEffect(() => {
-    console.log(trigger)
+    // console.log(trigger)
   }, [trigger])
 
   return (
@@ -33,10 +33,10 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
       className={classNames(
         className,
         grid ? 'md:grid md:grid-cols-3 pr-menu' : '',
-        'relative'
+        'relative mt-block'
       )}
     >
-      <div className="w-full mt-16">
+      <div className="w-full">
         <Waitlist
           waitlist={{
             header: header,
