@@ -13,6 +13,7 @@ import {
   AnimatingBlock,
   UnitBlock,
   PropertyBlock,
+  FlexWaitlistBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
@@ -54,6 +55,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             waitlistBlock: ({ index, value }) => (
               <WaitlistBlock index={index} grid={grid} {...value} />
+            ),
+            flexWaitlistBlock: ({ index, value }) => (
+              <FlexWaitlistBlock index={index} {...value} />
             ),
             contactBlock: ({ index, value }) => (
               <ContactBlock index={index} grid={grid} {...value} />

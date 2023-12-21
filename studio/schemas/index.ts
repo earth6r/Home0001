@@ -31,6 +31,7 @@ import animatingBlock from './blocks/animating-block'
 import textAndImage from './objects/textAndImage'
 import unitBlock from './blocks/unit-block'
 import propertyBlock from './blocks/property-block'
+import flexWaitlistBlock from './blocks/flex-waitlist-block'
 
 export const schemaTypes = [
   // objects
@@ -64,6 +65,7 @@ export const schemaTypes = [
   textBlock,
   unitBlock,
   waitlistBlock,
+  flexWaitlistBlock,
 
   // documents
   city,

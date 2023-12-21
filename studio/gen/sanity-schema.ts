@@ -920,6 +920,7 @@ export type BlockContent = Array<
   | SanityKeyed<TextBlock>
   | SanityKeyed<UnitBlock>
   | SanityKeyed<WaitlistBlock>
+  | SanityKeyed<FlexWaitlistBlock>
 >;
 
 export type AccordionBlock = {
@@ -1111,6 +1112,44 @@ export type WaitlistBlock = {
    *
    */
   successMessage?: RichText;
+};
+
+export type FlexWaitlistBlock = {
+  _type: "flexWaitlistBlock";
+  /**
+   * Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Text — `richText`
+   *
+   *
+   */
+  text?: RichText;
+
+  /**
+   * Audience ID — `string`
+   *
+   *
+   */
+  audienceId?: string;
+
+  /**
+   * Success Message — `richText`
+   *
+   *
+   */
+  successMessage?: RichText;
+
+  /**
+   * Form Panes — `array`
+   *
+   *
+   */
+  formPanes?: Array<SanityKeyed<string>>;
 };
 
 export type Documents =
