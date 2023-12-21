@@ -12,14 +12,14 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   return (
-    <div className={classNames(className, 'pr-x md:pr-0')}>
+    <div className={classNames(className)}>
       <h2 className="mb-12 text-xl md:text-2xl font-bold uppercase">
         HOME0001:
         <br />
         {property?.title}
       </h2>
       <div className="md:grid md:grid-cols-8 gap-10 md:col-start-1 block relative">
-        <div className="grid grid-cols-[1fr_177px] md:flex md:flex-col md:col-span-3 md:justify-start md:items-start md:h-[48vw]">
+        <div className="grid grid-cols-[1fr_177px] md:flex md:flex-col md:col-span-3 md:justify-start md:items-start md:h-[48vw] pr-x md:pr-0">
           {property?.image && (
             <div className="col-span-2 block relative w-full mb-yhalf z-base">
               <SanityMedia
@@ -48,7 +48,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
           </div>
         </div>
 
-        <div className="col-span-5 overflow-x-hidden">
+        <div className="col-span-5 overflow-x-hidden pr-x md:pr-0">
           {property?.body && (
             <BlockContent
               blocks={property?.body.slice(0, property.body.length - 1)}
@@ -59,7 +59,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
         </div>
       </div>
 
-      <div className="md:grid md:grid-cols-5 my-ydouble">
+      <div className="md:grid md:grid-cols-5 my-ydouble pr-x md:pr-0">
         <div className="md:col-span-4 overflow-x-hidden">
           <p className="text-sm uppercase tracking-tight font-medium mb-2">
             Smaller text
