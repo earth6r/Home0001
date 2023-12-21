@@ -12,7 +12,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   return (
-    <div className={classNames(className, 'md:pl-x')}>
+    <div className={classNames(className, '')}>
       <h2 className="mb-12 text-xl md:text-2xl font-bold uppercase">
         HOME0001:
         <br />
@@ -61,7 +61,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
 
       <div className="md:grid md:grid-cols-5 my-ydouble">
         <div className="md:col-span-4 overflow-x-hidden">
-          <p className="text-md uppercase font-medium mb-2 md:mb-yhalf">
+          <p className="text-sm uppercase tracking-tight font-medium mb-2">
             Smaller text
           </p>
           <h2 className="text-xl uppercase font-bold mb-yhalf">The network</h2>
