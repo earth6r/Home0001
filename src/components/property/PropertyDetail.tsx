@@ -59,7 +59,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
         </div>
       </div>
 
-      <div className="md:grid md:grid-cols-5 mt-ydouble">
+      <div className="md:grid md:grid-cols-5 my-ydouble">
         <div className="md:col-span-4 overflow-x-hidden">
           <p className="text-md uppercase font-medium mb-2 md:mb-yhalf">
             Smaller text
@@ -76,7 +76,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
             />
           )}
         </div>
-        <div className="md:col-span-3 mt-ydouble md:max-w-[346px] pr-menu md:pr-0">
+        <div className="md:col-span-3 mt-y md:max-w-[346px] pr-menu md:pr-0">
           <Link href={'./how-it-works'}>
             <button
               className={classNames(

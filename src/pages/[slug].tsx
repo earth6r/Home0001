@@ -12,6 +12,7 @@ import { getPageStaticProps } from '@lib/next'
 import { BODY_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { BlockContent } from '@components/sanity'
 import PageTransition from '@components/transition/PageTransition'
+import classNames from 'classnames'
 
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 
@@ -39,6 +40,7 @@ const Page: NextPage<PageProps> = (
   ref: PageRefType
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
+  console.log(page.body)
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
@@ -46,7 +48,10 @@ const Page: NextPage<PageProps> = (
         <BlockContent
           grid={true}
           blocks={page?.body}
-          className="flex flex-col container pt-page"
+          className={classNames(
+            page.body ? 'pl-x' : 'container',
+            'flex flex-col pt-page'
+          )}
         />
       </article>
     </PageTransition>

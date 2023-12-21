@@ -11,8 +11,6 @@ export const PropertyBlock: FC<PropertyBlockProps> = ({
   propertyRef,
   className,
 }) => {
-  console.log('propertyRef: ', propertyRef)
-
   return (
     <Block className={classNames(className, '')}>
       <p className="text-md font-medium uppercase mb-yhalf">The collection</p>
