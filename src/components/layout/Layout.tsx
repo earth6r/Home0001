@@ -26,6 +26,7 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath, query } = useRouter()
   const page: PageData = filterDataToSingleItem(data)
+  console.log(page)
   return (
     <>
       <Head
@@ -45,6 +46,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <Header
           className="flex-initial"
           path={asPath}
+          showTourLink={page?.showTourLink}
           property={(page as Unit)?.property}
           currentTitle={
             ((page as Property) || (page as Unit))?.headerText || page?.title

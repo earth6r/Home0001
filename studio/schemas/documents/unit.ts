@@ -39,6 +39,12 @@ export default {
       },
     },
     {
+      name: 'showTourLink',
+      title: 'Show Tour Link',
+      description: 'Show the tour link in the header instead of waitlist',
+      type: 'boolean',
+    },
+    {
       title: 'Available',
       name: 'available',
       type: 'boolean',

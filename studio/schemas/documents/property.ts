@@ -37,6 +37,12 @@ export default {
       },
     },
     {
+      name: 'showTourLink',
+      title: 'Show Tour Link',
+      description: 'Show the tour link in the header instead of waitlist',
+      type: 'boolean',
+    },
+    {
       name: 'cardImage',
       title: 'Card Image',
       type: 'media',

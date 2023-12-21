@@ -119,6 +119,13 @@ export interface Page extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
+   * Show Tour Link — `boolean`
+   *
+   * Show the tour link in the header instead of waitlist
+   */
+  showTourLink?: boolean;
+
+  /**
    * Preview Image — `image`
    *
    *
@@ -173,6 +180,13 @@ export interface Property extends SanityDocument {
    *
    */
   slug?: { _type: "slug"; current: string };
+
+  /**
+   * Show Tour Link — `boolean`
+   *
+   * Show the tour link in the header instead of waitlist
+   */
+  showTourLink?: boolean;
 
   /**
    * Card Image — `media`
@@ -322,6 +336,13 @@ export interface Unit extends SanityDocument {
    *
    */
   slug?: { _type: "slug"; current: string };
+
+  /**
+   * Show Tour Link — `boolean`
+   *
+   * Show the tour link in the header instead of waitlist
+   */
+  showTourLink?: boolean;
 
   /**
    * Available — `boolean`
