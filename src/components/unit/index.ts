@@ -1,4 +1,6 @@
 export * from './UnitSummary'
 export * from './UnitsList'
 export * from './Unit'
+export * from './UnitDetail'
+export * from './DetailsDropdown'
 export * from './types'

@@ -1,4 +1,4 @@
-import { type FC, memo } from 'react'
+import { type FC, memo, useEffect, useState } from 'react'
 import { ImageCarousel } from '@components/carousel'
 import { RichText } from '@components/sanity'
 import { UnitElProps } from './types'
@@ -7,13 +7,35 @@ import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
 import { useInquiryModal } from '@contexts/modals'
+import DetailsDropdown from './DetailsDropdown'
+import { useCryptoMode } from '@contexts/header'
+import {
+  convertUsdToEthPrice,
+  convertUsdToBtcPrice,
+} from '@lib/util/crypto-pricing'
 
-export const UnitComponent: FC<UnitElProps> = ({
-  unit,
-  accordions,
-  className,
-}) => {
+export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
+  const [cryptoMode, setCryptoMode] = useCryptoMode()
+  const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
+
+  useEffect(() => {
+    const fetchCryptoPrice = async (usdPrice: any) => {
+      const currentEthPrice = await convertUsdToEthPrice(usdPrice)
+      const roundedEthPrice = Number(currentEthPrice.toFixed(2))
+      const currentBtcPrice = await convertUsdToBtcPrice(usdPrice)
+      const roundedBtcPrice = Number(currentBtcPrice.toFixed(2))
+      return [roundedEthPrice, roundedBtcPrice]
+    }
+
+    if (unit?.price != 'Inquire') {
+      const usdPrice = unit?.price
+
+      fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
+        setCryptoPrice(cryptoPrices)
+      })
+    }
+  }, [unit])
 
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
@@ -42,7 +64,13 @@ export const UnitComponent: FC<UnitElProps> = ({
             </div>
             <div className="pr-menu md:pr-0 mb-ydouble md:mb-y text-xs font-medium">
               <p className="m-0">
-                {unit?.price == 'Inquire' ? 'Price upon request' : unit?.price}
+                {unit?.price == 'Inquire'
+                  ? 'Price upon request'
+                  : cryptoMode
+                  ? `${unit?.price?.substring(1)} USDC / ${
+                      cryptoPrice[1]
+                    } BTC / ${cryptoPrice[0]} ETH`
+                  : unit?.price}
               </p>
               {unit?.area && <p className="mb-4">{unit?.area}</p>}
               {unit?.factSheet?.rows && (
@@ -58,16 +86,12 @@ export const UnitComponent: FC<UnitElProps> = ({
               )}
             </div>
 
-            {unit?.unitDetails &&
-              unit.unitDetails.length > 0 &&
-              unit.unitDetails.map(({ _key, header, text }) => (
-                <Accordion
-                  key={_key}
-                  header={header}
-                  text={text}
-                  className="mb-ydouble md:mb-y mr-menu md:mr-0 md:max-w-[346px] border-x-0 border-t-0 font-bold text-xs"
-                />
-              ))}
+            {unit?.unitDetails && (
+              <>
+                <p className="uppercase font-bold text-md mb-y">Details</p>
+                <DetailsDropdown details={unit?.unitDetails} />
+              </>
+            )}
 
             <div className="pr-menu md:pr-0 mb-ydouble md:mb-y md:max-w-[346px]">
               <button

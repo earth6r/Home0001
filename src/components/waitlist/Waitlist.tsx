@@ -27,12 +27,16 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
   }
   setFullWidth?: () => void
   fullWidth?: boolean
+  broker?: boolean
+  formPanes?: string[]
 }
 
 export const Waitlist: FC<WaitlistProps> = ({
   waitlist,
   formActions,
   fullWidth,
+  formPanes,
+  broker = true,
   setFullWidth,
   className,
 }) => {
@@ -51,6 +55,8 @@ export const Waitlist: FC<WaitlistProps> = ({
         >
           <MultiPaneInputs
             block={true}
+            broker={broker}
+            formPanes={formPanes}
             setFullWidth={setFullWidth}
             header={waitlist?.header}
             copy={waitlist?.text}

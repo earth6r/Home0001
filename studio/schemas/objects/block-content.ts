@@ -19,6 +19,11 @@ export default {
       title: 'Carousel Block',
     },
     {
+      name: 'propertyBlock',
+      type: 'propertyBlock',
+      title: 'Property Block',
+    },
+    {
       name: 'propertiesBlock',
       type: 'propertiesBlock',
       title: 'Properties Block',
@@ -39,9 +44,19 @@ export default {
       title: 'Text Block',
     },
     {
+      name: 'unitBlock',
+      type: 'unitBlock',
+      title: 'Unit Block',
+    },
+    {
       name: 'waitlistBlock',
       type: 'waitlistBlock',
       title: 'Waitlist Block',
+    },
+    {
+      name: 'flexWaitlistBlock',
+      type: 'flexWaitlistBlock',
+      title: 'Flex Waitlist Block',
     },
   ],
 }

@@ -26,6 +26,7 @@ export const Header: FC<HeaderProps> = ({
   waitlist,
   inquiry,
   path,
+  showTourLink,
   currentTitle,
   property,
   mainMenu,
@@ -217,19 +218,34 @@ export const Header: FC<HeaderProps> = ({
             </div>
           </AnimatedModal>
 
-          <Btn
-            type="button"
-            onClick={openWaitlist}
-            className={classNames(
-              headerLinksShown ? 'opacity-100' : 'opacity-0',
-              'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
-            )}
-          >
-            <div className="w-[100px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
-              <IconSmallArrow width="16" className="mr-[5px]" />
-              {`Waitlist`}
-            </div>
-          </Btn>
+          {showTourLink ? (
+            <Btn
+              type="button"
+              className={classNames(
+                headerLinksShown ? 'opacity-100' : 'opacity-0',
+                'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
+              )}
+            >
+              <div className="px-[6px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+                <IconSmallArrow width="16" className="mr-[5px]" />
+                {`Schedule a tour`}
+              </div>
+            </Btn>
+          ) : (
+            <Btn
+              type="button"
+              onClick={openWaitlist}
+              className={classNames(
+                headerLinksShown ? 'opacity-100' : 'opacity-0',
+                'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
+              )}
+            >
+              <div className="w-[100px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+                <IconSmallArrow width="16" className="mr-[5px]" />
+                {`Waitlist`}
+              </div>
+            </Btn>
+          )}
 
           <HeaderMenu
             customOpen={menuOpen}

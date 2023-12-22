@@ -119,6 +119,13 @@ export interface Page extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
+   * Show Tour Link — `boolean`
+   *
+   * Show the tour link in the header instead of waitlist
+   */
+  showTourLink?: boolean;
+
+  /**
    * Preview Image — `image`
    *
    *
@@ -173,6 +180,13 @@ export interface Property extends SanityDocument {
    *
    */
   slug?: { _type: "slug"; current: string };
+
+  /**
+   * Show Tour Link — `boolean`
+   *
+   * Show the tour link in the header instead of waitlist
+   */
+  showTourLink?: boolean;
 
   /**
    * Card Image — `media`
@@ -324,6 +338,13 @@ export interface Unit extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
+   * Show Tour Link — `boolean`
+   *
+   * Show the tour link in the header instead of waitlist
+   */
+  showTourLink?: boolean;
+
+  /**
    * Available — `boolean`
    *
    *
@@ -350,6 +371,13 @@ export interface Unit extends SanityDocument {
    *
    */
   price?: string;
+
+  /**
+   * Crypto Price — `string`
+   *
+   *
+   */
+  cryptoPrice?: string;
 
   /**
    * Area — `string`
@@ -394,6 +422,13 @@ export interface Unit extends SanityDocument {
   factSheet?: Table;
 
   /**
+   * Unit Details — `richText`
+   *
+   *
+   */
+  unitDetails?: RichText;
+
+  /**
    * Layout Images — `array`
    *
    *
@@ -420,13 +455,6 @@ export interface Unit extends SanityDocument {
    *
    */
   moreInfo?: RichText;
-
-  /**
-   * Unit Details — `array`
-   *
-   *
-   */
-  unitDetails?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Second Unit Details — `array`
@@ -814,6 +842,13 @@ export type TextAndImage = {
    *
    */
   text?: RichText;
+
+  /**
+   * Alt Crypto Text — `richText`
+   *
+   * Replaces text in crypto mode
+   */
+  altCryptoText?: RichText;
 };
 
 export type Tooltip = {
@@ -878,11 +913,14 @@ export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
   | SanityKeyed<AnimatingBlock>
   | SanityKeyed<CarouselBlock>
+  | SanityKeyed<PropertyBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
   | SanityKeyed<TextBlock>
+  | SanityKeyed<UnitBlock>
   | SanityKeyed<WaitlistBlock>
+  | SanityKeyed<FlexWaitlistBlock>
 >;
 
 export type AccordionBlock = {
@@ -941,6 +979,23 @@ export type CarouselBlock = {
    *
    */
   images?: Array<SanityKeyed<Media>>;
+};
+
+export type PropertyBlock = {
+  _type: "propertyBlock";
+  /**
+   * Property Reference — `reference`
+   *
+   *
+   */
+  propertyRef?: SanityReference<Property>;
+
+  /**
+   * Footer Copy — `string`
+   *
+   *
+   */
+  footerCopy?: string;
 };
 
 export type PropertiesBlock = {
@@ -1018,6 +1073,16 @@ export type TextBlock = {
   text?: RichText;
 };
 
+export type UnitBlock = {
+  _type: "unitBlock";
+  /**
+   * Unit Reference — `reference`
+   *
+   *
+   */
+  unitRef?: SanityReference<Unit>;
+};
+
 export type WaitlistBlock = {
   _type: "waitlistBlock";
   /**
@@ -1047,6 +1112,44 @@ export type WaitlistBlock = {
    *
    */
   successMessage?: RichText;
+};
+
+export type FlexWaitlistBlock = {
+  _type: "flexWaitlistBlock";
+  /**
+   * Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Text — `richText`
+   *
+   *
+   */
+  text?: RichText;
+
+  /**
+   * Audience ID — `string`
+   *
+   *
+   */
+  audienceId?: string;
+
+  /**
+   * Success Message — `richText`
+   *
+   *
+   */
+  successMessage?: RichText;
+
+  /**
+   * Form Panes — `array`
+   *
+   *
+   */
+  formPanes?: Array<SanityKeyed<string>>;
 };
 
 export type Documents =

@@ -39,6 +39,12 @@ export default {
       },
     },
     {
+      name: 'showTourLink',
+      title: 'Show Tour Link',
+      description: 'Show the tour link in the header instead of waitlist',
+      type: 'boolean',
+    },
+    {
       title: 'Available',
       name: 'available',
       type: 'boolean',
@@ -64,6 +70,11 @@ export default {
     {
       name: 'price',
       title: 'Price',
+      type: 'string',
+    },
+    {
+      name: 'cryptoPrice',
+      title: 'Crypto Price',
       type: 'string',
     },
     {
@@ -99,6 +110,11 @@ export default {
       options: { collapsable: true, collapsed: true },
     },
     {
+      name: 'unitDetails',
+      title: 'Unit Details',
+      type: 'richText',
+    },
+    {
       name: 'layoutImages',
       title: 'Layout Images',
       type: 'array',
@@ -122,12 +138,6 @@ export default {
       name: 'moreInfo',
       title: 'More Info',
       type: 'richText',
-    },
-    {
-      name: 'unitDetails',
-      title: 'Unit Details',
-      type: 'array',
-      of: [{ type: 'accordion', title: 'Unit Details' }],
     },
     {
       name: 'secondUnitDetails',

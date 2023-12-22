@@ -69,13 +69,17 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
       </Modal>
 
       <div className="pr-mobile-menu md:pr-0 flex mt-2">
-        <IconSmallBlackArrow width="13" height="32" className="mr-[3px]" />
+        <IconSmallBlackArrow
+          width="20"
+          height="32"
+          className="mt-[3px] mr-[4px]"
+        />
         <button
           onClick={() => {
             setIsOpen(true)
             handleGoogleEvent()
           }}
-          className="font-medium border-bottom mt-2 mb-8 ml-2"
+          className="font-bold border-bottom mt-2 mb-8 ml-2"
         >
           {modalType}
         </button>

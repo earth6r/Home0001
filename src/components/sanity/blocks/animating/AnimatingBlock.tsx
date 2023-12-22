@@ -22,7 +22,7 @@ import {
   useScroll,
   useTransform,
 } from 'framer-motion'
-import { useHeaderLinks } from '@contexts/header'
+import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import _ from 'lodash'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
@@ -153,11 +153,11 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   className,
 }) => {
   const scrollRef = useRef(null)
-  const isInView = useInView(scrollRef)
   const [animateActive, setAnimateActive] = useState(false)
   const [showContent, setShowContent] = useState(false)
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
+  const [cryptoMode, setCryptoMode] = useCryptoMode()
 
   // account for header ~ JLM
   const citiesPos = header && citiesPosition && citiesPosition - 1
@@ -236,7 +236,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'md:max-w-[768px] lg:max-w-[1000px] md:mx-auto px-x md:px-fullmenu mt-0 mb-[120px] md:mb-[25vh]'
+        'md:max-w-[768px] lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-block'
       )}
     >
       {showContent && (
@@ -275,27 +275,31 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
             className="relative opacity-0"
           >
             {textAndImages &&
-              textAndImages.map(({ _key, aspect, media, text }, index) => (
-                <div key={_key}>
-                  {media && <AnimatingImage media={media} aspect={aspect} />}
+              textAndImages.map(
+                ({ _key, aspect, media, text, altCryptoText }, index) => (
+                  <div key={_key}>
+                    {media && <AnimatingImage media={media} aspect={aspect} />}
 
-                  {text && (
-                    <RichText
-                      blocks={text}
-                      className={classNames(
-                        index !== 0 ? 'mt-3 md:mt-5' : '',
-                        'relative'
-                      )}
-                    />
-                  )}
+                    {text && (
+                      <RichText
+                        blocks={
+                          cryptoMode && altCryptoText ? altCryptoText : text
+                        }
+                        className={classNames(
+                          index !== 0 ? 'mt-3 md:mt-5' : '',
+                          'relative'
+                        )}
+                      />
+                    )}
 
-                  {index === citiesPos && (
-                    <div className="mt-3 md:mt-5">
-                      <CitiesList citiesList={citiesList} />
-                    </div>
-                  )}
-                </div>
-              ))}
+                    {index === citiesPos && (
+                      <div className="mt-3 md:mt-5">
+                        <CitiesList citiesList={citiesList} />
+                      </div>
+                    )}
+                  </div>
+                )
+              )}
           </motion.div>
         </AnimatePresence>
       )}

@@ -12,6 +12,7 @@ import { getPageStaticProps } from '@lib/next'
 import { BODY_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { BlockContent } from '@components/sanity'
 import PageTransition from '@components/transition/PageTransition'
+import classNames from 'classnames'
 
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 
@@ -19,6 +20,7 @@ const ALL_SLUGS_QUERY = groq`*[_type == "page" && defined(slug.current)][].slug.
 const PAGE_QUERY = groq`
   *[_type == "page" && slug.current == $slug]{
     _id,
+    showTourLink,
     ${BODY_QUERY}
   }
 `
@@ -39,14 +41,19 @@ const Page: NextPage<PageProps> = (
   ref: PageRefType
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
-
+  const filteredBlocks = page.body?.filter(
+    (block: any) => block._type === 'propertyBlock'
+  )
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
         <BlockContent
           grid={true}
           blocks={page?.body}
-          className="flex flex-col container pt-page"
+          className={classNames(
+            filteredBlocks && filteredBlocks?.length > 0 ? 'pl-x' : 'container',
+            'flex flex-col pt-page'
+          )}
         />
       </article>
     </PageTransition>

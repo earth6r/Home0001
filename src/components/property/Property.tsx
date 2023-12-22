@@ -4,7 +4,7 @@ import { BlockContent, RichText, SanityMedia } from '@components/sanity'
 import MapDialog from '@components/map/MapDialog'
 import { UnitsList } from '@components/unit'
 import { PropertyElProps } from './types'
-import { Waitlist } from '@components/waitlist'
+// import { Waitlist } from '@components/waitlist'
 
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,

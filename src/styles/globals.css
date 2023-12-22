@@ -13,6 +13,8 @@
   --space-menu: 3.625rem;
   --space-page: 88px;
 
+  --space-block: 56px;
+
   /* container wrap sizes */
   --wrap: 1248px;
   --wrap-2xs: 400px;
@@ -44,6 +46,8 @@
   :root {
     --space-x: 2.5rem;
     --space-y: 2.5rem;
+
+    --space-block: 150px;
 
     --header-height: 80px;
     --gradient-height: 90px;
@@ -172,6 +176,10 @@ body {
 
 .swiper-button-disabled {
   opacity: 0.4;
+}
+
+.hide-cta .cta {
+  display: none;
 }
 
 @media (min-width: 768px) {
