@@ -5,6 +5,8 @@ import { Link } from '@components/links'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
 import { useCookies } from 'react-cookie'
+import { Listbox } from '@headlessui/react'
+import IconPlus from '@components/icons/IconPlus'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   fields?: {
@@ -173,28 +175,59 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
         {fields?.showContact && (
           <>
-            <label htmlFor="hs_persona">Which best describes you?</label>
-            <select
-              id="hs_persona"
-              defaultValue={'default'}
-              {...register('hs_persona', { required: true })}
-              className="input"
-            >
-              <option disabled selected value={'default'}>
-                -- select an option --
-              </option>
-              <option value="purchasing">
-                I am interested in purchasing a home.
-              </option>
-              <option value="learn_more">
-                I want to learn more about HOME0001.
-              </option>
-              <option value="realitor">I am a realtor.</option>
-            </select>
+            <label htmlFor="hs_persona" className="font-medium mt-yhalf">
+              Which best describes you?
+            </label>
+
+            <div>
+              <input
+                type="radio"
+                value="purchasing"
+                id="purchasing"
+                {...register('hs_persona', { required: false })}
+              />
+              <label
+                className="text-left cursor-pointer font-medium text-sm"
+                htmlFor="purchasing"
+              >
+                {`I am interested in purchasing a home.`}
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                value="learn_more"
+                id="learn_more"
+                {...register('hs_persona', { required: false })}
+              />
+              <label
+                className="text-left cursor-pointer font-medium text-sm"
+                htmlFor="learn_more"
+              >
+                {`I want to learn more about HOME0001.`}
+              </label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                value="realitor"
+                id="realitor"
+                {...register('hs_persona', { required: false })}
+              />
+              <label
+                className="text-left cursor-pointer font-medium text-sm"
+                htmlFor="realitor"
+              >
+                {`I am a realtor.`}
+              </label>
+            </div>
+
             <textarea
               rows={5}
               id="message"
-              className="block p-5"
+              className="block p-5 mt-yhalf"
               placeholder="LEAVE US A MESSAGE"
               {...register('message', { required: true })}
             />

@@ -30,6 +30,7 @@ export interface KeyedUnitProps
   property?: SanityReference<Property>
   propertyType?: KeyedPropertyType
   price?: string
+  cryptoPrice?: string
   area?: string
   amenities?: RichText
   headlineImage?:
@@ -48,7 +49,7 @@ export interface KeyedUnitProps
   confirmationCopy?: RichText
   summary?: RichText
   factSheet?: any
-  unitDetails?: SanityKeyed<Accordion>[]
+  unitDetails?: RichText
   secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]
   layoutImagesOptions?: {

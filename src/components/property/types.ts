@@ -55,4 +55,5 @@ export interface PropertyElProps
   extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref' | 'property'>,
     Omit<HTMLAttributes<HTMLElement>, 'property'> {
   property?: PropertyContentProps
+  footerCopy?: string
 }

@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { useRef, type FC, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import type {
   CitiesBlockProps,
@@ -7,7 +7,7 @@ import type {
 } from './types'
 import { Block, RichText, SanityMedia } from '@components/sanity'
 import Link from 'next/link'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { sendGoogleEvent } from '@lib/util'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
@@ -16,15 +16,27 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   slug,
   index,
 }) => {
+  const scrollRef = useRef(null)
+  const isInView = useInView(scrollRef, { once: true, amount: 0.4 })
+  const [isMobile, setIsMobile] = useState(true)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsMobile(window.innerWidth <= 768)
+    }
+  }, [])
+
   return (
     <AnimatePresence>
       <motion.div
         key={`${slug.current}-${index}`}
+        ref={scrollRef}
         custom={index}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: index ? index + 1 * 0.2 : 0 }}
-        viewport={{ amount: 'some', once: true }}
+        style={{
+          transform: isInView ? 'scale(1)' : 'scale(0.99)',
+          opacity: isInView ? 1 : 0,
+          transition: `all 800ms ease-in-out ${index && isMobile ? 0.2 : 0}s`,
+        }}
         className="flex w-full opacity-0"
       >
         <Link
@@ -37,7 +49,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           }
         >
           {image && (
-            <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:max-h-[635px] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
+            <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:pb-[75%] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
@@ -71,7 +83,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className, 'md:mb-page', '-ml-[2px]')}>
+    <Block className={classNames(className, 'mt-0 -ml-[2px]')}>
       <div>
         <div className="grid md:grid-cols-2 gap-14 xl:gap-[150px] md:px-menu">
           {properties &&

@@ -6,6 +6,10 @@
   margin-top: var(--rich-text-y);
 }
 
+.rich-text.underlined > p {
+  @apply border-bottom border-[#DDD] pb-yhalf mt-yhalf;
+}
+
 .rich-text > ul,
 .rich-text > ol,
 .rich-text > blockquote,

@@ -45,6 +45,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <Header
           className="flex-initial"
           path={asPath}
+          showTourLink={page?.showTourLink}
           property={(page as Unit)?.property}
           currentTitle={
             ((page as Property) || (page as Unit))?.headerText || page?.title

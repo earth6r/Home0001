@@ -54,6 +54,94 @@ export const CITY_QUERY = `
   }
 `
 
+export const UNIT_QUERY = `
+  _key,
+  _id,
+  slug,
+  title,
+  headerText,
+  available,
+  price,
+  cryptoPrice,
+  area,
+  amenities,
+  summary,
+  factSheet,
+  reserveFormCopy,
+  confirmationCopy,
+  moreInfo,
+  unitDetails,
+  secondUnitDetails,
+  "propertyType": propertyType->{
+    typeTitle,
+    typeValue,
+  },
+  "headlineImage": headlineImage{
+    ${MEDIA_QUERY}
+  },
+  "photographs": photographs[]{
+    ${MEDIA_QUERY}
+  },
+  "layoutImages": layoutImages[]{
+    ${MEDIA_QUERY}
+  },
+  "property": property->{
+    headerText,
+    slug,
+    "location": location->{
+      title,
+    },
+  },
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
+  },
+`
+
+export const PROPERTY_QUERY = `
+  _key,
+  _id,
+  title,
+  slug,
+  headerText,
+  header,
+  coordinates,
+  "image": image{
+    ${MEDIA_QUERY}
+  },
+  availableText,
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
+  },
+  "body": body[]{
+    ...,
+    "text": text[]{
+      ...,
+      markDefs[]{
+        ...,
+        ${LINK_MARKDEFS_QUERY}
+      },
+    },
+    "accordions": accordions[]{
+      ...,
+      "text": text[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      },
+      cta{
+        ${CTA_QUERY}
+      }
+    },
+    "media": media{
+      ${MEDIA_QUERY}
+    },
+  },
+`
+
 export const BODY_QUERY = `
   "body": body[]{
     ...,
@@ -96,49 +184,12 @@ export const BODY_QUERY = `
       longTitle,
       slug,
     },
-  },
-`
-
-export const UNIT_QUERY = `
-  _key,
-  _id,
-  slug,
-  title,
-  headerText,
-  available,
-  price,
-  area,
-  amenities,
-  summary,
-  factSheet,
-  reserveFormCopy,
-  confirmationCopy,
-  moreInfo,
-  unitDetails,
-  secondUnitDetails,
-  "propertyType": propertyType->{
-    typeTitle,
-    typeValue,
-  },
-  "headlineImage": headlineImage{
-    ${MEDIA_QUERY}
-  },
-  "photographs": photographs[]{
-    ${MEDIA_QUERY}
-  },
-  "layoutImages": layoutImages[]{
-    ${MEDIA_QUERY}
-  },
-  "property": property->{
-    headerText,
-    slug,
-    "location": location->{
-      title,
+    "propertyRef": propertyRef->{
+      ${PROPERTY_QUERY}
     },
-  },
-  seo,
-  "previewImage": previewImage{
-    ${MEDIA_QUERY}
+    "unitRef": unitRef->{
+      ${UNIT_QUERY}
+    },
   },
 `
 
@@ -166,6 +217,7 @@ export const PROPERTIES_QUERY = `
     title,
     available,
     price,
+    cryptoPrice,
     area,
     "photographs": photographs[]{
       ${MEDIA_QUERY}

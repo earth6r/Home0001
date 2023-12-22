@@ -1,4 +1,4 @@
-import { type FC, useContext } from 'react'
+import { type FC, useContext, useEffect, useState } from 'react'
 import { HomeContext } from '@contexts/home'
 import classNames from 'classnames'
 import { KeyedUnitProps, UnitListProps } from './types'
@@ -8,10 +8,34 @@ import { sendGoogleEvent } from '@lib/util'
 import Link from 'next/link'
 import { ImageCarousel } from '@components/carousel'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
-
+import { useCryptoMode } from '@contexts/header'
+import {
+  convertUsdToEthPrice,
+  convertUsdToBtcPrice,
+} from '@lib/util/crypto-pricing'
 export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
+  const [cryptoMode, setCryptoMode] = useCryptoMode()
+  const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
+
+  useEffect(() => {
+    const fetchCryptoPrice = async (usdPrice: any) => {
+      const currentEthPrice = await convertUsdToEthPrice(usdPrice)
+      const roundedEthPrice = Number(currentEthPrice.toFixed(2))
+      const currentBtcPrice = await convertUsdToBtcPrice(usdPrice)
+      const roundedBtcPrice = Number(currentBtcPrice.toFixed(2))
+      return [roundedEthPrice, roundedBtcPrice]
+    }
+
+    if (unit?.price != 'Inquire') {
+      const usdPrice = unit?.price
+
+      fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
+        setCryptoPrice(cryptoPrices)
+      })
+    }
+  }, [unit])
 
   const dispatchUnit = (unit: KeyedUnitProps, title?: string) => {
     dispatch({
@@ -80,7 +104,13 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
             <div className="block w-auto max-w-[467px] bg-darkgray py-x pl-x mr-4 md:mr-0 pr-menu">
               <div className="mb-2 text-left rich-text">
                 <p className="small md:col-start-1 col-start-2 md:col-span-1 text-left">
-                  {unit.price}
+                  {unit?.price == 'Inquire'
+                    ? 'Price upon request'
+                    : cryptoMode
+                    ? `${unit.price?.substring(1)} USDC / ${
+                        cryptoPrice[1]
+                      } BTC / ${cryptoPrice[0]} ETH`
+                    : unit?.price}
                 </p>
                 {unit.area && (
                   <p className="small mb-5">

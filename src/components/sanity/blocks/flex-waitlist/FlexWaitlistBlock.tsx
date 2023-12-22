@@ -1,21 +1,25 @@
 import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import type { WaitlistBlock as WaitlistBlockType } from '@gen/sanity-schema'
+import type { FlexWaitlistBlock as FlexWaitlistBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block } from '@components/sanity'
 import { useForm } from 'react-hook-form'
 import { Waitlist } from '@components/waitlist'
 
-type WaitlistBlockProps = Omit<SanityBlockElement, keyof WaitlistBlockType> &
-  WaitlistBlockType
+type FlexWaitlistBlockProps = Omit<
+  SanityBlockElement,
+  keyof FlexWaitlistBlockType
+> &
+  FlexWaitlistBlockType
 
-export const WaitlistBlock: FC<WaitlistBlockProps> = ({
+export const FlexWaitlistBlock: FC<FlexWaitlistBlockProps> = ({
   header,
   text,
   grid,
   audienceId,
   successMessage,
+  formPanes,
   className,
 }) => {
   const { register, handleSubmit, reset, trigger, getValues } = useForm({
@@ -52,6 +56,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
             register,
             getValues,
           }}
+          formPanes={formPanes}
+          broker={false}
           setFullWidth={() => setFullWidth(true)}
           fullWidth={fullWidth}
           className={classNames(
@@ -64,4 +70,4 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   )
 }
 
-export default WaitlistBlock
+export default FlexWaitlistBlock
