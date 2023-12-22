@@ -107,7 +107,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                   {unit?.price == 'Inquire'
                     ? 'Price upon request'
                     : cryptoMode
-                    ? `${unit.price?.substring(1)} USD / ${
+                    ? `${unit.price?.substring(1)} USDC / ${
                         cryptoPrice[1]
                       } BTC / ${cryptoPrice[0]} ETH`
                     : unit?.price}
