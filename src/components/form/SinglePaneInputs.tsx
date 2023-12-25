@@ -182,7 +182,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             <div>
               <input
                 type="radio"
-                value="purchasing"
+                value="persona_2"
                 id="purchasing"
                 {...register('hs_persona', { required: false })}
               />
@@ -197,7 +197,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             <div>
               <input
                 type="radio"
-                value="learn_more"
+                value="persona_3"
                 id="learn_more"
                 {...register('hs_persona', { required: false })}
               />
@@ -212,7 +212,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             <div>
               <input
                 type="radio"
-                value="realitor"
+                value="persona_1"
                 id="realitor"
                 {...register('hs_persona', { required: false })}
               />
