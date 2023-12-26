@@ -225,6 +225,19 @@ export const Header: FC<HeaderProps> = ({
                 headerLinksShown ? 'opacity-100' : 'opacity-0',
                 'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
               )}
+              onClick={() => {
+                if (location.pathname.includes('les')) {
+                  window.open(
+                    'https://calendly.com/tourlower-east-side0001/',
+                    '_blank'
+                  )
+                } else {
+                  window.open(
+                    'https://calendly.com/tourecho-park0001/',
+                    '_blank'
+                  )
+                }
+              }}
             >
               <div className="px-[6px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
                 <IconSmallArrow width="16" className="mr-[5px]" />
