@@ -10,6 +10,7 @@ import type { HTMLAttributes } from 'react'
 export interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
     _id?: string
+    slug?: { current?: string }
   }
 }
 

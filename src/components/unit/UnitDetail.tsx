@@ -40,6 +40,9 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
     }
   }, [unit])
 
+  //@ts-ignore
+  const calendarURL = `https://calendly.com/tour${unit?.property?.slug?.current}0001/`
+
   return (
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 pr-[calc(var(--space-menu)+2px)] md:pr-0">
@@ -83,20 +86,24 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
                 <div className="hidden md:block md:col-start-5 md:col-span-3 md:pr-[calc(var(--space-full-menu)+9px)]">
                   <div className="mb-yhalf">
-                    <a href="mailto:totest@test.com">
-                      <button
-                        className={classNames(
-                          'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
-                        )}
-                      >
-                        {`Schedule a tour for this home`}
-                        <IconSmallArrow width="16" height="10" />
-                      </button>
-                    </a>
+                    <button
+                      onClick={() =>
+                        window.open(
+                          `${calendarURL}${unit?.slug?.current}`,
+                          '_blank'
+                        )
+                      }
+                      className={classNames(
+                        'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
+                      )}
+                    >
+                      {`Schedule a tour for this home`}
+                      <IconSmallArrow width="16" height="10" />
+                    </button>
                   </div>
 
                   <div className="mb-ydouble">
-                    <a href="mailto:totest@test.com">
+                    <a href="mailto:talin@home0001.com">
                       <button
                         className={classNames(
                           'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-xs uppercase font-medium z-above p-4'
@@ -142,26 +149,27 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
           )}
 
           <div className="md:hidden mb-yhalf md:max-w-[346px]">
-            <a href="mailto:totest@test.com">
-              <button
-                className={classNames(
-                  'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
-                )}
-              >
-                {`Schedule a tour for this home`}
-                <IconSmallArrow width="16" height="10" />
-              </button>
-            </a>
+            <button
+              className={classNames(
+                'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
+              )}
+              onClick={() =>
+                window.open(`${calendarURL}${unit?.slug?.current}`, '_blank')
+              }
+            >
+              {`Schedule a tour for this home`}
+              <IconSmallArrow width="16" height="10" />
+            </button>
           </div>
 
           <div className="md:hidden mb-ydouble md:max-w-[346px]">
-            <a href="mailto:totest@test.com">
+            <a href="mailto:talin@home0001.com">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-xs uppercase font-medium z-above p-4'
                 )}
               >
-                {`Inquire`}
+                {`Ask us a question`}
                 <IconSmallArrow width="16" height="10" fill="black" />
               </button>
             </a>
