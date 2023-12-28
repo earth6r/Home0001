@@ -6,6 +6,7 @@ import type { SanityBlockElement } from '@components/sanity'
 import { Block } from '@components/sanity'
 import { useForm } from 'react-hook-form'
 import { Waitlist } from '@components/waitlist'
+import { PreferenceForm } from '@components/preferenceForm'
 
 type FlexWaitlistBlockProps = Omit<
   SanityBlockElement,
@@ -22,6 +23,8 @@ export const FlexWaitlistBlock: FC<FlexWaitlistBlockProps> = ({
   formPanes,
   className,
 }) => {
+  console.log('className:', className)
+  console.log('grid', grid)
   const { register, handleSubmit, reset, trigger, getValues } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -41,7 +44,7 @@ export const FlexWaitlistBlock: FC<FlexWaitlistBlockProps> = ({
       )}
     >
       <div className="w-full">
-        <Waitlist
+        <PreferenceForm
           waitlist={{
             header: header,
             text: text,
