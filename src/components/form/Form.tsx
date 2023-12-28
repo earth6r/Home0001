@@ -71,7 +71,7 @@ export const Form: FC<FormProps> = ({
           )}
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           {children}
           {formError != null && (
             <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">
