@@ -19,10 +19,7 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({ details }) => {
 
   return (
     <>
-      <RichText
-        blocks={details.slice(0, 5)}
-        className="max-w-[500px] underlined"
-      />
+      <RichText blocks={details.slice(0, 5)} className="max-w-[500px]" />
 
       <Disclosure>
         {({ open }) => {
@@ -52,7 +49,7 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({ details }) => {
                   <div>
                     <RichText
                       blocks={details.slice(5, details.length)}
-                      className="max-w-[500px] underlined mb-ydouble"
+                      className="max-w-[500px] mb-ydouble"
                     />
                   </div>
                 </Disclosure.Panel>
