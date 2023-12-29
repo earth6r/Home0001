@@ -228,12 +228,12 @@ export const Header: FC<HeaderProps> = ({
               onClick={() => {
                 if (location.pathname.includes('les')) {
                   window.open(
-                    'https://calendly.com/tourlower-east-side0001/',
+                    'https://calendly.com/tourlower-east-side0001/scheduletour',
                     '_blank'
                   )
                 } else {
                   window.open(
-                    'https://calendly.com/tourecho-park0001/',
+                    'https://calendly.com/tourecho-park0001/scheduletour',
                     '_blank'
                   )
                 }

@@ -79,7 +79,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                     <p className="uppercase font-bold mb-y">Overview</p>
                     <RichText
                       blocks={unit?.summary}
-                      className="max-w-[500px] underlined"
+                      className="max-w-[500px]"
                     />
                   </div>
                 )}
@@ -88,16 +88,13 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                   <div className="mb-yhalf">
                     <button
                       onClick={() =>
-                        window.open(
-                          `${calendarURL}${unit?.slug?.current}`,
-                          '_blank'
-                        )
+                        window.open(`${calendarURL}scheduletour`, '_blank')
                       }
                       className={classNames(
                         'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
                       )}
                     >
-                      {`Schedule a tour for this home`}
+                      {`Schedule a tour`}
                       <IconSmallArrow width="16" height="10" />
                     </button>
                   </div>
@@ -157,7 +154,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 window.open(`${calendarURL}${unit?.slug?.current}`, '_blank')
               }
             >
-              {`Schedule a tour for this home`}
+              {`Schedule a tour`}
               <IconSmallArrow width="16" height="10" />
             </button>
           </div>
