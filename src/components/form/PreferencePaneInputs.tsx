@@ -3,11 +3,11 @@ import { HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { RichText as RichTextType, UnitGroup } from '@studio/gen/sanity-schema'
-import Pane from './Pane'
-import PreferencePane from './Pane'
+import PreferencePane from './PreferencePane'
 import { useBrokerInquiryModal } from '@contexts/modals'
 import { sendGoogleEvent } from '@lib/util'
 import { submitForm } from '@lib/util'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface CheckboxPaneProps extends PaneProps {
   fieldCode: string
@@ -17,6 +17,8 @@ interface CheckboxPaneProps extends PaneProps {
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
   register: UseFormRegister<FieldValues>
+  onClick?: () => void
+  onBack?: () => void
   broker?: boolean
 }
 
@@ -60,6 +62,32 @@ const LOCATIONS = [
   },
 ]
 
+const SELLINGHOME = [
+  {
+    label: 'Yes, tell me more',
+    name: 'Yes-sell',
+  },
+  {
+    label: `No, thanks`,
+    name: 'No-need',
+  },
+]
+
+const FINANCING = [
+  {
+    label: 'Yes, please connect me with a recommended mortgage broker',
+    name: 'Yes',
+  },
+  {
+    label: `No, I'm a cash buyer`,
+    name: 'Np-cash',
+  },
+  {
+    label: `No, I've got my mortgage sorted`,
+    name: 'No-sorted',
+  },
+]
+
 const TIMELINE = [
   {
     label: 'Immediately',
@@ -83,6 +111,24 @@ const TIMELINE = [
   },
 ]
 
+const AMENITIES = [
+  { label: 'Private balcony / terrace', name: 'Balcony' },
+  { label: 'Communal space in the building', name: 'Communal' },
+  { label: 'Doorman', name: 'Doorman' },
+  { label: 'Pool', name: 'Pool' },
+  { label: 'Roof deck (private / communal)', name: 'Roof deck' },
+  { label: 'Gym', name: 'Gym' },
+  { label: 'Garden (private / communal)', name: 'Garden' },
+  { label: 'Serviced home', name: 'Serviced home' },
+]
+
+const PRICES = [
+  { label: '<$500,000', name: 'lt5k' },
+  { label: '$500,000 - $750,000', name: '5kto7.5k' },
+  { label: '$750,000 - $1,000,000', name: '7.5kto1m' },
+  { label: '$1,000,000 - $1,500,000', name: '1mto1.5m' },
+  { label: '>$1,500,000', name: 'gt1.5m' },
+]
 const SIZES = [
   {
     label: 'Studio',
@@ -106,7 +152,12 @@ const SIZES = [
   },
 ]
 
-const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
+const NameEmailPane: FC<PaneProps> = ({
+  register,
+  broker,
+  className,
+  onClick,
+}) => {
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   return (
     <div className={className}>
@@ -115,16 +166,14 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
         id="first_name"
         className="waitlist input"
         placeholder="FIRST NAME"
-        // !to fix{...register('first_name', { required: 'First name is required' })}
-        {...register('first_name', { required: false })}
+        {...register('first_name', { required: 'First name is required' })}
       />
       <input
         type="text"
         id="last_name"
         className="waitlist input"
         placeholder="LAST NAME"
-        // ! to replace{...register('last_name', { required: 'Last name is required' })}
-        {...register('last_name', { required: false })}
+        {...register('last_name', { required: 'Last name is required' })}
       />
       <input
         placeholder="YOUR EMAIL"
@@ -132,15 +181,12 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
         id="email"
         className="waitlist input"
         {...register('email', {
-          required: false,
+          required: 'Email is required',
+          pattern: {
+            value: /\S+@\S+\.\S+/,
+            message: 'Please enter a valid email',
+          },
         })}
-        // {...register('email', {
-        //   required: 'Email is required',
-        //   pattern: {
-        //     value: /\S+@\S+\.\S+/,
-        //     message: 'Please enter a valid email',
-        //   },
-        // })}
       />
       <input
         type="text"
@@ -163,13 +209,31 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
         placeholder="CURRENT ZIP (OPTIONAL)"
         {...register('zip', { required: false })}
       />
+      <div
+        className={classNames(
+          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
+        )}
+      >
+        <button
+          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+          type={`button`}
+          onClick={onClick}
+        >
+          {`Submit`}
+          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+        </button>
+      </div>
     </div>
   )
 }
 
-const LocationsPane: FC<PaneProps> = ({ register, className }) => {
+const LocationsPane: FC<PaneProps> = ({
+  register,
+  className,
+  onClick,
+  onBack,
+}) => {
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
-
   return (
     <div className={className}>
       {LOCATIONS.map(({ label, name }) => (
@@ -213,12 +277,76 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
           'waitlist input mb-4'
         )}
       />
+      <p className="mb-ylg text-md font-medium">
+        What are your prefered neighborhoods?
+      </p>
+      <input
+        type="text"
+        placeholder="Prefered Neighborhoods"
+        {...register('what_are_your_preferred_neighborhoods_', {
+          required: false,
+        })}
+        className={classNames('waitlist input -mt-[15px] mb-10')}
+      />
+      <p className="mb-ylg text-md font-medium">
+        What would be the ideal size?
+      </p>
+      {SIZES.map(({ label, name }: any) => (
+        <div key={name}>
+          <input
+            type={'radio'}
+            value={name}
+            id={name}
+            {...register('bedroom_preference', { required: false })}
+          />
+          <label
+            className="text-left cursor-pointer font-medium text-md"
+            htmlFor={name}
+          >
+            {label}
+          </label>
+        </div>
+      ))}
+      <div
+        className={classNames(
+          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
+        )}
+      >
+        <button
+          className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"
+          type={'button'}
+          onClick={onBack}
+        >
+          <IconSmallArrow
+            width="13"
+            height="9"
+            fill="black"
+            className="transform rotate-180"
+          />
+        </button>
+
+        <button
+          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+          type={'button'}
+          onClick={onClick}
+        >
+          {'Submit'}
+          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+        </button>
+      </div>
     </div>
   )
 }
-const HomeTypesPane: FC<PaneProps> = ({ register, className }) => {
+const HomeTypesPane: FC<PaneProps> = ({
+  register,
+  className,
+  onBack,
+  onClick,
+}) => {
   const [hiddenInput1Shown, setHiddenInput1Shown] = useState(false)
+  console.log('hiddenInput1Shown:', hiddenInput1Shown)
   const [hiddenInput2Shown, setHiddenInput2Shown] = useState(false)
+  console.log('hiddenInput2Shown:', hiddenInput2Shown)
 
   return (
     <div className={className}>
@@ -258,15 +386,15 @@ const HomeTypesPane: FC<PaneProps> = ({ register, className }) => {
         <input
           type="checkbox"
           value={'Other'}
-          id={'Other'}
-          {...register('what_kind_of_home_are_you_looking_for_', {
+          id={'OtherHome'}
+          {...register('OtherHome', {
             required: false,
             onChange: () => setHiddenInput1Shown(!hiddenInput1Shown),
           })}
         />
         <label
           className="text-left cursor-pointer font-medium text-md"
-          htmlFor={'Other'}
+          htmlFor={'OtherHome'}
         >
           {'Other:'}
         </label>
@@ -274,7 +402,7 @@ const HomeTypesPane: FC<PaneProps> = ({ register, className }) => {
 
       <input
         type="text"
-        placeholder="Other Home Type?"
+        placeholder="Other Home Type"
         {...register('home_type', { required: false })}
         className={classNames(
           hiddenInput1Shown ? '' : 'opacity-0',
@@ -353,38 +481,152 @@ const HomeTypesPane: FC<PaneProps> = ({ register, className }) => {
         <input
           type="checkbox"
           value={'Other'}
-          id={'Other'}
-          {...register('will_this_be_your_primary_home_', {
+          id={'otherPrimary'}
+          {...register('otherPrimary', {
             required: false,
             onChange: () => setHiddenInput2Shown(!hiddenInput2Shown),
           })}
         />
         <label
           className="text-left cursor-pointer font-medium text-md"
-          htmlFor={'Other'}
+          htmlFor={'otherPrimary'}
         >
           {'Other'}
         </label>
-        <input
-          type="text"
-          placeholder="Property Purpose?"
-          {...register('primaryorsecondaryother', { required: false })}
-          className={classNames(
-            hiddenInput2Shown ? '' : 'opacity-0',
-            'waitlist input mb-4'
-          )}
-        />
+      </div>
+      <input
+        type="text"
+        placeholder="Property Purpose"
+        {...register('primaryorsecondaryother', { required: false })}
+        className={classNames(
+          hiddenInput2Shown ? '' : 'opacity-0',
+          'waitlist input mb-4'
+        )}
+      />
+      <div
+        className={classNames(
+          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
+        )}
+      >
+        <button
+          className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"
+          type={'button'}
+          onClick={onBack}
+        >
+          <IconSmallArrow
+            width="13"
+            height="9"
+            fill="black"
+            className="transform rotate-180"
+          />
+        </button>
+
+        <button
+          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+          type={`button`}
+          onClick={onClick}
+        >
+          {'Submit'}
+          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+        </button>
       </div>
     </div>
   )
 }
 
-const CheckboxPane: FC<CheckboxPaneProps> = ({
+const ScheduleCallPane: FC<PaneProps> = ({}) => {
+  return (
+    <a href="calendly.com/tourlower-east-side0001/schedulecall" target="_blank">
+      Schedule a call
+    </a>
+  )
+}
+const FinancingRadioPane: FC<PaneProps> = ({
+  register,
+  className,
+  onBack,
+  onClick,
+}) => {
+  return (
+    <div className={classNames(className)}>
+      {FINANCING.map(({ label, name }: any) => (
+        <div key={name}>
+          <input
+            type={'radio'}
+            value={name}
+            id={name}
+            {...register('purchase_type', {
+              required: false,
+            })}
+          />
+          <label
+            className="text-left cursor-pointer font-medium text-md"
+            htmlFor={name}
+          >
+            {label}
+          </label>
+        </div>
+      ))}
+      <br></br>
+      <p className="mb-ylg text-md font-medium">
+        Would you like help selling your current home?
+      </p>
+      {SELLINGHOME.map(({ label, name }: any) => (
+        <div key={name}>
+          <input
+            type={'radio'}
+            value={name}
+            id={name}
+            {...register('would_you_like_help_selling_your_current_home_', {
+              required: false,
+            })}
+          />
+          <label
+            className="text-left cursor-pointer font-medium text-md"
+            htmlFor={name}
+          >
+            {label}
+          </label>
+        </div>
+      ))}
+      <div
+        className={classNames(
+          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
+        )}
+      >
+        <button
+          className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"
+          type={'button'}
+          onClick={onBack}
+        >
+          <IconSmallArrow
+            width="13"
+            height="9"
+            fill="black"
+            className="transform rotate-180"
+          />
+        </button>
+
+        <button
+          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+          type={'submit'}
+          onClick={onClick}
+        >
+          {'Submit'}
+          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+        </button>
+      </div>
+    </div>
+  )
+}
+const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
   fields,
   fieldCode,
   type,
   register,
   className,
+  onBack,
+  onClick,
 }) => {
   return (
     <div className={classNames(className)}>
@@ -404,6 +646,73 @@ const CheckboxPane: FC<CheckboxPaneProps> = ({
           </label>
         </div>
       ))}
+      <br></br>
+      <p className="mb-ylg text-md font-medium">
+        {"So, what's your price range?"}
+      </p>
+      {PRICES.map(({ label, name }: any) => (
+        <div key={name}>
+          <input
+            type={'checkbox'}
+            value={name}
+            id={name}
+            {...register('price_range', { required: false })}
+          />
+          <label
+            className="text-left cursor-pointer font-medium text-md"
+            htmlFor={name}
+          >
+            {label}
+          </label>
+        </div>
+      ))}
+      <br></br>
+      <p className="mb-ylg text-md font-medium">
+        {"And what's your timeline?"}
+      </p>
+      {TIMELINE.map(({ label, name }: any) => (
+        <div key={name}>
+          <input
+            type={'radio'}
+            value={name}
+            id={name}
+            {...register('buyingtimelinedec2023', { required: false })}
+          />
+          <label
+            className="text-left cursor-pointer font-medium text-md"
+            htmlFor={name}
+          >
+            {label}
+          </label>
+        </div>
+      ))}
+      <div
+        className={classNames(
+          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
+        )}
+      >
+        <button
+          className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"
+          type={'button'}
+          onClick={onBack}
+        >
+          <IconSmallArrow
+            width="13"
+            height="9"
+            fill="black"
+            className="transform rotate-180"
+          />
+        </button>
+
+        <button
+          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+          type={'button'}
+          onClick={onClick}
+        >
+          {'Submit'}
+          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+        </button>
+      </div>
     </div>
   )
 }
@@ -422,6 +731,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
   formValues,
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
+
   return (
     <div
       className={classNames(
@@ -439,37 +749,17 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
         copy={copy}
         buttonType={`button`}
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
-        onClick={async () => {
-          const data = formValues()
-          const options = {
-            location: window.location.pathname,
-          }
-          const { first_name, last_name, email } = data
-
-          sendGoogleEvent('started waitlist form', options)
-          const formData = {
-            first_name: first_name,
-            last_name: last_name,
-            email: email,
-          }
-          //todo: should we move form ID to sanity for this one?
-          const form_ID = 'e44ec9f1-928b-429b-8293-0b561d7b64b5'
-          //   await submitForm(formData, form_ID, 'started_submit')
-          const triggerResult = await trigger()
-          if (triggerResult) {
-            setCurrentStep(currentStep + 1)
-            setFullWidth && setFullWidth()
-          }
-        }}
       >
         <NameEmailPane
           broker={broker === false ? false : block}
           register={register}
-          className={classNames(
-            currentStep !== 0 ? 'hidden' : '',
-            block ? 'h-[220px]' : '',
-            'flex flex-col gap-3 md:h-auto'
-          )}
+          onClick={async () => {
+            const triggerResult = await trigger()
+            if (triggerResult) {
+              setCurrentStep(currentStep + 1)
+            }
+          }}
+          className={classNames('flex flex-col gap-3 md:h-auto')}
         />
       </PreferencePane>
 
@@ -486,51 +776,32 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
       >
         <HomeTypesPane
           register={register}
+          onBack={() => setCurrentStep(currentStep - 1)}
+          onClick={() => setCurrentStep(currentStep + 1)}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
-            'flex flex-col gap-4 h-[320px]'
+            'flex flex-col gap-4 order-0'
           )}
         />
       </PreferencePane>
-      {/* <Pane
-        enter={currentStep === 1}
-        currentStep={currentStep}
-        header={`Join the waitlist`}
-        copy={'Where do you want to own?'}
-        buttonCopy={`Submit`}
-        buttonType={`button`}
-        onClick={() => setCurrentStep(currentStep + 1)}
-        onBack={() => setCurrentStep(currentStep - 1)}
-        className={currentStep !== 1 ? 'hidden' : ''}
-      >
-        <LocationsPane
-          register={register}
-          className={classNames(
-            currentStep !== 1 ? 'hidden' : '',
-            'flex flex-col gap-4 h-[320px]'
-          )}
-        />
-      </Pane> */}
-
       <PreferencePane
         enter={currentStep === 2}
         currentStep={currentStep}
         header={`Join the waitlist`}
-        copy={`When are you looking to buy?`}
-        buttonCopy="Submit"
-        buttonType="button"
+        copy={'Where do you want to own a 0001 home?'}
+        buttonCopy={`Submit`}
+        buttonType={`button`}
         onClick={() => setCurrentStep(currentStep + 1)}
         onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 2 ? 'hidden' : ''}
       >
-        <CheckboxPane
-          fields={TIMELINE}
-          type={'radio'}
-          fieldCode="buyingtimelinedec2023"
+        <LocationsPane
           register={register}
+          onClick={() => setCurrentStep(currentStep + 1)}
+          onBack={() => setCurrentStep(currentStep - 1)}
           className={classNames(
             currentStep !== 2 ? 'hidden' : '',
-            'flex flex-col gap-4 h-[320px]'
+            'flex flex-col gap-4'
           )}
         />
       </PreferencePane>
@@ -539,19 +810,44 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
         enter={currentStep === 3}
         currentStep={currentStep}
         header={`Join the waitlist`}
-        copy={`Last question: how many bedrooms are you looking for?`}
-        buttonCopy={buttonCopy}
-        buttonType="submit"
+        copy={`Which amenities are most important to you? (Select all that apply)`}
+        buttonCopy="Submit"
+        buttonType="button"
+        onClick={() => setCurrentStep(currentStep + 1)}
         onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 3 ? 'hidden' : ''}
       >
-        <CheckboxPane
-          fields={SIZES}
-          fieldCode="bedroom_preference"
+        <CheckboxPaneAmenities
+          fields={AMENITIES}
+          type={'checkbox'}
+          fieldCode="which_amenities_are_most_important_to_you_"
           register={register}
+          onClick={() => setCurrentStep(currentStep + 1)}
+          onBack={() => setCurrentStep(currentStep - 1)}
           className={classNames(
             currentStep !== 3 ? 'hidden' : '',
-            'flex flex-col gap-4 h-[292px] md:h-[320px]'
+            'flex flex-col gap-4 '
+          )}
+        />
+      </PreferencePane>
+      <PreferencePane
+        enter={currentStep === 4}
+        currentStep={currentStep}
+        header={`Join the waitlist`}
+        copy={`Would you like our support to help with financing`}
+        buttonCopy="Submit"
+        buttonType="button"
+        onClick={() => setCurrentStep(currentStep + 1)}
+        onBack={() => setCurrentStep(currentStep - 1)}
+        className={currentStep !== 4 ? 'hidden' : ''}
+      >
+        <FinancingRadioPane
+          register={register}
+          onClick={() => setCurrentStep(currentStep + 1)}
+          onBack={() => setCurrentStep(currentStep - 1)}
+          className={classNames(
+            currentStep !== 4 ? 'hidden' : '',
+            'flex flex-col gap-4 '
           )}
         />
       </PreferencePane>

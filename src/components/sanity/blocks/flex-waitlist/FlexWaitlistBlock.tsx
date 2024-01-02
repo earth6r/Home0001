@@ -23,8 +23,6 @@ export const FlexWaitlistBlock: FC<FlexWaitlistBlockProps> = ({
   formPanes,
   className,
 }) => {
-  console.log('className:', className)
-  console.log('grid', grid)
   const { register, handleSubmit, reset, trigger, getValues } = useForm({
     shouldUseNativeValidation: true,
   })
