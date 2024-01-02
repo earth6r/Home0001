@@ -42,15 +42,15 @@ export const PreferenceForm: FC<PreferenceProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
-      <div className="h-auto pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[38px] bg-yellow">
+      <div className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[81px] pt-[33px] md:px-x md:pb-[96px] md:pt-[38px] bg-yellow h-full overflow-auto">
         <Form
-          formType="modal"
-          audienceId={waitlist?.id}
+          formType="preference"
+          audienceId={'bb463f94-85c4-4e57-9fc8-20fa3757be04'}
           successMessage={waitlist?.successMessage}
           formSubmitted={formActions.formSubmitted}
           handleSubmit={formActions.handleSubmit}
           setFormSubmitted={formActions.setFormSubmitted}
-          className="w-full h-auto"
+          className="w-full"
           isHomeBlock={true}
         >
           <PreferencePaneInputs
