@@ -80,7 +80,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
             />
           )}
 
-          <div className="md:col-span-3 mb-y mt-yhalf md:max-w-[346px] pr-menu md:pr-0">
+          <div className="md:col-span-3 mb-y mt-ydouble md:max-w-[346px] pr-menu md:pr-0">
             <Link href={'./how-it-works'}>
               <button
                 className={classNames(

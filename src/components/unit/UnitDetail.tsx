@@ -75,8 +75,8 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
               <div className="md:grid md:grid-cols-7">
                 {unit?.summary && (
-                  <div className="md:col-span-3">
-                    <p className="uppercase font-bold mb-y">Overview</p>
+                  <div className="md:col-span-3 mt-[75px]">
+                    <p className="uppercase font-bold mb-y mt-12">Overview</p>
                     <RichText
                       blocks={unit?.summary}
                       className="max-w-[500px]"
@@ -132,7 +132,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (
             <>
-              <p className="uppercase text-md font-bold mb-y">Plans</p>
+              <p className="uppercase text-md font-bold mb-y mt-8">Plans</p>
               <ImageCarousel
                 index="1"
                 carousel={true}
