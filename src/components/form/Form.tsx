@@ -10,7 +10,14 @@ import { useCookies } from 'react-cookie'
 
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
-  formType?: 'modal' | 'newsletter' | 'contact' | 'general' | 'unit' | 'broker'
+  formType?:
+    | 'modal'
+    | 'newsletter'
+    | 'contact'
+    | 'general'
+    | 'unit'
+    | 'broker'
+    | 'preference'
   successMessage?: RichTextType | string
   handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
   formSubmitted: boolean
@@ -59,19 +66,36 @@ export const Form: FC<FormProps> = ({
       console.log(error)
     }
   }
-
   return (
     <div className={classNames(className)}>
       {formSubmitted ? (
         <div className="relative mt-ylg mb-2">
-          {typeof successMessage === 'string' ? (
+          {formType == 'preference' ? (
+            <div>
+              <p className="font-bold text-lg">
+                {'Thank you for sharing your preferences'}
+              </p>
+              <br></br>
+              <p className="text-base">
+                To set up a 15 minute phone consultation{' '}
+                <a
+                  href="https://www.calendly.com/tourlower-east-side0001/schedulecall"
+                  target="_blank"
+                  className={'underline font-bold'}
+                >
+                  you can click here
+                </a>
+                .{' '}
+              </p>
+            </div>
+          ) : typeof successMessage === 'string' ? (
             <p className="font-bold text-lg">{successMessage}</p>
           ) : (
             successMessage && <RichText blocks={successMessage} />
           )}
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           {children}
           {formError != null && (
             <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">

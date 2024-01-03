@@ -6,6 +6,7 @@ import type { SanityBlockElement } from '@components/sanity'
 import { Block } from '@components/sanity'
 import { useForm } from 'react-hook-form'
 import { Waitlist } from '@components/waitlist'
+import { PreferenceForm } from '@components/preferenceForm'
 
 type FlexWaitlistBlockProps = Omit<
   SanityBlockElement,
@@ -41,7 +42,7 @@ export const FlexWaitlistBlock: FC<FlexWaitlistBlockProps> = ({
       )}
     >
       <div className="w-full">
-        <Waitlist
+        <PreferenceForm
           waitlist={{
             header: header,
             text: text,
@@ -58,7 +59,7 @@ export const FlexWaitlistBlock: FC<FlexWaitlistBlockProps> = ({
           }}
           formPanes={formPanes}
           broker={false}
-          setFullWidth={() => setFullWidth(true)}
+          setFullWidth={() => setFullWidth(!fullWidth)}
           fullWidth={fullWidth}
           className={classNames(
             fullWidth ? 'md:left-0 md:w-full' : 'md:left-1/3 md:w-2/3',
