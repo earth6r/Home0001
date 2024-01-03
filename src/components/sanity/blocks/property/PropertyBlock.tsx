@@ -13,7 +13,6 @@ export const PropertyBlock: FC<PropertyBlockProps> = ({
 }) => {
   return (
     <Block className={classNames(className, '')}>
-      <p className="text-md font-medium uppercase mb-yhalf">The collection</p>
       <PropertyDetail property={propertyRef as PropertyContentProps} />
     </Block>
   )
