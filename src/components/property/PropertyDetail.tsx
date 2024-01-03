@@ -72,10 +72,6 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
 
       <div className="md:grid md:grid-cols-5 mt-page mb-ydouble md:my-ydouble pr-x md:pr-0">
         <div className="md:col-span-4 overflow-x-hidden">
-          <h2 className="text-xl uppercase font-bold mb-yhalf">
-            {footerCopy || 'The network'}
-          </h2>
-
           {filteredBodyFooter && (
             <BlockContent
               blocks={filteredBodyFooter[0]}
