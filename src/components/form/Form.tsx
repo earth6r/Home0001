@@ -79,7 +79,7 @@ export const Form: FC<FormProps> = ({
               <p className="text-base">
                 To set up a 15 minute phone consultation{' '}
                 <a
-                  href="calendly.com/tourlower-east-side0001/schedulecall"
+                  href="https://www.calendly.com/tourlower-east-side0001/schedulecall"
                   target="_blank"
                   className={'underline font-bold'}
                 >
