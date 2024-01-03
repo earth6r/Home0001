@@ -59,7 +59,7 @@ export const FlexWaitlistBlock: FC<FlexWaitlistBlockProps> = ({
           }}
           formPanes={formPanes}
           broker={false}
-          setFullWidth={() => setFullWidth(true)}
+          setFullWidth={() => setFullWidth(!fullWidth)}
           fullWidth={fullWidth}
           className={classNames(
             fullWidth ? 'md:left-0 md:w-full' : 'md:left-1/3 md:w-2/3',

@@ -236,6 +236,9 @@ const LocationsPane: FC<PaneProps> = ({
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
   return (
     <div className={className}>
+      <p className="mb-ylg text-md font-medium">
+        Where do you want to own a 0001 home?
+      </p>
       {LOCATIONS.map(({ label, name }) => (
         <div key={name}>
           <input
@@ -344,12 +347,13 @@ const HomeTypesPane: FC<PaneProps> = ({
   onClick,
 }) => {
   const [hiddenInput1Shown, setHiddenInput1Shown] = useState(false)
-  console.log('hiddenInput1Shown:', hiddenInput1Shown)
   const [hiddenInput2Shown, setHiddenInput2Shown] = useState(false)
-  console.log('hiddenInput2Shown:', hiddenInput2Shown)
 
   return (
     <div className={className}>
+      <p className="mb-ylg text-md font-medium">
+        What kind of home are you looking for?
+      </p>
       <div>
         <input
           type="checkbox"
@@ -549,6 +553,9 @@ const FinancingRadioPane: FC<PaneProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
+      <p className="mb-ylg text-md font-medium">
+        Would you like our support to help with financing?
+      </p>
       {FINANCING.map(({ label, name }: any) => (
         <div key={name}>
           <input
@@ -630,6 +637,9 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
+      <p className="mb-ylg text-md font-medium">
+        Which amenities are most important to you? (Select all that apply)
+      </p>
       {fields.map(({ label, name }: any) => (
         <div key={name}>
           <input
@@ -757,6 +767,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
             const triggerResult = await trigger()
             if (triggerResult) {
               setCurrentStep(currentStep + 1)
+              setFullWidth && setFullWidth()
             }
           }}
           className={classNames('flex flex-col gap-3 md:h-auto')}
@@ -767,28 +778,34 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
         enter={currentStep === 1}
         currentStep={currentStep}
         header={`Update Preferences`}
-        copy={'What kind of home are you looking for?'}
+        copy={'Page 2 of 5'}
         buttonCopy={`Submit`}
         buttonType={`button`}
         onClick={() => setCurrentStep(currentStep + 1)}
-        onBack={() => setCurrentStep(currentStep - 1)}
+        onBack={() => {
+          setFullWidth && setFullWidth()
+          setCurrentStep(currentStep - 1)
+        }}
         className={currentStep !== 1 ? 'hidden' : ''}
       >
         <HomeTypesPane
           register={register}
-          onBack={() => setCurrentStep(currentStep - 1)}
+          onBack={() => {
+            setCurrentStep(currentStep - 1)
+            setFullWidth && setFullWidth()
+          }}
           onClick={() => setCurrentStep(currentStep + 1)}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
-            'flex flex-col gap-4 order-0'
+            'flex flex-col gap-4'
           )}
         />
       </PreferencePane>
       <PreferencePane
         enter={currentStep === 2}
         currentStep={currentStep}
-        header={`Join the waitlist`}
-        copy={'Where do you want to own a 0001 home?'}
+        header={`Update Preferences`}
+        copy={'Page 3 of 5'}
         buttonCopy={`Submit`}
         buttonType={`button`}
         onClick={() => setCurrentStep(currentStep + 1)}
@@ -809,8 +826,8 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
       <PreferencePane
         enter={currentStep === 3}
         currentStep={currentStep}
-        header={`Join the waitlist`}
-        copy={`Which amenities are most important to you? (Select all that apply)`}
+        header={`Update Preferences`}
+        copy={`Step 4 of 5`}
         buttonCopy="Submit"
         buttonType="button"
         onClick={() => setCurrentStep(currentStep + 1)}
@@ -833,8 +850,8 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
       <PreferencePane
         enter={currentStep === 4}
         currentStep={currentStep}
-        header={`Join the waitlist`}
-        copy={`Would you like our support to help with financing`}
+        header={`Update Preferences`}
+        copy={`Step 5 of 5`}
         buttonCopy="Submit"
         buttonType="button"
         onClick={() => setCurrentStep(currentStep + 1)}
