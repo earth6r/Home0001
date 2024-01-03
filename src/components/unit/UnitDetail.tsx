@@ -41,7 +41,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
   }, [unit])
 
   //@ts-ignore
-  const calendarURL = `https://calendly.com/tour${unit?.property?.slug?.current}0001/`
+  const calendarURL = `https://calendly.com/tour${unit?.property?.slug?.current}0001/scheduletour`
 
   return (
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
@@ -87,9 +87,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 <div className="hidden md:block md:col-start-5 md:col-span-3 md:pr-[calc(var(--space-full-menu)+9px)]">
                   <div className="mb-yhalf">
                     <button
-                      onClick={() =>
-                        window.open(`${calendarURL}scheduletour`, '_blank')
-                      }
+                      onClick={() => window.open(calendarURL, '_blank')}
                       className={classNames(
                         'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
                       )}
@@ -150,9 +148,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               className={classNames(
                 'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
               )}
-              onClick={() =>
-                window.open(`${calendarURL}${unit?.slug?.current}`, '_blank')
-              }
+              onClick={() => window.open(calendarURL, '_blank')}
             >
               {`Schedule a tour`}
               <IconSmallArrow width="16" height="10" />
