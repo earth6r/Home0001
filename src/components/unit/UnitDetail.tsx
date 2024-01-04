@@ -127,7 +127,10 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             {unit?.unitDetails && (
               <>
                 <p className="uppercase font-bold text-md mb-yhalf">Details</p>
-                <DetailsDropdown details={unit?.unitDetails} dropdown={false} />
+                <DetailsDropdown
+                  details={unit?.unitDetails}
+                  dropdownOpen={true}
+                />
               </>
             )}
           </div>
