@@ -8,7 +8,7 @@ interface DetailsDropdownProps extends HTMLAttributes<HTMLDivElement> {
   details: RichTextType
 }
 
-const DetailsDropdown: FC<DetailsDropdownProps> = ({ details }) => {
+const DetailsDropdown: FC<DetailsDropdownProps> = ({ className, details }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [openedOnce, setOpenedOnce] = useState(false)
 
@@ -25,9 +25,11 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({ details }) => {
         {({ open }) => {
           return (
             <>
-              <Disclosure.Button className={classNames(`w-full text-left`)}>
+              <Disclosure.Button
+                className={classNames(className, `w-full text-left`)}
+              >
                 {!open && (
-                  <span className="inline-block underline font-medium mt-y md:mt-yhalf mb-ydouble">
+                  <span className="inline-block underline font-medium mt-y md:mt-yhalf">
                     See all details
                   </span>
                 )}

@@ -77,7 +77,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 <SanityTableModal
                   table={unit.factSheet}
                   modalType="View Fact Sheet"
-                  className="inline-block"
+                  className="inline-block mb-8"
                   unit={unit.title}
                 />
               )}
@@ -89,7 +89,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             {unit?.unitDetails && (
               <>
                 <p className="uppercase font-bold text-md mb-y">Details</p>
-                <DetailsDropdown details={unit?.unitDetails} />
+                <DetailsDropdown
+                  details={unit?.unitDetails}
+                  className="mb-ydouble"
+                />
               </>
             )}
 

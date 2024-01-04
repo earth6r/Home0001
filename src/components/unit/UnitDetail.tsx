@@ -47,7 +47,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 pr-[calc(var(--space-menu)+2px)] md:pr-0">
         <div className="md:col-start-1 col-start-2 md:col-span-3">
-          <div className="flex flex-col relative">
+          <div className="flex flex-col relative mb-ydouble">
             {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel
                 index="0"
@@ -61,7 +61,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             <h2 className="text-xl font-bold mb-0 uppercase col-span-2">
               {unit?.title}
             </h2>
-            <div className="mb-ydouble md:mb-y text-md font-bold mt-y">
+            <div className="mb-ydouble text-md font-bold mt-y">
               <p className="m-0">
                 {unit?.price == 'Inquire'
                   ? 'Price upon request'
@@ -75,8 +75,10 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
               <div className="md:grid md:grid-cols-7">
                 {unit?.summary && (
-                  <div className="md:col-span-3 mt-[75px]">
-                    <p className="uppercase font-bold mb-y mt-12">Overview</p>
+                  <div className="md:col-span-3">
+                    <p className="uppercase font-bold mb-y md:mb-yhalf">
+                      Overview
+                    </p>
                     <RichText
                       blocks={unit?.summary}
                       className="max-w-[500px]"
@@ -132,7 +134,9 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
           {unit?.layoutImages && unit?.layoutImages.length > 0 && (
             <>
-              <p className="uppercase text-md font-bold mb-y mt-8">Plans</p>
+              <p className="uppercase text-md font-bold mb-y md:mb-yhalf">
+                Plans
+              </p>
               <ImageCarousel
                 index="1"
                 carousel={true}
