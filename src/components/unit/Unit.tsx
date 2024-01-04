@@ -89,14 +89,11 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             {unit?.unitDetails && (
               <>
                 <p className="uppercase font-bold text-md mb-y">Details</p>
-                <DetailsDropdown
-                  details={unit?.unitDetails}
-                  className="mb-ydouble"
-                />
+                <DetailsDropdown details={unit?.unitDetails} />
               </>
             )}
 
-            <div className="pr-menu md:pr-0 mb-ydouble md:mb-y md:max-w-[346px]">
+            <div className="pr-menu md:pr-0 my-ydouble md:my-y md:max-w-[346px]">
               <button
                 onClick={() => setInquiryOpen(true)}
                 className={classNames(
