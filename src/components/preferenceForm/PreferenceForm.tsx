@@ -40,7 +40,6 @@ export const PreferenceForm: FC<PreferenceProps> = ({
   setFullWidth,
   className,
 }) => {
-  console.log('fullWidth', fullWidth)
   return (
     <div className={classNames(className)}>
       <div className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[81px] pt-[33px] md:px-x md:pb-[96px] md:pt-[38px] bg-yellow h-full overflow-auto">
