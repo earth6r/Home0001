@@ -46,7 +46,7 @@ const PreferencePane: FC<PaneProps> = ({
         'flex flex-wrap items-stretch h-auto md:items-start relative w-full'
       )}
     >
-      <div className="flex flex-col overflow-auto">
+      <div className="flex flex-col w-full overflow-auto">
         <div className="order-0">
           {header && (
             <h2
