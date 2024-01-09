@@ -125,7 +125,10 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           className="w-[calc(100%-60px)] md:w-auto max-w-[620px] md:max-w-[unset] ml-0 md:mx-auto overflow-visible"
         >
           {slides.map(({ _key, image, alt }, index) => (
-            <SwiperSlide key={`${_key}-${alt}`} className="w-auto">
+            <SwiperSlide
+              key={`${_key}-${alt}`}
+              className="w-full md:w-[346px] h-[417px] md:h-[35.1vw] md:min-h-[484px] md:max-h-[484px]"
+            >
               {image && alt && (
                 <>
                   {carousel ? (
@@ -146,14 +149,16 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       />
                     </a>
                   ) : (
-                    <ImageSlide
-                      image={image as any}
-                      index={index}
-                      alt={alt}
-                      className={classNames(
-                        index === slides.length - 1 ? 'md:mr-x' : ''
-                      )}
-                    />
+                    <div className="absolute w-full h-full">
+                      <ImageSlide
+                        image={image as any}
+                        index={index}
+                        alt={alt}
+                        className={classNames(
+                          index === slides.length - 1 ? 'md:mr-x' : ''
+                        )}
+                      />
+                    </div>
                   )}
                 </>
               )}
