@@ -5,7 +5,6 @@ import type { FlexWaitlistBlock as FlexWaitlistBlockType } from '@gen/sanity-sch
 import type { SanityBlockElement } from '@components/sanity'
 import { Block } from '@components/sanity'
 import { useForm } from 'react-hook-form'
-import { Waitlist } from '@components/waitlist'
 import { PreferenceForm } from '@components/preferenceForm'
 
 type FlexWaitlistBlockProps = Omit<
