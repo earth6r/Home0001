@@ -64,7 +64,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 <div
                   className={classNames(
                     open ? 'pointer-events-auto' : '',
-                    'flex items-center absolute h-header px-x pointer-events-auto'
+                    'flex items-center absolute h-header px-x pointer-events-none'
                   )}
                 >
                   <Logo />
