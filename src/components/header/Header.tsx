@@ -239,7 +239,7 @@ export const Header: FC<HeaderProps> = ({
                 }
               }}
             >
-              <div className="px-[6px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+              <div className="px-[6px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
                 <IconSmallArrow width="16" className="mr-[5px]" />
                 {`Schedule a tour`}
               </div>
@@ -253,7 +253,7 @@ export const Header: FC<HeaderProps> = ({
                 'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
               )}
             >
-              <div className="w-[100px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+              <div className="w-[100px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
                 <IconSmallArrow width="16" className="mr-[5px]" />
                 {`Waitlist`}
               </div>
