@@ -65,15 +65,16 @@ export const Form: FC<FormProps> = ({
       setFormError(error)
       console.log(error)
 
-      const data = new FormData()
-      data.append('Error', error as string)
-      data.append('User Agent', navigator.userAgent)
+      const errorData = new FormData()
+      errorData.append('Error', error as string)
+      errorData.append('Form Data', JSON.stringify(data))
+      errorData.append('User Agent', navigator.userAgent)
       const action =
         'https://script.google.com/macros/s/AKfycbwFYpIyplwPPMK6ra5J26Au7MYndjQX1koeZEtp86-EDO1_kUVAuXHjnPgMxXh8lhDe/exec'
 
       fetch(action, {
         method: 'POST',
-        body: data,
+        body: errorData,
       })
     }
   }
