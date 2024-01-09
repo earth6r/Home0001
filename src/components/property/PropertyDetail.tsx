@@ -7,14 +7,13 @@ import Link from 'next/link'
 
 export const PropertyDetailComponent: FC<PropertyElProps> = ({
   property,
-  footerCopy,
   className,
 }) => {
   const filteredBody = property?.body && [
-    property?.body[3],
-    property?.body[4],
     property?.body[0],
     property?.body[1],
+    property?.body[3],
+    property?.body[4],
   ]
 
   const filteredBodyFooter = property?.body && [
