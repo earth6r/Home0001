@@ -77,7 +77,7 @@ export const Accordion: FC<AccordionProps> = ({
                     <span
                       className={classNames(
                         open ? 'opacity-0 max-h-0 mt-0' : 'max-h-none mt-[1em]',
-                        'inline-block underline underline-offset-2 text-sm font-medium'
+                        'inline-block underline decoration-[1.5px] underline-offset-2 text-sm font-medium pb-[2px]'
                       )}
                     >{`Read more`}</span>
                   </div>
