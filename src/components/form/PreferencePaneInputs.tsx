@@ -1,164 +1,43 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useState } from 'react'
+import { useState } from 'react'
 import classNames from 'classnames'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
-import { RichText as RichTextType, UnitGroup } from '@studio/gen/sanity-schema'
 import PreferencePane from './PreferencePane'
-import { useBrokerInquiryModal } from '@contexts/modals'
-import { sendGoogleEvent } from '@lib/util'
-import { submitForm } from '@lib/util'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import {
+  LOCATIONS,
+  SIZES,
+  AMENITIES,
+  PRICES,
+  TIMELINE,
+  SELLINGHOME,
+  FINANCING,
+} from './PreferenceData'
+import {
+  PreferenceSubmitButtonProps,
+  PaneProps,
+  CheckboxPaneProps,
+  PreferencePaneInputsProps,
+} from './types'
 
-interface CheckboxPaneProps extends PaneProps {
-  fieldCode: string
-  fields: { label?: string; name?: string }[]
-  type?: 'checkbox' | 'radio'
-}
-
-interface PaneProps extends HTMLAttributes<HTMLElement> {
-  register: UseFormRegister<FieldValues>
-  onClick?: () => void
-  onBack?: () => void
-  broker?: boolean
-}
-
-interface PreferencePaneInputsProps extends HTMLAttributes<HTMLElement> {
-  block?: boolean
-  header?: string
-  copy?: RichTextType | string
-  buttonCopy?: string
-  register: UseFormRegister<FieldValues>
-  trigger: () => Promise<boolean>
-  setFullWidth?: () => void
-  formValues?: any
-  broker?: boolean
-  formPanes?: string[]
-}
-
-const LOCATIONS = [
-  {
-    label: 'Los Angeles',
-    name: 'LA',
-  },
-  {
-    label: 'New York',
-    name: 'NYC',
-  },
-  {
-    label: 'Paris',
-    name: 'Paris',
-  },
-  {
-    label: 'London',
-    name: 'London',
-  },
-  {
-    label: 'Berlin',
-    name: 'Berlin',
-  },
-  {
-    label: 'Mexico City',
-    name: 'CDMX',
-  },
-]
-
-const SELLINGHOME = [
-  {
-    label: 'Yes, tell me more',
-    name: 'Yes-sell',
-  },
-  {
-    label: `No, thanks`,
-    name: 'No-need',
-  },
-]
-
-const FINANCING = [
-  {
-    label: 'Yes, please connect me with a recommended mortgage broker',
-    name: 'Yes',
-  },
-  {
-    label: `No, I'm a cash buyer`,
-    name: 'Np-cash',
-  },
-  {
-    label: `No, I've got my mortgage sorted`,
-    name: 'No-sorted',
-  },
-]
-
-const TIMELINE = [
-  {
-    label: 'Immediately',
-    name: 'now',
-  },
-  {
-    label: 'In 1 - 3 months',
-    name: '1to3mos',
-  },
-  {
-    label: 'In 3 - 6 months',
-    name: '3to6mos',
-  },
-  {
-    label: 'In 6 - 12 months',
-    name: '6to12mos',
-  },
-  {
-    label: `Not sure yet`,
-    name: 'notsure',
-  },
-]
-
-const AMENITIES = [
-  { label: 'Private balcony / terrace', name: 'Balcony' },
-  { label: 'Communal space in the building', name: 'Communal' },
-  { label: 'Doorman', name: 'Doorman' },
-  { label: 'Pool', name: 'Pool' },
-  { label: 'Roof deck (private / communal)', name: 'Roof deck' },
-  { label: 'Gym', name: 'Gym' },
-  { label: 'Garden (private / communal)', name: 'Garden' },
-  { label: 'Serviced home', name: 'Serviced home' },
-]
-
-const PRICES = [
-  { label: '<$500,000', name: 'lt5k' },
-  { label: '$500,000 - $750,000', name: '5kto7.5k' },
-  { label: '$750,000 - $1,000,000', name: '7.5kto1m' },
-  { label: '$1,000,000 - $1,500,000', name: '1mto1.5m' },
-  { label: '>$1,500,000', name: 'gt1.5m' },
-]
-const SIZES = [
-  {
-    label: 'Studio',
-    name: 'Studio',
-  },
-  {
-    label: 'At least 1 Bedroom',
-    name: '1bdrm',
-  },
-  {
-    label: 'At least 2 Bedrooms',
-    name: '2bdrm',
-  },
-  {
-    label: '3 Bedrooms +',
-    name: '3+bdrm',
-  },
-  {
-    label: 'Depends',
-    name: 'Depends',
-  },
-]
-
-const NameEmailPane: FC<PaneProps> = ({
-  register,
-  broker,
-  className,
+const PreferenceSubmitButton: FC<PreferenceSubmitButtonProps> = ({
   onClick,
+  className,
 }) => {
-  const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
+  return (
+    <div className={className}>
+      <button
+        className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+        type={`button`}
+        onClick={onClick}
+      >
+        {`Submit`}
+        <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+      </button>
+    </div>
+  )
+}
+
+const NameEmailPane: FC<PaneProps> = ({ register, className, onClick }) => {
   return (
     <div className={className}>
       <input
@@ -209,20 +88,11 @@ const NameEmailPane: FC<PaneProps> = ({
         placeholder="CURRENT ZIP (OPTIONAL)"
         {...register('zip', { required: false })}
       />
-      <div
-        className={classNames(
-          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
-        )}
-      >
-        <button
-          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-          type={`button`}
-          onClick={onClick}
-        >
-          {`Submit`}
-          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
-        </button>
-      </div>
+
+      <PreferenceSubmitButton
+        onClick={onClick}
+        className="flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1"
+      />
     </div>
   )
 }
@@ -328,18 +198,12 @@ const LocationsPane: FC<PaneProps> = ({
           />
         </button>
 
-        <button
-          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-          type={'button'}
-          onClick={onClick}
-        >
-          {'Submit'}
-          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
-        </button>
+        <PreferenceSubmitButton onClick={onClick} className="w-full" />
       </div>
     </div>
   )
 }
+
 const HomeTypesPane: FC<PaneProps> = ({
   register,
   className,
@@ -525,14 +389,7 @@ const HomeTypesPane: FC<PaneProps> = ({
           />
         </button>
 
-        <button
-          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-          type={`button`}
-          onClick={onClick}
-        >
-          {'Submit'}
-          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
-        </button>
+        <PreferenceSubmitButton onClick={onClick} className="w-full" />
       </div>
     </div>
   )
@@ -614,14 +471,7 @@ const FinancingRadioPane: FC<PaneProps> = ({
           />
         </button>
 
-        <button
-          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-          type={'submit'}
-          onClick={onClick}
-        >
-          {'Submit'}
-          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
-        </button>
+        <PreferenceSubmitButton onClick={onClick} className="w-full" />
       </div>
     </div>
   )
@@ -714,14 +564,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
           />
         </button>
 
-        <button
-          className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-          type={'button'}
-          onClick={onClick}
-        >
-          {'Submit'}
-          <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
-        </button>
+        <PreferenceSubmitButton onClick={onClick} className="w-full" />
       </div>
     </div>
   )
