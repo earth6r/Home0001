@@ -2,6 +2,7 @@ import { HTMLAttributes } from 'react'
 import type {
   Accordion,
   Media,
+  Property,
   PropertyType,
   RichText,
   SanityImageAsset,
@@ -10,7 +11,6 @@ import type {
   SanityReference,
   Unit as UnitProps,
 } from '@studio/gen/sanity-schema'
-import { Property } from 'schema-dts'
 
 export interface KeyedPropertyType extends SanityReference<PropertyType> {
   typeTitle?: string
