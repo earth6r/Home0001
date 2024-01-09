@@ -37,7 +37,7 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({
                 )}
               >
                 {!open && (
-                  <span className="inline-block underline font-medium mt-y md:mt-yhalf">
+                  <span className="inline-block underline decoration-[1.5px] underline-offset-2 font-medium mt-y md:mt-yhalf">
                     See all details
                   </span>
                 )}
