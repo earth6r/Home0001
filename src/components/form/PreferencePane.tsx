@@ -1,9 +1,8 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useRef } from 'react'
+import { HTMLAttributes } from 'react'
 import classNames from 'classnames'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { RichText } from '@components/sanity'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Transition } from '@headlessui/react'
 
 interface PaneProps extends HTMLAttributes<HTMLElement> {
