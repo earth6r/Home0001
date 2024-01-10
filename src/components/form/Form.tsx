@@ -70,7 +70,7 @@ export const Form: FC<FormProps> = ({
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
       const action =
-        'https://script.google.com/macros/s/AKfycbwFYpIyplwPPMK6ra5J26Au7MYndjQX1koeZEtp86-EDO1_kUVAuXHjnPgMxXh8lhDe/exec'
+        'https://script.google.com/macros/s/AKfycbyjuXITThcGvAHcYXNI6Wp5pYPywADwHJbAe__To9uAAAYEXpyfxecRzioAMfLgl0hX/exec'
 
       fetch(action, {
         method: 'POST',
