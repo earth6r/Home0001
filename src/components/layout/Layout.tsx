@@ -12,7 +12,7 @@ import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
-import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
+import { ReactLenis } from '@studio-freight/react-lenis'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
