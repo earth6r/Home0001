@@ -83,7 +83,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className, 'mt-0 -ml-[2px]')}>
+    <Block className={classNames(className, 'mt-0 -ml-[2px] lg:px-x')}>
       <div>
         <div className="grid md:grid-cols-2 gap-14 xl:gap-[150px] md:px-menu">
           {properties &&
