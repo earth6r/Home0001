@@ -58,15 +58,18 @@ export const Form: FC<FormProps> = ({
     sendGoogleEvent('submit waitlist form', options)
 
     if (!audienceId || !formType) return
+    let result
     try {
-      const result = await submitForm(data, audienceId, formType, hutk)
+      result = await submitForm(data, audienceId, formType, hutk)
       setFormSubmitted(true)
     } catch (error) {
       setFormError(error)
       console.log(error)
 
+      // add response variable here
       const errorData = new FormData()
       errorData.append('Error', error as string)
+      errorData.append('Payload', JSON.stringify(result))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
       const action =
