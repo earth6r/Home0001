@@ -21,6 +21,7 @@ import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
 import { RichText } from '@components/sanity'
+import _ from 'lodash'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -45,6 +46,8 @@ export const Header: FC<HeaderProps> = ({
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const el = useRef<HTMLElement>(null)
+  const [lastScrolled, setLastScrolled] = useState(0)
+  const [hideBreadcrumb, setHideBreadcrumb] = useState(false)
 
   const openWaitlist = () => {
     setWaitlistOpen(true)
@@ -70,6 +73,25 @@ export const Header: FC<HeaderProps> = ({
     reset({})
   }
 
+  const handleScroll = () => {
+    const scrollTop = document.documentElement.scrollTop // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+
+    if (scrollTop > lastScrolled) {
+      setHideBreadcrumb(true)
+      setLastScrolled(scrollTop)
+    } else if (scrollTop < lastScrolled) {
+      setHideBreadcrumb(false)
+      setLastScrolled(scrollTop)
+    }
+  }
+
+  useEffect(() => {
+    window.removeEventListener('scroll', handleScroll)
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', _.throttle(handleScroll, 50))
+    }
+  }, [lastScrolled])
+
   useEffect(() => {
     if (router.asPath !== '/') {
       setHeaderLinksShown(true)
@@ -90,10 +112,22 @@ export const Header: FC<HeaderProps> = ({
         className="flex justify-between items-center relative w-full h-header px-x"
       >
         <div className="flex items-baseline">
-          <Logo className="flex items-center h-header pointer-events-auto" />
+          <Logo
+            className={classNames(
+              hideBreadcrumb ? 'opacity-0' : '',
+              'flex items-center h-header pointer-events-auto transition-opacity duration-200'
+            )}
+          />
 
           {(path?.includes('property') || path?.includes('unit')) && (
-            <span>:</span>
+            <span
+              className={classNames(
+                hideBreadcrumb ? 'opacity-0' : '',
+                'transition-opacity duration-200'
+              )}
+            >
+              :
+            </span>
           )}
 
           {path?.includes('unit') && (
@@ -102,15 +136,36 @@ export const Header: FC<HeaderProps> = ({
                 (property as unknown as Property)?.slug?.current
               }`}
             >
-              <span className="uppercase pointer-events-auto">
+              <span
+                className={classNames(
+                  hideBreadcrumb ? 'opacity-0' : '',
+                  'uppercase pointer-events-auto transition-opacity duration-200'
+                )}
+              >
                 &nbsp;{`${(property as unknown as Property)?.headerText}`}
               </span>
             </Link>
           )}
 
-          {path?.includes('unit') && <span>:</span>}
+          {path?.includes('unit') && (
+            <span
+              className={classNames(
+                hideBreadcrumb ? 'opacity-0' : '',
+                'transition-opacity duration-200'
+              )}
+            >
+              :
+            </span>
+          )}
           {(path?.includes('property') || path?.includes('unit')) && (
-            <span className="uppercase">&nbsp;{`${currentTitle}`}</span>
+            <span
+              className={classNames(
+                hideBreadcrumb ? 'opacity-0' : '',
+                'uppercase transition-opacity duration-200'
+              )}
+            >
+              &nbsp;{`${currentTitle}`}
+            </span>
           )}
         </div>
 
