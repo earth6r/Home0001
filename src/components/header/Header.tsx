@@ -21,7 +21,7 @@ import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
 import { RichText } from '@components/sanity'
-import _ from 'lodash'
+import { useLenis } from '@studio-freight/react-lenis'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -73,24 +73,13 @@ export const Header: FC<HeaderProps> = ({
     reset({})
   }
 
-  const handleScroll = () => {
-    const scrollTop = document.documentElement.scrollTop // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-
-    if (scrollTop > lastScrolled) {
+  const lenis = useLenis(() => {
+    if (lenis.direction === 1) {
       setHideBreadcrumb(true)
-      setLastScrolled(scrollTop)
-    } else if (scrollTop < lastScrolled) {
+    } else {
       setHideBreadcrumb(false)
-      setLastScrolled(scrollTop)
     }
-  }
-
-  useEffect(() => {
-    window.removeEventListener('scroll', handleScroll)
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', _.throttle(handleScroll, 50))
-    }
-  }, [lastScrolled])
+  })
 
   useEffect(() => {
     if (router.asPath !== '/') {
