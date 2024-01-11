@@ -87,7 +87,7 @@ const UnitPage: NextPage<PageProps> = (
               header: siteSettings.waitlistHeader,
               text: siteSettings.waitlistCopy,
               id: siteSettings.waitlistId,
-              successMessage: siteSettings.waitlistSuccess,
+              successMessage: page.confirmationCopy,
             }}
             formActions={{
               formSubmitted,
