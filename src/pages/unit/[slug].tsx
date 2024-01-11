@@ -83,11 +83,12 @@ const UnitPage: NextPage<PageProps> = (
           <Unit unit={page} />
 
           <Waitlist
+            formType="unit"
             waitlist={{
               header: siteSettings.waitlistHeader,
-              text: siteSettings.waitlistCopy,
-              id: siteSettings.waitlistId,
-              successMessage: page.confirmationCopy,
+              text: siteSettings?.inquiryCopy,
+              id: siteSettings.inquiryId,
+              successMessage: siteSettings?.inquirySuccess,
             }}
             formActions={{
               formSubmitted,

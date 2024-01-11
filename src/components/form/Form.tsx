@@ -68,7 +68,7 @@ export const Form: FC<FormProps> = ({
 
       // add response variable here
       const errorData = new FormData()
-      errorData.append('Error', error as string)
+      errorData.append('Error', JSON.stringify(error))
       errorData.append('Payload', JSON.stringify(result))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
