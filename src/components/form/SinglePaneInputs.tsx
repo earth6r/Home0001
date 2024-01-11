@@ -168,7 +168,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
         ) : (
           <input
             type="hidden"
-            value={state.unit?.title}
+            value={state.unit?.title || 'Unit Placeholder'}
             {...register('unit_of_interest', { required: false })}
           />
         )}
