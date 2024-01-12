@@ -50,7 +50,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 index="0"
                 slides={unit?.photographs}
                 carousel={true}
-                className="relative w-full"
+                className="relative w-full md:pr-x"
                 placement="unit images"
               />
             )}

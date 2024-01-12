@@ -84,7 +84,7 @@ export const Waitlist: FC<WaitlistProps> = ({
                 formSubmitted={formActions.formSubmitted}
                 handleSubmit={formActions.handleSubmit}
                 setFormSubmitted={formActions.setFormSubmitted}
-                className="w-full h-full"
+                className="w-full"
               >
                 <SinglePaneInputs
                   fields={{ showName: true, showPhone: true }}

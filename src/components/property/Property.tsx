@@ -52,7 +52,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             <BlockContent
               blocks={property?.body}
               grid={false}
-              className="mt-ydouble md:mt-0 px-x md:px-0 overflow-hidden"
+              className="mt-ydouble md:mt-0 px-x md:px-0 md:pr-x overflow-hidden"
             />
           )}
         </div>
@@ -77,13 +77,6 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           </>
         )}
       </div>
-
-      {/* {property?.waitlistLinkText && (
-        <Waitlist
-          buttonText={property?.waitlistLinkText}
-          className="mt-ydouble md:mt-14 lg:ml-[467px]"
-        />
-      )} */}
     </div>
   )
 }

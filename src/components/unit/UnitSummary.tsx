@@ -97,7 +97,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 index="0"
                 slides={unit?.photographs}
                 carousel={true}
-                className="mb-3 pr-x md:pr-0"
+                className="mb-3 pr-x"
                 placement="unit summary images"
               />
             )}
