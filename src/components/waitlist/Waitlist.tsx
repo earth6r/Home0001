@@ -64,7 +64,7 @@ export const Waitlist: FC<WaitlistProps> = ({
                 : `Inquire`}
             </h2>
 
-            <p className="my-ylg text-md pr-menu">
+            <p className="my-ylg text-md md:pr-menu">
               {formActions.formSubmitted
                 ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
                 : (waitlist.text && (
@@ -90,7 +90,7 @@ export const Waitlist: FC<WaitlistProps> = ({
                   fields={{ showName: true, showPhone: true }}
                   register={formActions.register}
                   modal={true}
-                  className={classNames('h-full pr-menu')}
+                  className={classNames('h-full md:pr-menu')}
                 />
               </Form>
             )}
