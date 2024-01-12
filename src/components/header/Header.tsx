@@ -21,7 +21,7 @@ import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
 import { RichText } from '@components/sanity'
-import { useLenis } from '@studio-freight/react-lenis'
+// import { useLenis } from '@studio-freight/react-lenis'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -73,13 +73,13 @@ export const Header: FC<HeaderProps> = ({
     reset({})
   }
 
-  const lenis = useLenis(() => {
-    if (lenis.direction !== 1 || lenis.targetScroll <= 0) {
-      setHideBreadcrumb(false)
-    } else {
-      setHideBreadcrumb(true)
-    }
-  })
+  // const lenis = useLenis(() => {
+  //   if (lenis.direction !== 1 || lenis.targetScroll <= 0) {
+  //     setHideBreadcrumb(false)
+  //   } else {
+  //     setHideBreadcrumb(true)
+  //   }
+  // })
 
   useEffect(() => {
     if (router.asPath !== '/') {
