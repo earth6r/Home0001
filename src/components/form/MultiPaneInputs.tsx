@@ -150,7 +150,7 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
 
       {broker && (
         <button
-          className="text-left font-medium text-xs tracking-details underline pt-[28px] md:pt-[44px] pb-[12px]"
+          className="text-left font-medium text-xs tracking-details underline decoration-[1.5px] underline-offset-2 pt-[28px] md:pt-[44px] pb-[12px]"
           onClick={() => setBrokerInquiryOpen(true)}
         >
           Are you a broker?

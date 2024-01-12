@@ -40,7 +40,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 px-x md:pr-0">
-        <h2 className="text-xl font-bold mb-12 uppercase col-span-2">
+        <h2 className="text-xl font-bold mb-12 uppercase col-span-2 pr-menu md:pr-0">
           {unit?.title}
         </h2>
         <div className="md:col-start-1 col-start-2 md:col-span-3">
@@ -89,7 +89,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             {unit?.unitDetails && (
               <>
                 <p className="uppercase font-bold text-md mb-y">Details</p>
-                <DetailsDropdown details={unit?.unitDetails} />
+                <DetailsDropdown
+                  details={unit?.unitDetails}
+                  dropdownOpen={true}
+                />
               </>
             )}
 

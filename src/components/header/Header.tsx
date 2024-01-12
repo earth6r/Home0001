@@ -21,6 +21,7 @@ import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
 import { RichText } from '@components/sanity'
+import { useLenis } from '@studio-freight/react-lenis'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -45,6 +46,8 @@ export const Header: FC<HeaderProps> = ({
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const el = useRef<HTMLElement>(null)
+  const [lastScrolled, setLastScrolled] = useState(0)
+  const [hideBreadcrumb, setHideBreadcrumb] = useState(false)
 
   const openWaitlist = () => {
     setWaitlistOpen(true)
@@ -70,6 +73,14 @@ export const Header: FC<HeaderProps> = ({
     reset({})
   }
 
+  const lenis = useLenis(() => {
+    if (lenis.direction === 1) {
+      setHideBreadcrumb(true)
+    } else {
+      setHideBreadcrumb(false)
+    }
+  })
+
   useEffect(() => {
     if (router.asPath !== '/') {
       setHeaderLinksShown(true)
@@ -90,10 +101,22 @@ export const Header: FC<HeaderProps> = ({
         className="flex justify-between items-center relative w-full h-header px-x"
       >
         <div className="flex items-baseline">
-          <Logo className="flex items-center h-header pointer-events-auto" />
+          <Logo
+            className={classNames(
+              hideBreadcrumb ? 'opacity-0' : '',
+              'flex items-center h-header pointer-events-auto transition-opacity duration-200'
+            )}
+          />
 
           {(path?.includes('property') || path?.includes('unit')) && (
-            <span>:</span>
+            <span
+              className={classNames(
+                hideBreadcrumb ? 'opacity-0' : '',
+                'transition-opacity duration-200'
+              )}
+            >
+              :
+            </span>
           )}
 
           {path?.includes('unit') && (
@@ -102,15 +125,36 @@ export const Header: FC<HeaderProps> = ({
                 (property as unknown as Property)?.slug?.current
               }`}
             >
-              <span className="uppercase pointer-events-auto">
+              <span
+                className={classNames(
+                  hideBreadcrumb ? 'opacity-0' : '',
+                  'uppercase pointer-events-auto transition-opacity duration-200'
+                )}
+              >
                 &nbsp;{`${(property as unknown as Property)?.headerText}`}
               </span>
             </Link>
           )}
 
-          {path?.includes('unit') && <span>:</span>}
+          {path?.includes('unit') && (
+            <span
+              className={classNames(
+                hideBreadcrumb ? 'opacity-0' : '',
+                'transition-opacity duration-200'
+              )}
+            >
+              :
+            </span>
+          )}
           {(path?.includes('property') || path?.includes('unit')) && (
-            <span className="uppercase">&nbsp;{`${currentTitle}`}</span>
+            <span
+              className={classNames(
+                hideBreadcrumb ? 'opacity-0' : '',
+                'uppercase transition-opacity duration-200'
+              )}
+            >
+              &nbsp;{`${currentTitle}`}
+            </span>
           )}
         </div>
 
@@ -239,7 +283,7 @@ export const Header: FC<HeaderProps> = ({
                 }
               }}
             >
-              <div className="px-[6px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+              <div className="px-[6px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
                 <IconSmallArrow width="16" className="mr-[5px]" />
                 {`Schedule a tour`}
               </div>
@@ -253,7 +297,7 @@ export const Header: FC<HeaderProps> = ({
                 'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
               )}
             >
-              <div className="w-[100px] h-[25px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+              <div className="w-[100px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
                 <IconSmallArrow width="16" className="mr-[5px]" />
                 {`Waitlist`}
               </div>

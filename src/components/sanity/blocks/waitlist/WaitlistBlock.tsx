@@ -24,10 +24,6 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [fullWidth, setFullWidth] = useState(false)
 
-  useEffect(() => {
-    // console.log(trigger)
-  }, [trigger])
-
   return (
     <Block
       className={classNames(

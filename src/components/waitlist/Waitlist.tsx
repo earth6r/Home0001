@@ -1,6 +1,12 @@
-import { type FC, HTMLAttributes, Dispatch, SetStateAction } from 'react'
+import {
+  type FC,
+  HTMLAttributes,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+} from 'react'
 import classNames from 'classnames'
-import { RichText } from '@studio/gen/sanity-schema'
 import {
   FieldValues,
   UseFormGetValues,
@@ -8,14 +14,18 @@ import {
   UseFormRegister,
   UseFormTrigger,
 } from 'react-hook-form'
-import { Form, MultiPaneInputs } from '@components/form'
+import { Form, MultiPaneInputs, SinglePaneInputs } from '@components/form'
+import { RichText } from '@components/sanity'
+import { HomeContext } from '@contexts/home'
+import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 
 interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
+  formType?: 'modal' | 'unit'
   waitlist: {
     header?: string
-    text?: RichText | string
+    text?: RichTextType | string
     id?: string
-    successMessage?: RichText
+    successMessage?: RichTextType
   }
   formActions: {
     formSubmitted: boolean
@@ -32,6 +42,7 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Waitlist: FC<WaitlistProps> = ({
+  formType = 'modal',
   waitlist,
   formActions,
   fullWidth,
@@ -40,33 +51,76 @@ export const Waitlist: FC<WaitlistProps> = ({
   setFullWidth,
   className,
 }) => {
+  const { state } = useContext(HomeContext)
+
   return (
     <div className={classNames(className)}>
       <div className="h-[690px] md:h-[740px] pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[38px] bg-yellow">
-        <Form
-          formType="modal"
-          audienceId={waitlist?.id}
-          successMessage={waitlist?.successMessage}
-          formSubmitted={formActions.formSubmitted}
-          handleSubmit={formActions.handleSubmit}
-          setFormSubmitted={formActions.setFormSubmitted}
-          className="w-full h-full"
-          isHomeBlock={true}
-        >
-          <MultiPaneInputs
-            block={true}
-            broker={broker}
-            formPanes={formPanes}
-            setFullWidth={setFullWidth}
-            header={waitlist?.header}
-            copy={waitlist?.text}
-            buttonCopy="Join waitlist"
-            register={formActions.register}
-            className={classNames(fullWidth ? '' : 'max-w-[430px]', 'h-full')}
-            trigger={formActions.trigger}
-            formValues={formActions.getValues}
-          />
-        </Form>
+        {formType === 'unit' && (
+          <>
+            <h2 className="text-xl font-bold uppercase pt-page md:pr-menu lg:pr-fullmenu">
+              {formActions.formSubmitted
+                ? (waitlist?.successMessage as unknown as string) || `Thanks!`
+                : `Inquire`}
+            </h2>
+
+            <p className="my-ylg text-md pr-menu">
+              {formActions.formSubmitted
+                ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
+                : (waitlist.text && (
+                    <RichText blocks={waitlist.text as RichTextType} />
+                  )) ||
+                  `For more information and to schedule a tour:`}
+            </p>
+          </>
+        )}
+
+        {formType === 'unit' ? (
+          <>
+            {!formActions.formSubmitted && (
+              <Form
+                formType={formType}
+                audienceId={waitlist?.id}
+                formSubmitted={formActions.formSubmitted}
+                handleSubmit={formActions.handleSubmit}
+                setFormSubmitted={formActions.setFormSubmitted}
+                className="w-full h-full"
+              >
+                <SinglePaneInputs
+                  fields={{ showName: true, showPhone: true }}
+                  register={formActions.register}
+                  modal={true}
+                  className={classNames('h-full pr-menu')}
+                />
+              </Form>
+            )}
+          </>
+        ) : (
+          <Form
+            formType={formType}
+            audienceId={waitlist?.id}
+            formSubmitted={formActions.formSubmitted}
+            handleSubmit={formActions.handleSubmit}
+            setFormSubmitted={formActions.setFormSubmitted}
+            successMessage={waitlist?.successMessage}
+            className="w-full h-full"
+            isHomeBlock={true}
+          >
+            <MultiPaneInputs
+              block={true}
+              broker={broker}
+              formPanes={formPanes}
+              setFullWidth={setFullWidth}
+              header={waitlist?.header}
+              copy={waitlist?.text}
+              buttonCopy="Join waitlist"
+              register={formActions.register}
+              className={classNames(fullWidth ? '' : 'max-w-[430px]', 'h-full')}
+              trigger={formActions.trigger}
+              formValues={formActions.getValues}
+            />
+          </Form>
+        )}
       </div>
     </div>
   )
