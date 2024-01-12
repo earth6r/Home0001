@@ -62,6 +62,7 @@ export const Form: FC<FormProps> = ({
     try {
       result = await submitForm(data, audienceId, formType, hutk)
       setFormSubmitted(true)
+      console.log(result)
     } catch (error) {
       setFormError(error)
       console.log(error)

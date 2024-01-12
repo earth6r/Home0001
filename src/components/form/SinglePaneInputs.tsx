@@ -65,6 +65,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   }, [])
 
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
+  const [unitInput, setUnitInput] = useState(false)
   const { state } = useContext(HomeContext)
 
   return (
@@ -106,6 +107,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             placeholder="YOUR EMAIL"
             type="email"
             id="email"
+            onFocus={() => !unitInput && setUnitInput(true)}
             className={classNames(modal ? 'waitlist' : '', 'input')}
             {...register('email', { required: true })}
           />
@@ -166,11 +168,15 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             />
           </>
         ) : (
-          <input
-            type="hidden"
-            value={state.unit?.title || 'Unit Placeholder'}
-            {...register('unit_of_interest', { required: false })}
-          />
+          <>
+            {unitInput && (
+              <input
+                type="hidden"
+                value={state.unit?.title || 'Unit Placeholder'}
+                {...register('unit_of_interest', { required: false })}
+              />
+            )}
+          </>
         )}
 
         {fields?.showContact && (
