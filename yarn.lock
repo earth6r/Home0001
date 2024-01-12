@@ -3328,30 +3328,31 @@
   dependencies:
     base64url "^3.0.1"
 
-"@studio-freight/hamo@^0.6.22":
-  version "0.6.22"
-  resolved "https://registry.yarnpkg.com/@studio-freight/hamo/-/hamo-0.6.22.tgz#c282c93228408a82b23af4a014be223dbffab9b6"
-  integrity sha512-bomWlxaT7OmhBJmduDw1mjMj8ZKew/hwXriNmCmcZXLpTQZwbj0c3VQVALmsotXNXqyEfkzD8f871ks4HPMqEQ==
+"@studio-freight/hamo@^0.6.24":
+  version "0.6.24"
+  resolved "https://registry.yarnpkg.com/@studio-freight/hamo/-/hamo-0.6.24.tgz#321adc82120a38685155d7dfcbc80d402692f5a6"
+  integrity sha512-mdQuvDVwq17DH8aNf5Os9dxu5vWnPyg/BBKjgaXovUlBLdjRkhLYMgZidb2hrY2ChsQH2Kt8xJL6YPeL/a2MaA==
   dependencies:
     "@studio-freight/tempus" "^0.0.38"
     just-debounce-it "^3.2.0"
     rimraf "^5.0.1"
+    zustand "^4.4.7"
 
-"@studio-freight/lenis@^1.0.28":
-  version "1.0.29"
-  resolved "https://registry.yarnpkg.com/@studio-freight/lenis/-/lenis-1.0.29.tgz#d7fcbf16c2ca1ddcb0d19007851e2920006985d4"
-  integrity sha512-z/qS8ato5m2wlxQREYj5iALcxMrhhm06vEiLqYzLI+3HmpPzPscmJ8cXNiay4bj692vOot2hyTA3WP++AQVoKA==
+"@studio-freight/lenis@^1.0.33":
+  version "1.0.33"
+  resolved "https://registry.yarnpkg.com/@studio-freight/lenis/-/lenis-1.0.33.tgz#7aeb883c820505e25b25e9337c5b12ac356ed1c9"
+  integrity sha512-Pfoimwwsf8oVuneQg3KoigUDlo1S+rE+m2Tz7b+zMNAEi0UAhox+PG/ksLHa8ktQhlsuWODeQFCl8VHBxqOtfw==
 
-"@studio-freight/react-lenis@^0.0.38":
-  version "0.0.38"
-  resolved "https://registry.yarnpkg.com/@studio-freight/react-lenis/-/react-lenis-0.0.38.tgz#6f8300d0631764210c7001214d4158d98c0bcc9a"
-  integrity sha512-Jyc4d/RfP9WFliQc01eT7V+L0hD+JoYvalyu2MAa0X/p47fYFiwKmT6N5szZArvrJIGOYj5G8rvDYeaD/vz6IA==
+"@studio-freight/react-lenis@^0.0.43":
+  version "0.0.43"
+  resolved "https://registry.yarnpkg.com/@studio-freight/react-lenis/-/react-lenis-0.0.43.tgz#a70b6401b18fb7d195e6924d768426418ce526b9"
+  integrity sha512-kgRif4MGcmPWuyIWLBc9ghOIQ/ql7lO2YTIZMv2UCohz37G4fCR8+PLCzJl9/q5iP7481pWdAuFJVYf3xJ/rpg==
   dependencies:
-    "@studio-freight/hamo" "^0.6.22"
-    "@studio-freight/lenis" "^1.0.28"
+    "@studio-freight/hamo" "^0.6.24"
+    "@studio-freight/lenis" "^1.0.33"
     clsx "^2.0.0"
     prop-types "^15.8.1"
-    zustand "^4.4.6"
+    zustand "^4.4.7"
 
 "@studio-freight/tempus@^0.0.38":
   version "0.0.38"
@@ -10881,7 +10882,7 @@ zod@3.21.4:
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.21.4.tgz#10882231d992519f0a10b5dd58a38c9dabbb64db"
   integrity sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==
 
-zustand@^4.4.6:
+zustand@^4.4.7:
   version "4.4.7"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.4.7.tgz#355406be6b11ab335f59a66d2cf9815e8f24038c"
   integrity sha512-QFJWJMdlETcI69paJwhSMJz7PPWjVP8Sjhclxmxmxv/RYI7ZOvR5BHX+ktH0we9gTWQMxcne8q1OY8xxz604gw==

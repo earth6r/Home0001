@@ -17,7 +17,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         'lg:flex lg:flex-row lg:justify-between lg:items-start px-x mt-20 lg:mt-10 lg:mb-y'
       )}
     >
-      <ul className="flex flex-col lg:flex-row md:justify-between gap-14 lg:gap-0 w-full">
+      <ul className="flex flex-col lg:flex-row md:justify-between gap-y lg:gap-0 w-full">
         {footerMenu?.items?.map(({ _key, text, link }, index) => {
           return text && link ? (
             <Fragment key={_key}>

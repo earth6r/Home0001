@@ -49,7 +49,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           }
         >
           {image && (
-            <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:pb-[75%] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
+            <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:pb-[90%] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
@@ -83,7 +83,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className, 'mt-0 -ml-[2px]')}>
+    <Block className={classNames(className, 'mt-0 -ml-[2px] lg:px-x')}>
       <div>
         <div className="grid md:grid-cols-2 gap-14 xl:gap-[150px] md:px-menu">
           {properties &&

@@ -22,7 +22,7 @@ export const MapDialog: FC<MapDialogProps> = ({
             sendGoogleEvent('opened map', options)
             setIsOpen(true)
           }}
-          className="hover:font-bold underline underline-offset-2"
+          className="hover:font-bold underline decoration-[1.5px] underline-offset-2"
         >
           {text}
         </button>

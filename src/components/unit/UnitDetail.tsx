@@ -12,6 +12,7 @@ import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
+import { KeyedProperty } from '@components/sanity/blocks/properties/types'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
   unit,
@@ -21,6 +22,8 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
+
+  const keyedProperty = unit?.property as KeyedProperty
 
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
@@ -40,8 +43,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
     }
   }, [unit])
 
-  //@ts-ignore
-  const calendarURL = `https://calendly.com/tour${unit?.property?.slug?.current}0001/scheduletour`
+  const calendarURL = `https://calendly.com/tour${keyedProperty?.slug.current}0001/scheduletour`
 
   return (
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>

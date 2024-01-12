@@ -12,7 +12,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 }) => {
   return (
     <div className={classNames(className, 'md:pl-x')}>
-      <h2 className="mb-12 px-x md:px-0 text-xl md:text-2xl font-bold uppercase">
+      <h2 className="mb-12 px-x md:px-0 text-xl md:text-2xl font-bold uppercase pr-menu md:pr-0">
         HOME0001:
         <br />
         {property?.title}
@@ -61,7 +61,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
       <div className="mx-x md:mx-0 md:pt-0">
         <div className="w-auto md:mr-x mt-ylg pt-ylg md:pt-page border-top"></div>
         <h2 className="text-xl md:text-2xl font-bold uppercase md:mr-x">
-          Available Homes:
+          Our Next Releases:
         </h2>
         {property?.unitsList && (
           <>

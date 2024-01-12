@@ -7,14 +7,13 @@ import Link from 'next/link'
 
 export const PropertyDetailComponent: FC<PropertyElProps> = ({
   property,
-  footerCopy,
   className,
 }) => {
   const filteredBody = property?.body && [
-    property?.body[3],
-    property?.body[4],
     property?.body[0],
     property?.body[1],
+    property?.body[3],
+    property?.body[4],
   ]
 
   const filteredBodyFooter = property?.body && [
@@ -24,11 +23,16 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
 
   return (
     <div className={classNames(className)}>
-      <h2 className="mb-12 text-xl md:text-2xl font-bold uppercase">
-        HOME0001:
-        <br />
-        {property?.title}
-      </h2>
+      <div className="mb-12">
+        <h2 className="text-xl md:text-2xl font-bold uppercase">
+          HOME0001:
+          <br />
+          {property?.title}
+        </h2>
+        {property?.header && (
+          <RichText blocks={property?.header} className="mt-yhalf" />
+        )}
+      </div>
       <div className="md:grid md:grid-cols-8 gap-10 md:col-start-1 block relative">
         <div className="grid grid-cols-[1fr_177px] md:flex md:flex-col md:col-span-3 md:justify-start md:items-start md:h-[48vw] pr-x md:pr-0">
           {property?.image && (
@@ -49,12 +53,6 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
           <div className="col-span-2 md:col-span-5 md:w-full">
             {property?.coordinates && (
               <Map coordinates={property.coordinates} height={415} />
-            )}
-            {property?.header && (
-              <RichText
-                blocks={property?.header}
-                className="mt-yhalf md:px-xhalf"
-              />
             )}
           </div>
         </div>
