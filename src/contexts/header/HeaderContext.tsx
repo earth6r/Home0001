@@ -31,6 +31,7 @@ export function HeaderProvider({ children }: { children: ReactNode }) {
     const urlParams = new URLSearchParams(window.location.search)
     const crypto = urlParams.get('crypto')
     if (crypto) {
+      sessionStorage.removeItem('firstTime')
       setCryptoMode(true)
     }
   }, [])

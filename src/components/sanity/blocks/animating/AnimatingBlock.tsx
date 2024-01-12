@@ -158,6 +158,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
+  console.log('cryptoMode:', cryptoMode)
 
   // account for header ~ JLM
   const citiesPos = header && citiesPosition && citiesPosition - 1
@@ -223,7 +224,8 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   }, [])
 
   useEffect(() => {
-    if (!sessionStorage.getItem('firstTime')) {
+    const isFirstVisit = !sessionStorage.getItem('firstTime')
+    if (isFirstVisit) {
       setAnimateActive(true)
       setShowContent(true)
       sessionStorage.setItem('firstTime', 'false')
