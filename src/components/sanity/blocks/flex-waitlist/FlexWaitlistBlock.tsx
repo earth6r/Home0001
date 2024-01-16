@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import classNames from 'classnames'
 import type { FlexWaitlistBlock as FlexWaitlistBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
@@ -27,10 +27,6 @@ export const FlexWaitlistBlock: FC<FlexWaitlistBlockProps> = ({
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [fullWidth, setFullWidth] = useState(false)
-
-  useEffect(() => {
-    // console.log(trigger)
-  }, [trigger])
 
   return (
     <Block
