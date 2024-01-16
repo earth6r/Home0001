@@ -59,8 +59,12 @@ export const Form: FC<FormProps> = ({
     }
     sendGoogleEvent('submit waitlist form', options)
 
+    // console.log('data', data, audienceId, formType)
+
     if (!audienceId || !formType) return
+
     let result
+
     try {
       result = await submitForm(data, audienceId, formType, hutk)
     } catch (error) {
@@ -85,11 +89,12 @@ export const Form: FC<FormProps> = ({
       setFormSubmitted(true)
     }
   }
+
   return (
     <div className={classNames(className)}>
       {formSubmitted ? (
         <div className="relative mt-ylg mb-2">
-          {formType == 'preference' ? (
+          {formType === 'preference' ? (
             <div>
               <p className="font-bold text-lg">
                 {'Thank you for sharing your preferences'}
@@ -116,13 +121,13 @@ export const Form: FC<FormProps> = ({
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           {children}
-          {/* {formError != null && (
+          {formError != null && (
             <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">
               <div className="relative text-left py-4 text-[red] uppercase text-base">
                 <p>{`Error submitting form`}</p>
               </div>
             </div>
-          )} */}
+          )}
         </form>
       )}
     </div>
