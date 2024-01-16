@@ -215,10 +215,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.addEventListener(
-        'scroll',
-        _.debounce(() => trackScroll(), 2)
-      )
+      window.addEventListener('scroll', trackScroll)
     }
   }, [])
 
