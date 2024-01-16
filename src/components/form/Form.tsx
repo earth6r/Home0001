@@ -7,6 +7,7 @@ import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
 
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
@@ -39,6 +40,7 @@ export const Form: FC<FormProps> = ({
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const [cookies, setCookie, removeCookie] = useCookies()
   const [hutk, setHutk] = useState<string | undefined>()
+  const { asPath } = useRouter()
 
   useEffect(() => {
     if (cookies.hubspotutk) {
@@ -57,8 +59,12 @@ export const Form: FC<FormProps> = ({
     }
     sendGoogleEvent('submit waitlist form', options)
 
+    // console.log('data', data, audienceId, formType)
+
     if (!audienceId || !formType) return
+
     let result
+
     try {
       result = await submitForm(data, audienceId, formType, hutk)
     } catch (error) {
@@ -67,6 +73,7 @@ export const Form: FC<FormProps> = ({
 
       // add response variable here
       const errorData = new FormData()
+      errorData.append('Page', asPath)
       errorData.append('Error', JSON.stringify(error))
       errorData.append('Payload', JSON.stringify(result))
       errorData.append('Form Data', JSON.stringify(data))
@@ -82,11 +89,12 @@ export const Form: FC<FormProps> = ({
       setFormSubmitted(true)
     }
   }
+
   return (
     <div className={classNames(className)}>
       {formSubmitted ? (
         <div className="relative mt-ylg mb-2">
-          {formType == 'preference' ? (
+          {formType === 'preference' ? (
             <div>
               <p className="font-bold text-lg">
                 {'Thank you for sharing your preferences'}
@@ -113,13 +121,13 @@ export const Form: FC<FormProps> = ({
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           {children}
-          {/* {formError != null && (
+          {formError != null && (
             <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">
               <div className="relative text-left py-4 text-[red] uppercase text-base">
                 <p>{`Error submitting form`}</p>
               </div>
             </div>
-          )} */}
+          )}
         </form>
       )}
     </div>

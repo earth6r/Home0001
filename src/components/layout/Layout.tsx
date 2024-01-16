@@ -67,7 +67,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           }}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
-        <ReactLenis root options={{ lerp: 0.8 }}>
+        <ReactLenis root>
           <main className="flex-auto">{children}</main>
         </ReactLenis>
         <Footer
