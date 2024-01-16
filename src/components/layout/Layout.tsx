@@ -12,7 +12,7 @@ import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
-// import { ReactLenis } from '@studio-freight/react-lenis'
+import { ReactLenis } from '@studio-freight/react-lenis'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -67,9 +67,9 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           }}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
-        {/* <ReactLenis root> */}
-        <main className="flex-auto">{children}</main>
-        {/* </ReactLenis> */}
+        <ReactLenis root options={{ lerp: 1, smoothWheel: false }}>
+          <main className="flex-auto">{children}</main>
+        </ReactLenis>
         <Footer
           path={asPath}
           query={query}
