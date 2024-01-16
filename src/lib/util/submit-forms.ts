@@ -9,7 +9,7 @@ const postPreferenceFields = async (
   config?: any,
   hutk?: string
 ) => {
-  console.log('data', data)
+  // console.log('data', data)
   const dataFields = [
     { name: 'firstname', value: data.first_name },
     { name: 'lastname', value: data.last_name },
@@ -74,7 +74,7 @@ const postPreferenceFields = async (
         : '',
     },
   ]
-  console.log('dataFields', dataFields)
+  // console.log('dataFields', dataFields)
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
     {
