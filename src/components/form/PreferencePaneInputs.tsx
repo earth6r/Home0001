@@ -21,13 +21,14 @@ import {
 
 const PreferenceSubmitButton: FC<PreferenceSubmitButtonProps> = ({
   onClick,
+  buttonType,
   className,
 }) => {
   return (
     <div className={className}>
       <button
         className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-        type={`button`}
+        type={buttonType || `button`}
         onClick={onClick}
       >
         {`Submit`}
@@ -471,7 +472,11 @@ const FinancingRadioPane: FC<PaneProps> = ({
           />
         </button>
 
-        <PreferenceSubmitButton onClick={onClick} className="w-full" />
+        <PreferenceSubmitButton
+          onClick={onClick}
+          buttonType={'submit'}
+          className="w-full"
+        />
       </div>
     </div>
   )
@@ -695,10 +700,6 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
         currentStep={currentStep}
         header={`Update Preferences`}
         copy={`Step 5 of 5`}
-        buttonCopy="Submit"
-        buttonType="button"
-        onClick={() => setCurrentStep(currentStep + 1)}
-        onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 4 ? 'hidden' : ''}
       >
         <FinancingRadioPane

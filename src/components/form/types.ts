@@ -31,4 +31,5 @@ export interface PreferencePaneInputsProps extends HTMLAttributes<HTMLElement> {
 export interface PreferenceSubmitButtonProps
   extends HTMLAttributes<HTMLElement> {
   onClick?: () => void
+  buttonType?: 'submit' | 'button'
 }
