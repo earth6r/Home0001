@@ -7,6 +7,7 @@ import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
 
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
@@ -39,6 +40,7 @@ export const Form: FC<FormProps> = ({
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const [cookies, setCookie, removeCookie] = useCookies()
   const [hutk, setHutk] = useState<string | undefined>()
+  const { asPath } = useRouter()
 
   useEffect(() => {
     if (cookies.hubspotutk) {
@@ -68,6 +70,7 @@ export const Form: FC<FormProps> = ({
       // add response variable here
       const errorData = new FormData()
       errorData.append('Error', JSON.stringify(error))
+      errorData.append('Page', asPath)
       errorData.append('Payload', JSON.stringify(result))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
