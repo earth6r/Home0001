@@ -69,7 +69,6 @@ export const Form: FC<FormProps> = ({
       setFormError(error)
       console.log(error)
 
-      // add response variable here
       const errorData = new FormData()
       errorData.append('Page', asPath)
       errorData.append('Error', JSON.stringify(error))
