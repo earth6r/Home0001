@@ -61,8 +61,6 @@ export const Form: FC<FormProps> = ({
     let result
     try {
       result = await submitForm(data, audienceId, formType, hutk)
-      setFormSubmitted(true)
-      console.log(result)
     } catch (error) {
       setFormError(error)
       console.log(error)
@@ -80,6 +78,8 @@ export const Form: FC<FormProps> = ({
         method: 'POST',
         body: errorData,
       })
+    } finally {
+      setFormSubmitted(true)
     }
   }
   return (
@@ -113,13 +113,13 @@ export const Form: FC<FormProps> = ({
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           {children}
-          {formError != null && (
+          {/* {formError != null && (
             <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">
               <div className="relative text-left py-4 text-[red] uppercase text-base">
                 <p>{`Error submitting form`}</p>
               </div>
             </div>
-          )}
+          )} */}
         </form>
       )}
     </div>
