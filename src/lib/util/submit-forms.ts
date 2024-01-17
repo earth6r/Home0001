@@ -9,7 +9,6 @@ const postPreferenceFields = async (
   config?: any,
   hutk?: string
 ) => {
-  // console.log('data', data)
   const dataFields = [
     { name: 'firstname', value: data.first_name },
     { name: 'lastname', value: data.last_name },
@@ -74,7 +73,6 @@ const postPreferenceFields = async (
         : '',
     },
   ]
-  // console.log('dataFields', dataFields)
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
     {
@@ -82,7 +80,7 @@ const postPreferenceFields = async (
       formGuid,
       fields: dataFields,
       context: {
-        hutk: hutk ? hutk : 'none available',
+        hutk: hutk ? hutk : undefined,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -136,7 +134,7 @@ const postModalFields = async (
       formGuid,
       fields: dataFields,
       context: {
-        hutk: hutk ? hutk : 'none available',
+        hutk: hutk ? hutk : undefined,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -164,7 +162,7 @@ const postContactFields = async (
         { name: 'message', value: data.message },
       ],
       context: {
-        hutk: hutk ? hutk : 'none available',
+        huhutk: hutk ? hutk : undefined,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -194,7 +192,7 @@ const postNewsletterFields = async (
         },
       ],
       context: {
-        hutk: hutk ? hutk : 'none available',
+        hutk: hutk ? hutk : undefined,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -238,7 +236,7 @@ const postUnitFields = async (
         },
       ],
       context: {
-        hutk: hutk ? hutk : 'none available',
+        hutk: hutk ? hutk : undefined,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -274,7 +272,7 @@ const postBrokerFields = async (
         },
       ],
       context: {
-        hutk: hutk ? hutk : 'none available',
+        hutk: hutk ? hutk : undefined,
         pageUri: document.URL,
         pageName: document.title,
       },
