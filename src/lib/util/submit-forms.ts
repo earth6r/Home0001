@@ -80,7 +80,7 @@ const postPreferenceFields = async (
       formGuid,
       fields: dataFields,
       context: {
-        hutk: hutk ? hutk : undefined,
+        hutk: hutk ? hutk : null,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -127,6 +127,15 @@ const postModalFields = async (
       value: data.current_zip_code ? data.current_zip_code : '',
     },
   ]
+  console.log(
+    portalId,
+    formGuid,
+    dataFields,
+    document.URL,
+    document.title,
+    hutk,
+    config
+  )
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
     {
@@ -134,7 +143,7 @@ const postModalFields = async (
       formGuid,
       fields: dataFields,
       context: {
-        hutk: hutk ? hutk : undefined,
+        hutk: hutk ? hutk : null,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -162,7 +171,7 @@ const postContactFields = async (
         { name: 'message', value: data.message },
       ],
       context: {
-        huhutk: hutk ? hutk : undefined,
+        huhutk: hutk ? hutk : null,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -192,7 +201,7 @@ const postNewsletterFields = async (
         },
       ],
       context: {
-        hutk: hutk ? hutk : undefined,
+        hutk: hutk ? hutk : null,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -236,7 +245,7 @@ const postUnitFields = async (
         },
       ],
       context: {
-        hutk: hutk ? hutk : undefined,
+        hutk: hutk ? hutk : null,
         pageUri: document.URL,
         pageName: document.title,
       },
@@ -272,7 +281,7 @@ const postBrokerFields = async (
         },
       ],
       context: {
-        hutk: hutk ? hutk : undefined,
+        hutk: hutk ? hutk : null,
         pageUri: document.URL,
         pageName: document.title,
       },
