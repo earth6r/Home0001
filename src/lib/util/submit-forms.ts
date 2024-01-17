@@ -32,7 +32,7 @@ const postPreferenceFields = async (
     },
     { name: 'primaryorsecondaryother', value: data.primaryorsecondaryother },
     {
-      name: 'locations_of_interest',
+      name: 'interested_cities',
       value: data.locations_of_interest
         ? data.locations_of_interest.join(';')
         : '',

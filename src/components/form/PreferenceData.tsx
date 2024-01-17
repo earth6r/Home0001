@@ -28,26 +28,26 @@ export const LOCATIONS = [
 export const SELLINGHOME = [
   {
     label: 'Yes, tell me more',
-    name: 'Yes-sell',
+    name: 'Yes',
   },
   {
     label: `No, thanks`,
-    name: 'No-need',
+    name: 'No',
   },
 ]
 
 export const FINANCING = [
   {
     label: 'Yes, please connect me with a recommended mortgage broker',
-    name: 'Yes',
+    name: 'Help',
   },
   {
     label: `No, I'm a cash buyer`,
-    name: 'Np-cash',
+    name: 'Cash',
   },
   {
     label: `No, I've got my mortgage sorted`,
-    name: 'No-sorted',
+    name: 'Mortgage',
   },
 ]
 
