@@ -65,6 +65,20 @@ export const Form: FC<FormProps> = ({
 
     try {
       result = await submitForm(data, audienceId, formType, hutk)
+
+      const errorData = new FormData()
+      errorData.append('Page', asPath)
+      errorData.append('Error', JSON.stringify('none'))
+      errorData.append('Payload', JSON.stringify(result))
+      errorData.append('Form Data', JSON.stringify(data))
+      errorData.append('User Agent', navigator.userAgent)
+      const action =
+        'https://script.google.com/macros/s/AKfycbyjuXITThcGvAHcYXNI6Wp5pYPywADwHJbAe__To9uAAAYEXpyfxecRzioAMfLgl0hX/exec'
+
+      fetch(action, {
+        method: 'POST',
+        body: errorData,
+      })
     } catch (error) {
       setFormError(error)
       console.log(error)
