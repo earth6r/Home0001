@@ -24,7 +24,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
               {footerMenu.items && index === footerMenu.items.length - 1 && (
                 <li className="md:hidden font-medium text-xs tracking-details uppercase">
                   <button onClick={() => setBrokerInquiryOpen(true)}>
-                    ARE YOU A BROKER?
+                    Are you a realtor?
                   </button>
                 </li>
               )}
