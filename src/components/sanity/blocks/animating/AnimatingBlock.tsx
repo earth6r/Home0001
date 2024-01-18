@@ -58,7 +58,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
                     <span
                       className={classNames(
                         active && propertyLink ? 'leading-none' : '',
-                        'underline decoration-[0.3rem]'
+                        'underline decoration-[0.1em]'
                       )}
                     >
                       {`${title},`}
