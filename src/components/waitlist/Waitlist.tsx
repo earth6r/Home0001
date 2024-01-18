@@ -47,7 +47,6 @@ export const Waitlist: FC<WaitlistProps> = ({
   formActions,
   fullWidth,
   formPanes,
-  broker = true,
   setFullWidth,
   className,
 }) => {
@@ -108,7 +107,6 @@ export const Waitlist: FC<WaitlistProps> = ({
           >
             <MultiPaneInputs
               block={true}
-              broker={broker}
               formPanes={formPanes}
               setFullWidth={setFullWidth}
               header={waitlist?.header}
