@@ -24,6 +24,7 @@ import {
 } from 'framer-motion'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import _ from 'lodash'
+import { useLenis } from '@studio-freight/react-lenis'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
   AnimatingBlockType
@@ -159,6 +160,8 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
 
+  const lenis = useLenis()
+
   // account for header ~ JLM
   const citiesPos = header && citiesPosition && citiesPosition - 1
 
@@ -244,6 +247,10 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
               key={`${animateActive}-1`}
               initial={animateActive ? 'initial' : 'active'}
               animate="active"
+              onAnimationStart={() => {
+                if (animateActive) lenis.stop()
+              }}
+              onAnimationComplete={() => lenis.start()}
               variants={headerVariants}
               className="flex flex-wrap items-center relative text-xl md:text-2xl font-bold tracking-header uppercase"
             >
