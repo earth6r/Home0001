@@ -185,34 +185,36 @@ export const Header: FC<HeaderProps> = ({
 
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
-              <h2 className="text-xl font-bold uppercase pt-page md:pr-menu lg:pr-fullmenu">
+              <h2 className="text-xl font-bold uppercase pt-page md:pt-0 md:mb-y md:pr-menu lg:pr-fullmenu">
                 {formSubmitted ? inquiry?.success || `Thanks!` : `Inquire`}
               </h2>
 
-              <p className="my-ylg text-md pr-menu">
-                {formSubmitted
-                  ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
-                  : inquiry?.copy ||
-                    `For more information and to schedule a tour:`}
-              </p>
+              <div className="md:grid md:grid-cols-2 md:gap-20 md:pr-menu">
+                <p className="my-ylg md:my-0 text-md pr-menu md:pr-0">
+                  {formSubmitted
+                    ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
+                    : inquiry?.copy ||
+                      `For more information and to schedule a tour:`}
+                </p>
 
-              {!formSubmitted && (
-                <Form
-                  formType={'unit'}
-                  audienceId={inquiry?.id}
-                  formSubmitted={formSubmitted}
-                  handleSubmit={handleSubmit}
-                  setFormSubmitted={setFormSubmitted}
-                  className="w-full h-full"
-                >
-                  <SinglePaneInputs
-                    fields={{ showName: true, showPhone: true }}
-                    register={register}
-                    modal={true}
-                    className={classNames('h-full pr-menu')}
-                  />
-                </Form>
-              )}
+                {!formSubmitted && (
+                  <Form
+                    formType="unit"
+                    audienceId={inquiry?.id}
+                    formSubmitted={formSubmitted}
+                    handleSubmit={handleSubmit}
+                    setFormSubmitted={setFormSubmitted}
+                    className="w-full h-full"
+                  >
+                    <SinglePaneInputs
+                      fields={{ showName: true, showPhone: true }}
+                      register={register}
+                      modal={true}
+                      className={classNames('h-full pr-menu')}
+                    />
+                  </Form>
+                )}
+              </div>
             </div>
           </AnimatedModal>
 
