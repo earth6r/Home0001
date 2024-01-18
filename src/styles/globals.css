@@ -182,6 +182,12 @@ body {
   display: none;
 }
 
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  position: fixed;
+}
+
 @media (min-width: 768px) {
   .intercom-lightweight-app-launcher {
     right: 2.5rem !important;
