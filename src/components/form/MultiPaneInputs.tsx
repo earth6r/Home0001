@@ -245,7 +245,6 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   copy,
   buttonCopy,
   formPanes,
-  broker,
   register,
   setFullWidth,
   className,
