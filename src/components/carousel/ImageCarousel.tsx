@@ -11,6 +11,7 @@ import { SCREENS } from '@/globals'
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import 'photoswipe/style.css'
 import { sendGoogleEvent } from '@lib/util'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 
 export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
@@ -63,6 +64,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   className,
   placement,
 }) => {
+  const [activeNav, setActiveNav] = useState(false)
   const [swipedImage, setSwipedImage] = useState(false)
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
@@ -103,7 +105,11 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   }, [])
 
   return (
-    <div className={classNames(className, 'relative')}>
+    <div
+      onMouseOver={() => setActiveNav(true)}
+      onMouseOut={() => setActiveNav(false)}
+      className={classNames(className, 'relative')}
+    >
       {slides && slides.length > 1 ? (
         <Swiper
           ref={slidesRef}
@@ -164,20 +170,27 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               )}
             </SwiperSlide>
           ))}
-          <nav className="hidden md:flex gap-[7px] my-yhalf">
-            <IconLeftArrow
-              width="24"
+          <div
+            className={classNames(
+              activeNav ? 'opacity-100' : 'opacity-0',
+              'hidden md:flex md:justify-between absolute w-full pl-xhalf top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+            )}
+          >
+            <IconRightArrowBold
+              width="80"
+              fill="black"
               className={classNames(
                 'rotate-180 swiper-prev pointer-events-auto cursor-pointer'
               )}
             />
-            <IconRightArrow
-              width="24"
+            <IconRightArrowBold
+              width="80"
+              fill="black"
               className={classNames(
-                'swiper-next pointer-events-auto cursor-pointer'
+                'relative right-xhalf swiper-next pointer-events-auto cursor-pointer'
               )}
             />
-          </nav>
+          </div>
         </Swiper>
       ) : (
         <div className="flex items-center overflow-hidden">
