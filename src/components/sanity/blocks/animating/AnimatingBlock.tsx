@@ -15,13 +15,7 @@ import { Block, RichText, SanityLink, SanityMedia } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util'
 import { CitiesListProps } from '../properties/types'
 import { SanityLinkType } from '@studio/lib'
-import {
-  AnimatePresence,
-  motion,
-  useInView,
-  useScroll,
-  useTransform,
-} from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import _ from 'lodash'
 import { useLenis } from '@studio-freight/react-lenis'
@@ -208,20 +202,6 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     },
   }
 
-  const trackScroll = () => {
-    if (typeof window !== 'undefined' && scrollRef.current) {
-      0 >=
-        (scrollRef.current as HTMLDivElement).getBoundingClientRect().bottom &&
-        setHeaderLinksShown(true)
-    }
-  }
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', trackScroll)
-    }
-  }, [])
-
   useEffect(() => {
     const isFirstVisit = !sessionStorage.getItem('firstTime')
     if (isFirstVisit) {
@@ -248,9 +228,16 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
               initial={animateActive ? 'initial' : 'active'}
               animate="active"
               onAnimationStart={() => {
-                if (animateActive) lenis.stop()
+                if (animateActive) {
+                  lenis.stop()
+                } else {
+                  setHeaderLinksShown(true)
+                }
               }}
-              onAnimationComplete={() => lenis.start()}
+              onAnimationComplete={() => {
+                lenis.start()
+                setHeaderLinksShown(true)
+              }}
               variants={headerVariants}
               className="flex flex-wrap items-center relative text-xl md:text-2xl font-bold tracking-header uppercase"
             >
