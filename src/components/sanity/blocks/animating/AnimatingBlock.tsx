@@ -63,7 +63,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
               ) : (
                 <div
                   className={classNames(
-                    'text-xl md:text-2xl font-bold uppercase bg-transparent opacity-30 shadow-none'
+                    'text-xl md:text-2xl font-bold uppercase bg-transparent text-lightgray shadow-none'
                   )}
                 >
                   <span

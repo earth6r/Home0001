@@ -19,6 +19,9 @@ export default {
         darkgray: '#E9E9E9',
         yellow: '#FAFF00',
       },
+      textColor: {
+        lightgray: '#999999',
+      },
       screens,
       fontFamily: {
         sans: ['"Haas Grot"', 'Arial', 'sans-serif', 'arial-unicode'],
