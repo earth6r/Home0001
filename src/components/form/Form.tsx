@@ -59,21 +59,34 @@ export const Form: FC<FormProps> = ({
     }
     sendGoogleEvent('submit waitlist form', options)
 
-    // console.log('data', data, audienceId, formType)
-
     if (!audienceId || !formType) return
 
     let result
 
     try {
       result = await submitForm(data, audienceId, formType, hutk)
+
+      const errorData = new FormData()
+      errorData.append('Page', asPath)
+      errorData.append('Hutk', JSON.stringify(hutk))
+      errorData.append('Error', JSON.stringify('none'))
+      errorData.append('Payload', JSON.stringify(result))
+      errorData.append('Form Data', JSON.stringify(data))
+      errorData.append('User Agent', navigator.userAgent)
+      const action =
+        'https://script.google.com/macros/s/AKfycbyjuXITThcGvAHcYXNI6Wp5pYPywADwHJbAe__To9uAAAYEXpyfxecRzioAMfLgl0hX/exec'
+
+      fetch(action, {
+        method: 'POST',
+        body: errorData,
+      })
     } catch (error) {
       setFormError(error)
       console.log(error)
 
-      // add response variable here
       const errorData = new FormData()
       errorData.append('Page', asPath)
+      errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify(error))
       errorData.append('Payload', JSON.stringify(result))
       errorData.append('Form Data', JSON.stringify(data))
@@ -121,13 +134,13 @@ export const Form: FC<FormProps> = ({
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           {children}
-          {formError != null && (
+          {/* {formError != null && (
             <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">
               <div className="relative text-left py-4 text-[red] uppercase text-base">
                 <p>{`Error submitting form`}</p>
               </div>
             </div>
-          )}
+          )} */}
         </form>
       )}
     </div>
