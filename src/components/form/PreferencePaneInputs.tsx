@@ -704,7 +704,6 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
       >
         <FinancingRadioPane
           register={register}
-          onClick={() => setCurrentStep(currentStep + 1)}
           onBack={() => setCurrentStep(currentStep - 1)}
           className={classNames(
             currentStep !== 4 ? 'hidden' : '',
