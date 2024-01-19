@@ -236,7 +236,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
               }}
               onAnimationComplete={() => {
                 lenis.start()
-                setHeaderLinksShown(true)
+                setTimeout(() => setHeaderLinksShown(true), 500)
               }}
               variants={headerVariants}
               className="flex flex-wrap items-center relative text-xl md:text-2xl font-bold tracking-header uppercase"
