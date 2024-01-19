@@ -22,8 +22,11 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
           return text && link ? (
             <Fragment key={_key}>
               {footerMenu.items && index === footerMenu.items.length - 1 && (
-                <li className="md:hidden font-medium text-xs tracking-details uppercase">
-                  <button onClick={() => setBrokerInquiryOpen(true)}>
+                <li className="md:hidden font-medium text-xs tracking-details">
+                  <button
+                    onClick={() => setBrokerInquiryOpen(true)}
+                    className="uppercase"
+                  >
                     Are you a realtor?
                   </button>
                 </li>
