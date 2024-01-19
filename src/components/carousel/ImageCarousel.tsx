@@ -176,7 +176,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           <div
             className={classNames(
               activeNav ? 'opacity-100' : 'opacity-0',
-              'hidden md:flex md:justify-between absolute w-full pl-[8px] top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+              'hidden md:flex md:justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
             )}
           >
             <IconRightArrowBold
@@ -190,7 +190,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               width="80"
               fill="black"
               className={classNames(
-                'relative -right-[calc(var(--space-x)-8px)] swiper-next pointer-events-auto cursor-pointer'
+                'relative swiper-next pointer-events-auto cursor-pointer'
               )}
             />
           </div>
