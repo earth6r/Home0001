@@ -16,6 +16,7 @@ export default {
       backgroundColor: {
         whitesmoke: '#F3F3F3',
         gray: '#EDEDED',
+        lightgray: '#DEDEDE',
         darkgray: '#E9E9E9',
         yellow: '#FAFF00',
       },
@@ -34,7 +35,7 @@ export default {
         sm: ['14px', '1'], // read more
         md: ['18px', '1.2'], // body
         lg: ['22.5px', '1'], // h3
-        card: ['clamp(1.40625rem, 0.811rem + 2.267vw, 2.625rem)', '1'], // property summary card
+        card: ['clamp(1.40625rem, 0.811rem + 2.267vw, 2.625rem)', '0.85'], // property summary card
         xl: ['clamp(12px,10.5vw,54px)', '0.85'], // h2
         '2xl': ['clamp(12px,5.5vw,75px)', '0.85'], // h1
       },
