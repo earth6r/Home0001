@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import { Layout } from '@components/layout'
@@ -13,6 +14,8 @@ import 'swiper/css/virtual'
 import '../styles/main.css'
 import '../styles/toast.css'
 import { AnimatePresence } from 'framer-motion'
+import { LenisInstance, useLenis } from '@studio-freight/react-lenis'
+import { useRouter } from 'next/router'
 
 const PreviewProvider = dynamic(
   () => import('@components/preview/PreviewProvider')
