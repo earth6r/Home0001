@@ -13,7 +13,6 @@ import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
-import { useEditState } from 'sanity'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -28,12 +27,6 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath, query } = useRouter()
   const page: PageData = filterDataToSingleItem(data)
-
-  const lenis = useLenis()
-
-  useEffect(() => {
-    document.addEventListener('DOMContentLoaded', () => lenis.start())
-  }, [])
 
   return (
     <>
