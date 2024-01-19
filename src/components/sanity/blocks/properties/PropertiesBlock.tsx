@@ -9,6 +9,7 @@ import { Block, RichText, SanityMedia } from '@components/sanity'
 import Link from 'next/link'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { sendGoogleEvent } from '@lib/util'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -41,7 +42,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       >
         <Link
           href={`/property/${slug.current}`}
-          className="w-full mx-x md:mx-0 card-shadow"
+          className="w-full bg-black text-white"
           onClick={() =>
             sendGoogleEvent('Click home property tile', {
               tileProperty: slug.current,
@@ -49,7 +50,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           }
         >
           {image && (
-            <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:pb-[90%] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
+            <div className="block relative w-full h-0 pb-[120%] xl:pb-[100%] z-base overflow-hidden">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
@@ -66,10 +67,16 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'w-full px-x pb-x text-card font-bold leading-tight text-left uppercase'
+                'relative w-full p-[16px] text-card font-bold leading-tight text-left uppercase'
               )}
             >
-              <RichText blocks={longTitle} className="card underline" />
+              <RichText blocks={longTitle} className="pr-[52px] card" />
+
+              <IconRightArrowBold
+                className="absolute top-4 right-4"
+                width="42"
+                fill="white"
+              />
             </div>
           )}
         </Link>
@@ -83,9 +90,12 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className, 'mt-0 -ml-[2px] lg:px-x')}>
-      <div>
-        <div className="grid md:grid-cols-2 gap-14 xl:gap-[150px] md:px-menu">
+    <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
+      <div className="px-x md:px-[calc(var(--space-menu)+12px)]">
+        <h2 className="mb-[32px] md:mb-[16px] text-xl font-bold uppercase tracking-tight pr-menu md:pr-0">
+          Now available in:
+        </h2>
+        <div className="grid md:grid-cols-2 gap-[32px] md:gap-4">
           {properties &&
             (properties as KeyedProperty[])?.map(
               ({ cardImage, longTitle, slug }, index) => (
