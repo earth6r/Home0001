@@ -37,7 +37,7 @@ export default {
         lg: ['22.5px', '1'], // h3
         card: ['clamp(1.5rem, 0.95rem + 2.09vw, 2.625rem)', '0.85'], // property summary card
         xl: ['clamp(12px,10.5vw,54px)', '0.85'], // h2
-        '2xl': ['clamp(12px,5.5vw,75px)', '0.85'], // h1
+        '2xl': ['clamp(1.5625rem, -1.234rem + 6.579vw, 4.6875rem)', '0.85'], // h1
       },
       letterSpacing: {
         details: '-0.02em',
