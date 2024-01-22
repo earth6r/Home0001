@@ -91,7 +91,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   return (
     <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
       <div className="px-x md:px-[calc(var(--space-menu)+12px)]">
-        <h2 className="mb-[32px] md:mb-[12px] text-xl font-bold uppercase tracking-tight pr-menu md:pr-0">
+        <h2 className="mb-[32px] md:mb-[12px] text-xl md:text-2xl font-bold uppercase tracking-tight pr-menu md:pr-0">
           Now available in:
         </h2>
         <div className="grid md:grid-cols-2 gap-[32px] md:gap-4">
