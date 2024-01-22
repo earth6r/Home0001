@@ -42,7 +42,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       >
         <Link
           href={`/property/${slug.current}`}
-          className="w-full bg-black text-white"
+          className="relative text-white"
           onClick={() =>
             sendGoogleEvent('Click home property tile', {
               tileProperty: slug.current,
@@ -50,7 +50,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           }
         >
           {image && (
-            <div className="block relative w-full h-0 pb-[120%] xl:pb-[100%] z-base overflow-hidden">
+            <div className="block relative w-full h-0 pb-[120%] xl:pb-[115%] 2xl:pb-[110%] z-base overflow-hidden">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
@@ -59,7 +59,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
                   sizes: '(max-width: 768px) 100vw, 50vw',
                   lqip: (image?.image as any)?.asset?.metadata?.lqip,
                 }}
-                className="w-full h-auto object-contain"
+                className="relative w-full h-auto transform -translate-y-[5%] object-contain"
                 {...(image as any)}
               />
             </div>
@@ -67,14 +67,13 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'relative w-full p-[16px] text-card font-bold leading-tight text-left uppercase'
+                'inline-flex justify-start items-start gap-[32px] relative p-[16px] bg-black text-card font-bold leading-tight text-left uppercase'
               )}
             >
-              <RichText blocks={longTitle} className="pr-[52px] card" />
+              <RichText blocks={longTitle} className="card" />
 
               <IconRightArrowBold
-                className="absolute top-4 right-4"
-                width="42"
+                className="relative w-[1.2em] md:w-[1em]"
                 fill="white"
               />
             </div>
@@ -92,7 +91,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   return (
     <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
       <div className="px-x md:px-[calc(var(--space-menu)+12px)]">
-        <h2 className="mb-[32px] md:mb-[16px] text-xl font-bold uppercase tracking-tight pr-menu md:pr-0">
+        <h2 className="mb-[32px] md:mb-[12px] text-xl font-bold uppercase tracking-tight pr-menu md:pr-0">
           Now available in:
         </h2>
         <div className="grid md:grid-cols-2 gap-[32px] md:gap-4">
