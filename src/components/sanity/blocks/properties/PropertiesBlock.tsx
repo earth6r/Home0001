@@ -59,7 +59,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
                   sizes: '(max-width: 768px) 100vw, 50vw',
                   lqip: (image?.image as any)?.asset?.metadata?.lqip,
                 }}
-                className="relative w-full h-auto transform -translate-y-[5%] object-contain"
+                className="relative w-full h-auto transform -translate-y-[5%] object-contain md:scale-105 md:hover:scale-100 transition-transform duration-1000"
                 {...(image as any)}
               />
             </div>
@@ -72,10 +72,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
             >
               <RichText blocks={longTitle} className="card" />
 
-              <IconRightArrowBold
-                className="relative w-[1.2em] md:w-[1em]"
-                fill="white"
-              />
+              <IconRightArrowBold className="relative w-[1em]" fill="white" />
             </div>
           )}
         </Link>
