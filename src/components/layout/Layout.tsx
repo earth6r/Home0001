@@ -70,9 +70,9 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <ReactLenis
           root
           options={{
-            lerp: 1,
             smoothWheel: false,
-            syncTouch: false,
+            smoothTouch: true,
+            lerp: 0.15,
           }}
         >
           <main className="flex-auto">{children}</main>
