@@ -40,9 +40,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
               {propertyLink ? (
                 <SanityLink
                   {...(propertyLink as SanityLinkType)}
-                  className={classNames(
-                    'text-xl md:text-2xl font-bold uppercase'
-                  )}
+                  className={classNames('text-2xl font-bold uppercase')}
                 >
                   <div
                     onClick={() => {
@@ -63,7 +61,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
               ) : (
                 <div
                   className={classNames(
-                    'text-xl md:text-2xl font-bold uppercase bg-transparent text-lightgray shadow-none'
+                    'text-2xl font-bold uppercase bg-transparent text-lightgray shadow-none'
                   )}
                 >
                   <span
@@ -239,7 +237,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                 setTimeout(() => setHeaderLinksShown(true), 500)
               }}
               variants={headerVariants}
-              className="flex flex-wrap items-center relative text-xl md:text-2xl font-bold tracking-header uppercase"
+              className="flex flex-wrap items-center relative text-2xl font-bold tracking-header uppercase"
             >
               <div>
                 {header.map((item, index) => (
