@@ -14,10 +14,10 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        'lg:flex lg:flex-row lg:justify-between lg:items-start px-x mt-20 lg:mt-10 lg:mb-y'
+        'px-x mt-[32px] md:mt-[56px] mb-[94px] lg:mb-yhalf'
       )}
     >
-      <ul className="flex flex-col lg:flex-row md:justify-between gap-y lg:gap-0 w-full">
+      <ul className="flex flex-col lg:flex-row md:justify-between gap-[24px] lg:gap-0 w-full pb-4 md:pb-0">
         {footerMenu?.items?.map(({ _key, text, link }, index) => {
           return text && link ? (
             <Fragment key={_key}>
@@ -39,14 +39,12 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         })}
       </ul>
 
-      <p className="hidden lg:block w-[50%] ml-[5%] font-medium text-xs tracking-details leading-none">
-        &copy;{` ${year} HOME0001`} NY DRE #10351211814 | CA DRE #01427385
-      </p>
-
-      <p className="lg:hidden font-medium text-xs tracking-details leading-normal mb-4 lg:mb-9 mt-20">
+      <p className="font-medium text-xs tracking-details leading-normal mt-4">
         &copy;{` ${year} HOME0001`}
         <br />
-        NY DRE #10351211814 | CA DRE #01427385
+        NY DRE #10351211814
+        <br />
+        CA DRE #01427385
       </p>
     </footer>
   )
