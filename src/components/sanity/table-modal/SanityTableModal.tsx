@@ -6,12 +6,14 @@ import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 
 interface SanityTableModalProps extends HTMLAttributes<HTMLElement> {
   table: any
+  title: string
   modalType: 'View Fact Sheet' | 'inventory'
   unit?: string
 }
 
 export const SanityTableModal: FC<SanityTableModalProps> = ({
   table,
+  title,
   modalType,
   className,
   unit,
@@ -37,26 +39,33 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
   return (
     <div className={className}>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="py-6 md:py-10 px-x md:px-10 h-full flex flex-col text-sm font-bold overflow-y-scroll">
+        <div className="py-6 md:py-11 px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
+          <span className="uppercase font-medium mb-y">{title}</span>
+
           <div className="pb-y">
             {table.rows &&
               table.rows.length > 0 &&
               table.rows.map(
-                ({ _key, cells }: { _key: number; cells: string[] }) => (
+                (
+                  { _key, cells }: { _key: number; cells: string[] },
+                  index: number
+                ) => (
                   <div
                     key={_key}
-                    className="flex flex-nowrap min-h-[10px] my-[0.5em]"
+                    className={classNames(
+                      index <= 1
+                        ? 'uppercase text-lg leading-[0.85]'
+                        : 'my-[0.5em]',
+                      cells.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
+                      'grid min-h-[10px]'
+                    )}
                   >
                     {cells &&
                       cells.length > 0 &&
                       cells.map((cell: string, i: number) => (
                         <div
                           key={cell + i}
-                          className={classNames(
-                            i === 0
-                              ? 'w-[250px] xs:w-[300px] md:w-[200px]'
-                              : 'w-[calc(100%-250px)]'
-                          )}
+                          className={classNames(i === 0 ? 'font-bold' : '')}
                         >
                           {cell}
                         </div>
@@ -68,18 +77,14 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
         </div>
       </Modal>
 
-      <div className="pr-mobile-menu md:pr-0 flex mt-2">
-        <IconSmallBlackArrow
-          width="20"
-          height="32"
-          className="mt-[3px] mr-[4px]"
-        />
+      <div className="flex items-center gap-[5px] py-[4px] px-[6px] border-black">
+        <IconSmallBlackArrow width="13" height="9" />
         <button
           onClick={() => {
             setIsOpen(true)
             handleGoogleEvent()
           }}
-          className="font-bold border-bottom mt-2 ml-2"
+          className="uppercase font-medium leading-none"
         >
           {modalType}
         </button>
