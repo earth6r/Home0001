@@ -42,7 +42,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       >
         <Link
           href={`/property/${slug.current}`}
-          className="relative text-white"
+          className="relative text-white md:scale-100 md:hover:scale-[0.96] transition-transform duration-1000"
           onClick={() =>
             sendGoogleEvent('Click home property tile', {
               tileProperty: slug.current,
@@ -59,7 +59,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
                   sizes: '(max-width: 768px) 100vw, 50vw',
                   lqip: (image?.image as any)?.asset?.metadata?.lqip,
                 }}
-                className="relative w-full h-auto transform -translate-y-[5%] object-contain md:scale-105 md:hover:scale-100 transition-transform duration-1000"
+                className="relative w-full h-auto transform -translate-y-[5%] object-contain"
                 {...(image as any)}
               />
             </div>
