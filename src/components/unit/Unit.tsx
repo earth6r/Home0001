@@ -75,6 +75,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               {unit?.area && <p className="mb-4">{unit?.area}</p>}
               {unit?.factSheet?.rows && (
                 <SanityTableModal
+                  title="Fact Sheet"
                   table={unit.factSheet}
                   modalType="View Fact Sheet"
                   className="inline-block mb-8"
