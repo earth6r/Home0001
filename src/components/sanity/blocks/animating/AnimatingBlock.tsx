@@ -48,14 +48,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
                       setHeaderLinksShown(true)
                     }}
                   >
-                    <span
-                      className={classNames(
-                        active && propertyLink ? 'leading-none' : '',
-                        'underline decoration-[0.1em]'
-                      )}
-                    >
-                      {`${title},`}
-                    </span>
+                    <span>{`${title},`}</span>
                   </div>
                 </SanityLink>
               ) : (
