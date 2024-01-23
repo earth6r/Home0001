@@ -300,7 +300,7 @@ export const Header: FC<HeaderProps> = ({
                 'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
               )}
             >
-              <IconWaitlist className="w-[96.85px] md:w-[93px]" />
+              <IconWaitlist className="w-[96.85px] md:w-[93px] mt-[3px] md:mt-[4px]" />
             </Btn>
           )}
 
