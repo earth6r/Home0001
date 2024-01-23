@@ -7,7 +7,8 @@ import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 interface SanityTableModalProps extends HTMLAttributes<HTMLElement> {
   table: any
   title: string
-  modalType: 'View Fact Sheet' | 'inventory'
+  modalType: 'fact sheet' | 'inventory'
+  buttonLabel: string
   unit?: string
 }
 
@@ -15,6 +16,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
   table,
   title,
   modalType,
+  buttonLabel,
   className,
   unit,
 }) => {
@@ -23,7 +25,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
   const handleGoogleEvent = () => {
     if (unit) {
       switch (modalType) {
-        case 'View Fact Sheet': {
+        case 'fact sheet': {
           const options = { location: window.location.pathname }
           sendGoogleEvent('clicked fact sheet', options)
           break
@@ -53,22 +55,20 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
                   <div
                     key={_key}
                     className={classNames(
-                      index <= 1
+                      index <= 1 || (modalType === 'inventory' && index === 2)
                         ? 'uppercase text-lg leading-[0.85]'
                         : 'my-[0.5em]',
                       cells.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
+                      cells.length <= 1 || (cells[1] && cells[1].length === 0)
+                        ? 'font-bold'
+                        : '',
                       'grid min-h-[10px]'
                     )}
                   >
                     {cells &&
                       cells.length > 0 &&
                       cells.map((cell: string, i: number) => (
-                        <div
-                          key={cell + i}
-                          className={classNames(i === 0 ? 'font-bold' : '')}
-                        >
-                          {cell}
-                        </div>
+                        <div key={cell + i}>{cell}</div>
                       ))}
                   </div>
                 )
@@ -86,7 +86,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
           }}
           className="uppercase font-medium leading-none"
         >
-          {modalType}
+          {buttonLabel}
         </button>
       </div>
     </div>

@@ -422,6 +422,13 @@ export interface Unit extends SanityDocument {
   factSheet?: Table;
 
   /**
+   * Inventory — `table`
+   *
+   *
+   */
+  inventory?: Table;
+
+  /**
    * Unit Details — `richText`
    *
    *
