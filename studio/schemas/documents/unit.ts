@@ -110,6 +110,12 @@ export default {
       options: { collapsable: true, collapsed: true },
     },
     {
+      name: 'inventory',
+      title: 'Inventory',
+      type: 'table',
+      options: { collapsable: true, collapsed: true },
+    },
+    {
       name: 'unitDetails',
       title: 'Unit Details',
       type: 'richText',

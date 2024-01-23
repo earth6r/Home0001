@@ -72,22 +72,36 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                     } BTC / ${cryptoPrice[0]} ETH`
                   : unit?.price}
               </p>
-              {unit?.area && <p className="mb-4">{unit?.area}</p>}
+              {unit?.area && <p className="mb-ylg">{unit?.area}</p>}
+
               {unit?.factSheet?.rows && (
                 <SanityTableModal
                   title="Fact Sheet"
                   table={unit.factSheet}
-                  modalType="View Fact Sheet"
-                  className="inline-block mb-8"
+                  modalType="fact sheet"
+                  buttonLabel="View Fact Sheet"
+                  className="inline-block mb-ylg"
                   unit={unit.title}
                 />
               )}
+
               {unit?.summary && (
                 <RichText blocks={unit?.summary} className="max-w-[500px]" />
               )}
+
+              {unit?.inventory?.rows && (
+                <SanityTableModal
+                  title="Inventory"
+                  table={unit.inventory}
+                  modalType="inventory"
+                  buttonLabel="View Inventory"
+                  className="inline-block mt-ylg"
+                  unit={unit.title}
+                />
+              )}
             </div>
 
-            {unit?.unitDetails && (
+            {unit?.unitDetails && unit.unitDetails.length > 0 && (
               <>
                 <p className="uppercase font-bold text-md mb-y">Details</p>
                 <DetailsDropdown

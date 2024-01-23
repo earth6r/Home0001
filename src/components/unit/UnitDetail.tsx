@@ -120,8 +120,20 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 <SanityTableModal
                   title="Fact Sheet"
                   table={unit.factSheet}
-                  modalType="View Fact Sheet"
+                  modalType="fact sheet"
+                  buttonLabel="View Fact Sheet"
                   className="inline-block text-md font-bold"
+                  unit={unit.title}
+                />
+              )}
+
+              {unit?.inventory?.rows && (
+                <SanityTableModal
+                  title="Inventory"
+                  table={unit.inventory}
+                  modalType="inventory"
+                  buttonLabel="View Inventory"
+                  className="inline-block mt-ylg"
                   unit={unit.title}
                 />
               )}
