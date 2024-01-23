@@ -122,12 +122,15 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             nextEl: '.swiper-next',
             prevEl: '.swiper-prev',
           }}
-          className="w-full md:w-auto max-w-[unset] ml-0 md:mx-auto overflow-visible"
+          className="w-[calc(var(--space-x)+100%)] md:w-auto max-w-[unset] ml-0 md:mx-auto"
         >
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide
               key={`${_key}-${alt}`}
-              className="w-full md:w-[346px] h-[373px] md:h-[35.1vw] md:min-h-[484px] md:max-h-[484px]"
+              className={classNames(
+                index + 1 === slides.length ? 'pr-x' : '',
+                'w-full md:w-[346px] h-[373px] md:h-[35.1vw] md:min-h-[484px] md:max-h-[484px]'
+              )}
             >
               {image && alt && (
                 <>
