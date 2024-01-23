@@ -9,7 +9,7 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
-    <div className="z-50 fixed right-0 md:px-10 md:py-9">
+    <div className="z-50 fixed right-0 px-x md:px-10 py-yhalf md:py-9">
       <button
         onClick={onClose}
         className="uppercase font-medium mt-[0.5em]"

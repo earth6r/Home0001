@@ -141,7 +141,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   min-width: 320px;
-  overscroll-behavior-y: none;
+  overflow-y: scroll;
 }
 
 /* 3rd party styling */

@@ -39,7 +39,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
   return (
     <div className={className}>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="py-6 md:py-11 px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
+        <div className="py-[19px] md:py-11 px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
           <span className="uppercase font-medium mb-y">{title}</span>
 
           <div className="pb-y">
