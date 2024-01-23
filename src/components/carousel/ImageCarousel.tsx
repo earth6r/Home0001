@@ -122,13 +122,12 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             nextEl: '.swiper-next',
             prevEl: '.swiper-prev',
           }}
-          className="w-[calc(var(--space-x)+100%)] md:w-auto max-w-[unset] ml-0 md:mx-auto"
+          className="w-[calc(var(--space-x)+100%)] ml-0 md:mx-auto"
         >
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide
               key={`${_key}-${alt}`}
               className={classNames(
-                index + 1 === slides.length ? 'pr-x' : '',
                 'w-full md:w-[346px] h-[373px] md:h-[35.1vw] md:min-h-[484px] md:max-h-[484px]'
               )}
             >
@@ -141,13 +140,14 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       }`}
                       data-pswp-width={1000}
                       data-pswp-height={1100}
+                      className={classNames('overflow-hidden')}
                     >
                       <ImageSlide
                         image={image as any}
                         index={index}
                         alt={alt}
                         className={classNames(
-                          index === slides.length - 1 ? 'md:mr-x' : ''
+                          index + 1 === slides.length ? 'relative right-x' : ''
                         )}
                       />
                     </a>
