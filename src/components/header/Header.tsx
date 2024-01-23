@@ -22,6 +22,7 @@ import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
 import { RichText } from '@components/sanity'
 import { useLenis } from '@studio-freight/react-lenis'
+import { IconWaitlist } from '@components/icons'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -299,10 +300,7 @@ export const Header: FC<HeaderProps> = ({
                 'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
               )}
             >
-              <div className="w-[100px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
-                <IconSmallArrow width="16" className="mr-[5px]" />
-                {`Waitlist`}
-              </div>
+              <IconWaitlist className="w-[96.85px] md:w-[93px]" />
             </Btn>
           )}
 
