@@ -90,7 +90,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
 }) => {
   return (
     <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
-      <div className="max-w-[1150px] mx-auto px-x md:px-[calc(var(--space-menu)+12px)] xl:px-0">
+      <div className="xl:max-w-[65%] mx-auto px-x md:px-[calc(var(--space-menu)+12px)] xl:px-0">
         <h2 className="mb-[32px] md:mb-[12px] text-xl md:text-2xl font-bold uppercase tracking-header pr-menu md:pr-0">
           Now available in:
         </h2>
