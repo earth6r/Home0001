@@ -113,7 +113,10 @@ export const Waitlist: FC<WaitlistProps> = ({
               copy={waitlist?.text}
               buttonCopy="Join waitlist"
               register={formActions.register}
-              className={classNames(fullWidth ? '' : 'max-w-[430px]', 'h-full')}
+              className={classNames(
+                fullWidth ? '' : 'md:max-w-[1050px] md:pr-menu',
+                'h-full'
+              )}
               trigger={formActions.trigger}
               formValues={formActions.getValues}
             />

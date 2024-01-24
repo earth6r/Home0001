@@ -29,7 +29,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
       className={classNames(
         className,
         grid ? 'md:grid md:grid-cols-3 pr-menu' : '',
-        'relative mt-block'
+        'relative mt-0'
       )}
     >
       <div className="w-full">

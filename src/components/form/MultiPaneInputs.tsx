@@ -150,7 +150,7 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
 
       {broker && (
         <button
-          className="text-left font-medium text-xs tracking-details underline decoration-[1.5px] underline-offset-2 pt-[28px] md:pt-[44px] pb-[12px]"
+          className="pt-[35px] pb-[7px] text-left font-bold text-md tracking-details underline decoration-[1.5px] underline-offset-2"
           onClick={() => setBrokerInquiryOpen(true)}
         >
           Are you a realtor?
@@ -203,7 +203,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
         {...register('City', { required: false })}
         className={classNames(
           hiddenInputShown ? '' : 'opacity-0',
-          'waitlist input mb-4'
+          'input mb-4'
         )}
       />
     </div>

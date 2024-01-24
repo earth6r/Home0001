@@ -25,7 +25,8 @@
   --input-size: 2.5em;
 
   /* buttons */
-  --btn-height: 42px;
+  --btn-height: 48px;
+  --btn-width: 358px;
   --btn-space-x: 2em;
   --btn-space-y: 0.625em;
 
