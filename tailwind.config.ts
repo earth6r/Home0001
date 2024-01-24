@@ -59,6 +59,7 @@ export default {
         input: 'var(--input-size)',
         block: 'var(--space-block)',
         btn: 'var(--btn-height)',
+        btnWidth: 'var(--btn-width)',
         btnx: 'var(--btn-space-x)',
         btny: 'var(--btn-space-y)',
         header: 'var(--header-height)',

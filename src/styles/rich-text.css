@@ -10,6 +10,10 @@
   @apply border-bottom border-[#DDD] pb-yhalf mt-yhalf;
 }
 
+.rich-text.bold > p {
+  @apply font-bold;
+}
+
 .rich-text > ul,
 .rich-text > ol,
 .rich-text > blockquote,

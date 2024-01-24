@@ -54,7 +54,7 @@ const Pane: FC<PaneProps> = ({
               className={classNames(
                 block ? 'md:pr-menu' : '',
                 largeHeader
-                  ? 'text-xl'
+                  ? 'text-xl tracking-tight'
                   : 'md:mt-y md:-mb-y text-lg pt-ylg md:pt-0',
                 'pb-8 md:pb-10 uppercase font-bold'
               )}
@@ -75,7 +75,7 @@ const Pane: FC<PaneProps> = ({
               copy && (
                 <RichText
                   blocks={copy}
-                  className={classNames('mb-ylg clear-both')}
+                  className={classNames('mb-ylg clear-both bold uppercase')}
                 />
               )
             )}
@@ -113,7 +113,7 @@ const Pane: FC<PaneProps> = ({
           ) : null}
 
           <button
-            className="relative flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            className="relative flex justify-between items-center w-full md:w-btnWidth px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
             type={buttonType || 'submit'}
             onClick={onClick}
           >

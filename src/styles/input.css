@@ -3,12 +3,16 @@ fieldset {
   border: none;
 }
 
+textarea {
+  @apply placeholder:opacity-100 placeholder:text-black font-bold;
+}
+
 .input {
-  @apply outline-none border-black font-medium text-xs bg-white placeholder:opacity-100 placeholder:text-black px-xhalf py-2 h-10 w-full rounded-none placeholder:uppercase;
+  @apply h-btn border-black font-bold text-xs bg-white placeholder:opacity-100 placeholder:text-black px-xhalf py-2 w-full rounded-none placeholder:uppercase;
 }
 
 .input.waitlist {
-  @apply border-0;
+  @apply w-full md:w-btnWidth;
 }
 
 input[type='checkbox'],
