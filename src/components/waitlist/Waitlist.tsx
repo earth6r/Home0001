@@ -115,7 +115,7 @@ export const Waitlist: FC<WaitlistProps> = ({
               register={formActions.register}
               className={classNames(
                 fullWidth ? '' : 'md:max-w-[1050px] md:pr-menu',
-                'h-full'
+                'h-full leading-[0.85]'
               )}
               trigger={formActions.trigger}
               formValues={formActions.getValues}
