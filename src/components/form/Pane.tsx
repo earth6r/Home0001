@@ -70,7 +70,9 @@ const Pane: FC<PaneProps> = ({
             )}
           >
             {typeof copy === 'string' ? (
-              <p className="mb-ylg text-md font-medium">{copy}</p>
+              <p className="mb-ylg text-md font-bold uppercase leading-[0.85]">
+                {copy}
+              </p>
             ) : (
               copy && (
                 <RichText
