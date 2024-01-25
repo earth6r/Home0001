@@ -42,7 +42,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       >
         <Link
           href={`/property/${slug.current}`}
-          className="relative text-white md:scale-100 md:hover:scale-[0.96] transition-transform duration-1000"
+          className="relative text-white md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
           onClick={() =>
             sendGoogleEvent('Click home property tile', {
               tileProperty: slug.current,

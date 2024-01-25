@@ -15,12 +15,7 @@ import type {
 import type { Unit as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
-import {
-  SITE_SETTINGS_QUERY,
-  UNIT_QUERY,
-  client,
-  filterDataToSingleItem,
-} from '@studio/lib'
+import { UNIT_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { Unit } from '@components/unit'
 import PageTransition from '@components/transition/PageTransition'
 import { HomeContext } from '@contexts/home'
