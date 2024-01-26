@@ -53,7 +53,7 @@ const Pane: FC<PaneProps> = ({
             <h2
               className={classNames(
                 largeHeader ? 'text-xl tracking-tight' : 'text-lg',
-                'pb-8 md:pb-[32px] uppercase font-bold'
+                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85]'
               )}
             >
               {header || `Join the waitlist:`}
@@ -72,7 +72,7 @@ const Pane: FC<PaneProps> = ({
                 <h2
                   className={classNames(
                     largeHeader ? 'text-lg tracking-tight' : 'text-lg',
-                    'pb-8 md:pb-[32px] uppercase font-bold'
+                    'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85]'
                   )}
                 >
                   {header || `Join the waitlist:`}
@@ -102,7 +102,7 @@ const Pane: FC<PaneProps> = ({
             <div
               className={classNames(
                 largeHeader ? '' : 'text-lg',
-                'pb-8 md:pb-[32px] uppercase font-bold'
+                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85]'
               )}
             >
               {currentStep !== 0 && (
