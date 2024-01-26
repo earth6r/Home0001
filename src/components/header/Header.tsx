@@ -230,15 +230,15 @@ export const Header: FC<HeaderProps> = ({
                     {inquiry?.brokerSuccess ? (
                       <RichText blocks={inquiry?.brokerSuccess} />
                     ) : (
-                      <p className="text-md">{`We'll be in touch with more information soon!`}</p>
+                      <p className="text-md font-bold">{`We'll be in touch with more information soon!`}</p>
                     )}
                   </>
                 ) : (
                   <>
                     {inquiry?.brokerCopy ? (
-                      <RichText blocks={inquiry?.brokerCopy} />
+                      <RichText blocks={inquiry?.brokerCopy} className="bold" />
                     ) : (
-                      <p className="text-md">{`For more information and to schedule a tour:`}</p>
+                      <p className="text-md font-bold">{`For more information and to schedule a tour:`}</p>
                     )}
                   </>
                 )}

@@ -128,7 +128,9 @@ export const Form: FC<FormProps> = ({
           ) : typeof successMessage === 'string' ? (
             <p className="font-bold text-lg">{successMessage}</p>
           ) : (
-            successMessage && <RichText blocks={successMessage} />
+            successMessage && (
+              <RichText className="bold" blocks={successMessage} />
+            )
           )}
         </div>
       ) : (
