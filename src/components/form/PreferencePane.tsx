@@ -53,7 +53,7 @@ const PreferencePane: FC<PaneProps> = ({
               className={classNames(
                 block ? 'md:pr-menu' : '',
                 largeHeader ? 'text-xl' : 'md:mt-y text-lg pt-ylg md:pt-0',
-                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85]'
+                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
               )}
             >
               {header || `Update Preferences:`}
