@@ -74,7 +74,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
             smoothTouch: true,
             lerp: 0.1,
             touchInertiaMultiplier: 35,
-            syncTouchLerp: 0.4,
+            syncTouchLerp: 0.6,
           }}
         >
           <main className="flex-auto">{children}</main>
