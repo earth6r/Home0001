@@ -12,7 +12,8 @@ textarea {
 }
 
 .input.waitlist {
-  @apply w-full md:w-btnWidth;
+  @apply w-full;
+  max-width: var(--btn-width);
 }
 
 input[type='checkbox'],

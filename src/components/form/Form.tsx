@@ -132,7 +132,7 @@ export const Form: FC<FormProps> = ({
           )}
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           {children}
         </form>
       )}

@@ -38,7 +38,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
       </ul>
 
       <div className="md:flex md:justify-between md:items-start w-full text-xs tracking-details leading-[1.3] md:leading-none md:mt-4">
-        <p className="font-bold">&copy;{` ${year} HOME0001`}</p>
+        <p className="font-sansText font-bold">&copy;{` ${year} HOME0001`}</p>
 
         <p className="font-medium md:text-right">
           <span className="block">NY DRE #10351211814</span>

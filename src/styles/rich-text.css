@@ -119,6 +119,7 @@
 
 @media (hover: hover) {
   .rich-text a:hover {
+    @apply font-sansText;
     font-weight: bold;
   }
 }
