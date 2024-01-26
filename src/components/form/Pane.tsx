@@ -102,7 +102,7 @@ const Pane: FC<PaneProps> = ({
             <div
               className={classNames(
                 largeHeader ? '' : 'text-lg',
-                'pb-0 md:pb-[32px] uppercase font-bold leading-[0.85]'
+                'uppercase font-bold leading-[0.85]'
               )}
             >
               {currentStep !== 0 && (
