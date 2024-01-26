@@ -109,7 +109,7 @@ export const Form: FC<FormProps> = ({
         <div className="relative mt-ylg mb-2">
           {formType === 'preference' ? (
             <div>
-              <p className="font-bold text-lg">
+              <p className="font-bold text-lg tracking-tight">
                 {'Thank you for sharing your preferences'}
               </p>
               <br></br>
@@ -126,7 +126,7 @@ export const Form: FC<FormProps> = ({
               </p>
             </div>
           ) : typeof successMessage === 'string' ? (
-            <p className="font-bold text-lg">{successMessage}</p>
+            <p className="font-bold  tracking-tight">{successMessage}</p>
           ) : (
             successMessage && (
               <RichText className="bold" blocks={successMessage} />

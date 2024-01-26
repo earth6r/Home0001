@@ -52,8 +52,8 @@ const Pane: FC<PaneProps> = ({
           {currentStep === 0 && (
             <h2
               className={classNames(
-                largeHeader ? 'text-xl tracking-tight' : 'text-lg',
-                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85]'
+                largeHeader ? 'text-xl' : 'text-lg',
+                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
               )}
             >
               {header || `Join the waitlist:`}
@@ -71,8 +71,8 @@ const Pane: FC<PaneProps> = ({
               {header && currentStep !== 0 && (
                 <h2
                   className={classNames(
-                    largeHeader ? 'text-lg tracking-tight' : 'text-lg',
-                    'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85]'
+                    largeHeader ? 'text-lg' : 'text-lg',
+                    'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
                   )}
                 >
                   {header || `Join the waitlist:`}
@@ -82,7 +82,7 @@ const Pane: FC<PaneProps> = ({
               {currentStep === 0 && (
                 <>
                   {typeof copy === 'string' ? (
-                    <p className="mb-yhalf text-lg font-bold uppercase leading-[0.85]">
+                    <p className="mb-yhalf text-lg font-bold tracking-tight uppercase leading-[0.85]">
                       {copy}
                     </p>
                   ) : (
@@ -101,14 +101,14 @@ const Pane: FC<PaneProps> = ({
 
             <div
               className={classNames(
-                largeHeader ? '' : 'text-lg',
+                largeHeader ? '' : 'text-lg tracking-tight',
                 'uppercase font-bold leading-[0.85]'
               )}
             >
               {currentStep !== 0 && (
                 <>
                   {typeof copy === 'string' ? (
-                    <p className="mb-yhalf text-lg font-bold uppercase leading-[0.85]">
+                    <p className="mb-yhalf text-lg font-bold uppercase tracking-tight leading-[0.85]">
                       {copy}
                     </p>
                   ) : (
