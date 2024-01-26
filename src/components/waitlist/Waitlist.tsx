@@ -57,7 +57,7 @@ export const Waitlist: FC<WaitlistProps> = ({
       <div className="h-[690px] md:h-[630px] pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[41px] pt-[33px] md:px-x md:pb-[56px] md:pt-[38px] bg-yellow">
         {formType === 'unit' && (
           <>
-            <h2 className="text-xl font-bold uppercase pt-page md:pt-y md:pr-menu lg:pr-fullmenu">
+            <h2 className="text-lg font-bold uppercase pt-page md:pt-y md:pr-menu lg:pr-fullmenu">
               {formActions.formSubmitted
                 ? (waitlist?.successMessage as unknown as string) || `Thanks!`
                 : `Inquire`}

@@ -71,7 +71,7 @@ const Pane: FC<PaneProps> = ({
               {header && currentStep !== 0 && (
                 <h2
                   className={classNames(
-                    largeHeader ? 'text-xl tracking-tight' : 'text-lg',
+                    largeHeader ? 'text-lg tracking-tight' : 'text-lg',
                     'pb-8 md:pb-[32px] uppercase font-bold'
                   )}
                 >
