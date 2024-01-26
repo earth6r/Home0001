@@ -72,7 +72,10 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
             >
               <RichText blocks={longTitle} className="card" />
 
-              <IconRightArrowBold className="relative w-[1em]" fill="white" />
+              <IconRightArrowBold
+                className="relative w-[1em] mt-[0.1em]"
+                fill="white"
+              />
             </div>
           )}
         </Link>
