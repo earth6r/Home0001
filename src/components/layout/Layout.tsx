@@ -73,7 +73,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           options={{
             smoothTouch: true,
             lerp: 0.1,
-            touchInertiaMultiplier: 30,
+            touchInertiaMultiplier: 35,
             syncTouchLerp: 0.15,
           }}
         >
