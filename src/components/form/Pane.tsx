@@ -63,7 +63,7 @@ const Pane: FC<PaneProps> = ({
           <div
             className={classNames(
               block ? '' : 'md:grid md:grid-cols-2 md:gap-20 h-full',
-              largeHeader ? '' : 'md:mt-y md:-mb-y pt-ylg md:pt-0',
+              largeHeader ? '' : 'md:mt-y md:-mb-y pt-0',
               'md:w-full md:pr-menu'
             )}
           >
@@ -102,7 +102,7 @@ const Pane: FC<PaneProps> = ({
             <div
               className={classNames(
                 largeHeader ? '' : 'text-lg',
-                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85]'
+                'pb-0 md:pb-[32px] uppercase font-bold leading-[0.85]'
               )}
             >
               {currentStep !== 0 && (
@@ -142,7 +142,7 @@ const Pane: FC<PaneProps> = ({
             block
               ? 'relative md:w-full md:bottom-auto'
               : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-2px)] md:bottom-0',
-            'flex w-full h-btn bottom-[6rem] md:pr-menu'
+            'flex w-full h-btn bottom-0 md:pr-menu'
           )}
         >
           {currentStep && currentStep > 0 ? (
