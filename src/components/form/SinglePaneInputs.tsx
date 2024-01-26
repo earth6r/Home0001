@@ -248,8 +248,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
         >
           <button
             className={classNames(
-              modal ? 'md:w-btnWidth' : '',
-              'tracking-details w-full h-btn text-center uppercase text-white bg-black font-medium text-xs'
+              'md:max-w-[var(--btn-width)] tracking-details w-full h-btn text-center uppercase text-white bg-black font-medium text-xs'
             )}
             type="submit"
           >

@@ -52,10 +52,8 @@ const PreferencePane: FC<PaneProps> = ({
             <h2
               className={classNames(
                 block ? 'md:pr-menu' : '',
-                largeHeader
-                  ? 'text-xl'
-                  : 'md:mt-y md:-mb-y text-lg pt-ylg md:pt-0',
-                'pb-8 md:pb-10 uppercase font-bold'
+                largeHeader ? 'text-xl' : 'md:mt-y text-lg pt-ylg md:pt-0',
+                'pb-8 md:pb-[32px] uppercase font-bold'
               )}
             >
               {header || `Update Preferences:`}

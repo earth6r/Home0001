@@ -49,14 +49,11 @@ const Pane: FC<PaneProps> = ({
     >
       <>
         <div className="w-full h-[calc(100%-var(--btn-height)-[6rem])] md:h-auto overflow-scroll">
-          {header && (
+          {currentStep === 0 && (
             <h2
               className={classNames(
-                block ? 'md:pr-menu' : '',
-                largeHeader
-                  ? 'text-xl tracking-tight'
-                  : 'md:mt-y md:-mb-y text-lg pt-ylg md:pt-0',
-                'pb-8 md:pb-10 uppercase font-bold'
+                largeHeader ? 'text-xl tracking-tight' : 'text-lg',
+                'pb-8 md:pb-[32px] uppercase font-bold'
               )}
             >
               {header || `Join the waitlist:`}
@@ -65,38 +62,87 @@ const Pane: FC<PaneProps> = ({
 
           <div
             className={classNames(
-              block ? '' : 'md:grid md:grid-cols-2 md:gap-20',
+              block ? '' : 'md:grid md:grid-cols-2 md:gap-20 h-full',
+              largeHeader ? '' : 'md:mt-y md:-mb-y pt-ylg md:pt-0',
               'md:w-full md:pr-menu'
             )}
           >
-            {typeof copy === 'string' ? (
-              <p className="mb-ylg text-md font-bold uppercase leading-[0.85]">
-                {copy}
-              </p>
-            ) : (
-              copy && (
-                <RichText
-                  blocks={copy}
-                  className={classNames('mb-ylg clear-both bold uppercase')}
-                />
-              )
-            )}
+            <div>
+              {header && currentStep !== 0 && (
+                <h2
+                  className={classNames(
+                    largeHeader ? 'text-xl tracking-tight' : 'text-lg',
+                    'pb-8 md:pb-[32px] uppercase font-bold'
+                  )}
+                >
+                  {header || `Join the waitlist:`}
+                </h2>
+              )}
+
+              {currentStep === 0 && (
+                <>
+                  {typeof copy === 'string' ? (
+                    <p className="mb-yhalf text-lg font-bold uppercase leading-[0.85]">
+                      {copy}
+                    </p>
+                  ) : (
+                    copy && (
+                      <RichText
+                        blocks={copy}
+                        className={classNames(
+                          'mb-ylg clear-both bold uppercase'
+                        )}
+                      />
+                    )
+                  )}
+                </>
+              )}
+            </div>
 
             <div
               className={classNames(
-                block ? '' : 'md:min-h-[328px]',
-                'relative flex flex-col gap-3 pb-y'
+                largeHeader ? '' : 'text-lg',
+                'pb-8 md:pb-[32px] uppercase font-bold'
               )}
             >
-              {children}
+              {currentStep !== 0 && (
+                <>
+                  {typeof copy === 'string' ? (
+                    <p className="mb-yhalf text-lg font-bold uppercase leading-[0.85]">
+                      {copy}
+                    </p>
+                  ) : (
+                    copy && (
+                      <RichText
+                        blocks={copy}
+                        className={classNames(
+                          'mb-ylg clear-both bold uppercase'
+                        )}
+                      />
+                    )
+                  )}
+                </>
+              )}
+
+              <div
+                className={classNames(
+                  block ? '' : 'md:min-h-[310px]',
+                  currentStep !== 0 ? 'mt-ylg' : '',
+                  'relative flex flex-col gap-3'
+                )}
+              >
+                {children}
+              </div>
             </div>
           </div>
         </div>
 
         <div
           className={classNames(
-            block ? 'md:w-full' : 'md:w-[calc(50%+4px)] md:ml-auto',
-            'relative flex w-full h-btn bottom-0 md:bottom-auto md:pr-menu'
+            block
+              ? 'relative md:w-full md:bottom-auto'
+              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-2px)] md:bottom-0',
+            'flex w-full h-btn bottom-[6rem] md:pr-menu'
           )}
         >
           {currentStep && currentStep > 0 ? (
