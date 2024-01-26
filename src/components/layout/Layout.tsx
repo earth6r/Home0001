@@ -68,15 +68,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           }}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
         />
-        <ReactLenis
-          root
-          options={{
-            smoothTouch: true,
-            lerp: 0.1,
-            touchInertiaMultiplier: 35,
-            syncTouchLerp: 0.15,
-          }}
-        >
+        <ReactLenis root options={{ lerp: 1 }}>
           <main className="flex-auto">{children}</main>
         </ReactLenis>
         <Footer
