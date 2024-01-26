@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useRef } from 'react'
+import { HTMLAttributes } from 'react'
 import classNames from 'classnames'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { RichText } from '@components/sanity'
@@ -140,9 +140,9 @@ const Pane: FC<PaneProps> = ({
         <div
           className={classNames(
             block
-              ? 'relative md:w-full md:bottom-auto'
-              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-2px)] md:bottom-0',
-            'flex w-full h-btn bottom-0 md:pr-menu'
+              ? 'relative md:w-full bottom-0 md:bottom-auto'
+              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-2px)] bottom-[6rem] md:bottom-0',
+            'flex w-full h-btn md:pr-menu'
           )}
         >
           {currentStep && currentStep > 0 ? (
