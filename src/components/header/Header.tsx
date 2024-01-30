@@ -159,7 +159,7 @@ export const Header: FC<HeaderProps> = ({
           )}
         </div>
 
-        <div className={classNames('flex items-center gap-[1.12rem] md:gap-5')}>
+        <div className={classNames('flex items-center gap-[1rem] md:gap-5')}>
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
