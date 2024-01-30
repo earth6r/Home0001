@@ -26,7 +26,7 @@
 
   /* buttons */
   --btn-height: 48px;
-  --btn-width: 358px;
+  --btn-width: calc(100% - var(--space-menu));
   --btn-space-x: 2em;
   --btn-space-y: 0.625em;
 
@@ -49,6 +49,7 @@
     --space-y: 2.5rem;
 
     --space-block: 150px;
+    --btn-width: 358px;
 
     --header-height: 80px;
     --gradient-height: 90px;

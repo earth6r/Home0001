@@ -211,7 +211,7 @@ export const Header: FC<HeaderProps> = ({
                       fields={{ showName: true, showPhone: true }}
                       register={register}
                       modal={true}
-                      className={classNames('h-full pr-menu')}
+                      className={classNames('h-full pr-menu md:pr-0')}
                     />
                   </Form>
                 )}

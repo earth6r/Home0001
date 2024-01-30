@@ -12,7 +12,7 @@ import type { SanityBlockElement } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
 
 export type CityBlockPropertyType = {
-  index?: number
+  index: number
   image?:
     | {
         _type: 'image'

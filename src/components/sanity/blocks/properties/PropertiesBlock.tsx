@@ -36,7 +36,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         style={{
           transform: isInView ? 'scale(1)' : 'scale(0.99)',
           opacity: isInView ? 1 : 0,
-          transition: `all 800ms ease-in-out ${index && isMobile ? 0.2 : 0}s`,
+          transition: `all 800ms ease-in-out ${(index + 1) * 0.2}s`,
         }}
         className="flex w-full opacity-0"
       >
@@ -50,7 +50,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           }
         >
           {image && (
-            <div className="block relative w-full h-0 pb-[120%] xl:pb-[115%] 2xl:pb-[110%] z-base overflow-hidden">
+            <div className="block relative w-full h-0 pb-[120%] xl:pb-[115%] 2xl:pb-[110%] z-base overflow-hidden select-none">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
@@ -67,7 +67,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'inline-flex justify-start items-start gap-[32px] relative p-[16px] bg-black text-card font-bold text-left uppercase'
+                'inline-flex justify-between md:justify-start items-start gap-[32px] w-[var(--btn-width)] md:w-auto relative p-[16px] bg-black text-card font-bold text-left uppercase'
               )}
             >
               <RichText blocks={longTitle} className="card" />
