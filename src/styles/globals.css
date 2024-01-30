@@ -179,6 +179,10 @@ footer {
   display: none !important;
 }
 
+.pswp--has_mouse .pswp__button--arrow {
+  overflow: visible;
+}
+
 .swiper-container {
   width: 100%;
   height: 100%;
