@@ -15,12 +15,7 @@ import type {
 import type { Unit as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
-import {
-  SITE_SETTINGS_QUERY,
-  UNIT_QUERY,
-  client,
-  filterDataToSingleItem,
-} from '@studio/lib'
+import { UNIT_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { Unit } from '@components/unit'
 import PageTransition from '@components/transition/PageTransition'
 import { HomeContext } from '@contexts/home'
@@ -101,7 +96,7 @@ const UnitPage: NextPage<PageProps> = (
             setFullWidth={() => setFullWidth(true)}
             fullWidth={fullWidth}
             className={classNames(
-              fullWidth ? 'md:left-0 md:w-full' : 'md:left-1/3 md:w-2/3',
+              fullWidth ? 'md:left-0 md:w-full' : 'md:left-1/4 md:w-3/4',
               'relative mt-page transition-all duration-200 ease-in-out'
             )}
           />

@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from 'react'
+import { useEffect, type FC, type ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import type {
@@ -27,6 +27,7 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
   const { asPath, query } = useRouter()
   const page: PageData = filterDataToSingleItem(data)
+
   return (
     <>
       <Head
@@ -70,9 +71,11 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <ReactLenis
           root
           options={{
-            smoothWheel: false,
             smoothTouch: true,
-            lerp: 0.15,
+            lerp: 0.1,
+            syncTouchLerp: 0.75,
+            touchMultiplier: 1.5,
+            touchInertiaMultiplier: 30,
           }}
         >
           <main className="flex-auto">{children}</main>

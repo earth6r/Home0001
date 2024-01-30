@@ -25,7 +25,8 @@
   --input-size: 2.5em;
 
   /* buttons */
-  --btn-height: 42px;
+  --btn-height: 48px;
+  --btn-width: calc(100% - var(--space-menu));
   --btn-space-x: 2em;
   --btn-space-y: 0.625em;
 
@@ -48,6 +49,7 @@
     --space-y: 2.5rem;
 
     --space-block: 150px;
+    --btn-width: 358px;
 
     --header-height: 80px;
     --gradient-height: 90px;
@@ -107,6 +109,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Haas Grot Text';
+  font-weight: bold;
+  src: url('../../public/fonts/haas-grot/NeueHaasGrotText-75Bold.woff2')
+    format('woff2');
+  font-display: swap;
+}
+
 /* stylelint-disable selector-id-pattern */
 html,
 body,
@@ -142,6 +152,12 @@ body {
   -webkit-font-smoothing: antialiased;
   min-width: 320px;
   overscroll-behavior-y: none;
+  font-feature-settings: 'cpsp' on, 'case' on;
+}
+
+header,
+footer {
+  font-feature-settings: 'case' on;
 }
 
 /* 3rd party styling */
@@ -174,12 +190,23 @@ body {
   align-items: center;
 }
 
+.swiper-prev,
+.swiper-next {
+  @apply transition-opacity duration-200;
+}
+
 .swiper-button-disabled {
-  opacity: 0.4;
+  opacity: 0;
 }
 
 .hide-cta .cta {
   display: none;
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  position: fixed;
 }
 
 @media (min-width: 768px) {

@@ -22,6 +22,7 @@ import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
 import { RichText } from '@components/sanity'
 import { useLenis } from '@studio-freight/react-lenis'
+import { IconWaitlist } from '@components/icons'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -158,7 +159,7 @@ export const Header: FC<HeaderProps> = ({
           )}
         </div>
 
-        <div className={classNames('flex items-center gap-[1.12rem] md:gap-5')}>
+        <div className={classNames('flex items-center gap-[1rem] md:gap-5')}>
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-full py-6 md:py-10 pl-x md:pl-10">
               <Form
@@ -185,34 +186,36 @@ export const Header: FC<HeaderProps> = ({
 
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
-              <h2 className="text-xl font-bold uppercase pt-page md:pr-menu lg:pr-fullmenu">
+              <h2 className="text-xl font-bold uppercase pt-page md:pt-0 md:mb-y md:pr-menu lg:pr-fullmenu">
                 {formSubmitted ? inquiry?.success || `Thanks!` : `Inquire`}
               </h2>
 
-              <p className="my-ylg text-md pr-menu">
-                {formSubmitted
-                  ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
-                  : inquiry?.copy ||
-                    `For more information and to schedule a tour:`}
-              </p>
+              <div className="md:grid md:grid-cols-2 md:gap-20 md:pr-menu">
+                <p className="my-ylg md:my-0 text-md pr-menu md:pr-0">
+                  {formSubmitted
+                    ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
+                    : inquiry?.copy ||
+                      `For more information and to schedule a tour:`}
+                </p>
 
-              {!formSubmitted && (
-                <Form
-                  formType={'unit'}
-                  audienceId={inquiry?.id}
-                  formSubmitted={formSubmitted}
-                  handleSubmit={handleSubmit}
-                  setFormSubmitted={setFormSubmitted}
-                  className="w-full h-full"
-                >
-                  <SinglePaneInputs
-                    fields={{ showName: true, showPhone: true }}
-                    register={register}
-                    modal={true}
-                    className={classNames('h-full pr-menu')}
-                  />
-                </Form>
-              )}
+                {!formSubmitted && (
+                  <Form
+                    formType="unit"
+                    audienceId={inquiry?.id}
+                    formSubmitted={formSubmitted}
+                    handleSubmit={handleSubmit}
+                    setFormSubmitted={setFormSubmitted}
+                    className="w-full h-full"
+                  >
+                    <SinglePaneInputs
+                      fields={{ showName: true, showPhone: true }}
+                      register={register}
+                      modal={true}
+                      className={classNames('h-full pr-menu md:pr-0')}
+                    />
+                  </Form>
+                )}
+              </div>
             </div>
           </AnimatedModal>
 
@@ -227,15 +230,15 @@ export const Header: FC<HeaderProps> = ({
                     {inquiry?.brokerSuccess ? (
                       <RichText blocks={inquiry?.brokerSuccess} />
                     ) : (
-                      <p className="text-md">{`We'll be in touch with more information soon!`}</p>
+                      <p className="text-md font-bold">{`We'll be in touch with more information soon!`}</p>
                     )}
                   </>
                 ) : (
                   <>
                     {inquiry?.brokerCopy ? (
-                      <RichText blocks={inquiry?.brokerCopy} />
+                      <RichText blocks={inquiry?.brokerCopy} className="bold" />
                     ) : (
-                      <p className="text-md">{`For more information and to schedule a tour:`}</p>
+                      <p className="text-md font-bold">{`For more information and to schedule a tour:`}</p>
                     )}
                   </>
                 )}
@@ -267,7 +270,7 @@ export const Header: FC<HeaderProps> = ({
               type="button"
               className={classNames(
                 headerLinksShown ? 'opacity-100' : 'opacity-0',
-                'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
+                'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-100'
               )}
               onClick={() => {
                 if (location.pathname.includes('les')) {
@@ -294,13 +297,10 @@ export const Header: FC<HeaderProps> = ({
               onClick={openWaitlist}
               className={classNames(
                 headerLinksShown ? 'opacity-100' : 'opacity-0',
-                'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-100'
+                'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
               )}
             >
-              <div className="w-[100px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
-                <IconSmallArrow width="16" className="mr-[5px]" />
-                {`Waitlist`}
-              </div>
+              <IconWaitlist className="w-[96.85px] md:w-[93px] mt-[3px] md:mt-[4px]" />
             </Btn>
           )}
 

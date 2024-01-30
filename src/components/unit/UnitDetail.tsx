@@ -120,7 +120,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 <SanityTableModal
                   table={unit.factSheet}
                   modalType="View Fact Sheet"
-                  className="inline-block text-md font-bold"
+                  className="pt-8 inline-block text-xs font-bold"
                   unit={unit.title}
                 />
               )}

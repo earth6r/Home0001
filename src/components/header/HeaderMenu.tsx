@@ -92,8 +92,9 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                       setTimeout(close, 100)
                                       setBrokerInquiryOpen(true)
                                     }}
+                                    className="uppercase"
                                   >
-                                    ARE YOU A BROKER?
+                                    Are you a realtor?
                                   </button>
                                 )}
                               </Menu.Item>

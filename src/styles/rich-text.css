@@ -10,6 +10,10 @@
   @apply border-bottom border-[#DDD] pb-yhalf mt-yhalf;
 }
 
+.rich-text.bold > p {
+  @apply font-bold leading-[0.95];
+}
+
 .rich-text > ul,
 .rich-text > ol,
 .rich-text > blockquote,
@@ -44,7 +48,7 @@
 }
 
 .rich-text h1 {
-  @apply text-xl md:text-2xl font-bold uppercase tracking-header;
+  @apply text-2xl font-bold uppercase tracking-header;
 }
 
 .rich-text h2 {
@@ -115,6 +119,7 @@
 
 @media (hover: hover) {
   .rich-text a:hover {
+    @apply font-sansText;
     font-weight: bold;
   }
 }

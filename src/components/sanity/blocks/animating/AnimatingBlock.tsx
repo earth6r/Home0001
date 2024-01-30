@@ -15,15 +15,10 @@ import { Block, RichText, SanityLink, SanityMedia } from '@components/sanity'
 import { sendGoogleEvent } from '@lib/util'
 import { CitiesListProps } from '../properties/types'
 import { SanityLinkType } from '@studio/lib'
-import {
-  AnimatePresence,
-  motion,
-  useInView,
-  useScroll,
-  useTransform,
-} from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import _ from 'lodash'
+import { useLenis } from '@studio-freight/react-lenis'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
   AnimatingBlockType
@@ -45,9 +40,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
               {propertyLink ? (
                 <SanityLink
                   {...(propertyLink as SanityLinkType)}
-                  className={classNames(
-                    'text-xl md:text-2xl font-bold uppercase'
-                  )}
+                  className={classNames('text-2xl font-bold uppercase')}
                 >
                   <div
                     onClick={() => {
@@ -55,20 +48,13 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
                       setHeaderLinksShown(true)
                     }}
                   >
-                    <span
-                      className={classNames(
-                        active && propertyLink ? 'leading-none' : '',
-                        'underline decoration-[0.3rem]'
-                      )}
-                    >
-                      {`${title},`}
-                    </span>
+                    <span>{`${title},`}</span>
                   </div>
                 </SanityLink>
               ) : (
                 <div
                   className={classNames(
-                    'text-xl md:text-2xl font-bold uppercase bg-transparent opacity-30 shadow-none'
+                    'text-2xl font-bold uppercase bg-transparent text-lightgray shadow-none'
                   )}
                 >
                   <span
@@ -109,7 +95,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
         aspect === 'short'
           ? 'aspect-[1.4]'
           : aspect === 'tall'
-          ? 'aspect-[0.8]'
+          ? 'aspect-[0.835]'
           : 'aspect-square',
         'relative overflow-hidden my-3 md:my-5 z-above'
       )}
@@ -119,14 +105,14 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
           aspect === 'short'
             ? 'aspect-[1.4] h-auto'
             : aspect === 'tall'
-            ? 'aspect-[0.8] h-auto'
+            ? 'aspect-[0.835] h-auto'
             : 'aspect-square',
           'relative w-full'
         )}
       >
         <motion.div
           style={{ transform, transformOrigin: 'center bottom' }}
-          className="absolute w-full h-full will-change-transform"
+          className="flex items-end absolute w-full h-full will-change-transform"
         >
           <SanityMedia
             imageProps={{
@@ -158,6 +144,8 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
+
+  const lenis = useLenis()
 
   // account for header ~ JLM
   const citiesPos = header && citiesPosition && citiesPosition - 1
@@ -205,20 +193,6 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     },
   }
 
-  const trackScroll = () => {
-    if (typeof window !== 'undefined' && scrollRef.current) {
-      0 >=
-        (scrollRef.current as HTMLDivElement).getBoundingClientRect().bottom &&
-        setHeaderLinksShown(true)
-    }
-  }
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', trackScroll)
-    }
-  }, [])
-
   useEffect(() => {
     const isFirstVisit = !sessionStorage.getItem('firstTime')
     if (isFirstVisit) {
@@ -234,7 +208,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'md:max-w-[768px] lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-block'
+        'md:max-w-[768px] lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-[32px] md:mb-[56px]'
       )}
     >
       {showContent && (
@@ -244,8 +218,19 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
               key={`${animateActive}-1`}
               initial={animateActive ? 'initial' : 'active'}
               animate="active"
+              onAnimationStart={() => {
+                if (animateActive) {
+                  lenis.stop()
+                } else {
+                  setHeaderLinksShown(true)
+                }
+              }}
+              onAnimationComplete={() => {
+                lenis.start()
+                setTimeout(() => setHeaderLinksShown(true), 500)
+              }}
               variants={headerVariants}
-              className="flex flex-wrap items-center relative text-xl md:text-2xl font-bold tracking-header uppercase"
+              className="flex flex-wrap items-center relative text-2xl font-bold tracking-header uppercase"
             >
               <div>
                 {header.map((item, index) => (

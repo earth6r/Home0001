@@ -109,7 +109,7 @@ export const Form: FC<FormProps> = ({
         <div className="relative mt-ylg mb-2">
           {formType === 'preference' ? (
             <div>
-              <p className="font-bold text-lg">
+              <p className="font-bold text-lg tracking-tight">
                 {'Thank you for sharing your preferences'}
               </p>
               <br></br>
@@ -126,21 +126,16 @@ export const Form: FC<FormProps> = ({
               </p>
             </div>
           ) : typeof successMessage === 'string' ? (
-            <p className="font-bold text-lg">{successMessage}</p>
+            <p className="font-bold  tracking-tight">{successMessage}</p>
           ) : (
-            successMessage && <RichText blocks={successMessage} />
+            successMessage && (
+              <RichText className="bold" blocks={successMessage} />
+            )
           )}
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           {children}
-          {/* {formError != null && (
-            <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">
-              <div className="relative text-left py-4 text-[red] uppercase text-base">
-                <p>{`Error submitting form`}</p>
-              </div>
-            </div>
-          )} */}
         </form>
       )}
     </div>

@@ -13,18 +13,19 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 
   return (
     <footer
-      className={classNames(
-        'lg:flex lg:flex-row lg:justify-between lg:items-start px-x mt-20 lg:mt-10 lg:mb-y'
-      )}
+      className={classNames('px-x mt-[32px] md:mt-[56px] mb-ylg lg:mb-yhalf')}
     >
-      <ul className="flex flex-col lg:flex-row md:justify-between gap-y lg:gap-0 w-full">
+      <ul className="flex flex-col lg:flex-row md:justify-between gap-[24px] lg:gap-0 w-full pb-[30px] md:pb-0">
         {footerMenu?.items?.map(({ _key, text, link }, index) => {
           return text && link ? (
             <Fragment key={_key}>
               {footerMenu.items && index === footerMenu.items.length - 1 && (
-                <li className="md:hidden font-medium text-xs tracking-details uppercase">
-                  <button onClick={() => setBrokerInquiryOpen(true)}>
-                    ARE YOU A BROKER?
+                <li className="md:hidden font-medium text-xs tracking-details">
+                  <button
+                    onClick={() => setBrokerInquiryOpen(true)}
+                    className="uppercase"
+                  >
+                    Are you a realtor?
                   </button>
                 </li>
               )}
@@ -36,15 +37,14 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         })}
       </ul>
 
-      <p className="hidden lg:block w-[50%] ml-[5%] font-medium text-xs tracking-details leading-none">
-        &copy;{` ${year} HOME0001`} NY DRE #10351211814 | CA DRE #01427385
-      </p>
+      <div className="md:flex md:justify-between md:items-start w-full text-xs tracking-details leading-[1.3] md:leading-none md:mt-4">
+        <p className="font-sansText font-bold">&copy;{` ${year} HOME0001`}</p>
 
-      <p className="lg:hidden font-medium text-xs tracking-details leading-normal mb-4 lg:mb-9 mt-20">
-        &copy;{` ${year} HOME0001`}
-        <br />
-        NY DRE #10351211814 | CA DRE #01427385
-      </p>
+        <p className="font-medium md:text-right">
+          <span className="block">NY DRE #10351211814</span>
+          <span className="block md:mt-4">CA DRE #01427385</span>
+        </p>
+      </div>
     </footer>
   )
 }
