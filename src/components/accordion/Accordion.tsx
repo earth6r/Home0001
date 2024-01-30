@@ -5,9 +5,7 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { RichText, SanityLink } from '@components/sanity'
 import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
-import IconSmallBlackArrow, {
-  IconSmallArrow,
-} from '@components/icons/IconSmallBlackArrow'
+import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 import { SanityLinkType } from '@studio/lib'
 import { sendGoogleEvent } from '@lib/util'
 import { useLenis } from '@studio-freight/react-lenis'
@@ -135,7 +133,7 @@ export const Accordion: FC<AccordionProps> = ({
                           <span className="text-left uppercase leading-none">
                             {cta.text || 'Learn more'}
                           </span>
-                          <IconSmallArrow width="16" fill="white" />
+                          <IconSmallBlackArrow width="16" fill="white" />
                         </SanityLink>
                       </div>
                     )}
