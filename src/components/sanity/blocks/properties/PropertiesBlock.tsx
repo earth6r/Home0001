@@ -67,7 +67,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'inline-flex justify-start items-start gap-[32px] relative p-[16px] bg-black text-card font-bold leading-tight text-left uppercase'
+                'inline-flex justify-start items-start gap-[32px] relative p-[16px] bg-black text-card font-bold text-left uppercase'
               )}
             >
               <RichText blocks={longTitle} className="card" />
