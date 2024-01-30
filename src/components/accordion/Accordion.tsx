@@ -127,7 +127,7 @@ export const Accordion: FC<AccordionProps> = ({
                     )}
 
                     {cta && (
-                      <div className="cta w-full relative mt-y pr-menu pd:mr-0">
+                      <div className="cta w-full relative mt-y pr-menu md:pr-0">
                         <SanityLink
                           {...(cta.link as SanityLinkType)}
                           className="w-full border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above px-4 py-3.5"
