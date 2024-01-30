@@ -47,7 +47,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
   return (
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
-      <div className="md:grid md:grid-cols-3 pr-[calc(var(--space-menu)+2px)] md:pr-0">
+      <div className="md:grid md:grid-cols-3">
         <div className="md:col-start-1 col-start-2 md:col-span-3">
           <div className="flex flex-col relative mb-ydouble">
             {unit?.photographs && unit?.photographs.length > 0 && (
@@ -60,10 +60,10 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               />
             )}
 
-            <h2 className="text-xl font-bold mb-0 uppercase col-span-2">
+            <h2 className="text-xl font-bold mb-0 uppercase col-span-2 pr-[calc(var(--space-menu)+2px)] md:pr-0">
               {unit?.title}
             </h2>
-            <div className="mb-ydouble text-md font-bold mt-y">
+            <div className="mb-ydouble text-md font-bold mt-y pr-[calc(var(--space-menu)+2px)] md:pr-0">
               <p className="m-0">
                 {unit?.price == 'Inquire'
                   ? 'Price upon request'
@@ -78,9 +78,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               <div className="md:grid md:grid-cols-7">
                 {unit?.summary && (
                   <div className="md:col-span-3">
-                    <p className="uppercase font-bold mb-y md:mb-yhalf">
-                      Overview
-                    </p>
+                    <p className="uppercase font-bold mb-yhalf">Overview</p>
                     <RichText
                       blocks={unit?.summary}
                       className="max-w-[500px]"
@@ -127,13 +125,13 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </div>
 
             {unit?.unitDetails && (
-              <>
-                <p className="uppercase font-bold text-md mb-yhalf">Details</p>
+              <div className="pr-[calc(var(--space-menu)+2px)] md:pr-0">
+                <p className="uppercase font-bold text-md mb-yhalf ">Details</p>
                 <DetailsDropdown
                   details={unit?.unitDetails}
                   dropdownOpen={true}
                 />
-              </>
+              </div>
             )}
           </div>
 
@@ -152,7 +150,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </>
           )}
 
-          <div className="md:hidden mb-yhalf md:max-w-[346px]">
+          <div className="md:hidden mb-yhalf w-[var(--btn-width)] md:max-w-[346px]">
             <button
               className={classNames(
                 'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
@@ -164,7 +162,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </button>
           </div>
 
-          <div className="md:hidden mb-ydouble md:max-w-[346px]">
+          <div className="md:hidden mb-ydouble w-[var(--btn-width)] md:max-w-[346px]">
             <a href="mailto:talin@home0001.com">
               <button
                 className={classNames(

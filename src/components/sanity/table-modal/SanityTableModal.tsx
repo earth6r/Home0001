@@ -2,7 +2,7 @@ import { useState, type FC, type HTMLAttributes } from 'react'
 import { Modal } from '@components/modal'
 import classNames from 'classnames'
 import { sendGoogleEvent } from '@lib/util'
-import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface SanityTableModalProps extends HTMLAttributes<HTMLElement> {
   table: any
@@ -69,7 +69,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
       </Modal>
 
       <div className="flex items-center gap-[5px] py-[4px] px-[6px] border-black">
-        <IconSmallBlackArrow width="13" height="9" />
+        <IconSmallArrow fill="black" width="15" height="11" />
         <button
           onClick={() => {
             setIsOpen(true)
