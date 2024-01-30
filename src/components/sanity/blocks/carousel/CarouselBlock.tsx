@@ -25,7 +25,7 @@ export const CarouselBlock: FC<CarouselBlockProps> = ({
           index="0"
           slides={images}
           carousel={false}
-          className="w-full"
+          className="w-full md:pr-x"
           placement="property details"
         />
       )}
