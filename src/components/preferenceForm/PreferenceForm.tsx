@@ -42,7 +42,7 @@ export const PreferenceForm: FC<PreferenceProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
-      <div className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[81px] pt-[33px] md:px-x md:pb-[96px] md:pt-[38px] bg-yellow h-full overflow-auto">
+      <div className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-[81px] pt-[28px] md:px-x md:pb-[96px] md:pt-[38px] bg-yellow h-full overflow-auto">
         <Form
           formType="preference"
           audienceId={'bb463f94-85c4-4e57-9fc8-20fa3757be04'}
