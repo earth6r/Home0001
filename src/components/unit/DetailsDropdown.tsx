@@ -25,7 +25,7 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({
     <>
       <RichText
         blocks={details.slice(0, 5)}
-        className="max-w-[500px] pr-menu md:pr-0"
+        className="max-w-[500px] md:pr-0"
       />
 
       <Disclosure defaultOpen={dropdownOpen}>
@@ -62,7 +62,7 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({
                   <div>
                     <RichText
                       blocks={details.slice(5, details.length)}
-                      className="max-w-[500px] pr-menu md:pr-0 mt-y md:mt-yhalf"
+                      className="max-w-[500px] md:pr-0 mt-y md:mt-yhalf"
                     />
                   </div>
                 </Disclosure.Panel>
