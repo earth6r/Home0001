@@ -247,7 +247,9 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           )}
         >
           <button
-            className="tracking-details h-[42px] max-h-12 text-center uppercase text-white bg-black font-medium text-xs"
+            className={classNames(
+              'md:max-w-[var(--btn-width)] tracking-details w-full h-btn text-center uppercase text-white bg-black font-medium text-xs'
+            )}
             type="submit"
           >
             {submitButtonCopy || 'Submit'}

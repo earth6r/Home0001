@@ -11,6 +11,7 @@ import { SCREENS } from '@/globals'
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import 'photoswipe/style.css'
 import { sendGoogleEvent } from '@lib/util'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 
 export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
@@ -63,6 +64,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   className,
   placement,
 }) => {
+  const [activeNav, setActiveNav] = useState(false)
   const [swipedImage, setSwipedImage] = useState(false)
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
@@ -103,7 +105,11 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   }, [])
 
   return (
-    <div className={classNames(className, 'relative')}>
+    <div
+      onMouseOver={() => setActiveNav(true)}
+      onMouseOut={() => setActiveNav(false)}
+      className={classNames(className, 'relative')}
+    >
       {slides && slides.length > 1 ? (
         <Swiper
           ref={slidesRef}
@@ -122,12 +128,15 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             nextEl: '.swiper-next',
             prevEl: '.swiper-prev',
           }}
-          className="w-full md:w-auto max-w-[unset] ml-0 md:mx-auto overflow-visible"
+          className="w-full md:w-auto max-w-[unset] md:h-full ml-0 md:mx-auto overflow-visible"
         >
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide
               key={`${_key}-${alt}`}
-              className="w-full md:w-[346px] h-[373px] md:h-[35.1vw] md:min-h-[484px] md:max-h-[484px]"
+              className={classNames(
+                carousel ? 'md:h-full' : 'md:h-[462px]',
+                'w-full md:w-[346px] h-[373px]'
+              )}
             >
               {image && alt && (
                 <>
@@ -149,7 +158,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       />
                     </a>
                   ) : (
-                    <div className="absolute w-full h-full">
+                    <div className="absolute w-full h-full md:h-[462px]">
                       <ImageSlide
                         image={image as any}
                         index={index}
@@ -164,20 +173,27 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               )}
             </SwiperSlide>
           ))}
-          <nav className="hidden md:flex gap-[7px] my-yhalf">
-            <IconLeftArrow
-              width="24"
+          <div
+            className={classNames(
+              activeNav ? 'opacity-100' : 'opacity-0',
+              'hidden md:flex md:justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+            )}
+          >
+            <IconRightArrowBold
+              width="80"
+              fill="black"
               className={classNames(
                 'rotate-180 swiper-prev pointer-events-auto cursor-pointer'
               )}
             />
-            <IconRightArrow
-              width="24"
+            <IconRightArrowBold
+              width="80"
+              fill="black"
               className={classNames(
-                'swiper-next pointer-events-auto cursor-pointer'
+                'relative swiper-next pointer-events-auto cursor-pointer'
               )}
             />
-          </nav>
+          </div>
         </Swiper>
       ) : (
         <div className="flex items-center overflow-hidden">
