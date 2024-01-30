@@ -37,6 +37,13 @@ export const blockMarks: Partial<PortableTextReactComponents['marks']> = {
 }
 
 /**
+ * PortableText lists used globally
+ */
+export const blockLists: PortableTextReactComponents['list'] = {
+  inventoryList: ({ children }) => <ul className="inventory">{children}</ul>,
+}
+
+/**
  * PortableText blocks used globally
  */
 export const blockBlock: Record<

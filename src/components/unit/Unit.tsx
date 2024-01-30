@@ -13,6 +13,7 @@ import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
+import { SanityInventoryModal } from '@components/sanity/table-modal'
 
 export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
@@ -89,11 +90,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 <RichText blocks={unit?.summary} className="max-w-[500px]" />
               )}
 
-              {unit?.inventory?.rows && (
-                <SanityTableModal
+              {unit?.inventory && (
+                <SanityInventoryModal
                   title="Inventory"
-                  table={unit.inventory}
-                  modalType="inventory"
+                  inventory={unit.inventory}
                   buttonLabel="View Inventory"
                   className="inline-block mt-ylg"
                   unit={unit.title}

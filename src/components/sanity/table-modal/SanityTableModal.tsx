@@ -55,7 +55,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
                   <div
                     key={_key}
                     className={classNames(
-                      index <= 1 || (modalType === 'inventory' && index === 2)
+                      index <= 1
                         ? 'uppercase text-lg leading-[0.85]'
                         : 'my-[0.5em]',
                       cells.length > 1 ? 'grid-cols-2' : 'grid-cols-1',

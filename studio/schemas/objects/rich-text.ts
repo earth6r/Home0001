@@ -14,7 +14,10 @@ export default {
         { title: 'H2', value: 'h2' },
         { title: 'H3', value: 'h3' },
       ],
-      lists: [{ title: 'Bullet', value: 'bullet' }],
+      lists: [
+        { title: 'Bullet', value: 'bullet' },
+        { title: 'Inventory', value: 'inventoryList' },
+      ],
       marks: {
         decorators: [
           { title: 'Strong', value: 'strong' },
