@@ -73,12 +73,12 @@ export const Form: FC<FormProps> = ({
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
       const action =
-        'https://script.google.com/macros/s/AKfycbyjuXITThcGvAHcYXNI6Wp5pYPywADwHJbAe__To9uAAAYEXpyfxecRzioAMfLgl0hX/exec'
-
+        'https://script.google.com/macros/s/AKfycbzNlSuJJYINE8DELs1YRgKWdylaJdLAcem9ungK4C6FOjfTEPSz3P6oLftOHDkUsdvF/exec'
       fetch(action, {
         method: 'POST',
         body: errorData,
       })
+      setFormSubmitted(true)
     } catch (error) {
       setFormError(error)
       console.log(error)
@@ -90,13 +90,12 @@ export const Form: FC<FormProps> = ({
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
       const action =
-        'https://script.google.com/macros/s/AKfycbyjuXITThcGvAHcYXNI6Wp5pYPywADwHJbAe__To9uAAAYEXpyfxecRzioAMfLgl0hX/exec'
+        'https://script.google.com/macros/s/AKfycbzNlSuJJYINE8DELs1YRgKWdylaJdLAcem9ungK4C6FOjfTEPSz3P6oLftOHDkUsdvF/exec'
 
       fetch(action, {
         method: 'POST',
         body: errorData,
       })
-    } finally {
       setFormSubmitted(true)
     }
   }
