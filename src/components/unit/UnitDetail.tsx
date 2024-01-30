@@ -55,7 +55,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 index="0"
                 slides={unit?.photographs}
                 carousel={true}
-                className="relative w-full mb-yhalf"
+                className="relative w-full mb-yhalf md:pr-x"
                 placement="unit images"
               />
             )}
