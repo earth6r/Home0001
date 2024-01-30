@@ -70,7 +70,6 @@ export const Form: FC<FormProps> = ({
       errorData.append('Page', asPath)
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify('none'))
-      errorData.append('Payload', JSON.stringify(result))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
       const action =
@@ -88,7 +87,6 @@ export const Form: FC<FormProps> = ({
       errorData.append('Page', asPath)
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify(error))
-      errorData.append('Payload', JSON.stringify(result))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
       const action =
