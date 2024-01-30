@@ -82,6 +82,10 @@
   padding-bottom: 16px;
 }
 
+.rich-text li:last-of-type {
+  padding-bottom: 0;
+}
+
 .rich-text ul li {
   position: relative;
 }
