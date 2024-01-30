@@ -190,7 +190,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 type="radio"
                 value="persona_2"
                 id="purchasing"
-                {...register('hs_persona', { required: false })}
+                {...register('hs_persona', { required: true })}
               />
               <label
                 className="text-left cursor-pointer font-medium text-sm"
@@ -205,7 +205,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 type="radio"
                 value="persona_3"
                 id="learn_more"
-                {...register('hs_persona', { required: false })}
+                {...register('hs_persona', { required: true })}
               />
               <label
                 className="text-left cursor-pointer font-medium text-sm"
@@ -220,7 +220,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 type="radio"
                 value="persona_1"
                 id="realitor"
-                {...register('hs_persona', { required: false })}
+                {...register('hs_persona', { required: true })}
               />
               <label
                 className="text-left cursor-pointer font-medium text-sm"
