@@ -53,7 +53,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             {unit?.title}
           </h2>
 
-          <div className="flex flex-col relative mb-y">
+          <div className="flex flex-col relative mb-[40px]">
             {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel
                 index="0"
@@ -63,7 +63,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 placement="unit images"
               />
             )}
-            <div className="mb-y pr-[calc(var(--space-menu)+2px)] md:pr-0">
+            <div className="mb-[40px] pr-[calc(var(--space-menu)+2px)] md:pr-0">
               <p className="m-0 text-base font-medium tracking-tight">
                 {unit?.price == 'Inquire'
                   ? 'Price upon request'
@@ -156,7 +156,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </>
           )}
 
-          <div className="md:hidden mb-yhalf w-[var(--btn-width)] md:max-w-[346px]">
+          <div className="md:hidden mt-[40px] mb-yhalf w-[var(--btn-width)] md:max-w-[346px]">
             <button
               className={classNames(
                 'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
@@ -168,7 +168,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </button>
           </div>
 
-          <div className="md:hidden mb-ydouble w-[var(--btn-width)] md:max-w-[346px]">
+          <div className="md:hidden w-[var(--btn-width)] md:max-w-[346px]">
             <a href="mailto:talin@home0001.com">
               <button
                 className={classNames(

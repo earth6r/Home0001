@@ -12,7 +12,7 @@ export const PropertyBlock: FC<PropertyBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className, 'mt-12 md:mt-24')}>
+    <Block className={classNames(className, 'mt-[40px] md:mt-24')}>
       <PropertyDetail property={propertyRef as PropertyContentProps} />
     </Block>
   )
