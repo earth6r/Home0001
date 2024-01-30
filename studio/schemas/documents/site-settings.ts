@@ -24,6 +24,10 @@ export default {
       name: 'forms',
       title: 'Forms',
     },
+    {
+      name: 'inventory',
+      title: 'Inventory',
+    },
   ],
   fields: [
     {

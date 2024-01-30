@@ -112,7 +112,7 @@ export default {
     {
       name: 'inventory',
       title: 'Inventory',
-      type: 'table',
+      type: 'richText',
       options: { collapsable: true, collapsed: true },
     },
     {

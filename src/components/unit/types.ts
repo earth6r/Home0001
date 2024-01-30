@@ -49,7 +49,7 @@ export interface KeyedUnitProps
   confirmationCopy?: RichText
   summary?: RichText
   factSheet?: any
-  inventory?: any
+  inventory?: RichText
   unitDetails?: RichText
   secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]
