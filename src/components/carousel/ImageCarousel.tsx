@@ -40,7 +40,7 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, className }) => {
     <div
       className={classNames(
         className,
-        'block relative w-full md:max-w-[346px] h-full overflow-hidden cursor-grab active:cursor-grabbing select-none'
+        'block relative w-auto h-[373px] md:h-[434px] overflow-hidden cursor-grab active:cursor-grabbing select-none'
       )}
     >
       <SanityMedia
@@ -50,7 +50,7 @@ const ImageSlide: FC<ImageSlideProps> = ({ image, alt, className }) => {
           quality: 10,
           priority: true,
           sizes: '(max-width: 768px) 100vw, 1038px',
-          style: { width: '100%', height: 'auto' },
+          style: { width: 'auto', height: '100%' },
           lqip: image?.asset?.metadata?.lqip,
         }}
       />
@@ -133,10 +133,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide
               key={`${_key}-${alt}`}
-              className={classNames(
-                carousel ? 'md:h-full' : 'md:h-[462px]',
-                'w-full md:w-[346px] h-[373px]'
-              )}
+              className={classNames('w-auto h-[373px] md:h-[434px]')}
             >
               {image && alt && (
                 <>
@@ -158,7 +155,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       />
                     </a>
                   ) : (
-                    <div className="absolute w-full h-full md:h-[462px]">
+                    <div className="absolute w-auto h-full md:h-[434px]">
                       <ImageSlide
                         image={image as any}
                         index={index}
