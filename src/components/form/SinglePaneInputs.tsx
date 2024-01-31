@@ -1,12 +1,10 @@
-import type { FC, MouseEvent } from 'react'
+import type { FC } from 'react'
 import { HTMLAttributes, useContext, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
 import { useCookies } from 'react-cookie'
-import { Listbox } from '@headlessui/react'
-import IconPlus from '@components/icons/IconPlus'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   fields?: {

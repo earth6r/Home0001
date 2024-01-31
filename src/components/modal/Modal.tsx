@@ -8,7 +8,7 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
-    <div className="z-50 fixed top-[calc(var(--header-height)+var(--space-y)+3px)] right-xdouble md:p-10 md:top-10 md:right-10">
+    <div className="z-50 fixed top-ydouble right-xdouble md:p-10 md:top-y md:right-16">
       <button
         onClick={onClose}
         className="uppercase font-medium mt-[0.5em]"
@@ -29,23 +29,24 @@ export const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => (
     as={Fragment}
   >
     <Dialog
+      as="div"
       onClose={() => onClose}
-      className="fixed max-w-[600px] w-full z-header"
+      className="fixed inset-0 flex justify-center w-[100vw] h-[100vh] top-0 left-0 z-modal"
     >
       <div
-        className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-base"
+        className="fixed inset-0 flex items-center justify-center backdrop-blur-sm"
         onClick={onClose}
       ></div>
-      <div className="fixed inset-0 flex min-h-full items-center justify-center px-x pt-header pb-y md:p-10 z-base pointer-events-none">
-        <Dialog.Panel className="block w-full h-full overflow-scroll bg-white border-black z-modal">
+      <div className="absolute flex w-[90%] h-[90%] top-y justify-center">
+        <Dialog.Overlay className="block relative w-full h-full">
           <div
-            className="relative w-full h-full pointer-events-auto"
-            onClick={e => e.stopPropagation()}
+            className="relative w-full h-full bg-white overflow-scroll border-black"
+            data-lenis-prevent
           >
             <CloseButton onClose={onClose} />
             {children}
           </div>
-        </Dialog.Panel>
+        </Dialog.Overlay>
       </div>
     </Dialog>
   </Transition>
