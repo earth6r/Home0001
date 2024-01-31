@@ -1,4 +1,4 @@
-import { useState, type FC, type HTMLAttributes } from 'react'
+import { useState, type FC, type HTMLAttributes, useEffect } from 'react'
 import { Modal } from '@components/modal'
 import classNames from 'classnames'
 import { sendGoogleEvent } from '@lib/util'
@@ -34,37 +34,41 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
       }
     }
   }
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto'
+    document.body.style.position = isOpen ? 'fixed' : 'relative'
+  }, [isOpen])
+
   return (
-    <div className={className}>
+    <div className={classNames(className, '')}>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="py-6 md:py-10 px-x md:px-10 h-full flex flex-col text-sm font-bold overflow-y-scroll">
-          <div className="pb-y">
-            {table.rows &&
-              table.rows.length > 0 &&
-              table.rows.map(
-                ({ _key, cells }: { _key: number; cells: string[] }) => (
-                  <div
-                    key={_key}
-                    className="flex flex-nowrap min-h-[10px] my-[0.5em]"
-                  >
-                    {cells &&
-                      cells.length > 0 &&
-                      cells.map((cell: string, i: number) => (
-                        <div
-                          key={cell + i}
-                          className={classNames(
-                            i === 0
-                              ? 'w-[250px] xs:w-[300px] md:w-[200px]'
-                              : 'w-[calc(100%-250px)]'
-                          )}
-                        >
-                          {cell}
-                        </div>
-                      ))}
-                  </div>
-                )
-              )}
-          </div>
+        <div className="relative py-6 md:py-10 px-x md:px-10 text-sm font-bold">
+          {table.rows &&
+            table.rows.length > 0 &&
+            table.rows.map(
+              ({ _key, cells }: { _key: number; cells: string[] }) => (
+                <div
+                  key={_key}
+                  className="flex flex-nowrap min-h-[10px] my-[0.5em]"
+                >
+                  {cells &&
+                    cells.length > 0 &&
+                    cells.map((cell: string, i: number) => (
+                      <div
+                        key={cell + i}
+                        className={classNames(
+                          i === 0
+                            ? 'w-[250px] xs:w-[300px] md:w-[200px]'
+                            : 'w-[calc(100%-250px)]'
+                        )}
+                      >
+                        {cell}
+                      </div>
+                    ))}
+                </div>
+              )
+            )}
         </div>
       </Modal>
 
