@@ -107,9 +107,9 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             placeholder="YOUR EMAIL"
             type="email"
             id="email"
-            onFocus={() => !unitInput && setUnitInput(true)}
             className={classNames(modal ? 'waitlist' : '', 'input')}
             {...register('email', { required: true })}
+            onChange={() => !unitInput && setUnitInput(true)}
           />
 
           {fields?.showPhone && (
