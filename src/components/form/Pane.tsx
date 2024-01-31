@@ -48,7 +48,12 @@ const Pane: FC<PaneProps> = ({
       )}
     >
       <>
-        <div className="w-full h-[calc(100%-var(--btn-height)-[6rem])] md:h-auto overflow-scroll">
+        <div
+          className={classNames(
+            block ? 'md:h-auto' : 'md:h-full',
+            'w-full h-[calc(100%-var(--btn-height)-[6rem])] overflow-scroll'
+          )}
+        >
           {currentStep === 0 && (
             <h2
               className={classNames(
