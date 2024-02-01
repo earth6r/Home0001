@@ -32,6 +32,7 @@ import textAndImage from './objects/textAndImage'
 import unitBlock from './blocks/unit-block'
 import propertyBlock from './blocks/property-block'
 import flexWaitlistBlock from './blocks/flex-waitlist-block'
+import calendarBlock from './blocks/calendar-block'
 
 export const schemaTypes = [
   // objects
@@ -57,6 +58,7 @@ export const schemaTypes = [
   blockContent,
   accordionBlock,
   animatingBlock,
+  calendarBlock,
   carouselBlock,
   propertyBlock,
   propertiesBlock,

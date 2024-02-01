@@ -912,6 +912,7 @@ export type InventoryModule = {
 export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
   | SanityKeyed<AnimatingBlock>
+  | SanityKeyed<CalendarBlock>
   | SanityKeyed<CarouselBlock>
   | SanityKeyed<PropertyBlock>
   | SanityKeyed<PropertiesBlock>
@@ -969,6 +970,37 @@ export type AnimatingBlock = {
    *
    */
   citiesPosition?: number;
+};
+
+export type CalendarBlock = {
+  _type: "calendarBlock";
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
+   * LA Embed Code — `string`
+   *
+   * Value used in https://meetings.hubspot.com/ url
+   */
+  laEmbedCode?: string;
+
+  /**
+   * NY Embed Code — `string`
+   *
+   * Value used in https://meetings.hubspot.com/ url
+   */
+  nyEmbedCode?: string;
+
+  /**
+   * Phone Embed Code — `string`
+   *
+   * Value used in https://meetings.hubspot.com/ url
+   */
+  phoneEmbedCode?: string;
 };
 
 export type CarouselBlock = {

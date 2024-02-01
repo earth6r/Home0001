@@ -14,6 +14,11 @@ export default {
       title: 'Animating Block',
     },
     {
+      name: 'calendarBlock',
+      type: 'calendarBlock',
+      title: 'Calendar Block',
+    },
+    {
       name: 'carouselBlock',
       type: 'carouselBlock',
       title: 'Carousel Block',
