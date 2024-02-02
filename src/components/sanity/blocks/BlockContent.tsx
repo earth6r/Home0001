@@ -1,12 +1,7 @@
 import type { FC } from 'react'
 import { PortableText } from '@portabletext/react'
 import type { SanityBlockElement } from '@components/sanity'
-import {
-  blockTypes,
-  blockMarks,
-  blockLists,
-  blockBlock,
-} from '@components/sanity'
+import { blockTypes, blockMarks, blockBlock } from '@components/sanity'
 import {
   TextBlock,
   AccordionBlock,
@@ -70,7 +65,6 @@ export const BlockContent: FC<SanityBlockElement> = ({
           },
           marks: blockMarks,
           block: blockBlock,
-          list: blockLists,
         }}
       />
     </div>
