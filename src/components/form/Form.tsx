@@ -66,13 +66,11 @@ export const Form: FC<FormProps> = ({
     let localQuery
 
     if (typeof window !== 'undefined') {
-      console.log('in on submit with window')
       localQuery = sessionStorage.getItem('query')
-      console.log('localQuery:', localQuery)
     }
 
     try {
-      // result = await submitForm(data, audienceId, formType, hutk)
+      result = await submitForm(data, audienceId, formType, hutk)
 
       const errorData = new FormData()
       errorData.append('Page', asPath)

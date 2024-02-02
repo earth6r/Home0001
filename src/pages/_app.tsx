@@ -32,7 +32,7 @@ function App({
   const { asPath, query } = useRouter()
 
   useEffect(() => {
-    if (query) {
+    if (query && !query.slug) {
       const localQuery = sessionStorage.getItem('query')
       if (localQuery !== JSON.stringify(query)) {
         sessionStorage.setItem('query', JSON.stringify(query))
