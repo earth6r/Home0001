@@ -38,7 +38,7 @@ function App({
         sessionStorage.setItem('query', JSON.stringify(query))
       }
     }
-  }, [])
+  }, [query])
 
   return draftMode && token ? (
     <PreviewProvider token={token}>
