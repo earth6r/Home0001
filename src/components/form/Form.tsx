@@ -64,8 +64,11 @@ export const Form: FC<FormProps> = ({
 
     let result
     let localQuery
+
     if (typeof window !== 'undefined') {
+      console.log('in on submit with window')
       localQuery = sessionStorage.getItem('query')
+      console.log('localQuery:', localQuery)
     }
 
     try {
