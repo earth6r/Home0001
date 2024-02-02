@@ -9,9 +9,7 @@ type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
 
 export const CalendarBlock: FC<CalendarBlockProps> = ({
   header,
-  laEmbedCode,
-  nyEmbedCode,
-  phoneEmbedCode,
+  embedCode,
   className,
 }) => {
   return (
@@ -20,17 +18,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
 
       <div
         className="meetings-iframe-container"
-        data-src={`https://meetings.hubspot.com/${laEmbedCode}?embed=true`}
-      ></div>
-
-      <div
-        className="meetings-iframe-container"
-        data-src={`https://meetings.hubspot.com/${nyEmbedCode}?embed=true`}
-      ></div>
-
-      <div
-        className="meetings-iframe-container"
-        data-src={`https://meetings.hubspot.com/${phoneEmbedCode}?embed=true`}
+        data-src={`https://meetings.hubspot.com/${embedCode}?embed=true`}
       ></div>
     </Block>
   )
