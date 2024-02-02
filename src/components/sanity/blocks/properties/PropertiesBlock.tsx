@@ -9,6 +9,7 @@ import { Block, RichText, SanityMedia } from '@components/sanity'
 import Link from 'next/link'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { sendGoogleEvent } from '@lib/util'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -35,13 +36,13 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         style={{
           transform: isInView ? 'scale(1)' : 'scale(0.99)',
           opacity: isInView ? 1 : 0,
-          transition: `all 800ms ease-in-out ${index && isMobile ? 0.2 : 0}s`,
+          transition: `all 800ms ease-in-out ${(index + 1) * 0.2}s`,
         }}
         className="flex w-full opacity-0"
       >
         <Link
           href={`/property/${slug.current}`}
-          className="w-full mx-x md:mx-0 card-shadow"
+          className="relative text-white md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
           onClick={() =>
             sendGoogleEvent('Click home property tile', {
               tileProperty: slug.current,
@@ -49,7 +50,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           }
         >
           {image && (
-            <div className="block relative w-full h-0 pb-[100%] lg:pb-[110%] xl:pb-[90%] pt-x px-x mb-x md:mb-xhalf z-base overflow-hidden">
+            <div className="block relative w-full h-0 pb-[120%] xl:pb-[115%] 2xl:pb-[110%] z-base overflow-hidden select-none">
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
@@ -58,7 +59,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
                   sizes: '(max-width: 768px) 100vw, 50vw',
                   lqip: (image?.image as any)?.asset?.metadata?.lqip,
                 }}
-                className="w-full h-auto object-contain"
+                className="relative w-full h-auto transform -translate-y-[5%] object-contain"
                 {...(image as any)}
               />
             </div>
@@ -66,10 +67,15 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'w-full px-x pb-x text-card font-bold leading-tight text-left uppercase'
+                'inline-flex justify-between md:justify-start items-start gap-[32px] w-[var(--btn-width)] md:w-auto relative p-[16px] bg-black text-card font-bold text-left uppercase'
               )}
             >
-              <RichText blocks={longTitle} className="card underline" />
+              <RichText blocks={longTitle} className="card" />
+
+              <IconRightArrowBold
+                className="relative w-[1em] mt-[0.1em]"
+                fill="white"
+              />
             </div>
           )}
         </Link>
@@ -83,9 +89,12 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className, 'mt-0 -ml-[2px] lg:px-x')}>
-      <div>
-        <div className="grid md:grid-cols-2 gap-14 xl:gap-[150px] md:px-menu">
+    <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
+      <div className="xl:max-w-[65%] mx-auto px-x md:px-[calc(var(--space-menu)+12px)] xl:px-0">
+        <h2 className="mb-[32px] md:mb-[28px] text-xl md:text-2xl font-bold uppercase tracking-header pr-menu md:pr-0">
+          Now available in:
+        </h2>
+        <div className="grid md:grid-cols-2 gap-[32px] md:gap-4">
           {properties &&
             (properties as KeyedProperty[])?.map(
               ({ cardImage, longTitle, slug }, index) => (

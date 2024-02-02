@@ -47,24 +47,24 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
   return (
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
-      <div className="md:grid md:grid-cols-3 pr-[calc(var(--space-menu)+2px)] md:pr-0">
+      <div className="md:grid md:grid-cols-3">
         <div className="md:col-start-1 col-start-2 md:col-span-3">
-          <div className="flex flex-col relative mb-ydouble">
+          <h2 className="text-xl font-bold mb-y uppercase col-span-2 pr-[calc(var(--space-menu)+2px)] md:pr-0">
+            {unit?.title}
+          </h2>
+
+          <div className="flex flex-col relative mb-[40px]">
             {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel
                 index="0"
                 slides={unit?.photographs}
                 carousel={true}
-                className="relative w-full mb-yhalf"
+                className="relative w-full mb-[16px] md:pr-x"
                 placement="unit images"
               />
             )}
-
-            <h2 className="text-xl font-bold mb-0 uppercase col-span-2">
-              {unit?.title}
-            </h2>
-            <div className="mb-ydouble text-md font-bold mt-y">
-              <p className="m-0">
+            <div className="mb-[40px] pr-[calc(var(--space-menu)+2px)] md:pr-0">
+              <p className="m-0 text-base font-medium tracking-tight">
                 {unit?.price == 'Inquire'
                   ? 'Price upon request'
                   : cryptoMode
@@ -73,12 +73,16 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                     } BTC / ${cryptoPrice[0]} ETH`
                   : unit?.price}
               </p>
-              {unit?.area && <p className="mb-ylg">{unit?.area}</p>}
+              {unit?.area && (
+                <p className="mb-ylg text-base font-medium tracking-tight">
+                  {unit?.area}
+                </p>
+              )}
 
-              <div className="md:grid md:grid-cols-7">
+              <div className="md:grid md:grid-cols-10">
                 {unit?.summary && (
                   <div className="md:col-span-3">
-                    <p className="uppercase font-bold mb-y md:mb-yhalf">
+                    <p className="uppercase text-md font-bold mb-[16px]">
                       Overview
                     </p>
                     <RichText
@@ -88,8 +92,8 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                   </div>
                 )}
 
-                <div className="hidden md:block md:col-start-5 md:col-span-3 md:pr-[calc(var(--space-full-menu)+9px)]">
-                  <div className="mb-yhalf">
+                <div className="hidden md:block col-start-8 col-span-3 w-full md:pr-x">
+                  <div className="mb-[12px]">
                     <button
                       onClick={() => window.open(calendarURL, '_blank')}
                       className={classNames(
@@ -127,7 +131,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 />
               )}
 
-              {unit?.inventory?.rows && (
+              {/* {unit?.inventory?.rows && (
                 <SanityTableModal
                   title="Inventory"
                   table={unit.inventory}
@@ -136,17 +140,17 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                   className="inline-block mt-ylg"
                   unit={unit.title}
                 />
-              )}
+              )} */}
             </div>
 
             {unit?.unitDetails && (
-              <>
-                <p className="uppercase font-bold text-md mb-yhalf">Details</p>
+              <div className="pr-[calc(var(--space-menu)+2px)] md:pr-0">
+                <p className="uppercase font-bold text-md mb-yhalf ">Details</p>
                 <DetailsDropdown
                   details={unit?.unitDetails}
                   dropdownOpen={true}
                 />
-              </>
+              </div>
             )}
           </div>
 
@@ -159,13 +163,13 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 index="1"
                 carousel={true}
                 slides={unit?.layoutImages}
-                className="w-full mb-ylg"
+                className="w-full"
                 placement="unit layouts"
               />
             </>
           )}
 
-          <div className="md:hidden mb-yhalf md:max-w-[346px]">
+          <div className="md:hidden mt-[40px] mb-yhalf w-[var(--btn-width)] md:max-w-[346px]">
             <button
               className={classNames(
                 'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
@@ -177,7 +181,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </button>
           </div>
 
-          <div className="md:hidden mb-ydouble md:max-w-[346px]">
+          <div className="md:hidden w-[var(--btn-width)] md:max-w-[346px]">
             <a href="mailto:talin@home0001.com">
               <button
                 className={classNames(

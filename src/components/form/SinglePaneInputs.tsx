@@ -1,12 +1,10 @@
-import type { FC, MouseEvent } from 'react'
+import type { FC } from 'react'
 import { HTMLAttributes, useContext, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
 import { useCookies } from 'react-cookie'
-import { Listbox } from '@headlessui/react'
-import IconPlus from '@components/icons/IconPlus'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   fields?: {
@@ -107,9 +105,9 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             placeholder="YOUR EMAIL"
             type="email"
             id="email"
-            onFocus={() => !unitInput && setUnitInput(true)}
             className={classNames(modal ? 'waitlist' : '', 'input')}
             {...register('email', { required: true })}
+            onChange={() => !unitInput && setUnitInput(true)}
           />
 
           {fields?.showPhone && (
@@ -190,7 +188,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 type="radio"
                 value="persona_2"
                 id="purchasing"
-                {...register('hs_persona', { required: false })}
+                {...register('hs_persona', { required: true })}
               />
               <label
                 className="text-left cursor-pointer font-medium text-sm"
@@ -205,7 +203,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 type="radio"
                 value="persona_3"
                 id="learn_more"
-                {...register('hs_persona', { required: false })}
+                {...register('hs_persona', { required: true })}
               />
               <label
                 className="text-left cursor-pointer font-medium text-sm"
@@ -220,7 +218,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 type="radio"
                 value="persona_1"
                 id="realitor"
-                {...register('hs_persona', { required: false })}
+                {...register('hs_persona', { required: true })}
               />
               <label
                 className="text-left cursor-pointer font-medium text-sm"
@@ -247,7 +245,9 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           )}
         >
           <button
-            className="tracking-details h-[42px] max-h-12 text-center uppercase text-white bg-black font-medium text-xs"
+            className={classNames(
+              'md:max-w-[var(--btn-width)] tracking-details w-full h-btn text-center uppercase text-white bg-black font-medium text-xs'
+            )}
             type="submit"
           >
             {submitButtonCopy || 'Submit'}

@@ -1,7 +1,9 @@
 import type { SVGProps } from 'react'
 import { memo } from 'react'
 
-export const IconSmallArrowComponent = (props: SVGProps<SVGSVGElement>) => {
+export const IconSmallBlackArrowComponent = (
+  props: SVGProps<SVGSVGElement>
+) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,6 +19,6 @@ export const IconSmallArrowComponent = (props: SVGProps<SVGSVGElement>) => {
   )
 }
 
-export const IconSmallArrow = memo(IconSmallArrowComponent)
+export const IconSmallBlackArrow = memo(IconSmallBlackArrowComponent)
 
-export default IconSmallArrow
+export default IconSmallBlackArrow
