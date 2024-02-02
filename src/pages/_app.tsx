@@ -29,6 +29,16 @@ function App({
   token: string
 }>) {
   const { draftMode, token } = pageProps
+  const { asPath, query } = useRouter()
+
+  useEffect(() => {
+    if (query) {
+      const localQuery = sessionStorage.getItem('query')
+      if (localQuery !== JSON.stringify(query)) {
+        sessionStorage.setItem('query', JSON.stringify(query))
+      }
+    }
+  }, [])
 
   return draftMode && token ? (
     <PreviewProvider token={token}>
