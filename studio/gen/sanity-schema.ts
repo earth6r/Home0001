@@ -982,25 +982,11 @@ export type CalendarBlock = {
   header?: RichText;
 
   /**
-   * LA Embed Code — `string`
+   * Embed Code — `string`
    *
    * Value used in https://meetings.hubspot.com/ url
    */
-  laEmbedCode?: string;
-
-  /**
-   * NY Embed Code — `string`
-   *
-   * Value used in https://meetings.hubspot.com/ url
-   */
-  nyEmbedCode?: string;
-
-  /**
-   * Phone Embed Code — `string`
-   *
-   * Value used in https://meetings.hubspot.com/ url
-   */
-  phoneEmbedCode?: string;
+  embedCode?: string;
 };
 
 export type CarouselBlock = {
