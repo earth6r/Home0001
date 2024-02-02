@@ -1,8 +1,9 @@
-import { useState, type FC, type HTMLAttributes } from 'react'
+import { useState, type FC, type HTMLAttributes, useEffect } from 'react'
 import { Modal } from '@components/modal'
 import classNames from 'classnames'
 import { sendGoogleEvent } from '@lib/util'
-import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
+import { useLenis } from '@studio-freight/react-lenis'
 
 interface SanityTableModalProps extends HTMLAttributes<HTMLElement> {
   table: any
@@ -21,6 +22,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
   unit,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const lenis = useLenis()
 
   const handleGoogleEvent = () => {
     if (unit) {
@@ -38,13 +40,20 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
       }
     }
   }
+
   return (
-    <div className={className}>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="py-[19px] md:py-11 px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
+    <div className={classNames(className, '')}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false)
+          lenis.resize()
+        }}
+      >
+        <div className="py-[19px] md:py-[33px] px-x h-full flex flex-col text-sm overflow-y-scroll">
           <span className="uppercase font-medium mb-y">{title}</span>
 
-          <div className="pb-y">
+          <div className="">
             {table.rows &&
               table.rows.length > 0 &&
               table.rows.map(
@@ -56,7 +65,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
                     key={_key}
                     className={classNames(
                       index <= 1
-                        ? 'uppercase text-lg leading-[0.85]'
+                        ? 'uppercase text-xl leading-[0.85] tracking-tight'
                         : 'my-[0.5em]',
                       cells.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
                       cells.length <= 1 || (cells[1] && cells[1].length === 0)
@@ -78,7 +87,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
       </Modal>
 
       <div className="flex items-center gap-[5px] py-[4px] px-[6px] border-black">
-        <IconSmallBlackArrow width="13" height="9" />
+        <IconSmallArrow fill="black" width="15" height="11" />
         <button
           onClick={() => {
             setIsOpen(true)

@@ -5,6 +5,7 @@ import { sendGoogleEvent } from '@lib/util'
 import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { RichText } from '../rich-text'
+import { useLenis } from '@studio-freight/react-lenis'
 
 interface SanityInventoryModalProps extends HTMLAttributes<HTMLElement> {
   inventory: RichTextType
@@ -21,8 +22,7 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
   unit,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-
-  console.log('inventory: ', inventory)
+  const lenis = useLenis()
 
   const handleGoogleEvent = () => {
     if (unit) {
@@ -32,12 +32,18 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
   }
   return (
     <div className={className}>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="py-[19px] md:py-11 px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false)
+          lenis.resize()
+        }}
+      >
+        <div className="py-[19px] md:py-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
           <span className="uppercase font-medium mb-y">{title}</span>
 
           <div className="pb-y">
-            {inventory && <RichText blocks={inventory} />}
+            {inventory && <RichText blocks={inventory} className="inventory" />}
           </div>
         </div>
       </Modal>

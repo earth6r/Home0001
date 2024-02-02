@@ -70,16 +70,15 @@ export const Form: FC<FormProps> = ({
       errorData.append('Page', asPath)
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify('none'))
-      errorData.append('Payload', JSON.stringify(result))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
       const action =
-        'https://script.google.com/macros/s/AKfycbyjuXITThcGvAHcYXNI6Wp5pYPywADwHJbAe__To9uAAAYEXpyfxecRzioAMfLgl0hX/exec'
-
+        'https://script.google.com/macros/s/AKfycbzNlSuJJYINE8DELs1YRgKWdylaJdLAcem9ungK4C6FOjfTEPSz3P6oLftOHDkUsdvF/exec'
       fetch(action, {
         method: 'POST',
         body: errorData,
       })
+      setFormSubmitted(true)
     } catch (error) {
       setFormError(error)
       console.log(error)
@@ -88,17 +87,15 @@ export const Form: FC<FormProps> = ({
       errorData.append('Page', asPath)
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify(error))
-      errorData.append('Payload', JSON.stringify(result))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
       const action =
-        'https://script.google.com/macros/s/AKfycbyjuXITThcGvAHcYXNI6Wp5pYPywADwHJbAe__To9uAAAYEXpyfxecRzioAMfLgl0hX/exec'
+        'https://script.google.com/macros/s/AKfycbzNlSuJJYINE8DELs1YRgKWdylaJdLAcem9ungK4C6FOjfTEPSz3P6oLftOHDkUsdvF/exec'
 
       fetch(action, {
         method: 'POST',
         body: errorData,
       })
-    } finally {
       setFormSubmitted(true)
     }
   }
@@ -109,7 +106,7 @@ export const Form: FC<FormProps> = ({
         <div className="relative mt-ylg mb-2">
           {formType === 'preference' ? (
             <div>
-              <p className="font-bold text-lg">
+              <p className="font-bold text-lg tracking-tight">
                 {'Thank you for sharing your preferences'}
               </p>
               <br></br>
@@ -126,21 +123,16 @@ export const Form: FC<FormProps> = ({
               </p>
             </div>
           ) : typeof successMessage === 'string' ? (
-            <p className="font-bold text-lg">{successMessage}</p>
+            <p className="font-bold  tracking-tight">{successMessage}</p>
           ) : (
-            successMessage && <RichText blocks={successMessage} />
+            successMessage && (
+              <RichText className="bold" blocks={successMessage} />
+            )
           )}
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           {children}
-          {/* {formError != null && (
-            <div className="md:w-[calc(50%+var(--space-x)+6px)] md:ml-auto py-2">
-              <div className="relative text-left py-4 text-[red] uppercase text-base">
-                <p>{`Error submitting form`}</p>
-              </div>
-            </div>
-          )} */}
         </form>
       )}
     </div>

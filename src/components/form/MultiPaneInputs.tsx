@@ -150,10 +150,10 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
 
       {broker && (
         <button
-          className="text-left font-medium text-xs tracking-details underline decoration-[1.5px] underline-offset-2 pt-[28px] md:pt-[44px] pb-[12px]"
+          className="md:max-w-[var(--btn-width)] pt-[26px] md:pt-[20px] text-right font-bold text-md tracking-details underline decoration-[1.5px] underline-offset-2"
           onClick={() => setBrokerInquiryOpen(true)}
         >
-          Are you a broker?
+          Are you a realtor?
         </button>
       )}
     </div>
@@ -203,7 +203,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
         {...register('City', { required: false })}
         className={classNames(
           hiddenInputShown ? '' : 'opacity-0',
-          'waitlist input mb-4'
+          'input mb-4'
         )}
       />
     </div>
@@ -245,7 +245,6 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   copy,
   buttonCopy,
   formPanes,
-  broker,
   register,
   setFullWidth,
   className,
@@ -294,11 +293,11 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         }}
       >
         <NameEmailPane
-          broker={broker === false ? false : block}
+          broker={true}
           register={register}
           className={classNames(
             currentStep !== 0 ? 'hidden' : '',
-            block ? 'h-[220px]' : '',
+            block ? 'h-[248px]' : '',
             'flex flex-col gap-3 md:h-auto'
           )}
         />
@@ -319,7 +318,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
-            'flex flex-col gap-4 h-[320px]'
+            'flex flex-col gap-4 h-auto'
           )}
         />
       </Pane>
@@ -342,7 +341,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 2 ? 'hidden' : '',
-            'flex flex-col gap-4 h-[320px]'
+            'flex flex-col gap-4 h-auto'
           )}
         />
       </Pane>
@@ -363,7 +362,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 3 ? 'hidden' : '',
-            'flex flex-col gap-4 h-[292px] md:h-[320px]'
+            'flex flex-col gap-4 h-auto'
           )}
         />
       </Pane>

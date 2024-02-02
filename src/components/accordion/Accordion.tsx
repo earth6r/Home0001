@@ -5,11 +5,10 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { RichText, SanityLink } from '@components/sanity'
 import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
-import IconSmallBlackArrow, {
-  IconSmallArrow,
-} from '@components/icons/IconSmallBlackArrow'
+import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 import { SanityLinkType } from '@studio/lib'
 import { sendGoogleEvent } from '@lib/util'
+import { useLenis } from '@studio-freight/react-lenis'
 
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
@@ -31,6 +30,7 @@ export const Accordion: FC<AccordionProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [openedOnce, setOpenedOnce] = useState(false)
+  const lenis = useLenis()
 
   const beforeEnter = () => {
     if (ref.current)
@@ -99,7 +99,9 @@ export const Accordion: FC<AccordionProps> = ({
                 enter="maxHeight duration-200 ease-in-out"
                 enterFrom="max-h-0"
                 beforeEnter={beforeEnter}
+                afterEnter={() => lenis.resize()}
                 leave="maxHeight duration-200 ease-in-out"
+                afterLeave={() => lenis.resize()}
                 beforeLeave={() => {
                   if (ref.current) ref.current.style.maxHeight = '0px'
                 }}
@@ -123,7 +125,7 @@ export const Accordion: FC<AccordionProps> = ({
                     )}
 
                     {cta && (
-                      <div className="cta w-full relative mt-y pr-menu pd:mr-0">
+                      <div className="cta w-full relative mt-y pr-menu md:pr-0">
                         <SanityLink
                           {...(cta.link as SanityLinkType)}
                           className="w-full border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above px-4 py-3.5"
@@ -131,7 +133,7 @@ export const Accordion: FC<AccordionProps> = ({
                           <span className="text-left uppercase leading-none">
                             {cta.text || 'Learn more'}
                           </span>
-                          <IconSmallArrow width="16" fill="white" />
+                          <IconSmallBlackArrow width="16" fill="white" />
                         </SanityLink>
                       </div>
                     )}

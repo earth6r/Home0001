@@ -92,7 +92,7 @@ const NameEmailPane: FC<PaneProps> = ({ register, className, onClick }) => {
 
       <PreferenceSubmitButton
         onClick={onClick}
-        className="flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1"
+        className="flex w-full h-btn mt-6 md:bottom-auto order-1"
       />
     </div>
   )
@@ -182,9 +182,7 @@ const LocationsPane: FC<PaneProps> = ({
         </div>
       ))}
       <div
-        className={classNames(
-          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
-        )}
+        className={classNames('flex w-full h-btn mt-6 md:bottom-auto order-1')}
       >
         <button
           className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"
@@ -373,9 +371,7 @@ const HomeTypesPane: FC<PaneProps> = ({
         )}
       />
       <div
-        className={classNames(
-          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
-        )}
+        className={classNames('flex w-full h-btn mt-6 md:bottom-auto order-1')}
       >
         <button
           className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"
@@ -455,9 +451,7 @@ const FinancingRadioPane: FC<PaneProps> = ({
         </div>
       ))}
       <div
-        className={classNames(
-          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
-        )}
+        className={classNames('flex w-full h-btn mt-6 md:bottom-auto order-1')}
       >
         <button
           className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"
@@ -552,9 +546,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
         </div>
       ))}
       <div
-        className={classNames(
-          'flex w-full h-btn mt-6 md:bottom-auto md:pr-menu order-1'
-        )}
+        className={classNames('flex w-full h-btn mt-6 md:bottom-auto order-1')}
       >
         <button
           className="relative flex justify-center items-center w-[48px] h-btn mr-2 bg-white border-black z-above"

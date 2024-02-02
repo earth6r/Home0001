@@ -44,7 +44,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
         <h2 className="text-xl font-bold mb-12 uppercase col-span-2 pr-menu md:pr-0">
           {unit?.title}
         </h2>
-        <div className="md:col-start-1 col-start-2 md:col-span-3">
+        <div className="col-start-2 md:col-start-1 md:col-span-3">
           <div className="flex flex-col relative">
             {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel

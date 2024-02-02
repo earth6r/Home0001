@@ -10,6 +10,10 @@
   @apply border-bottom border-[#DDD] pb-yhalf mt-yhalf;
 }
 
+.rich-text.bold > p {
+  @apply font-bold leading-[0.95];
+}
+
 .rich-text > ul,
 .rich-text > ol,
 .rich-text > blockquote,
@@ -44,15 +48,23 @@
 }
 
 .rich-text h1 {
-  @apply text-xl md:text-2xl font-bold uppercase tracking-header;
+  @apply text-2xl font-bold uppercase tracking-header;
 }
 
 .rich-text h2 {
-  @apply text-lg font-bold uppercase tracking-header;
+  @apply text-xl font-bold uppercase tracking-header;
 }
 
 .rich-text.card h2 {
   @apply text-card;
+}
+
+.rich-text h3 {
+  @apply text-h3 font-bold uppercase tracking-tight;
+}
+
+.rich-text.inventory h3 {
+  @apply mt-[24px];
 }
 
 .rich-text p,
@@ -70,11 +82,30 @@
   @apply mx-auto;
 }
 
+.rich-text.inventory ul {
+  column-count: 2;
+  column-gap: 16px;
+}
+
 .rich-text li {
   @apply border;
 
   margin-top: calc(-1 * var(--border-size));
   padding-left: 20px;
+  padding-bottom: 16px;
+}
+
+.rich-text.inventory ul li {
+  @apply font-normal text-xs tracking-tight;
+  border: none;
+  padding-left: 0;
+}
+
+.rich-text li:last-of-type {
+  padding-bottom: 0;
+}
+
+.rich-text.inventory ul li:last-of-type {
   padding-bottom: 16px;
 }
 
@@ -92,12 +123,15 @@
   margin-top: 0;
 }
 
+.rich-text.inventory ul li:before {
+  content: '';
+}
+
 .rich-text h1 a,
 .rich-text h2 a {
   @apply underline;
 }
 
-.rich-text h3,
 .rich-text p a,
 .richt-text li a {
   border-bottom: 1.5px solid;
@@ -115,6 +149,7 @@
 
 @media (hover: hover) {
   .rich-text a:hover {
+    @apply font-sansText;
     font-weight: bold;
   }
 }

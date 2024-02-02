@@ -16,12 +16,17 @@ export default {
       backgroundColor: {
         whitesmoke: '#F3F3F3',
         gray: '#EDEDED',
+        lightgray: '#DEDEDE',
         darkgray: '#E9E9E9',
         yellow: '#FAFF00',
+      },
+      textColor: {
+        lightgray: '#999999',
       },
       screens,
       fontFamily: {
         sans: ['"Haas Grot"', 'Arial', 'sans-serif', 'arial-unicode'],
+        sansText: ['"Haas Grot Text"', 'Arial', 'sans-serif', 'arial-unicode'],
         serif: ['ui-serif', 'serif'],
         mono: ['ui-monospace', 'SFMono-Regular'],
       },
@@ -30,10 +35,11 @@ export default {
         xs: ['14px', '1.2'], // small
         sm: ['14px', '1'], // read more
         md: ['18px', '1.2'], // body
-        lg: ['22.5px', '1'], // h3
-        card: ['clamp(1.40625rem, 0.811rem + 2.267vw, 2.625rem)', '1'], // property summary card
-        xl: ['clamp(12px,10.5vw,54px)', '1'], // h2
-        '2xl': ['clamp(12px,5.5vw,75px)', '1'], // h1
+        lg: ['22.5px', '1'], // ?
+        card: ['clamp(1.5rem, 1.217rem + 0.8696vw, 2rem)', '0.9'], // property summary card
+        h3: ['clamp(1.5rem, 0.676rem + 3.137vw, 3.5rem)', '0.85'], // h3
+        xl: ['clamp(2.5rem, 2.088rem + 1.5686vw, 3.5rem)', '0.85'], // h2
+        '2xl': ['clamp(2.5rem, 1.357rem + 2.381vw, 3.5rem)', '0.85'], // h1
       },
       letterSpacing: {
         details: '-0.02em',
@@ -55,6 +61,7 @@ export default {
         input: 'var(--input-size)',
         block: 'var(--space-block)',
         btn: 'var(--btn-height)',
+        btnWidth: 'var(--btn-width)',
         btnx: 'var(--btn-space-x)',
         btny: 'var(--btn-space-y)',
         header: 'var(--header-height)',

@@ -34,7 +34,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
         )}
       </div>
       <div className="md:grid md:grid-cols-8 gap-10 md:col-start-1 block relative">
-        <div className="grid grid-cols-[1fr_177px] md:flex md:flex-col md:col-span-3 md:justify-start md:items-start md:h-[48vw] pr-x md:pr-0">
+        <div className="grid grid-cols-[1fr_177px] md:flex md:flex-col md:col-span-3 md:justify-start md:items-start pr-x md:pr-0">
           {property?.image && (
             <div className="col-span-2 block relative w-full mb-yhalf z-base">
               <SanityMedia
@@ -50,7 +50,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
             </div>
           )}
 
-          <div className="col-span-2 md:col-span-5 md:w-full">
+          <div className="md:w-full md:sticky top-[var(--header-height)] left-0">
             {property?.coordinates && (
               <Map coordinates={property.coordinates} height={415} />
             )}

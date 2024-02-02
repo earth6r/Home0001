@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useRef } from 'react'
+import { HTMLAttributes } from 'react'
 import classNames from 'classnames'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { RichText } from '@components/sanity'
@@ -48,15 +48,17 @@ const Pane: FC<PaneProps> = ({
       )}
     >
       <>
-        <div className="w-full h-[calc(100%-var(--btn-height)-[6rem])] md:h-auto overflow-scroll">
-          {header && (
+        <div
+          className={classNames(
+            block ? 'md:h-auto' : 'md:h-full',
+            'w-full h-[calc(100%-var(--btn-height)-[6rem])] overflow-scroll'
+          )}
+        >
+          {currentStep === 0 && (
             <h2
               className={classNames(
-                block ? 'md:pr-menu' : '',
-                largeHeader
-                  ? 'text-xl'
-                  : 'md:mt-y md:-mb-y text-lg pt-ylg md:pt-0',
-                'pb-8 md:pb-10 uppercase font-bold'
+                largeHeader ? 'text-xl' : 'text-lg',
+                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
               )}
             >
               {header || `Join the waitlist:`}
@@ -65,36 +67,87 @@ const Pane: FC<PaneProps> = ({
 
           <div
             className={classNames(
-              block ? '' : 'md:grid md:grid-cols-2 md:gap-20',
+              block ? '' : 'md:grid md:grid-cols-2 md:gap-20 h-full',
+              largeHeader ? '' : 'md:mt-y md:-mb-y pt-0',
               'md:w-full md:pr-menu'
             )}
           >
-            {typeof copy === 'string' ? (
-              <p className="mb-ylg text-md font-medium">{copy}</p>
-            ) : (
-              copy && (
-                <RichText
-                  blocks={copy}
-                  className={classNames('mb-ylg clear-both')}
-                />
-              )
-            )}
+            <div>
+              {header && currentStep !== 0 && (
+                <h2
+                  className={classNames(
+                    largeHeader ? 'text-lg' : 'text-lg',
+                    'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
+                  )}
+                >
+                  {header || `Join the waitlist:`}
+                </h2>
+              )}
+
+              {currentStep === 0 && (
+                <>
+                  {typeof copy === 'string' ? (
+                    <p className="mb-yhalf text-lg font-bold tracking-tight uppercase leading-[0.85]">
+                      {copy}
+                    </p>
+                  ) : (
+                    copy && (
+                      <RichText
+                        blocks={copy}
+                        className={classNames(
+                          'mb-ylg clear-both bold uppercase'
+                        )}
+                      />
+                    )
+                  )}
+                </>
+              )}
+            </div>
 
             <div
               className={classNames(
-                block ? '' : 'md:min-h-[328px]',
-                'relative flex flex-col gap-3 pb-y'
+                largeHeader ? '' : 'text-lg tracking-tight',
+                'uppercase font-bold leading-[0.85]'
               )}
             >
-              {children}
+              {currentStep !== 0 && (
+                <>
+                  {typeof copy === 'string' ? (
+                    <p className="mb-yhalf text-lg font-bold uppercase tracking-tight leading-[0.85]">
+                      {copy}
+                    </p>
+                  ) : (
+                    copy && (
+                      <RichText
+                        blocks={copy}
+                        className={classNames(
+                          'mb-ylg clear-both bold uppercase'
+                        )}
+                      />
+                    )
+                  )}
+                </>
+              )}
+
+              <div
+                className={classNames(
+                  block ? '' : 'md:min-h-[310px]',
+                  currentStep !== 0 ? 'mt-ylg' : '',
+                  'relative flex flex-col gap-3'
+                )}
+              >
+                {children}
+              </div>
             </div>
           </div>
         </div>
 
         <div
           className={classNames(
-            block ? 'md:w-full' : 'md:w-[calc(50%+4px)] md:ml-auto',
-            'relative flex w-full h-btn bottom-0 md:bottom-auto md:pr-menu'
+            block
+              ? 'relative md:w-full bottom-0 md:bottom-auto'
+              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-2px)] bottom-[6rem] md:bottom-0',
+            'flex w-full h-btn md:pr-menu'
           )}
         >
           {currentStep && currentStep > 0 ? (
@@ -113,7 +166,7 @@ const Pane: FC<PaneProps> = ({
           ) : null}
 
           <button
-            className="relative flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            className="relative flex justify-between items-center w-full md:w-btnWidth px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
             type={buttonType || 'submit'}
             onClick={onClick}
           >
