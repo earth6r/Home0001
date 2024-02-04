@@ -1,4 +1,3 @@
-import { Dialog, Transition } from '@headlessui/react'
 import { AnimatePresence } from 'framer-motion'
 import classNames from 'classnames'
 import React, { FC, HTMLAttributes } from 'react'
