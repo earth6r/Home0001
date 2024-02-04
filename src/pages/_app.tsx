@@ -14,7 +14,7 @@ import 'swiper/css/virtual'
 import '../styles/main.css'
 import '../styles/toast.css'
 import { AnimatePresence } from 'framer-motion'
-import { LenisInstance, useLenis } from '@studio-freight/react-lenis'
+import { useLenis } from '@studio-freight/react-lenis'
 import { useRouter } from 'next/router'
 
 const PreviewProvider = dynamic(
@@ -29,7 +29,8 @@ function App({
   token: string
 }>) {
   const { draftMode, token } = pageProps
-  const { asPath, query } = useRouter()
+  const { query, events } = useRouter()
+  const lenis = useLenis()
 
   useEffect(() => {
     if (query && !query.slug) {
@@ -39,6 +40,18 @@ function App({
       }
     }
   }, [query])
+
+  useEffect(() => {
+    const resizeLenis = () => {
+      lenis.resize()
+    }
+
+    events.on('routeChangeComplete', resizeLenis)
+
+    return () => {
+      events.off('routeChangeComplete', resizeLenis)
+    }
+  }, [events, lenis])
 
   return draftMode && token ? (
     <PreviewProvider token={token}>
