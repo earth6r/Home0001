@@ -32,6 +32,10 @@ function App({
   const { query, events } = useRouter()
   const lenis = useLenis()
 
+  const resizeLenis = () => {
+    lenis.resize()
+  }
+
   useEffect(() => {
     if (query && !query.slug) {
       const localQuery = sessionStorage.getItem('query')
@@ -42,10 +46,6 @@ function App({
   }, [query])
 
   useEffect(() => {
-    const resizeLenis = () => {
-      lenis.resize()
-    }
-
     events.on('routeChangeComplete', resizeLenis)
 
     return () => {
