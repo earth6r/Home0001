@@ -73,7 +73,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                     } BTC / ${cryptoPrice[0]} ETH`
                   : unit?.price}
               </p>
-              {unit?.area && <p className="mb-ylg">{unit?.area}</p>}
+              {unit?.area && <p className="mb-[16px]">{unit?.area}</p>}
 
               {unit?.factSheet?.rows && (
                 <SanityTableModal
@@ -95,7 +95,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                   title="Inventory"
                   inventory={unit.inventory}
                   buttonLabel="View Inventory"
-                  className="inline-block mt-ylg"
+                  className="inline-block mt-[16px]"
                   unit={unit.title}
                 />
               )}
