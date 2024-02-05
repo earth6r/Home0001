@@ -7,7 +7,6 @@ import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
 import { useInquiryModal } from '@contexts/modals'
-import DetailsDropdown from './DetailsDropdown'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
@@ -94,9 +93,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             {unit?.unitDetails && unit.unitDetails.length > 0 && (
               <div>
                 <p className="uppercase font-bold text-md mb-y">Details</p>
-                <DetailsDropdown
-                  details={unit?.unitDetails}
-                  dropdownOpen={true}
+                <RichText
+                  blocks={unit?.unitDetails}
+                  className={classNames('max-w-[500px] md:pr-0')}
                 />
               </div>
             )}

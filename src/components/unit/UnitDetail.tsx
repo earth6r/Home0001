@@ -6,7 +6,6 @@ import classNames from 'classnames'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { useInquiryModal } from '@contexts/modals'
-import DetailsDropdown from './DetailsDropdown'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
@@ -82,7 +81,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
               <div className="md:grid md:grid-cols-10">
                 {unit?.summary && (
-                  <div className="md:col-span-3">
+                  <div className="md:col-span-6">
                     <p className="uppercase text-md font-bold mb-[16px]">
                       Overview
                     </p>
@@ -136,9 +135,9 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             {unit?.unitDetails && (
               <div className="pr-[calc(var(--space-menu)+2px)] md:pr-0">
                 <p className="uppercase font-bold text-md mb-yhalf ">Details</p>
-                <DetailsDropdown
-                  details={unit?.unitDetails}
-                  dropdownOpen={true}
+                <RichText
+                  blocks={unit?.unitDetails}
+                  className={classNames('max-w-[500px] md:pr-0')}
                 />
               </div>
             )}
