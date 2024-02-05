@@ -13,7 +13,7 @@ export const IconWaitlistComponent = (props: SVGProps<SVGSVGElement>) => {
       <path
         fill="#fff"
         stroke="#fff"
-        stroke-width=".25"
+        strokeWidth=".25"
         d="M5.875 12.063v.124h11.729l-2.857 2.933-.086.087.086.087.778.794.09.09.089-.09 4.386-4.5.084-.088-.084-.087-4.386-4.5-.09-.092-.089.092-.773.793-.085.087.085.087 2.853 2.933H5.875v1.25Z"
       />
       <path
