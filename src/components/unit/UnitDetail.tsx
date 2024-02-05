@@ -65,9 +65,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             )}
             <div className="mb-[40px] pr-[calc(var(--space-menu)+2px)] md:pr-0">
               <p className="m-0 text-base font-medium tracking-tight">
-                {unit?.price == 'Inquire'
-                  ? 'Price upon request'
-                  : cryptoMode
+                {cryptoMode
                   ? `${unit?.price?.substring(1)} USDC / ${
                       cryptoPrice[1]
                     } BTC / ${cryptoPrice[0]} ETH`
