@@ -73,7 +73,11 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                     } BTC / ${cryptoPrice[0]} ETH`
                   : unit?.price}
               </p>
-              {unit?.area && <p className="mb-[16px]">{unit?.area}</p>}
+              {unit?.area && <p className="mb-ylg">{unit?.area}</p>}
+
+              {unit?.summary && (
+                <RichText blocks={unit?.summary} className="max-w-[500px]" />
+              )}
 
               {unit?.factSheet?.rows && (
                 <SanityTableModal
@@ -81,20 +85,6 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                   table={unit.factSheet}
                   modalType="fact sheet"
                   buttonLabel="View Fact Sheet"
-                  className="inline-block mb-ylg"
-                  unit={unit.title}
-                />
-              )}
-
-              {unit?.summary && (
-                <RichText blocks={unit?.summary} className="max-w-[500px]" />
-              )}
-
-              {unit?.inventory && (
-                <SanityInventoryModal
-                  title="Inventory"
-                  inventory={unit.inventory}
-                  buttonLabel="View Inventory"
                   className="inline-block mt-[16px]"
                   unit={unit.title}
                 />
@@ -109,6 +99,16 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                   dropdownOpen={true}
                 />
               </>
+            )}
+
+            {unit?.inventory && (
+              <SanityInventoryModal
+                title="Inventory"
+                inventory={unit.inventory}
+                buttonLabel="View Inventory"
+                className="flex mt-[16px]"
+                unit={unit.title}
+              />
             )}
 
             <div className="pr-menu md:pr-0 my-ydouble md:my-y md:max-w-[346px]">
