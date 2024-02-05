@@ -40,9 +40,12 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
         }}
       >
         <div className="py-[19px] md:py-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
-          <span className="uppercase font-medium mb-y">{title}</span>
+          <span className="fixed uppercase font-medium mb-y z-modal">
+            {title}
+          </span>
+          <div className="fixed w-full h-[78px] top-0 white-gradient z-base"></div>
 
-          <div className="pb-y">
+          <div className="pt-ylg pb-y">
             {inventory && <RichText blocks={inventory} className="inventory" />}
           </div>
         </div>

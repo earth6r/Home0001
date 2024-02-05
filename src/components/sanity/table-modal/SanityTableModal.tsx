@@ -51,9 +51,9 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
         }}
       >
         <div className="py-[19px] md:py-[33px] px-x h-full flex flex-col text-sm overflow-y-scroll">
-          <span className="uppercase font-medium mb-y">{title}</span>
+          <span className="fixed uppercase font-medium mb-y">{title}</span>
 
-          <div className="">
+          <div>
             {table.rows &&
               table.rows.length > 0 &&
               table.rows.map(
