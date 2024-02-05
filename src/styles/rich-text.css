@@ -78,6 +78,10 @@
   @apply text-xs font-medium;
 }
 
+.rich-text p strong {
+  @apply font-sansText;
+}
+
 .rich-text ul,
 .rich-text ol {
   @apply mx-auto;
