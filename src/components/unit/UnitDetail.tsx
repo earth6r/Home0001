@@ -163,7 +163,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 index="1"
                 carousel={true}
                 slides={unit?.layoutImages}
-                className="w-full"
+                className="w-full md:pr-x"
                 placement="unit layouts"
               />
             </>
