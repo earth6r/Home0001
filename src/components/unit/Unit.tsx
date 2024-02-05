@@ -92,13 +92,13 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             </div>
 
             {unit?.unitDetails && unit.unitDetails.length > 0 && (
-              <>
+              <div>
                 <p className="uppercase font-bold text-md mb-y">Details</p>
                 <DetailsDropdown
                   details={unit?.unitDetails}
                   dropdownOpen={true}
                 />
-              </>
+              </div>
             )}
 
             {unit?.inventory && (
