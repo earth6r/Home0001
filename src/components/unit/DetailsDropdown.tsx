@@ -49,7 +49,7 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({
               <Transition
                 show={open}
                 ref={ref}
-                className="overflow-hidden will-change-[maxHeight]"
+                className="will-change-[maxHeight]"
                 enter="maxHeight duration-200 ease-in-out"
                 enterFrom="max-h-0"
                 beforeEnter={beforeEnter}
@@ -63,8 +63,8 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({
                     <RichText
                       blocks={details.slice(5, details.length)}
                       className={classNames(
-                        open ? '' : 'mt-y md:mt-yhalf',
-                        'max-w-[500px] md:pr-0'
+                        open ? '' : '',
+                        'max-w-[500px] md:pr-0 mt-y md:mt-yhalf'
                       )}
                     />
                   </div>
