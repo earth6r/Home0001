@@ -214,6 +214,15 @@ footer {
   position: fixed;
 }
 
+.white-gradient {
+  background: linear-gradient(
+    180deg,
+    #fff 0%,
+    #fff 90%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
 @media (min-width: 768px) {
   .intercom-lightweight-app-launcher {
     right: 2.5rem !important;
