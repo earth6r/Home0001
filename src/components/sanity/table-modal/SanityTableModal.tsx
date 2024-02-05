@@ -68,7 +68,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
                     key={_key}
                     className={classNames(
                       index <= 1
-                        ? 'uppercase text-xl leading-[0.85] tracking-tight'
+                        ? 'uppercase text-h3 leading-[0.85] tracking-tight'
                         : 'my-[0.5em]',
                       cells.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
                       cells.length <= 1 || (cells[1] && cells[1].length === 0)
