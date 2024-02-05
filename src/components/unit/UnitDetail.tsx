@@ -13,6 +13,7 @@ import {
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
 import { KeyedProperty } from '@components/sanity/blocks/properties/types'
+import { SanityInventoryModal } from '@components/sanity/table-modal'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
   unit,
@@ -126,21 +127,10 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                   table={unit.factSheet}
                   modalType="fact sheet"
                   buttonLabel="View Fact Sheet"
-                  className="inline-block text-md font-bold"
+                  className="inline-block mt-[40px]"
                   unit={unit.title}
                 />
               )}
-
-              {/* {unit?.inventory?.rows && (
-                <SanityTableModal
-                  title="Inventory"
-                  table={unit.inventory}
-                  modalType="inventory"
-                  buttonLabel="View Inventory"
-                  className="inline-block mt-ylg"
-                  unit={unit.title}
-                />
-              )} */}
             </div>
 
             {unit?.unitDetails && (
@@ -151,6 +141,16 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                   dropdownOpen={true}
                 />
               </div>
+            )}
+
+            {unit?.dossierInventory && (
+              <SanityInventoryModal
+                title="Inventory"
+                inventory={unit.dossierInventory}
+                buttonLabel="View Inventory"
+                className="flex mt-[40px]"
+                unit={unit.title}
+              />
             )}
           </div>
 

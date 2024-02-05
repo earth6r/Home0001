@@ -18,9 +18,14 @@
 .rich-text > ol,
 .rich-text > blockquote,
 .rich-text > ul + *,
+.rich-text.inventory > p,
 .rich-text > ol + *,
 .rich-text > blockquote + * {
   margin-top: calc(var(--rich-text-y) * 1.666);
+}
+
+.rich-text.inventory > ul {
+  margin-top: var(--rich-text-y);
 }
 
 .rich-text > ul,
@@ -61,10 +66,6 @@
 
 .rich-text h3 {
   @apply text-h3 font-bold uppercase tracking-tight;
-}
-
-.rich-text.inventory h3 {
-  @apply mt-[24px];
 }
 
 .rich-text p,
