@@ -429,6 +429,13 @@ export interface Unit extends SanityDocument {
   inventory?: RichText;
 
   /**
+   * Dossier Inventory — `richText`
+   *
+   *
+   */
+  dossierInventory?: RichText;
+
+  /**
    * Unit Details — `richText`
    *
    *

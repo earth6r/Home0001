@@ -116,6 +116,12 @@ export default {
       options: { collapsable: true, collapsed: true },
     },
     {
+      name: 'dossierInventory',
+      title: 'Dossier Inventory',
+      type: 'richText',
+      options: { collapsable: true, collapsed: true },
+    },
+    {
       name: 'unitDetails',
       title: 'Unit Details',
       type: 'richText',

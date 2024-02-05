@@ -2,10 +2,10 @@ import { useState, type FC, type HTMLAttributes } from 'react'
 import { Modal } from '@components/modal'
 import classNames from 'classnames'
 import { sendGoogleEvent } from '@lib/util'
-import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { RichText } from '../rich-text'
 import { useLenis } from '@studio-freight/react-lenis'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface SanityInventoryModalProps extends HTMLAttributes<HTMLElement> {
   inventory: RichTextType
@@ -49,7 +49,7 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
       </Modal>
 
       <div className="flex items-center gap-[5px] py-[4px] px-[6px] border-black">
-        <IconSmallBlackArrow width="13" height="9" />
+        <IconSmallArrow fill="black" width="15" height="11" />
         <button
           onClick={() => {
             setIsOpen(true)

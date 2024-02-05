@@ -37,7 +37,7 @@ export default {
         md: ['18px', '1.2'], // body
         lg: ['22.5px', '1'], // ?
         card: ['clamp(1.5rem, 1.217rem + 0.8696vw, 2rem)', '0.9'], // property summary card
-        h3: ['clamp(1.5rem, 0.676rem + 3.137vw, 3.5rem)', '0.85'], // h3
+        h3: ['40px', '0.85'], // h3
         xl: ['clamp(2.5rem, 2.088rem + 1.5686vw, 3.5rem)', '0.85'], // h2
         '2xl': ['clamp(2.5rem, 1.357rem + 2.381vw, 3.5rem)', '0.85'], // h1
       },

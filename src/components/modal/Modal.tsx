@@ -13,7 +13,7 @@ const CloseButton: FC<ModalProps> = ({ onClose }) => {
     <div className="z-50 fixed right-0 px-x md:px-xhalf py-yhalf md:py-[24px]">
       <button
         onClick={onClose}
-        className="uppercase font-medium mt-[0.5em]"
+        className="uppercase font-medium mt-[8px]"
       >{`Close`}</button>
     </div>
   )
@@ -35,10 +35,10 @@ export const Modal: FC<ModalProps> = ({
 
         <motion.div
           key="modal-panel"
-          initial={{ right: 0 }}
-          animate={{ right: 0 }}
-          exit={{ right: 0 }}
-          className="fixed inset-0 h-[100vh] top-0 right-0 z-modal"
+          initial={{ transform: 'translate3d(100%, 0, 0)' }}
+          animate={{ transform: 'translate3d(0, 0, 0)' }}
+          exit={{ transform: 'translate3d(100%, 0, 0)' }}
+          className="fixed inset-0 w-auto md:w-[390px] h-[100vh] top-0 right-0 md:ml-auto z-modal"
         >
           <div
             className={classNames(
