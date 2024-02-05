@@ -73,6 +73,12 @@ export default {
       type: 'string',
     },
     {
+      name: 'hidePrice',
+      title: 'Hide Price',
+      type: 'boolean',
+      description: 'Hide the price except on dossier page',
+    },
+    {
       name: 'cryptoPrice',
       title: 'Crypto Price',
       type: 'string',
