@@ -63,8 +63,8 @@ const DetailsDropdown: FC<DetailsDropdownProps> = ({
                     <RichText
                       blocks={details.slice(5, details.length)}
                       className={classNames(
-                        open ? '' : '',
-                        'max-w-[500px] md:pr-0 mt-y md:mt-yhalf'
+                        open ? '' : 'mt-y md:mt-yhalf',
+                        'max-w-[500px] md:pr-0'
                       )}
                     />
                   </div>
