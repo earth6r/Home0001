@@ -10,16 +10,17 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
-    <div className="fixed right-0 px-x md:px-xhalf py-yhalf md:py-[24px] z-modal">
+    <div className="z-modal">
       <button
         onClick={onClose}
-        className="uppercase font-medium mt-[8px]"
+        className="uppercase font-medium"
       >{`Close`}</button>
     </div>
   )
 }
 
 export const Modal: FC<ModalProps> = ({
+  title,
   isOpen,
   onClose,
   children,
@@ -29,7 +30,7 @@ export const Modal: FC<ModalProps> = ({
     {isOpen && (
       <>
         <div
-          className="fixed inset-0 flex items-center justify-center"
+          className="fixed inset-0 flex items-center justify-center cursor-pointer"
           onClick={onClose}
         ></div>
 
@@ -45,9 +46,11 @@ export const Modal: FC<ModalProps> = ({
               'absolute w-full md:w-[390px] h-full right-0 overflow-scroll bg-white'
             )}
           >
-            <div className="fixed w-full h-[50px] md:h-[78px] top-0 white-gradient z-above"></div>
             <div className="relative w-full h-full" data-lenis-prevent>
-              <CloseButton onClose={onClose} />
+              <div className="flex justify-between items-center sticky w-full h-[50px] md:h-[78px] top-0 px-x md:px-xhalf white-gradient z-modal">
+                <span className="uppercase font-medium z-modal">{title}</span>
+                <CloseButton onClose={onClose} />
+              </div>
               {children}
             </div>
           </div>
