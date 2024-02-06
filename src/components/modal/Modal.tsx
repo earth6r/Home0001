@@ -10,7 +10,7 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
-    <div className="z-50 fixed right-0 px-x md:px-xhalf py-yhalf md:py-[24px]">
+    <div className="fixed right-0 px-x md:px-xhalf py-yhalf md:py-[24px] z-modal">
       <button
         onClick={onClose}
         className="uppercase font-medium mt-[8px]"
@@ -45,6 +45,7 @@ export const Modal: FC<ModalProps> = ({
               'absolute w-full md:w-[390px] h-full right-0 overflow-scroll bg-white'
             )}
           >
+            <div className="fixed w-full h-[50px] md:h-[78px] top-0 white-gradient z-above"></div>
             <div className="relative w-full h-full" data-lenis-prevent>
               <CloseButton onClose={onClose} />
               {children}
