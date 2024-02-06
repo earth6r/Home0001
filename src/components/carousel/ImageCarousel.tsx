@@ -163,7 +163,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(
-                          index + 1 === slides.length ? 'relative right-x' : ''
+                          index - 1 === slides.length ? 'relative right-x' : ''
                         )}
                       />
                     </a>
@@ -174,7 +174,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(
-                          index === slides.length - 1 ? 'md:mr-x' : ''
+                          index - 1 === slides.length ? 'md:mr-x' : ''
                         )}
                       />
                     </div>
