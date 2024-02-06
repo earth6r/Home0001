@@ -373,6 +373,13 @@ export interface Unit extends SanityDocument {
   price?: string;
 
   /**
+   * Hide Price — `boolean`
+   *
+   * Hide the price except on dossier page
+   */
+  hidePrice?: boolean;
+
+  /**
    * Crypto Price — `string`
    *
    *
