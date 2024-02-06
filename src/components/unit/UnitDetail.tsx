@@ -6,13 +6,13 @@ import classNames from 'classnames'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { useInquiryModal } from '@contexts/modals'
-import DetailsDropdown from './DetailsDropdown'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
 import { KeyedProperty } from '@components/sanity/blocks/properties/types'
+import { SanityInventoryModal } from '@components/sanity/table-modal'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
   unit,
@@ -49,7 +49,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3">
         <div className="md:col-start-1 col-start-2 md:col-span-3">
-          <h2 className="text-xl font-bold mb-y uppercase col-span-2 pr-[calc(var(--space-menu)+2px)] md:pr-0">
+          <h2 className="text-xl font-bold tracking-tight mb-y uppercase col-span-2 pr-[calc(var(--space-menu)+2px)] md:pr-0">
             {unit?.title}
           </h2>
 
@@ -79,7 +79,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
               <div className="md:grid md:grid-cols-10">
                 {unit?.summary && (
-                  <div className="md:col-span-3">
+                  <div className="md:col-span-6">
                     <p className="uppercase text-md font-bold mb-[16px]">
                       Overview
                     </p>
@@ -120,9 +120,11 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
 
               {unit?.factSheet?.rows && (
                 <SanityTableModal
+                  title="Fact Sheet"
                   table={unit.factSheet}
-                  modalType="View Fact Sheet"
-                  className="inline-block mt-[16px] text-xs font-bold"
+                  modalType="fact sheet"
+                  buttonLabel="View Fact Sheet"
+                  className="inline-block mt-[16px]"
                   unit={unit.title}
                 />
               )}
@@ -131,11 +133,21 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             {unit?.unitDetails && (
               <div className="pr-[calc(var(--space-menu)+2px)] md:pr-0">
                 <p className="uppercase font-bold text-md mb-yhalf ">Details</p>
-                <DetailsDropdown
-                  details={unit?.unitDetails}
-                  dropdownOpen={true}
+                <RichText
+                  blocks={unit?.unitDetails}
+                  className={classNames('max-w-[500px] md:pr-0')}
                 />
               </div>
+            )}
+
+            {unit?.dossierInventory && (
+              <SanityInventoryModal
+                title="Inventory"
+                inventory={unit.dossierInventory}
+                buttonLabel="View Inventory"
+                className="flex mt-[16px]"
+                unit={unit.title}
+              />
             )}
           </div>
 
@@ -148,7 +160,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 index="1"
                 carousel={true}
                 slides={unit?.layoutImages}
-                className="w-full"
+                className="w-full md:pr-x"
                 placement="unit layouts"
               />
             </>

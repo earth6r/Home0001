@@ -35,9 +35,10 @@ export default {
         xs: ['14px', '1.2'], // small
         sm: ['14px', '1'], // read more
         md: ['18px', '1.2'], // body
-        lg: ['22.5px', '1'], // h3
+        lg: ['22.5px', '1'], // ?
         card: ['clamp(1.5rem, 1.217rem + 0.8696vw, 2rem)', '0.9'], // property summary card
-        xl: ['clamp(12px,10.5vw,54px)', '0.85'], // h2
+        h3: ['40px', '0.85'], // h3
+        xl: ['clamp(2.5rem, 2.088rem + 1.5686vw, 3.5rem)', '0.85'], // h2
         '2xl': ['clamp(2.5rem, 1.357rem + 2.381vw, 3.5rem)', '0.85'], // h1
       },
       letterSpacing: {

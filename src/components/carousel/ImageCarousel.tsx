@@ -156,13 +156,14 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       }`}
                       data-pswp-width={1000}
                       data-pswp-height={1100}
+                      className={classNames('overflow-hidden')}
                     >
                       <ImageSlide
                         image={image as any}
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(
-                          index === slides.length - 1 ? 'md:mr-x' : ''
+                          index - 1 === slides.length ? 'relative right-x' : ''
                         )}
                       />
                     </a>
@@ -173,7 +174,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(
-                          index === slides.length - 1 ? 'md:mr-x' : ''
+                          index - 1 === slides.length ? 'md:mr-x' : ''
                         )}
                       />
                     </div>
