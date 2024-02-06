@@ -44,18 +44,15 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
   return (
     <div className={classNames(className, '')}>
       <Modal
+        title={title}
         isOpen={isOpen}
         onClose={() => {
           setIsOpen(false)
           lenis.resize()
         }}
       >
-        <div className="py-[19px] md:py-[33px] px-x h-full flex flex-col text-sm overflow-y-scroll">
-          <span className="fixed uppercase font-medium mb-y z-modal">
-            {title}
-          </span>
-
-          <div className="pt-ylg">
+        <div className="pb-[19px] md:pb-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
+          <div className="">
             {table.rows &&
               table.rows.length > 0 &&
               table.rows.map(

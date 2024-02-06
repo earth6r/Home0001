@@ -33,18 +33,15 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
   return (
     <div className={className}>
       <Modal
+        title={title}
         isOpen={isOpen}
         onClose={() => {
           setIsOpen(false)
           lenis.resize()
         }}
       >
-        <div className="py-[19px] md:py-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
-          <span className="fixed uppercase font-medium mb-y z-modal">
-            {title}
-          </span>
-
-          <div className="pt-ylg pb-y">
+        <div className="pb-[19px] md:pb-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
+          <div className="pb-y">
             {inventory && <RichText blocks={inventory} className="inventory" />}
           </div>
         </div>
