@@ -26,6 +26,7 @@ type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
 interface AnimatingImageProps extends HTMLAttributes<HTMLDivElement> {
   media: Media
   aspect?: 'square' | 'tall' | 'short'
+  lastIndex?: boolean
 }
 
 const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
@@ -75,7 +76,11 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
   )
 }
 
-const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
+const AnimatingImage: FC<AnimatingImageProps> = ({
+  media,
+  aspect,
+  lastIndex,
+}) => {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -87,6 +92,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
     [1, 0],
     ['scale(0)', 'scale(1)']
   )
+  const lenis = useLenis()
 
   return (
     <div
@@ -122,6 +128,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({ media, aspect }) => {
               sizes: '(max-width: 768px) 190vw, 1700px',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
             }}
+            onLoadingComplete={() => lastIndex && lenis.resize()}
             className="relative w-full h-auto object-contain mt-0"
             {...(media as any)}
           />
@@ -261,7 +268,13 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
               textAndImages.map(
                 ({ _key, aspect, media, text, altCryptoText }, index) => (
                   <div key={_key}>
-                    {media && <AnimatingImage media={media} aspect={aspect} />}
+                    {media && (
+                      <AnimatingImage
+                        media={media}
+                        aspect={aspect}
+                        lastIndex={index === textAndImages.length - 1}
+                      />
+                    )}
 
                     {text && (
                       <RichText
