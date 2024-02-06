@@ -40,8 +40,8 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
           lenis.resize()
         }}
       >
-        <div className="pb-[19px] md:pb-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
-          <div className="pb-y">
+        <div className="py-[19px] md:py-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
+          <div className="pt-ylg pb-y">
             {inventory && <RichText blocks={inventory} className="inventory" />}
           </div>
         </div>
