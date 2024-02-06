@@ -13,7 +13,7 @@ const CloseButton: FC<ModalProps> = ({ onClose }) => {
     <div className="">
       <button
         onClick={onClose}
-        className="uppercase font-medium"
+        className="uppercase font-medium py-y"
       >{`Close`}</button>
     </div>
   )
