@@ -22,6 +22,7 @@ export interface SanityMediaProps extends HTMLAttributes<HTMLImageElement> {
     hotspot?: SanityImageHotspot
   }
   imageProps?: SanityImageProps
+  onLoadingComplete?: () => void
   mediaRatio?: number | null
   caption?: TypedObject | TypedObject[]
 }
