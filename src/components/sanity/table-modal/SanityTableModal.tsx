@@ -54,7 +54,6 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
           <span className="fixed uppercase font-medium mb-y z-modal">
             {title}
           </span>
-          <div className="fixed w-full h-[50px] md:h-[78px] top-0 white-gradient z-base"></div>
 
           <div className="pt-ylg">
             {table.rows &&
