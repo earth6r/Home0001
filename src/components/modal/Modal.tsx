@@ -10,7 +10,7 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
-    <div className="z-modal">
+    <div className="">
       <button
         onClick={onClose}
         className="uppercase font-medium"
@@ -41,16 +41,27 @@ export const Modal: FC<ModalProps> = ({
           exit={{ transform: 'translate3d(100%, 0, 0)' }}
           className="fixed inset-0 w-auto md:w-[390px] h-[100vh] top-0 right-0 md:ml-auto z-modal"
         >
+          <div className="flex justify-between items-center fixed w-full h-[50px] md:h-[78px] top-0 right-0 px-x md:px-xhalf z-modal">
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  key="modal-background"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute w-full h-full white-gradient z-behind"
+                ></motion.div>
+              )}
+            </AnimatePresence>
+            <span className="uppercase font-medium">{title}</span>
+            <CloseButton onClose={onClose} />
+          </div>
           <div
             className={classNames(
-              'absolute w-full md:w-[390px] h-full right-0 overflow-scroll bg-white'
+              'absolute w-full md:w-[390px] h-full top-0 right-0 overflow-scroll bg-white'
             )}
           >
             <div className="relative w-full h-full" data-lenis-prevent>
-              <div className="flex justify-between items-center sticky w-full h-[50px] md:h-[78px] top-0 px-x md:px-xhalf white-gradient z-modal">
-                <span className="uppercase font-medium z-modal">{title}</span>
-                <CloseButton onClose={onClose} />
-              </div>
               {children}
             </div>
           </div>
