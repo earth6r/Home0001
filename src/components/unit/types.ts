@@ -50,6 +50,8 @@ export interface KeyedUnitProps
   confirmationCopy?: RichText
   summary?: RichText
   factSheet?: any
+  inventory?: RichText
+  dossierInventory?: RichText
   unitDetails?: RichText
   secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]

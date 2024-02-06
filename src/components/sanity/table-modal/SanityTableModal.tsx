@@ -3,25 +3,31 @@ import { Modal } from '@components/modal'
 import classNames from 'classnames'
 import { sendGoogleEvent } from '@lib/util'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import { useLenis } from '@studio-freight/react-lenis'
 
 interface SanityTableModalProps extends HTMLAttributes<HTMLElement> {
   table: any
-  modalType: 'View Fact Sheet' | 'inventory'
+  title: string
+  modalType: 'fact sheet' | 'inventory'
+  buttonLabel: string
   unit?: string
 }
 
 export const SanityTableModal: FC<SanityTableModalProps> = ({
   table,
+  title,
   modalType,
+  buttonLabel,
   className,
   unit,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const lenis = useLenis()
 
   const handleGoogleEvent = () => {
     if (unit) {
       switch (modalType) {
-        case 'View Fact Sheet': {
+        case 'fact sheet': {
           const options = { location: window.location.pathname }
           sendGoogleEvent('clicked fact sheet', options)
           break
@@ -35,40 +41,47 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
     }
   }
 
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : 'auto'
-    document.body.style.position = isOpen ? 'fixed' : 'relative'
-  }, [isOpen])
-
   return (
     <div className={classNames(className, '')}>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="relative py-6 md:py-10 px-x md:px-10 text-sm font-bold">
-          {table.rows &&
-            table.rows.length > 0 &&
-            table.rows.map(
-              ({ _key, cells }: { _key: number; cells: string[] }) => (
-                <div
-                  key={_key}
-                  className="flex flex-nowrap min-h-[10px] my-[0.5em]"
-                >
-                  {cells &&
-                    cells.length > 0 &&
-                    cells.map((cell: string, i: number) => (
-                      <div
-                        key={cell + i}
-                        className={classNames(
-                          i === 0
-                            ? 'w-[250px] xs:w-[300px] md:w-[200px]'
-                            : 'w-[calc(100%-250px)]'
-                        )}
-                      >
-                        {cell}
-                      </div>
-                    ))}
-                </div>
-              )
-            )}
+      <Modal
+        title={title}
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false)
+          lenis.resize()
+        }}
+      >
+        <div className="py-[19px] md:py-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
+          <div className="pt-ylg">
+            {table.rows &&
+              table.rows.length > 0 &&
+              table.rows.map(
+                (
+                  { _key, cells }: { _key: number; cells: string[] },
+                  index: number
+                ) => (
+                  <div
+                    key={_key}
+                    className={classNames(
+                      index <= 1
+                        ? 'font-sans uppercase text-h3 leading-[0.85] tracking-tight'
+                        : 'my-[0.5em]',
+                      cells.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
+                      cells.length <= 1 || (cells[1] && cells[1].length === 0)
+                        ? 'font-bold font-sansText'
+                        : '',
+                      'grid min-h-[10px]'
+                    )}
+                  >
+                    {cells &&
+                      cells.length > 0 &&
+                      cells.map((cell: string, i: number) => (
+                        <div key={cell + i}>{cell}</div>
+                      ))}
+                  </div>
+                )
+              )}
+          </div>
         </div>
       </Modal>
 
@@ -81,7 +94,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
           }}
           className="uppercase font-medium leading-none"
         >
-          {modalType}
+          {buttonLabel}
         </button>
       </div>
     </div>

@@ -7,12 +7,12 @@ import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
 import { useInquiryModal } from '@contexts/modals'
-import DetailsDropdown from './DetailsDropdown'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
+import { SanityInventoryModal } from '@components/sanity/table-modal'
 
 export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
@@ -40,7 +40,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 px-x md:pr-0">
-        <h2 className="text-xl font-bold mb-12 uppercase col-span-2 pr-menu md:pr-0">
+        <h2 className="text-xl font-bold tracking-tight mb-12 uppercase col-span-2 pr-menu md:pr-0">
           {unit?.title}
         </h2>
         <div className="col-start-2 md:col-start-1 md:col-span-3">
@@ -72,28 +72,42 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                     } BTC / ${cryptoPrice[0]} ETH`
                   : unit?.price}
               </p>
-              {unit?.area && <p className="mb-4">{unit?.area}</p>}
-              {unit?.factSheet?.rows && (
-                <SanityTableModal
-                  table={unit.factSheet}
-                  modalType="View Fact Sheet"
-                  className="inline-block mb-8"
-                  unit={unit.title}
-                />
-              )}
+              {unit?.area && <p className="mb-ylg">{unit?.area}</p>}
+
               {unit?.summary && (
                 <RichText blocks={unit?.summary} className="max-w-[500px]" />
               )}
+
+              {unit?.factSheet?.rows && (
+                <SanityTableModal
+                  title="Fact Sheet"
+                  table={unit.factSheet}
+                  modalType="fact sheet"
+                  buttonLabel="View Fact Sheet"
+                  className="inline-block mt-[16px]"
+                  unit={unit.title}
+                />
+              )}
             </div>
 
-            {unit?.unitDetails && (
-              <>
+            {unit?.unitDetails && unit.unitDetails.length > 0 && (
+              <div>
                 <p className="uppercase font-bold text-md mb-y">Details</p>
-                <DetailsDropdown
-                  details={unit?.unitDetails}
-                  dropdownOpen={true}
+                <RichText
+                  blocks={unit?.unitDetails}
+                  className={classNames('max-w-[500px] md:pr-0')}
                 />
-              </>
+              </div>
+            )}
+
+            {unit?.inventory && (
+              <SanityInventoryModal
+                title="Inventory"
+                inventory={unit.inventory}
+                buttonLabel="View Inventory"
+                className="flex mt-[16px]"
+                unit={unit.title}
+              />
             )}
 
             <div className="pr-menu md:pr-0 my-ydouble md:my-y md:max-w-[346px]">
@@ -115,7 +129,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               index="1"
               carousel={true}
               slides={unit?.layoutImages}
-              className="w-full"
+              className="relative w-full md:pr-x"
               placement="unit layouts"
             />
           )}

@@ -429,6 +429,20 @@ export interface Unit extends SanityDocument {
   factSheet?: Table;
 
   /**
+   * Inventory — `richText`
+   *
+   *
+   */
+  inventory?: RichText;
+
+  /**
+   * Dossier Inventory — `richText`
+   *
+   *
+   */
+  dossierInventory?: RichText;
+
+  /**
    * Unit Details — `richText`
    *
    *

@@ -69,6 +69,7 @@ export const UNIT_QUERY = `
   factSheet,
   reserveFormCopy,
   confirmationCopy,
+  dossierInventory,
   moreInfo,
   unitDetails,
   secondUnitDetails,
