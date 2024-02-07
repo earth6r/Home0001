@@ -127,15 +127,7 @@ const postModalFields = async (
       value: data.current_zip_code ? data.current_zip_code : '',
     },
   ]
-  console.log(
-    portalId,
-    formGuid,
-    dataFields,
-    document.URL,
-    document.title,
-    hutk,
-    config
-  )
+
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
     {

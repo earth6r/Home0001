@@ -39,7 +39,6 @@ export const Form: FC<FormProps> = ({
 }) => {
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const [cookies, setCookie, removeCookie] = useCookies()
-  console.log('cookies:', cookies)
   const [hutk, setHutk] = useState<string | undefined>()
   const { asPath } = useRouter()
 
