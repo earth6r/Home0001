@@ -118,7 +118,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({
       >
         <motion.div
           style={{ transform, transformOrigin: 'center bottom' }}
-          className="flex items-end absolute w-full h-full will-change-transform"
+          className="flex items-end absolute w-full h-full will-change-transform transition-transform duration-100"
         >
           <SanityMedia
             imageProps={{
