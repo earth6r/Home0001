@@ -37,7 +37,7 @@ function App({
   }
 
   useEffect(() => {
-    if (!query || query.slug || query.fbclid) {
+    if (!query || query.slug) {
       return
     }
 
