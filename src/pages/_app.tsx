@@ -37,11 +37,15 @@ function App({
   }
 
   useEffect(() => {
-    if (query && !query.slug) {
-      const localQuery = sessionStorage.getItem('query')
-      if (localQuery !== JSON.stringify(query)) {
-        sessionStorage.setItem('query', JSON.stringify(query))
-      }
+    if (!query || query.slug || query.fbclid) {
+      return
+    }
+
+    const stringifiedQuery = JSON.stringify(query)
+    const localQuery = sessionStorage.getItem('query')
+
+    if (localQuery !== stringifiedQuery) {
+      sessionStorage.setItem('query', stringifiedQuery)
     }
   }, [query])
 
