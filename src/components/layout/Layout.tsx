@@ -47,6 +47,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         <Header
           className="flex-initial"
           path={asPath}
+          hideMenuButton={page?.hideMenuButton}
           showTourLink={page?.showTourLink}
           property={(page as Unit)?.property}
           currentTitle={

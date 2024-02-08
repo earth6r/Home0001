@@ -18,9 +18,14 @@
 .rich-text > ol,
 .rich-text > blockquote,
 .rich-text > ul + *,
+.rich-text.inventory > p,
 .rich-text > ol + *,
 .rich-text > blockquote + * {
   margin-top: calc(var(--rich-text-y) * 1.666);
+}
+
+.rich-text.inventory > ul {
+  margin-top: var(--rich-text-y);
 }
 
 .rich-text > ul,
@@ -52,11 +57,15 @@
 }
 
 .rich-text h2 {
-  @apply text-lg font-bold uppercase tracking-header;
+  @apply text-xl font-bold uppercase tracking-header;
 }
 
 .rich-text.card h2 {
   @apply text-card;
+}
+
+.rich-text h3 {
+  @apply text-h3 font-bold uppercase tracking-tight;
 }
 
 .rich-text p,
@@ -69,9 +78,18 @@
   @apply text-xs font-medium;
 }
 
+.rich-text p strong {
+  @apply font-sansText;
+}
+
 .rich-text ul,
 .rich-text ol {
   @apply mx-auto;
+}
+
+.rich-text.inventory ul {
+  column-count: 2;
+  column-gap: 16px;
 }
 
 .rich-text li {
@@ -82,8 +100,19 @@
   padding-bottom: 16px;
 }
 
+.rich-text.inventory ul li {
+  @apply font-normal text-xs tracking-tight;
+  border: none;
+  padding-left: 0;
+  break-inside: avoid;
+}
+
 .rich-text li:last-of-type {
   padding-bottom: 0;
+}
+
+.rich-text.inventory ul li:last-of-type {
+  padding-bottom: 16px;
 }
 
 .rich-text ul li {
@@ -100,12 +129,15 @@
   margin-top: 0;
 }
 
+.rich-text.inventory ul li:before {
+  content: '';
+}
+
 .rich-text h1 a,
 .rich-text h2 a {
   @apply underline;
 }
 
-.rich-text h3,
 .rich-text p a,
 .richt-text li a {
   border-bottom: 1.5px solid;

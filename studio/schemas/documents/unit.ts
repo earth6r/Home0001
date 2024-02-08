@@ -39,6 +39,12 @@ export default {
       },
     },
     {
+      name: 'hideMenuButton',
+      title: 'Hide Menu Button',
+      description: 'Hide waitlist or tour button in header',
+      type: 'boolean',
+    },
+    {
       name: 'showTourLink',
       title: 'Show Tour Link',
       description: 'Show the tour link in the header instead of waitlist',
@@ -71,6 +77,12 @@ export default {
       name: 'price',
       title: 'Price',
       type: 'string',
+    },
+    {
+      name: 'hidePrice',
+      title: 'Hide Price',
+      type: 'boolean',
+      description: 'Hide the price except on dossier page',
     },
     {
       name: 'cryptoPrice',
@@ -107,6 +119,18 @@ export default {
       name: 'factSheet',
       title: 'Fact Sheet',
       type: 'table',
+      options: { collapsable: true, collapsed: true },
+    },
+    {
+      name: 'inventory',
+      title: 'Inventory',
+      type: 'richText',
+      options: { collapsable: true, collapsed: true },
+    },
+    {
+      name: 'dossierInventory',
+      title: 'Dossier Inventory',
+      type: 'richText',
       options: { collapsable: true, collapsed: true },
     },
     {
