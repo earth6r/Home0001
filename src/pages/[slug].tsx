@@ -20,6 +20,7 @@ const ALL_SLUGS_QUERY = groq`*[_type == "page" && defined(slug.current)][].slug.
 const PAGE_QUERY = groq`
   *[_type == "page" && slug.current == $slug]{
     _id,
+    hideMenuButton,
     showTourLink,
     ${BODY_QUERY}
   }

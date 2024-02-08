@@ -119,6 +119,13 @@ export interface Page extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
+   * Hide Menu Button — `boolean`
+   *
+   * Hide waitlist or tour button in header
+   */
+  hideMenuButton?: boolean;
+
+  /**
    * Show Tour Link — `boolean`
    *
    * Show the tour link in the header instead of waitlist
@@ -180,6 +187,13 @@ export interface Property extends SanityDocument {
    *
    */
   slug?: { _type: "slug"; current: string };
+
+  /**
+   * Hide Menu Button — `boolean`
+   *
+   * Hide waitlist or tour button in header
+   */
+  hideMenuButton?: boolean;
 
   /**
    * Show Tour Link — `boolean`
@@ -336,6 +350,13 @@ export interface Unit extends SanityDocument {
    *
    */
   slug?: { _type: "slug"; current: string };
+
+  /**
+   * Hide Menu Button — `boolean`
+   *
+   * Hide waitlist or tour button in header
+   */
+  hideMenuButton?: boolean;
 
   /**
    * Show Tour Link — `boolean`
