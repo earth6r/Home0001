@@ -47,7 +47,7 @@ function App({
     if (localQuery !== stringifiedQuery) {
       sessionStorage.setItem('query', stringifiedQuery)
     }
-  }, [query])
+  }, [])
 
   useEffect(() => {
     events.on('routeChangeComplete', resizeLenis)
