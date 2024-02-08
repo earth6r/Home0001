@@ -62,6 +62,11 @@ export const Form: FC<FormProps> = ({
     if (!audienceId || !formType) return
 
     let result
+    let localQuery
+
+    if (typeof window !== 'undefined') {
+      localQuery = sessionStorage.getItem('query')
+    }
 
     try {
       result = await submitForm(data, audienceId, formType, hutk)
@@ -72,6 +77,8 @@ export const Form: FC<FormProps> = ({
       errorData.append('Error', JSON.stringify('none'))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
+      errorData.append('Full Query', localQuery ? localQuery : 'none')
+
       const action =
         'https://script.google.com/macros/s/AKfycbzNlSuJJYINE8DELs1YRgKWdylaJdLAcem9ungK4C6FOjfTEPSz3P6oLftOHDkUsdvF/exec'
       fetch(action, {
@@ -89,6 +96,8 @@ export const Form: FC<FormProps> = ({
       errorData.append('Error', JSON.stringify(error))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
+      errorData.append('Full Query', localQuery ? localQuery : 'none')
+
       const action =
         'https://script.google.com/macros/s/AKfycbzNlSuJJYINE8DELs1YRgKWdylaJdLAcem9ungK4C6FOjfTEPSz3P6oLftOHDkUsdvF/exec'
 

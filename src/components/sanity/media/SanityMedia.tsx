@@ -6,9 +6,17 @@ export const SanityMedia: FC<SanityMediaProps> = ({
   image,
   imageProps,
   className,
+  onLoadingComplete,
 }) => {
   if (image?.asset && imageProps)
-    return <SanityImage {...image} props={imageProps} className={className} />
+    return (
+      <SanityImage
+        {...image}
+        props={imageProps}
+        onLoadingComplete={onLoadingComplete}
+        className={className}
+      />
+    )
   return null
 }
 

@@ -104,7 +104,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
             <div className="block w-auto max-w-[467px] bg-darkgray py-x pl-x mr-4 md:mr-0 pr-menu">
               <div className="mb-2 text-left rich-text">
                 <p className="small md:col-start-1 col-start-2 md:col-span-1 text-left">
-                  {unit?.price == 'Inquire'
+                  {unit?.hidePrice
                     ? 'Price upon request'
                     : cryptoMode
                     ? `${unit.price?.substring(1)} USDC / ${
