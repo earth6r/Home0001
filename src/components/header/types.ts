@@ -20,6 +20,7 @@ export interface HeaderProps
   currentTitle?: string
   property?: SanityReference<Property>
   mainMenu?: SanityMenu
+  hideMenuButton?: boolean
   showTourLink?: boolean
   waitlist?: {
     id?: string

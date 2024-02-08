@@ -28,6 +28,7 @@ export const Header: FC<HeaderProps> = ({
   waitlist,
   inquiry,
   path,
+  hideMenuButton,
   showTourLink,
   currentTitle,
   property,
@@ -265,43 +266,47 @@ export const Header: FC<HeaderProps> = ({
             </div>
           </AnimatedModal>
 
-          {showTourLink ? (
-            <Btn
-              type="button"
-              className={classNames(
-                headerLinksShown ? 'opacity-100' : 'opacity-0',
-                'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-100'
+          {!hideMenuButton && (
+            <>
+              {showTourLink ? (
+                <Btn
+                  type="button"
+                  className={classNames(
+                    headerLinksShown ? 'opacity-100' : 'opacity-0',
+                    'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-100'
+                  )}
+                  onClick={() => {
+                    if (location.pathname.includes('les')) {
+                      window.open(
+                        'https://calendly.com/tourlower-east-side0001/scheduletour',
+                        '_blank'
+                      )
+                    } else {
+                      window.open(
+                        'https://calendly.com/tourecho-park0001/scheduletour',
+                        '_blank'
+                      )
+                    }
+                  }}
+                >
+                  <div className="px-[6px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+                    <IconSmallArrow width="16" className="mr-[5px]" />
+                    {`Schedule a tour`}
+                  </div>
+                </Btn>
+              ) : (
+                <Btn
+                  type="button"
+                  onClick={openWaitlist}
+                  className={classNames(
+                    headerLinksShown ? 'opacity-100' : 'opacity-0',
+                    'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
+                  )}
+                >
+                  <IconWaitlist className="w-[96.85px] md:w-[93px] mt-[3px] md:mt-[4px]" />
+                </Btn>
               )}
-              onClick={() => {
-                if (location.pathname.includes('les')) {
-                  window.open(
-                    'https://calendly.com/tourlower-east-side0001/scheduletour',
-                    '_blank'
-                  )
-                } else {
-                  window.open(
-                    'https://calendly.com/tourecho-park0001/scheduletour',
-                    '_blank'
-                  )
-                }
-              }}
-            >
-              <div className="px-[6px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
-                <IconSmallArrow width="16" className="mr-[5px]" />
-                {`Schedule a tour`}
-              </div>
-            </Btn>
-          ) : (
-            <Btn
-              type="button"
-              onClick={openWaitlist}
-              className={classNames(
-                headerLinksShown ? 'opacity-100' : 'opacity-0',
-                'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
-              )}
-            >
-              <IconWaitlist className="w-[96.85px] md:w-[93px] mt-[3px] md:mt-[4px]" />
-            </Btn>
+            </>
           )}
 
           <HeaderMenu
