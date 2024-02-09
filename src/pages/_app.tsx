@@ -29,11 +29,17 @@ function App({
   token: string
 }>) {
   const { draftMode, token } = pageProps
-  const { query, events } = useRouter()
+  const { query, events, asPath } = useRouter()
   const lenis = useLenis()
 
-  const resizeLenis = () => {
+  const handleRouteChange = () => {
     lenis.resize()
+
+    const routes = sessionStorage.getItem('routes')
+    if (!routes) return
+    let paths = JSON.parse(routes)
+    paths.push(asPath)
+    sessionStorage.setItem('routes', JSON.stringify(paths))
   }
 
   useEffect(() => {
@@ -50,12 +56,17 @@ function App({
   }, [query])
 
   useEffect(() => {
-    events.on('routeChangeComplete', resizeLenis)
+    events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
-      events.off('routeChangeComplete', resizeLenis)
+      events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [events, lenis])
+  }, [events, lenis, asPath])
+
+  useEffect(() => {
+    const paths: string[] = []
+    sessionStorage.setItem('routes', JSON.stringify(paths))
+  }, [])
 
   return draftMode && token ? (
     <PreviewProvider token={token}>
