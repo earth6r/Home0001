@@ -30,7 +30,6 @@ function App({
 }>) {
   const { draftMode, token } = pageProps
   const { query, events, asPath } = useRouter()
-  const lenis = useLenis()
 
   const handleRouteChange = (path: string) => {
     let routes = sessionStorage.getItem('routes')
