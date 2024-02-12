@@ -39,7 +39,6 @@ export const Form: FC<FormProps> = ({
 }) => {
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const [cookies, setCookie, removeCookie] = useCookies()
-  console.log('cookies:', cookies)
   const [hutk, setHutk] = useState<string | undefined>()
   const { asPath } = useRouter()
 
@@ -64,9 +63,11 @@ export const Form: FC<FormProps> = ({
 
     let result
     let localQuery
+    let paths
 
     if (typeof window !== 'undefined') {
       localQuery = sessionStorage.getItem('query')
+      paths = sessionStorage.getItem('routes')
     }
 
     try {
@@ -74,6 +75,7 @@ export const Form: FC<FormProps> = ({
 
       const errorData = new FormData()
       errorData.append('Page', asPath)
+      errorData.append('Routes', paths ? paths : '')
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify('none'))
       errorData.append('Form Data', JSON.stringify(data))
@@ -93,6 +95,7 @@ export const Form: FC<FormProps> = ({
 
       const errorData = new FormData()
       errorData.append('Page', asPath)
+      errorData.append('Routes', paths ? paths : '')
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify(error))
       errorData.append('Form Data', JSON.stringify(data))

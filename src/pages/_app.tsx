@@ -29,29 +29,44 @@ function App({
   token: string
 }>) {
   const { draftMode, token } = pageProps
-  const { query, events } = useRouter()
+  const { query, events, asPath } = useRouter()
   const lenis = useLenis()
 
-  const resizeLenis = () => {
+  const handleRouteChange = () => {
     lenis.resize()
+
+    const routes = sessionStorage.getItem('routes')
+    if (!routes) return
+    let paths = JSON.parse(routes)
+    paths.push(asPath)
+    sessionStorage.setItem('routes', JSON.stringify(paths))
   }
 
   useEffect(() => {
-    if (query && !query.slug) {
-      const localQuery = sessionStorage.getItem('query')
-      if (localQuery !== JSON.stringify(query)) {
-        sessionStorage.setItem('query', JSON.stringify(query))
-      }
+    if (!query || query.slug) {
+      return
+    }
+
+    const stringifiedQuery = JSON.stringify(query)
+    const localQuery = sessionStorage.getItem('query')
+
+    if (localQuery !== stringifiedQuery) {
+      sessionStorage.setItem('query', stringifiedQuery)
     }
   }, [query])
 
   useEffect(() => {
-    events.on('routeChangeComplete', resizeLenis)
+    events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
-      events.off('routeChangeComplete', resizeLenis)
+      events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [events, lenis])
+  }, [events, lenis, asPath])
+
+  useEffect(() => {
+    const paths: string[] = []
+    sessionStorage.setItem('routes', JSON.stringify(paths))
+  }, [])
 
   return draftMode && token ? (
     <PreviewProvider token={token}>
