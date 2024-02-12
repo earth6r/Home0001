@@ -54,8 +54,8 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
-                  quality: 12,
-                  priority: true,
+                  quality: 6,
+                  priority: false,
                   sizes: '(max-width: 768px) 100vw, 50vw',
                   lqip: (image?.image as any)?.asset?.metadata?.lqip,
                 }}

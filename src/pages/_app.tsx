@@ -30,15 +30,13 @@ function App({
 }>) {
   const { draftMode, token } = pageProps
   const { query, events, asPath } = useRouter()
-  const lenis = useLenis()
 
-  const handleRouteChange = () => {
-    lenis.resize()
+  const handleRouteChange = (path: string) => {
+    let routes = sessionStorage.getItem('routes')
+    if (!routes) routes = '[]'
 
-    const routes = sessionStorage.getItem('routes')
-    if (!routes) return
-    let paths = JSON.parse(routes)
-    paths.push(asPath)
+    let paths: string[] = JSON.parse(routes)
+    paths.push(path)
     sessionStorage.setItem('routes', JSON.stringify(paths))
   }
 
@@ -61,10 +59,10 @@ function App({
     return () => {
       events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [events, lenis, asPath])
+  }, [events])
 
   useEffect(() => {
-    const paths: string[] = []
+    const paths: string[] = [`${asPath}`]
     sessionStorage.setItem('routes', JSON.stringify(paths))
   }, [])
 

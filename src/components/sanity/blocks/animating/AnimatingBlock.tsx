@@ -26,6 +26,7 @@ type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
 interface AnimatingImageProps extends HTMLAttributes<HTMLDivElement> {
   media: Media
   aspect?: 'square' | 'tall' | 'short'
+  firstIndex?: boolean
   lastIndex?: boolean
 }
 
@@ -79,6 +80,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
 const AnimatingImage: FC<AnimatingImageProps> = ({
   media,
   aspect,
+  firstIndex,
   lastIndex,
 }) => {
   const ref = useRef(null)
@@ -123,9 +125,9 @@ const AnimatingImage: FC<AnimatingImageProps> = ({
           <SanityMedia
             imageProps={{
               alt: media?.alt || 'Building image',
-              quality: 12,
-              priority: true,
-              sizes: '(max-width: 768px) 190vw, 1700px',
+              quality: 6,
+              priority: firstIndex ? true : false,
+              sizes: '(max-width: 768px) 150vw, 1200px',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
             }}
             onLoadingComplete={() => lastIndex && lenis.resize()}
@@ -272,6 +274,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                       <AnimatingImage
                         media={media}
                         aspect={aspect}
+                        firstIndex={index === 0}
                         lastIndex={index === textAndImages.length - 1}
                       />
                     )}
