@@ -75,7 +75,7 @@ export const Form: FC<FormProps> = ({
 
       const errorData = new FormData()
       errorData.append('Page', asPath)
-      errorData.append('Routes', paths ? paths : '')
+      errorData.append('Routes', paths ? paths : 'error getting routes')
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify('none'))
       errorData.append('Form Data', JSON.stringify(data))
@@ -83,7 +83,7 @@ export const Form: FC<FormProps> = ({
       errorData.append('Full Query', localQuery ? localQuery : 'none')
 
       const action =
-        'https://script.google.com/macros/s/AKfycbzNlSuJJYINE8DELs1YRgKWdylaJdLAcem9ungK4C6FOjfTEPSz3P6oLftOHDkUsdvF/exec'
+        'https://script.google.com/macros/s/AKfycbxUUM_jfDehp4zHDXSA-mDA1wEyCyn1nxhMe0EjF7vg7WAXv4DxYTcPKNKxufLqCNbK/exec'
       fetch(action, {
         method: 'POST',
         body: errorData,
@@ -95,7 +95,7 @@ export const Form: FC<FormProps> = ({
 
       const errorData = new FormData()
       errorData.append('Page', asPath)
-      errorData.append('Routes', paths ? paths : '')
+      errorData.append('Routes', paths ? paths : 'error getting routes')
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify(error))
       errorData.append('Form Data', JSON.stringify(data))
@@ -103,7 +103,7 @@ export const Form: FC<FormProps> = ({
       errorData.append('Full Query', localQuery ? localQuery : 'none')
 
       const action =
-        'https://script.google.com/macros/s/AKfycbzNlSuJJYINE8DELs1YRgKWdylaJdLAcem9ungK4C6FOjfTEPSz3P6oLftOHDkUsdvF/exec'
+        'https://script.google.com/macros/s/AKfycbxUUM_jfDehp4zHDXSA-mDA1wEyCyn1nxhMe0EjF7vg7WAXv4DxYTcPKNKxufLqCNbK/exec'
 
       fetch(action, {
         method: 'POST',
