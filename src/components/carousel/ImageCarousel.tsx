@@ -17,6 +17,7 @@ import { useLenis } from '@studio-freight/react-lenis'
 export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
   alt: string
+  priority?: boolean
   lastIndex?: boolean
 }
 
@@ -39,6 +40,7 @@ const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox=
 const ImageSlide: FC<ImageSlideProps> = ({
   image,
   alt,
+  priority,
   lastIndex,
   className,
 }) => {
@@ -56,7 +58,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
         imageProps={{
           alt,
           quality: 9,
-          priority: true,
+          priority: priority,
           sizes: '(max-width: 768px) 100vw, 800px',
           style: { width: '100%', height: 'auto' },
           lqip: image?.asset?.metadata?.lqip,
@@ -160,6 +162,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                     >
                       <ImageSlide
                         image={image as any}
+                        priority={index < 5}
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(
@@ -171,6 +174,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                     <div className="absolute w-full h-full md:h-[462px]">
                       <ImageSlide
                         image={image as any}
+                        priority={index < 5}
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(

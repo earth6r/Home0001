@@ -97,6 +97,7 @@ export default {
         above: '2',
         header: '3',
         modal: '4',
+        button: '5',
       },
     },
   },
