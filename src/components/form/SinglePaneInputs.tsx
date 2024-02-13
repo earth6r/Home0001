@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { HTMLAttributes, useContext, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { FieldValues, UseFormRegister, useForm } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
 import { useCookies } from 'react-cookie'
 
@@ -14,6 +14,7 @@ interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
     showLocation?: boolean
     showContactLink?: boolean
   }
+  isSubmitting?: boolean
   submitButtonCopy?: string
   modal?: boolean
   register: UseFormRegister<FieldValues>
@@ -48,6 +49,7 @@ const LOCATIONS = [
 
 export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   fields,
+  isSubmitting,
   submitButtonCopy,
   modal,
   register,
@@ -64,6 +66,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
   const [unitInput, setUnitInput] = useState(false)
+
   const { state } = useContext(HomeContext)
 
   return (
@@ -249,8 +252,9 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
               'md:max-w-[var(--btn-width)] tracking-details w-full h-btn text-center uppercase text-white bg-black font-medium text-xs'
             )}
             type="submit"
+            disabled={isSubmitting}
           >
-            {submitButtonCopy || 'Submit'}
+            {isSubmitting ? 'Submitting...' : submitButtonCopy || 'Submit'}
           </button>
           {fields?.showContactLink && (
             <p className="mt-5 md:my-5">

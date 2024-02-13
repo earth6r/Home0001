@@ -55,7 +55,14 @@ const UnitPage: NextPage<PageProps> = (
   const page: SanityPage = filterDataToSingleItem(data)
   const { state, dispatch } = useContext(HomeContext)
 
-  const { register, handleSubmit, reset, trigger, getValues } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    trigger,
+    getValues,
+    formState: { isSubmitting },
+  } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -86,6 +93,7 @@ const UnitPage: NextPage<PageProps> = (
               successMessage: siteSettings?.inquirySuccess,
             }}
             formActions={{
+              isSubmitting,
               formSubmitted,
               setFormSubmitted,
               handleSubmit,

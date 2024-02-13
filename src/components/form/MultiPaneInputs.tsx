@@ -40,6 +40,7 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   formValues?: any
   broker?: boolean
   formPanes?: string[]
+  isSubmitting: boolean
 }
 
 const LOCATIONS = [
@@ -245,6 +246,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   copy,
   buttonCopy,
   formPanes,
+  isSubmitting,
   register,
   setFullWidth,
   className,
@@ -267,6 +269,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         currentStep={currentStep}
         header={header}
         copy={copy}
+        isSubmitting={isSubmitting}
         buttonType={`button`}
         className={classNames(currentStep !== 0 ? 'hidden' : '')}
         onClick={async () => {
@@ -310,6 +313,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         copy={'Where do you want to own?'}
         buttonCopy={`Submit`}
         buttonType={`button`}
+        isSubmitting={isSubmitting}
         onClick={() => setCurrentStep(currentStep + 1)}
         onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 1 ? 'hidden' : ''}
@@ -330,6 +334,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         copy={`When are you looking to buy?`}
         buttonCopy="Submit"
         buttonType="button"
+        isSubmitting={isSubmitting}
         onClick={() => setCurrentStep(currentStep + 1)}
         onBack={() => setCurrentStep(currentStep - 1)}
         className={currentStep !== 2 ? 'hidden' : ''}
@@ -350,6 +355,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         enter={currentStep === 3}
         currentStep={currentStep}
         header={`Join the waitlist`}
+        isSubmitting={isSubmitting}
         copy={`Last question: how many bedrooms are you looking for?`}
         buttonCopy={buttonCopy}
         buttonType="submit"

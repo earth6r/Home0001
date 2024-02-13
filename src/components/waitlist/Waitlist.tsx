@@ -28,6 +28,7 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
     successMessage?: RichTextType
   }
   formActions: {
+    isSubmitting: boolean
     formSubmitted: boolean
     setFormSubmitted: Dispatch<SetStateAction<boolean>>
     handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
@@ -89,6 +90,7 @@ export const Waitlist: FC<WaitlistProps> = ({
                 className="w-full"
               >
                 <SinglePaneInputs
+                  isSubmitting={formActions.isSubmitting}
                   fields={{ showName: true, showPhone: true }}
                   register={formActions.register}
                   modal={true}
@@ -115,6 +117,7 @@ export const Waitlist: FC<WaitlistProps> = ({
               header={waitlist?.header}
               copy={waitlist?.text}
               buttonCopy="Join waitlist"
+              isSubmitting={formActions.isSubmitting}
               register={formActions.register}
               className={classNames(
                 fullWidth ? '' : 'md:max-w-[1050px] md:pr-menu',

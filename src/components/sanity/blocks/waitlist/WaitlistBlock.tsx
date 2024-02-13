@@ -18,7 +18,14 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   successMessage,
   className,
 }) => {
-  const { register, handleSubmit, reset, trigger, getValues } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    trigger,
+    getValues,
+    formState: { isSubmitting },
+  } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -41,6 +48,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
             successMessage: successMessage,
           }}
           formActions={{
+            isSubmitting,
             formSubmitted,
             setFormSubmitted,
             handleSubmit,
