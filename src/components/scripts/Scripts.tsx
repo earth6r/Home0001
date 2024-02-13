@@ -62,6 +62,7 @@ export const Scripts = () => {
           src={`//js.hs-scripts.com/${HUBSPOT_ID}.js`}
         ></script>
       ) : null}
+      <Script src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js" />
     </>
   )
 }

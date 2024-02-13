@@ -14,6 +14,7 @@ import {
   UnitBlock,
   PropertyBlock,
   FlexWaitlistBlock,
+  CalendarBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
@@ -34,6 +35,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             animatingBlock: ({ index, value }) => (
               <AnimatingBlock index={index} grid={grid} {...value} />
+            ),
+            calendarBlock: ({ index, value }) => (
+              <CalendarBlock index={index} grid={grid} {...value} />
             ),
             carouselBlock: ({ index, value }) => (
               <CarouselBlock index={index} grid={grid} {...value} />
