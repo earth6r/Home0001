@@ -15,6 +15,7 @@ interface PaneProps extends HTMLAttributes<HTMLElement> {
   copy?: RichTextType | string
   buttonCopy?: string
   buttonType?: 'button' | 'submit'
+  isSubmitting: boolean
   onBack?: () => void
 }
 
@@ -27,6 +28,7 @@ const Pane: FC<PaneProps> = ({
   copy,
   buttonCopy,
   buttonType,
+  isSubmitting,
   onClick,
   onBack,
   className,
@@ -168,9 +170,10 @@ const Pane: FC<PaneProps> = ({
           <button
             className="relative flex justify-between items-center w-full md:w-btnWidth px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
             type={buttonType || 'submit'}
+            disabled={isSubmitting}
             onClick={onClick}
           >
-            {buttonCopy || 'Submit'}
+            {isSubmitting ? 'Submitting...' : buttonCopy || 'Submit'}
             <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
         </div>

@@ -43,7 +43,14 @@ export const Header: FC<HeaderProps> = ({
   const [inquiryOpen, setInquiryOpen] = useInquiryModal()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
-  const { register, handleSubmit, reset, trigger, getValues } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    trigger,
+    getValues,
+    formState: { isSubmitting },
+  } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -176,6 +183,7 @@ export const Header: FC<HeaderProps> = ({
                   header={waitlist?.header}
                   copy={waitlist?.copy}
                   buttonCopy="Join waitlist"
+                  isSubmitting={isSubmitting}
                   register={register}
                   className={classNames('h-full')}
                   trigger={trigger}
@@ -209,6 +217,7 @@ export const Header: FC<HeaderProps> = ({
                     className="w-full h-full"
                   >
                     <SinglePaneInputs
+                      isSubmitting={isSubmitting}
                       fields={{ showName: true, showPhone: true }}
                       register={register}
                       modal={true}
@@ -256,6 +265,7 @@ export const Header: FC<HeaderProps> = ({
                   className="w-full h-full"
                 >
                   <SinglePaneInputs
+                    isSubmitting={isSubmitting}
                     fields={{ showName: true }}
                     register={register}
                     modal={true}

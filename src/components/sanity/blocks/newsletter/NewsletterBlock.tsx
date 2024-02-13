@@ -20,7 +20,11 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
   audienceId,
   className,
 }) => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -48,7 +52,11 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
           setFormSubmitted={setFormSubmitted}
           successMessage={'Your data — our harvest.'}
         >
-          <SinglePaneInputs register={register} fields={{ showName: true }} />
+          <SinglePaneInputs
+            isSubmitting={isSubmitting}
+            register={register}
+            fields={{ showName: true }}
+          />
         </Form>
       </div>
     </Block>

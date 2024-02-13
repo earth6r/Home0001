@@ -46,7 +46,14 @@ const PropertyPage: NextPage<PageProps> = (
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
 
-  const { register, handleSubmit, reset, trigger, getValues } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    trigger,
+    getValues,
+    formState: { isSubmitting },
+  } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -65,6 +72,7 @@ const PropertyPage: NextPage<PageProps> = (
             successMessage: siteSettings?.waitlistSuccess,
           }}
           formActions={{
+            isSubmitting,
             formSubmitted,
             setFormSubmitted,
             handleSubmit,
