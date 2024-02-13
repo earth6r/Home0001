@@ -43,7 +43,8 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
     }
   }, [unit])
 
-  const calendarURL = `https://calendly.com/tour${keyedProperty?.slug.current}0001/scheduletour`
+  const lesCalendarURL = `https://www.home0001.com/les-tour`
+  const epCalendarURL = `https://www.home0001.com/echo-park-tour`
 
   return (
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
@@ -93,7 +94,16 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 <div className="hidden md:block col-start-8 col-span-3 w-full md:pr-x">
                   <div className="mb-[12px]">
                     <button
-                      onClick={() => window.open(calendarURL, '_blank')}
+                      onClick={() => {
+                        //@ts-ignore
+                        if (unit?.property?.headerText == 'LES') {
+                          window.open(lesCalendarURL, '_blank')
+                        }
+                        //@ts-ignore
+                        else if (unit?.property?.headerText == 'ECHO PARK') {
+                          window.open(epCalendarURL, '_blank')
+                        }
+                      }}
                       className={classNames(
                         'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
                       )}
@@ -171,7 +181,16 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               className={classNames(
                 'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
               )}
-              onClick={() => window.open(calendarURL, '_blank')}
+              onClick={() => {
+                //@ts-ignore
+                if (unit?.property?.headerText == 'LES') {
+                  window.open(lesCalendarURL, '_blank')
+                }
+                //@ts-ignore
+                else if (unit?.property?.headerText == 'ECHO PARK') {
+                  window.open(epCalendarURL, '_blank')
+                }
+              }}
             >
               {`Schedule a tour`}
               <IconSmallArrow width="16" height="10" />

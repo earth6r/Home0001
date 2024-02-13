@@ -394,7 +394,7 @@ const HomeTypesPane: FC<PaneProps> = ({
 
 const ScheduleCallPane: FC<PaneProps> = ({}) => {
   return (
-    <a href="calendly.com/tourlower-east-side0001/schedulecall" target="_blank">
+    <a href="https://www.home0001.com/request-call" target="_blank">
       Schedule a call
     </a>
   )
