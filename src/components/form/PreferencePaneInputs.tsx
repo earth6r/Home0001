@@ -583,13 +583,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
   const [currentStep, setCurrentStep] = useState(0)
 
   return (
-    <div
-      className={classNames(
-        className,
-        block ? '' : 'pr-menu',
-        'w-full text-xs font-bold'
-      )}
-    >
+    <div className={classNames(className, block ? '' : 'pr-menu', 'w-full')}>
       <PreferencePane
         block={block}
         largeHeader={true}

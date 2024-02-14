@@ -224,6 +224,10 @@ export const PROPERTIES_QUERY = `
     "photographs": photographs[]{
       ${MEDIA_QUERY}
     },
+    "propertyType": propertyType->{
+      typeTitle,
+      typeValue,
+    },
   },
   seo,
   "previewImage": previewImage{

@@ -85,7 +85,7 @@ const Pane: FC<PaneProps> = ({
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'mb-ydouble clear-both bold uppercase'
+                          'md:w-btnWidth mb-ydouble clear-both bold uppercase'
                         )}
                       />
                     )
@@ -94,24 +94,17 @@ const Pane: FC<PaneProps> = ({
               )}
             </div>
 
-            <div
-              className={classNames(
-                largeHeader ? '' : 'text-lg tracking-tight',
-                'uppercase font-bold leading-[0.85]'
-              )}
-            >
+            <div className={classNames(largeHeader ? 'text-h4' : 'text-h3')}>
               {currentStep !== 0 && (
                 <>
                   {typeof copy === 'string' ? (
-                    <p className="mb-yhalf text-lg font-bold uppercase tracking-tight leading-[0.85]">
-                      {copy}
-                    </p>
+                    <p className="mb-yhalf text-h3">{copy}</p>
                   ) : (
                     copy && (
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'mb-ydouble clear-both bold uppercase'
+                          'md:w-btnWidth mb-ydouble clear-both bold uppercase'
                         )}
                       />
                     )
@@ -156,7 +149,7 @@ const Pane: FC<PaneProps> = ({
           ) : null}
 
           <button
-            className="relative flex justify-between items-center w-full md:w-btnWidth px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            className="relative flex justify-between items-center w-full md:w-btnWidth px-x tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
             type={buttonType || 'submit'}
             disabled={isSubmitting}
             onClick={onClick}

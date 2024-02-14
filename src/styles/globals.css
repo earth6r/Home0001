@@ -1,6 +1,6 @@
 :root {
   /* spacing */
-  --space-x: 1rem;
+  --space-x: 16px;
   --space-x-half: calc(var(--space-x) * 0.5);
   --space-x-double: calc(var(--space-x) * 2);
   --space-x-lg: 2rem;
@@ -45,8 +45,6 @@
 
 @screen md {
   :root {
-    --space-x: 2.5rem;
-
     --space-block: 150px;
     --btn-width: 358px;
 

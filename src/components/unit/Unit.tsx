@@ -84,7 +84,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                   table={unit.factSheet}
                   modalType="fact sheet"
                   buttonLabel="View Fact Sheet"
-                  className="inline-block mt-[16px]"
+                  className="inline-block mt-y"
                   unit={unit.title}
                 />
               )}
@@ -107,7 +107,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 title="Inventory"
                 inventory={unit.inventory}
                 buttonLabel="View Inventory"
-                className="flex mt-[16px]"
+                className="flex mt-y"
                 unit={unit.title}
               />
             )}

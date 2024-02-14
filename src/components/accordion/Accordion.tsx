@@ -71,13 +71,13 @@ export const Accordion: FC<AccordionProps> = ({
                 </h2>
 
                 {readMore ? (
-                  <div className="pr-menu md:pr-fullmenu pt-yhalf md:pt-yquarter">
+                  <div className="pr-x pt-yhalf md:pt-yquarter">
                     {initialText && <RichText blocks={initialText} />}
 
                     <span
                       className={classNames(
-                        open ? 'opacity-0 max-h-0 mt-0' : 'max-h-none mt-[1em]',
-                        'inline-block underline decoration-[1.5px] underline-offset-2 text-sm font-medium pb-[2px]'
+                        open ? 'opacity-0 max-h-0 mt-0' : 'max-h-none mt-y',
+                        'inline-block underline decoration-[1.5px] underline-offset-2 text-sm font-sansText font-bold'
                       )}
                     >{`Read more`}</span>
                   </div>
@@ -109,9 +109,7 @@ export const Accordion: FC<AccordionProps> = ({
                 <Disclosure.Panel>
                   <div
                     className={classNames(
-                      readMore
-                        ? 'pr-fullmenu md:pl-0'
-                        : 'pl-x pr-10 pt-2 pb-5 ',
+                      readMore ? 'pr-x md:pl-0' : 'pl-x pr-10 pt-2 pb-5 ',
                       ''
                     )}
                   >

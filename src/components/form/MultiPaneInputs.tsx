@@ -151,7 +151,7 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
 
       {broker && (
         <button
-          className="md:max-w-[var(--btn-width)] pt-[26px] md:pt-[20px] text-right font-bold text-md tracking-details underline decoration-[1.5px] underline-offset-2"
+          className="md:max-w-[var(--btn-width)] pt-[26px] md:pt-[20px] text-right font-bold text-md tracking-details uppercase underline decoration-[1.5px] underline-offset-2"
           onClick={() => setBrokerInquiryOpen(true)}
         >
           Are you a realtor?
@@ -255,13 +255,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   return (
-    <div
-      className={classNames(
-        className,
-        block ? '' : 'pr-menu',
-        'w-full text-xs font-bold'
-      )}
-    >
+    <div className={classNames(className, block ? '' : 'pr-menu', 'w-full')}>
       <Pane
         block={block}
         largeHeader={true}
