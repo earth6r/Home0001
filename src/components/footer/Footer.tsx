@@ -22,24 +22,15 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
       </div>
 
       <div className="md:grid md:grid-cols-3">
-        <ul className="flex flex-col gap-y w-full pb-ydouble md:pb-0">
-          {footerMenu?.items?.slice(0, 3).map(({ _key, text, link }, index) => {
+        <ul className="flex flex-col gap-y w-full pb-y md:pb-0">
+          {footerMenu?.items?.slice(0, 3).map(({ _key, text, link }) => {
             return text && link ? (
-              <Fragment key={_key}>
-                {footerMenu.items && index === footerMenu.items.length - 1 && (
-                  <li className="md:hidden font-medium text-xs tracking-details">
-                    <button
-                      onClick={() => setBrokerInquiryOpen(true)}
-                      className="uppercase"
-                    >
-                      Are you a realtor?
-                    </button>
-                  </li>
-                )}
-                <li className="font-medium text-xs tracking-details uppercase">
-                  <SanityLink text={text} {...(link as SanityLinkType)} />
-                </li>
-              </Fragment>
+              <li
+                key={_key}
+                className="font-medium text-xs tracking-details uppercase"
+              >
+                <SanityLink text={text} {...(link as SanityLinkType)} />
+              </li>
             ) : null
           })}
         </ul>
@@ -50,8 +41,11 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
             .map(({ _key, text, link }, index) => {
               return text && link ? (
                 <Fragment key={_key}>
+                  <li className="font-medium text-xs tracking-details uppercase">
+                    <SanityLink text={text} {...(link as SanityLinkType)} />
+                  </li>
                   {footerMenu.items &&
-                    index === footerMenu.items.length - 1 && (
+                    index === footerMenu.items.length - 4 && (
                       <li className="md:hidden font-medium text-xs tracking-details">
                         <button
                           onClick={() => setBrokerInquiryOpen(true)}
@@ -61,9 +55,6 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
                         </button>
                       </li>
                     )}
-                  <li className="font-medium text-xs tracking-details uppercase">
-                    <SanityLink text={text} {...(link as SanityLinkType)} />
-                  </li>
                 </Fragment>
               ) : null
             })}
