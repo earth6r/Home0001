@@ -52,8 +52,8 @@ const PreferencePane: FC<PaneProps> = ({
             <h2
               className={classNames(
                 block ? 'md:pr-menu' : '',
-                largeHeader ? 'text-xl' : 'md:mt-y text-lg pt-ylg md:pt-0',
-                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
+                largeHeader ? 'text-h2' : 'md:mt-y text-h3 pt-ydouble md:pt-0',
+                'pb-y md:pb-ydouble'
               )}
             >
               {header || `Update Preferences:`}
@@ -67,12 +67,12 @@ const PreferencePane: FC<PaneProps> = ({
           )}
         >
           {typeof copy === 'string' ? (
-            <p className="mb-ylg text-md font-medium">{copy}</p>
+            <p className="mb-ydouble text-md font-medium">{copy}</p>
           ) : (
             copy && (
               <RichText
                 blocks={copy}
-                className={classNames('mb-ylg clear-both')}
+                className={classNames('mb-ydouble clear-both')}
               />
             )
           )}
@@ -80,7 +80,7 @@ const PreferencePane: FC<PaneProps> = ({
           <div
             className={classNames(
               block ? '' : 'md:min-h-[328px]',
-              'relative flex flex-col gap-3 pb-y'
+              'relative flex flex-col gap-y pb-y'
             )}
           >
             {children}

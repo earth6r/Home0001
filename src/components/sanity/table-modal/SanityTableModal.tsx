@@ -52,7 +52,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
         }}
       >
         <div className="py-[19px] md:py-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
-          <div className="pt-ylg">
+          <div className="pt-ydouble">
             {table.rows &&
               table.rows.length > 0 &&
               table.rows.map(
@@ -63,9 +63,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
                   <div
                     key={_key}
                     className={classNames(
-                      index <= 1
-                        ? 'font-sans uppercase text-h3 leading-[0.85] tracking-tight'
-                        : 'my-[0.5em]',
+                      index <= 1 ? 'text-h3' : 'my-[0.5em]',
                       cells.length > 1 ? 'grid-cols-2' : 'grid-cols-1',
                       cells.length <= 1 || (cells[1] && cells[1].length === 0)
                         ? 'font-bold font-sansText'

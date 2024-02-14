@@ -57,7 +57,7 @@
 }
 
 .rich-text h2 {
-  @apply text-xl font-bold uppercase tracking-header;
+  @apply text-h2;
 }
 
 .rich-text.card h2 {
@@ -65,7 +65,7 @@
 }
 
 .rich-text h3 {
-  @apply text-h3 font-bold uppercase tracking-tight;
+  @apply text-h3;
 }
 
 .rich-text p,

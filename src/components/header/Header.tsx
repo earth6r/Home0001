@@ -195,12 +195,12 @@ export const Header: FC<HeaderProps> = ({
 
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
-              <h2 className="text-xl font-bold uppercase pt-page md:pt-0 md:mb-y md:pr-menu lg:pr-fullmenu">
+              <h2 className="text-h2 pt-page md:pt-0 md:mb-y md:pr-menu lg:pr-fullmenu">
                 {formSubmitted ? inquiry?.success || `Thanks!` : `Inquire`}
               </h2>
 
               <div className="md:grid md:grid-cols-2 md:gap-20 md:pr-menu">
-                <p className="my-ylg md:my-0 text-md pr-menu md:pr-0">
+                <p className="my-ydouble md:my-0 text-md pr-menu md:pr-0">
                   {formSubmitted
                     ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
                     : inquiry?.copy ||
@@ -234,7 +234,7 @@ export const Header: FC<HeaderProps> = ({
             onClose={onBrokerInquiryClose}
           >
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
-              <div className="pt-page mb-ylg md:pr-menu lg:pr-fullmenu">
+              <div className="pt-page mb-ydouble md:pr-menu lg:pr-fullmenu">
                 {formSubmitted ? (
                   <>
                     {inquiry?.brokerSuccess ? (
