@@ -7,6 +7,7 @@ import { PropertyElProps } from './types'
 
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,
+  block,
   className,
 }) => {
   return (
@@ -55,25 +56,27 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         </div>
       </div>
 
-      <div className="mx-x md:mx-0 md:pt-0">
-        <div className="w-auto md:mr-x mt-ydouble pt-ydouble md:border-top"></div>
-        <h2 className="text-h3 md:text-h1 md:mr-x md:text-center">
-          Our Next Releases:
-        </h2>
-        {property?.unitsList && (
-          <>
-            {property?.availableText && (
-              <div className="mt-9 md:mr-x uppercase">
-                {property?.availableText}
-              </div>
-            )}
-            <UnitsList
-              className="mx-[-1rem] md:mx-0 animate-in flex flex-col mt-ydouble"
-              unitList={property?.unitsList}
-            />
-          </>
-        )}
-      </div>
+      {!block && (
+        <div className="mx-x md:mx-0 md:pt-0">
+          <div className="w-auto md:mr-x mt-ydouble pt-ydouble md:border-top"></div>
+          <h2 className="text-h3 md:text-h1 md:mr-x md:text-center">
+            Our Next Releases:
+          </h2>
+          {property?.unitsList && (
+            <>
+              {property?.availableText && (
+                <div className="mt-9 md:mr-x uppercase">
+                  {property?.availableText}
+                </div>
+              )}
+              <UnitsList
+                className="mx-[-1rem] md:mx-0 animate-in flex flex-col mt-ydouble"
+                unitList={property?.unitsList}
+              />
+            </>
+          )}
+        </div>
+      )}
     </div>
   )
 }

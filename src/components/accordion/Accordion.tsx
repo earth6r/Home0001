@@ -1,14 +1,14 @@
-import { useRef, type FC, useEffect, HTMLAttributes, useState } from 'react'
+import { useRef, type FC, HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 import type { Cta, RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { Disclosure, Transition } from '@headlessui/react'
 import { RichText, SanityLink } from '@components/sanity'
 import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
-import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 import { SanityLinkType } from '@studio/lib'
 import { sendGoogleEvent } from '@lib/util'
 import { useLenis } from '@studio-freight/react-lenis'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
@@ -124,12 +124,12 @@ export const Accordion: FC<AccordionProps> = ({
                       <div className="cta w-full relative mt-y pr-menu md:pr-0">
                         <SanityLink
                           {...(cta.link as SanityLinkType)}
-                          className="w-full border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above px-4 py-3.5"
+                          className="w-full md:max-w-[var(--btn-width)] border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white text-button z-above px-4 py-3.5"
                         >
                           <span className="text-left uppercase leading-none">
                             {cta.text || 'Learn more'}
                           </span>
-                          <IconSmallBlackArrow width="16" fill="white" />
+                          <IconSmallArrow width="16" height="10" fill="white" />
                         </SanityLink>
                       </div>
                     )}
