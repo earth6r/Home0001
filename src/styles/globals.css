@@ -201,6 +201,11 @@ footer {
   opacity: 0;
 }
 
+.swiper-pagination {
+  @apply md:hidden font-bold text-left mt-7  tracking-tight;
+  position: relative;
+}
+
 .hide-cta .cta {
   display: none;
 }

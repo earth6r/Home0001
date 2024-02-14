@@ -61,9 +61,7 @@ export const Accordion: FC<AccordionProps> = ({
               >
                 <h2
                   className={classNames(
-                    readMore
-                      ? 'text-lg font-bold tracking-details'
-                      : 'font-medium text-xs',
+                    readMore ? 'text-h4' : 'font-medium text-xs',
                     'uppercase'
                   )}
                 >
@@ -71,7 +69,7 @@ export const Accordion: FC<AccordionProps> = ({
                 </h2>
 
                 {readMore ? (
-                  <div className="pr-x pt-yhalf md:pt-yquarter">
+                  <div className="pr-x pt-yhalf">
                     {initialText && <RichText blocks={initialText} />}
 
                     <span

@@ -73,7 +73,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
   return (
     <li className={classNames(className)}>
       <div
-        className={classNames(border ? 'border-top pt-ydouble mr-x' : '')}
+        className={classNames(border ? 'border-top pt-ydouble md:mr-x' : '')}
       ></div>
       <div
         className={classNames(
@@ -89,13 +89,14 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 slides={unit?.photographs}
                 carousel={true}
                 className="mb-3 pr-x"
+                pagination={true}
                 placement="unit summary images"
               />
             )}
-            <div className="block w-auto max-w-[467px] bg-darkgray py-x pl-x mr-y md:mr-0 text-md uppercase">
-              <div className="mb-ydouble">
+            <div className="block w-auto md:max-w-[calc(50vw-var(--space-x))] bg-darkgray py-x pl-x mr-y md:mr-0 text-md uppercase">
+              <div className="mb-y md:mb-ydouble">
                 {unit.title && (
-                  <p className="text-h4 mb-ydouble">{unit.title}</p>
+                  <p className="text-h4 mb-y md:mb-ydouble">{unit.title}</p>
                 )}
 
                 <p className="font-medium">{unit?.propertyType?.typeTitle}</p>

@@ -15,9 +15,9 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         Home0001: {property?.title}
       </h2>
       <div className="md:grid md:grid-cols-2 gap-y md:col-start-1 block relative">
-        <div className="flex flex-col md:col-span-1 md:justify-start md:items-start md:sticky top-[var(--header-height)] left-0 md:h-[54vw]">
+        <div className="flex flex-col md:col-span-1 md:justify-start md:items-start md:sticky top-[var(--header-height)] left-0 md:h-[54vw] px-x md:px-0">
           {property?.image && (
-            <div className="col-span-2 block relative w-full mb-y z-base">
+            <div className="col-span-2 block relative w-full mb-ydouble md:mb-y z-base">
               <SanityMedia
                 imageProps={{
                   alt: property?.image.alt || 'Building image',
@@ -49,15 +49,15 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             <BlockContent
               blocks={property?.body}
               grid={false}
-              className="mt-ydouble md:mt-0 px-x md:pl-0 md:pr-x overflow-hidden"
+              className="mt-ydouble md:mt-0 pl-x pr-menu md:pl-0 md:pr-x overflow-hidden"
             />
           )}
         </div>
       </div>
 
       <div className="mx-x md:mx-0 md:pt-0">
-        <div className="w-auto md:mr-x mt-ydouble pt-ydouble border-top"></div>
-        <h2 className="text-h2 md:text-h1 md:mr-x md:text-center">
+        <div className="w-auto md:mr-x mt-ydouble pt-ydouble md:border-top"></div>
+        <h2 className="text-h3 md:text-h1 md:mr-x md:text-center">
           Our Next Releases:
         </h2>
         {property?.unitsList && (

@@ -158,6 +158,7 @@ export default {
         '.text-h4': {
           fontSize: theme('fontSize.lg'),
           fontWeight: '700',
+          fontFamily: theme('fontFamily.sansText'),
           lineHeight: '0.9',
           letterSpacing: theme('letterSpacing.details'),
           textTransform: 'uppercase',
