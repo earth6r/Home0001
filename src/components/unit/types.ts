@@ -28,6 +28,7 @@ export interface KeyedUnitProps
   slug?: { _type: 'slug'; current: string }
   available?: boolean
   property?: SanityReference<Property>
+  calendarLink?: string
   propertyType?: KeyedPropertyType
   price?: string
   hidePrice?: boolean

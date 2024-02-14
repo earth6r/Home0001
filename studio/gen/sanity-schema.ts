@@ -380,6 +380,13 @@ export interface Unit extends SanityDocument {
   property?: SanityReference<Property>;
 
   /**
+   * Calendar Link — `url`
+   *
+   *
+   */
+  calendarLink?: string;
+
+  /**
    * Property Type — `reference`
    *
    *
