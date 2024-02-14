@@ -72,7 +72,7 @@ const PreferencePane: FC<PaneProps> = ({
             copy && (
               <RichText
                 blocks={copy}
-                className={classNames('mb-ydouble clear-both')}
+                className={classNames('md:w-btnWidth mb-ydouble clear-both')}
               />
             )
           )}

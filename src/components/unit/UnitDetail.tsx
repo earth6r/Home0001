@@ -120,7 +120,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                   table={unit.factSheet}
                   modalType="fact sheet"
                   buttonLabel="View Fact Sheet"
-                  className="inline-block mt-[16px]"
+                  className="inline-block mt-y"
                   unit={unit.title}
                 />
               )}
@@ -141,7 +141,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 title="Inventory"
                 inventory={unit.dossierInventory}
                 buttonLabel="View Inventory"
-                className="flex mt-[16px]"
+                className="flex mt-y"
                 unit={unit.title}
               />
             )}
@@ -162,7 +162,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             </>
           )}
 
-          <div className="md:hidden mt-[40px] mb-yhalf w-[var(--btn-width)] md:max-w-[346px]">
+          <div className="md:hidden mt-ydouble mb-yhalf w-[var(--btn-width)] md:max-w-[346px]">
             {unit?.calendarLink && (
               <SanityLink externalLink={unit.calendarLink}>
                 <button

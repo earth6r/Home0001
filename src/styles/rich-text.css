@@ -75,7 +75,7 @@
 }
 
 .rich-text p.small {
-  @apply text-xs font-medium;
+  @apply text-xs font-bold tracking-tight;
 }
 
 .rich-text p strong {
