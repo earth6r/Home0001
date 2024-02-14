@@ -5,13 +5,11 @@ import { UnitElProps } from './types'
 import classNames from 'classnames'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
-import { useInquiryModal } from '@contexts/modals'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
-import { KeyedProperty } from '@components/sanity/blocks/properties/types'
 import { SanityInventoryModal } from '@components/sanity/table-modal'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
@@ -19,11 +17,8 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
   accordions,
   className,
 }) => {
-  const [inquiryModal, setInquiryOpen] = useInquiryModal()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
-
-  const keyedProperty = unit?.property as KeyedProperty
 
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
@@ -42,9 +37,6 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
       })
     }
   }, [unit])
-
-  const lesCalendarURL = `https://www.home0001.com/les-tour`
-  const epCalendarURL = `https://www.home0001.com/echo-park-tour`
 
   return (
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
