@@ -24,7 +24,7 @@ export const PropertyDetailComponent: FC<PropertyElProps> = ({
   return (
     <div className={classNames(className)}>
       <div className="mb-12">
-        <h2 className="text-xl md:text-2xl font-bold uppercase">
+        <h2 className="text-h2 md:text-h1">
           HOME0001:
           <br />
           {property?.title}

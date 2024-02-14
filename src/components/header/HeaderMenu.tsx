@@ -115,7 +115,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       ) : null
                     })}
 
-                    <li className="flex items-center gap-4 uppercase">
+                    <li className="flex items-center gap-y uppercase">
                       <span className="inline-block">Prices:</span>
 
                       <span className="inline-block">Fiat</span>

@@ -40,7 +40,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   return (
     <div className={classNames(className, 'overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3 px-x md:pr-0">
-        <h2 className="text-xl font-bold tracking-tight mb-12 uppercase col-span-2 pr-menu md:pr-0">
+        <h2 className="text-h2 mb-12 col-span-2 pr-menu md:pr-0">
           {unit?.title}
         </h2>
         <div className="col-start-2 md:col-start-1 md:col-span-3">
@@ -72,7 +72,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                     } BTC / ${cryptoPrice[0]} ETH`
                   : unit?.price}
               </p>
-              {unit?.area && <p className="mb-ylg">{unit?.area}</p>}
+              {unit?.area && <p className="mb-ydouble">{unit?.area}</p>}
 
               {unit?.summary && (
                 <RichText blocks={unit?.summary} className="max-w-[500px]" />

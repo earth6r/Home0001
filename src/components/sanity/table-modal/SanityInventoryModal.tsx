@@ -41,7 +41,7 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
         }}
       >
         <div className="py-[19px] md:py-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
-          <div className="pt-ylg pb-y">
+          <div className="pt-ydouble pb-y">
             {inventory && <RichText blocks={inventory} className="inventory" />}
           </div>
         </div>

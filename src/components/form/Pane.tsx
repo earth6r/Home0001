@@ -57,12 +57,7 @@ const Pane: FC<PaneProps> = ({
           )}
         >
           {currentStep === 0 && (
-            <h2
-              className={classNames(
-                largeHeader ? 'text-xl' : 'text-lg',
-                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
-              )}
-            >
+            <h2 className={classNames('pb-y md:pb-ydouble text-h3')}>
               {header || `Join the waitlist:`}
             </h2>
           )}
@@ -76,12 +71,7 @@ const Pane: FC<PaneProps> = ({
           >
             <div>
               {header && currentStep !== 0 && (
-                <h2
-                  className={classNames(
-                    largeHeader ? 'text-lg' : 'text-lg',
-                    'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
-                  )}
-                >
+                <h2 className={classNames('pb-y md:pb-ydouble text-h3')}>
                   {header || `Join the waitlist:`}
                 </h2>
               )}
@@ -89,15 +79,13 @@ const Pane: FC<PaneProps> = ({
               {currentStep === 0 && (
                 <>
                   {typeof copy === 'string' ? (
-                    <p className="mb-yhalf text-lg font-bold tracking-tight uppercase leading-[0.85]">
-                      {copy}
-                    </p>
+                    <p className="mb-yhalf text-h3">{copy}</p>
                   ) : (
                     copy && (
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'mb-ylg clear-both bold uppercase'
+                          'mb-ydouble clear-both bold uppercase'
                         )}
                       />
                     )
@@ -123,7 +111,7 @@ const Pane: FC<PaneProps> = ({
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'mb-ylg clear-both bold uppercase'
+                          'mb-ydouble clear-both bold uppercase'
                         )}
                       />
                     )
@@ -134,8 +122,8 @@ const Pane: FC<PaneProps> = ({
               <div
                 className={classNames(
                   block ? '' : 'md:min-h-[310px]',
-                  currentStep !== 0 ? 'mt-ylg' : '',
-                  'relative flex flex-col gap-3'
+                  currentStep !== 0 ? 'mt-ydouble' : '',
+                  'relative flex flex-col gap-y'
                 )}
               >
                 {children}

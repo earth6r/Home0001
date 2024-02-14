@@ -42,7 +42,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
     <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
       <div className="md:grid md:grid-cols-3">
         <div className="md:col-start-1 col-start-2 md:col-span-3">
-          <h2 className="text-xl font-bold tracking-tight mb-y uppercase col-span-2 pr-[calc(var(--space-menu)+2px)] md:pr-0">
+          <h2 className="text-h2 mb-y col-span-2 pr-[calc(var(--space-menu)+2px)] md:pr-0">
             {unit?.title}
           </h2>
 
@@ -65,7 +65,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                   : unit?.price}
               </p>
               {unit?.area && (
-                <p className="mb-ylg text-base font-medium tracking-tight">
+                <p className="mb-ydouble text-base font-medium tracking-tight">
                   {unit?.area}
                 </p>
               )}

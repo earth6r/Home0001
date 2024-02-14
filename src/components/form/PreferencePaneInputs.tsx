@@ -107,7 +107,7 @@ const LocationsPane: FC<PaneProps> = ({
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
   return (
     <div className={className}>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Where do you want to own a 0001 home?
       </p>
       {LOCATIONS.map(({ label, name }) => (
@@ -151,7 +151,7 @@ const LocationsPane: FC<PaneProps> = ({
           'waitlist input mb-4'
         )}
       />
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         What are your prefered neighborhoods?
       </p>
       <input
@@ -162,7 +162,7 @@ const LocationsPane: FC<PaneProps> = ({
         })}
         className={classNames('waitlist input -mt-[15px] mb-10')}
       />
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         What would be the ideal size?
       </p>
       {SIZES.map(({ label, name }: any) => (
@@ -214,7 +214,7 @@ const HomeTypesPane: FC<PaneProps> = ({
 
   return (
     <div className={className}>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         What kind of home are you looking for?
       </p>
       <div>
@@ -277,7 +277,7 @@ const HomeTypesPane: FC<PaneProps> = ({
         )}
       />
 
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Will it be your primary residence?
       </p>
       <div>
@@ -407,7 +407,7 @@ const FinancingRadioPane: FC<PaneProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Would you like our support to help with financing?
       </p>
       {FINANCING.map(({ label, name }: any) => (
@@ -429,7 +429,7 @@ const FinancingRadioPane: FC<PaneProps> = ({
         </div>
       ))}
       <br></br>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Would you like help selling your current home?
       </p>
       {SELLINGHOME.map(({ label, name }: any) => (
@@ -486,7 +486,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Which amenities are most important to you? (Select all that apply)
       </p>
       {fields.map(({ label, name }: any) => (
@@ -506,7 +506,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
         </div>
       ))}
       <br></br>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         {"So, what's your price range?"}
       </p>
       {PRICES.map(({ label, name }: any) => (
@@ -526,7 +526,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
         </div>
       ))}
       <br></br>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         {"And what's your timeline?"}
       </p>
       {TIMELINE.map(({ label, name }: any) => (
@@ -610,7 +610,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
               setFullWidth && setFullWidth()
             }
           }}
-          className={classNames('flex flex-col gap-3 md:h-auto')}
+          className={classNames('flex flex-col gap-y md:h-auto')}
         />
       </PreferencePane>
 
@@ -637,7 +637,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
           onClick={() => setCurrentStep(currentStep + 1)}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
-            'flex flex-col gap-4'
+            'flex flex-col gap-y'
           )}
         />
       </PreferencePane>
@@ -658,7 +658,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
           onBack={() => setCurrentStep(currentStep - 1)}
           className={classNames(
             currentStep !== 2 ? 'hidden' : '',
-            'flex flex-col gap-4'
+            'flex flex-col gap-y'
           )}
         />
       </PreferencePane>
@@ -683,7 +683,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
           onBack={() => setCurrentStep(currentStep - 1)}
           className={classNames(
             currentStep !== 3 ? 'hidden' : '',
-            'flex flex-col gap-4 '
+            'flex flex-col gap-y '
           )}
         />
       </PreferencePane>
@@ -699,7 +699,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
           onBack={() => setCurrentStep(currentStep - 1)}
           className={classNames(
             currentStep !== 4 ? 'hidden' : '',
-            'flex flex-col gap-4 '
+            'flex flex-col gap-y '
           )}
         />
       </PreferencePane>
