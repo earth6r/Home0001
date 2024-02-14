@@ -163,6 +163,12 @@ export default {
           letterSpacing: theme('letterSpacing.details'),
           textTransform: 'uppercase',
         },
+        '.text-button': {
+          fontSize: theme('fontSize.xs'),
+          fontWeight: '500',
+          letterSpacing: theme('letterSpacing.details'),
+          textTransform: 'uppercase',
+        },
       })
     },
   ],
