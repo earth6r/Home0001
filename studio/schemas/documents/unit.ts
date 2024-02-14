@@ -66,6 +66,11 @@ export default {
       },
     },
     {
+      title: 'Calendar Link',
+      name: 'calendarLink',
+      type: 'url',
+    },
+    {
       title: 'Property Type',
       name: 'propertyType',
       type: 'reference',

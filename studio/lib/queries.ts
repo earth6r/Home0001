@@ -73,6 +73,7 @@ export const UNIT_QUERY = `
   moreInfo,
   unitDetails,
   secondUnitDetails,
+  calendarLink,
   "propertyType": propertyType->{
     typeTitle,
     typeValue,

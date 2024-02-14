@@ -1,6 +1,6 @@
 import { type FC, memo, useEffect, useState } from 'react'
 import { ImageCarousel } from '@components/carousel'
-import { RichText } from '@components/sanity'
+import { RichText, SanityLink } from '@components/sanity'
 import { UnitElProps } from './types'
 import classNames from 'classnames'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
@@ -92,26 +92,20 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 )}
 
                 <div className="hidden md:block col-start-8 col-span-3 w-full md:pr-x">
-                  <div className="mb-[12px]">
-                    <button
-                      onClick={() => {
-                        //@ts-ignore
-                        if (unit?.property?.headerText == 'LES') {
-                          window.open(lesCalendarURL, '_blank')
-                        }
-                        //@ts-ignore
-                        else if (unit?.property?.headerText == 'ECHO PARK') {
-                          window.open(epCalendarURL, '_blank')
-                        }
-                      }}
-                      className={classNames(
-                        'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
-                      )}
-                    >
-                      {`Schedule a tour`}
-                      <IconSmallArrow width="16" height="10" />
-                    </button>
-                  </div>
+                  {unit?.calendarLink && (
+                    <div className="mb-[12px]">
+                      <SanityLink externalLink={unit.calendarLink}>
+                        <button
+                          className={classNames(
+                            'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
+                          )}
+                        >
+                          {`Schedule a tour`}
+                          <IconSmallArrow width="16" height="10" />
+                        </button>
+                      </SanityLink>
+                    </div>
+                  )}
 
                   <div className="mb-ydouble">
                     <a href="mailto:talin@home0001.com">
@@ -177,24 +171,18 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
           )}
 
           <div className="md:hidden mt-[40px] mb-yhalf w-[var(--btn-width)] md:max-w-[346px]">
-            <button
-              className={classNames(
-                'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
-              )}
-              onClick={() => {
-                //@ts-ignore
-                if (unit?.property?.headerText == 'LES') {
-                  window.open(lesCalendarURL, '_blank')
-                }
-                //@ts-ignore
-                else if (unit?.property?.headerText == 'ECHO PARK') {
-                  window.open(epCalendarURL, '_blank')
-                }
-              }}
-            >
-              {`Schedule a tour`}
-              <IconSmallArrow width="16" height="10" />
-            </button>
+            {unit?.calendarLink && (
+              <SanityLink externalLink={unit.calendarLink}>
+                <button
+                  className={classNames(
+                    'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
+                  )}
+                >
+                  {`Schedule a tour`}
+                  <IconSmallArrow width="16" height="10" />
+                </button>
+              </SanityLink>
+            )}
           </div>
 
           <div className="md:hidden w-[var(--btn-width)] md:max-w-[346px]">
