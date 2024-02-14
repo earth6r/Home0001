@@ -2,9 +2,7 @@ import { type FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import { Media } from '@studio/gen/sanity-schema'
 import { Swiper, SwiperSlide } from 'swiper/react'
-// import { Navigation } from 'swiper'
-import { Navigation, type SwiperOptions } from 'swiper'
-import { IconLeftArrow, IconRightArrow } from '@components/icons'
+import { Navigation, type SwiperOptions, Pagination } from 'swiper'
 import classNames from 'classnames'
 import { SCREENS } from '@/globals'
 // eslint-disable-next-line import/no-unresolved
@@ -24,7 +22,9 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   index?: string
   carousel?: boolean
   arrows?: boolean
+  perView?: number
   slides?: (Media & { _key: string })[]
+  pagination?: boolean
   placement?:
     | 'property details'
     | 'unit summary images'
@@ -70,15 +70,17 @@ const ImageSlide: FC<ImageSlideProps> = ({
 export const ImageCarousel: FC<ImageCarouselProps> = ({
   carousel,
   slides,
-  className,
+  perView,
   placement,
+  pagination,
+  className,
 }) => {
   const [activeNav, setActiveNav] = useState(false)
   const [swipedImage, setSwipedImage] = useState(false)
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
-      slidesPerView: 1.19,
+      slidesPerView: perView || 1.132,
     },
     [SCREENS.md]: {
       slidesPerView: 'auto',
@@ -122,7 +124,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
       {slides && slides.length > 1 ? (
         <Swiper
           ref={slidesRef}
-          modules={[Navigation]}
+          modules={[Navigation, Pagination]}
           loop={false}
           spaceBetween={16}
           onSlideChange={() => {
@@ -137,6 +139,13 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             nextEl: '.swiper-next',
             prevEl: '.swiper-prev',
           }}
+          pagination={
+            pagination
+              ? {
+                  type: 'fraction',
+                }
+              : false
+          }
           className="w-full md:w-auto max-w-[unset] md:h-full ml-0 md:mx-auto overflow-visible"
         >
           {slides.map(({ _key, image, alt }, index) => (
