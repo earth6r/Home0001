@@ -11,6 +11,7 @@ import {
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
 import { SanityInventoryModal } from '@components/sanity/table-modal'
+import { Accordion } from '@components/accordion'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
   unit,
@@ -39,149 +40,115 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
   }, [unit])
 
   return (
-    <div className={classNames(className, 'pr-x md:pr-0 overflow-x-hidden')}>
-      <div className="md:grid md:grid-cols-3">
-        <div className="md:col-start-1 col-start-2 md:col-span-3">
-          <h2 className="text-h2 mb-y col-span-2 pr-[calc(var(--space-menu)+2px)] md:pr-0">
-            {unit?.title}
-          </h2>
+    <div className={classNames(className, 'overflow-x-hidden')}>
+      <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 md:gap-x px-x md:pr-0">
+        <div className="col-span-1 order-2 md:order-1 pr-menu md:pr-0 mt-y md:mt-0">
+          <h2 className="hidden md:inline-block text-h2 mb-y">{unit?.title}</h2>
 
-          <div className="flex flex-col relative mb-[40px]">
-            {unit?.photographs && unit?.photographs.length > 0 && (
-              <ImageCarousel
-                index="0"
-                slides={unit?.photographs}
-                carousel={true}
-                className="relative w-full mb-[16px] md:pr-x"
-                placement="unit images"
-              />
-            )}
-            <div className="mb-[40px] pr-[calc(var(--space-menu)+2px)] md:pr-0">
-              <p className="m-0 text-base font-medium tracking-tight">
-                {cryptoMode
-                  ? `${unit?.price?.substring(1)} USDC / ${
-                      cryptoPrice[1]
-                    } BTC / ${cryptoPrice[0]} ETH`
-                  : unit?.price}
-              </p>
-              {unit?.area && (
-                <p className="mb-ydouble text-base font-medium tracking-tight">
-                  {unit?.area}
-                </p>
-              )}
-
-              <div className="md:grid md:grid-cols-10">
-                {unit?.summary && (
-                  <div className="md:col-span-6">
-                    <p className="uppercase text-md font-bold mb-[16px]">
-                      Overview
-                    </p>
-                    <RichText
-                      blocks={unit?.summary}
-                      className="max-w-[500px]"
-                    />
-                  </div>
-                )}
-
-                <div className="hidden md:block col-start-8 col-span-3 w-full md:pr-x">
-                  {unit?.calendarLink && (
-                    <div className="mb-[12px]">
-                      <SanityLink externalLink={unit.calendarLink}>
-                        <button
-                          className={classNames(
-                            'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
-                          )}
-                        >
-                          {`Schedule a tour`}
-                          <IconSmallArrow width="16" height="10" />
-                        </button>
-                      </SanityLink>
-                    </div>
-                  )}
-
-                  <div className="mb-ydouble">
-                    <a href="mailto:talin@home0001.com">
-                      <button
-                        className={classNames(
-                          'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-xs uppercase font-medium z-above p-4'
-                        )}
-                      >
-                        {`Ask us a question`}
-                        <IconSmallArrow width="16" height="10" fill="black" />
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {unit?.factSheet?.rows && (
-                <SanityTableModal
-                  title="Fact Sheet"
-                  table={unit.factSheet}
-                  modalType="fact sheet"
-                  buttonLabel="View Fact Sheet"
-                  className="inline-block mt-y"
-                  unit={unit.title}
-                />
-              )}
-            </div>
-
-            {unit?.unitDetails && (
-              <div className="pr-[calc(var(--space-menu)+2px)] md:pr-0">
-                <p className="uppercase font-bold text-md mb-yhalf ">Details</p>
-                <RichText
-                  blocks={unit?.unitDetails}
-                  className={classNames('max-w-[500px] md:pr-0')}
-                />
-              </div>
+          <div className="rich-text">
+            {unit?.propertyType && (
+              <p className="small uppercase">{unit?.propertyType?.typeTitle}</p>
             )}
 
-            {unit?.dossierInventory && (
-              <SanityInventoryModal
-                title="Inventory"
-                inventory={unit.dossierInventory}
-                buttonLabel="View Inventory"
-                className="flex mt-y"
-                unit={unit.title}
-              />
+            <p className="small uppercase m-0">
+              {unit?.hidePrice
+                ? 'Price upon request'
+                : cryptoMode
+                ? `Price: ${unit?.price?.substring(1)} USDC / ${
+                    cryptoPrice[1]
+                  } BTC / ${cryptoPrice[0]} ETH`
+                : `Price: ${unit?.price}`}
+            </p>
+            {unit?.area && (
+              <p className="small uppercase m-0">{`Size: ${unit?.area}`}</p>
             )}
           </div>
 
-          {unit?.layoutImages && unit?.layoutImages.length > 0 && (
-            <>
-              <p className="uppercase text-md font-bold mb-y md:mb-yhalf">
-                Plans
-              </p>
-              <ImageCarousel
-                index="1"
-                carousel={true}
-                slides={unit?.layoutImages}
-                className="w-full md:pr-x"
-                placement="unit layouts"
-              />
-            </>
-          )}
-
-          <div className="md:hidden mt-ydouble mb-yhalf w-[var(--btn-width)] md:max-w-[346px]">
+          <div className="hidden md:block md:pr-menu mt-y mb-ydouble">
             {unit?.calendarLink && (
               <SanityLink externalLink={unit.calendarLink}>
                 <button
                   className={classNames(
-                    'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-xs uppercase font-medium tracking-tight z-above p-4'
+                    'w-full relative mb-y border-1 border-black border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
                   )}
                 >
-                  {`Schedule a tour`}
-                  <IconSmallArrow width="16" height="10" />
+                  {`Request a tour`}
+                  <IconSmallArrow width="16" height="10" fill="white" />
                 </button>
               </SanityLink>
             )}
-          </div>
 
-          <div className="md:hidden w-[var(--btn-width)] md:max-w-[346px]">
             <a href="mailto:talin@home0001.com">
               <button
                 className={classNames(
-                  'w-full relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-xs uppercase font-medium z-above p-4'
+                  'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-white text-button z-above p-x'
+                )}
+              >
+                {`Get in touch`}
+                <IconSmallArrow width="16" height="10" fill="black" />
+              </button>
+            </a>
+          </div>
+
+          {unit?.summary && unit.summary.length > 0 && (
+            <div className="mt-ydouble md:mt-0">
+              <p className="text-h4 mb-y md:mb-yhalf">Overview</p>
+              <RichText blocks={unit?.summary} className="max-w-[500px]" />
+            </div>
+          )}
+
+          {unit?.factSheet?.rows && (
+            <SanityTableModal
+              title="Fact Sheet"
+              table={unit.factSheet}
+              modalType="fact sheet"
+              buttonLabel="View Fact Sheet"
+              className="inline-block mt-y"
+              unit={unit.title}
+            />
+          )}
+        </div>
+
+        <div className="order-3 md:order-2 mt-ydouble md:mt-0">
+          {unit?.unitDetails && (
+            <>
+              <p className="text-h4 mb-y md:mb-yhalf">Details</p>
+              <RichText
+                blocks={unit?.unitDetails}
+                className="pr-menu md:pr-0"
+              />
+            </>
+          )}
+
+          {unit?.inventory && (
+            <SanityInventoryModal
+              title="Inventory"
+              inventory={unit.inventory}
+              buttonLabel="View Inventory"
+              className="flex mt-y"
+              unit={unit.title}
+            />
+          )}
+
+          <div className="md:hidden md:pr-menu mt-y mb-ydouble pr-menu">
+            {unit?.calendarLink && (
+              <SanityLink externalLink={unit.calendarLink}>
+                <button
+                  className={classNames(
+                    'w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-button z-above p-x'
+                  )}
+                >
+                  {`Request a tour`}
+                  <IconSmallArrow width="16" height="10" fill="black" />
+                </button>
+              </SanityLink>
+            )}
+
+            <a href="mailto:talin@home0001.com">
+              <button
+                className={classNames(
+                  'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
                 )}
               >
                 {`Ask us a question`}
@@ -189,6 +156,49 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               </button>
             </a>
           </div>
+
+          {unit?.layoutImages && (
+            <>
+              <p className="text-h4 mb-y md:my-y">Plans:</p>
+              <ImageCarousel
+                index="1"
+                carousel={true}
+                slides={unit?.layoutImages}
+                className="w-full overflow-hidden"
+                placement="unit layouts"
+              />
+            </>
+          )}
+
+          {unit?.moreInfo && (
+            <div className="mt-y">
+              <RichText blocks={unit?.moreInfo} />
+            </div>
+          )}
+
+          {unit?.secondUnitDetails &&
+            unit.secondUnitDetails.map(({ _key, header, text }) => (
+              <Accordion
+                key={_key}
+                header={header}
+                text={text}
+                location={{ property: 'property', unit: 'unit' }}
+                className="mt-2 mb-8 border-x-0 border-t-0"
+              />
+            ))}
+        </div>
+
+        <div className="order-1 md:order-3">
+          {unit?.photographs && (
+            <ImageCarousel
+              index="0"
+              slides={unit?.photographs}
+              carousel={true}
+              pagination={true}
+              className="w-full overflow-hidden"
+              placement="unit images"
+            />
+          )}
         </div>
       </div>
     </div>
