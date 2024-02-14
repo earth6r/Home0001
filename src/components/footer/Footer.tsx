@@ -12,36 +12,84 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
 
   return (
-    <footer className={classNames('px-x mt-ydouble mb-ydouble lg:mb-y')}>
-      <ul className="flex flex-col lg:flex-row md:justify-between gap-y lg:gap-0 w-full pb-ydouble md:pb-0">
-        {footerMenu?.items?.map(({ _key, text, link }, index) => {
-          return text && link ? (
-            <Fragment key={_key}>
-              {footerMenu.items && index === footerMenu.items.length - 1 && (
-                <li className="md:hidden font-medium text-xs tracking-details">
-                  <button
-                    onClick={() => setBrokerInquiryOpen(true)}
-                    className="uppercase"
-                  >
-                    Are you a realtor?
-                  </button>
+    <footer
+      className={classNames(
+        'md:grid md:grid-cols-2 md:gap-xdouble px-x my-ydouble'
+      )}
+    >
+      <div className="hidden md:block">
+        <p className="font-medium tracking-details text-xs uppercase">{`HOME0001`}</p>
+      </div>
+
+      <div className="md:grid md:grid-cols-3">
+        <ul className="flex flex-col gap-y w-full pb-ydouble md:pb-0">
+          {footerMenu?.items?.slice(0, 3).map(({ _key, text, link }, index) => {
+            return text && link ? (
+              <Fragment key={_key}>
+                {footerMenu.items && index === footerMenu.items.length - 1 && (
+                  <li className="md:hidden font-medium text-xs tracking-details">
+                    <button
+                      onClick={() => setBrokerInquiryOpen(true)}
+                      className="uppercase"
+                    >
+                      Are you a realtor?
+                    </button>
+                  </li>
+                )}
+                <li className="font-medium text-xs tracking-details uppercase">
+                  <SanityLink text={text} {...(link as SanityLinkType)} />
                 </li>
-              )}
-              <li className="font-medium text-xs tracking-details uppercase">
-                <SanityLink text={text} {...(link as SanityLinkType)} />
-              </li>
-            </Fragment>
-          ) : null
-        })}
-      </ul>
+              </Fragment>
+            ) : null
+          })}
+        </ul>
 
-      <div className="md:flex md:justify-between md:items-start w-full text-xs tracking-details leading-[1.3] md:leading-none md:mt-4">
-        <p className="font-sansText font-bold">&copy;{` ${year} HOME0001`}</p>
+        <ul className="flex flex-col gap-y w-full pb-ydouble md:pb-0">
+          {footerMenu?.items
+            ?.slice(3, footerMenu.items.length)
+            .map(({ _key, text, link }, index) => {
+              return text && link ? (
+                <Fragment key={_key}>
+                  {footerMenu.items &&
+                    index === footerMenu.items.length - 1 && (
+                      <li className="md:hidden font-medium text-xs tracking-details">
+                        <button
+                          onClick={() => setBrokerInquiryOpen(true)}
+                          className="uppercase"
+                        >
+                          Are you a realtor?
+                        </button>
+                      </li>
+                    )}
+                  <li className="font-medium text-xs tracking-details uppercase">
+                    <SanityLink text={text} {...(link as SanityLinkType)} />
+                  </li>
+                </Fragment>
+              ) : null
+            })}
+        </ul>
 
-        <p className="font-medium md:text-right">
-          <span className="block">NY DRE #10351211814</span>
-          <span className="block md:mt-4">CA DRE #01427385</span>
-        </p>
+        <div className="md:flex md:justify-between md:items-start w-full text-xs tracking-details leading-[1.3] md:leading-none">
+          <p className="md:hidden font-sansText font-bold">
+            &copy;{` ${year} HOME0001`}
+          </p>
+
+          <p className="font-medium">
+            <span className="block md:hidden">NY DRE #10351211814</span>
+            <span className="block md:hidden md:mt-4">CA DRE #01427385</span>
+
+            <span className="hidden md:block">
+              NY DRE
+              <br></br>
+              #10351211814
+            </span>
+            <span className="hidden md:block md:mt-4">
+              CA DRE
+              <br></br>
+              #01427385
+            </span>
+          </p>
+        </div>
       </div>
     </footer>
   )
