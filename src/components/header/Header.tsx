@@ -195,7 +195,7 @@ export const Header: FC<HeaderProps> = ({
 
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
-              <h2 className="text-h2 pt-page md:pt-0 md:mb-y md:pr-menu lg:pr-fullmenu">
+              <h2 className="text-h3 pt-page md:pt-0 md:mb-y md:pr-menu lg:pr-fullmenu">
                 {formSubmitted ? inquiry?.success || `Thanks!` : `Inquire`}
               </h2>
 
