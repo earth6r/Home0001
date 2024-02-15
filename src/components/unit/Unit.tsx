@@ -193,7 +193,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               slides={unit?.photographs}
               carousel={true}
               pagination={true}
-              className="w-full overflow-hidden"
+              className="w-full md:pr-x overflow-hidden"
               placement="unit images"
             />
           )}
