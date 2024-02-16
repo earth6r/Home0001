@@ -34,7 +34,7 @@ export default {
       fontSize: {
         base: '14px',
         xs: ['14px', '1'], // small
-        sm: ['14px', '0.85'], // read more
+        sm: ['14px', '1'], // read more
         md: ['16px', '1.1'], // body
         lg: ['16px', '0.9'], // h4
         card: ['clamp(1.5rem, 1.294rem + 0.784vw, 2rem)', '0.9'], // property summary card

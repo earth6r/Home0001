@@ -11,7 +11,7 @@
 }
 
 .rich-text.bold > p {
-  @apply font-bold leading-[0.95];
+  @apply font-sansText font-bold leading-[0.95] tracking-details;
 }
 
 .rich-text > ul,
@@ -71,11 +71,11 @@
 .rich-text p,
 .rich-text span,
 .rich-text li {
-  @apply text-md font-medium tracking-body;
+  @apply text-md font-medium;
 }
 
 .rich-text p.small {
-  @apply text-xs font-bold tracking-tight;
+  @apply font-sansText text-xs font-bold;
 }
 
 .rich-text p strong {
