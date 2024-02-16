@@ -16,6 +16,7 @@ export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
   alt: string
   lastIndex?: boolean
+  fullWidth?: boolean
 }
 
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
@@ -23,6 +24,7 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   carousel?: boolean
   arrows?: boolean
   perView?: number
+  fullWidth?: boolean
   slides?: (Media & { _key: string })[]
   pagination?: boolean
   placement?:
@@ -39,6 +41,7 @@ const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox=
 const ImageSlide: FC<ImageSlideProps> = ({
   image,
   alt,
+  fullWidth,
   lastIndex,
   className,
 }) => {
@@ -48,7 +51,8 @@ const ImageSlide: FC<ImageSlideProps> = ({
     <div
       className={classNames(
         className,
-        'block relative w-full md:max-w-[346px] h-full overflow-hidden cursor-grab active:cursor-grabbing select-none'
+        fullWidth ? '' : 'md:max-w-[346px]',
+        'block relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none'
       )}
     >
       <SanityMedia
@@ -71,6 +75,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   carousel,
   slides,
   perView,
+  fullWidth,
   placement,
   pagination,
   className,
@@ -83,7 +88,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
       slidesPerView: perView || 1.132,
     },
     [SCREENS.md]: {
-      slidesPerView: 'auto',
+      slidesPerView: fullWidth ? 1 : 'auto',
     },
   }
 
@@ -152,8 +157,9 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             <SwiperSlide
               key={`${_key}-${alt}`}
               className={classNames(
-                carousel ? 'md:h-full' : 'md:h-[462px]',
-                'w-full md:w-[346px] h-[373px]'
+                carousel ? 'md:h-full' : '',
+                fullWidth ? 'md:h-full' : 'md:w-[346px] h-[373px] md:h-[462px]',
+                'w-full'
               )}
             >
               {image && alt && (
@@ -177,9 +183,15 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       />
                     </a>
                   ) : (
-                    <div className="absolute w-full h-full md:h-[462px]">
+                    <div
+                      className={classNames(
+                        fullWidth ? '' : 'md:h-[462px]',
+                        'absolute w-full h-full'
+                      )}
+                    >
                       <ImageSlide
                         image={image as any}
+                        fullWidth={fullWidth}
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(

@@ -160,7 +160,8 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <p className="text-h4 mb-y md:my-y">Plans:</p>
               <ImageCarousel
                 index="1"
-                carousel={true}
+                pagination={true}
+                carousel={false}
                 slides={unit?.layoutImages}
                 className="w-full overflow-hidden"
                 placement="unit layouts"
@@ -190,10 +191,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           {unit?.photographs && (
             <ImageCarousel
               index="0"
-              slides={unit?.photographs}
-              carousel={true}
               pagination={true}
-              className="w-full md:pr-x overflow-hidden"
+              fullWidth={true}
+              slides={unit?.photographs}
+              className="w-full h-full md:pr-x overflow-hidden"
               placement="unit images"
             />
           )}

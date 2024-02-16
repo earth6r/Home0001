@@ -202,7 +202,7 @@ footer {
 }
 
 .swiper-pagination {
-  @apply md:hidden font-bold text-left mt-4 tracking-tight;
+  @apply font-bold text-left mt-ydouble md:mt-0 -top-y tracking-tight;
   position: relative;
 }
 
