@@ -62,7 +62,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
           quality: 9,
           priority: true,
           sizes: '(max-width: 768px) 100vw, 800px',
-          style: { width: '100%', height: 'auto' },
+          style: { width: 'auto', height: '100%' },
           lqip: image?.asset?.metadata?.lqip,
         }}
         onLoadingComplete={() => lastIndex && lenis.resize()}
