@@ -196,6 +196,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               index="0"
               pagination={true}
               fullWidth={true}
+              carousel={true}
               slides={unit?.photographs}
               className="w-full h-full md:pr-x overflow-hidden"
               placement="unit images"
