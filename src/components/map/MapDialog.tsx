@@ -21,7 +21,7 @@ export const MapDialog: FC<MapDialogProps> = ({
             sendGoogleEvent('opened map', options)
             setIsOpen(true)
           }}
-          className="h-[2em] uppercase underline decoration-[1.5px] underline-offset-2"
+          className="h-[2em] font-sansText uppercase underline decoration-[1.8px] underline-offset-2"
         >
           {text}
         </button>

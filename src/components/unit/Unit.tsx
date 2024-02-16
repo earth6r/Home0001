@@ -92,7 +92,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           {unit?.summary && unit.summary.length > 0 && (
             <div className="mt-ydouble md:mt-0">
               <p className="text-h4 mb-y md:mb-yhalf">Overview</p>
-              <RichText blocks={unit?.summary} className="max-w-[500px]" />
+              <RichText
+                blocks={unit?.summary}
+                className="font-medium max-w-[500px]"
+              />
             </div>
           )}
 
@@ -129,7 +132,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="md:hidden md:pr-menu mt-y mb-ydouble pr-menu">
+          <div className="md:hidden md:pr-menu my-ydouble pr-menu">
             <button
               onClick={() => setInquiryOpen(true)}
               className={classNames(
@@ -157,7 +160,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
           {unit?.layoutImages && (
             <>
-              <p className="text-h4 mb-y md:my-y">Plans:</p>
+              <p className="text-h4 mb-y md:mt-ydouble">Plans:</p>
               <ImageCarousel
                 index="1"
                 pagination={true}
