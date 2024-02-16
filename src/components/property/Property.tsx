@@ -11,11 +11,11 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   return (
-    <div className={classNames(className, 'md:pl-x')}>
-      <h2 className="mb-ydouble px-x md:px-0 text-h1 md:text-center pr-menu md:pr-x">
+    <div className={classNames(className)}>
+      <h2 className="mb-ydouble pl-x text-h1 md:text-center pr-menu md:px-x">
         Home0001: {property?.title}
       </h2>
-      <div className="md:grid md:grid-cols-2 gap-y md:col-start-1 block relative">
+      <div className="md:grid md:grid-cols-2 gap-y md:col-start-1 block relative md:pl-x">
         <div className="flex flex-col md:col-span-1 md:justify-start md:items-start md:sticky top-[var(--header-height)] left-0 md:h-[64vw] px-x md:px-0">
           {property?.image && (
             <div className="col-span-2 block relative w-full mb-ydouble md:mb-y z-base">
@@ -58,14 +58,14 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 
       {!block && (
         <div className="mx-x md:mx-0 md:pt-0">
-          <div className="w-auto md:mr-x mt-ydouble pt-ydouble border-top"></div>
-          <h2 className="text-h3 md:text-h1 md:mr-x md:text-center">
+          <div className="w-auto mt-ydouble pt-ydouble border-top"></div>
+          <h2 className="text-h3 md:text-h1 md:px-x md:text-center">
             Our Next Releases:
           </h2>
           {property?.unitsList && (
             <>
               {property?.availableText && (
-                <div className="mt-9 md:mr-x uppercase">
+                <div className="mt-9 md:px-x uppercase">
                   {property?.availableText}
                 </div>
               )}

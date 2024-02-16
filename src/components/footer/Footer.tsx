@@ -21,7 +21,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         <p className="font-medium tracking-details text-xs uppercase">{`HOME0001`}</p>
       </div>
 
-      <div className="md:grid md:grid-cols-3">
+      <div className="md:grid md:grid-cols-3 md:items-end">
         <ul className="flex flex-col gap-y w-full pb-y md:pb-0">
           {footerMenu?.items?.slice(0, 3).map(({ _key, text, link }) => {
             return text && link ? (

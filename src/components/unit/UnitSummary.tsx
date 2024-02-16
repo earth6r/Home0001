@@ -72,13 +72,11 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
 
   return (
     <li className={classNames(className)}>
-      <div
-        className={classNames(border ? 'border-top pt-ydouble md:mr-x' : '')}
-      ></div>
+      <div className={classNames(border ? 'border-top pt-ydouble' : '')}></div>
       <div
         className={classNames(
           unit.available ? '' : 'bg-white shadow-none opacity-30',
-          `w-auto flex-col pl-x md:pl-0`
+          `w-auto flex-col pl-x`
         )}
       >
         <div className="z-above">
