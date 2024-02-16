@@ -65,7 +65,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             )}
           </div>
 
-          <div className="hidden md:block md:pr-menu mt-y mb-ydouble">
+          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
             {unit?.calendarLink && (
               <SanityLink externalLink={unit.calendarLink}>
                 <button
