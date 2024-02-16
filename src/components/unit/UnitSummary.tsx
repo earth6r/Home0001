@@ -88,8 +88,8 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 index="0"
                 slides={unit?.photographs}
                 carousel={true}
-                className="mb-3 md:mb-y pr-x"
                 pagination={true}
+                className="mb-3 md:mb-y pr-x"
                 placement="unit summary images"
               />
             )}
