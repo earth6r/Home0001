@@ -114,9 +114,7 @@ export const Accordion: FC<AccordionProps> = ({
                     {text && (
                       <RichText
                         blocks={text}
-                        className={classNames(
-                          readMore ? 'pr-menu md:pr-0' : ''
-                        )}
+                        className={classNames(readMore ? 'md:pr-0' : '')}
                       />
                     )}
 

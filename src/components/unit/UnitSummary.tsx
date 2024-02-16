@@ -99,8 +99,10 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                   <p className="text-h4 mb-y md:mb-ydouble">{unit.title}</p>
                 )}
 
-                <p className="font-medium">{unit?.propertyType?.typeTitle}</p>
-                <p className="font-medium">
+                <p className="font-medium tracking-details">
+                  {unit?.propertyType?.typeTitle}
+                </p>
+                <p className="font-medium tracking-details">
                   {unit?.hidePrice
                     ? 'Price upon request'
                     : cryptoMode
@@ -109,7 +111,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                       } BTC / ${cryptoPrice[0]} ETH`
                     : unit?.price}
                 </p>
-                <p className="font-medium">{unit?.area}</p>
+                <p className="font-medium tracking-details">{unit?.area}</p>
               </div>
 
               {unit.slug && (
