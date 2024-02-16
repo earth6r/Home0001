@@ -25,6 +25,7 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   arrows?: boolean
   perView?: number
   fullWidth?: boolean
+  expanded?: boolean
   slides?: (Media & { _key: string })[]
   pagination?: boolean
   placement?:
@@ -51,8 +52,8 @@ const ImageSlide: FC<ImageSlideProps> = ({
     <div
       className={classNames(
         className,
-        fullWidth ? '' : 'md:max-w-[346px]',
-        'block relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none'
+        fullWidth ? 'md:h-[39vw]' : 'md:max-w-[346px]',
+        'block relative w-full h-full max-h-full overflow-hidden cursor-grab active:cursor-grabbing select-none'
       )}
     >
       <SanityMedia
@@ -62,9 +63,9 @@ const ImageSlide: FC<ImageSlideProps> = ({
           quality: 9,
           priority: true,
           sizes: '(max-width: 768px) 100vw, 800px',
-          style: { width: 'auto', height: '100%' },
           lqip: image?.asset?.metadata?.lqip,
         }}
+        className="w-full md:w-auto min-w-full h-auto md:h-full object-cover"
         onLoadingComplete={() => lastIndex && lenis.resize()}
       />
     </div>
@@ -78,6 +79,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   fullWidth,
   placement,
   pagination,
+  expanded,
   className,
 }) => {
   const [activeNav, setActiveNav] = useState(false)
@@ -151,15 +153,18 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                 }
               : false
           }
-          className="w-full md:w-auto max-w-[unset] md:h-full ml-0 md:mx-auto overflow-visible"
+          className={classNames(
+            expanded ? 'md:hidden' : '',
+            'ml-0 md:mx-auto overflow-visible'
+          )}
         >
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide
               key={`${_key}-${alt}`}
               className={classNames(
-                carousel ? 'md:h-full' : '',
-                fullWidth ? 'md:h-full' : 'md:w-[346px] h-[373px] md:h-[462px]',
-                'w-full'
+                carousel ? '' : '',
+                fullWidth ? 'md:h-auto' : 'md:w-[346px] md:h-[462px]',
+                'w-full h-[380px]'
               )}
             >
               {image && alt && (
@@ -171,13 +176,15 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       }`}
                       data-pswp-width={1000}
                       data-pswp-height={1100}
-                      className={classNames('overflow-hidden')}
+                      className={classNames('max-h-full overflow-hidden')}
                     >
                       <ImageSlide
                         image={image as any}
                         lastIndex={index === slides.length - 1}
                         alt={alt}
+                        fullWidth={fullWidth}
                         className={classNames(
+                          fullWidth ? '' : 'md:h-[462px]',
                           index - 1 === slides.length ? 'relative right-x' : ''
                         )}
                       />
@@ -231,6 +238,25 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           {slides && slides[0].alt && (
             <ImageSlide image={slides[0].image as any} alt={slides[0].alt} />
           )}
+        </div>
+      )}
+
+      {expanded && slides && (
+        <div className="hidden md:flex flex-wrap gap-y">
+          {slides.map(({ _key, image, alt }) => (
+            <div key={`${_key}-${alt}-expanded`}>
+              <SanityMedia
+                image={image as any}
+                imageProps={{
+                  alt: alt || 'expanded',
+                  quality: 7,
+                  priority: true,
+                  sizes: '(max-width: 768px) 100vw, 800px',
+                }}
+                className="w-full h-auto"
+              />
+            </div>
+          ))}
         </div>
       )}
     </div>

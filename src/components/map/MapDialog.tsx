@@ -13,7 +13,7 @@ export const MapDialog: FC<MapDialogProps> = ({
 
   return (
     <div className={className}>
-      <div className="flex items-center h-[1em] mt-y">
+      <div className="flex items-center gap-[3px] hover:gap-[6px] h-[1em] mt-y transition-all duration-300">
         <button
           aria-label={`Open Map`}
           onClick={() => {
@@ -21,7 +21,7 @@ export const MapDialog: FC<MapDialogProps> = ({
             sendGoogleEvent('opened map', options)
             setIsOpen(true)
           }}
-          className="h-[2em] font-sansText uppercase underline decoration-[1.8px] underline-offset-2"
+          className="h-[2em] font-sansText uppercase underline decoration-[2px] underline-offset-2"
         >
           {text}
         </button>
@@ -29,7 +29,7 @@ export const MapDialog: FC<MapDialogProps> = ({
           width="16"
           height="12"
           fill="black"
-          className="ml-[3px] mt-[1px] transform -rotate-45"
+          className="mt-[1px] transform -rotate-45"
         />
       </div>
 
