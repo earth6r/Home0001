@@ -38,7 +38,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   }, [unit])
 
   return (
-    <div className={classNames(className, 'overflow-x-hidden')}>
+    <div className={classNames(className)}>
       <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x px-x md:pr-0">
         <div className="col-span-1 order-2 md:order-1 pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0">
@@ -165,6 +165,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 index="1"
                 pagination={true}
                 carousel={false}
+                expanded={true}
                 slides={unit?.layoutImages}
                 className="w-full overflow-hidden"
                 placement="unit layouts"
@@ -190,7 +191,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             ))}
         </div>
 
-        <div className="order-1 md:col-start-2 xl:col-start-3">
+        <div className="order-1 md:col-start-2 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:left-0 md:h-[45vw]">
           {unit?.photographs && (
             <ImageCarousel
               index="0"
