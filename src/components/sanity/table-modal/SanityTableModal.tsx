@@ -51,7 +51,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
           lenis.resize()
         }}
       >
-        <div className="pt-header pb-[6rem] md:pb-ydouble px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
+        <div className="pt-header pb-[6rem] md:pb-ydouble px-x h-full flex flex-col text-sm overflow-y-scroll">
           <div>
             {table.rows &&
               table.rows.length > 0 &&
