@@ -79,7 +79,7 @@ const Pane: FC<PaneProps> = ({
               {currentStep === 0 && (
                 <>
                   {typeof copy === 'string' ? (
-                    <p className="mb-yhalf text-h3">{copy}</p>
+                    <p className="mb-yhalf text-h4">{copy}</p>
                   ) : (
                     copy && (
                       <RichText
@@ -98,7 +98,7 @@ const Pane: FC<PaneProps> = ({
               {currentStep !== 0 && (
                 <>
                   {typeof copy === 'string' ? (
-                    <p className="mb-yhalf text-h3">{copy}</p>
+                    <p className="mb-yhalf text-h4">{copy}</p>
                   ) : (
                     copy && (
                       <RichText
@@ -149,7 +149,7 @@ const Pane: FC<PaneProps> = ({
           ) : null}
 
           <button
-            className="relative flex justify-between items-center w-full md:w-btnWidth px-x tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            className="relative flex justify-between items-center w-full md:w-btnWidth px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
             type={buttonType || 'submit'}
             disabled={isSubmitting}
             onClick={onClick}

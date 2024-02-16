@@ -52,7 +52,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
         }}
       >
         <div className="py-[19px] md:py-[33px] px-x md:px-xhalf h-full flex flex-col text-sm overflow-y-scroll">
-          <div className="pt-ydouble">
+          <div className="pt-page">
             {table.rows &&
               table.rows.length > 0 &&
               table.rows.map(

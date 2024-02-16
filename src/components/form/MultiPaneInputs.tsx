@@ -151,7 +151,7 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
 
       {broker && (
         <button
-          className="md:max-w-[var(--btn-width)] mt-y pb-[2px] text-right font-bold text-md tracking-details uppercase underline decoration-[1.5px] underline-offset-2"
+          className="md:max-w-[var(--btn-width)] mt-y pb-[2px] text-right font-bold text-md tracking-details uppercase underline decoration-[1.8px] underline-offset-2"
           onClick={() => setBrokerInquiryOpen(true)}
         >
           Are you a realtor?
@@ -175,7 +175,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
             {...register('locations_of_interest', { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-details"
             htmlFor={name}
           >
             {label}
@@ -192,7 +192,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-details"
           htmlFor={'Else'}
         >
           {`Somewhere else`}
