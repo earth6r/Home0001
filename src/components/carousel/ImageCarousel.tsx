@@ -25,7 +25,6 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   arrows?: boolean
   perView?: number
   fullWidth?: boolean
-  expanded?: boolean
   slides?: (Media & { _key: string })[]
   pagination?: boolean
   placement?:
@@ -79,7 +78,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   fullWidth,
   placement,
   pagination,
-  expanded,
   className,
 }) => {
   const [activeNav, setActiveNav] = useState(false)
@@ -153,16 +151,12 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                 }
               : false
           }
-          className={classNames(
-            expanded ? 'md:hidden' : '',
-            'ml-0 md:mx-auto overflow-visible'
-          )}
+          className={classNames('ml-0 md:mx-auto overflow-visible')}
         >
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide
               key={`${_key}-${alt}`}
               className={classNames(
-                carousel ? '' : '',
                 fullWidth ? 'md:h-auto' : 'md:w-[346px] md:h-[462px]',
                 'w-full h-[380px]'
               )}
@@ -192,8 +186,8 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                   ) : (
                     <div
                       className={classNames(
-                        fullWidth ? '' : 'md:h-[462px]',
-                        'absolute w-full h-full'
+                        fullWidth ? '' : 'absolute',
+                        'w-full'
                       )}
                     >
                       <ImageSlide
@@ -202,6 +196,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(
+                          'md:h-[462px]',
                           index - 1 === slides.length ? 'md:mr-x' : ''
                         )}
                       />
@@ -238,25 +233,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           {slides && slides[0].alt && (
             <ImageSlide image={slides[0].image as any} alt={slides[0].alt} />
           )}
-        </div>
-      )}
-
-      {expanded && slides && (
-        <div className="hidden md:flex flex-wrap gap-y">
-          {slides.map(({ _key, image, alt }) => (
-            <div key={`${_key}-${alt}-expanded`}>
-              <SanityMedia
-                image={image as any}
-                imageProps={{
-                  alt: alt || 'expanded',
-                  quality: 7,
-                  priority: true,
-                  sizes: '(max-width: 768px) 100vw, 800px',
-                }}
-                className="w-full h-auto"
-              />
-            </div>
-          ))}
         </div>
       )}
     </div>
