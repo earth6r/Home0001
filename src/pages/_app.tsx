@@ -14,8 +14,8 @@ import 'swiper/css/virtual'
 import '../styles/main.css'
 import '../styles/toast.css'
 import { AnimatePresence } from 'framer-motion'
-import { useLenis } from '@studio-freight/react-lenis'
 import { useRouter } from 'next/router'
+import { LenisInstance, useLenis } from '@studio-freight/react-lenis'
 
 const PreviewProvider = dynamic(
   () => import('@components/preview/PreviewProvider')
@@ -30,8 +30,10 @@ function App({
 }>) {
   const { draftMode, token } = pageProps
   const { query, events, asPath } = useRouter()
+  const lenis = useLenis()
 
-  const handleRouteChange = (path: string) => {
+  const handleRouteChange = (path: string, lenis: LenisInstance) => {
+    if (lenis) lenis.start()
     let routes = sessionStorage.getItem('routes')
     if (!routes) routes = '[]'
 
@@ -54,12 +56,12 @@ function App({
   }, [query])
 
   useEffect(() => {
-    events.on('routeChangeComplete', handleRouteChange)
+    events.on('routeChangeComplete', () => handleRouteChange(asPath, lenis))
 
     return () => {
-      events.off('routeChangeComplete', handleRouteChange)
+      events.off('routeChangeComplete', () => handleRouteChange(asPath, lenis))
     }
-  }, [events])
+  }, [events, asPath, lenis])
 
   useEffect(() => {
     const paths: string[] = [`${asPath}`]
