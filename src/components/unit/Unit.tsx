@@ -41,7 +41,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
     <div className={classNames(className)}>
       <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x pl-x md:px-x md:pr-0">
-        <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[4/5.1] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0">
+        <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[4/5.1] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 z-base">
           <h2 className="hidden md:inline-block text-h2 mb-y">{unit?.title}</h2>
 
           <div className="rich-text">
