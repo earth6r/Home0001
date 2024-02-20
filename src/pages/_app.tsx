@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import { Layout } from '@components/layout'
 import { Scripts } from '@components/scripts'
 import ContextProvider from '@/contexts'
-// import { IntercomProvider } from '@components/intercom'
 
 import 'focus-visible'
 import 'swiper/css'
