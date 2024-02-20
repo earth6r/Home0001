@@ -40,8 +40,8 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   return (
     <div className={classNames(className)}>
       <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x px-x md:pr-0">
-        <div className="col-span-1 order-2 md:order-1 xl:sticky md:top-[var(--header-height)] md:left-0 md:h-[45vw] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x pl-x md:px-x md:pr-0">
+        <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[4/5.1] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0">
           <h2 className="hidden md:inline-block text-h2 mb-y">{unit?.title}</h2>
 
           <div className="rich-text">
@@ -109,15 +109,15 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               unit={unit.title}
             />
           )}
-        </div>
 
-        <div className="order-3 md:order-2 xl:order-1 md:col-start-1 xl:col-start-2 mt-ydouble md:mt-0">
           {unit?.unitDetails && (
             <>
-              <p className="text-h4 mb-y md:mb-yhalf">Details</p>
+              <p className="hidden md:block xl:hidden text-h4 mt-ydouble mb-yhalf">
+                Details
+              </p>
               <RichText
                 blocks={unit?.unitDetails}
-                className="pr-menu md:pr-0"
+                className="hidden md:block xl:hidden pr-menu md:pr-0"
               />
             </>
           )}
@@ -127,7 +127,31 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               title="Inventory"
               inventory={unit.inventory}
               buttonLabel="View Inventory"
-              className="flex mt-y"
+              className="hidden md:flex xl:hidden mt-y"
+              unit={unit.title}
+            />
+          )}
+        </div>
+
+        <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 mt-ydouble md:mt-0">
+          {unit?.unitDetails && (
+            <>
+              <p className="md:hidden xl:block text-h4 mb-y md:mb-yhalf">
+                Details
+              </p>
+              <RichText
+                blocks={unit?.unitDetails}
+                className="md:hidden xl:block pr-menu md:pr-0"
+              />
+            </>
+          )}
+
+          {unit?.inventory && (
+            <SanityInventoryModal
+              title="Inventory"
+              inventory={unit.inventory}
+              buttonLabel="View Inventory"
+              className="inline-block md:hidden xl:flex mt-y"
               unit={unit.title}
             />
           )}
@@ -160,14 +184,13 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
           {unit?.layoutImages && (
             <>
-              <p className="text-h4 mb-y md:mt-ydouble">Plans:</p>
+              <p className="text-h4 mb-y xl:mt-ydouble">Plans:</p>
               <ImageCarousel
-                index="1"
                 pagination={true}
-                fullWidth={true}
+                perView={1}
                 carousel={false}
                 slides={unit?.layoutImages}
-                className="w-full overflow-hidden"
+                className="w-full pr-x md:pr-0 overflow-hidden"
                 placement="unit layouts"
               />
             </>
@@ -191,15 +214,14 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             ))}
         </div>
 
-        <div className="order-1 md:col-start-2 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:left-0 md:h-[45vw]">
+        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0 md:aspect-[4/5.1]">
           {unit?.photographs && (
             <ImageCarousel
-              index="0"
               pagination={true}
-              fullWidth={true}
+              perView={1}
               carousel={true}
               slides={unit?.photographs}
-              className="w-full h-full md:pr-x overflow-hidden"
+              className="w-full h-full pr-x overflow-hidden"
               placement="unit images"
             />
           )}
