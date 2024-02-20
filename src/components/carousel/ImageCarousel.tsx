@@ -20,10 +20,10 @@ export interface ImageSlideProps extends SanityMediaProps {
 }
 
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
-  index?: string
   carousel?: boolean
   arrows?: boolean
   perView?: number
+  perViewMobile?: number
   fullWidth?: boolean
   slides?: (Media & { _key: string })[]
   pagination?: boolean
@@ -51,8 +51,8 @@ const ImageSlide: FC<ImageSlideProps> = ({
     <div
       className={classNames(
         className,
-        fullWidth ? 'md:h-[39vw]' : 'md:max-w-[346px]',
-        'block relative w-full h-full max-h-full overflow-hidden cursor-grab active:cursor-grabbing select-none'
+        fullWidth ? 'md:h-[431px] md:w-auto' : '',
+        'block relative w-full h-auto overflow-hidden cursor-grab active:cursor-grabbing select-none'
       )}
     >
       <SanityMedia
@@ -64,7 +64,10 @@ const ImageSlide: FC<ImageSlideProps> = ({
           sizes: '(max-width: 768px) 100vw, 800px',
           lqip: image?.asset?.metadata?.lqip,
         }}
-        className="w-full md:w-auto min-w-full h-auto md:h-full object-cover"
+        className={classNames(
+          fullWidth ? 'md:h-[431px] md:w-auto' : '',
+          'w-full h-auto object-cover'
+        )}
         onLoadingComplete={() => lastIndex && lenis.resize()}
       />
     </div>
@@ -75,6 +78,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   carousel,
   slides,
   perView,
+  perViewMobile,
   fullWidth,
   placement,
   pagination,
@@ -85,10 +89,10 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
-      slidesPerView: perView || 1.132,
+      slidesPerView: perViewMobile || 1.132,
     },
     [SCREENS.md]: {
-      slidesPerView: fullWidth ? 1 : 'auto',
+      slidesPerView: perView || 'auto',
     },
   }
 
@@ -151,14 +155,14 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                 }
               : false
           }
-          className={classNames('ml-0 md:mx-auto overflow-visible')}
+          className={classNames('ml-0 md:mx-auto overflow-visible cursor-grab')}
         >
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide
               key={`${_key}-${alt}`}
               className={classNames(
-                fullWidth ? 'md:h-auto' : 'md:w-[346px] md:h-[462px]',
-                'w-full h-[380px]'
+                fullWidth ? 'w-full md:w-auto' : 'aspect-[4/5]',
+                ''
               )}
             >
               {image && alt && (
@@ -170,7 +174,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       }`}
                       data-pswp-width={1000}
                       data-pswp-height={1100}
-                      className={classNames('max-h-full overflow-hidden')}
+                      className={classNames('overflow-hidden')}
                     >
                       <ImageSlide
                         image={image as any}
@@ -178,7 +182,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         alt={alt}
                         fullWidth={fullWidth}
                         className={classNames(
-                          fullWidth ? '' : 'md:h-[462px]',
+                          fullWidth ? 'md:h-[431px]' : '',
                           index - 1 === slides.length ? 'relative right-x' : ''
                         )}
                       />
@@ -186,8 +190,8 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                   ) : (
                     <div
                       className={classNames(
-                        fullWidth ? '' : 'absolute',
-                        'w-full'
+                        fullWidth ? '' : 'absolute aspect-[4/5]',
+                        ''
                       )}
                     >
                       <ImageSlide
@@ -196,7 +200,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(
-                          'md:h-[462px]',
+                          'w-full',
                           index - 1 === slides.length ? 'md:mr-x' : ''
                         )}
                       />

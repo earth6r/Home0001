@@ -22,10 +22,9 @@ export const CarouselBlock: FC<CarouselBlockProps> = ({
     >
       {images && images.length > 0 && (
         <ImageCarousel
-          index="0"
           slides={images}
           carousel={false}
-          perView={1}
+          perView={2}
           className="w-full"
           placement="property details"
         />

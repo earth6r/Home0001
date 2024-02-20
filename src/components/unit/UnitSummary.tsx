@@ -83,10 +83,10 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
           <div className="flex flex-col relative overflow-x-hidden">
             {unit?.photographs && unit?.photographs.length > 0 && (
               <ImageCarousel
-                index="0"
                 slides={unit?.photographs}
                 carousel={true}
                 pagination={true}
+                fullWidth={true}
                 className="mb-3 md:mb-y pr-x"
                 placement="unit summary images"
               />
