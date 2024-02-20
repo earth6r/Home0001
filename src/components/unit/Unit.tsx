@@ -40,11 +40,11 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   return (
     <div className={classNames(className)}>
       <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x pl-x md:px-x md:pr-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
         <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[4/5.1] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
           <h2 className="hidden md:inline-block text-h2 mb-y">{unit?.title}</h2>
 
-          <div className="rich-text">
+          <div className="rich-text px-x md:px-0">
             {unit?.propertyType && (
               <p className="small uppercase">{unit?.propertyType?.typeTitle}</p>
             )}
@@ -90,7 +90,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           </div>
 
           {unit?.summary && unit.summary.length > 0 && (
-            <div className="mt-ydouble md:mt-0">
+            <div className="px-x md:px-0 mt-ydouble md:mt-0">
               <p className="text-h4 mb-y md:mb-yhalf">Overview</p>
               <RichText
                 blocks={unit?.summary}
@@ -105,19 +105,19 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               table={unit.factSheet}
               modalType="fact sheet"
               buttonLabel="View Fact Sheet"
-              className="inline-block mt-y"
+              className="inline-block px-x md:px-0 mt-y"
               unit={unit.title}
             />
           )}
 
           {unit?.unitDetails && (
             <>
-              <p className="hidden md:block xl:hidden text-h4 mt-ydouble mb-yhalf">
+              <p className="hidden md:block xl:hidden text-h4 px-x md:px-0 mt-ydouble mb-yhalf">
                 Details
               </p>
               <RichText
                 blocks={unit?.unitDetails}
-                className="hidden md:block xl:hidden pr-menu md:pr-0"
+                className="hidden md:block xl:hidden pr-0"
               />
             </>
           )}
@@ -136,12 +136,12 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
         <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 mt-ydouble md:mt-0 md:z-modal">
           {unit?.unitDetails && (
             <>
-              <p className="md:hidden xl:block text-h4 mb-y md:mb-yhalf">
+              <p className="md:hidden xl:block text-h4 px-x md:px-0 mb-y md:mb-yhalf">
                 Details
               </p>
               <RichText
                 blocks={unit?.unitDetails}
-                className="md:hidden xl:block pr-menu md:pr-0"
+                className="md:hidden xl:block pl-x pr-menu md:px-0"
               />
             </>
           )}
@@ -151,12 +151,12 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               title="Inventory"
               inventory={unit.inventory}
               buttonLabel="View Inventory"
-              className="inline-block md:hidden xl:flex mt-y"
+              className="inline-block md:hidden xl:flex px-x md:px-0 mt-y"
               unit={unit.title}
             />
           )}
 
-          <div className="md:hidden md:pr-menu my-ydouble pr-menu">
+          <div className="md:hidden my-ydouble pl-x pr-menu">
             <button
               onClick={() => setInquiryOpen(true)}
               className={classNames(
@@ -184,20 +184,20 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
           {unit?.layoutImages && (
             <>
-              <p className="text-h4 mb-y xl:mt-ydouble">Plans:</p>
+              <p className="text-h4 px-x md:px-0 mb-y xl:mt-ydouble">Plans:</p>
               <ImageCarousel
                 pagination={true}
                 perView={1}
                 carousel={false}
                 slides={unit?.layoutImages}
-                className="w-full pr-x md:pr-0 overflow-hidden"
+                className="w-full px-x md:px-0 overflow-hidden"
                 placement="unit layouts"
               />
             </>
           )}
 
           {unit?.moreInfo && (
-            <div className="mt-y">
+            <div className="px-x md:px-0 mt-y">
               <RichText blocks={unit?.moreInfo} />
             </div>
           )}
@@ -209,7 +209,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 header={header}
                 text={text}
                 location={{ property: 'property', unit: 'unit' }}
-                className="mt-2 mb-8 border-x-0 border-t-0"
+                className="px-x md:px-0 mt-y mb-ydouble border-x-0 border-t-0"
               />
             ))}
         </div>
@@ -221,7 +221,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               perView={1}
               carousel={true}
               slides={unit?.photographs}
-              className="w-full h-full pr-x overflow-hidden"
+              className="w-full h-full px-x md:pl-0 overflow-hidden"
               placement="unit images"
             />
           )}

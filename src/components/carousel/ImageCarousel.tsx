@@ -181,7 +181,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         alt={alt}
                         fullWidth={fullWidth}
                         className={classNames(
-                          fullWidth ? 'md:h-[431px]' : '',
                           index - 1 === slides.length ? 'relative right-x' : ''
                         )}
                       />

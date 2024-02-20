@@ -101,7 +101,8 @@ export const Header: FC<HeaderProps> = ({
       id="header"
       className={classNames(
         className,
-        'fixed w-full pointer-events-none font-medium tracking-details text-xs z-header'
+        menuOpen ? 'z-menu' : 'z-header',
+        'fixed w-full pointer-events-none font-medium tracking-details text-xs'
       )}
     >
       <header
