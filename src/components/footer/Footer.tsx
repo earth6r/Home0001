@@ -14,69 +14,34 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        'md:grid md:grid-cols-2 md:gap-xdouble px-x my-ydouble'
+        'xl:grid xl:grid-cols-2 xl:gap-xdouble px-x my-ydouble font-sansText font-medium tracking-details text-xs uppercase'
       )}
     >
-      <div className="hidden md:block">
-        <p className="font-medium tracking-details text-xs uppercase">{`HOME0001`}</p>
+      <div className="hidden xl:flex xl:flex-wrap gap-y">
+        <p className="w-full">{`HOME0001`}</p>
+        <p className="w-full">{`New york · los angeles · berlin · london · paris · mexico city`}</p>
       </div>
 
-      <div className="md:grid md:grid-cols-3 md:items-end">
-        <ul className="flex flex-col gap-y w-full pb-y md:pb-0">
-          {footerMenu?.items?.slice(0, 3).map(({ _key, text, link }) => {
+      <div className="xl:flex xl:flex-wrap xl:w-full xl:gap-y">
+        <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full pb-y xl:pb-0">
+          {footerMenu?.items?.map(({ _key, text, link }) => {
             return text && link ? (
-              <li
-                key={_key}
-                className="font-medium text-xs tracking-details uppercase"
-              >
+              <li key={_key}>
                 <SanityLink text={text} {...(link as SanityLinkType)} />
               </li>
             ) : null
           })}
+          <li className="hidden xl:inline-block">
+            <span>&copy;{` ${year} HOME0001`}</span>
+          </li>
         </ul>
 
-        <ul className="flex flex-col gap-y w-full pb-ydouble md:pb-0">
-          {footerMenu?.items
-            ?.slice(3, footerMenu.items.length)
-            .map(({ _key, text, link }, index) => {
-              return text && link ? (
-                <Fragment key={_key}>
-                  <li className="font-medium text-xs tracking-details uppercase">
-                    <SanityLink text={text} {...(link as SanityLinkType)} />
-                  </li>
-                  {footerMenu.items &&
-                    index === footerMenu.items.length - 4 && (
-                      <li className="md:hidden font-medium text-xs tracking-details">
-                        <button
-                          onClick={() => setBrokerInquiryOpen(true)}
-                          className="uppercase"
-                        >
-                          Are you a realtor?
-                        </button>
-                      </li>
-                    )}
-                </Fragment>
-              ) : null
-            })}
-        </ul>
+        <div className="xl:flex xl:justify-between xl:items-start w-full leading-[1.3] xl:leading-none">
+          <p className="xl:hidden">&copy;{` ${year} HOME0001`}</p>
 
-        <div className="md:flex md:justify-between md:items-start w-full text-xs tracking-details leading-[1.3] md:leading-none">
-          <p className="md:hidden font-sansText">&copy;{` ${year} HOME0001`}</p>
-
-          <p className="font-medium">
-            <span className="block md:hidden">NY DRE #10351211814</span>
-            <span className="block md:hidden md:mt-4">CA DRE #01427385</span>
-
-            <span className="hidden md:block">
-              NY DRE
-              <br></br>
-              #10351211814
-            </span>
-            <span className="hidden md:block md:mt-4">
-              CA DRE
-              <br></br>
-              #01427385
-            </span>
+          <p className="xl:flex xl:justify-between xl:w-full">
+            <span className="block xl:inline-block">NY DRE #10351211814</span>
+            <span className="block xl:inline-block">CA DRE #01427385</span>
           </p>
         </div>
       </div>
