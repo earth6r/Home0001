@@ -21,7 +21,7 @@
 .rich-text.inventory > p,
 .rich-text > ol + *,
 .rich-text > blockquote + * {
-  margin-top: calc(var(--rich-text-y) * 1.666);
+  margin-top: calc(var(--rich-text-y) * 0.5);
 }
 
 .rich-text.inventory > ul {
