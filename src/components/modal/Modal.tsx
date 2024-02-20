@@ -30,7 +30,7 @@ export const Modal: FC<ModalProps> = ({
     {isOpen && (
       <>
         <div
-          className="fixed inset-0 flex items-center justify-center cursor-pointer"
+          className="fixed inset-0 flex items-center justify-center cursor-pointer z-modal"
           onClick={onClose}
         ></div>
 
@@ -53,12 +53,14 @@ export const Modal: FC<ModalProps> = ({
                 ></motion.div>
               )}
             </AnimatePresence>
-            <span className="uppercase font-medium">{title}</span>
+            <span className="inline-block uppercase font-medium z-modal">
+              {title}
+            </span>
             <CloseButton onClose={onClose} />
           </div>
           <div
             className={classNames(
-              'absolute w-full md:w-[390px] h-full top-0 right-0 overflow-scroll bg-white'
+              'absolute w-full md:w-[390px] h-full top-0 right-0 overflow-scroll bg-white z-above'
             )}
           >
             <div className="relative w-full h-full" data-lenis-prevent>
