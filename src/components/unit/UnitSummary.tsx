@@ -76,7 +76,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
       <div
         className={classNames(
           unit.available ? '' : 'bg-white shadow-none opacity-30',
-          `w-auto flex-col pl-x`
+          `w-auto flex-col`
         )}
       >
         <div className="z-above">
@@ -87,11 +87,11 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 carousel={true}
                 pagination={true}
                 fullWidth={true}
-                className="mb-3 md:mb-y pr-x"
+                className="mb-3 md:mb-y px-x"
                 placement="unit summary images"
               />
             )}
-            <div className="block w-auto md:max-w-[calc(50vw-var(--space-x))] bg-darkgray py-x pl-x mr-y md:mr-0 text-md uppercase">
+            <div className="block w-auto md:max-w-[calc(50vw-var(--space-x))] bg-darkgray py-x pl-x ml-x mr-y md:mr-0 text-md uppercase">
               <div className="mb-y md:mb-ydouble">
                 {unit.title && (
                   <p className="text-h4 mb-y md:mb-ydouble">{unit.title}</p>
