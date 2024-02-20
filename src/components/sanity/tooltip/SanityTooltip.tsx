@@ -44,7 +44,7 @@ export const SanityTooltip: FC<SanityTooltipProps> = ({
         <a
           aria-label={`Open tooltip`}
           onClick={() => setIsOpen(true)}
-          className="inline hover:font-bold border-bottom"
+          className="inline hover:font-bold"
         >
           {props.linkedCopy}
         </a>
