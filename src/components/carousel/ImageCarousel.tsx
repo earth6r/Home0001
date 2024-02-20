@@ -161,8 +161,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             <SwiperSlide
               key={`${_key}-${alt}`}
               className={classNames(
-                fullWidth ? 'w-full md:w-auto' : 'aspect-[4/5]',
-                ''
+                fullWidth ? 'w-full md:w-auto' : 'aspect-[4/5]'
               )}
             >
               {image && alt && (
@@ -190,8 +189,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                   ) : (
                     <div
                       className={classNames(
-                        fullWidth ? '' : 'absolute aspect-[4/5]',
-                        ''
+                        fullWidth ? '' : 'absolute aspect-[4/5]'
                       )}
                     >
                       <ImageSlide
