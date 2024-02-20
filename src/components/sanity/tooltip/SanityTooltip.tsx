@@ -54,7 +54,6 @@ export const SanityTooltip: FC<SanityTooltipProps> = ({
           variants={{}}
           className="relative max-w-[calc(100vw-2rem)] md:max-w-[672px] w-full border-1 border-black border-solid left-x md:left-2 bg-white z-modal"
         >
-          <CloseButton onClose={() => setIsOpen(false)} />
           {props.tooltipContent && (
             <RichText
               blocks={props.tooltipContent}
