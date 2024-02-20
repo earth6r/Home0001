@@ -101,7 +101,9 @@ export const Header: FC<HeaderProps> = ({
       id="header"
       className={classNames(
         className,
-        menuOpen ? 'z-menu' : 'z-header',
+        menuOpen || waitlistOpen || inquiryOpen || brokerInquiryOpen
+          ? 'z-menu'
+          : 'z-header',
         'fixed w-full pointer-events-none font-medium tracking-details text-xs'
       )}
     >
