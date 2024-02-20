@@ -219,7 +219,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             ))}
         </div>
 
-        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0 md:aspect-[4/5.1] z-behind">
+        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0 md:aspect-[4/5.1]">
           {unit?.photographs && (
             <ImageCarousel
               pagination={true}
