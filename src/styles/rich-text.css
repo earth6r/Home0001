@@ -139,8 +139,9 @@
 }
 
 .rich-text p a,
-.richt-text li a {
-  border-bottom: 1.5px solid;
+.rich-text li a {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
   color: theme('colors.black');
 }
 
@@ -150,7 +151,8 @@
 }
 
 .rich-text a:focus-visible {
-  border-bottom: 1.5px solid;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 @media (hover: hover) {
