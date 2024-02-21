@@ -52,9 +52,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             )}
 
             <p className="small uppercase m-0">
-              {unit?.hidePrice
-                ? 'Price upon request'
-                : cryptoMode
+              {cryptoMode
                 ? `Price: ${unit?.price?.substring(1)} USDC / ${
                     cryptoPrice[1]
                   } BTC / ${cryptoPrice[0]} ETH`
