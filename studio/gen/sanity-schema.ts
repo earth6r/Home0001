@@ -1104,13 +1104,6 @@ export type NewsletterBlock = {
    *
    */
   successMessage?: RichText;
-
-  /**
-   * Confirmation Only — `boolean`
-   *
-   *
-   */
-  confirmationOnly?: boolean;
 };
 
 export type ContactBlock = {
@@ -1145,6 +1138,13 @@ export type TextBlock = {
    *
    */
   text?: RichText;
+
+  /**
+   * Yellow Background — `boolean`
+   *
+   * This will give the text block a full-width yellow background
+   */
+  yellowBackground?: boolean;
 };
 
 export type UnitBlock = {
@@ -1186,13 +1186,6 @@ export type WaitlistBlock = {
    *
    */
   successMessage?: RichText;
-
-  /**
-   * Confirmation Only — `boolean`
-   *
-   *
-   */
-  confirmationOnly?: boolean;
 };
 
 export type FlexWaitlistBlock = {
@@ -1224,13 +1217,6 @@ export type FlexWaitlistBlock = {
    *
    */
   successMessage?: RichText;
-
-  /**
-   * Confirmation Only — `boolean`
-   *
-   *
-   */
-  confirmationOnly?: boolean;
 
   /**
    * Form Panes — `array`
