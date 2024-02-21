@@ -218,6 +218,7 @@ export const PROPERTIES_QUERY = `
     slug,
     title,
     available,
+    hidePrice,
     price,
     cryptoPrice,
     area,
