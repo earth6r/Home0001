@@ -14,7 +14,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        'xl:grid xl:grid-cols-2 xl:gap-xdouble px-x my-ydouble font-sansText font-medium tracking-details text-xs uppercase'
+        'xl:grid xl:grid-cols-2 xl:gap-xdouble px-x my-ydouble font-medium tracking-details text-xs uppercase'
       )}
     >
       <div className="hidden xl:flex xl:flex-wrap gap-y">
