@@ -217,14 +217,14 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               width="80"
               fill="black"
               className={classNames(
-                'rotate-180 swiper-prev pointer-events-auto cursor-pointer'
+                'rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
               )}
             />
             <IconRightArrowBold
               width="80"
               fill="black"
               className={classNames(
-                'relative swiper-next pointer-events-auto cursor-pointer'
+                'relative swiper-next pointer-events-auto cursor-pointer hover:scale-95'
               )}
             />
           </div>

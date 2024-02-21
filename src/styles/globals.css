@@ -198,7 +198,7 @@ footer {
 
 .swiper-prev,
 .swiper-next {
-  @apply transition-opacity duration-200;
+  @apply transition-all duration-200;
 }
 
 .swiper-button-disabled {
