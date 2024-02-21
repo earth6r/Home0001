@@ -6,7 +6,16 @@ export default {
   type: 'object',
   title: 'Text Block',
   icon: BiText,
-  fields: [textField],
+  fields: [
+    textField,
+    {
+      name: 'yellowBackground',
+      type: 'boolean',
+      title: 'Yellow Background',
+      description:
+        'This will give the text block a full-width yellow background',
+    },
+  ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Text block' }),
   },

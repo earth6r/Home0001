@@ -16,7 +16,6 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   grid,
   audienceId,
   successMessage,
-  confirmationOnly,
   className,
 }) => {
   const {
@@ -29,22 +28,18 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   } = useForm({
     shouldUseNativeValidation: true,
   })
-  const [formSubmitted, setFormSubmitted] = useState(confirmationOnly || false)
-  const [fullWidth, setFullWidth] = useState(confirmationOnly || false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [fullWidth, setFullWidth] = useState(false)
 
   return (
     <Block
       className={classNames(
         className,
-        confirmationOnly
-          ? '-left-x w-[calc(100%+(var(--space-x)*2))]'
-          : grid
-          ? 'md:grid md:grid-cols-3 pr-menu'
-          : '',
+        grid ? 'md:grid md:grid-cols-3 pr-menu' : '',
         'relative mt-0'
       )}
     >
-      <div className={classNames('w-full')}>
+      <div className="w-full">
         <Waitlist
           waitlist={{
             header: header,

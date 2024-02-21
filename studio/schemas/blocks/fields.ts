@@ -61,18 +61,6 @@ export const successField = {
   title: 'Success Message',
 }
 
-export const confirmationOnlyField = {
-  name: 'confirmationOnly',
-  type: 'boolean',
-  title: 'Confirmation Only',
-}
-
 export const topFields = [titleField, slugField]
-export const newsletterFields = [
-  headerField,
-  textField,
-  idField,
-  successField,
-  confirmationOnlyField,
-]
+export const newsletterFields = [headerField, textField, idField, successField]
 export const contactFields = [headerField, textField, idField]
