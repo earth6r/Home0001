@@ -1104,6 +1104,13 @@ export type NewsletterBlock = {
    *
    */
   successMessage?: RichText;
+
+  /**
+   * Confirmation Only — `boolean`
+   *
+   *
+   */
+  confirmationOnly?: boolean;
 };
 
 export type ContactBlock = {
@@ -1179,6 +1186,13 @@ export type WaitlistBlock = {
    *
    */
   successMessage?: RichText;
+
+  /**
+   * Confirmation Only — `boolean`
+   *
+   *
+   */
+  confirmationOnly?: boolean;
 };
 
 export type FlexWaitlistBlock = {
@@ -1210,6 +1224,13 @@ export type FlexWaitlistBlock = {
    *
    */
   successMessage?: RichText;
+
+  /**
+   * Confirmation Only — `boolean`
+   *
+   *
+   */
+  confirmationOnly?: boolean;
 
   /**
    * Form Panes — `array`
