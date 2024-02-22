@@ -46,7 +46,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
           <div className="rich-text px-x md:px-0">
             {unit?.propertyType && (
-              <p className="small uppercase">{unit?.propertyType?.typeTitle}</p>
+              <p className="small uppercase leading-[1.3]">
+                {unit?.propertyType?.typeTitle}
+              </p>
             )}
 
             <p className="small uppercase m-0">

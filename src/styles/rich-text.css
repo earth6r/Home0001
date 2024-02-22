@@ -11,7 +11,7 @@
 }
 
 .rich-text.bold > p {
-  @apply font-sansText font-bold leading-[0.95] tracking-details;
+  @apply font-sansText leading-[1.1];
 }
 
 .rich-text > ul,
@@ -79,7 +79,7 @@
 }
 
 .rich-text p strong {
-  @apply font-sansText;
+  @apply font-sansText leading-[1.3];
 }
 
 .rich-text ul,
