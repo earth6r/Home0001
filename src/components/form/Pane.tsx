@@ -85,7 +85,7 @@ const Pane: FC<PaneProps> = ({
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'md:w-btnWidth mb-ydouble clear-both bold uppercase'
+                          'md:w-btnWidth mb-ydouble clear-both bold'
                         )}
                       />
                     )
@@ -104,7 +104,7 @@ const Pane: FC<PaneProps> = ({
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'md:w-btnWidth mb-ydouble clear-both bold uppercase'
+                          'md:w-btnWidth mb-ydouble clear-both bold'
                         )}
                       />
                     )

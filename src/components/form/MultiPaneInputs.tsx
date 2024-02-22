@@ -151,7 +151,7 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
 
       {broker && (
         <button
-          className="md:max-w-[var(--btn-width)] mt-y pb-[2px] text-right font-bold text-md tracking-details uppercase underline decoration-[2px] underline-offset-2"
+          className="md:max-w-[var(--btn-width)] mt-ydouble md:mt-y pb-[2px] text-left font-bold text-md tracking-normal underline decoration-[2px] underline-offset-2"
           onClick={() => setBrokerInquiryOpen(true)}
         >
           Are you a realtor?
