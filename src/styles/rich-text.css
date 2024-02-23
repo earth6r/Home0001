@@ -11,7 +11,7 @@
 }
 
 .rich-text.bold > p {
-  @apply font-sansText leading-[1.1];
+  @apply font-sansText font-bold leading-[1.1];
 }
 
 .rich-text > ul,
