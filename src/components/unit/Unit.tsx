@@ -91,7 +91,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
           {unit?.summary && unit.summary.length > 0 && (
             <div className="px-x md:px-0 mt-ydouble md:mt-0">
-              <p className="text-h4 mb-y md:mb-yhalf">Overview</p>
+              <p className="text-h4 mb-y md:mb-yhalf">Overview:</p>
               <RichText
                 blocks={unit?.summary}
                 className="font-medium max-w-[500px]"
@@ -137,7 +137,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           {unit?.unitDetails && (
             <>
               <p className="md:hidden xl:block text-h4 px-x md:px-0 mb-y md:mb-yhalf">
-                Details
+                Details:
               </p>
               <RichText
                 blocks={unit?.unitDetails}
