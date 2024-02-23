@@ -78,6 +78,10 @@
   @apply font-sansText text-xs font-bold;
 }
 
+.rich-text p.large {
+  @apply font-sansText text-bodyLg font-bold;
+}
+
 .rich-text p strong {
   @apply font-sansText leading-[1.3];
 }
