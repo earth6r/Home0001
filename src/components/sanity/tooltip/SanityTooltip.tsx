@@ -38,7 +38,7 @@ export const SanityTooltip: FC<SanityTooltipProps> = ({
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
       trigger="click"
-      placement="bottom-end"
+      placement="bottom"
     >
       <PopoverTrigger>
         <a
