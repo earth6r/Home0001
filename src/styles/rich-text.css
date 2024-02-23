@@ -83,7 +83,7 @@
 }
 
 .rich-text p strong {
-  @apply font-sansText leading-[1.3];
+  @apply font-sansText leading-[1.1];
 }
 
 .rich-text ul,
