@@ -146,7 +146,7 @@ export default {
         '.text-h2': {
           fontSize: theme('fontSize.xl'),
           fontWeight: '700',
-          lineHeight: '0.85',
+          lineHeight: '0.9',
           letterSpacing: theme('letterSpacing.header'),
           textTransform: 'uppercase',
         },
