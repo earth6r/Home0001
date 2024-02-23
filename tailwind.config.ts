@@ -37,6 +37,7 @@ export default {
         sm: ['14px', '1'], // read more
         md: ['16px', '1.1'], // body
         lg: ['16px', '0.9'], // h4
+        bodyLg: ['22px', '1.1'], // large paragraph rich text
         card: ['clamp(1.5rem, 1.294rem + 0.784vw, 2rem)', '0.9'], // property summary card
         header3: ['32px', '0.9'], // h3
         xl: ['clamp(2.5rem, 2.088rem + 1.569vw, 3.5rem)', '0.85'], // h2
