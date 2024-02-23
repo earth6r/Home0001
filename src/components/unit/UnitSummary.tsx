@@ -87,20 +87,18 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 carousel={true}
                 pagination={true}
                 fullWidth={true}
-                className="mb-3 md:mb-y px-x"
+                className="px-x"
                 placement="unit summary images"
               />
             )}
-            <div className="block w-auto md:max-w-[calc(50vw-var(--space-x))] bg-darkgray py-x pl-x ml-x mr-y md:mr-0 text-md uppercase">
-              <div className="mb-y md:mb-ydouble">
-                {unit.title && (
-                  <p className="text-h4 mb-y md:mb-ydouble">{unit.title}</p>
-                )}
+            <div className="block w-auto md:max-w-[calc(50vw-var(--space-x))] py-x ml-x mr-y md:mr-0 text-md uppercase">
+              <div className="mb-y">
+                {unit.title && <p className="text-h4 mb-y">{unit.title}</p>}
 
-                <p className="font-medium tracking-details">
+                <p className="font-medium mb-y">
                   {unit?.propertyType?.typeTitle}
                 </p>
-                <p className="font-medium tracking-details">
+                <p className="font-medium mb-y">
                   {unit?.hidePrice
                     ? 'Price upon request'
                     : cryptoMode
@@ -109,7 +107,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                       } BTC / ${cryptoPrice[0]} ETH`
                     : unit?.price}
                 </p>
-                <p className="font-medium tracking-details">{unit?.area}</p>
+                <p className="font-medium mb-y">{unit?.area}</p>
               </div>
 
               {unit.slug && (
@@ -121,7 +119,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 >
                   <button
                     className={classNames(
-                      `relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-btnWidth h-12 max-h-12 hover:invert bg-black text-white font-medium text-xs z-above p-4`
+                      `mt-2 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-btnWidth h-12 max-h-12 hover:invert bg-black text-white font-medium text-xs z-above p-4`
                     )}
                     onClick={() => {
                       updateUnit(unit, unit.title)
