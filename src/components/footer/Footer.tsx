@@ -14,15 +14,21 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        'xl:grid xl:grid-cols-2 xl:gap-xdouble px-x my-ydouble font-medium tracking-details text-xs uppercase'
+        'xl:grid xl:grid-cols-2 xl:gap-x px-x my-ydouble font-medium tracking-details text-xs uppercase'
       )}
     >
       <div className="hidden xl:flex xl:flex-wrap gap-y">
-        <p className="w-full">{`HOME0001`}</p>
+        <p className="w-full">
+          <span className="hidden xl:inline-block">
+            &copy;{` ${year}`}&nbsp;
+          </span>
+          {`HOME0001`}
+        </p>
         <p className="w-full">{`New york · los angeles · berlin · london · paris · mexico city`}</p>
       </div>
 
       <div className="xl:flex xl:flex-wrap xl:w-full xl:gap-y">
+        <div className="hidden xl:block w-full mb-y"></div>
         <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full pb-y xl:pb-0">
           {footerMenu?.items?.map(({ _key, text, link }) => {
             return text && link ? (
@@ -31,19 +37,21 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
               </li>
             ) : null
           })}
-          <li className="hidden xl:inline-block">
-            <span>&copy;{` ${year} HOME0001`}</span>
-          </li>
         </ul>
 
-        <div className="xl:flex xl:justify-between xl:items-start w-full leading-[1.3] xl:leading-none">
-          <p className="xl:hidden">&copy;{` ${year} HOME0001`}</p>
+        <div className="xl:hidden xl:justify-between xl:items-start w-full leading-[1.3] xl:leading-none">
+          <p>&copy;{` ${year} HOME0001`}</p>
 
-          <p className="xl:flex xl:justify-between xl:w-full">
-            <span className="block xl:inline-block">NY DRE #10351211814</span>
-            <span className="block xl:inline-block">CA DRE #01427385</span>
+          <p>
+            <span className="block">NY DRE #10351211814</span>
+            <span className="block">CA DRE #01427385</span>
           </p>
         </div>
+      </div>
+
+      <div className="hidden xl:block">
+        <p className="block mb-y">NY DRE #10351211814</p>
+        <p className="block">CA DRE #01427385</p>
       </div>
     </footer>
   )
