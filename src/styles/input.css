@@ -8,7 +8,7 @@ textarea {
 }
 
 .input {
-  @apply h-btn border-black font-bold text-xs bg-white placeholder:opacity-100 placeholder:text-black px-[calc(var(--space-x)-1px)] py-2 w-full rounded-none placeholder:uppercase;
+  @apply h-btn border-black font-medium text-xs bg-white placeholder:opacity-100 placeholder:text-black px-[calc(var(--space-x)-1px)] py-2 w-full rounded-none placeholder:uppercase;
 }
 
 .input.waitlist {
