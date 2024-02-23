@@ -286,7 +286,7 @@ export const Header: FC<HeaderProps> = ({
                   type="button"
                   className={classNames(
                     headerLinksShown ? 'opacity-100' : 'opacity-0',
-                    'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-100'
+                    'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-200'
                   )}
                   onClick={() => {
                     if (location.pathname.includes('les')) {
