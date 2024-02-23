@@ -64,7 +64,7 @@ export const Waitlist: FC<WaitlistProps> = ({
                 : `Inquire`}
             </h2>
 
-            <p className="my-ydouble text-h4 max-w-[var(--btn-width)]">
+            <p className="my-ydouble text-md font-sansText max-w-[var(--btn-width)]">
               {formActions.formSubmitted
                 ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
                 : (waitlist.text && (
