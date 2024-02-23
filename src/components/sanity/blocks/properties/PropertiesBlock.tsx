@@ -59,7 +59,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
                   sizes: '(max-width: 768px) 100vw, 50vw',
                   lqip: (image?.image as any)?.asset?.metadata?.lqip,
                 }}
-                className="relative w-full h-auto transform -translate-y-[5%] object-contain"
+                className="relative w-full h-auto object-contain"
                 {...(image as any)}
               />
             </div>
