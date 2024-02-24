@@ -175,7 +175,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
             {...register('locations_of_interest', { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md tracking-details"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -192,7 +192,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md tracking-details"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'Else'}
         >
           {`Somewhere else`}
@@ -204,7 +204,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
         {...register('City', { required: false })}
         className={classNames(
           hiddenInputShown ? '' : 'opacity-0',
-          'input mb-4'
+          'input my-y md:my-yhalf'
         )}
       />
     </div>
@@ -229,7 +229,7 @@ const CheckboxPane: FC<CheckboxPaneProps> = ({
             {...register(fieldCode, { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -255,7 +255,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   return (
-    <div className={classNames(className, block ? '' : 'pr-menu', 'w-full')}>
+    <div className={classNames(className, block ? '' : 'w-full')}>
       <Pane
         block={block}
         largeHeader={true}
