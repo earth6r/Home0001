@@ -153,7 +153,7 @@ export default {
         '.text-h3': {
           fontSize: theme('fontSize.header3'),
           fontWeight: '700',
-          lineHeight: '0.85',
+          lineHeight: '0.9',
           letterSpacing: '-0.025em',
           textTransform: 'uppercase',
         },
@@ -168,7 +168,6 @@ export default {
         '.text-button': {
           fontSize: theme('fontSize.xs'),
           fontWeight: '500',
-          letterSpacing: theme('letterSpacing.details'),
           textTransform: 'uppercase',
         },
       })

@@ -104,7 +104,7 @@ export const Header: FC<HeaderProps> = ({
         menuOpen || waitlistOpen || inquiryOpen || brokerInquiryOpen
           ? 'z-menu'
           : 'z-header',
-        'fixed w-full pointer-events-none font-medium tracking-details text-xs'
+        'fixed w-full pointer-events-none font-medium text-xs'
       )}
     >
       <header
@@ -172,7 +172,7 @@ export const Header: FC<HeaderProps> = ({
 
         <div className={classNames('flex items-center gap-[1rem] md:gap-5')}>
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-full py-y md:py-ydouble pl-x md:pl-10">
+            <div className="flex flex-col max-w-md md:max-w-none h-full pt-20 md:py-ydouble pl-x md:pl-10">
               <Form
                 formType={'modal'}
                 audienceId={waitlist?.id}
@@ -198,11 +198,11 @@ export const Header: FC<HeaderProps> = ({
 
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-y md:py-ydouble pl-x md:pl-10">
-              <h2 className="text-h3 pt-page md:pt-0 md:mb-y md:pr-menu lg:pr-fullmenu">
+              <h2 className="text-h3 pt-page md:pt-0 md:mb-y">
                 {formSubmitted ? inquiry?.success || `Thanks!` : `Inquire`}
               </h2>
 
-              <div className="md:grid md:grid-cols-2 md:gap-20 md:pr-menu">
+              <div className="md:grid md:grid-cols-2 md:pr-menu">
                 <p className="my-ydouble md:my-0 text-md pr-menu md:pr-0">
                   {formSubmitted
                     ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
