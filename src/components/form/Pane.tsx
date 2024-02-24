@@ -64,14 +64,18 @@ const Pane: FC<PaneProps> = ({
 
           <div
             className={classNames(
-              block ? '' : 'md:grid md:grid-cols-2 md:gap-20 h-full',
+              block ? '' : 'md:grid md:grid-cols-2 h-full',
               largeHeader ? '' : 'md:mt-y md:-mb-y pt-0',
               'md:w-full md:pr-menu'
             )}
           >
             <div>
               {header && currentStep !== 0 && (
-                <h2 className={classNames('pb-y md:pb-ydouble text-h3')}>
+                <h2
+                  className={classNames(
+                    'pb-y md:pb-ydouble text-h3 hidden md:block'
+                  )}
+                >
                   {header || `Join the waitlist:`}
                 </h2>
               )}
@@ -98,7 +102,7 @@ const Pane: FC<PaneProps> = ({
               {currentStep !== 0 && (
                 <>
                   {typeof copy === 'string' ? (
-                    <p className="mb-yhalf text-h4">{copy}</p>
+                    <p className="mb-yhalf text-h3">{copy}</p>
                   ) : (
                     copy && (
                       <RichText
@@ -128,8 +132,8 @@ const Pane: FC<PaneProps> = ({
         <div
           className={classNames(
             block
-              ? 'relative md:w-full bottom-0 md:bottom-auto'
-              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-2px)] bottom-[6rem] md:bottom-0',
+              ? 'relative md:w-full bottom-0 xl:bottom-auto'
+              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-40px)] bottom-[3rem] md:bottom-0',
             'flex w-full h-btn md:pr-menu'
           )}
         >
@@ -140,10 +144,9 @@ const Pane: FC<PaneProps> = ({
               onClick={onBack}
             >
               <IconSmallArrow
-                width="13"
-                height="9"
+                height="10"
                 fill="black"
-                className="transform rotate-180"
+                className="transform rotate-180 w-[15px] md:w-[17px]"
               />
             </button>
           ) : null}
