@@ -14,7 +14,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        'xl:grid xl:grid-cols-2 xl:gap-x px-x my-ydouble font-medium tracking-details text-xs uppercase'
+        'xl:grid xl:grid-cols-2 xl:gap-x px-x my-ydouble font-medium text-xs uppercase'
       )}
     >
       <div className="hidden xl:flex xl:flex-wrap gap-y">
@@ -29,7 +29,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 
       <div className="xl:flex xl:flex-wrap xl:w-full xl:gap-y">
         <div className="hidden xl:block w-full mb-y"></div>
-        <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full pb-y xl:pb-0">
+        <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full pb-ydouble xl:pb-0">
           {footerMenu?.items?.map(({ _key, text, link }) => {
             return text && link ? (
               <li key={_key}>
