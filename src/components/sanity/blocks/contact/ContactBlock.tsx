@@ -26,7 +26,7 @@ export const ContactBlock: FC<ContactBlockProps> = ({
     <Block
       className={classNames(
         className,
-        grid ? 'md:grid md:grid-cols-3 pr-menu' : '',
+        grid ? 'md:grid md:grid-cols-3 ' : '',
         'relative'
       )}
     >
