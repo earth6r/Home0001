@@ -4,7 +4,7 @@ fieldset {
 }
 
 textarea {
-  @apply placeholder:opacity-100 placeholder:text-black font-bold;
+  @apply placeholder:opacity-100 placeholder:text-black font-bold font-sansText;
 }
 
 .input {
@@ -13,6 +13,10 @@ textarea {
 
 .input.waitlist {
   @apply w-full md:max-w-[var(--btn-width)] tracking-normal font-sansText;
+}
+
+label {
+  @apply normal-case;
 }
 
 input[type='checkbox'],

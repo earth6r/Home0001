@@ -58,7 +58,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 
       {!block && (
         <div className="mx-x md:mx-0 md:pt-0">
-          <div className="w-auto mt-ydouble pt-ydouble border-top"></div>
+          <div className="w-auto mt-ydouble pt-ydouble"></div>
           <h2 className="text-h3 md:text-h1 md:px-x md:text-center">
             Our Next Releases:
           </h2>

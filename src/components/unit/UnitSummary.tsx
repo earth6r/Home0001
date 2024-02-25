@@ -93,7 +93,9 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
             )}
             <div className="block w-auto md:max-w-[calc(50vw-var(--space-x))] py-x ml-x mr-y md:mr-0 text-md uppercase">
               <div className="mb-y">
-                {unit.title && <p className="text-h4 mb-y">{unit.title}</p>}
+                {unit.title && (
+                  <p className="text-h4 mb-y tracking-normal">{unit.title}</p>
+                )}
 
                 <p className="font-medium mb-y">
                   {unit?.propertyType?.typeTitle}
@@ -119,7 +121,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 >
                   <button
                     className={classNames(
-                      `mt-2 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-btnWidth h-12 max-h-12 hover:invert bg-black text-white font-medium text-xs z-above p-4`
+                      `mt-2 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-btnWidth h-12 max-h-12 bg-black text-white font-medium text-xs z-above p-4 hover:invert hover:border-white transition-all`
                     )}
                     onClick={() => {
                       updateUnit(unit, unit.title)
