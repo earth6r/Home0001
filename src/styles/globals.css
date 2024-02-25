@@ -154,7 +154,7 @@ body {
 
 header,
 footer {
-  font-feature-settings: 'cpsp' on, 'case' on;
+  font-feature-settings: 'case' on;
 }
 
 /* 3rd party styling */
