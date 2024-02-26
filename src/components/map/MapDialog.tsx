@@ -3,7 +3,7 @@ import Map from './Map'
 import { Dialog } from '@headlessui/react'
 import { MapDialogProps } from './types'
 import { sendGoogleEvent } from '@lib/util/analytics'
-import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 export const MapDialog: FC<MapDialogProps> = ({
   text,
   coordinates,
@@ -13,8 +13,7 @@ export const MapDialog: FC<MapDialogProps> = ({
 
   return (
     <div className={className}>
-      <div className="flex items-center h-[2em] mt-yhalf">
-        <IconSmallBlackArrow width="18" height="11" className="mr-[3px]" />
+      <div className="flex items-center gap-[3px] hover:gap-[6px] h-[1em] mt-y transition-all duration-300">
         <button
           aria-label={`Open Map`}
           onClick={() => {
@@ -22,16 +21,22 @@ export const MapDialog: FC<MapDialogProps> = ({
             sendGoogleEvent('opened map', options)
             setIsOpen(true)
           }}
-          className="hover:font-bold underline decoration-[1.5px] underline-offset-2"
+          className="h-[2em] font-sansText uppercase underline decoration-[2px] underline-offset-2"
         >
           {text}
         </button>
+        <IconSmallArrow
+          width="16"
+          height="12"
+          fill="black"
+          className="mt-[1px] transform -rotate-45"
+        />
       </div>
 
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}
-        className="fixed max-w-[600px] w-[calc(100%-(2*var(--space-x)))] top-ylg left-x z-header"
+        className="fixed max-w-[600px] w-[calc(100%-(2*var(--space-x)))] top-ydouble left-x z-header"
       >
         <Dialog.Panel className="block border-1 border-solid border-black w-full h-full bg-white">
           <Map coordinates={coordinates} />

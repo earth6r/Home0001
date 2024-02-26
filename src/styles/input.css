@@ -4,15 +4,19 @@ fieldset {
 }
 
 textarea {
-  @apply placeholder:opacity-100 placeholder:text-black font-bold;
+  @apply placeholder:opacity-100 placeholder:text-black font-bold font-sansText;
 }
 
 .input {
-  @apply h-btn border-black font-bold text-xs bg-white placeholder:opacity-100 placeholder:text-black px-[calc(var(--space-x)-1px)] md:px-[calc(var(--space-x-half)-1px)] py-2 w-full rounded-none placeholder:uppercase;
+  @apply h-btn border-black font-bold font-sansText tracking-normal text-xs bg-white placeholder:opacity-100 placeholder:text-black px-[calc(var(--space-x)-1px)] py-2 w-full rounded-none placeholder:uppercase;
 }
 
 .input.waitlist {
-  @apply w-full md:max-w-[var(--btn-width)];
+  @apply w-full md:max-w-[var(--btn-width)] tracking-normal font-sansText;
+}
+
+label {
+  @apply normal-case;
 }
 
 input[type='checkbox'],

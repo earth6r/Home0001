@@ -101,7 +101,10 @@ export const Header: FC<HeaderProps> = ({
       id="header"
       className={classNames(
         className,
-        'fixed w-full pointer-events-none font-medium tracking-details text-xs z-header'
+        menuOpen || waitlistOpen || inquiryOpen || brokerInquiryOpen
+          ? 'z-menu'
+          : 'z-header',
+        'fixed w-full pointer-events-none font-medium text-xs'
       )}
     >
       <header
@@ -169,7 +172,7 @@ export const Header: FC<HeaderProps> = ({
 
         <div className={classNames('flex items-center gap-[1rem] md:gap-5')}>
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-full py-6 md:py-10 pl-x md:pl-10">
+            <div className="flex flex-col max-w-md md:max-w-none h-full pt-20 md:py-ydouble pl-x md:pl-10 pr-menu">
               <Form
                 formType={'modal'}
                 audienceId={waitlist?.id}
@@ -194,13 +197,13 @@ export const Header: FC<HeaderProps> = ({
           </AnimatedModal>
 
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
-              <h2 className="text-xl font-bold uppercase pt-page md:pt-0 md:mb-y md:pr-menu lg:pr-fullmenu">
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-y md:py-ydouble pl-x md:pl-10">
+              <h2 className="text-h3 pt-page md:pt-0 md:mb-y">
                 {formSubmitted ? inquiry?.success || `Thanks!` : `Inquire`}
               </h2>
 
-              <div className="md:grid md:grid-cols-2 md:gap-20 md:pr-menu">
-                <p className="my-ylg md:my-0 text-md pr-menu md:pr-0">
+              <div className="md:grid md:grid-cols-2 md:pr-menu">
+                <p className="my-ydouble md:my-0 text-md pr-menu md:pr-0">
                   {formSubmitted
                     ? `We’ll be in touch with information on ${state.unit?.title} and on how to schedule a tour.`
                     : inquiry?.copy ||
@@ -233,8 +236,8 @@ export const Header: FC<HeaderProps> = ({
             isOpen={brokerInquiryOpen}
             onClose={onBrokerInquiryClose}
           >
-            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-6 md:py-10 pl-x md:pl-10">
-              <div className="pt-page mb-ylg md:pr-menu lg:pr-fullmenu">
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-y md:py-ydouble pl-x md:pl-10">
+              <div className="pt-page mb-ydouble md:pr-menu lg:pr-fullmenu">
                 {formSubmitted ? (
                   <>
                     {inquiry?.brokerSuccess ? (
@@ -283,7 +286,7 @@ export const Header: FC<HeaderProps> = ({
                   type="button"
                   className={classNames(
                     headerLinksShown ? 'opacity-100' : 'opacity-0',
-                    'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-100'
+                    'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-200'
                   )}
                   onClick={() => {
                     if (location.pathname.includes('les')) {

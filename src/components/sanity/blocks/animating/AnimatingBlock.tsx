@@ -42,7 +42,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
               {propertyLink ? (
                 <SanityLink
                   {...(propertyLink as SanityLinkType)}
-                  className={classNames('text-2xl font-bold uppercase')}
+                  className={classNames('text-h2')}
                 >
                   <div
                     onClick={() => {
@@ -56,7 +56,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
               ) : (
                 <div
                   className={classNames(
-                    'text-2xl font-bold uppercase bg-transparent text-lightgray shadow-none'
+                    'text-h2 bg-transparent text-lightgray shadow-none'
                   )}
                 >
                   <span
@@ -105,7 +105,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({
           : aspect === 'tall'
           ? 'aspect-[0.835]'
           : 'aspect-square',
-        'relative overflow-hidden my-3 md:my-5 z-above'
+        'relative overflow-hidden my-y z-above'
       )}
     >
       <div
@@ -217,7 +217,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'md:max-w-[768px] lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-[32px] md:mb-[56px]'
+        'md:max-w-[768px] lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-ydouble'
       )}
     >
       {showContent && (
@@ -239,7 +239,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                 setTimeout(() => setHeaderLinksShown(true), 500)
               }}
               variants={headerVariants}
-              className="flex flex-wrap items-center relative text-2xl font-bold tracking-header uppercase"
+              className="flex flex-wrap items-center relative text-h2"
             >
               <div>
                 {header.map((item, index) => (
@@ -285,14 +285,14 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                           cryptoMode && altCryptoText ? altCryptoText : text
                         }
                         className={classNames(
-                          index !== 0 ? 'mt-3 md:mt-5' : '',
+                          index !== 0 ? 'mt-y' : '',
                           'relative'
                         )}
                       />
                     )}
 
                     {index === citiesPos && (
-                      <div className="mt-3 md:mt-5">
+                      <div className="mt-y">
                         <CitiesList citiesList={citiesList} />
                       </div>
                     )}

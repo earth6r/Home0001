@@ -10,7 +10,7 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
-    <div className="">
+    <div className="z-modal">
       <button
         onClick={onClose}
         className="uppercase font-medium py-y"
@@ -30,7 +30,7 @@ export const Modal: FC<ModalProps> = ({
     {isOpen && (
       <>
         <div
-          className="fixed inset-0 flex items-center justify-center cursor-pointer"
+          className="fixed inset-0 flex items-center justify-center cursor-pointer z-modal"
           onClick={onClose}
         ></div>
 
@@ -41,7 +41,7 @@ export const Modal: FC<ModalProps> = ({
           exit={{ transform: 'translate3d(100%, 0, 0)' }}
           className="fixed inset-0 w-auto md:w-[390px] h-[100vh] top-0 right-0 md:ml-auto z-modal"
         >
-          <div className="flex justify-between items-center fixed w-full h-[50px] md:h-[78px] top-0 right-0 px-x md:px-xhalf z-modal">
+          <div className="flex justify-between items-center fixed w-full h-[50px] md:h-[78px] top-0 right-0 px-x z-modal">
             <AnimatePresence>
               {isOpen && (
                 <motion.div
@@ -53,7 +53,9 @@ export const Modal: FC<ModalProps> = ({
                 ></motion.div>
               )}
             </AnimatePresence>
-            <span className="uppercase font-medium">{title}</span>
+            <span className="inline-block uppercase font-medium z-modal">
+              {title}
+            </span>
             <CloseButton onClose={onClose} />
           </div>
           <div
