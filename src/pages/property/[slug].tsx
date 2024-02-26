@@ -49,7 +49,6 @@ const PropertyPage: NextPage<PageProps> = (
   const {
     register,
     handleSubmit,
-    reset,
     trigger,
     getValues,
     formState: { isSubmitting },
@@ -68,7 +67,7 @@ const PropertyPage: NextPage<PageProps> = (
           waitlist={{
             header: siteSettings.waitlistHeader,
             text: siteSettings?.waitlistCopy,
-            id: siteSettings.wailistId,
+            id: siteSettings.waitlistId,
             successMessage: siteSettings?.waitlistSuccess,
           }}
           formActions={{
