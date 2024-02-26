@@ -53,7 +53,7 @@ const Pane: FC<PaneProps> = ({
         <div
           className={classNames(
             block ? 'md:h-auto' : 'md:h-full',
-            'w-full h-[calc(100%-var(--btn-height)-[6rem])] overflow-scroll'
+            'w-full h-[calc(100%-var(--btn-height)-[6rem])] overflow-visible'
           )}
         >
           {currentStep === 0 && (
@@ -64,7 +64,7 @@ const Pane: FC<PaneProps> = ({
 
           <div
             className={classNames(
-              block ? '' : 'md:grid md:grid-cols-2 gap-y h-full',
+              block ? '' : 'md:grid md:grid-cols-2 gap-y h-auto',
               largeHeader ? '' : 'md:mt-y md:-mb-y pt-0',
               'md:w-full md:pr-menu'
             )}
