@@ -17,7 +17,11 @@ export const ContactBlock: FC<ContactBlockProps> = ({
   audienceId,
   className,
 }) => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -46,6 +50,7 @@ export const ContactBlock: FC<ContactBlockProps> = ({
           successMessage="Thanks for reaching out. We’ll be in touch soon."
         >
           <SinglePaneInputs
+            isSubmitting={isSubmitting}
             register={register}
             fields={{ showContact: true, showName: true }}
           />
