@@ -62,7 +62,7 @@ const PreferencePane: FC<PaneProps> = ({
         </div>
         <div
           className={classNames(
-            block ? '' : 'md:grid md:grid-cols-2 md:gap-20',
+            block ? '' : 'md:grid md:grid-cols-2 md:gap-y h-auto',
             'md:w-full md:pr-menu order-1'
           )}
         >
