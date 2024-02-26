@@ -1,10 +1,10 @@
 :root {
   /* spacing */
-  --space-x: 1rem;
+  --space-x: 16px;
   --space-x-half: calc(var(--space-x) * 0.5);
   --space-x-double: calc(var(--space-x) * 2);
   --space-x-lg: 2rem;
-  --space-y: 1.3rem;
+  --space-y: 16px;
   --space-y-quarter: calc(var(--space-y) * 0.25);
   --space-y-half: calc(var(--space-y) * 0.5);
   --space-y-double: calc(var(--space-y) * 2);
@@ -31,7 +31,7 @@
   --btn-space-y: 0.625em;
 
   /* header height */
-  --header-height: 52px;
+  --header-height: 68px;
   --gradient-height: 96px;
 
   /* speeds */
@@ -45,9 +45,6 @@
 
 @screen md {
   :root {
-    --space-x: 2.5rem;
-    --space-y: 2.5rem;
-
     --space-block: 150px;
     --btn-width: 358px;
 
@@ -188,6 +185,10 @@ footer {
   height: 100%;
 }
 
+.swiper-wrapper {
+  align-items: center;
+}
+
 .swiper-slide {
   display: flex;
   justify-content: center;
@@ -197,11 +198,16 @@ footer {
 
 .swiper-prev,
 .swiper-next {
-  @apply transition-opacity duration-200;
+  @apply transition-all duration-200;
 }
 
 .swiper-button-disabled {
   opacity: 0;
+}
+
+.swiper-pagination {
+  @apply font-bold text-left mt-y tracking-tight;
+  position: relative;
 }
 
 .hide-cta .cta {

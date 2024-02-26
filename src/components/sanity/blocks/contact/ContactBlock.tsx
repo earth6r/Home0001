@@ -26,12 +26,12 @@ export const ContactBlock: FC<ContactBlockProps> = ({
     <Block
       className={classNames(
         className,
-        grid ? 'md:grid md:grid-cols-3 pr-menu' : '',
+        grid ? 'md:grid md:grid-cols-3 ' : '',
         'relative'
       )}
     >
       <div className="md:col-start-2 md:col-span-1 pb-12">
-        {header && <h2 className="pb-ylg uppercase">{header}</h2>}
+        {header && <h2 className="pb-ydouble uppercase">{header}</h2>}
 
         {text && (
           <RichText blocks={text} className={classNames('mb-4 clear-both')} />

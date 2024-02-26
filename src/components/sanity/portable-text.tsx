@@ -44,4 +44,5 @@ export const blockBlock: Record<
   PortableTextBlockComponent | undefined
 > = {
   small: ({ children }) => <p className="small">{children}</p>,
+  large: ({ children }) => <p className="large">{children}</p>,
 }

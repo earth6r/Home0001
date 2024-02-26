@@ -76,15 +76,15 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           modal
             ? 'flex justify-between h-[calc(100%-var(--btn-height))] md:h-auto overflow-scroll'
             : '',
-          'relative flex flex-col gap-3'
+          'relative flex flex-col gap-y'
         )}
       >
-        <div className="relative flex flex-col gap-3">
+        <div className="relative flex flex-col gap-y">
           {fields?.showName && (
             <div
               className={classNames(
                 modal ? 'flex-col' : 'flex-row',
-                'flex gap-3'
+                'flex gap-y'
               )}
             >
               <input
@@ -182,7 +182,10 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
         {fields?.showContact && (
           <>
-            <label htmlFor="hs_persona" className="font-medium mt-yhalf">
+            <label
+              htmlFor="hs_persona"
+              className="font-medium mt-yhalf text-md"
+            >
               Which best describes you?
             </label>
 
@@ -194,7 +197,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 {...register('hs_persona', { required: true })}
               />
               <label
-                className="text-left cursor-pointer font-medium text-sm"
+                className="text-left cursor-pointer font-medium text-md"
                 htmlFor="purchasing"
               >
                 {`I am interested in purchasing a home.`}
@@ -209,7 +212,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 {...register('hs_persona', { required: true })}
               />
               <label
-                className="text-left cursor-pointer font-medium text-sm"
+                className="text-left cursor-pointer font-medium text-md"
                 htmlFor="learn_more"
               >
                 {`I want to learn more about HOME0001.`}
@@ -224,7 +227,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 {...register('hs_persona', { required: true })}
               />
               <label
-                className="text-left cursor-pointer font-medium text-sm"
+                className="text-left cursor-pointer font-medium text-md"
                 htmlFor="realitor"
               >
                 {`I am a realtor.`}
@@ -244,12 +247,12 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
         <div
           className={classNames(
             fields?.showLocation ? 'mt-10' : 'mt-1 md:mt-6',
-            'relative flex flex-col gap-2 md:gap-4'
+            'relative flex flex-col gap-2 md:gap-y'
           )}
         >
           <button
             className={classNames(
-              'md:max-w-[var(--btn-width)] tracking-details w-full h-btn text-center uppercase text-white bg-black font-medium text-xs'
+              'md:max-w-[var(--btn-width)] w-full h-btn text-center uppercase text-white bg-black font-medium text-xs'
             )}
             type="submit"
             disabled={isSubmitting}

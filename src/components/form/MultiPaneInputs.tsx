@@ -151,7 +151,7 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
 
       {broker && (
         <button
-          className="md:max-w-[var(--btn-width)] pt-[26px] md:pt-[20px] text-right font-bold text-md tracking-details underline decoration-[1.5px] underline-offset-2"
+          className="md:max-w-[var(--btn-width)] mt-ydouble md:mt-y pb-[2px] text-left font-bold text-md tracking-normal underline decoration-[2px] underline-offset-2"
           onClick={() => setBrokerInquiryOpen(true)}
         >
           Are you a realtor?
@@ -175,7 +175,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
             {...register('locations_of_interest', { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -192,7 +192,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'Else'}
         >
           {`Somewhere else`}
@@ -204,7 +204,7 @@ const LocationsPane: FC<PaneProps> = ({ register, className }) => {
         {...register('City', { required: false })}
         className={classNames(
           hiddenInputShown ? '' : 'opacity-0',
-          'input mb-4'
+          'input my-y md:my-yhalf'
         )}
       />
     </div>
@@ -229,7 +229,7 @@ const CheckboxPane: FC<CheckboxPaneProps> = ({
             {...register(fieldCode, { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -255,13 +255,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   return (
-    <div
-      className={classNames(
-        className,
-        block ? '' : 'pr-menu',
-        'w-full text-xs font-bold'
-      )}
-    >
+    <div className={classNames(className, block ? '' : 'w-full')}>
       <Pane
         block={block}
         largeHeader={true}
@@ -301,7 +295,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           className={classNames(
             currentStep !== 0 ? 'hidden' : '',
             block ? 'h-[248px]' : '',
-            'flex flex-col gap-3 md:h-auto'
+            'flex flex-col gap-y md:h-auto'
           )}
         />
       </Pane>
@@ -322,7 +316,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
-            'flex flex-col gap-4 h-auto'
+            'flex flex-col gap-y h-auto'
           )}
         />
       </Pane>
@@ -346,7 +340,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 2 ? 'hidden' : '',
-            'flex flex-col gap-4 h-auto'
+            'flex flex-col gap-y h-auto'
           )}
         />
       </Pane>
@@ -368,7 +362,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           register={register}
           className={classNames(
             currentStep !== 3 ? 'hidden' : '',
-            'flex flex-col gap-4 h-auto'
+            'flex flex-col gap-y h-auto'
           )}
         />
       </Pane>

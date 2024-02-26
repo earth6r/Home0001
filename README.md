@@ -62,7 +62,7 @@ this_ The steps to do so:
   BACKUP IN CASE THINGS GO WRONG_ `npx sanity dataset export production`
 - Export the dev database, from /studio: `npx sanity dataset export dev`
 - Import the dev database into production, from /studio:
-  `npx sanity dataset import [FILENAME OF EXPORTED DATABASE] production --replace`
+  `npx sanity dataset import --replace production [FILENAME OF EXPORTED DATABASE]`
   - This effectively replaces the production database with dev
 - Push the codebase live through pull request
 

@@ -53,23 +53,18 @@ const Pane: FC<PaneProps> = ({
         <div
           className={classNames(
             block ? 'md:h-auto' : 'md:h-full',
-            'w-full h-[calc(100%-var(--btn-height)-[6rem])] overflow-scroll'
+            'w-full h-[calc(100%-var(--btn-height)-[6rem])] overflow-visible'
           )}
         >
           {currentStep === 0 && (
-            <h2
-              className={classNames(
-                largeHeader ? 'text-xl' : 'text-lg',
-                'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
-              )}
-            >
+            <h2 className={classNames('pb-y md:pb-ydouble text-h3')}>
               {header || `Join the waitlist:`}
             </h2>
           )}
 
           <div
             className={classNames(
-              block ? '' : 'md:grid md:grid-cols-2 md:gap-20 h-full',
+              block ? '' : 'md:grid md:grid-cols-2 gap-y h-auto',
               largeHeader ? '' : 'md:mt-y md:-mb-y pt-0',
               'md:w-full md:pr-menu'
             )}
@@ -78,8 +73,7 @@ const Pane: FC<PaneProps> = ({
               {header && currentStep !== 0 && (
                 <h2
                   className={classNames(
-                    largeHeader ? 'text-lg' : 'text-lg',
-                    'pb-8 md:pb-[32px] uppercase font-bold leading-[0.85] tracking-tight'
+                    'pb-y md:pb-ydouble text-h3 hidden md:block'
                   )}
                 >
                   {header || `Join the waitlist:`}
@@ -89,15 +83,13 @@ const Pane: FC<PaneProps> = ({
               {currentStep === 0 && (
                 <>
                   {typeof copy === 'string' ? (
-                    <p className="mb-yhalf text-lg font-bold tracking-tight uppercase leading-[0.85]">
-                      {copy}
-                    </p>
+                    <p className="mb-yhalf text-h4">{copy}</p>
                   ) : (
                     copy && (
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'mb-ylg clear-both bold uppercase'
+                          'lg:w-btnWidth mb-ydouble clear-both bold'
                         )}
                       />
                     )
@@ -106,24 +98,17 @@ const Pane: FC<PaneProps> = ({
               )}
             </div>
 
-            <div
-              className={classNames(
-                largeHeader ? '' : 'text-lg tracking-tight',
-                'uppercase font-bold leading-[0.85]'
-              )}
-            >
+            <div className={classNames(largeHeader ? 'text-h4' : 'text-h3')}>
               {currentStep !== 0 && (
                 <>
                   {typeof copy === 'string' ? (
-                    <p className="mb-yhalf text-lg font-bold uppercase tracking-tight leading-[0.85]">
-                      {copy}
-                    </p>
+                    <p className="mb-yhalf text-h3">{copy}</p>
                   ) : (
                     copy && (
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'mb-ylg clear-both bold uppercase'
+                          'lg:w-btnWidth mb-ydouble clear-both bold'
                         )}
                       />
                     )
@@ -134,8 +119,8 @@ const Pane: FC<PaneProps> = ({
               <div
                 className={classNames(
                   block ? '' : 'md:min-h-[310px]',
-                  currentStep !== 0 ? 'mt-ylg' : '',
-                  'relative flex flex-col gap-3'
+                  currentStep !== 0 ? 'mt-ydouble' : '',
+                  'relative flex flex-col gap-y'
                 )}
               >
                 {children}
@@ -147,9 +132,9 @@ const Pane: FC<PaneProps> = ({
         <div
           className={classNames(
             block
-              ? 'relative md:w-full bottom-0 md:bottom-auto'
-              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-2px)] bottom-[6rem] md:bottom-0',
-            'flex w-full h-btn md:pr-menu'
+              ? 'relative md:w-full bottom-0 xl:bottom-auto'
+              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-40px)] bottom-[6rem] md:bottom-0',
+            'flex w-full h-btn'
           )}
         >
           {currentStep && currentStep > 0 ? (
@@ -159,16 +144,15 @@ const Pane: FC<PaneProps> = ({
               onClick={onBack}
             >
               <IconSmallArrow
-                width="13"
-                height="9"
+                height="10"
                 fill="black"
-                className="transform rotate-180"
+                className="transform rotate-180 w-[15px] md:w-[17px]"
               />
             </button>
           ) : null}
 
           <button
-            className="relative flex justify-between items-center w-full md:w-btnWidth px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            className="relative flex justify-between items-center w-full md:w-btnWidth px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
             type={buttonType || 'submit'}
             disabled={isSubmitting}
             onClick={onClick}

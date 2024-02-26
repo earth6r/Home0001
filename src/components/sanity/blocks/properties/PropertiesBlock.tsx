@@ -59,7 +59,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
                   sizes: '(max-width: 768px) 100vw, 50vw',
                   lqip: (image?.image as any)?.asset?.metadata?.lqip,
                 }}
-                className="relative w-full h-auto transform -translate-y-[5%] object-contain"
+                className="relative w-full h-auto object-contain"
                 {...(image as any)}
               />
             </div>
@@ -91,10 +91,10 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   return (
     <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
       <div className="xl:max-w-[65%] mx-auto px-x md:px-[calc(var(--space-menu)+12px)] xl:px-0">
-        <h2 className="mb-[32px] md:mb-[28px] text-xl md:text-2xl font-bold uppercase tracking-header pr-menu md:pr-0">
+        <h2 className="mb-ydouble text-h2 pr-menu md:pr-0">
           Now available in:
         </h2>
-        <div className="grid md:grid-cols-2 gap-[32px] md:gap-4">
+        <div className="grid md:grid-cols-2 gap-ydouble md:gap-y">
           {properties &&
             (properties as KeyedProperty[])?.map(
               ({ cardImage, longTitle, slug }, index) => (
