@@ -64,7 +64,7 @@ const Pane: FC<PaneProps> = ({
 
           <div
             className={classNames(
-              block ? '' : 'md:grid md:grid-cols-2 h-full',
+              block ? '' : 'md:grid md:grid-cols-2 gap-y h-full',
               largeHeader ? '' : 'md:mt-y md:-mb-y pt-0',
               'md:w-full md:pr-menu'
             )}
@@ -89,7 +89,7 @@ const Pane: FC<PaneProps> = ({
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'md:w-btnWidth mb-ydouble clear-both bold'
+                          'lg:w-btnWidth mb-ydouble clear-both bold'
                         )}
                       />
                     )
@@ -108,7 +108,7 @@ const Pane: FC<PaneProps> = ({
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'md:w-btnWidth mb-ydouble clear-both bold'
+                          'lg:w-btnWidth mb-ydouble clear-both bold'
                         )}
                       />
                     )
@@ -133,7 +133,7 @@ const Pane: FC<PaneProps> = ({
           className={classNames(
             block
               ? 'relative md:w-full bottom-0 xl:bottom-auto'
-              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-40px)] bottom-[3rem] md:bottom-0',
+              : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-40px)] bottom-[6rem] md:bottom-0',
             'flex w-full h-btn'
           )}
         >
