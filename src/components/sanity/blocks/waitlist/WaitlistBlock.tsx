@@ -21,7 +21,6 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   const {
     register,
     handleSubmit,
-    reset,
     trigger,
     getValues,
     formState: { isSubmitting },
