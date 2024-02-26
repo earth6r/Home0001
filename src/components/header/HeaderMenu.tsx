@@ -78,7 +78,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                   <Menu.Items
                     as="ul"
                     ref={items}
-                    className="container flex flex-col gap-12 w-full outline-none"
+                    className="container flex flex-col gap-ydouble w-full outline-none"
                   >
                     {mainMenu?.items?.map(({ _key, text, link }, index) => {
                       return text && link ? (
@@ -115,7 +115,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       ) : null
                     })}
 
-                    <li className="flex items-center gap-4 uppercase">
+                    <li className="flex items-center gap-y uppercase">
                       <span className="inline-block">Prices:</span>
 
                       <span className="inline-block">Fiat</span>

@@ -13,7 +13,7 @@ export const UnitsList: FC<UnitListProps> = ({ unitList, className }) => {
               key={unit._id}
               unit={unit}
               border={index !== 0}
-              className={classNames(index !== 0 ? 'mt-ylg' : '')}
+              className={classNames(index !== 0 ? 'mt-ydouble' : '')}
             />
           )
         })}

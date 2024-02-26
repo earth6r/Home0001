@@ -21,7 +21,6 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   const {
     register,
     handleSubmit,
-    reset,
     trigger,
     getValues,
     formState: { isSubmitting },
@@ -59,7 +58,7 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
           setFullWidth={() => setFullWidth(true)}
           fullWidth={fullWidth}
           className={classNames(
-            fullWidth ? 'md:left-0 md:w-full' : 'md:left-1/4 md:w-3/4',
+            fullWidth ? 'md:left-0 md:w-full' : 'md:left-[20%] md:w-4/5',
             'relative transition-all duration-200 ease-in-out'
           )}
         />
