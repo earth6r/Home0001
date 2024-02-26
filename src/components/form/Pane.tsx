@@ -134,7 +134,7 @@ const Pane: FC<PaneProps> = ({
             block
               ? 'relative md:w-full bottom-0 xl:bottom-auto'
               : 'absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-40px)] bottom-[3rem] md:bottom-0',
-            'flex w-full h-btn md:pr-menu'
+            'flex w-full h-btn'
           )}
         >
           {currentStep && currentStep > 0 ? (
