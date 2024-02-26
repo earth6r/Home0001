@@ -30,16 +30,18 @@ export default {
         serif: ['ui-serif', 'serif'],
         mono: ['ui-monospace', 'SFMono-Regular'],
       },
+      // clamps set between 420px and 1440px
       fontSize: {
         base: '14px',
-        xs: ['14px', '1.2'], // small
+        xs: ['14px', '1.3'], // small
         sm: ['14px', '1'], // read more
-        md: ['18px', '1.2'], // body
-        lg: ['22.5px', '1'], // ?
-        card: ['clamp(1.5rem, 1.217rem + 0.8696vw, 2rem)', '0.9'], // property summary card
-        h3: ['40px', '0.85'], // h3
-        xl: ['clamp(2.5rem, 2.088rem + 1.5686vw, 3.5rem)', '0.85'], // h2
-        '2xl': ['clamp(2.5rem, 1.357rem + 2.381vw, 3.5rem)', '0.85'], // h1
+        md: ['16px', '1.1'], // body
+        lg: ['16px', '0.9'], // h4
+        bodyLg: ['22px', '1.1'], // large paragraph rich text
+        card: ['clamp(1.5rem, 1.294rem + 0.784vw, 2rem)', '0.9'], // property summary card
+        header3: ['32px', '0.9'], // h3
+        xl: ['clamp(2.5rem, 2.088rem + 1.569vw, 3.5rem)', '0.85'], // h2
+        '2xl': ['clamp(2.5rem, 0.956rem + 5.882vw, 6.25rem)', '0.85'], // h1
       },
       letterSpacing: {
         details: '-0.02em',
@@ -97,6 +99,7 @@ export default {
         above: '2',
         header: '3',
         modal: '4',
+        menu: '5',
       },
     },
   },
@@ -133,48 +136,39 @@ export default {
         '.border-bottom': {
           borderBottom: '1.5px solid black',
         },
-        '.header-gradient': {
-          background:
-            'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0.96) 50%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,0) 100%)',
-        },
-        '.modal-gradient': {
-          background:
-            'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,0.96) 50%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,0) 100%)',
-        },
-        '.mobile-landing': {
-          fontSize: '7.9vw',
-          lineHeight: '1.2',
-          letterSpacing: '-0.03em',
-          '@screen md': {
-            fontSize: 'clamp(12px,2.5vw,40px)',
-          },
-        },
-        '.text-title': {
-          fontSize: '10.5vw',
-          lineHeight: '1',
-          leadingTrim: 'both',
-          textEdge: 'cap',
-          fontWeight: '800',
-          letterSpacing: '-0.82px',
+        '.text-h1': {
+          fontSize: theme('fontSize.2xl'),
+          fontWeight: '700',
+          lineHeight: '0.85',
+          letterSpacing: theme('letterSpacing.header'),
           textTransform: 'uppercase',
-          '@screen md': {
-            fontSize: 'clamp(12px,4.5vw,140px)',
-            letterSpacing: '-7px',
-          },
-          '@screen lg': {
-            fontSize: 'clamp(12px,8.2vw,140px)',
-            letterSpacing: '-7px',
-          },
         },
-        '.home-svg': {
-          width: '10.5vw',
-          '@screen md': {
-            maxWidth: '140px',
-            width: '5vw',
-          },
+        '.text-h2': {
+          fontSize: theme('fontSize.xl'),
+          fontWeight: '700',
+          lineHeight: '0.9',
+          letterSpacing: theme('letterSpacing.header'),
+          textTransform: 'uppercase',
         },
-        '.card-shadow': {
-          boxShadow: '5px 5px 20px 0px rgba(0, 0, 0, 0.40)',
+        '.text-h3': {
+          fontSize: theme('fontSize.header3'),
+          fontWeight: '700',
+          lineHeight: '0.9',
+          letterSpacing: '-0.025em',
+          textTransform: 'uppercase',
+        },
+        '.text-h4': {
+          fontSize: theme('fontSize.lg'),
+          fontWeight: '700',
+          fontFamily: theme('fontFamily.sansText'),
+          lineHeight: '0.9',
+          letterSpacing: theme('letterSpacing.details'),
+          textTransform: 'uppercase',
+        },
+        '.text-button': {
+          fontSize: theme('fontSize.xs'),
+          fontWeight: '500',
+          textTransform: 'uppercase',
         },
       })
     },

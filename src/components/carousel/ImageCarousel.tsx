@@ -2,9 +2,7 @@ import { type FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import { Media } from '@studio/gen/sanity-schema'
 import { Swiper, SwiperSlide } from 'swiper/react'
-// import { Navigation } from 'swiper'
-import { Navigation, type SwiperOptions } from 'swiper'
-import { IconLeftArrow, IconRightArrow } from '@components/icons'
+import { Navigation, type SwiperOptions, Pagination } from 'swiper'
 import classNames from 'classnames'
 import { SCREENS } from '@/globals'
 // eslint-disable-next-line import/no-unresolved
@@ -18,13 +16,17 @@ export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
   alt: string
   lastIndex?: boolean
+  fullWidth?: boolean
 }
 
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
-  index?: string
   carousel?: boolean
   arrows?: boolean
+  perView?: number
+  perViewMobile?: number
+  fullWidth?: boolean
   slides?: (Media & { _key: string })[]
+  pagination?: boolean
   placement?:
     | 'property details'
     | 'unit summary images'
@@ -39,6 +41,7 @@ const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox=
 const ImageSlide: FC<ImageSlideProps> = ({
   image,
   alt,
+  fullWidth,
   lastIndex,
   className,
 }) => {
@@ -48,7 +51,8 @@ const ImageSlide: FC<ImageSlideProps> = ({
     <div
       className={classNames(
         className,
-        'block relative w-full md:max-w-[346px] h-full overflow-hidden cursor-grab active:cursor-grabbing select-none'
+        fullWidth ? 'md:h-[431px] md:w-auto' : '',
+        'block relative w-full h-auto overflow-hidden cursor-grab active:cursor-grabbing select-none'
       )}
     >
       <SanityMedia
@@ -58,9 +62,12 @@ const ImageSlide: FC<ImageSlideProps> = ({
           quality: 9,
           priority: true,
           sizes: '(max-width: 768px) 100vw, 800px',
-          style: { width: '100%', height: 'auto' },
           lqip: image?.asset?.metadata?.lqip,
         }}
+        className={classNames(
+          fullWidth ? 'md:h-[431px] md:w-auto' : '',
+          'w-full h-auto object-cover'
+        )}
         onLoadingComplete={() => lastIndex && lenis.resize()}
       />
     </div>
@@ -70,18 +77,22 @@ const ImageSlide: FC<ImageSlideProps> = ({
 export const ImageCarousel: FC<ImageCarouselProps> = ({
   carousel,
   slides,
-  className,
+  perView,
+  perViewMobile,
+  fullWidth,
   placement,
+  pagination,
+  className,
 }) => {
   const [activeNav, setActiveNav] = useState(false)
   const [swipedImage, setSwipedImage] = useState(false)
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
-      slidesPerView: 1.19,
+      slidesPerView: perViewMobile || 1.185,
     },
     [SCREENS.md]: {
-      slidesPerView: 'auto',
+      slidesPerView: perView || 'auto',
     },
   }
 
@@ -122,7 +133,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
       {slides && slides.length > 1 ? (
         <Swiper
           ref={slidesRef}
-          modules={[Navigation]}
+          modules={[Navigation, Pagination]}
           loop={false}
           spaceBetween={16}
           onSlideChange={() => {
@@ -137,14 +148,20 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
             nextEl: '.swiper-next',
             prevEl: '.swiper-prev',
           }}
-          className="w-full md:w-auto max-w-[unset] md:h-full ml-0 md:mx-auto overflow-visible"
+          pagination={
+            pagination
+              ? {
+                  type: 'fraction',
+                }
+              : false
+          }
+          className={classNames('ml-0 md:mx-auto overflow-visible cursor-grab')}
         >
           {slides.map(({ _key, image, alt }, index) => (
             <SwiperSlide
               key={`${_key}-${alt}`}
               className={classNames(
-                carousel ? 'md:h-full' : 'md:h-[462px]',
-                'w-full md:w-[346px] h-[373px]'
+                fullWidth ? 'w-full md:w-auto' : 'aspect-[4/5]'
               )}
             >
               {image && alt && (
@@ -162,18 +179,25 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         image={image as any}
                         lastIndex={index === slides.length - 1}
                         alt={alt}
+                        fullWidth={fullWidth}
                         className={classNames(
                           index - 1 === slides.length ? 'relative right-x' : ''
                         )}
                       />
                     </a>
                   ) : (
-                    <div className="absolute w-full h-full md:h-[462px]">
+                    <div
+                      className={classNames(
+                        fullWidth ? '' : 'absolute aspect-[4/5]'
+                      )}
+                    >
                       <ImageSlide
                         image={image as any}
+                        fullWidth={fullWidth}
                         lastIndex={index === slides.length - 1}
                         alt={alt}
                         className={classNames(
+                          'w-full',
                           index - 1 === slides.length ? 'md:mr-x' : ''
                         )}
                       />
@@ -193,14 +217,14 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               width="80"
               fill="black"
               className={classNames(
-                'rotate-180 swiper-prev pointer-events-auto cursor-pointer'
+                'pr-xhalf rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
               )}
             />
             <IconRightArrowBold
               width="80"
               fill="black"
               className={classNames(
-                'relative swiper-next pointer-events-auto cursor-pointer'
+                'pr-xhalf relative swiper-next pointer-events-auto cursor-pointer hover:scale-95'
               )}
             />
           </div>

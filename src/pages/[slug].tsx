@@ -52,7 +52,7 @@ const Page: NextPage<PageProps> = (
           grid={true}
           blocks={page?.body}
           className={classNames(
-            filteredBlocks && filteredBlocks?.length > 0 ? 'pl-x' : 'container',
+            filteredBlocks && filteredBlocks?.length > 0 ? '' : 'container',
             'flex flex-col pt-page'
           )}
         />

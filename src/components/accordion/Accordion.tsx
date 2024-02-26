@@ -1,14 +1,14 @@
-import { useRef, type FC, useEffect, HTMLAttributes, useState } from 'react'
+import { useRef, type FC, HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 import type { Cta, RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { Disclosure, Transition } from '@headlessui/react'
 import { RichText, SanityLink } from '@components/sanity'
 import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
-import IconSmallBlackArrow from '@components/icons/IconSmallBlackArrow'
 import { SanityLinkType } from '@studio/lib'
 import { sendGoogleEvent } from '@lib/util'
 import { useLenis } from '@studio-freight/react-lenis'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
@@ -61,9 +61,7 @@ export const Accordion: FC<AccordionProps> = ({
               >
                 <h2
                   className={classNames(
-                    readMore
-                      ? 'text-lg font-bold tracking-details'
-                      : 'font-medium text-xs',
+                    readMore ? 'text-h4' : 'font-medium text-xs',
                     'uppercase'
                   )}
                 >
@@ -71,13 +69,13 @@ export const Accordion: FC<AccordionProps> = ({
                 </h2>
 
                 {readMore ? (
-                  <div className="pr-menu md:pr-fullmenu pt-yhalf md:pt-yquarter">
+                  <div className="pr-x pt-yhalf">
                     {initialText && <RichText blocks={initialText} />}
 
                     <span
                       className={classNames(
-                        open ? 'opacity-0 max-h-0 mt-0' : 'max-h-none mt-[1em]',
-                        'inline-block underline decoration-[1.5px] underline-offset-2 text-sm font-medium pb-[2px]'
+                        open ? 'opacity-0 max-h-0 mt-0' : 'max-h-none mt-y',
+                        'inline-block underline decoration-[2px] underline-offset-2 pb-[2px] text-sm font-sansText font-bold'
                       )}
                     >{`Read more`}</span>
                   </div>
@@ -109,18 +107,14 @@ export const Accordion: FC<AccordionProps> = ({
                 <Disclosure.Panel>
                   <div
                     className={classNames(
-                      readMore
-                        ? 'pr-fullmenu md:pl-0'
-                        : 'pl-x pr-10 pt-2 pb-5 ',
+                      readMore ? 'pr-x md:pl-0' : 'pl-x pr-10 pt-2 pb-5 ',
                       ''
                     )}
                   >
                     {text && (
                       <RichText
                         blocks={text}
-                        className={classNames(
-                          readMore ? 'pr-menu md:pr-0' : ''
-                        )}
+                        className={classNames(readMore ? 'md:pr-0' : '')}
                       />
                     )}
 
@@ -128,12 +122,12 @@ export const Accordion: FC<AccordionProps> = ({
                       <div className="cta w-full relative mt-y pr-menu md:pr-0">
                         <SanityLink
                           {...(cta.link as SanityLinkType)}
-                          className="w-full border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white font-medium text-xs z-above px-4 py-3.5"
+                          className="w-full md:max-w-[var(--btn-width)] border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white text-button z-above px-4 py-3.5"
                         >
                           <span className="text-left uppercase leading-none">
                             {cta.text || 'Learn more'}
                           </span>
-                          <IconSmallBlackArrow width="16" fill="white" />
+                          <IconSmallArrow width="16" height="10" fill="white" />
                         </SanityLink>
                       </div>
                     )}

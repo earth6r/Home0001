@@ -2,7 +2,7 @@ import { type FC } from 'react'
 import classNames from 'classnames'
 import type { PropertyBlock as PropertyBlockType } from '@gen/sanity-schema'
 import { Block, SanityBlockElement } from '@components/sanity'
-import { PropertyContentProps, PropertyDetail } from '@components/property'
+import { Property, PropertyContentProps } from '@components/property'
 
 type PropertyBlockProps = Omit<SanityBlockElement, keyof PropertyBlockType> &
   PropertyBlockType
@@ -12,8 +12,8 @@ export const PropertyBlock: FC<PropertyBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className, 'mt-[40px] md:mt-24')}>
-      <PropertyDetail property={propertyRef as PropertyContentProps} />
+    <Block className={classNames(className, 'mt-header')}>
+      <Property property={propertyRef as PropertyContentProps} block={true} />
     </Block>
   )
 }

@@ -27,7 +27,7 @@ const PreferenceSubmitButton: FC<PreferenceSubmitButtonProps> = ({
   return (
     <div className={className}>
       <button
-        className="flex justify-between items-center w-full px-x md:px-xhalf tracking-details h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+        className="flex justify-between items-center w-full px-x md:px-xhalf h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
         type={buttonType || `button`}
         onClick={onClick}
       >
@@ -107,7 +107,7 @@ const LocationsPane: FC<PaneProps> = ({
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
   return (
     <div className={className}>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Where do you want to own a 0001 home?
       </p>
       {LOCATIONS.map(({ label, name }) => (
@@ -119,7 +119,7 @@ const LocationsPane: FC<PaneProps> = ({
             {...register('locations_of_interest', { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -136,7 +136,7 @@ const LocationsPane: FC<PaneProps> = ({
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'Else'}
         >
           {`Somewhere else`}
@@ -151,7 +151,7 @@ const LocationsPane: FC<PaneProps> = ({
           'waitlist input mb-4'
         )}
       />
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium tracking-normal">
         What are your prefered neighborhoods?
       </p>
       <input
@@ -162,7 +162,7 @@ const LocationsPane: FC<PaneProps> = ({
         })}
         className={classNames('waitlist input -mt-[15px] mb-10')}
       />
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         What would be the ideal size?
       </p>
       {SIZES.map(({ label, name }: any) => (
@@ -174,7 +174,7 @@ const LocationsPane: FC<PaneProps> = ({
             {...register('bedroom_preference', { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -214,7 +214,7 @@ const HomeTypesPane: FC<PaneProps> = ({
 
   return (
     <div className={className}>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         What kind of home are you looking for?
       </p>
       <div>
@@ -227,7 +227,7 @@ const HomeTypesPane: FC<PaneProps> = ({
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'Apt-condo'}
         >
           {'Apartment / Condo'}
@@ -243,7 +243,7 @@ const HomeTypesPane: FC<PaneProps> = ({
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'Sfh'}
         >
           {'House / Single Family Home'}
@@ -260,7 +260,7 @@ const HomeTypesPane: FC<PaneProps> = ({
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'OtherHome'}
         >
           {'Other:'}
@@ -277,7 +277,7 @@ const HomeTypesPane: FC<PaneProps> = ({
         )}
       />
 
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Will it be your primary residence?
       </p>
       <div>
@@ -290,7 +290,7 @@ const HomeTypesPane: FC<PaneProps> = ({
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'Primary'}
         >
           {'Yes, primary residence'}
@@ -322,7 +322,7 @@ const HomeTypesPane: FC<PaneProps> = ({
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'Secondary-else'}
         >
           {'No, buying for someone else (like a family member)'}
@@ -338,7 +338,7 @@ const HomeTypesPane: FC<PaneProps> = ({
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'Secondary-rental'}
         >
           {'No, buying as a rental / investment property'}
@@ -355,7 +355,7 @@ const HomeTypesPane: FC<PaneProps> = ({
           })}
         />
         <label
-          className="text-left cursor-pointer font-medium text-md"
+          className="text-left cursor-pointer font-medium text-md tracking-normal"
           htmlFor={'otherPrimary'}
         >
           {'Other'}
@@ -407,7 +407,7 @@ const FinancingRadioPane: FC<PaneProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Would you like our support to help with financing?
       </p>
       {FINANCING.map(({ label, name }: any) => (
@@ -421,7 +421,7 @@ const FinancingRadioPane: FC<PaneProps> = ({
             })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -429,7 +429,7 @@ const FinancingRadioPane: FC<PaneProps> = ({
         </div>
       ))}
       <br></br>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Would you like help selling your current home?
       </p>
       {SELLINGHOME.map(({ label, name }: any) => (
@@ -443,7 +443,7 @@ const FinancingRadioPane: FC<PaneProps> = ({
             })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -486,7 +486,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         Which amenities are most important to you? (Select all that apply)
       </p>
       {fields.map(({ label, name }: any) => (
@@ -498,7 +498,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
             {...register(fieldCode, { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -506,7 +506,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
         </div>
       ))}
       <br></br>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         {"So, what's your price range?"}
       </p>
       {PRICES.map(({ label, name }: any) => (
@@ -518,7 +518,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
             {...register('price_range', { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -526,7 +526,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
         </div>
       ))}
       <br></br>
-      <p className="mb-ylg text-md font-medium">
+      <p className="mb-ydouble text-md font-medium">
         {"And what's your timeline?"}
       </p>
       {TIMELINE.map(({ label, name }: any) => (
@@ -538,7 +538,7 @@ const CheckboxPaneAmenities: FC<CheckboxPaneProps> = ({
             {...register('buyingtimelinedec2023', { required: false })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md"
+            className="text-left cursor-pointer font-medium text-md tracking-normal"
             htmlFor={name}
           >
             {label}
@@ -583,13 +583,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
   const [currentStep, setCurrentStep] = useState(0)
 
   return (
-    <div
-      className={classNames(
-        className,
-        block ? '' : 'pr-menu',
-        'w-full text-xs font-bold'
-      )}
-    >
+    <div className={classNames(className, block ? '' : 'pr-menu', 'w-full')}>
       <PreferencePane
         block={block}
         largeHeader={true}
@@ -610,7 +604,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
               setFullWidth && setFullWidth()
             }
           }}
-          className={classNames('flex flex-col gap-3 md:h-auto')}
+          className={classNames('flex flex-col gap-y md:h-auto')}
         />
       </PreferencePane>
 
@@ -637,7 +631,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
           onClick={() => setCurrentStep(currentStep + 1)}
           className={classNames(
             currentStep !== 1 ? 'hidden' : '',
-            'flex flex-col gap-4'
+            'flex flex-col gap-y'
           )}
         />
       </PreferencePane>
@@ -658,7 +652,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
           onBack={() => setCurrentStep(currentStep - 1)}
           className={classNames(
             currentStep !== 2 ? 'hidden' : '',
-            'flex flex-col gap-4'
+            'flex flex-col gap-y'
           )}
         />
       </PreferencePane>
@@ -683,7 +677,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
           onBack={() => setCurrentStep(currentStep - 1)}
           className={classNames(
             currentStep !== 3 ? 'hidden' : '',
-            'flex flex-col gap-4 '
+            'flex flex-col gap-y '
           )}
         />
       </PreferencePane>
@@ -699,7 +693,7 @@ export const PreferencePaneInputs: FC<PreferencePaneInputsProps> = ({
           onBack={() => setCurrentStep(currentStep - 1)}
           className={classNames(
             currentStep !== 4 ? 'hidden' : '',
-            'flex flex-col gap-4 '
+            'flex flex-col gap-y '
           )}
         />
       </PreferencePane>
