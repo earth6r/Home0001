@@ -69,6 +69,13 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
   }
 
   if (!unit) return null
+  if (
+    unit.photoLimit &&
+    unit?.photographs &&
+    unit?.photographs?.length > unit.photoLimit
+  ) {
+    unit.photographs = unit.photographs.slice(0, unit.photoLimit)
+  }
 
   return (
     <li className={classNames(className)}>
