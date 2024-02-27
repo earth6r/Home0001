@@ -116,6 +116,12 @@ export default {
       of: [{ type: 'media' }],
     },
     {
+      name: 'photoLimit',
+      title: 'Unit List Photo Limit',
+      type: 'number',
+      description: 'Limit the number of photos shown on the property',
+    },
+    {
       name: 'summary',
       title: 'Summary',
       type: 'richText',

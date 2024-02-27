@@ -443,6 +443,13 @@ export interface Unit extends SanityDocument {
   photographs?: Array<SanityKeyed<Media>>;
 
   /**
+   * Unit List Photo Limit — `number`
+   *
+   * Limit the number of photos shown on the property
+   */
+  photoLimit?: number;
+
+  /**
    * Summary — `richText`
    *
    *
