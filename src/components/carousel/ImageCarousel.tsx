@@ -188,7 +188,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                   ) : (
                     <div
                       className={classNames(
-                        fullWidth ? '' : 'absolute aspect-[4/5]'
+                        fullWidth ? '' : 'absolute min-w-full aspect-[4/5]'
                       )}
                     >
                       <ImageSlide
