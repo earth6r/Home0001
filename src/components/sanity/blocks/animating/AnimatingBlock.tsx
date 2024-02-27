@@ -203,11 +203,11 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   }
 
   useEffect(() => {
-    const isFirstVisit = !sessionStorage.getItem('firstTime')
-    if (isFirstVisit) {
+    const isFirstVisit = sessionStorage.getItem('firstTime')
+    if (isFirstVisit !== 'false') {
       setAnimateActive(true)
       setShowContent(true)
-      sessionStorage.setItem('firstTime', 'false')
+      setTimeout(() => sessionStorage.setItem('firstTime', 'false'), 2000)
     } else {
       setShowContent(true)
     }

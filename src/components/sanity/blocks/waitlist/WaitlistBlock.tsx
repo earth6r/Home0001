@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import classNames from 'classnames'
 import type { WaitlistBlock as WaitlistBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'

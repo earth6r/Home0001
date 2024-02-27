@@ -1,4 +1,4 @@
-import { useEffect, type FC, type ReactNode } from 'react'
+import { type FC, type ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import type {
