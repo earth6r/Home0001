@@ -222,7 +222,7 @@ export const PROPERTIES_QUERY = `
     price,
     cryptoPrice,
     area,
-    "photographs": photographs[]{
+    "photographs": photographs[0...5]{
       ${MEDIA_QUERY}
     },
     "propertyType": propertyType->{
