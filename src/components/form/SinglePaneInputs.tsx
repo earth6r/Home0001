@@ -1,10 +1,9 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useContext, useState, useEffect } from 'react'
+import { HTMLAttributes, useContext, useState } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
-import { FieldValues, UseFormRegister, useForm } from 'react-hook-form'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
-import { useCookies } from '@contexts/cookies'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   fields?: {
