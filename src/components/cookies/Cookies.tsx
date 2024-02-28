@@ -2,6 +2,7 @@ import { useLocalCookies } from '@contexts/cookies'
 import classNames from 'classnames'
 import { useState, type FC, type HTMLProps, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
+import { AnimatePresence, motion } from 'framer-motion'
 
 type CookiesProps = {}
 
@@ -28,30 +29,37 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = () => {
     if (typeof window !== 'undefined') {
       sessionStorage.getItem('cookieStorage') === 'true'
         ? setShowBanner(false)
-        : setShowBanner(true)
+        : sessionStorage.getItem('firstTime') === 'false'
+        ? setShowBanner(true)
+        : setTimeout(() => setShowBanner(true), 2400)
     }
   }, [])
 
   return (
-    <div
-      className={classNames(
-        showBanner ? 'flex' : 'hidden',
-        'justify-between fixed w-full bottom-y px-x font-medium font-sansText z-modal'
-      )}
-    >
-      <span>{`We use cookies`}</span>
-      <div className="flex gap-xhalf">
-        <button
-          className="uppercase"
-          onClick={() => acceptCookies()}
-        >{`Accept`}</button>
-        <span>{`/`}</span>
-        <button
-          className="uppercase"
-          onClick={() => ignoreCookies()}
-        >{`Ignore`}</button>
-      </div>
-    </div>
+    <AnimatePresence>
+      <motion.div
+        style={{
+          opacity: showBanner ? 1 : 0,
+          transition: `opacity 0.2s ease-in-out`,
+        }}
+        className={classNames(
+          'flex justify-between fixed w-full bottom-y px-x font-medium font-sansText z-modal'
+        )}
+      >
+        <span>{`We use cookies`}</span>
+        <div className="flex gap-xhalf">
+          <button
+            className="uppercase"
+            onClick={() => acceptCookies()}
+          >{`Accept`}</button>
+          <span>{`/`}</span>
+          <button
+            className="uppercase"
+            onClick={() => ignoreCookies()}
+          >{`Ignore`}</button>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   )
 }
 
