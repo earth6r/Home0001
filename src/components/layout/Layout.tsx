@@ -13,6 +13,7 @@ import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
+import { Cookies } from '@components/cookies'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -82,6 +83,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           query={query}
           footerMenu={siteSettings?.footerMenu as Menus | undefined}
         />
+        <Cookies />
       </div>
       <ToastContainer />
     </>
