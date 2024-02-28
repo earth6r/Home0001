@@ -169,6 +169,7 @@ export default {
           fontSize: theme('fontSize.xs'),
           fontWeight: '500',
           textTransform: 'uppercase',
+          lineHeight: '0.8',
         },
       })
     },
