@@ -1,13 +1,13 @@
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useState } from 'react'
+import React, { HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormHandleSubmit } from 'react-hook-form'
 import { submitForm } from '@lib/util/submit-forms'
 import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
-import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { useLocalCookies } from '@contexts/cookies'
 
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
@@ -38,15 +38,8 @@ export const Form: FC<FormProps> = ({
   children,
 }) => {
   const [formError, setFormError] = useState<unknown | string | null>(null)
-  const [cookies, setCookie, removeCookie] = useCookies()
-  const [hutk, setHutk] = useState<string | undefined>()
+  const [hutk, setHutk] = useLocalCookies()
   const { asPath } = useRouter()
-
-  useEffect(() => {
-    if (cookies.hubspotutk) {
-      setHutk(cookies.hubspotutk)
-    }
-  }, [])
 
   const onSubmit = async (data: any) => {
     const options = {
