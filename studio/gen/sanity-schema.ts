@@ -562,6 +562,13 @@ export interface SiteSettings extends SanityDocument {
   description?: string;
 
   /**
+   * Cookies Pane Copy — `richText`
+   *
+   *
+   */
+  cookiesPaneCopy?: RichText;
+
+  /**
    * Site Image — `image`
    *
    *
