@@ -14,6 +14,7 @@ export const SITE_SETTINGS_QUERY = groq`
     "image": image{
       ${IMAGE_QUERY}
     },
+    cookiesPaneCopy,
     siteDescription,
     siteKeywords,
     mainMenu->{

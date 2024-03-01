@@ -83,7 +83,7 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
           query={query}
           footerMenu={siteSettings?.footerMenu as Menus | undefined}
         />
-        <Cookies />
+        <Cookies copy={siteSettings?.cookiesPaneCopy} />
       </div>
       <ToastContainer />
     </>
