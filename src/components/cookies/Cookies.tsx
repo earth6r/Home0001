@@ -26,10 +26,10 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onClose={decline}>
-      <Dialog.Panel className="fixed xl:max-w-[1280px] bottom-y py-xdouble px-x m-x md:m-xdouble bg-white border-black z-menu">
+      <Dialog.Panel className="fixed xl:max-w-[1280px] bottom-y py-xdouble px-x m-x md:m-xdouble xl:mx-auto left-0 right-0 bg-white border-black z-menu">
         {copy && (
           <Dialog.Description>
-            <RichText blocks={copy} />
+            <RichText blocks={copy} className="mt-yhalf" />
           </Dialog.Description>
         )}
 
@@ -46,7 +46,7 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
           className="absolute top-x right-x text-button"
           onClick={decline}
         >
-          <IconX className="w-3" />
+          <IconX className="w-xhalf" />
         </button>
       </Dialog.Panel>
     </Dialog>
