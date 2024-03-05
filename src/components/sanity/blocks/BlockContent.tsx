@@ -16,6 +16,7 @@ import {
   FlexWaitlistBlock,
   CalendarBlock,
 } from '.'
+import { VideosBlock } from './videos'
 
 export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
@@ -65,6 +66,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             contactBlock: ({ index, value }) => (
               <ContactBlock index={index} grid={grid} {...value} />
+            ),
+            videosBlock: ({ index, value }) => (
+              <VideosBlock index={index} {...value} />
             ),
           },
           marks: blockMarks,

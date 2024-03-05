@@ -14,6 +14,14 @@
   @apply font-sansText font-bold leading-[1.1];
 }
 
+.rich-text > h1,
+.rich-text > h2,
+.rich-text > h3,
+.rich-text > h4,
+.rich-text > p.large {
+  margin-top: var(--space-y-double);
+}
+
 .rich-text > ul,
 .rich-text > ol,
 .rich-text > blockquote,
