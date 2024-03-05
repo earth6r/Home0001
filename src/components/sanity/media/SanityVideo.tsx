@@ -3,11 +3,12 @@ import type { SanityVideoProps } from './types'
 import { getFileAsset } from '@sanity/asset-utils'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_API_PROJECT_ID || 'cr71fv96'
-const DATASET = process.env.SANITY_STUDIO_API_DATASET || 'production'
+const DATASET = process.env.SANITY_STUDIO_API_DATASET || 'dev'
 
 export const SanityVideo: FC<SanityVideoProps> = ({
   video,
   muted,
+  className,
   ...props
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -36,6 +37,7 @@ export const SanityVideo: FC<SanityVideoProps> = ({
       key={video?.files[0]._key}
       ref={videoRef}
       playsInline
+      className={className}
       {...(video.loop && { loop: true })}
       {...(video.autoplay && {
         autoPlay: true,
