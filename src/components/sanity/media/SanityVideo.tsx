@@ -1,11 +1,17 @@
-import type { FC } from 'react'
+import { useRef, type FC, useEffect } from 'react'
 import type { SanityVideoProps } from './types'
 import { getFileAsset } from '@sanity/asset-utils'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_API_PROJECT_ID || 'cr71fv96'
 const DATASET = process.env.SANITY_STUDIO_API_DATASET || 'production'
 
-export const SanityVideo: FC<SanityVideoProps> = ({ video, ...props }) => {
+export const SanityVideo: FC<SanityVideoProps> = ({
+  video,
+  muted,
+  ...props
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
   const getFileType = (url: string) => {
     if (url.includes('.webm')) {
       return 'video/webm'
@@ -16,15 +22,24 @@ export const SanityVideo: FC<SanityVideoProps> = ({ video, ...props }) => {
     }
   }
 
+  useEffect(() => {
+    const video = videoRef.current
+    if (video && video.autoplay) {
+      video.setAttribute('muted', 'true')
+      video.play()
+    }
+  }, [])
+
   return video?.files?.length ? (
     // eslint-disable-next-line jsx-a11y/media-has-caption
     <video
       key={video?.files[0]._key}
+      ref={videoRef}
       playsInline
       {...(video.loop && { loop: true })}
       {...(video.autoplay && {
         autoPlay: true,
-        muted: true,
+        muted,
       })}
       {...(video.poster && { poster: video.poster.asset.url })}
       {...props}

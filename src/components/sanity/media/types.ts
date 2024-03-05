@@ -28,6 +28,7 @@ export interface SanityImageProps extends Omit<ImageProps, 'src'> {
 
 export interface SanityVideoProps extends HTMLAttributes<HTMLVideoElement> {
   video: SanityVideoType
+  muted?: boolean
 }
 
 export interface SanityMediaProps extends HTMLAttributes<HTMLImageElement> {
