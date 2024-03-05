@@ -20,7 +20,14 @@ export const SanityMedia: FC<SanityMediaProps> = ({
       />
     )
   if (video?.files?.length)
-    return <SanityVideo video={video} className={className} />
+    return (
+      <SanityVideo
+        id="sanity-video"
+        muted={video.autoplay}
+        video={video}
+        className={className}
+      />
+    )
   return null
 }
 
