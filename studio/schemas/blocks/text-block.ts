@@ -7,6 +7,14 @@ export default {
   title: 'Text Block',
   icon: BiText,
   fields: [
+    {
+      name: 'columns',
+      title: 'Columns',
+      type: 'number',
+      description:
+        'Number of columns to display on larger screens. Defaults to 3 if blank',
+      initialValue: 3,
+    },
     textField,
     {
       name: 'yellowBackground',
@@ -14,6 +22,11 @@ export default {
       title: 'Yellow Background',
       description:
         'This will give the text block a full-width yellow background',
+    },
+    {
+      name: 'bottomBorder',
+      type: 'boolean',
+      title: 'Black Bottom Border',
     },
   ],
   preview: {

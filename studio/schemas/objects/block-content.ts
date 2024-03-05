@@ -54,6 +54,11 @@ export default {
       title: 'Unit Block',
     },
     {
+      name: 'videosBlock',
+      type: 'videosBlock',
+      title: 'Videos Block',
+    },
+    {
       name: 'waitlistBlock',
       type: 'waitlistBlock',
       title: 'Waitlist Block',

@@ -948,6 +948,49 @@ export type UnitGroup = {
   units?: Array<SanityKeyedReference<Unit>>;
 };
 
+export type Video = {
+  _type: "video";
+  /**
+   * files — `array`
+   *
+   * Video files beginning with WebM
+   */
+  files?: Array<SanityKeyed<{ _type: "file"; asset: SanityReference<any> }>>;
+
+  /**
+   * poster — `image`
+   *
+   * Image that displays before the video is loaded
+   */
+  poster?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Caption — `string`
+   *
+   *
+   */
+  caption?: string;
+
+  /**
+   * loop — `boolean`
+   *
+   *
+   */
+  loop?: boolean;
+
+  /**
+   * autoplay — `boolean`
+   *
+   * Video will be muted if autoplay is enabled
+   */
+  autoplay?: boolean;
+};
+
 export type InventoryModule = {
   _type: "inventoryModule";
   /**
@@ -976,6 +1019,7 @@ export type BlockContent = Array<
   | SanityKeyed<ContactBlock>
   | SanityKeyed<TextBlock>
   | SanityKeyed<UnitBlock>
+  | SanityKeyed<VideosBlock>
   | SanityKeyed<WaitlistBlock>
   | SanityKeyed<FlexWaitlistBlock>
 >;
@@ -1140,6 +1184,13 @@ export type ContactBlock = {
 export type TextBlock = {
   _type: "textBlock";
   /**
+   * Columns — `number`
+   *
+   * Number of columns to display on larger screens. Defaults to 3 if blank
+   */
+  columns?: number;
+
+  /**
    * Text — `richText`
    *
    *
@@ -1152,6 +1203,13 @@ export type TextBlock = {
    * This will give the text block a full-width yellow background
    */
   yellowBackground?: boolean;
+
+  /**
+   * Black Bottom Border — `boolean`
+   *
+   *
+   */
+  bottomBorder?: boolean;
 };
 
 export type UnitBlock = {
@@ -1162,6 +1220,16 @@ export type UnitBlock = {
    *
    */
   unitRef?: SanityReference<Unit>;
+};
+
+export type VideosBlock = {
+  _type: "videosBlock";
+  /**
+   * Videos — `array`
+   *
+   *
+   */
+  videos?: Array<SanityKeyed<Video>>;
 };
 
 export type WaitlistBlock = {
