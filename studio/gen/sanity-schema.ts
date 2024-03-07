@@ -953,7 +953,7 @@ export type Video = {
   /**
    * files — `array`
    *
-   * Video files beginning with WebM
+   * Video files (webm, m4v, mp4) beginning with webm
    */
   files?: Array<SanityKeyed<{ _type: "file"; asset: SanityReference<any> }>>;
 
