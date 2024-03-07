@@ -36,6 +36,7 @@ function App({
     if (lenis) lenis.start()
     let routes = sessionStorage.getItem('routes')
     if (!routes) routes = '[]'
+    console.log(path, routes)
 
     let paths: string[] = JSON.parse(routes)
     paths.push(path)

@@ -156,7 +156,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="md:hidden my-ydouble pl-x pr-menu">
+          <div className="md:hidden my-ydouble pl-x pr-menu mr-x">
             <button
               onClick={() => setInquiryOpen(true)}
               className={classNames(
