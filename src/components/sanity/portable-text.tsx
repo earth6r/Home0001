@@ -21,6 +21,9 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
   tooltip: ({ value }) => {
     return <SanityTooltip {...value} />
   },
+  divider: () => {
+    return <span className="block h-yhalf" />
+  },
 }
 
 /**
