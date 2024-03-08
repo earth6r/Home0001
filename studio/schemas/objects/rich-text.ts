@@ -1,4 +1,5 @@
 import { BiText } from 'react-icons/bi'
+import { RxDividerHorizontal } from 'react-icons/rx'
 
 export default {
   name: 'richText',
@@ -43,6 +44,12 @@ export default {
         ],
       },
       of: [
+        {
+          title: 'Divider',
+          name: 'divider',
+          type: 'divider',
+          icon: RxDividerHorizontal,
+        },
         {
           title: 'Tooltip',
           name: 'tooltip',
