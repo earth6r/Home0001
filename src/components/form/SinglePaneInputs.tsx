@@ -92,14 +92,14 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 id="first_name"
                 className={classNames(modal ? 'waitlist' : '', 'input')}
                 placeholder="FIRST NAME"
-                {...register('first_name', { required: true })}
+                {...register('first_name', { required: 'Name required' })}
               />
               <input
                 type="text"
                 id="last_name"
                 className={classNames(modal ? 'waitlist' : '', 'input')}
                 placeholder="LAST NAME"
-                {...register('last_name', { required: true })}
+                {...register('last_name', { required: 'Name required' })}
               />
             </div>
           )}
@@ -109,7 +109,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             type="email"
             id="email"
             className={classNames(modal ? 'waitlist' : '', 'input')}
-            {...register('email', { required: true })}
+            {...register('email', { required: 'Please enter your email' })}
             onChange={() => !unitInput && setUnitInput(true)}
           />
 
@@ -119,7 +119,12 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
               id="phone"
               className={classNames(modal ? 'waitlist' : '', 'input')}
               placeholder="Phone Number"
-              {...register('phone', { required: true })}
+              {...register('phone', {
+                required: 'Please enter your phone number',
+                pattern: /^[0-9+-]+$/,
+                minLength: 6,
+                maxLength: 12,
+              })}
             />
           )}
         </div>
