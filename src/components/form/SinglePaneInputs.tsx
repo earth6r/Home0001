@@ -118,8 +118,8 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
               type="tel"
               id="phone"
               className={classNames(modal ? 'waitlist' : '', 'input')}
-              placeholder="Phone Number (Optional)"
-              {...register('phone', { required: false })}
+              placeholder="Phone Number"
+              {...register('phone', { required: true })}
             />
           )}
         </div>

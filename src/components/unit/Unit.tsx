@@ -71,7 +71,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
               )}
             >
-              {`Join the waitlist`}
+              {`Inquire`}
               <IconSmallArrow width="16" height="10" />
             </button>
 
@@ -164,7 +164,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
               )}
             >
-              {`Join the waitlist`}
+              {`Inquire`}
               <IconSmallArrow width="16" height="10" />
             </button>
 
