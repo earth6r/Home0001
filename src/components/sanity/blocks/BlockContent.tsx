@@ -15,6 +15,8 @@ import {
   PropertyBlock,
   FlexWaitlistBlock,
   CalendarBlock,
+  TextAndAccordionBlock,
+  VideosBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
@@ -54,6 +56,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             textBlock: ({ index, value }) => (
               <TextBlock index={index} grid={grid} {...value} />
             ),
+            textAndAccordionBlock: ({ index, value }) => (
+              <TextAndAccordionBlock index={index} grid={grid} {...value} />
+            ),
             unitBlock: ({ index, value }) => (
               <UnitBlock index={index} grid={grid} {...value} />
             ),
@@ -65,6 +70,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             contactBlock: ({ index, value }) => (
               <ContactBlock index={index} grid={grid} {...value} />
+            ),
+            videosBlock: ({ index, value }) => (
+              <VideosBlock index={index} {...value} />
             ),
           },
           marks: blockMarks,
