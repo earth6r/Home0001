@@ -12,6 +12,8 @@ export const TextBlock: FC<TextBlockProps> = ({
   columns,
   bottomBorder,
   yellowBackground,
+  stickyHeader,
+  header,
   grid,
   className,
 }) => {
@@ -32,7 +34,19 @@ export const TextBlock: FC<TextBlockProps> = ({
         columns && columns < 3 ? 'md:pr-0' : ''
       )}
     >
-      <div style={{ gridColumnStart: columns && columns > 2 ? 2 : 1 }}>
+      {stickyHeader && header && (
+        <RichText
+          blocks={header}
+          className={classNames(
+            'md:inline md:sticky md:h-[1em] md:top-[var(--header-height)] col-start-1 clear-both md:pr-x'
+          )}
+        />
+      )}
+      <div
+        style={{
+          gridColumnStart: (columns && columns > 2) || stickyHeader ? 2 : 1,
+        }}
+      >
         {text && (
           <RichText blocks={text} className={classNames('clear-both pr-x')} />
         )}

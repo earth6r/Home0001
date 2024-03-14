@@ -15,8 +15,9 @@ import {
   PropertyBlock,
   FlexWaitlistBlock,
   CalendarBlock,
+  TextAndAccordionBlock,
+  VideosBlock,
 } from '.'
-import { VideosBlock } from './videos'
 
 export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
@@ -54,6 +55,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             textBlock: ({ index, value }) => (
               <TextBlock index={index} grid={grid} {...value} />
+            ),
+            textAndAccordionBlock: ({ index, value }) => (
+              <TextAndAccordionBlock index={index} grid={grid} {...value} />
             ),
             unitBlock: ({ index, value }) => (
               <UnitBlock index={index} grid={grid} {...value} />
