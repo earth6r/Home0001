@@ -156,7 +156,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             />
           )}
 
-          <div className="md:hidden pl-x pr-menu my-ydouble">
+          <div className="md:hidden pl-x pr-menu my-ydouble mr-x">
             {unit?.calendarLink && (
               <SanityLink
                 externalLink={unit.calendarLink}
@@ -180,7 +180,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
                 )}
               >
                 {`Ask us a question`}
-                <IconSmallArrow width="16" height="10" fill="black" />
+                <IconSmallArrow width="16" height="10" fill="white" />
               </button>
             </a>
           </div>

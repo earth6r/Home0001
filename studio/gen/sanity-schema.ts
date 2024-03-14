@@ -778,6 +778,16 @@ export type Cta = {
   link?: Link;
 };
 
+export type Divider = {
+  _type: "divider";
+  /**
+   * Divider — `boolean`
+   *
+   *
+   */
+  divider?: boolean;
+};
+
 export type Figure = {
   _type: "figure";
   /**

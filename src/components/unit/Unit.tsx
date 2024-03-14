@@ -71,7 +71,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
               )}
             >
-              {`Join the waitlist`}
+              {`Inquire`}
               <IconSmallArrow width="16" height="10" />
             </button>
 
@@ -113,7 +113,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           {unit?.unitDetails && (
             <>
               <p className="hidden md:block xl:hidden text-h4 px-x md:px-0 mt-ydouble mb-yhalf">
-                Details
+                Details:
               </p>
               <RichText
                 blocks={unit?.unitDetails}
@@ -156,7 +156,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="md:hidden my-ydouble pl-x pr-menu">
+          <div className="md:hidden my-ydouble pl-x pr-menu mr-x">
             <button
               onClick={() => setInquiryOpen(true)}
               className={classNames(
@@ -164,7 +164,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
               )}
             >
-              {`Join the waitlist`}
+              {`Inquire`}
               <IconSmallArrow width="16" height="10" />
             </button>
 
