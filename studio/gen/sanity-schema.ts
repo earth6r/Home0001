@@ -958,6 +958,49 @@ export type UnitGroup = {
   units?: Array<SanityKeyedReference<Unit>>;
 };
 
+export type Video = {
+  _type: "video";
+  /**
+   * files — `array`
+   *
+   * Video files (webm, m4v, mp4) beginning with webm
+   */
+  files?: Array<SanityKeyed<{ _type: "file"; asset: SanityReference<any> }>>;
+
+  /**
+   * poster — `image`
+   *
+   * Image that displays before the video is loaded
+   */
+  poster?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Caption — `string`
+   *
+   *
+   */
+  caption?: string;
+
+  /**
+   * loop — `boolean`
+   *
+   *
+   */
+  loop?: boolean;
+
+  /**
+   * autoplay — `boolean`
+   *
+   * Video will be muted if autoplay is enabled
+   */
+  autoplay?: boolean;
+};
+
 export type InventoryModule = {
   _type: "inventoryModule";
   /**
@@ -985,7 +1028,9 @@ export type BlockContent = Array<
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
   | SanityKeyed<TextBlock>
+  | SanityKeyed<TextAndAccordionBlock>
   | SanityKeyed<UnitBlock>
+  | SanityKeyed<VideosBlock>
   | SanityKeyed<WaitlistBlock>
   | SanityKeyed<FlexWaitlistBlock>
 >;
@@ -1150,6 +1195,27 @@ export type ContactBlock = {
 export type TextBlock = {
   _type: "textBlock";
   /**
+   * Columns — `number`
+   *
+   * Number of columns to display on larger screens. Defaults to 3 if blank
+   */
+  columns?: number;
+
+  /**
+   * Sticky Header — `boolean`
+   *
+   * This will make the header sticky on scroll, note requires a header to be set and number of columns set to 2
+   */
+  stickyHeader?: boolean;
+
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
    * Text — `richText`
    *
    *
@@ -1162,6 +1228,47 @@ export type TextBlock = {
    * This will give the text block a full-width yellow background
    */
   yellowBackground?: boolean;
+
+  /**
+   * Black Bottom Border — `boolean`
+   *
+   *
+   */
+  bottomBorder?: boolean;
+};
+
+export type TextAndAccordionBlock = {
+  _type: "textAndAccordionBlock";
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
+   * Items — `array`
+   *
+   *
+   */
+  items?: Array<
+    SanityKeyed<{
+      _type: "item";
+      /**
+       * Copy — `richText`
+       *
+       *
+       */
+      copy?: RichText;
+
+      /**
+       * Accordions — `array`
+       *
+       *
+       */
+      accordions?: Array<SanityKeyed<Accordion>>;
+    }>
+  >;
 };
 
 export type UnitBlock = {
@@ -1172,6 +1279,16 @@ export type UnitBlock = {
    *
    */
   unitRef?: SanityReference<Unit>;
+};
+
+export type VideosBlock = {
+  _type: "videosBlock";
+  /**
+   * Videos — `array`
+   *
+   *
+   */
+  videos?: Array<SanityKeyed<Video>>;
 };
 
 export type WaitlistBlock = {
