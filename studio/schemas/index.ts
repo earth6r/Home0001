@@ -35,6 +35,7 @@ import flexWaitlistBlock from './blocks/flex-waitlist-block'
 import calendarBlock from './blocks/calendar-block'
 import video from './objects/video'
 import videosBlock from './blocks/videos-block'
+import divider from './objects/divider'
 
 export const schemaTypes = [
   // objects
@@ -43,6 +44,7 @@ export const schemaTypes = [
   color,
   coordinates,
   cta,
+  divider,
   figure,
   media,
   menuItem,

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { use, useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import { Layout } from '@components/layout'
@@ -32,12 +32,15 @@ function App({
   const { query, events, asPath } = useRouter()
   const lenis = useLenis()
 
-  const handleRouteChange = (path: string, lenis: LenisInstance) => {
+  const handleRouteChange = () => {
     if (lenis) lenis.start()
     let routes = sessionStorage.getItem('routes')
     if (!routes) routes = '[]'
 
+    const path = typeof window !== 'undefined' ? window.location.pathname : ''
     let paths: string[] = JSON.parse(routes)
+    const lastPath = paths[paths.length - 1]
+    if (path === lastPath) return
     paths.push(path)
     sessionStorage.setItem('routes', JSON.stringify(paths))
   }
@@ -56,16 +59,14 @@ function App({
   }, [query])
 
   useEffect(() => {
-    events.on('routeChangeComplete', () => handleRouteChange(asPath, lenis))
-
-    return () => {
-      events.off('routeChangeComplete', () => handleRouteChange(asPath, lenis))
-    }
-  }, [events, asPath, lenis])
-
-  useEffect(() => {
     const paths: string[] = [`${asPath}`]
     sessionStorage.setItem('routes', JSON.stringify(paths))
+
+    events.on('routeChangeComplete', handleRouteChange)
+
+    return () => {
+      events.off('routeChangeComplete', handleRouteChange)
+    }
   }, [])
 
   return draftMode && token ? (
