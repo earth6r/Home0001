@@ -1028,6 +1028,7 @@ export type BlockContent = Array<
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
   | SanityKeyed<TextBlock>
+  | SanityKeyed<TextAndAccordionBlock>
   | SanityKeyed<UnitBlock>
   | SanityKeyed<VideosBlock>
   | SanityKeyed<WaitlistBlock>
@@ -1201,6 +1202,20 @@ export type TextBlock = {
   columns?: number;
 
   /**
+   * Sticky Header — `boolean`
+   *
+   * This will make the header sticky on scroll, note requires a header to be set and number of columns set to 2
+   */
+  stickyHeader?: boolean;
+
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
    * Text — `richText`
    *
    *
@@ -1220,6 +1235,40 @@ export type TextBlock = {
    *
    */
   bottomBorder?: boolean;
+};
+
+export type TextAndAccordionBlock = {
+  _type: "textAndAccordionBlock";
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
+   * Items — `array`
+   *
+   *
+   */
+  items?: Array<
+    SanityKeyed<{
+      _type: "item";
+      /**
+       * Copy — `richText`
+       *
+       *
+       */
+      copy?: RichText;
+
+      /**
+       * Accordions — `array`
+       *
+       *
+       */
+      accordions?: Array<SanityKeyed<Accordion>>;
+    }>
+  >;
 };
 
 export type UnitBlock = {

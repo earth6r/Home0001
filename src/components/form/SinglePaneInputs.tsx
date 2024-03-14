@@ -244,7 +244,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
               id="message"
               className="block p-5 mt-yhalf"
               placeholder="LEAVE US A MESSAGE"
-              {...register('message', { required: true })}
+              {...register('message', { required: 'Message required' })}
             />
           </>
         )}

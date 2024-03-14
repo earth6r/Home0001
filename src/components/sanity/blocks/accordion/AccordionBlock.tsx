@@ -32,7 +32,7 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
               text={text}
               cta={cta}
               readMore={readMore}
-              className="mt-2 first-of-type:mt-0"
+              className="mt-yhalf first-of-type:mt-0"
             />
           ))}
       </div>

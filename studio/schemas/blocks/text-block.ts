@@ -15,6 +15,18 @@ export default {
         'Number of columns to display on larger screens. Defaults to 3 if blank',
       initialValue: 3,
     },
+    {
+      name: 'stickyHeader',
+      type: 'boolean',
+      title: 'Sticky Header',
+      description:
+        'This will make the header sticky on scroll, note requires a header to be set and number of columns set to 2',
+    },
+    {
+      name: 'header',
+      type: 'richText',
+      title: 'Header',
+    },
     textField,
     {
       name: 'yellowBackground',
