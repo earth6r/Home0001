@@ -38,7 +38,7 @@ export const TextBlock: FC<TextBlockProps> = ({
         <RichText
           blocks={header}
           className={classNames(
-            'md:inline md:sticky md:h-[1em] md:top-[var(--header-height)] col-start-1 clear-both md:pr-x'
+            'md:inline md:sticky md:h-[1em] md:top-[var(--header-height)] col-start-1 clear-both md:pr-x mb-ydouble'
           )}
         />
       )}
