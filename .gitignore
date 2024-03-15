@@ -44,3 +44,7 @@ yarn-error.log*
 .sanity
 *.tar.gz
 studio/*.tar.gz
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

@@ -265,6 +265,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
             animate="active"
             variants={blockVariants}
             className="relative opacity-0"
+            datatype="animating-block-content"
           >
             {textAndImages &&
               textAndImages.map(
