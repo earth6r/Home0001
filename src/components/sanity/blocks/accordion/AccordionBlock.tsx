@@ -21,7 +21,7 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
         grid ? 'md:grid md:grid-cols-3 pr-menu' : ''
       )}
     >
-      <div className="md:col-start-2 md:col-span-1">
+      <div className="md:col-start-2 md:col-span-1" datatype="accordion-block">
         {accordions &&
           accordions.length > 0 &&
           accordions.map(({ _key, header, initialText, text, cta }) => (
