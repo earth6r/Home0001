@@ -15,13 +15,11 @@ const testUnits = async (page: Page, route: any) => {
   await page.goto(baseURL + 'unit/' + route)
 
   //   Image Swiper
-  const swipers = await page.locator('.swiper-wrapper').all()
-  for (const swiper of swipers) {
-    const images = await swiper.locator('img').all()
-    for (const image of images) {
-      await expect(image).toBeVisible()
-    }
-  }
+  await page.waitForFunction(() => {
+    const images = Array.from(document.querySelectorAll('.swiper-wrapper img'))
+
+    return images.every((img: any) => img.complete)
+  })
 
   const drawerButton = await page
     .locator('button:has-text("View Fact Sheet")')
@@ -63,5 +61,10 @@ const testUnits = async (page: Page, route: any) => {
     .getByPlaceholder('Phone Number')
     .fill('00000000000')
   await page.locator('#header').getByRole('button', { name: 'Submit' }).click()
+
+  await expect(
+    page.getByRole('heading', { name: "YOU'RE ON THE WAITLIST! And" })
+  ).toBeVisible()
+
   await page.getByRole('button', { name: 'Close' }).click()
 }

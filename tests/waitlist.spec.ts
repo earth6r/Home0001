@@ -1,4 +1,4 @@
-import { test } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL || ('' as string)
 // const baseURL = 'https://www.home0001.com/'
@@ -23,6 +23,10 @@ test('Header Waitlist', async ({ page }) => {
   await page.locator('#header').getByRole('button', { name: 'Submit' }).click()
   await page.getByLabel('Depends').check()
   await page.getByRole('button', { name: 'Join waitlist' }).click()
+
+  await expect(
+    page.getByRole('heading', { name: "You're on the waitlist!" })
+  ).toBeVisible()
 })
 
 test('Bottom Waitlist', async ({ page }) => {
@@ -40,4 +44,8 @@ test('Bottom Waitlist', async ({ page }) => {
   await page.getByRole('button', { name: 'Submit' }).click()
   await page.getByLabel('Bedrooms +').check()
   await page.getByRole('button', { name: 'Join waitlist' }).click()
+
+  await expect(
+    page.getByRole('heading', { name: "You're on the waitlist!" })
+  ).toBeVisible()
 })

@@ -28,11 +28,9 @@ const testPropertyPage = async (page: Page, slug: string) => {
   }
 
   //   Image Swiper
-  const swipers = await page.locator('.swiper-wrapper').all()
-  for (const swiper of swipers) {
-    const images = await swiper.locator('img').all()
-    for (const image of images) {
-      await expect(image).toBeVisible()
-    }
-  }
+  await page.waitForFunction(() => {
+    const images = Array.from(document.querySelectorAll('.swiper-wrapper img'))
+
+    return images.every((img: any) => img.complete)
+  })
 }

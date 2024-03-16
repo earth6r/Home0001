@@ -12,11 +12,13 @@ test('Home Page Animated Blocks', async ({ page }) => {
 
   await expect(animatingBlock).toBeVisible()
 
-  const images = await animatingBlock.locator('img').all()
+  await page.waitForFunction(() => {
+    const images = Array.from(
+      document.querySelectorAll('[datatype="animating-block-content"] img')
+    )
 
-  for (const image of images) {
-    await expect(image).toBeVisible()
-  }
+    return images.every((img: any) => img.complete)
+  })
 })
 
 test('Available Properties Block', async ({ page }) => {
@@ -27,6 +29,14 @@ test('Available Properties Block', async ({ page }) => {
   )
 
   await expect(availablePropertiesBlock).toBeVisible()
+
+  await page.waitForFunction(() => {
+    const images = Array.from(
+      document.querySelectorAll('[datatype="properties-block-content"] img')
+    )
+
+    return images.every((img: any) => img.complete)
+  })
 
   const properties = await availablePropertiesBlock.locator('a').all()
 
