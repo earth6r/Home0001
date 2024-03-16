@@ -23,16 +23,21 @@ const testUnits = async (page: Page, route: any) => {
     }
   }
 
-  const drawerButton = await page.locator('button:has-text("View Fact Sheet")')
+  const drawerButton = await page
+    .locator('button:has-text("View Fact Sheet")')
+    .first()
   await drawerButton.click()
 
-  const drawerCloseButton = await page.locator('button:has-text("Close")')
+  const drawerCloseButton = await page
+    .locator('button:has-text("Close")')
+    .first()
   await drawerCloseButton.click()
 
   //   Inquire modal test
   const inquireButtonContainers = await page
     .locator('[datatype="inquire-button"]')
     .all()
+
   let currentButton
   for (const buttonContainer of inquireButtonContainers) {
     if (await buttonContainer.isVisible()) {

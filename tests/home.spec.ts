@@ -11,6 +11,12 @@ test('Home Page Animated Blocks', async ({ page }) => {
   )
 
   await expect(animatingBlock).toBeVisible()
+
+  const images = await animatingBlock.locator('img').all()
+
+  for (const image of images) {
+    await expect(image).toBeVisible()
+  }
 })
 
 test('Available Properties Block', async ({ page }) => {

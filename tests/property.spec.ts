@@ -16,7 +16,8 @@ const testPropertyPage = async (page: Page, slug: string) => {
 
   //   Para Toggle Buttons
   const readMoreButtons = await page.locator('span:has-text("Read More")').all()
-  for (const button of readMoreButtons) {
+  for (const buttonContainer of readMoreButtons) {
+    const button = await buttonContainer
     await button.click()
 
     // Check that the button class includes "opacity-0"

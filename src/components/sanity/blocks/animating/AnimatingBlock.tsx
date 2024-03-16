@@ -130,7 +130,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({
               sizes: '(max-width: 768px) 150vw, 1200px',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
             }}
-            onLoadingComplete={() => lastIndex && lenis.resize()}
+            onLoadingComplete={() => lastIndex && lenis?.resize()}
             className="relative w-full h-auto object-contain mt-0"
             {...(media as any)}
           />
