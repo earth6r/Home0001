@@ -63,7 +63,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             )}
           </div>
 
-          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
+          <div
+            className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble"
+            datatype="inquire-button"
+          >
             <button
               onClick={() => setInquiryOpen(true)}
               className={classNames(
@@ -156,7 +159,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="md:hidden my-ydouble pl-x pr-menu mr-x">
+          <div
+            className="md:hidden my-ydouble pl-x pr-menu mr-x"
+            datatype="inquire-button"
+          >
             <button
               onClick={() => setInquiryOpen(true)}
               className={classNames(

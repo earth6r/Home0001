@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, Page } from '@playwright/test'
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL || ('' as string)
 // const baseURL = 'https://www.home0001.com/'
@@ -11,7 +11,7 @@ test('Echo Park Side', async ({ page }) => {
   await testPropertyPage(page, 'echo-park')
 })
 
-const testPropertyPage = async (page: any, slug: string) => {
+const testPropertyPage = async (page: Page, slug: string) => {
   await page.goto(baseURL + 'property/' + slug)
 
   //   Para Toggle Buttons
