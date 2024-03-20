@@ -9,6 +9,7 @@ import type {
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
 import { Accordion } from '@components/accordion'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 
 type TextAndAccordionProps = {
   copy?: RichTextType
@@ -63,15 +64,28 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
   items,
   className,
 }) => {
+  const scrollDown = () => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top:
+          window.innerWidth < 768
+            ? window.innerHeight - 16
+            : window.innerHeight - 80,
+        behavior: 'smooth',
+      })
+    }
+  }
+
   return (
     <Block className={classNames(className)}>
-      <div className="flex md:grid md:grid-cols-2 items-stretch md:items-center">
-        {scrollHeader && (
-          <RichText
-            blocks={scrollHeader}
-            className={classNames('md:pr-x mb-ydouble')}
-          />
-        )}
+      <div className="flex flex-wrap md:grid md:grid-cols-2 h-[calc(100svh-var(--space-page))] mim-h-[600px] items-end md:items-center justify-center md:justify-normal">
+        {scrollHeader && <RichText blocks={scrollHeader} />}
+
+        <IconRightArrowBold
+          fill="black"
+          onClick={scrollDown}
+          className="w-[33px] md:w-[161px] mb-ydouble md:mb-xdouble transform rotate-[90deg]"
+        />
       </div>
 
       <div className="grid md:grid-cols-2">
