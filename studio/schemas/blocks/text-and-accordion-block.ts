@@ -7,6 +7,11 @@ export default {
   icon: AiOutlinePlusSquare,
   fields: [
     {
+      name: 'scrollHeader',
+      type: 'richText',
+      title: 'Scroll Header',
+    },
+    {
       name: 'header',
       type: 'richText',
       title: 'Header',

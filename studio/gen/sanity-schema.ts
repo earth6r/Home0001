@@ -1240,6 +1240,13 @@ export type TextBlock = {
 export type TextAndAccordionBlock = {
   _type: "textAndAccordionBlock";
   /**
+   * Scroll Header — `richText`
+   *
+   *
+   */
+  scrollHeader?: RichText;
+
+  /**
    * Header — `richText`
    *
    *
