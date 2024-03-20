@@ -78,15 +78,17 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
 
   return (
     <Block className={classNames(className)}>
-      <div className="flex flex-wrap md:grid md:grid-cols-2 h-[calc(100svh-var(--space-page))] mim-h-[600px] items-end md:items-center justify-center md:justify-normal">
-        {scrollHeader && <RichText blocks={scrollHeader} />}
+      {scrollHeader && (
+        <div className="flex flex-wrap md:grid md:grid-cols-2 h-[calc(100svh-var(--space-page))] mim-h-[600px] items-end md:items-center justify-center md:justify-normal">
+          <RichText blocks={scrollHeader} />
 
-        <IconRightArrowBold
-          fill="black"
-          onClick={scrollDown}
-          className="w-[33px] md:w-[161px] mb-ydouble md:mb-0 md:ml-xdouble transform rotate-[90deg] origin-center cursor-pointer"
-        />
-      </div>
+          <IconRightArrowBold
+            fill="black"
+            onClick={scrollDown}
+            className="w-[33px] md:w-[161px] mb-ydouble md:mb-0 md:ml-xdouble transform rotate-[90deg] origin-center cursor-pointer"
+          />
+        </div>
+      )}
 
       <div className="grid md:grid-cols-2">
         {header && (
