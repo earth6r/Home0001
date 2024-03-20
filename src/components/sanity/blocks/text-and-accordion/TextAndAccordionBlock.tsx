@@ -84,7 +84,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
         <IconRightArrowBold
           fill="black"
           onClick={scrollDown}
-          className="w-[33px] md:w-[161px] mb-ydouble md:mb-xdouble transform rotate-[90deg]"
+          className="w-[33px] md:w-[161px] mb-ydouble md:mb-0 md:ml-xdouble transform rotate-[90deg] origin-center cursor-pointer"
         />
       </div>
 
