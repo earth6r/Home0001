@@ -44,7 +44,7 @@ export const TextBlock: FC<TextBlockProps> = ({
       )}
       <div
         style={{
-          gridColumnStart: columns && columns > 2 ? 2 : stickyHeader ? 2 : 1,
+          gridColumnStart: (columns && columns > 2) || stickyHeader ? 2 : 1,
         }}
       >
         {text && (

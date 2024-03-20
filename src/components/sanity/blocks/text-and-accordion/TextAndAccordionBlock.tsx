@@ -58,27 +58,38 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
 }
 
 export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
+  scrollHeader,
   header,
   items,
-  grid,
   className,
 }) => {
   return (
-    <Block className={classNames(className, grid ? 'grid md:grid-cols-2' : '')}>
-      {header && (
-        <RichText
-          blocks={header}
-          className={classNames(
-            'md:inline md:sticky md:h-1/5 md:top-[var(--header-height)] col-start-1 md:pr-x mb-ydouble'
-          )}
-        />
-      )}
-      <div className="md:col-start-2 flex flex-wrap gap-ydouble">
-        {items?.map(({ _key, copy, accordions }) => (
-          <div key={_key}>
-            <TextAndAccordion copy={copy} accordions={accordions} />
-          </div>
-        ))}
+    <Block className={classNames(className)}>
+      <div className="flex md:grid md:grid-cols-2 items-stretch md:items-center">
+        {scrollHeader && (
+          <RichText
+            blocks={scrollHeader}
+            className={classNames('md:pr-x mb-ydouble')}
+          />
+        )}
+      </div>
+
+      <div className="grid md:grid-cols-2">
+        {header && (
+          <RichText
+            blocks={header}
+            className={classNames(
+              'md:inline md:sticky md:h-1/5 md:top-[var(--header-height)] col-start-1 md:pr-x mb-ydouble'
+            )}
+          />
+        )}
+        <div className="md:col-start-2 flex flex-wrap gap-ydouble">
+          {items?.map(({ _key, copy, accordions }) => (
+            <div key={_key}>
+              <TextAndAccordion copy={copy} accordions={accordions} />
+            </div>
+          ))}
+        </div>
       </div>
     </Block>
   )
