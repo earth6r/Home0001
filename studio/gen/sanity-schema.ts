@@ -686,7 +686,7 @@ export type Link = {
      *
      *
      */
-    reference?: SanityReference<Page | Property>;
+    reference?: SanityReference<Page | Property | Unit>;
 
     /**
      * Anchor Slug — `slug`
