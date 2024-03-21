@@ -72,19 +72,26 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 <nav
                   className={classNames(
                     open ? 'pointer-events-auto' : '',
-                    'overflow-auto z-40 md:shadow-none pt-[88px] md:pt-[126px] left-0 w-full h-full fade-enter-done'
+                    'overflow-auto z-40 md:shadow-none pt-[88px] md:pt-[126px] left-0 w-full h-full text-card font-bold tracking-tight fade-enter-done'
                   )}
                 >
                   <Menu.Items
                     as="ul"
                     ref={items}
-                    className="container flex flex-col gap-ydouble w-full outline-none"
+                    className="container flex flex-col w-full outline-none pb-ydouble"
                   >
+                    <li className="uppercase mb-y">
+                      <span className="inline-block">Homes:</span>
+                    </li>
                     {mainMenu?.items?.map(({ _key, text, link }, index) => {
+                      const isUnit =
+                        (link?.internalLink?._type as string) === 'unit'
+                      const isProperty =
+                        (link?.internalLink?._type as string) === 'property'
                       return text && link ? (
                         <Fragment key={_key}>
                           {mainMenu.items &&
-                            index === mainMenu.items.length - 1 && (
+                            index === mainMenu.items.length && (
                               <Menu.Item as="li">
                                 {({ close }) => (
                                   <button
@@ -92,7 +99,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                       setTimeout(close, 100)
                                       setBrokerInquiryOpen(true)
                                     }}
-                                    className="uppercase"
+                                    className="uppercase mb-ydouble"
                                   >
                                     Are you a realtor?
                                   </button>
@@ -108,6 +115,11 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                   setHeaderLinksShown(true)
                                 }}
                                 {...(link as SanityLinkType)}
+                                className={classNames(
+                                  isUnit ? 'mb-y pl-xdouble' : '',
+                                  isProperty || isUnit ? 'mb-y' : 'py-y',
+                                  'inline-block'
+                                )}
                               />
                             )}
                           </Menu.Item>
@@ -115,7 +127,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       ) : null
                     })}
 
-                    <li className="flex items-center gap-y uppercase">
+                    <li className="flex items-center gap-y uppercase pt-y">
                       <span className="inline-block">Prices:</span>
 
                       <span className="inline-block">Fiat</span>
