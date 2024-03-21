@@ -56,6 +56,16 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
             className="w-btnWidth mt-yhalf first-of-type:mt-0"
           />
         ))}
+
+      {showAccordions && (
+        <button onClick={() => setShowAccordions(false)} className="pt-y">
+          <span
+            className={classNames(
+              'inline-block underline decoration-[2px] underline-offset-2 pb-[2px] text-sm font-sansText font-bold'
+            )}
+          >{`Read less`}</span>
+        </button>
+      )}
     </div>
   )
 }

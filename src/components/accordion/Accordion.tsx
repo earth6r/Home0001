@@ -131,6 +131,16 @@ export const Accordion: FC<AccordionProps> = ({
                         </SanityLink>
                       </div>
                     )}
+
+                    {readMore && (
+                      <Disclosure.Button className="mt-y">
+                        <span
+                          className={classNames(
+                            'inline-block underline decoration-[2px] underline-offset-2 pb-[2px] text-sm font-sansText font-bold'
+                          )}
+                        >{`Read less`}</span>
+                      </Disclosure.Button>
+                    )}
                   </div>
                 </Disclosure.Panel>
               </Transition>
