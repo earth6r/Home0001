@@ -4,9 +4,20 @@ import { MdHomeWork } from 'react-icons/md'
 import { RiFileList3Line } from 'react-icons/ri'
 import { StructureBuilder } from 'sanity/desk'
 import { MdMeetingRoom } from 'react-icons/md'
+import type { SanityDocument } from '@sanity/types'
+import Iframe from 'sanity-plugin-iframe-pane'
+import resolveProductionUrl from './resolve-production-url'
 
 export const getDefaultDocumentNode = (S: StructureBuilder) => {
-  return S.document().views([S.view.form()])
+  return S.document().views([
+    S.view.form(),
+    S.view
+      .component(Iframe)
+      .options({
+        url: (doc: SanityDocument) => resolveProductionUrl(doc),
+      })
+      .title('Preview'),
+  ])
 }
 
 export const deskStructure = (S: StructureBuilder) =>

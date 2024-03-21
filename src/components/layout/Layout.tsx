@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from 'react'
+import { useEffect, type FC, type ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import type {
@@ -13,6 +13,7 @@ import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
+import { triggerToastPreview } from '@components/toast'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -24,9 +25,21 @@ interface LayoutProps {
   siteSettings?: SiteSettings | undefined
 }
 
-export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
+export const Layout: FC<LayoutProps> = ({
+  children,
+  data,
+  preview = false,
+  siteSettings,
+}) => {
   const { asPath, query } = useRouter()
   const page: PageData = filterDataToSingleItem(data)
+
+  useEffect(() => {
+    if (preview)
+      triggerToastPreview({
+        deactivateUrl: `${BASE_URL}/api/exit-preview?path=${asPath}`,
+      })
+  }, [])
 
   return (
     <>
