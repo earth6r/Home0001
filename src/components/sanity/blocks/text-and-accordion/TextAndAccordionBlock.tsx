@@ -83,7 +83,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
       window.scrollTo({
         top:
           window.innerWidth < 768
-            ? window.innerHeight - 16
+            ? window.innerHeight - 32
             : window.innerHeight - 80,
         behavior: 'smooth',
       })
