@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react'
+import { useState, type FC, use, useEffect } from 'react'
 import classNames from 'classnames'
 import type {
   Accordion as AccordionType,
@@ -26,7 +26,9 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
   const [showAccordions, setShowAccordions] = useState(false)
   return (
     <div>
-      {copy && <RichText blocks={copy} className={classNames('clear-both')} />}
+      {copy && (
+        <RichText blocks={copy} className={classNames('clear-both capital')} />
+      )}
 
       {accordions && !showAccordions && (
         <button
@@ -64,6 +66,8 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
   items,
   className,
 }) => {
+  const [scrolled, setScrolled] = useState(false)
+
   const scrollDown = () => {
     if (typeof window !== 'undefined') {
       window.scrollTo({
@@ -73,8 +77,22 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
             : window.innerHeight - 80,
         behavior: 'smooth',
       })
+      setScrolled(true)
     }
   }
+
+  const handleScroll = () => {
+    if (window.scrollY > 250) {
+      setScrolled(true)
+    }
+  }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll)
+      return () => window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <Block className={classNames(className)}>
@@ -85,7 +103,10 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
           <IconRightArrowBold
             fill="black"
             onClick={scrollDown}
-            className="w-[33px] md:w-[161px] mb-ydouble md:mb-0 md:ml-xdouble transform rotate-[90deg] origin-center cursor-pointer"
+            className={classNames(
+              scrolled ? 'opacity-0 pointer-events-none' : '',
+              'w-[33px] md:w-[161px] mb-ydouble md:mb-0 md:ml-xdouble transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
+            )}
           />
         </div>
       )}

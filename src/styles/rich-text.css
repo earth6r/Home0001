@@ -64,8 +64,16 @@
   @apply text-2xl font-bold uppercase tracking-header;
 }
 
+.rich-text.capital h1 {
+  @apply capitalize;
+}
+
 .rich-text h2 {
   @apply text-h2;
+}
+
+.rich-text.capital h2 {
+  @apply capitalize;
 }
 
 .rich-text.card h2 {
