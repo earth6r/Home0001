@@ -931,7 +931,7 @@ export type Seo = {
   synonyms?: string;
 };
 
-export type RichText = Array<SanityKeyed<SanityBlock>>;
+export type RichText = Array<SanityKeyed<SanityBlock> | SanityKeyed<Media>>;
 
 export type PlainText = Array<SanityKeyed<SanityBlock>>;
 
