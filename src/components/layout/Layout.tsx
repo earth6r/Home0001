@@ -43,8 +43,6 @@ export const Layout: FC<LayoutProps> = ({
       })
   }, [])
 
-  console.log('page: ', page)
-
   return (
     <>
       <Head
@@ -61,7 +59,7 @@ export const Layout: FC<LayoutProps> = ({
         pageUrl={`${BASE_URL}${asPath}`}
       />
       <div className="flex flex-col min-h-full">
-        {(page._type as string) === 'brand' ? (
+        {page?._type && (page._type as string) === 'brand' ? (
           <header className="w-full h-auto items-center justify-center text-center">
             <IconEarth className="w-full max-w-[734px] py-ydouble px-x" />
           </header>
@@ -100,7 +98,7 @@ export const Layout: FC<LayoutProps> = ({
         >
           <main className="flex-auto">{children}</main>
         </ReactLenis>
-        {(page._type as string) !== 'brand' && (
+        {page?._type && (page._type as string) !== 'brand' && (
           <Footer
             path={asPath}
             query={query}
