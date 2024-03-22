@@ -33,7 +33,9 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
     <Block
       className={classNames(
         className,
-        grid ? 'md:grid md:grid-cols-3 pr-menu' : '',
+        grid
+          ? 'md:grid md:grid-cols-3 pr-menu'
+          : 'max-w-[522px] w-auto mx-auto',
         'relative'
       )}
     >

@@ -1,4 +1,5 @@
 import { BiText } from 'react-icons/bi'
+import { GrImage } from 'react-icons/gr'
 import { RxDividerHorizontal } from 'react-icons/rx'
 
 export default {
@@ -57,6 +58,14 @@ export default {
           icon: BiText,
         },
       ],
+    },
+    {
+      title: 'Media',
+      name: 'media',
+      type: 'media',
+      blockEditor: {
+        icon: GrImage,
+      },
     },
   ],
 }
