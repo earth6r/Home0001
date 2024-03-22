@@ -37,6 +37,55 @@ export type {
 };
 
 /**
+ * Page
+ *
+ *
+ */
+export interface Brand extends SanityDocument {
+  _type: "brand";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * City
  *
  *
@@ -1368,6 +1417,7 @@ export type FlexWaitlistBlock = {
 };
 
 export type Documents =
+  | Brand
   | City
   | Menus
   | Page

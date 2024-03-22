@@ -1,4 +1,4 @@
-import { FaLocationDot } from 'react-icons/fa6'
+import { FaEarthAsia, FaLocationDot } from 'react-icons/fa6'
 import { GrSettingsOption } from 'react-icons/gr'
 import { MdHomeWork } from 'react-icons/md'
 import { RiFileList3Line } from 'react-icons/ri'
@@ -60,6 +60,11 @@ export const deskStructure = (S: StructureBuilder) =>
             .filter('_type == $type')
             .params({ type: 'menus' })
         ),
+      S.divider(),
+      S.listItem()
+        .title('Brand Pages')
+        .child(S.documentTypeList('brand').title('Brand Pages'))
+        .icon(FaEarthAsia),
     ])
 
 export default deskStructure

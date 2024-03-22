@@ -18,11 +18,8 @@ type PageRefType = React.ForwardedRef<HTMLDivElement>
 
 const ALL_SLUGS_QUERY = groq`*[_type == "page" && defined(slug.current)][].slug.current`
 const PAGE_QUERY = groq`
-  *[_type == "page" && slug.current == $slug]{
+  *[_type == "brand" && slug.current == $slug]{
     _id,
-    _type,
-    hideMenuButton,
-    showTourLink,
     ${BODY_QUERY}
   }
 `
@@ -43,19 +40,14 @@ const Page: NextPage<PageProps> = (
   ref: PageRefType
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
-  const filteredBlocks = page.body?.filter(
-    (block: any) => block._type === 'propertyBlock'
-  )
+
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
         <BlockContent
           grid={true}
           blocks={page?.body}
-          className={classNames(
-            filteredBlocks && filteredBlocks?.length > 0 ? '' : 'container',
-            'flex flex-col pt-page'
-          )}
+          className={classNames('flex flex-col pt-page')}
         />
       </article>
     </PageTransition>
