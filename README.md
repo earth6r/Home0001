@@ -19,13 +19,20 @@ yarn install:all
 
 # run requisite generate and clean steps
 # before running all apps simultaneously
-yarn run dev
+yarn dev
 
 # run next.js only
-yarn run dev:next
+yarn dev:next
 
 # run sanity studio only
-yarn run dev:sanity
+yarn dev:sanity
+
+# run playwright tests
+yarn test
+yarn test:ui
+
+# playwright report
+yarn test:report
 ```
 
 The Next.js app will be running at `http://localhost:3000` and the Sanity Studio
