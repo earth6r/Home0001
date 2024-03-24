@@ -17,6 +17,8 @@ export const Head: FC<HeadProps> = props => {
     siteImage: props.siteImage,
   })
 
+  console.log(title, props.seoTitle)
+
   return (
     <NextHead>
       {/* eslint-disable-next-line @next/next/next-script-for-ga */}

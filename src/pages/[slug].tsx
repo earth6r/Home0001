@@ -21,6 +21,7 @@ const PAGE_QUERY = groq`
   *[_type == "page" && slug.current == $slug]{
     _id,
     _type,
+    seo,
     hideMenuButton,
     showTourLink,
     ${BODY_QUERY}
