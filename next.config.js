@@ -19,6 +19,7 @@ const nextConfig = {
   experimental: {
     largePageDataBytes: 136 * 1000,
   },
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_URL,
   rewrites() {
     return {
       beforeFiles: [
@@ -30,7 +31,7 @@ const nextConfig = {
               value: 'earth.net',
             },
           ],
-          destination: '/brand',
+          destination: '/brand/:path*',
         },
       ],
     }
