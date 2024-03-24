@@ -38,7 +38,7 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
         grid
           ? 'md:grid md:grid-cols-3 pr-menu'
           : 'max-w-[522px] w-auto mx-auto',
-        'relative'
+        'relative m-0'
       )}
     >
       <div className="md:col-start-2 md:col-span-1 pb-12">
