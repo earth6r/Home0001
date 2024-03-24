@@ -59,6 +59,9 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
           formSubmitted={formSubmitted}
           setFormSubmitted={setFormSubmitted}
           successMessage={'Your data — our harvest.'}
+          className={classNames(
+            brandStyle ? 'flex justify-center items-start' : ''
+          )}
         >
           <SinglePaneInputs
             isSubmitting={isSubmitting}
