@@ -49,7 +49,7 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
         )}
 
         {brandStyle && (
-          <p className="w-full mb-y uppercase text-center">{`Sign up to our newsletter`}</p>
+          <p className="w-full mb-y uppercase font-sansArial text-center">{`Sign up to our newsletter`}</p>
         )}
 
         <Form
@@ -60,7 +60,7 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
           setFormSubmitted={setFormSubmitted}
           successMessage={'Your data — our harvest.'}
           className={classNames(
-            brandStyle ? 'flex justify-center items-start' : ''
+            brandStyle ? 'flex justify-center items-start font-sansArial' : ''
           )}
         >
           <SinglePaneInputs
