@@ -32,7 +32,7 @@ const Page: NextPage<PageProps> = (
       <article>
         <BlockContent
           blocks={page?.body}
-          className="flex flex-col justify-center gap-ydouble w-full px-x"
+          className="flex flex-col justify-center gap-ydouble w-full px-x pt-ydouble md:pt-page"
         />
       </article>
     </PageTransition>

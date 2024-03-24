@@ -15,6 +15,14 @@ textarea {
   @apply w-full md:max-w-[var(--btn-width)] tracking-normal font-sansText;
 }
 
+.input.brand {
+  @apply w-auto md:max-w-none h-auto p-0 font-sans !font-normal;
+  border-bottom: 1px solid black;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
 label {
   @apply normal-case;
 }

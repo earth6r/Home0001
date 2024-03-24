@@ -60,7 +60,7 @@ export const Layout: FC<LayoutProps> = ({
       />
       <div className="flex flex-col min-h-full">
         {page?._type && (page._type as string) === 'brand' ? (
-          <header className="w-full h-auto items-center justify-center text-center">
+          <header className="flex w-full h-auto items-center justify-center md:justify-start text-center">
             <IconEarth className="w-full max-w-[734px] py-ydouble px-x" />
           </header>
         ) : (

@@ -1215,6 +1215,20 @@ export type NewsletterBlock = {
    *
    */
   successMessage?: RichText;
+
+  /**
+   * Hide Name — `boolean`
+   *
+   *
+   */
+  hideName?: boolean;
+
+  /**
+   * Brand Input Style — `boolean`
+   *
+   *
+   */
+  brandStyle?: boolean;
 };
 
 export type ContactBlock = {

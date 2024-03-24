@@ -5,6 +5,7 @@ import { Link } from '@components/links'
 import { FieldValues, UseFormRegister, useForm } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
 import { useCookies } from 'react-cookie'
+import brand from '@/pages/brand'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   fields?: {
@@ -17,6 +18,7 @@ interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   isSubmitting?: boolean
   submitButtonCopy?: string
   modal?: boolean
+  brandStyle?: boolean
   register: UseFormRegister<FieldValues>
 }
 
@@ -51,6 +53,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   fields,
   isSubmitting,
   submitButtonCopy,
+  brandStyle,
   modal,
   register,
   className,
@@ -76,7 +79,8 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           modal
             ? 'flex justify-between h-[calc(100%-var(--btn-height))] md:h-auto overflow-scroll'
             : '',
-          'relative flex flex-col gap-y'
+          brandStyle ? 'flex-row items-center' : 'flex-col',
+          'relative flex gap-y'
         )}
       >
         <div className="relative flex flex-col gap-y">
@@ -105,10 +109,14 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           )}
 
           <input
-            placeholder="YOUR EMAIL"
+            placeholder={brandStyle ? 'YOUR EMAIL ADDRESS' : 'YOUR EMAIL'}
             type="email"
             id="email"
-            className={classNames(modal ? 'waitlist' : '', 'input')}
+            className={classNames(
+              modal ? 'waitlist' : '',
+              brandStyle ? 'brand' : '',
+              'input'
+            )}
             {...register('email', { required: 'Please enter your email' })}
             onChange={() => !unitInput && setUnitInput(true)}
           />
@@ -252,12 +260,16 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
         <div
           className={classNames(
             fields?.showLocation ? 'mt-10' : 'mt-1 md:mt-6',
+            brandStyle ? '!m-0' : '',
             'relative flex flex-col gap-2 md:gap-y'
           )}
         >
           <button
             className={classNames(
-              'md:max-w-[var(--btn-width)] w-full h-btn text-center uppercase text-white bg-black font-medium text-xs'
+              brandStyle
+                ? 'border-black px-1 font-normal'
+                : 'h-btn text-white bg-black',
+              'md:max-w-[var(--btn-width)] w-full text-center uppercase font-medium text-xs'
             )}
             type="submit"
             disabled={isSubmitting}
