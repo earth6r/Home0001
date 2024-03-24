@@ -16,7 +16,7 @@ textarea {
 }
 
 .input.brand {
-  @apply w-auto md:max-w-none min-w-[156px] h-auto p-0 !font-normal font-sansArial;
+  @apply w-auto md:max-w-none min-w-[157px] h-auto p-0 !font-normal font-sansArial;
   border-bottom: 1px solid black;
   border-top: none;
   border-left: none;
