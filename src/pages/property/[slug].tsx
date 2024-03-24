@@ -22,6 +22,7 @@ const ALL_SLUGS_QUERY = groq`*[_type == "property" && defined(slug.current)][].s
 const PROPERTY_QUERY = groq`
   *[_type == "property" && slug.current == $slug]{
     _type,
+    seo,
     ${PROPERTIES_QUERY}
   }
 `

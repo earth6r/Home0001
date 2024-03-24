@@ -14,6 +14,7 @@ const HOME_QUERY = groq`
   *[_type == "brand" && slug.current == $slug]{
     _id,
     _type,
+    seo,
     ${BODY_QUERY}
   }
 `
