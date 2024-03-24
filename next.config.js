@@ -30,8 +30,7 @@ const nextConfig = {
               value: 'earth.net',
             },
           ],
-          destination: '/brand/:path*',
-          basePath: undefined,
+          destination: '/brand',
         },
       ],
     }
