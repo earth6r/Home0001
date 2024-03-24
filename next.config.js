@@ -21,7 +21,7 @@ const nextConfig = {
   },
   rewrites() {
     return {
-      afterFiles: [
+      beforeFiles: [
         {
           source: '/:path*',
           has: [
@@ -31,6 +31,7 @@ const nextConfig = {
             },
           ],
           destination: '/brand/:path*',
+          basePath: undefined,
         },
       ],
     }
