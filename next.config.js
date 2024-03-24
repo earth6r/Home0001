@@ -21,7 +21,7 @@ const nextConfig = {
   },
   rewrites() {
     return {
-      beforeFiles: [
+      afterFiles: [
         {
           source: '/:path*',
           has: [
