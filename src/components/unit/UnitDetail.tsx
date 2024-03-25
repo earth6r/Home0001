@@ -191,7 +191,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               <ImageCarousel
                 pagination={true}
                 perView={1}
-                carousel={false}
+                carousel={true}
                 slides={unit?.layoutImages}
                 className="w-full px-x md:px-0 overflow-hidden"
                 placement="unit layouts"
