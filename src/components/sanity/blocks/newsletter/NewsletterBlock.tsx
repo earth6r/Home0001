@@ -59,7 +59,9 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
           handleSubmit={handleSubmit}
           formSubmitted={formSubmitted}
           setFormSubmitted={setFormSubmitted}
-          successMessage={'Your data — our harvest.'}
+          successMessage={
+            brandStyle ? `You're signed up` : 'Your data — our harvest.'
+          }
           className={classNames(
             brandStyle ? 'flex justify-center items-start font-sansArial' : ''
           )}
