@@ -12,6 +12,7 @@ import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
+  largeHeader?: boolean
   initialText?: RichTextType
   text?: RichTextType
   cta?: Cta
@@ -21,6 +22,7 @@ interface AccordionProps extends HTMLAttributes<HTMLElement> {
 
 export const Accordion: FC<AccordionProps> = ({
   header,
+  largeHeader,
   initialText,
   text,
   cta,
@@ -61,7 +63,11 @@ export const Accordion: FC<AccordionProps> = ({
               >
                 <h2
                   className={classNames(
-                    readMore ? 'text-h4' : 'font-medium text-xs',
+                    readMore
+                      ? largeHeader
+                        ? 'text-h2'
+                        : 'text-h4'
+                      : 'font-medium text-xs',
                     'uppercase'
                   )}
                 >
