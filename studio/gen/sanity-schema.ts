@@ -770,6 +770,13 @@ export type Accordion = {
   header?: string;
 
   /**
+   * Large Header — `boolean`
+   *
+   * Sets header to H2 size (Read More accordions only)
+   */
+  largeHeader?: boolean;
+
+  /**
    * Initial Text — `richText`
    *
    * Copy shown before accordion is expanded (Read More accordions only)
@@ -1087,6 +1094,13 @@ export type BlockContent = Array<
 export type AccordionBlock = {
   _type: "accordionBlock";
   /**
+   * Columns — `number`
+   *
+   * Number of columns to display on larger screens. Defaults to 3 if blank
+   */
+  columns?: number;
+
+  /**
    * Accordions — `array`
    *
    *
@@ -1099,6 +1113,13 @@ export type AccordionBlock = {
    * Set to true to hide plus and minus and show read more copy
    */
   readMore?: boolean;
+
+  /**
+   * Black Bottom Border — `boolean`
+   *
+   *
+   */
+  bottomBorder?: boolean;
 };
 
 export type AnimatingBlock = {

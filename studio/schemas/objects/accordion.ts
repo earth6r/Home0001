@@ -14,6 +14,12 @@ export default {
       validation: (Rule: Rule): Rule => Rule.required(),
     },
     {
+      name: 'largeHeader',
+      title: 'Large Header',
+      type: 'boolean',
+      description: 'Sets header to H2 size (Read More accordions only)',
+    },
+    {
       name: 'initialText',
       title: 'Initial Text',
       type: 'richText',
