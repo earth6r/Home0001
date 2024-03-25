@@ -48,7 +48,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
         isOpen={isOpen}
         onClose={() => {
           setIsOpen(false)
-          lenis.resize()
+          lenis?.resize()
         }}
       >
         <div className="pt-header pb-[6rem] md:pb-ydouble px-x h-full flex flex-col text-sm overflow-y-scroll">

@@ -94,7 +94,10 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
         <h2 className="mb-ydouble text-h2 pr-menu md:pr-0">
           Now available in:
         </h2>
-        <div className="grid md:grid-cols-2 gap-ydouble md:gap-y">
+        <div
+          className="grid md:grid-cols-2 gap-ydouble md:gap-y"
+          datatype="properties-block-content"
+        >
           {properties &&
             (properties as KeyedProperty[])?.map(
               ({ cardImage, longTitle, slug }, index) => (
