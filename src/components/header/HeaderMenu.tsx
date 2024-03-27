@@ -53,7 +53,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               <Menu.Button as={HeaderToggleBtn} />
               <div
                 className={classNames(
-                  'fixed w-[100vw] h-[100vh] top-0 left-0 overflow-hidden bg-white text-left pointer-events-none'
+                  'fixed w-[100vw] md:w-[390px] h-[100vh] top-0 right-0 overflow-hidden bg-white text-left pointer-events-none'
                 )}
                 style={{
                   transition: 'opacity var(--speed-fast)',
@@ -64,7 +64,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 <div
                   className={classNames(
                     open ? 'pointer-events-auto' : '',
-                    'flex items-center absolute h-header px-x pointer-events-none'
+                    'md:hidden flex items-center absolute h-header px-x pointer-events-none'
                   )}
                 >
                   <Logo />
@@ -72,7 +72,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 <nav
                   className={classNames(
                     open ? 'pointer-events-auto' : '',
-                    'overflow-auto z-40 md:shadow-none pt-[88px] md:pt-[126px] left-0 w-full h-full text-card font-bold tracking-tight fade-enter-done'
+                    'overflow-auto z-40 md:shadow-none pt-[78px] md:pt-[132px] left-0 w-full h-full text-base fade-enter-done'
                   )}
                 >
                   <Menu.Items
