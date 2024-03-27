@@ -53,13 +53,11 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               <Menu.Button as={HeaderToggleBtn} />
               <div
                 className={classNames(
-                  'fixed w-[100vw] md:w-[390px] h-[100vh] top-0 right-0 overflow-hidden bg-white text-left pointer-events-none'
+                  customOpen
+                    ? 'opacity-100 md:translate-x-none pointer-events-all'
+                    : 'opacity-0 md:opacity-100 md:translate-x-full pointer-events-none',
+                  'fixed w-[100vw] md:w-[390px] h-[100vh] top-0 right-0 overflow-hidden bg-white text-left transition-opacity md:transition-transform duration-200 md:duration-500'
                 )}
-                style={{
-                  transition: 'opacity var(--speed-fast)',
-                  opacity: customOpen ? '1' : '0',
-                  pointerEvents: customOpen ? 'all' : 'none',
-                }}
               >
                 <div
                   className={classNames(
