@@ -25,6 +25,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.3.1",
     "sanity": "^3.16.7",
+    "sanity-plugin-iframe-pane": "^2.0.0",
     "sanity-plugin-media": "^2.2.2",
     "sanity-plugin-seo-pane": "^2.0.1",
     "sanity-plugin-vercel-deploy": "^3.3.4",

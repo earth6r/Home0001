@@ -7,7 +7,7 @@ export interface HeadProps {
   siteKeywords?: string
   seoTitle?: string
   pageTitle?: string
-  pageType?: 'page' | 'property' | 'unit'
+  pageType?: 'page' | 'property' | 'unit' | 'brand'
   pageDescription?: string
   pageKeywords?: string
   pagePublishDate?: string

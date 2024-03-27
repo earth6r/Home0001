@@ -37,6 +37,55 @@ export type {
 };
 
 /**
+ * Page
+ *
+ *
+ */
+export interface Brand extends SanityDocument {
+  _type: "brand";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * City
  *
  *
@@ -721,6 +770,13 @@ export type Accordion = {
   header?: string;
 
   /**
+   * Large Header — `boolean`
+   *
+   * Sets header to H2 size (Read More accordions only)
+   */
+  largeHeader?: boolean;
+
+  /**
    * Initial Text — `richText`
    *
    * Copy shown before accordion is expanded (Read More accordions only)
@@ -882,7 +938,7 @@ export type Seo = {
   synonyms?: string;
 };
 
-export type RichText = Array<SanityKeyed<SanityBlock>>;
+export type RichText = Array<SanityKeyed<SanityBlock> | SanityKeyed<Media>>;
 
 export type PlainText = Array<SanityKeyed<SanityBlock>>;
 
@@ -1038,6 +1094,13 @@ export type BlockContent = Array<
 export type AccordionBlock = {
   _type: "accordionBlock";
   /**
+   * Columns — `number`
+   *
+   * Number of columns to display on larger screens. Defaults to 3 if blank
+   */
+  columns?: number;
+
+  /**
    * Accordions — `array`
    *
    *
@@ -1050,6 +1113,13 @@ export type AccordionBlock = {
    * Set to true to hide plus and minus and show read more copy
    */
   readMore?: boolean;
+
+  /**
+   * Black Bottom Border — `boolean`
+   *
+   *
+   */
+  bottomBorder?: boolean;
 };
 
 export type AnimatingBlock = {
@@ -1166,6 +1236,20 @@ export type NewsletterBlock = {
    *
    */
   successMessage?: RichText;
+
+  /**
+   * Hide Name — `boolean`
+   *
+   *
+   */
+  hideName?: boolean;
+
+  /**
+   * Brand Input Style — `boolean`
+   *
+   *
+   */
+  brandStyle?: boolean;
 };
 
 export type ContactBlock = {
@@ -1368,6 +1452,7 @@ export type FlexWaitlistBlock = {
 };
 
 export type Documents =
+  | Brand
   | City
   | Menus
   | Page
