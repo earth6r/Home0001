@@ -9,7 +9,7 @@ type TextBlockProps = Omit<SanityBlockElement, keyof TextBlockType> &
 
 export const TextBlock: FC<TextBlockProps> = ({
   text,
-  columns,
+  columns = 3,
   bottomBorder,
   yellowBackground,
   stickyHeader,

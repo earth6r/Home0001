@@ -1,6 +1,5 @@
-import { use, useEffect } from 'react'
+import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
-import dynamic from 'next/dynamic'
 import { Layout } from '@components/layout'
 import { Scripts } from '@components/scripts'
 import ContextProvider from '@/contexts'
@@ -15,20 +14,9 @@ import '../styles/main.css'
 import '../styles/toast.css'
 import { AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { LenisInstance, useLenis } from '@studio-freight/react-lenis'
+import { useLenis } from '@studio-freight/react-lenis'
 
-const PreviewProvider = dynamic(
-  () => import('@components/preview/PreviewProvider')
-)
-
-function App({
-  Component,
-  pageProps,
-}: AppProps<{
-  draftMode: boolean
-  token: string
-}>) {
-  const { draftMode, token } = pageProps
+function App({ Component, pageProps }: AppProps<{}>) {
   const { query, events, asPath } = useRouter()
   const lenis = useLenis()
 
@@ -69,16 +57,7 @@ function App({
     }
   }, [])
 
-  return draftMode && token ? (
-    <PreviewProvider token={token}>
-      <ContextProvider>
-        <Layout {...pageProps}>
-          <Scripts />
-          <Component {...pageProps} />
-        </Layout>
-      </ContextProvider>
-    </PreviewProvider>
-  ) : (
+  return (
     <ContextProvider>
       {/* <IntercomProvider> */}
       <Layout {...pageProps}>

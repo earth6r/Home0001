@@ -37,6 +37,7 @@ import video from './objects/video'
 import videosBlock from './blocks/videos-block'
 import divider from './objects/divider'
 import textAndAccordionBlock from './blocks/text-and-accordion-block'
+import brand from './documents/brand-page'
 
 export const schemaTypes = [
   // objects
@@ -78,6 +79,7 @@ export const schemaTypes = [
   flexWaitlistBlock,
 
   // documents
+  brand,
   city,
   menus,
   page,

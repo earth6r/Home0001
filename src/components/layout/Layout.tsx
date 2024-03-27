@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from 'react'
+import { useEffect, type FC, type ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import type {
@@ -13,6 +13,9 @@ import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
+import { triggerToastPreview } from '@components/toast'
+import { Logo } from '@components/logos'
+import IconEarth from '@components/icons/IconEarth'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -24,9 +27,21 @@ interface LayoutProps {
   siteSettings?: SiteSettings | undefined
 }
 
-export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
+export const Layout: FC<LayoutProps> = ({
+  children,
+  data,
+  preview = false,
+  siteSettings,
+}) => {
   const { asPath, query } = useRouter()
   const page: PageData = filterDataToSingleItem(data)
+
+  useEffect(() => {
+    if (preview)
+      triggerToastPreview({
+        deactivateUrl: `${BASE_URL}/api/exit-preview?path=${asPath}`,
+      })
+  }, [])
 
   return (
     <>
@@ -44,31 +59,37 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         pageUrl={`${BASE_URL}${asPath}`}
       />
       <div className="flex flex-col min-h-full">
-        <Header
-          className="flex-initial"
-          path={asPath}
-          hideMenuButton={page?.hideMenuButton}
-          showTourLink={page?.showTourLink}
-          property={(page as Unit)?.property}
-          currentTitle={
-            ((page as Property) || (page as Unit))?.headerText || page?.title
-          }
-          waitlist={{
-            id: siteSettings?.waitlistId,
-            copy: siteSettings?.waitlistCopy,
-            header: siteSettings?.waitlistHeader,
-            success: siteSettings?.waitlistSuccess,
-          }}
-          inquiry={{
-            id: siteSettings?.inquiryId,
-            copy: siteSettings?.inquiryCopy,
-            success: siteSettings?.inquirySuccess,
-            brokerId: siteSettings?.brokerInquiryId,
-            brokerCopy: siteSettings?.brokerInquiryCopy,
-            brokerSuccess: siteSettings?.brokerInquirySuccess,
-          }}
-          mainMenu={siteSettings?.mainMenu as Menus | undefined}
-        />
+        {page?._type && (page._type as string) === 'brand' ? (
+          <header className="flex w-full h-auto items-center justify-center md:justify-start text-center">
+            <IconEarth className="w-full max-w-[734px] py-ydouble px-x" />
+          </header>
+        ) : (
+          <Header
+            className="flex-initial"
+            path={asPath}
+            hideMenuButton={page?.hideMenuButton}
+            showTourLink={page?.showTourLink}
+            property={(page as Unit)?.property}
+            currentTitle={
+              ((page as Property) || (page as Unit))?.headerText || page?.title
+            }
+            waitlist={{
+              id: siteSettings?.waitlistId,
+              copy: siteSettings?.waitlistCopy,
+              header: siteSettings?.waitlistHeader,
+              success: siteSettings?.waitlistSuccess,
+            }}
+            inquiry={{
+              id: siteSettings?.inquiryId,
+              copy: siteSettings?.inquiryCopy,
+              success: siteSettings?.inquirySuccess,
+              brokerId: siteSettings?.brokerInquiryId,
+              brokerCopy: siteSettings?.brokerInquiryCopy,
+              brokerSuccess: siteSettings?.brokerInquirySuccess,
+            }}
+            mainMenu={siteSettings?.mainMenu as Menus | undefined}
+          />
+        )}
         <ReactLenis
           root
           options={{
@@ -77,11 +98,13 @@ export const Layout: FC<LayoutProps> = ({ children, data, siteSettings }) => {
         >
           <main className="flex-auto">{children}</main>
         </ReactLenis>
-        <Footer
-          path={asPath}
-          query={query}
-          footerMenu={siteSettings?.footerMenu as Menus | undefined}
-        />
+        {page?._type && (page._type as string) !== 'brand' && (
+          <Footer
+            path={asPath}
+            query={query}
+            footerMenu={siteSettings?.footerMenu as Menus | undefined}
+          />
+        )}
       </div>
       <ToastContainer />
     </>

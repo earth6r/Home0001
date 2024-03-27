@@ -12,6 +12,7 @@ import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
+  largeHeader?: boolean
   initialText?: RichTextType
   text?: RichTextType
   cta?: Cta
@@ -21,6 +22,7 @@ interface AccordionProps extends HTMLAttributes<HTMLElement> {
 
 export const Accordion: FC<AccordionProps> = ({
   header,
+  largeHeader,
   initialText,
   text,
   cta,
@@ -61,7 +63,11 @@ export const Accordion: FC<AccordionProps> = ({
               >
                 <h2
                   className={classNames(
-                    readMore ? 'text-h4' : 'font-medium text-xs',
+                    readMore
+                      ? largeHeader
+                        ? 'text-h2'
+                        : 'text-h4'
+                      : 'font-medium text-xs',
                     'uppercase'
                   )}
                 >
@@ -122,7 +128,7 @@ export const Accordion: FC<AccordionProps> = ({
                       <div className="cta w-full relative mt-y pr-menu md:pr-0">
                         <SanityLink
                           {...(cta.link as SanityLinkType)}
-                          className="w-full md:max-w-[var(--btn-width)] border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white text-button z-above px-4 py-3.5"
+                          className="w-full md:max-w-[var(--btn-width)] border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white hover:invert text-button z-above px-4 py-3.5"
                         >
                           <span className="text-left uppercase leading-none">
                             {cta.text || 'Learn more'}

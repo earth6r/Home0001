@@ -52,7 +52,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
       className={classNames(
         className,
         fullWidth ? 'md:h-[431px] md:w-auto' : '',
-        'block relative w-full h-auto overflow-hidden cursor-grab active:cursor-grabbing select-none'
+        'block relative w-full h-auto overflow-hidden cursor-zoom-in active:cursor-grabbing select-none'
       )}
     >
       <SanityMedia

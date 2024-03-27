@@ -67,8 +67,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             <button
               onClick={() => setInquiryOpen(true)}
               className={classNames(
-                'bg-black text-white',
-                'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
+                'w-full relative border-1 border-black border-solid hover:border-white mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
               )}
             >
               {`Inquire`}
@@ -79,7 +78,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <SanityLink externalLink={unit.calendarLink}>
                 <button
                   className={classNames(
-                    'w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-button z-above p-x'
+                    'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
                   )}
                 >
                   {`Request a tour`}
@@ -160,8 +159,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             <button
               onClick={() => setInquiryOpen(true)}
               className={classNames(
-                'bg-black text-white',
-                'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
+                'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert text-button z-above p-x'
               )}
             >
               {`Inquire`}
@@ -172,7 +170,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <SanityLink externalLink={unit.calendarLink}>
                 <button
                   className={classNames(
-                    'w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-button z-above p-x'
+                    'w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert text-button z-above p-x'
                   )}
                 >
                   {`Request a tour`}
@@ -188,7 +186,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <ImageCarousel
                 pagination={true}
                 perView={1}
-                carousel={false}
+                carousel={true}
                 slides={unit?.layoutImages}
                 className="w-full px-x md:px-0 overflow-hidden"
                 placement="unit layouts"

@@ -1,12 +1,23 @@
-import { FaLocationDot } from 'react-icons/fa6'
+import { FaEarthAsia, FaLocationDot } from 'react-icons/fa6'
 import { GrSettingsOption } from 'react-icons/gr'
 import { MdHomeWork } from 'react-icons/md'
 import { RiFileList3Line } from 'react-icons/ri'
 import { StructureBuilder } from 'sanity/desk'
 import { MdMeetingRoom } from 'react-icons/md'
+import type { SanityDocument } from '@sanity/types'
+import Iframe from 'sanity-plugin-iframe-pane'
+import resolveProductionUrl from './resolve-production-url'
 
 export const getDefaultDocumentNode = (S: StructureBuilder) => {
-  return S.document().views([S.view.form()])
+  return S.document().views([
+    S.view.form(),
+    S.view
+      .component(Iframe)
+      .options({
+        url: (doc: SanityDocument) => resolveProductionUrl(doc),
+      })
+      .title('Preview'),
+  ])
 }
 
 export const deskStructure = (S: StructureBuilder) =>
@@ -49,6 +60,11 @@ export const deskStructure = (S: StructureBuilder) =>
             .filter('_type == $type')
             .params({ type: 'menus' })
         ),
+      S.divider(),
+      S.listItem()
+        .title('Brand Pages')
+        .child(S.documentTypeList('brand').title('Brand Pages'))
+        .icon(FaEarthAsia),
     ])
 
 export default deskStructure

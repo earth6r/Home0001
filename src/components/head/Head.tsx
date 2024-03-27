@@ -62,7 +62,13 @@ export const Head: FC<HeadProps> = props => {
         name="twitter:description"
         content={props.pageDescription || props.siteDescription}
       />
-      <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+      <link
+        rel="icon"
+        type="image/svg+xml"
+        href={
+          props.pageType === 'brand' ? '/favicon-earth.png' : '/favicon.png'
+        }
+      />
       <link
         rel="mask-icon"
         href="/safari-pinned-tab.svg"
