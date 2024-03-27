@@ -64,10 +64,13 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 <div
                   className={classNames(
                     open ? 'pointer-events-auto' : '',
-                    'md:hidden flex items-center absolute h-header px-x pointer-events-none'
+                    'flex items-center absolute h-header px-x pointer-events-none'
                   )}
                 >
-                  <Logo />
+                  <Logo className="md:hidden" />
+                  <span className="hidden md:block text-base uppercase">
+                    Menu
+                  </span>
                 </div>
                 <nav
                   className={classNames(
