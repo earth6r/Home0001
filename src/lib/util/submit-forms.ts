@@ -185,8 +185,6 @@ const postNewsletterFields = async (
       portalId,
       formGuid,
       fields: [
-        { name: 'firstname', value: data.first_name },
-        { name: 'lastname', value: data.last_name },
         {
           name: 'email',
           value: data.email,
