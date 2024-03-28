@@ -136,7 +136,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 })}
               />
 
-              <div className="flex w-full max-w-[var(--btn-width)] gap-xhalf">
+              {/* <div className="flex w-full max-w-[var(--btn-width)] gap-xhalf">
                 <input
                   type="checkbox"
                   id="sms_opt_in"
@@ -155,7 +155,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                     reply STOP to opt out at any time.
                   </p>
                 </label>
-              </div>
+              </div> */}
             </>
           )}
         </div>
