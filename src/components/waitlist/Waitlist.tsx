@@ -56,7 +56,7 @@ export const Waitlist: FC<WaitlistProps> = ({
     <div className={classNames(className)}>
       <div
         className={classNames(
-          formType === 'unit' ? 'h-[659px] pb-y md:pb-ydouble' : 'h-[630px]',
+          formType === 'unit' ? 'md:h-[659px] pb-y md:pb-ydouble' : 'h-[630px]',
           'pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-ydouble md:px-xdouble md:pb-[56px] pt-ydouble bg-yellow'
         )}
       >
