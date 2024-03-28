@@ -78,4 +78,12 @@ input[type='checkbox'].unit-checkbox {
     height: 1rem;
     padding: 0.3em;
   }
+
+  input[type='checkbox'].tel-checkbox {
+    left: 0;
+    margin-right: 0;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+  }
 }

@@ -54,7 +54,12 @@ export const Waitlist: FC<WaitlistProps> = ({
 
   return (
     <div className={classNames(className)}>
-      <div className="h-[630px] md:h-[630px] pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-ydouble md:px-xdouble md:pb-[56px] pt-ydouble bg-yellow">
+      <div
+        className={classNames(
+          formType === 'unit' ? 'h-[659px] pb-y md:pb-ydouble' : 'h-[630px]',
+          'pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-ydouble md:px-xdouble md:pb-[56px] pt-ydouble bg-yellow'
+        )}
+      >
         {formType === 'unit' && (
           <>
             <h2 className="text-h3 md:pr-menu lg:pr-fullmenu">
