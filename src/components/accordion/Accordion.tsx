@@ -56,7 +56,9 @@ export const Accordion: FC<AccordionProps> = ({
             <>
               <Disclosure.Button
                 className={classNames(
-                  readMore ? '' : 'flex justify-between items-center p-4',
+                  readMore
+                    ? ''
+                    : 'flex justify-between items-start px-x py-yhalf',
                   className?.includes('border-x-0') ? 'pl-0' : null,
                   `w-full text-left`
                 )}
@@ -88,9 +90,13 @@ export const Accordion: FC<AccordionProps> = ({
                 ) : (
                   <>
                     {open ? (
-                      <IconMinus width="8" height="12" />
+                      <IconMinus
+                        className="w-[11px] mr-1 mt-[2px]"
+                        width={8}
+                        height={12}
+                      />
                     ) : (
-                      <IconPlus width="12" height="12" />
+                      <IconPlus className="w-[18px]" width={16} height={16} />
                     )}
                   </>
                 )}

@@ -10,6 +10,8 @@ import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
 import { Accordion } from '@components/accordion'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import IconCirclePlus from '@components/icons/IconCirclePlus'
+import IconCircleMinus from '@components/icons/IconCircleMinus'
 
 type TextAndAccordionProps = {
   copy?: RichTextType
@@ -39,7 +41,9 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
             className={classNames(
               'inline-block underline decoration-[2px] underline-offset-2 pb-[2px] text-sm font-sansText font-bold'
             )}
-          >{`Read more`}</span>
+          >
+            <IconCirclePlus width={16} />
+          </span>
         </button>
       )}
 
@@ -53,7 +57,7 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
             text={text}
             cta={cta}
             readMore={false}
-            className="w-btnWidth mt-yhalf first-of-type:mt-0"
+            className="w-[306px] mt-y first-of-type:mt-0"
           />
         ))}
 
@@ -63,7 +67,9 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
             className={classNames(
               'inline-block underline decoration-[2px] underline-offset-2 pb-[2px] text-sm font-sansText font-bold'
             )}
-          >{`Read less`}</span>
+          >
+            <IconCircleMinus width={16} />
+          </span>
         </button>
       )}
     </div>
