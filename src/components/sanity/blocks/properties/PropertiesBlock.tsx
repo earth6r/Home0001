@@ -21,7 +21,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   index,
 }) => {
   const scrollRef = useRef(null)
-  const isInView = useInView(scrollRef, { once: true, amount: 0.4 })
+  const isInView = useInView(scrollRef, { once: true, amount: 0.1 })
 
   return (
     <AnimatePresence>
@@ -85,7 +85,6 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
   cities,
   className,
 }) => {
-  console.log('cities', cities)
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
@@ -98,7 +97,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
 
   return (
     <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
-      <div className="xl:max-w-[65%] mx-auto px-x md:px-[calc(var(--space-menu)+12px)] xl:px-0">
+      <div className="xl:max-w-[65%] mx-auto px-x md:px-[calc(var(--space-menu)+12px)] xl:px-0 overflow-hidden">
         <h2 className="mb-ydouble text-h2 pr-menu md:pr-0">
           {header || `Now available in:`}
         </h2>

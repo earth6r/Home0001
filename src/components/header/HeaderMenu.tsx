@@ -56,7 +56,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                   customOpen
                     ? 'opacity-100 md:translate-x-none pointer-events-all'
                     : 'opacity-0 md:opacity-100 md:translate-x-full pointer-events-none',
-                  'fixed w-[100vw] md:w-[390px] h-[100vh] top-0 right-0 overflow-hidden bg-white text-left transition-opacity md:transition-transform duration-200 md:duration-500'
+                  'fixed w-[100vw] h-[100vh] top-0 right-0 overflow-hidden bg-white text-left transition-opacity md:transition-transform duration-200 md:duration-500'
                 )}
               >
                 <div
@@ -73,7 +73,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 <nav
                   className={classNames(
                     open ? 'pointer-events-auto' : '',
-                    'overflow-auto z-40 md:shadow-none pt-[78px] md:pt-[132px] left-0 w-full h-full text-base fade-enter-done'
+                    'md:grid md:grid-cols-2 overflow-auto z-40 md:shadow-none pt-[78px] md:pt-[132px] left-0 w-full h-full text-base fade-enter-done'
                   )}
                 >
                   <Menu.Items
@@ -81,7 +81,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                     ref={items}
                     className="container flex flex-col w-full outline-none pb-ydouble"
                   >
-                    <li className="uppercase mb-y">
+                    <li className="md:hidden uppercase mb-y">
                       <span className="inline-block">Homes:</span>
                     </li>
                     {mainMenu?.items?.map(({ _key, text, link }, index) => {
@@ -107,7 +107,10 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                 )}
                               </Menu.Item>
                             )}
-                          <Menu.Item as="li" className="uppercase">
+                          <Menu.Item
+                            as="li"
+                            className={classNames('uppercase')}
+                          >
                             {({ close }) => (
                               <SanityLink
                                 text={text}
@@ -117,8 +120,10 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                 }}
                                 {...(link as SanityLinkType)}
                                 className={classNames(
-                                  isUnit ? 'mb-y pl-xdouble' : '',
-                                  isProperty || isUnit ? 'mb-y' : 'py-y',
+                                  isUnit ? 'pl-xdouble' : '',
+                                  isProperty || isUnit
+                                    ? 'mb-y md:hidden'
+                                    : 'py-y md:pt-0 md:pb-ydouble',
                                   'inline-block'
                                 )}
                               />
@@ -150,6 +155,43 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       </Switch>
                       <span className="inline-block">Crypto</span>
                     </li>
+                  </Menu.Items>
+
+                  <Menu.Items
+                    as="ul"
+                    ref={items}
+                    className="hidden md:flex flex-col w-full outline-none pb-ydouble"
+                  >
+                    <li className="uppercase">
+                      <span className="inline-block">Homes:</span>
+                    </li>
+                    {mainMenu?.items?.map(({ _key, text, link }, index) => {
+                      const isUnit =
+                        (link?.internalLink?._type as string) === 'unit'
+                      const isProperty =
+                        (link?.internalLink?._type as string) === 'property'
+                      return text && link && (isUnit || isProperty) ? (
+                        <Fragment key={_key}>
+                          <Menu.Item as="li" className="uppercase">
+                            {({ close }) => (
+                              <SanityLink
+                                text={text}
+                                onClick={() => {
+                                  setTimeout(close, 100)
+                                  setHeaderLinksShown(true)
+                                }}
+                                {...(link as SanityLinkType)}
+                                className={classNames(
+                                  isUnit ? 'mb-y pl-xdouble' : '',
+                                  isProperty ? 'pt-y' : '',
+                                  'inline-block mb-y'
+                                )}
+                              />
+                            )}
+                          </Menu.Item>
+                        </Fragment>
+                      ) : null
+                    })}
                   </Menu.Items>
                 </nav>
               </div>
