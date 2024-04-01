@@ -54,9 +54,9 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               <div
                 className={classNames(
                   customOpen
-                    ? 'opacity-100 md:translate-x-none pointer-events-all'
-                    : 'opacity-0 md:opacity-100 md:translate-x-full pointer-events-none',
-                  'fixed w-[100vw] h-[100vh] top-0 right-0 overflow-hidden bg-white text-left transition-opacity md:transition-transform duration-200 md:duration-500'
+                    ? 'opacity-100 pointer-events-all'
+                    : 'opacity-0 pointer-events-none',
+                  'fixed w-[100vw] h-[100vh] top-0 right-0 overflow-hidden bg-white text-left transition-opacity'
                 )}
               >
                 <div
