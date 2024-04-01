@@ -10,6 +10,9 @@ import Link from 'next/link'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { sendGoogleEvent } from '@lib/util'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import SCREENS from '@globals/screens'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { type SwiperOptions } from 'swiper'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -19,13 +22,6 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
 }) => {
   const scrollRef = useRef(null)
   const isInView = useInView(scrollRef, { once: true, amount: 0.4 })
-  const [isMobile, setIsMobile] = useState(true)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsMobile(window.innerWidth <= 768)
-    }
-  }, [])
 
   return (
     <AnimatePresence>
@@ -85,29 +81,61 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
 }
 
 export const PropertiesBlock: FC<CitiesBlockProps> = ({
-  properties,
+  header,
+  cities,
   className,
 }) => {
+  console.log('cities', cities)
+  const slidesRef = useRef(null)
+  const breakpoints: SwiperOptions['breakpoints'] = {
+    0: {
+      slidesPerView: 1.185,
+    },
+    [SCREENS.md]: {
+      slidesPerView: 2,
+    },
+  }
+
   return (
     <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
       <div className="xl:max-w-[65%] mx-auto px-x md:px-[calc(var(--space-menu)+12px)] xl:px-0">
         <h2 className="mb-ydouble text-h2 pr-menu md:pr-0">
-          Now available in:
+          {header || `Now available in:`}
         </h2>
-        <div className="grid md:grid-cols-2 gap-ydouble md:gap-y">
-          {properties &&
-            (properties as KeyedProperty[])?.map(
-              ({ cardImage, longTitle, slug }, index) => (
-                <PropertySummary
-                  key={slug.current}
-                  image={cardImage}
-                  longTitle={longTitle}
-                  slug={slug}
-                  index={index}
-                />
-              )
-            )}
-        </div>
+
+        {cities &&
+          cities.map(({ header, properties }) => (
+            <div
+              key={`city-${header}`}
+              className="mb-ydouble last-of-type:mb-0"
+            >
+              {header && (
+                <h2 className="mb-y text-h2 pr-menu md:pr-0">{header}</h2>
+              )}
+              <Swiper
+                ref={slidesRef}
+                loop={false}
+                spaceBetween={16}
+                breakpoints={breakpoints}
+                speed={600}
+                className={classNames('overflow-visible cursor-grab')}
+              >
+                {properties &&
+                  (properties as KeyedProperty[])?.map(
+                    ({ cardImage, longTitle, slug }, index) => (
+                      <SwiperSlide key={slug.current}>
+                        <PropertySummary
+                          image={cardImage}
+                          longTitle={longTitle}
+                          slug={slug}
+                          index={index}
+                        />
+                      </SwiperSlide>
+                    )
+                  )}
+              </Swiper>
+            </div>
+          ))}
       </div>
     </Block>
   )
