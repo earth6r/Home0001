@@ -185,8 +185,6 @@ const postNewsletterFields = async (
       portalId,
       formGuid,
       fields: [
-        { name: 'firstname', value: data.first_name },
-        { name: 'lastname', value: data.last_name },
         {
           name: 'email',
           value: data.email,
@@ -235,6 +233,10 @@ const postUnitFields = async (
           name: 'unit_of_interest',
           value: data.unit_of_interest,
         },
+        // {
+        //   name: 'sms_opt_in',
+        //   value: data.sms_opt_in,
+        // },
       ],
       context: {
         hutk: hutk ? hutk : null,
