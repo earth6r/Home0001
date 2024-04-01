@@ -122,18 +122,41 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           />
 
           {fields?.showPhone && (
-            <input
-              type="tel"
-              id="phone"
-              className={classNames(modal ? 'waitlist' : '', 'input')}
-              placeholder="Phone Number"
-              {...register('phone', {
-                required: 'Please enter your phone number',
-                pattern: /^[0-9+-]+$/,
-                minLength: 6,
-                maxLength: 12,
-              })}
-            />
+            <>
+              <input
+                type="tel"
+                id="phone"
+                className={classNames(modal ? 'waitlist' : '', 'input')}
+                placeholder="Phone Number"
+                {...register('phone', {
+                  required: 'Please enter your phone number',
+                  pattern: /^[0-9+-]+$/,
+                  minLength: 6,
+                  maxLength: 12,
+                })}
+              />
+
+              {/* <div className="flex w-full max-w-[var(--btn-width)] gap-xhalf">
+                <input
+                  type="checkbox"
+                  id="sms_opt_in"
+                  className="tel-checkbox"
+                  {...register('sms_opt_in', { required: false })}
+                />
+                <label
+                  className="flex-1 w-[calc(var(---btn-width)-20px)] text-left ml-x md:ml-xhalf cursor-pointer"
+                  htmlFor="sms_opt_in"
+                >
+                  <p className="font-sansText text-lg leading-tight">
+                    I agree to receive SMS communications from HOME0001 about
+                    property availability.
+                    <br />
+                    <br />I understand that data rates may apply and that I can
+                    reply STOP to opt out at any time.
+                  </p>
+                </label>
+              </div> */}
+            </>
           )}
         </div>
 
