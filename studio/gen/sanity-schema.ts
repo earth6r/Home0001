@@ -1200,11 +1200,34 @@ export type PropertyBlock = {
 export type PropertiesBlock = {
   _type: "propertiesBlock";
   /**
-   * Properties — `array`
+   * Header — `string`
    *
    *
    */
-  properties?: Array<SanityKeyedReference<Property>>;
+  header?: string;
+
+  /**
+   * Cities — `array`
+   *
+   *
+   */
+  cities?: Array<
+    SanityKeyed<{
+      /**
+       * Header — `string`
+       *
+       *
+       */
+      header?: string;
+
+      /**
+       * Properties — `array`
+       *
+       *
+       */
+      properties?: Array<SanityKeyedReference<Property>>;
+    }>
+  >;
 };
 
 export type NewsletterBlock = {

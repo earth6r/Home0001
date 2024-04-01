@@ -179,12 +179,16 @@ export const BODY_QUERY = `
     "citiesList": citiesList[]->{
       ${CITY_QUERY},
     },
-    "properties": properties[]->{
-      "cardImage": cardImage{
-        ${MEDIA_QUERY}
+    "cities": cities[]{
+      ...,
+      header,
+      "properties": properties[]->{
+        "cardImage": cardImage{
+          ${MEDIA_QUERY}
+        },
+        longTitle,
+        slug,
       },
-      longTitle,
-      slug,
     },
     "propertyRef": propertyRef->{
       ${PROPERTY_QUERY}
