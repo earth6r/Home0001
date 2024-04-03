@@ -14,9 +14,7 @@ import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
 import { triggerToastPreview } from '@components/toast'
-import { Logo } from '@components/logos'
 import IconEarth from '@components/icons/IconEarth'
-import IconEarthSquare from '@components/icons/IconEarthSquare'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -62,7 +60,7 @@ export const Layout: FC<LayoutProps> = ({
       <div className="flex flex-col min-h-full">
         {page?._type && (page._type as string) === 'brand' ? (
           <header className="flex w-full h-auto items-center justify-center md:justify-start text-center">
-            <IconEarthSquare className="w-full max-w-[245px] pt-ydouble px-x" />
+            <IconEarth className="w-full max-w-[734px] py-ydouble px-x" />
           </header>
         ) : (
           <Header
