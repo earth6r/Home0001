@@ -1,4 +1,4 @@
-import { BiText } from 'react-icons/bi'
+import { BiCode, BiText } from 'react-icons/bi'
 import { GrImage } from 'react-icons/gr'
 import { RxDividerHorizontal } from 'react-icons/rx'
 
@@ -56,6 +56,12 @@ export default {
           name: 'tooltip',
           type: 'tooltip',
           icon: BiText,
+        },
+        {
+          title: 'Embed',
+          name: 'embed',
+          type: 'embed',
+          icon: BiCode,
         },
       ],
     },

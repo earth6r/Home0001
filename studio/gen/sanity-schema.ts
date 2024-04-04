@@ -168,6 +168,13 @@ export interface Page extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
+   * Password — `string`
+   *
+   * Password protect this page
+   */
+  password?: string;
+
+  /**
    * Hide Menu Button — `boolean`
    *
    * Hide waitlist or tour button in header
@@ -842,6 +849,16 @@ export type Divider = {
    *
    */
   divider?: boolean;
+};
+
+export type Embed = {
+  _type: "embed";
+  /**
+   * embed — `text`
+   *
+   *
+   */
+  embed?: string;
 };
 
 export type Figure = {
