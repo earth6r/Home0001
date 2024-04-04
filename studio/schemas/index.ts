@@ -38,6 +38,7 @@ import videosBlock from './blocks/videos-block'
 import divider from './objects/divider'
 import textAndAccordionBlock from './blocks/text-and-accordion-block'
 import brand from './documents/brand-page'
+import embed from './objects/embed'
 
 export const schemaTypes = [
   // objects
@@ -47,6 +48,7 @@ export const schemaTypes = [
   coordinates,
   cta,
   divider,
+  embed,
   figure,
   media,
   menuItem,
