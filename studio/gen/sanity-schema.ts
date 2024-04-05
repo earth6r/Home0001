@@ -856,7 +856,7 @@ export type Embed = {
   /**
    * embed — `text`
    *
-   *
+   * Paste the embed code here, will be wrapped with <script> tags
    */
   embed?: string;
 };
