@@ -5,6 +5,8 @@ import {
   previewClient,
   filterDataToSingleItem,
   LINK_QUERY,
+  LINK_MARKDEFS_QUERY,
+  CTA_QUERY,
 } from '.'
 
 export const SITE_SETTINGS_QUERY = groq`
@@ -15,6 +17,19 @@ export const SITE_SETTINGS_QUERY = groq`
       ${IMAGE_QUERY}
     },
     cookiesPaneCopy,
+    "cookiesAccordions": cookiesAccordions[]{
+      ...,
+      "text": text[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      },
+      cta{
+        ${CTA_QUERY}
+      }
+    },
     siteDescription,
     siteKeywords,
     mainMenu->{

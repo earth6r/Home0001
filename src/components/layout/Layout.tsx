@@ -105,7 +105,10 @@ export const Layout: FC<LayoutProps> = ({
             footerMenu={siteSettings?.footerMenu as Menus | undefined}
           />
         )}
-        <Cookies copy={siteSettings?.cookiesPaneCopy} />
+        <Cookies
+          copy={siteSettings?.cookiesPaneCopy}
+          accordions={siteSettings?.cookiesAccordions}
+        />
       </div>
       <ToastContainer />
     </>

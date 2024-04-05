@@ -47,6 +47,13 @@ export default {
       group: 'global',
     },
     {
+      name: 'cookiesAccordions',
+      title: 'Cookies Accordions',
+      type: 'array',
+      of: [{ type: 'accordion', title: 'Accordion' }],
+      group: 'global',
+    },
+    {
       name: 'image',
       title: 'Site Image',
       type: 'image',

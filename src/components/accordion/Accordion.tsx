@@ -10,7 +10,7 @@ import { sendGoogleEvent } from '@lib/util'
 import { useLenis } from '@studio-freight/react-lenis'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 
-interface AccordionProps extends HTMLAttributes<HTMLElement> {
+export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
   largeHeader?: boolean
   initialText?: RichTextType
