@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import { Link } from '@components/links'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
+import { useCookies } from 'react-cookie'
+import brand from '@/pages/brand'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   fields?: {
@@ -16,6 +18,7 @@ interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   isSubmitting?: boolean
   submitButtonCopy?: string
   modal?: boolean
+  brandStyle?: boolean
   register: UseFormRegister<FieldValues>
 }
 
@@ -50,6 +53,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   fields,
   isSubmitting,
   submitButtonCopy,
+  brandStyle,
   modal,
   register,
   className,
@@ -66,7 +70,8 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
           modal
             ? 'flex justify-between h-[calc(100%-var(--btn-height))] md:h-auto overflow-scroll'
             : '',
-          'relative flex flex-col gap-y'
+          brandStyle ? 'flex-row items-center' : 'flex-col',
+          'relative flex gap-y'
         )}
       >
         <div className="relative flex flex-col gap-y">
@@ -82,35 +87,67 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 id="first_name"
                 className={classNames(modal ? 'waitlist' : '', 'input')}
                 placeholder="FIRST NAME"
-                {...register('first_name', { required: true })}
+                {...register('first_name', { required: 'Name required' })}
               />
               <input
                 type="text"
                 id="last_name"
                 className={classNames(modal ? 'waitlist' : '', 'input')}
                 placeholder="LAST NAME"
-                {...register('last_name', { required: true })}
+                {...register('last_name', { required: 'Name required' })}
               />
             </div>
           )}
 
           <input
-            placeholder="YOUR EMAIL"
+            placeholder={brandStyle ? 'YOUR EMAIL ADDRESS' : 'YOUR EMAIL'}
             type="email"
             id="email"
-            className={classNames(modal ? 'waitlist' : '', 'input')}
-            {...register('email', { required: true })}
+            className={classNames(
+              modal ? 'waitlist' : '',
+              brandStyle ? 'brand' : '',
+              'input'
+            )}
+            {...register('email', { required: 'Please enter your email' })}
             onChange={() => !unitInput && setUnitInput(true)}
           />
 
           {fields?.showPhone && (
-            <input
-              type="tel"
-              id="phone"
-              className={classNames(modal ? 'waitlist' : '', 'input')}
-              placeholder="Phone Number (Optional)"
-              {...register('phone', { required: false })}
-            />
+            <>
+              <input
+                type="tel"
+                id="phone"
+                className={classNames(modal ? 'waitlist' : '', 'input')}
+                placeholder="Phone Number"
+                {...register('phone', {
+                  required: 'Please enter your phone number',
+                  pattern: /^[0-9+-]+$/,
+                  minLength: 6,
+                  maxLength: 12,
+                })}
+              />
+
+              {/* <div className="flex w-full max-w-[var(--btn-width)] gap-xhalf">
+                <input
+                  type="checkbox"
+                  id="sms_opt_in"
+                  className="tel-checkbox"
+                  {...register('sms_opt_in', { required: false })}
+                />
+                <label
+                  className="flex-1 w-[calc(var(---btn-width)-20px)] text-left ml-x md:ml-xhalf cursor-pointer"
+                  htmlFor="sms_opt_in"
+                >
+                  <p className="font-sansText text-lg leading-tight">
+                    I agree to receive SMS communications from HOME0001 about
+                    property availability.
+                    <br />
+                    <br />I understand that data rates may apply and that I can
+                    reply STOP to opt out at any time.
+                  </p>
+                </label>
+              </div> */}
+            </>
           )}
         </div>
 
@@ -229,7 +266,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
               id="message"
               className="block p-5 mt-yhalf"
               placeholder="LEAVE US A MESSAGE"
-              {...register('message', { required: true })}
+              {...register('message', { required: 'Message required' })}
             />
           </>
         )}
@@ -237,12 +274,16 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
         <div
           className={classNames(
             fields?.showLocation ? 'mt-10' : 'mt-1 md:mt-6',
+            brandStyle ? '!m-0' : '',
             'relative flex flex-col gap-2 md:gap-y'
           )}
         >
           <button
             className={classNames(
-              'md:max-w-[var(--btn-width)] w-full h-btn text-center uppercase text-white bg-black font-medium text-xs'
+              brandStyle
+                ? 'border-black px-1 font-normal'
+                : 'h-btn text-white bg-black',
+              'md:max-w-[var(--btn-width)] w-full text-center uppercase font-medium text-xs'
             )}
             type="submit"
             disabled={isSubmitting}

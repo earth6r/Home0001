@@ -12,29 +12,48 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
   accordions,
   readMore,
   grid,
+  columns = 3,
+  bottomBorder,
   className,
 }) => {
   return (
     <Block
+      style={{
+        gridTemplateColumns: columns
+          ? `repeat(${columns}, minmax(0, 1fr))`
+          : 'repeat(3, minmax(0, 1fr))',
+      }}
       className={classNames(
         className,
-        grid ? 'md:grid md:grid-cols-3 pr-menu' : ''
+        grid ? 'grid pr-menu' : '',
+        bottomBorder ? 'pb-y -mb-y border-bottom' : '',
+        columns && columns < 3 ? 'md:pr-0' : ''
       )}
     >
-      <div className="md:col-start-2 md:col-span-1">
+      <div
+        className={classNames(
+          columns > 2
+            ? 'col-span-3 md:col-span-1 col-start-1 md:col-start-2'
+            : 'col-span-2 md:col-start-2',
+          ''
+        )}
+      >
         {accordions &&
           accordions.length > 0 &&
-          accordions.map(({ _key, header, initialText, text, cta }) => (
-            <Accordion
-              key={_key}
-              header={header}
-              initialText={initialText}
-              text={text}
-              cta={cta}
-              readMore={readMore}
-              className="mt-2 first-of-type:mt-0"
-            />
-          ))}
+          accordions.map(
+            ({ _key, header, largeHeader, initialText, text, cta }) => (
+              <Accordion
+                key={_key}
+                header={header}
+                largeHeader={largeHeader}
+                initialText={initialText}
+                text={text}
+                cta={cta}
+                readMore={readMore}
+                className="mt-yhalf first-of-type:mt-0"
+              />
+            )
+          )}
       </div>
     </Block>
   )

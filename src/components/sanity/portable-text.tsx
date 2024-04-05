@@ -4,7 +4,7 @@ import type {
   PortableTextBlockComponent,
 } from '@portabletext/react'
 import { reactNodeToString } from '@lib/util'
-import { SanityLink, SanityFigure } from '.'
+import { SanityLink, SanityMedia } from '.'
 import { SanityTooltip } from './tooltip'
 
 /**
@@ -13,13 +13,26 @@ import { SanityTooltip } from './tooltip'
 export const blockTypes: Partial<PortableTextReactComponents['types']> = {
   media: ({ value }) => {
     return (
-      <div className={`text-center ${value.alignment || 'center'}`}>
-        <SanityFigure className="text-xs" {...value} />
+      <div className={`max-w-[273px] md:max-w-[522px] mx-auto text-center`}>
+        <SanityMedia
+          imageProps={{
+            alt: value?.alt || 'Building image',
+            lqip: (value?.image as any)?.asset?.metadata?.lqip,
+          }}
+          className="w-full h-auto object-cover"
+          {...(value as any)}
+        />
       </div>
     )
   },
   tooltip: ({ value }) => {
     return <SanityTooltip {...value} />
+  },
+  divider: () => {
+    return <span className="block h-yhalf" />
+  },
+  embed: ({ value }) => {
+    return <script type="text/javascript">{value.embed}</script>
   },
 }
 

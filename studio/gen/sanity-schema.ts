@@ -37,6 +37,55 @@ export type {
 };
 
 /**
+ * Page
+ *
+ *
+ */
+export interface Brand extends SanityDocument {
+  _type: "brand";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * City
  *
  *
@@ -117,6 +166,13 @@ export interface Page extends SanityDocument {
    *
    */
   slug?: { _type: "slug"; current: string };
+
+  /**
+   * Password — `string`
+   *
+   * Password protect this page
+   */
+  password?: string;
 
   /**
    * Hide Menu Button — `boolean`
@@ -728,6 +784,13 @@ export type Accordion = {
   header?: string;
 
   /**
+   * Large Header — `boolean`
+   *
+   * Sets header to H2 size (Read More accordions only)
+   */
+  largeHeader?: boolean;
+
+  /**
    * Initial Text — `richText`
    *
    * Copy shown before accordion is expanded (Read More accordions only)
@@ -783,6 +846,26 @@ export type Cta = {
    *
    */
   link?: Link;
+};
+
+export type Divider = {
+  _type: "divider";
+  /**
+   * Divider — `boolean`
+   *
+   *
+   */
+  divider?: boolean;
+};
+
+export type Embed = {
+  _type: "embed";
+  /**
+   * embed — `text`
+   *
+   * Paste the embed code here, will be wrapped with <script> tags
+   */
+  embed?: string;
 };
 
 export type Figure = {
@@ -879,7 +962,7 @@ export type Seo = {
   synonyms?: string;
 };
 
-export type RichText = Array<SanityKeyed<SanityBlock>>;
+export type RichText = Array<SanityKeyed<SanityBlock> | SanityKeyed<Media>>;
 
 export type PlainText = Array<SanityKeyed<SanityBlock>>;
 
@@ -955,6 +1038,49 @@ export type UnitGroup = {
   units?: Array<SanityKeyedReference<Unit>>;
 };
 
+export type Video = {
+  _type: "video";
+  /**
+   * files — `array`
+   *
+   * Video files (webm, m4v, mp4) beginning with webm
+   */
+  files?: Array<SanityKeyed<{ _type: "file"; asset: SanityReference<any> }>>;
+
+  /**
+   * poster — `image`
+   *
+   * Image that displays before the video is loaded
+   */
+  poster?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Caption — `string`
+   *
+   *
+   */
+  caption?: string;
+
+  /**
+   * loop — `boolean`
+   *
+   *
+   */
+  loop?: boolean;
+
+  /**
+   * autoplay — `boolean`
+   *
+   * Video will be muted if autoplay is enabled
+   */
+  autoplay?: boolean;
+};
+
 export type InventoryModule = {
   _type: "inventoryModule";
   /**
@@ -982,13 +1108,22 @@ export type BlockContent = Array<
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
   | SanityKeyed<TextBlock>
+  | SanityKeyed<TextAndAccordionBlock>
   | SanityKeyed<UnitBlock>
+  | SanityKeyed<VideosBlock>
   | SanityKeyed<WaitlistBlock>
   | SanityKeyed<FlexWaitlistBlock>
 >;
 
 export type AccordionBlock = {
   _type: "accordionBlock";
+  /**
+   * Columns — `number`
+   *
+   * Number of columns to display on larger screens. Defaults to 3 if blank
+   */
+  columns?: number;
+
   /**
    * Accordions — `array`
    *
@@ -1002,6 +1137,13 @@ export type AccordionBlock = {
    * Set to true to hide plus and minus and show read more copy
    */
   readMore?: boolean;
+
+  /**
+   * Black Bottom Border — `boolean`
+   *
+   *
+   */
+  bottomBorder?: boolean;
 };
 
 export type AnimatingBlock = {
@@ -1118,6 +1260,20 @@ export type NewsletterBlock = {
    *
    */
   successMessage?: RichText;
+
+  /**
+   * Hide Name — `boolean`
+   *
+   *
+   */
+  hideName?: boolean;
+
+  /**
+   * Brand Input Style — `boolean`
+   *
+   *
+   */
+  brandStyle?: boolean;
 };
 
 export type ContactBlock = {
@@ -1147,6 +1303,27 @@ export type ContactBlock = {
 export type TextBlock = {
   _type: "textBlock";
   /**
+   * Columns — `number`
+   *
+   * Number of columns to display on larger screens. Defaults to 3 if blank
+   */
+  columns?: number;
+
+  /**
+   * Sticky Header — `boolean`
+   *
+   * This will make the header sticky on scroll, note requires a header to be set and number of columns set to 2
+   */
+  stickyHeader?: boolean;
+
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
    * Text — `richText`
    *
    *
@@ -1159,6 +1336,54 @@ export type TextBlock = {
    * This will give the text block a full-width yellow background
    */
   yellowBackground?: boolean;
+
+  /**
+   * Black Bottom Border — `boolean`
+   *
+   *
+   */
+  bottomBorder?: boolean;
+};
+
+export type TextAndAccordionBlock = {
+  _type: "textAndAccordionBlock";
+  /**
+   * Scroll Header — `richText`
+   *
+   *
+   */
+  scrollHeader?: RichText;
+
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
+   * Items — `array`
+   *
+   *
+   */
+  items?: Array<
+    SanityKeyed<{
+      _type: "item";
+      /**
+       * Copy — `richText`
+       *
+       *
+       */
+      copy?: RichText;
+
+      /**
+       * Accordions — `array`
+       *
+       *
+       */
+      accordions?: Array<SanityKeyed<Accordion>>;
+    }>
+  >;
 };
 
 export type UnitBlock = {
@@ -1169,6 +1394,16 @@ export type UnitBlock = {
    *
    */
   unitRef?: SanityReference<Unit>;
+};
+
+export type VideosBlock = {
+  _type: "videosBlock";
+  /**
+   * Videos — `array`
+   *
+   *
+   */
+  videos?: Array<SanityKeyed<Video>>;
 };
 
 export type WaitlistBlock = {
@@ -1241,6 +1476,7 @@ export type FlexWaitlistBlock = {
 };
 
 export type Documents =
+  | Brand
   | City
   | Menus
   | Page

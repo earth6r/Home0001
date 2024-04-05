@@ -21,6 +21,8 @@ type PageRefType = React.ForwardedRef<HTMLDivElement>
 const ALL_SLUGS_QUERY = groq`*[_type == "property" && defined(slug.current)][].slug.current`
 const PROPERTY_QUERY = groq`
   *[_type == "property" && slug.current == $slug]{
+    _type,
+    seo,
     ${PROPERTIES_QUERY}
   }
 `

@@ -33,6 +33,12 @@ import unitBlock from './blocks/unit-block'
 import propertyBlock from './blocks/property-block'
 import flexWaitlistBlock from './blocks/flex-waitlist-block'
 import calendarBlock from './blocks/calendar-block'
+import video from './objects/video'
+import videosBlock from './blocks/videos-block'
+import divider from './objects/divider'
+import textAndAccordionBlock from './blocks/text-and-accordion-block'
+import brand from './documents/brand-page'
+import embed from './objects/embed'
 
 export const schemaTypes = [
   // objects
@@ -41,6 +47,8 @@ export const schemaTypes = [
   color,
   coordinates,
   cta,
+  divider,
+  embed,
   figure,
   media,
   menuItem,
@@ -50,6 +58,7 @@ export const schemaTypes = [
   textAndImage,
   tooltip,
   unitGroup,
+  video,
 
   // modules
   inventoryModule,
@@ -65,11 +74,14 @@ export const schemaTypes = [
   newsletterBlock,
   contactBlock,
   textBlock,
+  textAndAccordionBlock,
   unitBlock,
+  videosBlock,
   waitlistBlock,
   flexWaitlistBlock,
 
   // documents
+  brand,
   city,
   menus,
   page,
