@@ -625,6 +625,13 @@ export interface SiteSettings extends SanityDocument {
   cookiesPaneCopy?: RichText;
 
   /**
+   * Cookies Accordions — `array`
+   *
+   *
+   */
+  cookiesAccordions?: Array<SanityKeyed<Accordion>>;
+
+  /**
    * Site Image — `image`
    *
    *
