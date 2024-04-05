@@ -5,7 +5,7 @@ export default function handler(
   res: NextApiResponse
 ): void {
   res.clearPreviewData()
-  res.setDraftMode({ enable: true })
+  res.setDraftMode({ enable: false })
   res.redirect(`${req?.query?.path}` ?? '/')
   res.end()
 }

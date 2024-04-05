@@ -49,9 +49,19 @@ export default {
       title: 'Text Block',
     },
     {
+      name: 'textAndAccordionBlock',
+      type: 'textAndAccordionBlock',
+      title: 'Text And Accordion',
+    },
+    {
       name: 'unitBlock',
       type: 'unitBlock',
       title: 'Unit Block',
+    },
+    {
+      name: 'videosBlock',
+      type: 'videosBlock',
+      title: 'Videos Block',
     },
     {
       name: 'waitlistBlock',

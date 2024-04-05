@@ -2,7 +2,7 @@ import { GrDocument } from 'react-icons/gr'
 import type { Rule } from '@sanity/types'
 
 export default {
-  name: 'page',
+  name: 'brand',
   title: 'Page',
   type: 'document',
   icon: GrDocument,
@@ -27,24 +27,6 @@ export default {
         source: 'title',
         maxLength: 96,
       },
-    },
-    {
-      name: 'password',
-      title: 'Password',
-      type: 'string',
-      description: 'Password protect this page',
-    },
-    {
-      name: 'hideMenuButton',
-      title: 'Hide Menu Button',
-      description: 'Hide waitlist or tour button in header',
-      type: 'boolean',
-    },
-    {
-      name: 'showTourLink',
-      title: 'Show Tour Link',
-      description: 'Show the tour link in the header instead of waitlist',
-      type: 'boolean',
     },
     {
       name: 'previewImage',

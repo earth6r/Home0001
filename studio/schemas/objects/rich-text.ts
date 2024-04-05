@@ -1,4 +1,6 @@
-import { BiText } from 'react-icons/bi'
+import { BiCode, BiText } from 'react-icons/bi'
+import { GrImage } from 'react-icons/gr'
+import { RxDividerHorizontal } from 'react-icons/rx'
 
 export default {
   name: 'richText',
@@ -44,12 +46,32 @@ export default {
       },
       of: [
         {
+          title: 'Divider',
+          name: 'divider',
+          type: 'divider',
+          icon: RxDividerHorizontal,
+        },
+        {
           title: 'Tooltip',
           name: 'tooltip',
           type: 'tooltip',
           icon: BiText,
         },
+        {
+          title: 'Embed',
+          name: 'embed',
+          type: 'embed',
+          icon: BiCode,
+        },
       ],
+    },
+    {
+      title: 'Media',
+      name: 'media',
+      type: 'media',
+      blockEditor: {
+        icon: GrImage,
+      },
     },
   ],
 }

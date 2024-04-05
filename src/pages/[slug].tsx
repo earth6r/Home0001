@@ -1,4 +1,9 @@
-import { ForwardRefRenderFunction, forwardRef } from 'react'
+import {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react'
 import groq from 'groq'
 import type {
   GetStaticPaths,
@@ -13,6 +18,7 @@ import { BODY_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { BlockContent } from '@components/sanity'
 import PageTransition from '@components/transition/PageTransition'
 import classNames from 'classnames'
+import type { FormEvent } from 'react'
 
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 
@@ -20,6 +26,9 @@ const ALL_SLUGS_QUERY = groq`*[_type == "page" && defined(slug.current)][].slug.
 const PAGE_QUERY = groq`
   *[_type == "page" && slug.current == $slug]{
     _id,
+    _type,
+    seo,
+    password,
     hideMenuButton,
     showTourLink,
     ${BODY_QUERY}
@@ -45,17 +54,43 @@ const Page: NextPage<PageProps> = (
   const filteredBlocks = page.body?.filter(
     (block: any) => block._type === 'propertyBlock'
   )
+  const [showLogin, setShowLogin] = useState(true)
+
+  const validatePassword = (e: FormEvent<HTMLInputElement>) => {
+    if ((e.target as HTMLTextAreaElement).value === page.password) {
+      setShowLogin(false)
+      sessionStorage.setItem('loggedIn', 'true')
+    }
+  }
+
+  useEffect(() => {
+    setShowLogin(sessionStorage.getItem('loggedIn') !== 'true')
+  }, [])
+
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
-        <BlockContent
-          grid={true}
-          blocks={page?.body}
-          className={classNames(
-            filteredBlocks && filteredBlocks?.length > 0 ? '' : 'container',
-            'flex flex-col pt-page'
-          )}
-        />
+        {page?.password && showLogin ? (
+          <div className="flex items-center justify-center w-full h-[60vh]">
+            <form className="form">
+              <input
+                type="text"
+                placeholder="Password"
+                className="input"
+                onInput={e => validatePassword(e)}
+              />
+            </form>
+          </div>
+        ) : (
+          <BlockContent
+            grid={true}
+            blocks={page?.body}
+            className={classNames(
+              filteredBlocks && filteredBlocks?.length > 0 ? '' : 'container',
+              'flex flex-col pt-page'
+            )}
+          />
+        )}
       </article>
     </PageTransition>
   ) : null

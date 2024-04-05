@@ -1,4 +1,3 @@
-import type { Rule } from '@sanity/types'
 import { FaLocationDot } from 'react-icons/fa6'
 
 export default {

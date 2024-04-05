@@ -68,7 +68,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               <SanityLink externalLink={unit.calendarLink}>
                 <button
                   className={classNames(
-                    'w-full relative mb-y border-1 border-black border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
+                    'w-full relative mb-y border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
                   )}
                 >
                   {`Request a tour`}
@@ -80,7 +80,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             <a href="mailto:talin@home0001.com">
               <button
                 className={classNames(
-                  'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-white text-button z-above p-x'
+                  'w-full relative border-1 border-black hover:border-white border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-white hover:invert transition-all duration-200 text-button z-above p-x'
                 )}
               >
                 {`Get in touch`}
@@ -156,7 +156,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             />
           )}
 
-          <div className="md:hidden pl-x pr-menu my-ydouble">
+          <div className="md:hidden pl-x pr-menu my-ydouble mr-x">
             {unit?.calendarLink && (
               <SanityLink
                 externalLink={unit.calendarLink}
@@ -164,7 +164,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               >
                 <button
                   className={classNames(
-                    'w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black text-button z-above p-x'
+                    'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
                   )}
                 >
                   {`Request a tour`}
@@ -176,11 +176,11 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
             <a href="mailto:talin@home0001.com">
               <button
                 className={classNames(
-                  'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white text-button z-above p-x'
+                  'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
                 )}
               >
                 {`Ask us a question`}
-                <IconSmallArrow width="16" height="10" fill="black" />
+                <IconSmallArrow width="16" height="10" fill="white" />
               </button>
             </a>
           </div>
@@ -191,7 +191,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               <ImageCarousel
                 pagination={true}
                 perView={1}
-                carousel={false}
+                carousel={true}
                 slides={unit?.layoutImages}
                 className="w-full px-x md:px-0 overflow-hidden"
                 placement="unit layouts"

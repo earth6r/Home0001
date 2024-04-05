@@ -18,6 +18,8 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
   text,
   grid,
   audienceId,
+  hideName,
+  brandStyle,
   className,
 }) => {
   const {
@@ -33,7 +35,10 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
     <Block
       className={classNames(
         className,
-        grid ? 'md:grid md:grid-cols-3 pr-menu' : '',
+        brandStyle ? 'mt-page' : '',
+        grid
+          ? 'md:grid md:grid-cols-3 pr-menu'
+          : 'max-w-[522px] w-auto mx-auto',
         'relative'
       )}
     >
@@ -44,18 +49,28 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
           <RichText blocks={text} className={classNames('mb-4 clear-both')} />
         )}
 
+        {brandStyle && (
+          <p className="w-full mb-y uppercase font-sansArial text-center">{`Sign up to our newsletter`}</p>
+        )}
+
         <Form
           formType={'newsletter'}
           audienceId={audienceId}
           handleSubmit={handleSubmit}
           formSubmitted={formSubmitted}
           setFormSubmitted={setFormSubmitted}
-          successMessage={'Your data — our harvest.'}
+          successMessage={
+            brandStyle ? `You're signed up` : 'Your data — our harvest.'
+          }
+          className={classNames(
+            brandStyle ? 'flex justify-center items-start font-sansArial' : ''
+          )}
         >
           <SinglePaneInputs
             isSubmitting={isSubmitting}
             register={register}
-            fields={{ showName: true }}
+            brandStyle={brandStyle}
+            fields={{ showName: hideName ? false : true }}
           />
         </Form>
       </div>
