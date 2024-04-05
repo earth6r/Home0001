@@ -75,7 +75,7 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
   return (
     <Dialog open={open} onClose={decline}>
       <div className="fixed w-[100vw] h-[100vh] top-0 left-0 right-0 bottom-0 bg-black opacity-40 z-header"></div>
-      <Dialog.Panel className="fixed w-full md:max-w-[680px] h-[100svh] md:h-[636px] top-0 md:top-1/2 md:transform md:-translate-y-1/2 py-xdouble px-x md:m-xdouble xl:mx-auto left-0 right-0 bg-white border-black overflow-scroll z-menu">
+      <Dialog.Panel className="fixed w-full md:max-w-[680px] h-[100svh] md:h-[75vh] md:max-h-[636px] top-0 md:top-1/2 md:transform md:-translate-y-1/2 py-xdouble px-x md:m-xdouble xl:mx-auto left-0 right-0 bg-white border-black overflow-scroll z-menu">
         {copy && (
           <Dialog.Description>
             <RichText blocks={copy} className="mt-ydouble" />
