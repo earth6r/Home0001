@@ -856,7 +856,7 @@ export type Embed = {
   /**
    * embed — `text`
    *
-   *
+   * Paste the embed code here, will be wrapped with <script> tags
    */
   embed?: string;
 };
@@ -1104,6 +1104,7 @@ export type BlockContent = Array<
   | SanityKeyed<TextAndAccordionBlock>
   | SanityKeyed<UnitBlock>
   | SanityKeyed<VideosBlock>
+  | SanityKeyed<MessagingBlock>
   | SanityKeyed<WaitlistBlock>
   | SanityKeyed<FlexWaitlistBlock>
 >;
@@ -1397,6 +1398,16 @@ export type VideosBlock = {
    *
    */
   videos?: Array<SanityKeyed<Video>>;
+};
+
+export type MessagingBlock = {
+  _type: "messagingBlock";
+  /**
+   * Messaging Name — `text`
+   *
+   *
+   */
+  messaginBlock?: string;
 };
 
 export type WaitlistBlock = {
