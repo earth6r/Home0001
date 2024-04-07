@@ -4,6 +4,7 @@ export const MessagingBlock: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('')
   const [message, setMessage] = useState<string>('')
   const [method, setMethod] = useState<string>('sms')
+  const [confirmed, setConfirmed] = useState<boolean>(false)
 
   async function sendMessage(messageData: {
     recipientPhone: string
@@ -23,6 +24,8 @@ export const MessagingBlock: React.FC = () => {
     }
 
     const responseData = await response.json()
+    console.log('responseData:', responseData)
+    setConfirmed(true)
     return responseData.message
   }
   const handleSend = () => {
@@ -50,7 +53,9 @@ export const MessagingBlock: React.FC = () => {
     console.log('Sending message via WhatsApp')
   }
 
-  return (
+  return confirmed ? (
+    <h1>Message Sent TO: {phoneNumber}</h1>
+  ) : (
     <div>
       <label>Phone Number:</label>
       <input
