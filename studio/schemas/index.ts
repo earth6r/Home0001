@@ -35,6 +35,7 @@ import flexWaitlistBlock from './blocks/flex-waitlist-block'
 import calendarBlock from './blocks/calendar-block'
 import video from './objects/video'
 import videosBlock from './blocks/videos-block'
+import messagingBlock from './blocks/messaging-block'
 import divider from './objects/divider'
 import textAndAccordionBlock from './blocks/text-and-accordion-block'
 import brand from './documents/brand-page'
@@ -77,6 +78,7 @@ export const schemaTypes = [
   textAndAccordionBlock,
   unitBlock,
   videosBlock,
+  messagingBlock,
   waitlistBlock,
   flexWaitlistBlock,
 
