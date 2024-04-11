@@ -13,6 +13,7 @@ declare global {
       SANITY_STUDIO_PREVIEW_SECRET: string
       SANITY_API_TOKEN: string
       SANITY_PREVIEW_TOKEN: string
+      NEXT_PUBLIC_PLAYWRIGHT_BASE_URL: string
     }
   }
 }
