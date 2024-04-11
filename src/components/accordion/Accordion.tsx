@@ -17,6 +17,7 @@ export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   text?: RichTextType
   cta?: Cta
   readMore?: boolean
+  firstIndex?: boolean
   location?: { property: string; unit: string }
 }
 
