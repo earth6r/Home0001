@@ -17,7 +17,6 @@ import { CitiesListProps } from '../properties/types'
 import { SanityLinkType } from '@studio/lib'
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
-import _ from 'lodash'
 import { useLenis } from '@studio-freight/react-lenis'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
@@ -125,9 +124,9 @@ const AnimatingImage: FC<AnimatingImageProps> = ({
           <SanityMedia
             imageProps={{
               alt: media?.alt || 'Building image',
-              quality: 6,
+              quality: 30,
               priority: firstIndex ? true : false,
-              sizes: '(max-width: 768px) 150vw, 1200px',
+              sizes: '(max-width: 768px) 100vw, 1200px',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
             }}
             onLoadingComplete={() => lastIndex && lenis.resize()}
