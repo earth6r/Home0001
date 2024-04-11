@@ -95,7 +95,7 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
             className="h-btn text-button bg-black text-white"
             onClick={decline}
           >
-            Reject
+            Reject All
           </button>
           <button
             className="h-btn text-button bg-black text-white"
