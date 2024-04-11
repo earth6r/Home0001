@@ -821,6 +821,23 @@ export type Accordion = {
 
 export type Color = "black" | "white";
 
+export type CookiesToggle = {
+  _type: "cookiesToggle";
+  /**
+   * Linked Copy — `string`
+   *
+   *
+   */
+  linkedCopy?: string;
+
+  /**
+   * Cookies Toggle — `boolean`
+   *
+   *
+   */
+  cookiesToggle?: boolean;
+};
+
 export type Coordinates = {
   _type: "coordinates";
   /**

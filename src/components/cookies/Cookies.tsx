@@ -1,4 +1,4 @@
-import { useLocalCookies } from '@contexts/cookies'
+import { useCookiesPrefs, useLocalCookies } from '@contexts/cookies'
 import classNames from 'classnames'
 import { useState, type FC, type HTMLProps, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
@@ -25,6 +25,7 @@ interface CookiesDialogProps extends CookiesProps {
 
 const CookieSetting: FC<AccordionProps> = ({
   header,
+  firstIndex,
   largeHeader,
   initialText,
   text,
@@ -47,9 +48,11 @@ const CookieSetting: FC<AccordionProps> = ({
         className="w-full md:w-[calc(50%-var(--space-x-half))]"
       />
       <Switch
+        disabled={firstIndex ? true : false}
         onChange={() => setSettingOn(!settingOn)}
         className={classNames(
           settingOn ? 'bg-black' : 'bg-gray',
+          firstIndex ? 'opacity-50' : 'opacity-100',
           `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto`
         )}
       >
@@ -75,7 +78,7 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
   return (
     <Dialog open={open} onClose={decline}>
       <div className="fixed w-[100vw] h-[100vh] top-0 left-0 right-0 bottom-0 bg-black opacity-40 z-header"></div>
-      <Dialog.Panel className="fixed w-full md:max-w-[680px] h-[100svh] md:h-[75vh] md:max-h-[636px] top-0 md:top-1/2 md:transform md:-translate-y-1/2 py-xdouble px-x md:m-xdouble xl:mx-auto left-0 right-0 bg-white border-black overflow-scroll z-menu">
+      <Dialog.Panel className="fixed w-full md:max-w-[680px] h-[100svh] md:h-[75vh] md:max-h-[636px] top-0 md:top-1/2 md:transform md:-translate-y-1/2 py-xdouble px-x left-0 md:left-1/2 md:-translate-x-1/2 right-0 bg-white border-black overflow-scroll z-menu">
         {copy && (
           <Dialog.Description>
             <RichText blocks={copy} className="mt-ydouble" />
@@ -85,8 +88,12 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
         <div className="block">
           {accordions &&
             accordions.length > 0 &&
-            accordions.map(accordion => (
-              <CookieSetting key={accordion._key} {...accordion} />
+            accordions.map((accordion, index) => (
+              <CookieSetting
+                key={accordion._key}
+                firstIndex={index === 0}
+                {...accordion}
+              />
             ))}
         </div>
 
@@ -123,14 +130,16 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
 }) => {
   const [cookies, setCookie, removeCookie] = useCookies(['hubspotutk'])
   const [hutk, setHutk] = useLocalCookies()
+  const [showPrefs, setShowPrefs] = useCookiesPrefs()
   const [showBanner, setShowBanner] = useState(false)
-  let [dialogOpen, setDialogOpen] = useState(false)
+  let [dialogOpen, setDialogOpen] = useState(showPrefs)
 
   const acceptCookies = () => {
     setHutk(cookies.hubspotutk)
     sessionStorage.setItem('cookieStorage', 'true')
     setShowBanner(false)
     setDialogOpen(false)
+    setShowPrefs(false)
   }
 
   const declineCookies = () => {
@@ -140,7 +149,12 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
     sessionStorage.setItem('cookieStorage', 'true')
     setShowBanner(false)
     setDialogOpen(false)
+    setShowPrefs(false)
   }
+
+  useEffect(() => {
+    setDialogOpen(showPrefs)
+  }, [showPrefs])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

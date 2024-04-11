@@ -6,6 +6,30 @@ import type {
 import { reactNodeToString } from '@lib/util'
 import { SanityLink, SanityMedia } from '.'
 import { SanityTooltip } from './tooltip'
+import { useCookiesPrefs } from '@contexts/cookies'
+import { type FC, type HTMLAttributes } from 'react'
+
+interface SanityCookiesToggleProps extends HTMLAttributes<HTMLElement> {
+  linkedCopy?: string
+  cookiesToggle?: boolean
+}
+
+const SanityCookiesToggle: FC<SanityCookiesToggleProps> = ({
+  className,
+  ...props
+}) => {
+  const [showPrefs, setShowPrefs] = useCookiesPrefs()
+  return (
+    <button
+      className="underline"
+      onClick={() => {
+        setShowPrefs(true)
+      }}
+    >
+      {props.linkedCopy}
+    </button>
+  )
+}
 
 /**
  * PortableText types used globally
@@ -33,6 +57,9 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
   },
   embed: ({ value }) => {
     return <script type="text/javascript">{value.embed}</script>
+  },
+  cookiesToggle: ({ value }) => {
+    return <SanityCookiesToggle {...value} />
   },
 }
 

@@ -40,12 +40,14 @@ import divider from './objects/divider'
 import textAndAccordionBlock from './blocks/text-and-accordion-block'
 import brand from './documents/brand-page'
 import embed from './objects/embed'
+import cookiesToggle from './objects/cookies-toggle'
 
 export const schemaTypes = [
   // objects
   link,
   accordion,
   color,
+  cookiesToggle,
   coordinates,
   cta,
   divider,

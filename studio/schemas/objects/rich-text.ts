@@ -1,5 +1,5 @@
 import { BiCode, BiText } from 'react-icons/bi'
-import { GrImage } from 'react-icons/gr'
+import { GrImage, GrSwitch } from 'react-icons/gr'
 import { RxDividerHorizontal } from 'react-icons/rx'
 
 export default {
@@ -62,6 +62,12 @@ export default {
           name: 'embed',
           type: 'embed',
           icon: BiCode,
+        },
+        {
+          title: 'Cookies Toggle',
+          name: 'cookiesToggle',
+          type: 'cookiesToggle',
+          icon: GrSwitch,
         },
       ],
     },
