@@ -48,7 +48,7 @@ export const TextBlock: FC<TextBlockProps> = ({
         }}
       >
         {text && (
-          <RichText blocks={text} className={classNames('clear-both pr-x')} />
+          <RichText blocks={text} className={classNames('clear-both')} />
         )}
       </div>
     </Block>
