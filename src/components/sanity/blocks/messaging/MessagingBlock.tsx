@@ -29,6 +29,28 @@ export const MessagingBlock: React.FC = () => {
     return responseData.message
   }
 
+  async function sendMessageViaWhatsApp(messageData: {
+    recipientPhone: string
+    message: string
+  }): Promise<string> {
+    const response = await fetch('/api/send-whatsapp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(messageData),
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Failed to submit comment')
+    }
+
+    const responseData = await response.json()
+    console.log('responseData:', responseData)
+    setConfirmed(true)
+    return responseData.message
+  }
   const handleSend = () => {
     if (method === 'sms') {
       sendSMS()
@@ -49,9 +71,16 @@ export const MessagingBlock: React.FC = () => {
     }
   }
 
-  const sendWhatsApp = () => {
-    // WhatsApp API code here
-    console.log('Sending message via WhatsApp')
+  const sendWhatsApp = async () => {
+    try {
+      await sendMessageViaWhatsApp({
+        recipientPhone: phoneNumber,
+        message: message,
+      })
+      console.log('sent!')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const validatePhoneNumber = (input: string) => {
