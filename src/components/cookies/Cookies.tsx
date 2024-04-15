@@ -85,7 +85,7 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
           </Dialog.Description>
         )}
 
-        <div className="block">
+        <div className="block mt-y">
           {accordions &&
             accordions.length > 0 &&
             accordions.map((accordion, index) => (
