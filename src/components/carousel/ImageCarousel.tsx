@@ -68,7 +68,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
           fullWidth ? 'md:h-[431px] md:w-auto' : '',
           'w-full h-auto object-cover'
         )}
-        onLoadingComplete={() => lastIndex && lenis.resize()}
+        onLoadingComplete={() => lastIndex && lenis?.resize()}
       />
     </div>
   )
