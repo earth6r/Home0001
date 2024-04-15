@@ -31,7 +31,7 @@ const CookieSetting: FC<AccordionProps> = ({
   text,
   cta,
 }) => {
-  const [settingOn, setSettingOn] = useState(false)
+  const [settingOn, setSettingOn] = useState(firstIndex)
 
   useEffect(() => {
     // do something if setting changes
@@ -49,11 +49,10 @@ const CookieSetting: FC<AccordionProps> = ({
       />
       <Switch
         disabled={firstIndex}
-        checked={firstIndex}
         onChange={() => setSettingOn(!settingOn)}
         className={classNames(
           settingOn ? 'bg-black' : 'bg-gray',
-          firstIndex ? 'opacity-50' : 'opacity-100',
+          firstIndex ? 'opacity-30' : 'opacity-100',
           `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto`
         )}
       >
