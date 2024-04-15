@@ -45,10 +45,11 @@ const CookieSetting: FC<AccordionProps> = ({
         initialText={initialText}
         text={text}
         cta={cta}
-        className="w-full md:w-[calc(50%-var(--space-x-half))]"
+        className="w-full max-w-[calc(100%-60px)] md:w-[calc(50%-var(--space-x-half))]"
       />
       <Switch
-        disabled={firstIndex ? true : false}
+        disabled={firstIndex}
+        checked={firstIndex}
         onChange={() => setSettingOn(!settingOn)}
         className={classNames(
           settingOn ? 'bg-black' : 'bg-gray',
