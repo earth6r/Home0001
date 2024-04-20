@@ -95,7 +95,17 @@ export const Layout: FC<LayoutProps> = ({
             smoothWheel: false,
           }}
         >
-          <main className="flex-auto">{children}</main>
+          <main className="flex-auto">
+            {page?._type && (page._type as string) == 'brand' && (
+              <a
+                className="block mt-12 w-full mb-y uppercase font-sansArial text-center underline mx-auto"
+                href={
+                  'https://www.youtube.com/live/RLyo4puEHGo?si=XchL7zioePyfln60'
+                }
+              >{`Livestream`}</a>
+            )}
+            {children}
+          </main>
         </ReactLenis>
         {page?._type && (page._type as string) !== 'brand' && (
           <Footer
