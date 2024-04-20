@@ -99,9 +99,7 @@ export const Layout: FC<LayoutProps> = ({
             {page?._type && (page._type as string) == 'brand' && (
               <a
                 className="block mt-12 w-full mb-y uppercase font-sansArial text-center underline mx-auto"
-                href={
-                  'https://www.youtube.com/live/RLyo4puEHGo?si=XchL7zioePyfln60'
-                }
+                href={'https://www.youtube.com/watch?v=0iC7qI_urDU'}
               >{`Livestream`}</a>
             )}
             {children}
