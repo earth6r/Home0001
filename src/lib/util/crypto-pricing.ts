@@ -8,11 +8,11 @@ const coinGeckoConfig = {
   },
 }
 const coinGeckoEthPriceApiUrl = (coinId: string) => {
-  const apiURL = `https://pro-api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=eth`
+  const apiURL = `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=eth`
   return apiURL
 }
 const coinGeckoBtcPriceApiUrl = (coinId: string) => {
-  const apiURL = `https://pro-api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=btc`
+  const apiURL = `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=btc`
   return apiURL
 }
 
