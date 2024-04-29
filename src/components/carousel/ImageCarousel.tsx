@@ -16,6 +16,7 @@ export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
   alt: string
   lastIndex?: boolean
+  firstIndex?: boolean
   fullWidth?: boolean
 }
 
@@ -43,6 +44,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
   alt,
   fullWidth,
   lastIndex,
+  firstIndex,
   className,
 }) => {
   const lenis = useLenis()
@@ -58,9 +60,9 @@ const ImageSlide: FC<ImageSlideProps> = ({
       <SanityMedia
         image={image}
         imageProps={{
-          alt,
-          quality: 9,
-          priority: true,
+          alt: alt || 'Building image',
+          quality: 6,
+          priority: firstIndex ? true : false,
           sizes: '(max-width: 768px) 100vw, 800px',
           lqip: image?.asset?.metadata?.lqip,
         }}
@@ -68,7 +70,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
           fullWidth ? 'md:h-[431px] md:w-auto' : '',
           'w-full h-auto object-cover'
         )}
-        onLoadingComplete={() => lastIndex && lenis.resize()}
+        onLoadingComplete={() => lastIndex && lenis?.resize()}
       />
     </div>
   )
@@ -178,6 +180,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       <ImageSlide
                         image={image as any}
                         lastIndex={index === slides.length - 1}
+                        // firstIndex={index === 0}
                         alt={alt}
                         fullWidth={fullWidth}
                         className={classNames(
@@ -195,6 +198,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                         image={image as any}
                         fullWidth={fullWidth}
                         lastIndex={index === slides.length - 1}
+                        // firstIndex={index === 0}
                         alt={alt}
                         className={classNames(
                           'w-full',
@@ -232,7 +236,11 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
       ) : (
         <div className="flex items-center overflow-hidden">
           {slides && slides[0].alt && (
-            <ImageSlide image={slides[0].image as any} alt={slides[0].alt} />
+            <ImageSlide
+              image={slides[0].image as any}
+              alt={slides[0].alt}
+              firstIndex={true}
+            />
           )}
         </div>
       )}

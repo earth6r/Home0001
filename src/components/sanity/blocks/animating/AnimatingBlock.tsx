@@ -1,10 +1,4 @@
-import {
-  useRef,
-  type FC,
-  type HTMLAttributes,
-  useEffect,
-  useState,
-} from 'react'
+import { useRef, type FC, type HTMLAttributes } from 'react'
 import classNames from 'classnames'
 import type {
   AnimatingBlock as AnimatingBlockType,
@@ -130,7 +124,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({
               sizes: '(max-width: 768px) 150vw, 1200px',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
             }}
-            onLoadingComplete={() => lastIndex && lenis.resize()}
+            onLoadingComplete={() => lastIndex && lenis?.resize()}
             className="relative w-full h-auto object-contain mt-0"
             {...(media as any)}
           />
@@ -148,11 +142,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   className,
 }) => {
   const scrollRef = useRef(null)
-  const [animateActive, setAnimateActive] = useState(false)
-  const [showContent, setShowContent] = useState(false)
-
-  const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
-  const [cryptoMode, setCryptoMode] = useCryptoMode()
+  const [cryptoMode] = useCryptoMode()
 
   const lenis = useLenis()
 
@@ -202,17 +192,6 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     },
   }
 
-  useEffect(() => {
-    const isFirstVisit = sessionStorage.getItem('firstTime')
-    if (isFirstVisit !== 'false') {
-      setAnimateActive(true)
-      setShowContent(true)
-      setTimeout(() => sessionStorage.setItem('firstTime', 'false'), 2000)
-    } else {
-      setShowContent(true)
-    }
-  }, [])
-
   return (
     <Block
       className={classNames(
@@ -220,88 +199,79 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
         'md:max-w-[768px] lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-ydouble'
       )}
     >
-      {showContent && (
-        <AnimatePresence>
-          {header && (
-            <motion.h1
-              key={`${animateActive}-1`}
-              initial={animateActive ? 'initial' : 'active'}
-              animate="active"
-              onAnimationStart={() => {
-                if (animateActive) {
-                  lenis.stop()
-                } else {
-                  setHeaderLinksShown(true)
-                }
-              }}
-              onAnimationComplete={() => {
-                lenis.start()
-                setTimeout(() => setHeaderLinksShown(true), 500)
-              }}
-              variants={headerVariants}
-              className="flex flex-wrap items-center relative text-h2"
-            >
-              <div>
-                {header.map((item, index) => (
-                  <motion.span
-                    key={`${item}-${index}`}
-                    custom={index}
-                    initial={animateActive ? 'initial' : 'active'}
-                    animate="active"
-                    variants={spanVariants}
-                    className="opacity-0"
-                  >
-                    {`${item}`}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.h1>
-          )}
-
-          <motion.div
-            key={`${animateActive}-2`}
-            ref={scrollRef}
-            initial={animateActive ? 'initial' : 'active'}
+      <AnimatePresence>
+        {header && (
+          <motion.h1
+            key={`header-1`}
+            initial={'active'}
             animate="active"
-            variants={blockVariants}
-            className="relative opacity-0"
+            onAnimationComplete={() => {
+              lenis?.start()
+            }}
+            variants={headerVariants}
+            className="flex flex-wrap items-center relative text-h2"
           >
-            {textAndImages &&
-              textAndImages.map(
-                ({ _key, aspect, media, text, altCryptoText }, index) => (
-                  <div key={_key}>
-                    {media && (
-                      <AnimatingImage
-                        media={media}
-                        aspect={aspect}
-                        firstIndex={index === 0}
-                        lastIndex={index === textAndImages.length - 1}
-                      />
-                    )}
+            <div>
+              {header.map((item, index) => (
+                <motion.span
+                  key={`${item}-${index}`}
+                  custom={index}
+                  initial={'active'}
+                  animate="active"
+                  variants={spanVariants}
+                  className="opacity-0"
+                >
+                  {`${item}`}
+                </motion.span>
+              ))}
+            </div>
+          </motion.h1>
+        )}
 
-                    {text && (
-                      <RichText
-                        blocks={
-                          cryptoMode && altCryptoText ? altCryptoText : text
-                        }
-                        className={classNames(
-                          index !== 0 ? 'mt-y' : '',
-                          'relative'
-                        )}
-                      />
-                    )}
+        <motion.div
+          key={`header-2`}
+          ref={scrollRef}
+          initial={'active'}
+          animate="active"
+          variants={blockVariants}
+          className="relative opacity-0"
+          datatype="animating-block-content"
+        >
+          {textAndImages &&
+            textAndImages.map(
+              ({ _key, aspect, media, text, altCryptoText }, index) => (
+                <div key={_key}>
+                  {media && (
+                    <AnimatingImage
+                      media={media}
+                      aspect={aspect}
+                      firstIndex={index === 0}
+                      lastIndex={index === textAndImages.length - 1}
+                    />
+                  )}
 
-                    {index === citiesPos && (
-                      <div className="mt-y">
-                        <CitiesList citiesList={citiesList} />
-                      </div>
-                    )}
-                  </div>
-                )
-              )}
-          </motion.div>
-        </AnimatePresence>
-      )}
+                  {text && (
+                    <RichText
+                      blocks={
+                        cryptoMode && altCryptoText ? altCryptoText : text
+                      }
+                      className={classNames(
+                        index !== 0 ? 'mt-y' : '',
+                        'relative'
+                      )}
+                    />
+                  )}
+
+                  {index === citiesPos && (
+                    <div className="mt-y">
+                      <CitiesList citiesList={citiesList} />
+                    </div>
+                  )}
+                </div>
+              )
+            )}
+        </motion.div>
+      </AnimatePresence>
     </Block>
   )
 }

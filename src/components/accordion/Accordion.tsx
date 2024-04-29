@@ -103,9 +103,9 @@ export const Accordion: FC<AccordionProps> = ({
                 enter="maxHeight duration-200 ease-in-out"
                 enterFrom="max-h-0"
                 beforeEnter={beforeEnter}
-                afterEnter={() => lenis.resize()}
+                afterEnter={() => lenis?.resize()}
                 leave="maxHeight duration-200 ease-in-out"
-                afterLeave={() => lenis.resize()}
+                afterLeave={() => lenis?.resize()}
                 beforeLeave={() => {
                   if (ref.current) ref.current.style.maxHeight = '0px'
                 }}

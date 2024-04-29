@@ -21,9 +21,10 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             <div className="col-span-2 block relative w-full mb-ydouble md:mb-y z-base">
               <SanityMedia
                 imageProps={{
-                  alt: property?.image.alt || 'Building image',
-                  quality: 8,
+                  alt: property?.image?.alt || 'Building image',
+                  quality: 6,
                   priority: true,
+                  sizes: '(max-width: 768px) 400px, 800px',
                   lqip: (property?.image?.image as any)?.asset?.metadata?.lqip,
                 }}
                 {...(property?.image as any)}

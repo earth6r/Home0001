@@ -83,7 +83,7 @@ export const Header: FC<HeaderProps> = ({
   }
 
   const lenis = useLenis(() => {
-    if (lenis.direction !== 1 || lenis.targetScroll <= 0) {
+    if (lenis?.direction !== 1 || lenis?.targetScroll <= 0) {
       setHideBreadcrumb(false)
     } else {
       setHideBreadcrumb(true)

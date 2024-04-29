@@ -21,7 +21,7 @@ function App({ Component, pageProps }: AppProps<{}>) {
   const lenis = useLenis()
 
   const handleRouteChange = () => {
-    if (lenis) lenis.start()
+    if (lenis) lenis?.start()
     let routes = sessionStorage.getItem('routes')
     if (!routes) routes = '[]'
 
