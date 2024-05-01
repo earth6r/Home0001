@@ -4,7 +4,7 @@ const coinGeckoAPIKey = process.env.NEXT_PUBLIC_COINGECKO_API_KEY
 
 const coinGeckoConfig = {
   headers: {
-    'x-cg-pro-api-key': coinGeckoAPIKey,
+    'x-cg-demo-api-key': coinGeckoAPIKey,
   },
 }
 const coinGeckoEthPriceApiUrl = (coinId: string) => {
