@@ -12,6 +12,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ): Promise<void> {
   const { recipientPhone, message } = req.body
+  const authToken = process.env.NEXT_PUBLIC_WHATSAPP_TOKEN
 
   const data = {
     messaging_product: 'whatsapp',
@@ -27,8 +28,7 @@ export default async function handler(
   try {
     const config = {
       headers: {
-        Authorization:
-          'Bearer EAAZAhUvSBby8BO5r6SZBKl4snJ6ypYczZBFCLArQBqGS0NoZBFIq3gTCiVnl6tDQzPa0QkpQqsvPBnHHx2CfiJoiytzhgl3f7UaOS24fxIZB52LBPKut5prXeCZBrZBtdLIVqWGNxPeX2tC5l560Eop8TN1rmpsR5iTOnSJNCCDM9IgS1Yi2epVZCGv1Y6PCd5Jd5smB4oqgaZBleDUw3uokZD',
+        Authorization: `Bearer ${authToken}`,
         'Content-Type': 'application/json',
       },
     }
