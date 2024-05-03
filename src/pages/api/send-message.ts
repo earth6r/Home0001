@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import axios from 'axios'
 
 type Data = {
   message: string
@@ -25,6 +26,11 @@ export default async function handler(
         body: message,
       })
       .then((message: { sid: any }) => console.log(message.sid))
+
+    await axios.post(`https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`, {
+      to: recipientPhone,
+      message: message,
+    })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: "Couldn't send message", error })
