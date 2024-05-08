@@ -1,16 +1,6 @@
 {
   "rewrites": [
-    { "source": "/studio/(.*)", "destination": "/studio/index.html" },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "earth.net"
-        }
-      ],
-      "destination": "/brand/:path*"
-    }
+    { "source": "/studio/(.*)", "destination": "/studio/index.html" }
   ],
   "redirects": [
     {
