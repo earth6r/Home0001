@@ -27,10 +27,13 @@ export default async function handler(
       })
       .then((message: { sid: any }) => console.log(message.sid))
 
-    await axios.post(`https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`, {
-      to: recipientPhone,
-      message: message,
-    })
+    await axios.post(
+      `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
+      {
+        to: recipientPhone,
+        message: message,
+      }
+    )
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: "Couldn't send message", error })
