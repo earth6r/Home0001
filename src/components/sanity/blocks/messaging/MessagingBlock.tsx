@@ -1,4 +1,7 @@
+import WhatsAppLogin from '@components/btns/whatsapp-login-button'
 import React, { useState } from 'react'
+
+const cn = (...classes: string[]) => classes.filter(Boolean).join(' ')
 
 export const MessagingBlock: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('')
@@ -32,6 +35,7 @@ export const MessagingBlock: React.FC = () => {
   async function sendMessageViaWhatsApp(messageData: {
     recipientPhone: string
     message: string
+    whatsAppToken: string
   }): Promise<string> {
     const response = await fetch('/api/send-whatsapp', {
       method: 'POST',
@@ -72,10 +76,16 @@ export const MessagingBlock: React.FC = () => {
   }
 
   const sendWhatsApp = async () => {
+    const whatsAppToken = localStorage.getItem('whatsapp_access_token')
+    // if (!whatsAppToken) {
+    //   alert('Please connect your WhatsApp account first')
+    //   return
+    // }
     try {
       await sendMessageViaWhatsApp({
         recipientPhone: phoneNumber,
         message: message,
+        whatsAppToken: whatsAppToken,
       })
       console.log('sent!')
     } catch (error) {
@@ -90,6 +100,11 @@ export const MessagingBlock: React.FC = () => {
   }
 
   const isPhoneNumberValid = validatePhoneNumber(phoneNumber)
+
+  const isButtonReady =
+    isPhoneNumberValid &&
+    message &&
+    (method === 'sms' || !localStorage.getItem('whatsapp_access_token')) // TODO: remove ! from the second condition
 
   return confirmed ? (
     <div
@@ -113,7 +128,10 @@ export const MessagingBlock: React.FC = () => {
     </div>
   ) : (
     <div className="max-w-md mx-auto">
-      <div className="mb-4">
+      <div className="">
+        <WhatsAppLogin />
+      </div>
+      <div className="mb-4 mt-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="phoneNumber"
@@ -170,7 +188,10 @@ export const MessagingBlock: React.FC = () => {
       </div>
       <div className="text-center">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className={cn(
+            'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
+            isButtonReady ? '' : 'cursor-not-allowed opacity-50'
+          )}
           onClick={handleSend}
         >
           Send

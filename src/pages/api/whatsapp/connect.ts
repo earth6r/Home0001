@@ -25,7 +25,7 @@ const exchangeToken = async (code: string) => {
 
   return response
 }
-
+// need to save to local storage
 const assignUser = async (
   whatsapp_business_account_id: string,
   whatsappUserId: string,
