@@ -111,7 +111,8 @@ export const Form: FC<FormProps> = ({
         body: errorData,
       })
 
-      await axios.post('https://us-central1-homeearthnet.cloudfunctions.net/register',
+      await axios.post(
+        'https://us-central1-homeearthnet.cloudfunctions.net/register',
         {
           page: asPath,
           routes: paths ? paths : 'error getting routes',
