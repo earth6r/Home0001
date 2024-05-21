@@ -22,28 +22,29 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ): Promise<void> {
-  const { recipientPhone, message, whatsAppToken } = req.body
-  // const authToken = whatsAppToken
-  const authToken =
-    'EAAZAhUvSBby8BOyewiGrKtmVxvaCOgFOgDnvnipkunfNc5wLJsSOvEtjVIjugls60rxJ6hifGIFmYjp36rVjhUZAcuq6yhkpcWZCWKy43FgzJVz8MNAMjNCOZAPjJTSwpKAcosSEch6t9r8e7GfZC7RVB9JSd63hk1sbMt1RxW2rUWR01slJxgsrKOmdATnnxoR5aqErBsf7ic4DgZBaEZD'
-
-  // debug token
-  let debugToken
-  try {
-    debugToken = await getWhatsAppBusinessDetails(authToken)
-  } catch (error) {
-    console.error(error.response)
-  }
-  console.log('debugToken:', debugToken.data)
+  const { recipientPhone, message } = req.body
+  const authToken = process.env.WHATSAPP_PERMANENT_TOKEN
 
   const data = {
     messaging_product: 'whatsapp',
-    recipient_type: 'individual',
     to: recipientPhone,
-    type: 'text',
-    text: {
-      // preview_url: false,
-      body: message,
+    type: 'template',
+    template: {
+      name: 'primary_test',
+      language: {
+        code: 'en',
+      },
+      components: [
+        {
+          type: 'body',
+          parameters: [
+            {
+              type: 'text',
+              text: message,
+            },
+          ],
+        },
+      ],
     },
   }
 
@@ -51,7 +52,6 @@ export default async function handler(
     const config = {
       headers: {
         Authorization: `Bearer ${authToken}`,
-        // 'Content-Type': 'application/json',
       },
     }
 
@@ -61,8 +61,6 @@ export default async function handler(
       config
     )
 
-    console.log(response.data)
-
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
       {
@@ -71,7 +69,6 @@ export default async function handler(
       }
     )
   } catch (error) {
-    console.error(error.response.data)
     return res.status(500).json({ message: "Couldn't send message", error })
   }
   return res.status(200).json({ message: 'Message sent' })

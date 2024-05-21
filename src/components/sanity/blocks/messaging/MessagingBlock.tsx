@@ -1,4 +1,4 @@
-import WhatsAppLogin from '@components/btns/whatsapp-login-button'
+// import WhatsAppLogin from '@components/btns/whatsapp-login-button'
 import React, { useState } from 'react'
 
 const cn = (...classes: string[]) => classes.filter(Boolean).join(' ')
@@ -27,7 +27,6 @@ export const MessagingBlock: React.FC = () => {
     }
 
     const responseData = await response.json()
-    console.log('responseData:', responseData)
     setConfirmed(true)
     return responseData.message
   }
@@ -35,7 +34,6 @@ export const MessagingBlock: React.FC = () => {
   async function sendMessageViaWhatsApp(messageData: {
     recipientPhone: string
     message: string
-    whatsAppToken: string
   }): Promise<string> {
     const response = await fetch('/api/send-whatsapp', {
       method: 'POST',
@@ -51,7 +49,6 @@ export const MessagingBlock: React.FC = () => {
     }
 
     const responseData = await response.json()
-    console.log('responseData:', responseData)
     setConfirmed(true)
     return responseData.message
   }
@@ -76,16 +73,10 @@ export const MessagingBlock: React.FC = () => {
   }
 
   const sendWhatsApp = async () => {
-    const whatsAppToken = localStorage.getItem('whatsapp_access_token')
-    // if (!whatsAppToken) {
-    //   alert('Please connect your WhatsApp account first')
-    //   return
-    // }
     try {
       await sendMessageViaWhatsApp({
         recipientPhone: phoneNumber,
         message: message,
-        whatsAppToken: whatsAppToken,
       })
       console.log('sent!')
     } catch (error) {
@@ -101,10 +92,7 @@ export const MessagingBlock: React.FC = () => {
 
   const isPhoneNumberValid = validatePhoneNumber(phoneNumber)
 
-  const isButtonReady =
-    isPhoneNumberValid &&
-    message &&
-    (method === 'sms' || !localStorage.getItem('whatsapp_access_token')) // TODO: remove ! from the second condition
+  const isButtonReady = isPhoneNumberValid && message
 
   return confirmed ? (
     <div
@@ -128,9 +116,10 @@ export const MessagingBlock: React.FC = () => {
     </div>
   ) : (
     <div className="max-w-md mx-auto">
-      <div className="">
+      {/* <div className="">
         <WhatsAppLogin />
       </div>
+      */}
       <div className="mb-4 mt-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
