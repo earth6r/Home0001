@@ -26,7 +26,7 @@ const WhatsAppLogin = () => {
           console.error('User cancelled login')
           return
         }
-        const code = response.authResponse.code
+        const { code } = response.authResponse
 
         // TODO: replace with some toast
         alert('please wait while we connect whatsapp')
