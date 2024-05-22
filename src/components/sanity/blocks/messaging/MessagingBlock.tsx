@@ -1,4 +1,7 @@
+// import WhatsAppLogin from '@components/btns/whatsapp-login-button'
 import React, { useState } from 'react'
+
+const cn = (...classes: string[]) => classes.filter(Boolean).join(' ')
 
 export const MessagingBlock: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('')
@@ -24,7 +27,6 @@ export const MessagingBlock: React.FC = () => {
     }
 
     const responseData = await response.json()
-    console.log('responseData:', responseData)
     setConfirmed(true)
     return responseData.message
   }
@@ -47,7 +49,6 @@ export const MessagingBlock: React.FC = () => {
     }
 
     const responseData = await response.json()
-    console.log('responseData:', responseData)
     setConfirmed(true)
     return responseData.message
   }
@@ -91,6 +92,8 @@ export const MessagingBlock: React.FC = () => {
 
   const isPhoneNumberValid = validatePhoneNumber(phoneNumber)
 
+  const isButtonReady = isPhoneNumberValid && message
+
   return confirmed ? (
     <div
       className="max-w-md mx-auto mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
@@ -113,7 +116,11 @@ export const MessagingBlock: React.FC = () => {
     </div>
   ) : (
     <div className="max-w-md mx-auto">
-      <div className="mb-4">
+      {/* <div className="">
+        <WhatsAppLogin />
+      </div>
+      */}
+      <div className="mb-4 mt-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="phoneNumber"
@@ -170,7 +177,10 @@ export const MessagingBlock: React.FC = () => {
       </div>
       <div className="text-center">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className={cn(
+            'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
+            isButtonReady ? '' : 'cursor-not-allowed opacity-50'
+          )}
           onClick={handleSend}
         >
           Send

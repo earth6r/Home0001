@@ -8,6 +8,7 @@ import { RichText } from '@components/sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import axios from 'axios'
 
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
@@ -46,20 +47,21 @@ export const Form: FC<FormProps> = ({
     if (cookies.hubspotutk) {
       setHutk(cookies.hubspotutk)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onSubmit = async (data: any) => {
     const options = {
-      units: data.units_interested ? data.units_interested : [],
-      locations_of_interest: data.locations_of_interest
-        ? data.locations_of_interest
-        : [],
-      homeWaitingBlock: isHomeBlock ? true : false,
-      unitInquiry: formType === 'unit' ? true : false,
+      units: data.units_interested || [],
+      locations_of_interest: data.locations_of_interest || [],
+      homeWaitingBlock: !!isHomeBlock,
+      unitInquiry: !!(formType === 'unit'),
     }
     sendGoogleEvent('submit waitlist form', options)
 
-    if (!audienceId || !formType) return
+    if (!audienceId || !formType) {
+      return
+    }
 
     let result
     let localQuery
@@ -75,12 +77,12 @@ export const Form: FC<FormProps> = ({
 
       const errorData = new FormData()
       errorData.append('Page', asPath)
-      errorData.append('Routes', paths ? paths : 'error getting routes')
+      errorData.append('Routes', paths || 'error getting routes')
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify('none'))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
-      errorData.append('Full Query', localQuery ? localQuery : 'none')
+      errorData.append('Full Query', localQuery || 'none')
 
       const action =
         'https://script.google.com/macros/s/AKfycbxUUM_jfDehp4zHDXSA-mDA1wEyCyn1nxhMe0EjF7vg7WAXv4DxYTcPKNKxufLqCNbK/exec'
@@ -88,19 +90,41 @@ export const Form: FC<FormProps> = ({
         method: 'POST',
         body: errorData,
       })
+
+      alert('Submitting no error')
+      await axios.post(
+        'https://us-central1-homeearthnet.cloudfunctions.net/register',
+        {
+          page: asPath,
+          routes: paths || 'error getting routes',
+          hutk: hutk,
+          error: null,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          email: data.email,
+          locationsOfInterest: data.locations_of_interest,
+          Else: data.Else,
+          city: data.City,
+          bedroomPreference: data.bedroom_preference,
+          buyingTimelinedec2023: data.buyingtimelinedec2023,
+          userAgent: navigator.userAgent,
+          fullQuery: localQuery || null,
+        }
+      )
       setFormSubmitted(true)
     } catch (error) {
       setFormError(error)
-      console.log(error)
+      // eslint-disable-next-line no-console
+      console.error(error)
 
       const errorData = new FormData()
       errorData.append('Page', asPath)
-      errorData.append('Routes', paths ? paths : 'error getting routes')
+      errorData.append('Routes', paths || 'error getting routes')
       errorData.append('Hutk', JSON.stringify(hutk))
       errorData.append('Error', JSON.stringify(error))
       errorData.append('Form Data', JSON.stringify(data))
       errorData.append('User Agent', navigator.userAgent)
-      errorData.append('Full Query', localQuery ? localQuery : 'none')
+      errorData.append('Full Query', localQuery || 'none')
 
       const action =
         'https://script.google.com/macros/s/AKfycbxUUM_jfDehp4zHDXSA-mDA1wEyCyn1nxhMe0EjF7vg7WAXv4DxYTcPKNKxufLqCNbK/exec'
@@ -109,6 +133,28 @@ export const Form: FC<FormProps> = ({
         method: 'POST',
         body: errorData,
       })
+
+      // alert('Submitting ')
+      // await axios.post(
+      //   'https://us-central1-homeearthnet.cloudfunctions.net/register',
+      //   {
+      //     page: asPath,
+      //     routes: paths || 'error getting routes',
+      //     hutk: hutk,
+      //     error: error,
+      //     firstName: data.first_name,
+      //     lastName: data.last_name,
+      //     email: data.email,
+      //     locationsOfInterest: data.locations_of_interest,
+      //     Else: data.Else,
+      //     city: data.City,
+      //     bedroomPreference: data.bedroom_preference,
+      //     buyingTimelinedec2023: data.buyingtimelinedec2023,
+      //     userAgent: navigator.userAgent,
+      //     fullQuery: localQuery || null,
+      //   }
+      // )
+
       setFormSubmitted(true)
     }
   }

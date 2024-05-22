@@ -102,3 +102,16 @@ the below example:
 - Publish Property
 - Once all new content updated/added and publish, navigate to "Deploy" on top of
   Sanity studio and select "Deploy" from production hook
+
+### DOCS AFTER SETTING UP WHATSAPP
+
+1. npm run dev
+
+NOTES:
+
+- need a new bm to set this app up with. this is required because we can't use
+  the same bm to login whatsapp oauth
+- I need vercel access to add env variables
+- https won't work for some reason so I need help to figure out what the error
+  is and if not, no worries, i can use the preview branch for testing
+- need a brand new phone number that has never been connected to whatsapp before
