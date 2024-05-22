@@ -1079,6 +1079,8 @@ export type BlockContent = Array<
   | SanityKeyed<AnimatingBlock>
   | SanityKeyed<CalendarBlock>
   | SanityKeyed<CarouselBlock>
+  | SanityKeyed<DividerBlock>
+  | SanityKeyed<FullBleedBlock>
   | SanityKeyed<PropertyBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
@@ -1178,6 +1180,26 @@ export type CarouselBlock = {
    *
    */
   images?: Array<SanityKeyed<Media>>;
+};
+
+export type DividerBlock = {
+  _type: "dividerBlock";
+  /**
+   * Divider — `boolean`
+   *
+   *
+   */
+  divider?: boolean;
+};
+
+export type FullbleedBlock = {
+  _type: "fullbleedBlock";
+  /**
+   * Image — `media`
+   *
+   *
+   */
+  image?: Media;
 };
 
 export type PropertyBlock = {
@@ -1467,3 +1489,10 @@ export type Documents =
  * sanity-codegen will let you type this explicity.
  */
 type Table = any;
+
+/**
+ * This interface is a stub. It was referenced in your sanity schema but
+ * the definition was not actually found. Future versions of
+ * sanity-codegen will let you type this explicity.
+ */
+type FullBleedBlock = any;
