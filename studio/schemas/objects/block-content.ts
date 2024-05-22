@@ -24,6 +24,16 @@ export default {
       title: 'Carousel Block',
     },
     {
+      name: 'dividerBlock',
+      type: 'dividerBlock',
+      title: 'Divider Block',
+    },
+    {
+      name: 'fullbleedBlock',
+      type: 'fullbleedBlock',
+      title: 'Full Bleed Block',
+    },
+    {
       name: 'propertyBlock',
       type: 'propertyBlock',
       title: 'Property Block',

@@ -38,6 +38,8 @@ import videosBlock from './blocks/videos-block'
 import divider from './objects/divider'
 import textAndAccordionBlock from './blocks/text-and-accordion-block'
 import brand from './documents/brand-page'
+import dividerBlock from './blocks/divider-block'
+import fullbleedBlock from './blocks/fullbleed-block'
 
 export const schemaTypes = [
   // objects
@@ -67,6 +69,8 @@ export const schemaTypes = [
   animatingBlock,
   calendarBlock,
   carouselBlock,
+  dividerBlock,
+  fullbleedBlock,
   propertyBlock,
   propertiesBlock,
   newsletterBlock,
