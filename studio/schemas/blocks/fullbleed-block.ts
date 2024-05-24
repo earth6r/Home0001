@@ -13,6 +13,11 @@ export default {
       type: 'media',
       validation: (Rule: Rule): Rule => Rule.required(),
     },
+    {
+      name: 'minWidth',
+      title: 'Minimum Width',
+      type: 'number',
+    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Full Bleed block' }),

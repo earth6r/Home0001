@@ -1080,7 +1080,7 @@ export type BlockContent = Array<
   | SanityKeyed<CalendarBlock>
   | SanityKeyed<CarouselBlock>
   | SanityKeyed<DividerBlock>
-  | SanityKeyed<FullBleedBlock>
+  | SanityKeyed<FullbleedBlock>
   | SanityKeyed<PropertyBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
@@ -1200,6 +1200,13 @@ export type FullbleedBlock = {
    *
    */
   image?: Media;
+
+  /**
+   * Minimum Width — `number`
+   *
+   *
+   */
+  minWidth?: number;
 };
 
 export type PropertyBlock = {
@@ -1489,10 +1496,3 @@ export type Documents =
  * sanity-codegen will let you type this explicity.
  */
 type Table = any;
-
-/**
- * This interface is a stub. It was referenced in your sanity schema but
- * the definition was not actually found. Future versions of
- * sanity-codegen will let you type this explicity.
- */
-type FullBleedBlock = any;

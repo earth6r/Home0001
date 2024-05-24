@@ -9,6 +9,7 @@ type FullbleedBlockProps = Omit<SanityBlockElement, keyof FullbleedBlockType> &
 
 export const FullbleedBlock: FC<FullbleedBlockProps> = ({
   image,
+  minWidth,
   className,
 }) => {
   return (
@@ -22,6 +23,7 @@ export const FullbleedBlock: FC<FullbleedBlockProps> = ({
             lqip: (image?.image as any)?.asset?.metadata?.lqip,
           }}
           className="relative w-full h-auto object-contain mt-0"
+          style={{ minWidth: minWidth ? `${minWidth}px` : '' }}
           {...(image as SanityMediaProps)}
         />
       )}
