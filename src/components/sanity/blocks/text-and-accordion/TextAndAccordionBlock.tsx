@@ -113,7 +113,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
   return (
     <Block className={classNames(className)}>
       {scrollHeader && (
-        <div className="flex flex-wrap md:grid md:grid-cols-2 h-[calc(100svh-var(--space-page))] mim-h-[600px] items-end md:items-center justify-center md:justify-normal">
+        <div className="flex flex-wrap md:grid md:grid-cols-2 h-[calc(100svh-var(--space-page))] min-h-[600px] items-end md:items-center justify-center md:justify-normal">
           <RichText blocks={scrollHeader} />
 
           <IconRightArrowBold
@@ -121,7 +121,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
             onClick={scrollDown}
             className={classNames(
               scrolled ? 'opacity-0 pointer-events-none' : '',
-              'w-[33px] md:w-[161px] mb-ydouble md:mb-0 md:ml-xdouble transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
+              ' w-[33px] md:w-[161px] mb-ydouble md:mb-0 md:ml-[440px] transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
             )}
           />
         </div>
@@ -132,11 +132,11 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
           <RichText
             blocks={header}
             className={classNames(
-              'md:inline md:sticky md:h-1/5 md:top-[var(--header-height)] col-start-1 md:pr-x mb-ydouble'
+              'md:inline md:sticky md:h-1/5 md:top-[var(--header-height)] col-start-1 md:pr-x mb-[64px]'
             )}
           />
         )}
-        <div className="md:col-start-2 flex flex-wrap gap-ydouble">
+        <div className="md:col-start-2 flex flex-wrap gap-[64px] pr-menu">
           {items?.map(({ _key, copy, accordions }) => (
             <div key={_key}>
               <TextAndAccordion copy={copy} accordions={accordions} />
