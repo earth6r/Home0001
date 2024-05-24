@@ -13,17 +13,17 @@ export const FullbleedBlock: FC<FullbleedBlockProps> = ({
   className,
 }) => {
   return (
-    <Block className={classNames(className)}>
+    <Block className={classNames(className, 'overflow-scroll')}>
       {image && (
         <SanityMedia
           imageProps={{
             alt: image?.alt || 'Full bleed image',
             quality: 80,
             sizes: '99vw',
+            style: { minWidth: minWidth ? `${minWidth}px` : '' },
             lqip: (image?.image as any)?.asset?.metadata?.lqip,
           }}
           className="relative w-full h-auto object-contain mt-0"
-          style={{ minWidth: minWidth ? `${minWidth}px` : '' }}
           {...(image as SanityMediaProps)}
         />
       )}
