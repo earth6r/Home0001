@@ -91,7 +91,6 @@ export const Form: FC<FormProps> = ({
         body: errorData,
       })
 
-      alert('Submitting no error')
       await axios.post(
         'https://us-central1-homeearthnet.cloudfunctions.net/register',
         {
