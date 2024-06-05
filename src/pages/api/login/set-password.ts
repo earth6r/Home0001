@@ -1,3 +1,4 @@
+import { whitelistEmail } from '@lib/constants/whitelist-emails'
 import { initializeAdmin } from '@lib/firebase/admin'
 import admin from 'firebase-admin'
 import { type NextApiRequest, type NextApiResponse } from 'next'
@@ -33,6 +34,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .status(400)
       .json({ message: 'Password is required.', code: 'password_required' })
     return // Return early if password is not provided
+  }
+
+  // Check if email is whitelisted
+  if (!whitelistEmail.includes(email)) {
+    res.status(401).json({
+      user: null,
+      message: 'Email is not whitelisted.',
+      code: 'email_not_whitelisted',
+    })
+    return // Return early if email is not whitelisted
   }
 
   try {
