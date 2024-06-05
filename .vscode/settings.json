@@ -1,15 +1,28 @@
 {
-  "cSpell.words": ["groq", "hookform", "hutk", "serializers"],
+  "cSpell.words": [
+    "Firestore",
+    "groq",
+    "hookform",
+    "hutk",
+    "serializers"
+  ],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.workingDirectories": ["./src", "./studio"],
+  "eslint.workingDirectories": [
+    "./src",
+    "./studio"
+  ],
   "css.validate": false,
   "scss.validate": false,
   "stylelint.enable": true,
-  "stylelint.validate": ["css", "postcss", "scss"],
+  "stylelint.validate": [
+    "css",
+    "postcss",
+    "scss"
+  ],
   "stylelint.stylelintPath": "node_modules/stylelint/lib",
   "prettier.enable": true,
   "[javascript]": {
