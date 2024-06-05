@@ -12,7 +12,7 @@ export const config = {
 // existing user:
 // curl -X POST http://localhost:3000/api/login/check-email-existence -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com"}'
 // non-existing user:
-// curl -X POST http://localhost:3000/api/login/check-email-existence -H "Content-Type: application/json" -d '{"email":"test@test.com"}'
+// curl -X POST http://localhost:3000/api/login/check-email-existence -H "Content-Type: application/json" -d '{"email":"testdafasdfasd@test.com"}'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Initialize Firebase Admin SDK
   initializeAdmin()
