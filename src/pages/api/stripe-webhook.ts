@@ -66,6 +66,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             email,
             paymentIntent: JSON.stringify(paymentIntent),
             createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            propertyType: paymentIntent.metadata?.propertyType || 'unknown', // Use metadata if available, else 'unknown'
           })
           return
         }
@@ -75,6 +76,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           userUID: user.docs[0].id,
           paymentIntent: JSON.stringify(paymentIntent),
           buyingProgress: 2, // Set buying progress to 'download-documents'
+          propertyType: paymentIntent.metadata?.propertyType || 'unknown', // Use metadata if available, else 'unknown'
         })
 
         break
