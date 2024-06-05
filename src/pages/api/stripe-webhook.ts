@@ -62,7 +62,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             email,
             paymentIntent: JSON.stringify(paymentIntent),
             createdAt: admin.firestore.FieldValue.serverTimestamp(),
-            propertyType: paymentIntent.metadata?.propertyType,
+            propertyType: paymentIntent.metadata?.propertyType || 'unknown',
           })
           return
         }
