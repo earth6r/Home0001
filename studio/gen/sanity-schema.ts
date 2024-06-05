@@ -86,6 +86,55 @@ export interface Brand extends SanityDocument {
 }
 
 /**
+ * Page
+ *
+ *
+ */
+export interface Buy extends SanityDocument {
+  _type: "buy";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * City
  *
  *
@@ -1481,6 +1530,7 @@ export type FlexWaitlistBlock = {
 
 export type Documents =
   | Brand
+  | Buy
   | City
   | Menus
   | Page

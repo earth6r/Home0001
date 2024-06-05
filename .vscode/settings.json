@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["groq", "hutk", "serializers"],
+  "cSpell.words": ["groq", "hookform", "hutk", "serializers"],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   },
