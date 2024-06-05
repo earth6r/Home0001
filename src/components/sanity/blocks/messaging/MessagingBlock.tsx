@@ -1,4 +1,3 @@
-// import WhatsAppLogin from '@components/btns/whatsapp-login-button'
 import React, { useState } from 'react'
 
 const cn = (...classes: string[]) => classes.filter(Boolean).join(' ')
@@ -116,10 +115,6 @@ export const MessagingBlock: React.FC = () => {
     </div>
   ) : (
     <div className="max-w-md mx-auto">
-      {/* <div className="">
-        <WhatsAppLogin />
-      </div>
-      */}
       <div className="mb-4 mt-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"

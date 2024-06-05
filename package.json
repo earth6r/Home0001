@@ -36,6 +36,8 @@
     "axios": "^1.5.1",
     "classnames": "^2.3.1",
     "cors": "^2.8.5",
+    "firebase": "^10.12.2",
+    "firebase-admin": "^12.1.1",
     "focus-visible": "^5.2.0",
     "framer-motion": "^10.16.4",
     "fs": "^0.0.1-security",
