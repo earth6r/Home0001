@@ -103,15 +103,108 @@ the below example:
 - Once all new content updated/added and publish, navigate to "Deploy" on top of
   Sanity studio and select "Deploy" from production hook
 
-### DOCS AFTER SETTING UP WHATSAPP
+### Login
 
-1. npm run dev
+1. Check if the email already exists in the database (check-email-existence.ts)
 
-NOTES:
+Request:
 
-- need a new bm to set this app up with. this is required because we can't use
-  the same bm to login whatsapp oauth
-- I need vercel access to add env variables
-- https won't work for some reason so I need help to figure out what the error
-  is and if not, no worries, i can use the preview branch for testing
-- need a brand new phone number that has never been connected to whatsapp before
+```bash
+curl -X POST http://localhost:3000/api/login/check-email-existence -H "Content-Type: application/json" -d '{"email":"testdafasdfasd@test.com"}'
+```
+
+Response:
+
+```json
+{
+  "user": {
+    "uid": "pombVtqijehdZs0XMaMFsq096I32",
+    "email": "testdafasdfasd@test.com",
+    "emailVerified": false,
+    "disabled": false,
+    "metadata": {
+      "lastSignInTime": "Tue, 04 Jun 2024 14:54:38 GMT",
+      "creationTime": "Fri, 24 May 2024 22:50:19 GMT",
+      "lastRefreshTime": "Tue, 04 Jun 2024 14:54:38 GMT"
+    },
+    "tokensValidAfterTime": "Fri, 24 May 2024 22:50:19 GMT",
+    "providerData": [
+      {
+        "uid": "pombVtqijehdZs0XMaMFsq096I32",
+        "email": "testdafasdfasd@test.com",
+        "providerId": "password"
+      }
+    ]
+  },
+  "request_password": false, // if true, the user has to setup a password
+  "code": "success" // different kinds of codes, please check check-email-existence.ts for details
+}
+```
+
+2. Set up a password for the user (set-password.ts)
+
+Request:
+
+```bash
+curl -X POST http://localhost:3000/api/login/set-password -H "Content-Type: application/json" -d '{"email":"test@test.com","password":"password"}'
+```
+
+Response:
+
+```json
+{
+  "user":{
+    "uid":"kBx5fzoGbsdMj4DermDB5CRle7f1",
+    "email":"test12341243@test.com",
+    "emailVerified":false,
+    "disabled":false,
+    "metadata":{
+      "lastSignInTime":null,
+      "creationTime":"Wed, 05 Jun 2024 01:23:31 GMT",
+      "lastRefreshTime":null
+    },
+    "tokensValidAfterTime":"Wed, 05 Jun 2024 01:23:31 GMT",
+    "providerData":[
+      {
+        "uid":"test12341243@test.com",
+        "email":"test12341243@test.com",
+        "providerId":"password"
+      }
+    ]
+  },
+  "code":"success" // different kinds of codes, please check set-password.ts for details
+```
+
+3. Sign in (signin.ts)
+
+Request:
+
+```bash
+curl -X POST http://localhost:3000/api/login/signin -H "Content-Type: application/json" -d '{"email":"test10@test.com","password":"password"}'
+```
+
+Response:
+
+```json
+{
+   "user":{
+      "user":{
+         "uid":"S2FjegKDlKZ78AvEUF1toLo4znF3",
+         "email":"test10@test.com",
+         "emailVerified":false,
+         "isAnonymous":false,
+         "providerData":[
+            {
+               "providerId":"password",
+               "uid":"test10@test.com",
+               "displayName":null,
+               "email":"test10@test.com",
+               "phoneNumber":null,
+               "photoURL":null
+            }
+         ],
+         ...
+   },
+   "code":"success" // different kinds of codes, please check signin.ts for details
+}
+```
