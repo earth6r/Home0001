@@ -62,18 +62,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             email,
             paymentIntent: JSON.stringify(paymentIntent),
             createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            propertyType: paymentIntent.metadata?.propertyType,
           })
           return
         }
 
-        await db
-          .collection('users')
-          .doc(user.docs[0].id)
-          .update({
-            paymentIntent: JSON.stringify(paymentIntent),
-            paidDeposit: true,
-            //   TODO: update user to have buying process or whatever yan gave me (add default of step 1 in the get buying process for user endpoint)
-          })
+        await db.collection('usersBuyingProgress').add({
+          userUID: user.docs[0].id,
+          paymentIntent: JSON.stringify(paymentIntent),
+          buyingProgress: 2, // allowed items are 1 (escrow-deposit, default), 2 (download-documents), 3 (schedule-closing), 4 (full-payment), 5 (completed)
+          propertyType: paymentIntent.metadata?.propertyType,
+        })
 
         break
       default:
