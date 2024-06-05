@@ -10,7 +10,7 @@ export const config = {
 }
 
 // Handler function to process API requests
-// curl -X GET http://localhost:3000/api/get-buying-progress?email=apinanapinan@icloud.com
+// curl -X GET http://localhost:3000/api/get-user-buying-property-type?email=apinanapinan@icloud.com
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const query = req.query // Extract query parameters from the request
 
@@ -32,16 +32,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  // Mapping of buying progress stages to numerical values
-  // TODO: cleanup to utils file
-  const mapBuyingProgress = {
-    'escrow-deposit': 1,
-    'download-documents': 2,
-    'schedule-closing': 3,
-    'full-payment': 4,
-    completed: 5,
-  }
-
   initializeAdmin() // Initialize Firebase Admin SDK
 
   const db = admin.firestore() // Get a reference to the Firestore database
@@ -55,22 +45,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  // Query the 'usersBuyingProgress' collection for the user's buying progress
-  const buyingProgress = await db
-    .collection('usersBuyingProgress')
-    .where(admin.firestore.FieldPath.documentId(), '==', user.docs[0].id)
-    .get()
-  if (buyingProgress.empty) {
-    res.status(200).json({
-      buyingProgress: null, // Respond with null if no buying progress is found
-    })
-    return
-  }
+  const userBuyingPropertyType = user.docs[0].data().userBuyingPropertyType
 
-  // Update the user's buying progress
-  await db.collection('usersBuyingProgress').doc(user.docs[0].id).update({
-    // @ts-expect-error
-    buyingProgress: mapBuyingProgress[buyingProgress], // Update the buying progress using the mapped value
+  res.status(200).json({
+    userBuyingPropertyType: userBuyingPropertyType,
   })
 }
 

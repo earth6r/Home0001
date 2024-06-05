@@ -10,17 +10,17 @@ export const config = {
 }
 
 // Example cURL command to test the API endpoint
-// curl -X POST http://localhost:3000/api/update-buying-progress -H "Content-Type: application/json" -d '{"buyingProgress": "escrow-deposit", "email": "apinanapinan@icloud.com"}'
+// curl -X POST http://localhost:3000/api/set-user-buying-property-type -H "Content-Type: application/json" -d '{"userBuyingPropertyType": "les-2A", "email": "apinanapinan@icloud.com"}'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   let body = req.body // Extract the body from the request
 
-  const buyingProgress = body?.buyingProgress // Extract the buyingProgress field from the body
+  const userBuyingPropertyType = body?.userBuyingPropertyType // Extract the userBuyingPropertyType field from the body
   const email = body?.email // Extract the email field from the body
 
   // Validate buyingProgress
-  if (!buyingProgress) {
+  if (!userBuyingPropertyType) {
     res.status(400).json({
-      error: 'Missing buyingProgress in request body', // Respond with error if buyingProgress is missing
+      error: 'Missing userBuyingPropertyType in request body', // Respond with error if userBuyingPropertyType is missing
     })
     return
   }
@@ -33,10 +33,31 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  // Check if buyingProgress is a string
-  if (typeof buyingProgress !== 'string') {
+  //   TODO: cleanup to utils file
+  const validUserBuyingPropertyTypes = [
+    'les-2A',
+    'les-2B',
+    'les-2C',
+    'les-2D',
+    'les-3A',
+    'les-3B',
+    'les-3C',
+    'les-3D',
+    'les-4A',
+    'les-4B',
+    'les-4C',
+    'les-4D',
+    'les-5B',
+    'les-6A',
+    'les-6B',
+    'townhouse-6',
+    'townhouse-7',
+  ]
+
+  // Check if userBuyingPropertyType is a string
+  if (typeof userBuyingPropertyType !== 'string') {
     res.status(400).json({
-      error: 'buyingProgress must be a string', // Respond with error if buyingProgress is not a string
+      error: 'userBuyingPropertyType must be a string', // Respond with error if userBuyingPropertyType is not a string
     })
     return
   }
@@ -50,30 +71,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   // Validate buyingProgress value
-  if (
-    ![
-      'escrow-deposit',
-      'download-documents',
-      'schedule-closing',
-      'full-payment',
-      'completed',
-    ].includes(buyingProgress)
-  ) {
+  if (!validUserBuyingPropertyTypes.includes(userBuyingPropertyType)) {
     res.status(400).json({
-      error:
-        'buyingProgress must be one of escrow-deposit, download-documents, schedule-closing, full-payment, or completed', // Respond with error if buyingProgress is invalid
+      error: `userBuyingPropertyType must be one of ${validUserBuyingPropertyTypes.join(
+        ', '
+      )}`, // Respond with error if userBuyingPropertyType is invalid
     })
     return
-  }
-
-  // Mapping of buying progress stages to numerical values
-  // TODO: cleanup to utils file
-  const mapBuyingProgress = {
-    'escrow-deposit': 1,
-    'download-documents': 2,
-    'schedule-closing': 3,
-    'full-payment': 4,
-    completed: 5,
   }
 
   initializeAdmin() // Initialize Firebase Admin SDK
@@ -93,27 +97,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const userUID = user.docs[0].id // Get the user UID from the query result
 
   // Query the 'usersBuyingProgress' collection for the user's buying progress
-  const usersBuyingProgress = await db
-    .collection('usersBuyingProgress')
-    .where(admin.firestore.FieldPath.documentId(), '==', userUID)
-    .get()
-
-  if (usersBuyingProgress.empty) {
-    res.status(400).json({
-      error: 'user with email does not exist in usersBuyingProgress collection', // Respond with error if no buying progress is found
-    })
-    return
-  }
-
-  // Update the user's buying progress
-  await db.collection('usersBuyingProgress').doc(userUID).update({
-    // @ts-expect-error
-    buyingProgress: mapBuyingProgress[buyingProgress], // Update the buying progress using the mapped value
+  await db.collection('users').doc(userUID).update({
+    userBuyingPropertyType: userBuyingPropertyType,
   })
 
   // Respond with success message
   res.status(200).json({
-    message: 'Buying progress updated successfully',
+    message: 'User buying property type updated successfully',
   })
 }
 
