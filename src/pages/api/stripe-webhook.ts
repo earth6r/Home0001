@@ -71,7 +71,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           userUID: user.docs[0].id,
           paymentIntent: JSON.stringify(paymentIntent),
           buyingProgress: 2, // allowed items are 1 (escrow-deposit, default), 2 (download-documents), 3 (schedule-closing), 4 (full-payment), 5 (completed)
-          propertyType: paymentIntent.metadata?.propertyType,
+          propertyType: paymentIntent.metadata?.propertyType || 'unknown',
         })
 
         break
