@@ -53,8 +53,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // Sign in the user with the provided email and password
     const user = await signInWithEmailAndPassword(auth, email, password)
 
-    // const userMetadata = db.collection('users').doc(user.user.uid).get()
-
     const userMetadataRef = collection(db, 'users')
     let q = query(userMetadataRef, where('email', '==', email))
     let querySnapshot = await getDocs(q)
