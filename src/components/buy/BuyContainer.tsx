@@ -1,12 +1,9 @@
 import type { FC } from 'react'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import PasswordForm from './PasswordForm'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { IconRightArrow } from '@components/icons'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import axios from 'axios'
+import SetPasswordForm from './SetPasswordForm'
 
 interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
 
@@ -48,7 +45,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   return (
     <div className={classNames(className)}>
       {hasAccount && !hasPassword ? (
-        <PasswordForm email={router.query.email as string} />
+        <SetPasswordForm email={router.query.email as string} />
       ) : (
         hasAccount === false && (
           <span className="text-button">{`Oops, looks like we can't find your account.`}</span>

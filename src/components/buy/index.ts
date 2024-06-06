@@ -1,2 +1,2 @@
 export * from './BuyContainer'
-export * from './PasswordForm'
+export * from './SetPasswordForm'
