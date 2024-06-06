@@ -35,7 +35,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return // Return early if password is not provided
   }
 
-  const response = await db.collection('users').where('email', '==', email).get()
+  const response = await db
+    .collection('users')
+    .where('email', '==', email)
+    .get()
   if (response.empty) {
     res.status(400).json({
       user: null,
