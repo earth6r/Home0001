@@ -8,7 +8,7 @@ export const config = {
 }
 
 // API route handler for setting a password for a user
-// curl -X POST http://localhost:3000/api/login/set-password -H "Content-Type: application/json" -d '{"email":"test@test.com","password":"password"}'
+// curl -X POST http://localhost:3000/api/login/create-user -H "Content-Type: application/json" -d '{"email":"test@test.com"}'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Initialize Firebase Admin SDK
   initializeAdmin()
@@ -17,7 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const db = admin.firestore()
 
   // Extract email and password from the request body
-  const { email, password } = req.body
+  const { email } = req.body
 
   // Check if email is provided
   if (!email) {
@@ -25,24 +25,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .status(400)
       .json({ message: 'Email is required.', code: 'email_required' })
     return // Return early if email is not provided
-  }
-
-  // Check if password is provided
-  if (!password) {
-    res
-      .status(400)
-      .json({ message: 'Password is required.', code: 'password_required' })
-    return // Return early if password is not provided
-  }
-
-  const response = await db.collection('users').where('email', '==', email).get()
-  if (response.empty) {
-    res.status(400).json({
-      user: null,
-      message: 'Email not existing in Firestore.',
-      code: 'email_not_existing_in_firestore',
-    })
-    return
   }
 
   try {
@@ -72,10 +54,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    // Create a new user with the provided email and password
-    const response = await admin.auth().createUser({
+    // Store user data in Firestore with a timestamp
+    const response = await db.collection('users').add({
       email,
-      password,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
     })
 
     // Respond with the created user and a success code
@@ -103,7 +85,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Log the error to the console for debugging
     // eslint-disable-next-line no-console
-    console.error('Error setting password:', error)
+    console.error('Error creating user:', error)
 
     // Respond with an internal server error
     res.status(500).json({
