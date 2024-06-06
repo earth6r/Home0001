@@ -1,4 +1,3 @@
-import { whitelistEmail } from '@/lib/constants/whitelist-emails'
 import { initializeAdmin } from '@lib/firebase/admin'
 import admin from 'firebase-admin'
 import { type NextApiRequest, type NextApiResponse } from 'next'
@@ -9,10 +8,7 @@ export const config = {
 }
 
 // API route handler for checking email existence
-// existing user:
-// curl -X POST http://localhost:3000/api/login/check-email-existence -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com"}'
-// non-existing user:
-// curl -X POST http://localhost:3000/api/login/check-email-existence -H "Content-Type: application/json" -d '{"email":"testdafasdfasd@test.com"}'
+// curl -X POST http://localhost:3000/api/login/check-password-setup-for-email -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com"}'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Initialize Firebase Admin SDK
   initializeAdmin()
@@ -35,13 +31,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await admin.auth().getUserByEmail(email)
 
     // Respond with the found user and success code
-    res.status(200).json({ user, request_password: false, code: 'success' })
+    res.status(200).json({ user, user_exists: true, code: 'success' })
   } catch (error: unknown) {
     // Handle user not found error
     if ((error as any)?.code === 'auth/user-not-found') {
       res.status(200).json({
         user: null,
-        request_password: whitelistEmail.includes(email), // Check if the email is in the whitelist
+        user_exists: false,
         code: 'user_not_found',
       })
       return // Return early if user not found error occurs
