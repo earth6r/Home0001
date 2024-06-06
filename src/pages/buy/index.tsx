@@ -6,10 +6,12 @@ import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
 import { BODY_QUERY, filterDataToSingleItem } from '@studio/lib'
 import PageTransition from '@components/transition/PageTransition'
+import classNames from 'classnames'
+import { BuyContainer } from '@components/buy'
 
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 
-const HOME_QUERY = groq`
+const BUY_QUERY = groq`
   *[_type == "buy" && slug.current == $slug]{
     _id,
     _type,
@@ -19,7 +21,7 @@ const HOME_QUERY = groq`
 `
 
 export const getStaticProps: GetStaticProps = context =>
-  getPageStaticProps({ ...context, query: HOME_QUERY })
+  getPageStaticProps({ ...context, query: BUY_QUERY })
 
 const Page: NextPage<PageProps> = (
   { data, preview }: InferGetStaticPropsType<typeof getStaticProps>,
@@ -29,7 +31,9 @@ const Page: NextPage<PageProps> = (
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
-      <article>{`buy page`}</article>
+      <article className={classNames('flex flex-col container pt-page')}>
+        <BuyContainer />
+      </article>
     </PageTransition>
   ) : null
 }
