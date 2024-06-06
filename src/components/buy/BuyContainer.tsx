@@ -58,6 +58,8 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         if (res.data.buyingProgress === null) {
           // show deposit form
           setShowDepositForm(true)
+        } else {
+          // show member page
         }
       })
     }
@@ -97,8 +99,6 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
       {showDepositForm && (
         <span className="text-button">{`Deposit form here`}</span>
       )}
-
-      {/* {loggedIn && <span className="text-button">{`You're logged in.`}</span>} */}
 
       {hasAccount && !hasPassword && (
         <SetPasswordForm
