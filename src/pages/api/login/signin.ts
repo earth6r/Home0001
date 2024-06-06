@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from 'firebase/firestore/lite'
 
 import { type NextApiRequest, type NextApiResponse } from 'next'
 
@@ -20,6 +27,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Initialize Firebase app with the parsed configuration
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
+
+  const db = getFirestore(app)
 
   // Extract email and password from the request body
   const { email, password } = req.body
@@ -44,8 +53,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // Sign in the user with the provided email and password
     const user = await signInWithEmailAndPassword(auth, email, password)
 
+    // const userMetadata = db.collection('users').doc(user.user.uid).get()
+
+    const userMetadataRef = collection(db, 'users')
+    let q = query(userMetadataRef, where('email', '==', email))
+    let querySnapshot = await getDocs(q)
+    const userMetadata = querySnapshot.docs.map(doc => doc.data())
+
     // Respond with the signed-in user and a success code
-    res.status(200).json({ user, code: 'success' })
+    res.status(200).json({ user, code: 'success', userMetadata })
   } catch (error: unknown) {
     // Handle too many requests error
     if ((error as any)?.code === 'auth/too-many-requests') {
