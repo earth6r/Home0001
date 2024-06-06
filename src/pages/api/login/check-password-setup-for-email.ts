@@ -20,7 +20,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!email) {
     res.status(400).json({
       message: 'Email is required.',
-      request_password: false,
       code: 'email_required',
     })
     return // Return early if email is not provided
