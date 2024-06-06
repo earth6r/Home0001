@@ -13,11 +13,14 @@ import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
 
-interface PasswordFormProps extends HTMLAttributes<HTMLFormElement> {
+interface SetPasswordFormProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
 }
 
-export const PasswordForm: FC<PasswordFormProps> = ({ email, className }) => {
+export const SetPasswordForm: FC<SetPasswordFormProps> = ({
+  email,
+  className,
+}) => {
   const {
     register,
     handleSubmit,
@@ -137,4 +140,4 @@ export const PasswordForm: FC<PasswordFormProps> = ({ email, className }) => {
   )
 }
 
-export default PasswordForm
+export default SetPasswordForm
