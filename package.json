@@ -30,6 +30,8 @@
     "@sanity/table": "^1.0.1",
     "@sanity/types": "^3.0.0",
     "@sanity/ui": "^1.0.0",
+    "@stripe/react-stripe-js": "^2.7.1",
+    "@stripe/stripe-js": "^3.5.0",
     "@studio-freight/react-lenis": "^0.0.43",
     "@twilio/conversations": "^2.5.0",
     "all": "^0.0.0",

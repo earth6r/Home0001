@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import SetPasswordForm from './SetPasswordForm'
+import DepositForm from './DepositForm'
 
 interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
 
@@ -15,6 +16,13 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   const [loggedIn, setLoggedIn] = useState(false)
 
   const [showDepositForm, setShowDepositForm] = useState(false)
+  const [userData, setUserData] = useState<any | null>({
+    email: null,
+    unit: null,
+    buyingProgress: null,
+  })
+
+  // const [showMemberPage, setShowMemberPage] = useState(false)
 
   const getBuyingProgress = async () => {
     return await axios.post(
@@ -58,6 +66,10 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         if (res.data.buyingProgress === null) {
           // show deposit form
           setShowDepositForm(true)
+          setUserData({
+            ...userData,
+            buyingProgress: null,
+          })
         } else {
           // show member page
         }
@@ -74,10 +86,21 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
           setHasAccount(true)
           setHasPassword(true)
           setLoggedIn(true)
+          if (res.data.userMetadata && res.data.userMetadata[0]) {
+            setUserData({
+              ...userData,
+              email: router.query.email,
+              unit: res.data.userMetadata[0].userBuyingPropertyType,
+            })
+          }
         } else {
           // if no password is set, show set password form
           setHasAccount(true)
           setHasPassword(false)
+          setUserData({
+            ...userData,
+            email: router.query.email,
+          })
         }
       })
     } else if (router.query.email) {
@@ -86,6 +109,10 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         console.log('getAccount res: ', res)
         if (res.data.user && res.data.user.email) {
           setHasAccount(true)
+          setUserData({
+            ...userData,
+            email: router.query.email,
+          })
         } else {
           // shows back home link
           setHasAccount(false)
@@ -96,9 +123,14 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   return (
     <div className={classNames(className)}>
-      {showDepositForm && (
-        <span className="text-button">{`Deposit form here`}</span>
+      {userData.unit && (
+        <div className="rich-text mb-y">
+          <h1>{userData.unit}</h1>
+          <p>Unit info</p>
+        </div>
       )}
+
+      {showDepositForm && <DepositForm email={userData.email} />}
 
       {hasAccount && !hasPassword && (
         <SetPasswordForm
