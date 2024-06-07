@@ -11,10 +11,11 @@ import {
   CardElement,
   Elements,
 } from '@stripe/react-stripe-js'
-import { Token, loadStripe } from '@stripe/stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 
-type StripeElementProps = {
+type PaymentContainerProps = {
   email?: string
+  clientSecret?: string
 }
 
 interface DepositFormProps extends HTMLAttributes<HTMLFormElement> {
@@ -25,7 +26,10 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY || 'pk_test_'
 )
 
-const StripeElement: FC<StripeElementProps> = ({ email }) => {
+const PaymentContainer: FC<PaymentContainerProps> = ({
+  email,
+  clientSecret,
+}) => {
   const {
     register,
     handleSubmit,
@@ -33,114 +37,139 @@ const StripeElement: FC<StripeElementProps> = ({ email }) => {
   } = useForm({
     shouldUseNativeValidation: true,
   })
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState({
+    submitted: false,
+    success: false,
+  })
   const [formError, setFormError] = useState({ error: false, message: '' })
 
   const stripe = useStripe()
   const elements = useElements()
 
-  const stripeTokenHandler = async (token: Token) => {
-    const paymentData = { token: token.id }
+  const initStripeWehook = async (paymentIntent?: any) => {
+    if (!clientSecret || !email) return
 
-    const res = await axios.post('/charge', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(paymentData),
-    })
-
-    console.log('stripeTokenHandler: ', res)
-
-    return res
+    return await axios.post(
+      `/api/stripe-webhook`,
+      { email: email },
+      {
+        headers: {
+          'stripe-signature': paymentIntent,
+        },
+      }
+    )
   }
 
   const onSubmit = async (data: any) => {
-    if (!stripe || !elements) return
+    // send init webhook and send email on submit to backend
+    if (!stripe || !elements || !clientSecret) return
 
     const card = elements.getElement(CardElement)
     if (!card) return
-    const res = await stripe.createToken(card)
 
-    if (res.error) {
-      setFormError({ error: true, message: res.error.message || '' })
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: { card },
+    })
+
+    if (result.error) {
+      console.log(result.error.message)
+      setFormError({
+        error: true,
+        message: result.error.message || 'Payment error',
+      })
+      setFormSubmitted({ submitted: true, success: false })
     } else {
-      stripeTokenHandler(res.token)
-      setFormSubmitted(true)
+      // TODO: correctly format the stripe header
+      initStripeWehook(result.paymentIntent).then(res => {
+        console.log(res)
+      })
+      setFormSubmitted({ submitted: true, success: true })
     }
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
-      <div className={classNames('relative flex flex-col gap-y')}>
-        <div className="relative flex flex-col gap-y">
-          <input
-            placeholder={'YOUR EMAIL'}
-            type="email"
-            id="email"
-            className="hidden"
-            value={email}
-            required
-            {...register('email')}
-          />
-
-          <div className="input grid items-center w-full">
-            <CardElement
-              options={{
-                style: {
-                  base: {
-                    color: '#000',
-                    fontFamily: '"Has Grot", Arial, sans-serif',
-                    fontSize: '16px',
-                    '::placeholder': {
-                      color: '#E9E9E9',
+    <>
+      {!formSubmitted.success && (
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
+          <div className={classNames('relative flex flex-col gap-y')}>
+            <div className="relative flex flex-col gap-y">
+              <div className="input grid items-center w-full">
+                <CardElement
+                  options={{
+                    style: {
+                      base: {
+                        color: '#000',
+                        fontFamily: '"Has Grot", Arial, sans-serif',
+                        fontSize: '16px',
+                        '::placeholder': {
+                          color: '#E9E9E9',
+                        },
+                      },
+                      invalid: {
+                        color: '#000',
+                        iconColor: '#000',
+                      },
                     },
-                  },
-                  invalid: {
-                    color: '#000',
-                    iconColor: '#000',
-                  },
-                },
-              }}
-            />
+                  }}
+                />
+              </div>
+
+              <div
+                className={classNames('relative flex flex-col gap-2 md:gap-y')}
+              >
+                <button
+                  className="relative flex justify-between items-center w-full md:w-btnWidth px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+                  type={'submit'}
+                  disabled={isSubmitting || !stripe}
+                >
+                  {isSubmitting ? 'Submitting...' : 'Make payment'}
+                  <IconSmallArrow
+                    className="w-[15px] md:w-[17px]"
+                    height="10"
+                  />
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className={classNames('relative flex flex-col gap-2 md:gap-y')}>
-            <button
-              className="relative flex justify-between items-center w-full md:w-btnWidth px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-              type={'submit'}
-              disabled={isSubmitting || !stripe}
-            >
-              {isSubmitting ? 'Submitting...' : 'Make payment'}
-              <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {formError.error && (
-        <p className="text-red mt-y font-medium uppercase">
-          {formError.message || `Payment error`}
-        </p>
+          {formError.error && (
+            <p className="text-red mt-y font-medium uppercase">
+              {formError.message || `Payment error`}
+            </p>
+          )}
+        </form>
       )}
 
-      {formSubmitted && (
+      {formSubmitted.submitted && formSubmitted.success && (
         <div className="relative mt-ydouble mb-2">
-          <p className="font-medium uppercase">{`Form submitted, please wait...`}</p>
+          <p className="font-medium uppercase">{`Payment successful`}</p>
         </div>
       )}
-    </form>
+    </>
   )
 }
 
 export const DepositForm: FC<DepositFormProps> = ({ email, className }) => {
-  // useEffect(() => {
-  //   const fetchClientSecret = async () => {
-  //     const response = await axios.post('/api/stripe-webhook')
-  //     console.log(response)
-  //     setClientSecret(response.data.clientSecret)
-  //   }
-  //   fetchClientSecret()
-  // }, [])
+  const [clientSecret, setClientSecret] = useState(null)
+
+  const setPaymentIntent = async () => {
+    return await axios.post(`/api/create-stripe-payment`, {
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }
+
+  useEffect(() => {
+    setPaymentIntent()
+      .then(res => {
+        setClientSecret(res.data.clientSecret)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
 
   return (
     <div className={classNames(className)}>
@@ -150,9 +179,11 @@ export const DepositForm: FC<DepositFormProps> = ({ email, className }) => {
         <h2>{`Make deposit`}</h2>
         <p>{`We’ll send you a punch list and confirmation of your offer. In order to receive these documents including the offering plan you need to make a deposit of [TK].`}</p>
 
-        <Elements stripe={stripePromise}>
-          <StripeElement email={email} />
-        </Elements>
+        {clientSecret && (
+          <Elements stripe={stripePromise} options={{ clientSecret }}>
+            <PaymentContainer email={email} clientSecret={clientSecret} />
+          </Elements>
+        )}
       </div>
     </div>
   )

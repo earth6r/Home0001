@@ -148,12 +148,21 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   }, [router.query.email])
 
   return loading ? (
-    <span className="text-button">{`Loading...`}</span>
+    <div className={classNames(className)}>
+      {userData.unit && (
+        <div className="rich-text mb-y">
+          <h2>{userData.unit}</h2>
+          <p>Unit info</p>
+        </div>
+      )}
+
+      <span className="text-button">{`Loading...`}</span>
+    </div>
   ) : (
     <div className={classNames(className)}>
       {userData.unit && (
         <div className="rich-text mb-y">
-          <h1>{userData.unit}</h1>
+          <h2>{userData.unit}</h2>
           <p>Unit info</p>
         </div>
       )}
