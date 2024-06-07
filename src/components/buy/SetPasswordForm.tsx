@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
@@ -5,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
+import { m } from 'framer-motion'
 
 interface SetPasswordFormProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
@@ -25,7 +27,10 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
-  const [formError, setFormError] = useState<unknown | string | null>(null)
+  const [formError, setFormError] = useState<{
+    error: boolean | null
+    message: string
+  }>({ error: null, message: '' })
 
   useEffect(() => {
     if (formSubmitted) onPasswordSet
@@ -44,10 +49,12 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
       )
       setFormSubmitted(true)
     } catch (error) {
-      setFormError(error)
+      setFormError({
+        error: true,
+        message: (error as any).response.data.message as string,
+      })
       // eslint-disable-next-line no-console
       console.error(error)
-      setFormError(true)
       // setFormSubmitted(true)
     }
   }
@@ -118,8 +125,10 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
           </div>
         </div>
 
-        {formError !== null && (
-          <p className="text-red mt-y font-medium uppercase">{`Error setting password`}</p>
+        {formError.error !== null && (
+          <p className="text-red mt-y font-medium uppercase">
+            {formError.message || `Error setting password`}
+          </p>
         )}
 
         {formSubmitted && (
