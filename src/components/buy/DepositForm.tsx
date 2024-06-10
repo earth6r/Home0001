@@ -46,7 +46,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   const stripe = useStripe()
   const elements = useElements()
 
-  const initStripeWehook = async (paymentIntent?: any) => {
+  const initStripeWehook = async (res?: any) => {
     if (!clientSecret || !email) return
 
     return await axios.post(
@@ -54,7 +54,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       { email: email },
       {
         headers: {
-          'stripe-signature': paymentIntent,
+          'stripe-signature': res,
         },
       }
     )
@@ -80,9 +80,10 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       setFormSubmitted({ submitted: true, success: false })
     } else {
       // TODO: correctly format the stripe header
-      initStripeWehook(result.paymentIntent).then(res => {
-        console.log(res)
-      })
+      console.log('result: ', result)
+      // initStripeWehook(result).then(res => {
+      //   console.log(res)
+      // })
       setFormSubmitted({ submitted: true, success: true })
     }
   }
