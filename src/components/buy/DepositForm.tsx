@@ -68,6 +68,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
     })
 
     if (result.error) {
+      // eslint-disable-next-line no-console
       console.log(result.error.message)
       setFormError({
         error: true,
@@ -160,6 +161,7 @@ export const DepositForm: FC<DepositFormProps> = ({ email, className }) => {
         setClientSecret(res.data.clientSecret)
       })
       .catch(err => {
+        // eslint-disable-next-line no-console
         console.log(err)
       })
   }, [])
