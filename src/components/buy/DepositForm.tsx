@@ -12,6 +12,7 @@ import {
   Elements,
 } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import buy from '@/pages/buy'
 
 type PaymentContainerProps = {
   email?: string
@@ -46,18 +47,13 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   const stripe = useStripe()
   const elements = useElements()
 
-  const initStripeWehook = async (res?: any) => {
+  const updateBuyingProgress = async (res?: any) => {
     if (!clientSecret || !email) return
 
-    return await axios.post(
-      `/api/stripe-webhook`,
-      { email: email },
-      {
-        headers: {
-          'stripe-signature': res,
-        },
-      }
-    )
+    return await axios.post(`/api/update-buying-progress`, {
+      email: email,
+      buyingProgress: 'escrow-deposit',
+    })
   }
 
   const onSubmit = async (data: any) => {
@@ -79,11 +75,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       })
       setFormSubmitted({ submitted: true, success: false })
     } else {
-      // TODO: correctly format the stripe header
-      console.log('result: ', result)
-      // initStripeWehook(result).then(res => {
-      //   console.log(res)
-      // })
+      updateBuyingProgress()
       setFormSubmitted({ submitted: true, success: true })
     }
   }
