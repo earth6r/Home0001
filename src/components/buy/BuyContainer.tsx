@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import SetPasswordForm from './SetPasswordForm'
 import DepositForm from './DepositForm'
-import { error } from 'console'
 
 interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
 
@@ -34,7 +33,6 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     unit: null,
     buyingProgress: null,
   })
-  const validatedEmail = useState(router.query.email)
 
   // const [showMemberPage, setShowMemberPage] = useState(false)
 
@@ -167,7 +165,9 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         </div>
       )}
 
-      {showDepositForm && <DepositForm email={userData.email} />}
+      {showDepositForm && (
+        <DepositForm email={userData.email} unit={userData.unit as string} />
+      )}
 
       {!loginError.error && !hasPassword && (
         <SetPasswordForm

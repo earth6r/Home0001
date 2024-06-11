@@ -12,7 +12,6 @@ import {
   Elements,
 } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import buy from '@/pages/buy'
 
 type PaymentContainerProps = {
   email?: string
@@ -21,16 +20,14 @@ type PaymentContainerProps = {
 
 interface DepositFormProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
+  unit?: string
 }
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY || 'pk_test_'
 )
 
-const PaymentContainer: FC<PaymentContainerProps> = ({
-  email,
-  clientSecret,
-}) => {
+const PaymentContainer: FC<PaymentContainerProps> = ({ clientSecret }) => {
   const {
     register,
     handleSubmit,
@@ -47,16 +44,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   const stripe = useStripe()
   const elements = useElements()
 
-  const updateBuyingProgress = async (res?: any) => {
-    if (!clientSecret || !email) return
-
-    return await axios.post(`/api/update-buying-progress`, {
-      email: email,
-      buyingProgress: 'escrow-deposit',
-    })
-  }
-
-  const onSubmit = async (data: any) => {
+  const onSubmit = async () => {
     // send init webhook and send email on submit to backend
     if (!stripe || !elements || !clientSecret) return
 
@@ -76,7 +64,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       })
       setFormSubmitted({ submitted: true, success: false })
     } else {
-      updateBuyingProgress()
+      console.log(result)
       setFormSubmitted({ submitted: true, success: true })
     }
   }
@@ -143,16 +131,23 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   )
 }
 
-export const DepositForm: FC<DepositFormProps> = ({ email, className }) => {
+export const DepositForm: FC<DepositFormProps> = ({
+  email,
+  unit,
+  className,
+}) => {
   const [clientSecret, setClientSecret] = useState(null)
 
   const setPaymentIntent = async () => {
-    return await axios.post(`/api/create-stripe-payment`, {
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    return await axios.post(
+      `/api/create-stripe-payment`,
+      { propertyType: unit },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
   }
 
   useEffect(() => {
@@ -176,7 +171,7 @@ export const DepositForm: FC<DepositFormProps> = ({ email, className }) => {
 
         {clientSecret && (
           <Elements stripe={stripePromise} options={{ clientSecret }}>
-            <PaymentContainer email={email} clientSecret={clientSecret} />
+            <PaymentContainer clientSecret={clientSecret} />
           </Elements>
         )}
       </div>
