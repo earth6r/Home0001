@@ -6,8 +6,8 @@ import axios from 'axios'
 
 const Hubspot_Apikey = process.env.NEXT_PUBLIC_HUBSPOT_API_KEY
 const keys = {
-  client_email: process.env.NEXT_PUBLIC_GOOGLE_API_CLIENT_EMAIL,
-  private_key: process.env.NEXT_PUBLIC_GOOGLE_API_PRIVATE_KEY,
+  client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
+  private_key: process.env.GOOGLE_API_PRIVATE_KEY,
 }
 
 export default async function handler(
