@@ -15,7 +15,7 @@ import type {
   SanityImageDimensions,
   SanityImagePalette,
   SanityImagePaletteSwatch,
-} from 'sanity-codegen'
+} from "sanity-codegen";
 
 export type {
   SanityReference,
@@ -43,6 +43,55 @@ export type {
  */
 export interface Brand extends SanityDocument {
   _type: "brand";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
+ * Page
+ *
+ *
+ */
+export interface Buy extends SanityDocument {
+  _type: "buy";
 
   /**
    * Title — `string`
@@ -1481,6 +1530,7 @@ export type FlexWaitlistBlock = {
 
 export type Documents =
   | Brand
+  | Buy
   | City
   | Menus
   | Page
