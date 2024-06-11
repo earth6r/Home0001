@@ -14,7 +14,6 @@ import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
 import { triggerToastPreview } from '@components/toast'
-import IconEarth from '@components/icons/IconEarth'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
