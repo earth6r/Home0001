@@ -28,10 +28,10 @@ const nextConfig = {
           has: [
             {
               type: 'host',
-              value: 'earth.net',
+              value: 'buy.home0001.com',
             },
           ],
-          destination: '/brand/:path*',
+          destination: '/buy/:path*',
         },
       ],
     }
