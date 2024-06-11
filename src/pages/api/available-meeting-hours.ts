@@ -4,16 +4,18 @@ import { JWT } from 'google-auth-library';
 import keys from '../../googleapis_credentials.json';
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
+const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE;
 
 async function getAllDayEvents(auth: any, timeMin: string, timeMax: string): Promise<boolean> {
   const calendar = google.calendar({ version: 'v3', auth });
 
   const response = await calendar.events.list({
-    calendarId: 'primary',
+    calendarId: Subject,
     timeMin,
     timeMax,
     singleEvents: true,
     orderBy: 'startTime',
+     timeZone: 'America/New_York'
   });
 
   const events = response.data.items || [];
@@ -53,11 +55,12 @@ async function getAvailableSlotsForDay(auth: any, date: Date): Promise<{ start: 
  
 
   const response = await calendar.events.list({
-    calendarId: 'primary',
+    calendarId: Subject,
     timeMin: timeMin.toISOString(),
     timeMax: timeMax.toISOString(),
     singleEvents: true,
-    orderBy: 'startTime'
+    orderBy: 'startTime',
+     timeZone: 'America/New_York'
   });
 
   
