@@ -67,10 +67,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  // Update the user's buying progress
-  await db.collection('usersBuyingProgress').doc(user.docs[0].id).update({
-    // @ts-expect-error
-    buyingProgress: mapBuyingProgress[buyingProgress], // Update the buying progress using the mapped value
+  const buyingProgressValue = buyingProgress.docs[0].data().buyingProgress // Get the user's buying progress
+
+  res.status(200).json({
+    buyingProgress: buyingProgressValue, // Respond with the user's buying progress
   })
 }
 
