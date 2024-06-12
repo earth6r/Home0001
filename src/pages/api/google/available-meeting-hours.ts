@@ -1,7 +1,10 @@
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { JWT } from 'google-auth-library'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
+const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
   private_key: process.env.GOOGLE_API_PRIVATE_KEY,
@@ -15,11 +18,12 @@ async function getAllDayEvents(
   const calendar = google.calendar({ version: 'v3', auth })
 
   const response = await calendar.events.list({
-    calendarId: 'primary',
+    calendarId: Subject,
     timeMin,
     timeMax,
     singleEvents: true,
     orderBy: 'startTime',
+    timeZone: 'America/New_York',
   })
 
   const events = response.data.items || []
@@ -105,14 +109,28 @@ async function getAvailableSlotsForDay(
   )
 
   const response = await calendar.events.list({
-    calendarId: 'primary',
+    calendarId: Subject,
     timeMin: timeMin.toISOString(),
     timeMax: timeMax.toISOString(),
     singleEvents: true,
     orderBy: 'startTime',
+    timeZone: 'America/New_York',
   })
 
   const events = response.data.items || []
+
+  const datesMatch = new Date(date).toISOString().split('T')[0] === '2024-07-05'
+  if (datesMatch) {
+    console.log({
+      calendarId: Subject,
+      timeMin: timeMin.toISOString(),
+      timeMax: timeMax.toISOString(),
+      singleEvents: true,
+      orderBy: 'startTime',
+      timeZone: 'America/New_York',
+    })
+    console.log(events, 'eventsevents')
+  }
 
   const availableSlots: { start: string }[] = []
 
