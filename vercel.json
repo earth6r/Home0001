@@ -10,16 +10,6 @@
         }
       ],
       "destination": "/buy/:path*"
-    },
-    {
-      "source": "/api/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "buy.home0001.com"
-        }
-      ],
-      "destination": "https://home0001.com/api/(.*)"
     }
   ],
   "redirects": [
