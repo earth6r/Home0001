@@ -1,7 +1,7 @@
 import { google } from 'googleapis';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { JWT } from 'google-auth-library';
-import keys from '../../googleapis_credentials.json';
+import keys from '../../../googleapis_credentials.json';
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE;
@@ -63,9 +63,21 @@ async function getAvailableSlotsForDay(auth: any, date: Date): Promise<{ start: 
      timeZone: 'America/New_York'
   });
 
-  
+ 
   const events = response.data.items || [];
 
+  const datesMatch = new Date(date).toISOString().split('T')[0] === "2024-07-05";
+  if(datesMatch){
+    console.log({
+      calendarId: Subject,
+      timeMin: timeMin.toISOString(),
+      timeMax: timeMax.toISOString(),
+      singleEvents: true,
+      orderBy: 'startTime',
+       timeZone: 'America/New_York'
+    })
+           console.log(events,"eventsevents");    
+  }
 
   const availableSlots: { start: string }[] = [];
 
