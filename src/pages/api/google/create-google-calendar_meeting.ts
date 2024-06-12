@@ -1,10 +1,11 @@
-/* eslint-disable no-console */
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
 import axios from 'axios'
 
 const Hubspot_Apikey = process.env.NEXT_PUBLIC_HUBSPOT_API_KEY
+const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
   private_key: process.env.GOOGLE_API_PRIVATE_KEY,
@@ -18,12 +19,29 @@ export default async function handler(
     res.setHeader('Allow', ['POST'])
     return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
-  const { date, startTime, eventName, attendeesEmail } = req.body
+  const {
+    date,
+    startTime,
+    eventName,
+    staffEmails,
+    inviteeEmail,
+    location,
+    eventDescription,
+  } = req.body
 
-  if (!date || !startTime || !eventName) {
-    res
-      .status(400)
-      .json({ success: false, message: 'Missing required fields.' })
+  if (
+    !date ||
+    !startTime ||
+    !eventName ||
+    !Array.isArray(staffEmails) ||
+    !inviteeEmail ||
+    !location ||
+    !eventDescription
+  ) {
+    res.status(400).json({
+      success: false,
+      message: 'Missing required fields or staffEmails is not an array.',
+    })
     return
   }
 
@@ -31,6 +49,7 @@ export default async function handler(
     email: keys.client_email,
     key: keys.private_key,
     scopes: ['https://www.googleapis.com/auth/calendar.events'],
+    subject: Subject,
   })
 
   const calendar = google.calendar({ version: 'v3', auth })
@@ -39,11 +58,12 @@ export default async function handler(
 
   try {
     const eventsResponse = await calendar.events.list({
-      calendarId: 'primary',
+      calendarId: Subject,
       timeMin: startDateTime.toISOString(),
       timeMax: endDateTime.toISOString(),
       singleEvents: true,
       orderBy: 'startTime',
+      timeZone: 'America/New_York',
     })
 
     const events = eventsResponse.data.items || []
@@ -68,20 +88,34 @@ export default async function handler(
     if (slotAvailable) {
       const event = {
         summary: eventName,
-        start: { dateTime: startDateTime.toISOString() },
-        end: { dateTime: endDateTime.toISOString() },
-        // attendees: [{ email: attendeesEmail }],
+        location: location,
+        description: eventDescription,
+        start: {
+          dateTime: startDateTime.toISOString(),
+          timeZone: 'America/New_York',
+        },
+        end: {
+          dateTime: endDateTime.toISOString(),
+          timeZone: 'America/New_York',
+        },
+        attendees: [
+          { email: Subject },
+          ...staffEmails.map((email: string) => ({ email })),
+        ],
       }
-      // @ts-ignore
+
       const response = await calendar.events.insert({
-        calendarId: 'primary',
+        calendarId: Subject,
         requestBody: event,
-        // sendUpdates:'all'
+        sendUpdates: 'all',
       })
+
       if (response?.data?.id) {
-        // call hubspot api
         try {
-          const closingDate = startDateTime.toLocaleString('en-US', {
+          const startDateTimeInEST = new Date(
+            startDateTime.toLocaleString('en-US')
+          )
+          const closingDate = startDateTimeInEST.toLocaleString('en-US', {
             weekday: 'long',
             month: 'long',
             day: 'numeric',
@@ -89,10 +123,11 @@ export default async function handler(
             hour: 'numeric',
             minute: 'numeric',
             hour12: true,
+            timeZone: 'America/New_York',
           })
 
           const hubspotResponse = await axios.post(
-            `https://api.hubapi.com/contacts/v1/contact/email/${attendeesEmail}/profile`,
+            `https://api.hubapi.com/contacts/v1/contact/email/${inviteeEmail}/profile`,
             {
               properties: [
                 {
@@ -108,7 +143,7 @@ export default async function handler(
               },
             }
           )
-          console.log(response)
+
           res.status(200).json({ success: true, event: response.data.id })
         } catch (error) {
           console.error('Error:', error)
@@ -117,7 +152,7 @@ export default async function handler(
       } else {
         res
           .status(500)
-          .json({ success: false, message: 'Event not create! try again' })
+          .json({ success: false, message: 'Event not created! Try again.' })
       }
     } else {
       res.status(200).json({ success: false, message: 'Slot not available' })
