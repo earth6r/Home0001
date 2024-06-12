@@ -13,6 +13,8 @@ import {
 } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+
 type PaymentContainerProps = {
   email?: string
   clientSecret?: string
@@ -140,7 +142,7 @@ export const DepositForm: FC<DepositFormProps> = ({
 
   const setPaymentIntent = async () => {
     return await axios.post(
-      `/api/create-stripe-payment`,
+      `${BASE_URL}/api/create-stripe-payment`,
       { propertyType: unit },
       {
         headers: {

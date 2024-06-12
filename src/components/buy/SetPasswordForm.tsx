@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
-import { m } from 'framer-motion'
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 interface SetPasswordFormProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
@@ -39,7 +40,7 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
   const onSubmit = async (data: any) => {
     try {
       await axios.post(
-        `/api/login/set-password`,
+        `${BASE_URL}/api/login/set-password`,
         { email: data.email, password: data.password },
         {
           headers: {

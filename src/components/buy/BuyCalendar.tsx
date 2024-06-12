@@ -6,6 +6,8 @@ import { set, useForm } from 'react-hook-form'
 import axios from 'axios'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
 }
@@ -27,7 +29,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
   const [availableSlots, setAvailableSlots] = useState([])
 
   const getAvailableSlots = async () => {
-    return await axios.post(`/api/available-meeting-hours`, {
+    return await axios.post(`${BASE_URL}/api/available-meeting-hours`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -52,7 +54,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
   const onSubmit = async (data: any) => {
     try {
       await axios.post(
-        `/api/create-google-calendar_meeting`,
+        `${BASE_URL}/api/create-google-calendar_meeting`,
         {
           date: data.date,
           startTime: data.startTime,

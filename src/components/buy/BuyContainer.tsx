@@ -14,6 +14,7 @@ const CONFIG = {
     'Content-Type': 'application/json',
   },
 }
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
 
@@ -39,12 +40,15 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   // const [showMemberPage, setShowMemberPage] = useState(false)
 
   const getBuyingProgress = async (email: string) => {
-    return await axios.get(`/api/get-buying-progress?email=${email}`, CONFIG)
+    return await axios.get(
+      `${BASE_URL}/api/get-buying-progress?email=${email}`,
+      CONFIG
+    )
   }
 
   const accountSignIn = async () => {
     return await axios.post(
-      `/api/login/signin`,
+      `${BASE_URL}/api/login/signin`,
       { email: router.query.email, password: router.query.password },
       CONFIG
     )
@@ -52,7 +56,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   const getAccount = async () => {
     return await axios.post(
-      `/api/login/check-password-setup-for-email`,
+      `${BASE_URL}/api/login/check-password-setup-for-email`,
       { email: router.query.email },
       CONFIG
     )
