@@ -19,7 +19,7 @@
           "value": "buy.home0001.com"
         }
       ],
-      "destination": "/api/(.*)"
+      "destination": "https://home0001.com/api/(.*)"
     }
   ],
   "redirects": [
