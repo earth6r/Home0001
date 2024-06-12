@@ -2,7 +2,7 @@
 import type { FC } from 'react'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { set, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 
@@ -27,9 +27,10 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
   }>({ error: null, message: '' })
 
   const [availableSlots, setAvailableSlots] = useState([])
+  const [revealedTimes, setRevealedTimes] = useState<number | null>(null)
 
   const getAvailableSlots = async () => {
-    return await axios.post(`${BASE_URL}/api/available-meeting-hours`, {
+    return await axios.post(`${BASE_URL}/api/google/available-meeting-hours`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -44,6 +45,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
           (days: any) => days.HasAvailability === true
         )
         setAvailableSlots(filteredSlots)
+        console.log(filteredSlots)
       })
       .catch(err => {
         // eslint-disable-next-line no-console
@@ -54,11 +56,11 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
   const onSubmit = async (data: any) => {
     try {
       await axios.post(
-        `${BASE_URL}/api/create-google-calendar_meeting`,
+        `${BASE_URL}/api/google/create-google-calendar_meeting`,
         {
           date: data.date,
           startTime: data.startTime,
-          eventName: data.eventName,
+          eventName: 'Closing meeting',
           attendeesEmail: email,
         },
         {
@@ -89,6 +91,41 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
           onSubmit={handleSubmit(onSubmit)}
           className="w-full md:max-w-[526px] h-full"
         >
+          <div className="flex flex-col justify-start gap-y mb-ydouble">
+            {availableSlots.map(
+              ({ date, slots }: { date: string; slots: string[] }, index) => (
+                <div key={index} className="flex flex-col justify-start gap-y">
+                  <div className="flex gap-0">
+                    <input
+                      type="radio"
+                      id={date}
+                      value={date}
+                      {...register('date')}
+                      onChange={() => setRevealedTimes(index)}
+                    />
+                    <label htmlFor={date}>{date}</label>
+                  </div>
+
+                  {revealedTimes === index && (
+                    <div className="flex flex-wrap gap-xhalf">
+                      {slots?.map((time: string, index: number) => (
+                        <div key={index} className="flex gap-0">
+                          <input
+                            type="radio"
+                            id={time}
+                            value={time}
+                            {...register('startTime')}
+                          />
+                          <label htmlFor={time}>{time}</label>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )
+            )}
+          </div>
+
           <button
             className="relative flex justify-between items-center w-full md:w-btnWidth px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
             type={'submit'}
