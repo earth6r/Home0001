@@ -6,14 +6,16 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import SetPasswordForm from './SetPasswordForm'
 import DepositForm from './DepositForm'
+import { validateEmail } from '@lib/util/validate-email'
+import BuyCalendar from './BuyCalendar'
+
+const CONFIG = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+}
 
 interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
-
-const validateEmail = (email: string) => {
-  return email.match(
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  )
-}
 
 export const BuyContainer: FC<BuyProps> = ({ className }) => {
   const router = useRouter()
@@ -36,26 +38,15 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   // const [showMemberPage, setShowMemberPage] = useState(false)
 
-  const getBuyingProgress = async () => {
-    return await axios.post(
-      `/api/get-buying-progress?email=${router.query.email}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+  const getBuyingProgress = async (email: string) => {
+    return await axios.get(`/api/get-buying-progress?email=${email}`, CONFIG)
   }
 
   const accountSignIn = async () => {
     return await axios.post(
       `/api/login/signin`,
       { email: router.query.email, password: router.query.password },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
+      CONFIG
     )
   }
 
@@ -63,11 +54,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     return await axios.post(
       `/api/login/check-password-setup-for-email`,
       { email: router.query.email },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
+      CONFIG
     )
   }
 
@@ -77,8 +64,8 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   }, [loginError])
 
   useEffect(() => {
-    if (loggedIn) {
-      getBuyingProgress().then(res => {
+    if (loggedIn && userData.email) {
+      getBuyingProgress(userData.email).then(res => {
         if (res.data.buyingProgress === null) {
           // show deposit form
           setShowDepositForm(true)
@@ -87,7 +74,13 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
             buyingProgress: null,
           })
         } else {
-          // show member page
+          // show member page eventually, for now show available calendar slots
+          if (res.data.buyingProgress === 3) {
+            setUserData({
+              ...userData,
+              buyingProgress: 3,
+            })
+          }
         }
       })
     }
@@ -167,6 +160,10 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
       {showDepositForm && (
         <DepositForm email={userData.email} unit={userData.unit as string} />
+      )}
+
+      {loggedIn && userData.buyingProgress === 3 && (
+        <BuyCalendar email={userData.email as string} />
       )}
 
       {!loginError.error && !hasPassword && (
