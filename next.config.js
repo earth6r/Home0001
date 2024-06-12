@@ -20,6 +20,22 @@ const nextConfig = {
     largePageDataBytes: 136 * 1000,
   },
   assetPrefix: process.env.NEXT_PUBLIC_BASE_URL,
+  rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'buy.home0001.com',
+            },
+          ],
+          destination: '/buy/:path*',
+        },
+      ],
+    }
+  },
 }
 
 module.exports = nextConfig
