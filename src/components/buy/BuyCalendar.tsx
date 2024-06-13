@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
@@ -48,8 +49,8 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
         console.log(filteredSlots)
       })
       .catch(err => {
-        // eslint-disable-next-line no-console
         console.log(err)
+        console.error(err)
       })
   }, [])
 
@@ -61,7 +62,10 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
           date: data.date,
           startTime: data.startTime,
           eventName: 'Closing meeting',
-          attendeesEmail: email,
+          inviteeEmail: email,
+          staffEmails: ['test@test.com'],
+          location: 'les',
+          eventDescription: 'Closing meeting',
         },
         {
           headers: {
