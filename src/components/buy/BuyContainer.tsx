@@ -10,6 +10,7 @@ import { validateEmail } from '@lib/util/validate-email'
 import BuyCalendar from './BuyCalendar'
 
 const CONFIG = {
+  withCredentials: false,
   headers: {
     'Content-Type': 'application/json',
   },
