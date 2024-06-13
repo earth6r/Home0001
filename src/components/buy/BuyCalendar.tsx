@@ -31,14 +31,9 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
   const [revealedTimes, setRevealedTimes] = useState<number | null>(null)
 
   const getAvailableSlots = async () => {
-    return await axios.post(`${BASE_URL}/api/google/available-meeting-hours`, {
+    return await axios.post(`/api/google/available-meeting-hours`, {
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-        'Access-Control-Allow-Headers':
-          'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
       },
     })
   }
@@ -62,7 +57,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
   const onSubmit = async (data: any) => {
     try {
       await axios.post(
-        `${BASE_URL}/api/google/create-google-calendar_meeting`,
+        `/api/google/create-google-calendar_meeting`,
         {
           date: data.date,
           startTime: data.startTime,
@@ -75,11 +70,6 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-            'Access-Control-Allow-Headers':
-              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
           },
         }
       )
