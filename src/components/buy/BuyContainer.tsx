@@ -12,11 +12,6 @@ import BuyCalendar from './BuyCalendar'
 const CONFIG = {
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Credentials': 'true',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-    'Access-Control-Allow-Headers':
-      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
   },
 }
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
@@ -45,15 +40,12 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   // const [showMemberPage, setShowMemberPage] = useState(false)
 
   const getBuyingProgress = async (email: string) => {
-    return await axios.get(
-      `${BASE_URL}/api/get-buying-progress?email=${email}`,
-      CONFIG
-    )
+    return await axios.get(`/api/get-buying-progress?email=${email}`, CONFIG)
   }
 
   const accountSignIn = async () => {
     return await axios.post(
-      `${BASE_URL}/api/login/signin`,
+      `/api/login/signin`,
       { email: router.query.email, password: router.query.password },
       CONFIG
     )
@@ -61,7 +53,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   const getAccount = async () => {
     return await axios.post(
-      `${BASE_URL}/api/login/check-password-setup-for-email`,
+      `/api/login/check-password-setup-for-email`,
       { email: router.query.email },
       CONFIG
     )

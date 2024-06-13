@@ -40,7 +40,7 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
   const onSubmit = async (data: any) => {
     try {
       await axios.post(
-        `${BASE_URL}/api/login/set-password`,
+        `/api/login/set-password`,
         { email: data.email, password: data.password },
         {
           headers: {
