@@ -9,7 +9,10 @@
           "value": "buy.home0001.com"
         }
       ],
-      "destination": "/buy/:path*"
+      "destination": "/buy/:path*",
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
     }
   ],
   "redirects": [
