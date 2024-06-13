@@ -118,20 +118,6 @@ async function getAvailableSlotsForDay(
   })
 
   const events = response.data.items || []
-
-  const datesMatch = new Date(date).toISOString().split('T')[0] === '2024-07-05'
-  if (datesMatch) {
-    console.log({
-      calendarId: Subject,
-      timeMin: timeMin.toISOString(),
-      timeMax: timeMax.toISOString(),
-      singleEvents: true,
-      orderBy: 'startTime',
-      timeZone: 'America/New_York',
-    })
-    console.log(events, 'eventsevents')
-  }
-
   const availableSlots: { start: string }[] = []
 
   const slotDuration = 2 * 60 * 60 * 1000
