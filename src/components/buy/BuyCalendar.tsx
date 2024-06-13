@@ -31,7 +31,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
   const [revealedTimes, setRevealedTimes] = useState<number | null>(null)
 
   const getAvailableSlots = async () => {
-    return await axios.post(`/api/google/available-meeting-hours`, {
+    return await axios.post(`${BASE_URL}/api/google/available-meeting-hours`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -57,7 +57,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
   const onSubmit = async (data: any) => {
     try {
       await axios.post(
-        `/api/google/create-google-calendar_meeting`,
+        `${BASE_URL}/api/google/create-google-calendar_meeting`,
         {
           date: data.date,
           startTime: data.startTime,

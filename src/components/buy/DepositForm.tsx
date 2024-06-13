@@ -142,7 +142,7 @@ export const DepositForm: FC<DepositFormProps> = ({
 
   const setPaymentIntent = async () => {
     return await axios.post(
-      `/api/create-stripe-payment`,
+      `${BASE_URL}/api/create-stripe-payment`,
       { propertyType: unit },
       {
         headers: {
