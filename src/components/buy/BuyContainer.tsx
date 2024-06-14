@@ -99,37 +99,57 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     }
 
     if (router.query.password) {
-      // perform sign in if password is provided
-      accountSignIn()
-        .then(res => {
-          if (res.data.user) {
-            setLoginError({ error: false, message: '' })
-            setHasPassword(true)
-            setLoggedIn(true)
-            if (res.data.userMetadata && res.data.userMetadata[0]) {
-              setUserData({
-                ...userData,
-                email: router.query.email,
-                unit: res.data.userMetadata[0].userBuyingPropertyType,
-              })
-            }
-          } else {
-            // if no password is set, show set password form
-            setLoginError({ error: true, message: 'Wrong password.' })
-            setHasPassword(false)
-            setUserData({
-              ...userData,
-              email: router.query.email,
+      // check if user has password set
+      getAccount().then(res => {
+        if (res.data.user_exists) {
+          setLoginError({ error: false, message: '' })
+          setUserData({
+            ...userData,
+            email: router.query.email,
+          })
+        } else {
+          setLoginError({ error: true, message: 'No account found.' })
+        }
+        if (res.data.password_set) {
+          setHasPassword(true)
+          // perform sign in if password is provided
+          accountSignIn()
+            .then(res => {
+              if (res.data.user_exists) {
+                setLoginError({ error: false, message: '' })
+                setLoggedIn(true)
+                if (res.data.userMetadata && res.data.userMetadata[0]) {
+                  setUserData({
+                    ...userData,
+                    email: router.query.email,
+                    unit: res.data.userMetadata[0].userBuyingPropertyType,
+                  })
+                }
+              } else {
+                // if no password is set, show set password form
+                setLoginError({ error: true, message: 'Wrong password.' })
+                setHasPassword(false)
+                setUserData({
+                  ...userData,
+                  email: router.query.email,
+                })
+              }
             })
-          }
-        })
-        .catch(err => {
-          setLoginError({ error: true, message: err.response.data.message })
-        })
+            .catch(err => {
+              setLoginError({ error: true, message: err.response.data.message })
+            })
+        } else {
+          setHasPassword(false)
+          setUserData({
+            ...userData,
+            email: router.query.email,
+          })
+        }
+      })
     } else if (router.query.email) {
       // check if account exists
       getAccount().then(res => {
-        if (res.data.user && res.data.user.email) {
+        if (res.data.user_exists) {
           setLoginError({ error: false, message: '' })
           setUserData({
             ...userData,
