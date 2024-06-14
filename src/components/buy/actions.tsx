@@ -56,7 +56,8 @@ export const getAvailableSlots = async () => {
 export const createGoogleCalendarMeeting = async (
   data: any,
   email: string,
-  unit: string
+  unit: string,
+  additionalEmails: string[]
 ) => {
   return await axios.post(
     `${BASE_URL}/api/google/create-google-calendar_meeting`,
@@ -77,6 +78,7 @@ export const createGoogleCalendarMeeting = async (
       ],
       location: 'Link will be emailed',
       eventDescription: `Home0001 closing for ${unit}`,
+      additionalEmails: additionalEmails,
     },
     {
       headers: {
