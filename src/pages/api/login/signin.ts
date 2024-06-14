@@ -1,3 +1,4 @@
+import { enableCors } from '@lib/next/cors'
 import { initializeApp } from 'firebase/app'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import {
@@ -105,4 +106,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 // Export the handler as the default export
-export default handler
+export default enableCors(handler)

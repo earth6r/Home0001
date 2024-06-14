@@ -1,4 +1,5 @@
 import { initializeAdmin } from '@lib/firebase/admin'
+import { enableCors } from '@lib/next/cors'
 import admin from 'firebase-admin'
 import { type NextApiRequest, type NextApiResponse } from 'next'
 
@@ -97,4 +98,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 // Export the handler as the default export
-export default handler
+export default enableCors(handler)
