@@ -32,11 +32,33 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   // const [showMemberPage, setShowMemberPage] = useState(false)
 
+  const initGetBuyingProgress = () => {
+    getBuyingProgress(userData.email).then(res => {
+      if (res.data.buyingProgress === null) {
+        // show deposit form
+        setShowDepositForm(true)
+        setUserData({
+          ...userData,
+          buyingProgress: null,
+        })
+      } else {
+        // show member page eventually, for now show available calendar slots
+        if (res.data.buyingProgress === 3) {
+          setUserData({
+            ...userData,
+            buyingProgress: 3,
+          })
+        }
+      }
+    })
+  }
+
   const attemptSignIn = (email: string, password: string) => {
     setHasPassword(true)
     accountSignIn(email, password)
       .then(res => {
-        if (res.data.user_exists) {
+        console.log(res.data)
+        if (res.data.user.user) {
           setLoginError({ error: false, message: '' })
           setLoggedIn(true)
           if (res.data.userMetadata && res.data.userMetadata[0]) {
@@ -88,24 +110,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   useEffect(() => {
     if (loggedIn && userData.email) {
-      getBuyingProgress(userData.email).then(res => {
-        if (res.data.buyingProgress === null) {
-          // show deposit form
-          setShowDepositForm(true)
-          setUserData({
-            ...userData,
-            buyingProgress: null,
-          })
-        } else {
-          // show member page eventually, for now show available calendar slots
-          if (res.data.buyingProgress === 3) {
-            setUserData({
-              ...userData,
-              buyingProgress: 3,
-            })
-          }
-        }
-      })
+      initGetBuyingProgress()
     }
   }, [loggedIn])
 
@@ -118,7 +123,6 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     }
 
     const routerEmail = router.query.email as string
-
     if (routerEmail) {
       checkAccount(routerEmail)
     }
@@ -149,7 +153,10 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
       )}
 
       {loggedIn && userData.buyingProgress === 3 && (
-        <BuyCalendar email={userData.email as string} />
+        <BuyCalendar
+          email={userData.email as string}
+          unit={userData.unit as string}
+        />
       )}
 
       {!loginError.error && !hasPassword && (
