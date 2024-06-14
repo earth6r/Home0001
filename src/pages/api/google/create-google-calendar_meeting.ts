@@ -25,7 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     inviteeEmail,
     location,
     eventDescription,
-    additionalEmails,
+    additionalEmails = [], // Add additionalGuests with a default empty array
   } = req.body
 
   if (
