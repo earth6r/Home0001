@@ -1,5 +1,6 @@
 // Import necessary modules
 import { initializeAdmin } from '@lib/firebase/admin' // Function to initialize Firebase Admin SDK
+import { enableCors } from '@lib/next/cors'
 import admin from 'firebase-admin' // Firebase Admin SDK
 
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
@@ -58,7 +59,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Query the 'usersBuyingProgress' collection for the user's buying progress
   const buyingProgress = await db
     .collection('usersBuyingProgress')
-    .where(admin.firestore.FieldPath.documentId(), '==', user.docs[0].id)
+    .where('userUID', '==', user.docs[0].id)
     .get()
   if (buyingProgress.empty) {
     res.status(200).json({
@@ -75,4 +76,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 // Export the handler as the default export
-export default handler
+export default enableCors(handler)
