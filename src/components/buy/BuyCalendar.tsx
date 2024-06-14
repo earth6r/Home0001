@@ -6,14 +6,20 @@ import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
+  unit?: string
 }
 
-export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
+export const BuyCalendar: FC<BuyCalendarProps> = ({
+  email,
+  unit,
+  className,
+}) => {
   const {
     register,
     handleSubmit,
@@ -29,61 +35,40 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
 
   const [availableSlots, setAvailableSlots] = useState([])
   const [revealedTimes, setRevealedTimes] = useState<number | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  const getAvailableSlots = async () => {
-    return await axios.post(`${BASE_URL}/api/google/available-meeting-hours`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+  const onSubmit = async (data: any) => {
+    if (!email || !unit) return
+    createGoogleCalendarMeeting(data, email, unit)
+      .then(res => {
+        console.log(res)
+        setFormSubmitted(true)
+      })
+      .catch(err => {
+        setFormError({
+          error: true,
+          message: (err as any).response.data.message as string,
+        })
+        console.error(err)
+      })
   }
 
   useEffect(() => {
     getAvailableSlots()
       .then(res => {
-        // setClientSecret(res.data.clientSecret)
         const filteredSlots = res.data.data.filter(
           (days: any) => days.HasAvailability === true
         )
         setAvailableSlots(filteredSlots)
         console.log(filteredSlots)
+        setLoading(false)
       })
       .catch(err => {
         console.log(err)
         console.error(err)
+        setLoading(false)
       })
   }, [])
-
-  const onSubmit = async (data: any) => {
-    try {
-      await axios.post(
-        `${BASE_URL}/api/google/create-google-calendar_meeting`,
-        {
-          date: data.date,
-          startTime: data.startTime,
-          eventName: 'Closing meeting',
-          inviteeEmail: email,
-          staffEmails: ['test@test.com'],
-          location: 'les',
-          eventDescription: 'Closing meeting',
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
-      setFormSubmitted(true)
-    } catch (error) {
-      setFormError({
-        error: true,
-        message: (error as any).response.data.message as string,
-      })
-      // eslint-disable-next-line no-console
-      console.error(error)
-      // setFormSubmitted(true)
-    }
-  }
 
   return (
     <div className={classNames(className, 'rich-text')}>
@@ -96,6 +81,8 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({ email, className }) => {
           className="w-full md:max-w-[526px] h-full"
         >
           <div className="flex flex-col justify-start gap-y mb-ydouble">
+            {loading && <p className="!mx-0 mt-y">{`Loading...`}</p>}
+
             {availableSlots.map(
               ({ date, slots }: { date: string; slots: string[] }, index) => (
                 <div key={index} className="flex flex-col justify-start gap-y">
