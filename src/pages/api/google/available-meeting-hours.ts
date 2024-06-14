@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { enableCors } from '@lib/next/cors'
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
@@ -156,10 +157,7 @@ async function getAvailableSlotsForDay(
   return availableSlots
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST'])
     return res.status(405).end(`Method ${req.method} Not Allowed`)
@@ -200,3 +198,5 @@ export default async function handler(
     res.status(500).json({ error: 'Internal Server Error' })
   }
 }
+
+export default enableCors(handler)
