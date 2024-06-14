@@ -7,8 +7,8 @@ const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
-  // @ts-ignore
-  private_key: process.env.GOOGLE_API_PRIVATE_KEY.split(String.raw`\n`).join('\n'),
+    // @ts-ignore
+  private_key: process.env.GOOGLE_API_PRIVATE_KEY.replace(/\\n/g, '\n'),
 }
 
 async function getAllDayEvents(
@@ -195,7 +195,7 @@ export default async function handler(
     const allAvailableSlots = await Promise.all(datePromises)
     res.status(200).json({ data: allAvailableSlots })
   } catch (error) {
-    console.log(error,"errorerror");
+    console.log(error,"again error");
     res.status(500).json({ error: 'Internal Server Error' })
   }
 }
