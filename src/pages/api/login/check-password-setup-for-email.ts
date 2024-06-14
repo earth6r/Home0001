@@ -7,6 +7,25 @@ export const config = {
   maxDuration: 300, // Maximum duration for the API route in seconds
 }
 
+// @ts-expect-error fix this
+const enableCors = fn => async (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*') // replace this your actual origin
+  res.setHeader('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+
+  // specific logic for the preflight request
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+    return
+  }
+
+  return await fn(req, res)
+}
+
 // API route handler for checking email existence
 // curl -X POST http://localhost:3000/api/login/check-password-setup-for-email -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com"}'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -68,4 +87,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 // Export the handler as the default export
-export default handler
+export default enableCors(handler)
