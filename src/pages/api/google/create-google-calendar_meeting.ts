@@ -52,7 +52,7 @@ export default async function handler(
     subject: Subject,
   })
 
-  const calendar = google.calendar({ version: 'v3', auth })
+  const calendar =google.calendar({ version: 'v3', auth: auth as any })
   const startDateTime = new Date(`${date}T${startTime}:00.000Z`)
   const endDateTime = new Date(startDateTime.getTime() + 2 * 60 * 60 * 1000)
 
