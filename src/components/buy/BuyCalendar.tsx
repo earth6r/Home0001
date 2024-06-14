@@ -4,11 +4,8 @@ import type { FC } from 'react'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
