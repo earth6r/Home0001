@@ -39,7 +39,8 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
 
   const onSubmit = async (data: any) => {
     if (!email || !unit) return
-    createGoogleCalendarMeeting(data, email, unit)
+    const additionalEmails = data.additionalEmails.split(',')
+    createGoogleCalendarMeeting(data, email, unit, additionalEmails)
       .then(res => {
         console.log(res)
         setFormSubmitted(true)
@@ -115,6 +116,14 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
                 </div>
               )
             )}
+
+            <input
+              type="email"
+              className="input"
+              placeholder="Additional emails (comma separated)"
+              multiple
+              {...register('additionalEmails')}
+            />
           </div>
 
           <button

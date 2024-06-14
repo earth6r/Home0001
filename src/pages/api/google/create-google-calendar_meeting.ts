@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { enableCors } from '@lib/next/cors'
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -25,7 +26,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     inviteeEmail,
     location,
     eventDescription,
-    additionalEmails = [], // Add additionalGuests with a default empty array
+    additionalEmails, // Add additionalGuests
   } = req.body
 
   if (
