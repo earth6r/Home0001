@@ -166,12 +166,13 @@ export default async function handler(
   const utcnow = new Date()
   const now = new Date(utcnow.getTime() - utcnow.getTimezoneOffset() * 60000)
 
-  const auth = new JWT(
+  const auth = new google.auth.JWT(
     keys.client_email,
     undefined,
     keys.private_key,
     SCOPES
   )
+
   try {
     const datePromises = Array.from({ length: 90 }, (_, i) => {
       const currentDate = new Date(now)
@@ -194,7 +195,6 @@ export default async function handler(
     const allAvailableSlots = await Promise.all(datePromises)
     res.status(200).json({ data: allAvailableSlots })
   } catch (error) {
-    console.log(error,"again error");
     res.status(500).json({ error: 'Internal Server Error' })
   }
 }
