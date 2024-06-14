@@ -1,9 +1,9 @@
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import {
   useStripe,
@@ -12,8 +12,7 @@ import {
   Elements,
 } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+import { setPaymentIntent } from './actions'
 
 type PaymentContainerProps = {
   email?: string
@@ -133,32 +132,16 @@ const PaymentContainer: FC<PaymentContainerProps> = ({ clientSecret }) => {
   )
 }
 
-export const DepositForm: FC<DepositFormProps> = ({
-  email,
-  unit,
-  className,
-}) => {
+export const DepositForm: FC<DepositFormProps> = ({ unit, className }) => {
   const [clientSecret, setClientSecret] = useState(null)
 
-  const setPaymentIntent = async () => {
-    return await axios.post(
-      `${BASE_URL}/api/create-stripe-payment`,
-      { propertyType: unit },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-  }
-
   useEffect(() => {
-    setPaymentIntent()
+    if (!unit) return
+    setPaymentIntent(unit)
       .then(res => {
         setClientSecret(res.data.clientSecret)
       })
       .catch(err => {
-        // eslint-disable-next-line no-console
         console.log(err)
       })
   }, [])

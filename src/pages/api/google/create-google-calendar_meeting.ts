@@ -1,3 +1,4 @@
+import { enableCors } from '@lib/next/cors'
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
@@ -11,10 +12,7 @@ const keys = {
   private_key: process.env.GOOGLE_API_PRIVATE_KEY,
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST'])
     return res.status(405).end(`Method ${req.method} Not Allowed`)
@@ -165,3 +163,5 @@ export default async function handler(
     res.status(500).json({ success: false, error: error })
   }
 }
+
+export default enableCors(handler)
