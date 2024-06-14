@@ -26,6 +26,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   const [showDepositForm, setShowDepositForm] = useState(false)
   const [userData, setUserData] = useState<any | null>({
     email: null,
+    password: null,
     unit: null,
     buyingProgress: null,
   })
@@ -57,7 +58,6 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     setHasPassword(true)
     accountSignIn(email, password)
       .then(res => {
-        console.log(res.data)
         if (res.data.user.user) {
           setLoginError({ error: false, message: '' })
           setLoggedIn(true)
@@ -93,8 +93,11 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         })
         if (res.data.password_set) {
           setHasPassword(true)
-          if (router.query.password) {
-            attemptSignIn(email, router.query.password as string)
+          if (router.query.password || userData.password) {
+            attemptSignIn(
+              email,
+              (router.query.password as string) || userData.password
+            )
           }
         }
       } else {
@@ -102,6 +105,12 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
       }
     })
   }
+
+  useEffect(() => {
+    if (userData.password) {
+      checkAccount(userData.email)
+    }
+  }, [userData.password])
 
   useEffect(() => {
     setLoading(true)
@@ -124,6 +133,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
     const routerEmail = router.query.email as string
     if (routerEmail) {
+      setUserData({ ...userData, email: routerEmail })
       checkAccount(routerEmail)
     }
   }, [router.query.email])
@@ -149,7 +159,16 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
       )}
 
       {showDepositForm && (
-        <DepositForm email={userData.email} unit={userData.unit as string} />
+        <>
+          {userData.unit ? (
+            <DepositForm
+              email={userData.email}
+              unit={userData.unit as string}
+            />
+          ) : (
+            <span className="text-button">{`No unit found for user.`}</span>
+          )}
+        </>
       )}
 
       {loggedIn && userData.buyingProgress === 3 && (
@@ -162,13 +181,20 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
       {!loginError.error && !hasPassword && (
         <SetPasswordForm
           email={router.query.email as string}
-          onPasswordSet={() => setTimeout(() => setHasPassword(true), 2000)}
+          onPasswordSet={password => {
+            setLoading(true)
+            setUserData({ ...userData, password: password })
+            setHasPassword(true)
+          }}
         />
       )}
 
-      {!loginError.error && hasPassword && !router.query.password && (
-        <span className="text-button">{`Account found. Add password as query.`}</span>
-      )}
+      {!loginError.error &&
+        hasPassword &&
+        !router.query.password &&
+        !userData.password && (
+          <span className="text-button">{`Account found. Add password as query.`}</span>
+        )}
 
       {loginError.message && loginError.message.length > 1 && (
         <span className="text-button">
