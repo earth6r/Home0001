@@ -195,7 +195,7 @@ export default async function handler(
     const allAvailableSlots = await Promise.all(datePromises)
     res.status(200).json({ data: allAvailableSlots })
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' })
     console.error(error)
+    res.status(500).json({ error: 'Internal Server Error' })
   }
 }
