@@ -27,6 +27,7 @@ export default async function handler(
     inviteeEmail,
     location,
     eventDescription,
+    additionalEmails,
   } = req.body
 
   if (
@@ -36,7 +37,8 @@ export default async function handler(
     !Array.isArray(staffEmails) ||
     !inviteeEmail ||
     !location ||
-    !eventDescription
+    !eventDescription ||
+    !Array.isArray(additionalEmails)
   ) {
     res.status(400).json({
       success: false,
@@ -101,6 +103,7 @@ export default async function handler(
         attendees: [
           { email: Subject },
           ...staffEmails.map((email: string) => ({ email })),
+          ...additionalEmails.map((email: string) => ({ email })),
         ],
       }
 
