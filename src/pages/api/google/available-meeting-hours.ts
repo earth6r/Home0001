@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
@@ -195,5 +196,6 @@ export default async function handler(
     res.status(200).json({ data: allAvailableSlots })
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' })
+    console.error(error)
   }
 }
