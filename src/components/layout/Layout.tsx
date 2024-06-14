@@ -14,6 +14,7 @@ import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
 import { triggerToastPreview } from '@components/toast'
+import IconEarth from '@components/icons/IconEarth'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -57,32 +58,33 @@ export const Layout: FC<LayoutProps> = ({
         pageUrl={`${BASE_URL}${asPath}`}
       />
       <div className="flex flex-col min-h-full">
-        <Header
-          className="flex-initial"
-          path={asPath}
-          hideMenuButton={page?.hideMenuButton}
-          showTourLink={page?.showTourLink}
-          property={(page as Unit)?.property}
-          currentTitle={
-            ((page as Property) || (page as Unit))?.headerText || page?.title
-          }
-          waitlist={{
-            id: siteSettings?.waitlistId,
-            copy: siteSettings?.waitlistCopy,
-            header: siteSettings?.waitlistHeader,
-            success: siteSettings?.waitlistSuccess,
-          }}
-          inquiry={{
-            id: siteSettings?.inquiryId,
-            copy: siteSettings?.inquiryCopy,
-            success: siteSettings?.inquirySuccess,
-            brokerId: siteSettings?.brokerInquiryId,
-            brokerCopy: siteSettings?.brokerInquiryCopy,
-            brokerSuccess: siteSettings?.brokerInquirySuccess,
-          }}
-          mainMenu={siteSettings?.mainMenu as Menus | undefined}
-        />
-
+        {page?._type && (page._type as string) !== 'buy' && (
+          <Header
+            className="flex-initial"
+            path={asPath}
+            hideMenuButton={page?.hideMenuButton}
+            showTourLink={page?.showTourLink}
+            property={(page as Unit)?.property}
+            currentTitle={
+              ((page as Property) || (page as Unit))?.headerText || page?.title
+            }
+            waitlist={{
+              id: siteSettings?.waitlistId,
+              copy: siteSettings?.waitlistCopy,
+              header: siteSettings?.waitlistHeader,
+              success: siteSettings?.waitlistSuccess,
+            }}
+            inquiry={{
+              id: siteSettings?.inquiryId,
+              copy: siteSettings?.inquiryCopy,
+              success: siteSettings?.inquirySuccess,
+              brokerId: siteSettings?.brokerInquiryId,
+              brokerCopy: siteSettings?.brokerInquiryCopy,
+              brokerSuccess: siteSettings?.brokerInquirySuccess,
+            }}
+            mainMenu={siteSettings?.mainMenu as Menus | undefined}
+          />
+        )}
         <ReactLenis
           root
           options={{
@@ -91,12 +93,15 @@ export const Layout: FC<LayoutProps> = ({
         >
           <main className="flex-auto">{children}</main>
         </ReactLenis>
-
-        <Footer
-          path={asPath}
-          query={query}
-          footerMenu={siteSettings?.footerMenu as Menus | undefined}
-        />
+        {page?._type && (page._type as string) !== 'buy' ? (
+          <Footer
+            path={asPath}
+            query={query}
+            footerMenu={siteSettings?.footerMenu as Menus | undefined}
+          />
+        ) : (
+          <footer className="h-[5svh]"></footer>
+        )}
       </div>
       <ToastContainer />
     </>

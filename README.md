@@ -208,3 +208,14 @@ Response:
    "code":"success" // different kinds of codes, please check signin.ts for details
 }
 ```
+
+# Check for CORS (200 response means CORS is setup correctly)
+
+curl -X OPTIONS
+https://www.home0001.com/api/login/check-password-setup-for-email \
+ -H "Access-Control-Request-Method: POST" \
+ -H "Access-Control-Request-Headers: X-CSRF-Token, X-Requested-With, Accept,
+Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+\
+ -H "Origin: https://buy.home0001.com" \
+ -I

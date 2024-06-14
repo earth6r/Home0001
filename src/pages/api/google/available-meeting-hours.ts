@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
@@ -195,6 +196,7 @@ export default async function handler(
     const allAvailableSlots = await Promise.all(datePromises)
     res.status(200).json({ data: allAvailableSlots })
   } catch (error) {
+    console.error(error)
     res.status(500).json({ error: 'Internal Server Error' })
   }
 }
