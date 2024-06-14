@@ -166,13 +166,12 @@ export default async function handler(
   const utcnow = new Date()
   const now = new Date(utcnow.getTime() - utcnow.getTimezoneOffset() * 60000)
 
-  const auth = new google.auth.JWT(
+  const auth = new JWT(
     keys.client_email,
     undefined,
     keys.private_key,
     SCOPES
   )
-
   try {
     const datePromises = Array.from({ length: 90 }, (_, i) => {
       const currentDate = new Date(now)

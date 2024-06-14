@@ -44,6 +44,7 @@
     "focus-visible": "^5.2.0",
     "framer-motion": "^10.16.4",
     "fs": "^0.0.1-security",
+    "google-auth-library": "^9.11.0",
     "google-map-react": "^2.2.1",
     "googleapis": "^139.0.0",
     "groq": "^2.15.0",
