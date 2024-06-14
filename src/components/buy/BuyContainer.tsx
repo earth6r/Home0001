@@ -3,18 +3,11 @@ import type { FC } from 'react'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useRouter } from 'next/router'
-import axios from 'axios'
 import SetPasswordForm from './SetPasswordForm'
 import DepositForm from './DepositForm'
 import { validateEmail } from '@lib/util/validate-email'
 import BuyCalendar from './BuyCalendar'
-
-const CONFIG = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-}
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+import { accountSignIn, getAccount, getBuyingProgress } from './actions'
 
 interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
 
@@ -39,27 +32,53 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   // const [showMemberPage, setShowMemberPage] = useState(false)
 
-  const getBuyingProgress = async (email: string) => {
-    return await axios.get(
-      `${BASE_URL}/api/get-buying-progress?email=${email}`,
-      CONFIG
-    )
+  const attemptSignIn = (email: string, password: string) => {
+    setHasPassword(true)
+    accountSignIn(email, password)
+      .then(res => {
+        if (res.data.user_exists) {
+          setLoginError({ error: false, message: '' })
+          setLoggedIn(true)
+          if (res.data.userMetadata && res.data.userMetadata[0]) {
+            setUserData({
+              ...userData,
+              email: router.query.email,
+              unit: res.data.userMetadata[0].userBuyingPropertyType,
+            })
+          }
+        } else {
+          // if no password is set, show set password form
+          setLoginError({ error: true, message: 'Wrong password.' })
+          setHasPassword(false)
+          setUserData({
+            ...userData,
+            email: router.query.email,
+          })
+        }
+      })
+      .catch(err => {
+        setLoginError({ error: true, message: err.response.data.message })
+      })
   }
 
-  const accountSignIn = async () => {
-    return await axios.post(
-      `${BASE_URL}/api/login/signin`,
-      { email: router.query.email, password: router.query.password },
-      CONFIG
-    )
-  }
-
-  const getAccount = async () => {
-    return await axios.post(
-      `${BASE_URL}/api/login/check-password-setup-for-email`,
-      { email: router.query.email },
-      CONFIG
-    )
+  const checkAccount = (email: string) => {
+    getAccount(email).then(res => {
+      if (res.data.user_exists) {
+        setLoginError({ error: false, message: '' })
+        setUserData({
+          ...userData,
+          email: email,
+        })
+        if (res.data.password_set) {
+          setHasPassword(true)
+          if (router.query.password) {
+            attemptSignIn(email, router.query.password as string)
+          }
+        }
+      } else {
+        setLoginError({ error: true, message: 'No account found.' })
+      }
+    })
   }
 
   useEffect(() => {
@@ -98,67 +117,10 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
       return
     }
 
-    if (router.query.password) {
-      // check if user has password set
-      getAccount().then(res => {
-        if (res.data.user_exists) {
-          setLoginError({ error: false, message: '' })
-          setUserData({
-            ...userData,
-            email: router.query.email,
-          })
-        } else {
-          setLoginError({ error: true, message: 'No account found.' })
-        }
-        if (res.data.password_set) {
-          setHasPassword(true)
-          // perform sign in if password is provided
-          accountSignIn()
-            .then(res => {
-              if (res.data.user_exists) {
-                setLoginError({ error: false, message: '' })
-                setLoggedIn(true)
-                if (res.data.userMetadata && res.data.userMetadata[0]) {
-                  setUserData({
-                    ...userData,
-                    email: router.query.email,
-                    unit: res.data.userMetadata[0].userBuyingPropertyType,
-                  })
-                }
-              } else {
-                // if no password is set, show set password form
-                setLoginError({ error: true, message: 'Wrong password.' })
-                setHasPassword(false)
-                setUserData({
-                  ...userData,
-                  email: router.query.email,
-                })
-              }
-            })
-            .catch(err => {
-              setLoginError({ error: true, message: err.response.data.message })
-            })
-        } else {
-          setHasPassword(false)
-          setUserData({
-            ...userData,
-            email: router.query.email,
-          })
-        }
-      })
-    } else if (router.query.email) {
-      // check if account exists
-      getAccount().then(res => {
-        if (res.data.user_exists) {
-          setLoginError({ error: false, message: '' })
-          setUserData({
-            ...userData,
-            email: router.query.email,
-          })
-        } else {
-          setLoginError({ error: true, message: 'No account found.' })
-        }
-      })
+    const routerEmail = router.query.email as string
+
+    if (routerEmail) {
+      checkAccount(routerEmail)
     }
   }, [router.query.email])
 
@@ -195,6 +157,10 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
           email={router.query.email as string}
           onPasswordSet={() => setTimeout(() => setHasPassword(true), 2000)}
         />
+      )}
+
+      {!loginError.error && hasPassword && !router.query.password && (
+        <span className="text-button">{`Account found. Add password as query.`}</span>
       )}
 
       {loginError.message && loginError.message.length > 1 && (
