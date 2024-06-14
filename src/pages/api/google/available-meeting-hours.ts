@@ -8,7 +8,7 @@ const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
-    // @ts-ignore
+  // @ts-ignore
   private_key: process.env.GOOGLE_API_PRIVATE_KEY.replace(/\\n/g, '\n'),
 }
 
