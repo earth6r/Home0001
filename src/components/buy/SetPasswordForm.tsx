@@ -11,7 +11,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 interface SetPasswordFormProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
-  onPasswordSet?: () => void
+  onPasswordSet: (password: string) => void
 }
 
 export const SetPasswordForm: FC<SetPasswordFormProps> = ({
@@ -33,10 +33,6 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
     message: string
   }>({ error: null, message: '' })
 
-  useEffect(() => {
-    if (formSubmitted) onPasswordSet
-  }, [formSubmitted])
-
   const onSubmit = async (data: any) => {
     try {
       await axios.post(
@@ -49,6 +45,7 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
         }
       )
       setFormSubmitted(true)
+      onPasswordSet(data.password)
     } catch (error) {
       setFormError({
         error: true,
