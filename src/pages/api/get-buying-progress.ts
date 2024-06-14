@@ -59,7 +59,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Query the 'usersBuyingProgress' collection for the user's buying progress
   const buyingProgress = await db
     .collection('usersBuyingProgress')
-    .where(admin.firestore.FieldPath.documentId(), '==', user.docs[0].id)
+    .where('userUID', '==', user.docs[0].id)
     .get()
   if (buyingProgress.empty) {
     res.status(200).json({

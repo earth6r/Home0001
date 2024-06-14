@@ -96,7 +96,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Query the 'usersBuyingProgress' collection for the user's buying progress
   const usersBuyingProgress = await db
     .collection('usersBuyingProgress')
-    .where(admin.firestore.FieldPath.documentId(), '==', userUID)
+    .where('userUID', '==', userUID)
     .get()
 
   if (usersBuyingProgress.empty) {
@@ -107,10 +107,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   // Update the user's buying progress
-  await db.collection('usersBuyingProgress').doc(userUID).update({
-    // @ts-expect-error
-    buyingProgress: mapBuyingProgress[buyingProgress], // Update the buying progress using the mapped value
-  })
+  await db
+    .collection('usersBuyingProgress')
+    .doc(usersBuyingProgress.docs[0].id)
+    .update({
+      // @ts-expect-error
+      buyingProgress: mapBuyingProgress[buyingProgress], // Update the buying progress using the mapped value
+    })
 
   // Respond with success message
   res.status(200).json({
