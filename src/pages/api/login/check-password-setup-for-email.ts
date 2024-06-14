@@ -20,6 +20,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!email) {
     res.status(400).json({
       message: 'Email is required.',
+      user_exists: false,
+      password_set: false,
       code: 'email_required',
     })
     return // Return early if email is not provided
@@ -30,15 +32,31 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await admin.auth().getUserByEmail(email)
 
     // Respond with the found user and success code
-    res.status(200).json({ user, user_exists: true, code: 'success' })
+    res
+      .status(200)
+      .json({ user, user_exists: true, password_set: true, code: 'success' })
   } catch (error: unknown) {
+    const db = admin.firestore()
     // Handle user not found error
     if ((error as any)?.code === 'auth/user-not-found') {
-      res.status(200).json({
-        user: null,
-        user_exists: false,
-        code: 'user_not_found',
-      })
+      const response = await db
+        .collection('users')
+        .where('email', '==', email)
+        .get()
+      if (!response.empty) {
+        res.status(200).json({
+          user: null,
+          user_exists: true,
+          password_set: false,
+        })
+      } else {
+        res.status(200).json({
+          user: null,
+          user_exists: false,
+          password_set: false,
+          code: 'user_not_found',
+        })
+      }
       return // Return early if user not found error occurs
     }
 
@@ -47,7 +65,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(429).json({
         user: null,
         message: 'Too many requests.',
-        request_password: false,
+        user_exists: false,
+        password_set: false,
         code: 'too_many_requests',
       })
       return // Return early if too many requests error occurs
@@ -61,7 +80,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(500).json({
       user: null,
       message: 'Internal server error.',
-      request_password: false,
+      user_exists: false,
+      password_set: false,
       code: 'internal_server_error',
     })
   }
