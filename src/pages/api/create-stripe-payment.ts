@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { enableCors } from '@lib/next/cors'
 import { Stripe } from 'stripe'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -30,4 +31,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default handler
+export default enableCors(handler)
