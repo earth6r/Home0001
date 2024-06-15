@@ -35,7 +35,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   const initGetBuyingProgress = () => {
     getBuyingProgress(userData.email).then(res => {
-      if (res.data.buyingProgress === null) {
+      if (res.data.buyingProgress === null || res.data.buyingProgress === 2) {
         // show deposit form
         setShowDepositForm(true)
         setUserData({
