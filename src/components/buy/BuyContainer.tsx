@@ -9,23 +9,23 @@ import { validateEmail } from '@lib/util/validate-email'
 import BuyCalendar from './BuyCalendar'
 import { accountSignIn, getAccount, getBuyingProgress } from './actions'
 import LoginForm from './LoginForm'
+import { init } from 'next/dist/compiled/@vercel/og/satori'
 
 interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
 
 export const BuyContainer: FC<BuyProps> = ({ className }) => {
   const router = useRouter()
 
-  const [showLogin, setShowLogin] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const [loginError, setLoginError] = useState<{
     error: boolean | null
     message: string
   }>({ error: false, message: '' })
-  const [hasPassword, setHasPassword] = useState(false)
+
+  const [showLogin, setShowLogin] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
 
-  const [showDepositForm, setShowDepositForm] = useState(false)
   const [userData, setUserData] = useState<any | null>({
     email: null,
     hasPassword: true, // assume user has a password at first
@@ -34,57 +34,55 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     buyingProgress: null,
   })
 
-  // const [showMemberPage, setShowMemberPage] = useState(false)
-
   const initGetBuyingProgress = () => {
     getBuyingProgress(userData.email).then(res => {
-      if (res.data.buyingProgress === null || res.data.buyingProgress === 2) {
-        // show deposit form
-        setShowDepositForm(true)
-        setUserData({
-          ...userData,
-          buyingProgress: null,
-        })
-      } else {
-        // show member page eventually, for now show available calendar slots
-        if (res.data.buyingProgress > 1) {
-          setUserData({
-            ...userData,
-            buyingProgress: res.data.buyingProgress,
-          })
-        }
-      }
+      console.log('initGetBuyingProgress', res)
+      setUserData({
+        ...userData,
+        buyingProgress: res.data.buyingProgress,
+      })
     })
   }
 
-  const setLoginSuccess = (email: string, unit: string) => {
+  const setLoginSuccess = (email: string, password: string, unit: string) => {
     setLoginError({ error: false, message: '' })
     setLoggedIn(true)
     setUserData({
       ...userData,
       email: email,
+      password: password,
       unit: unit,
     })
   }
 
   const attemptSignIn = (email: string, password: string) => {
-    setHasPassword(true)
+    if (!validateEmail(email)) {
+      setLoginError({ error: true, message: 'Invalid email.' })
+      return
+    }
+
     accountSignIn(email, password)
       .then(res => {
         if (res.data.user.user) {
           if (res.data.userMetadata && res.data.userMetadata[0]) {
             setLoginSuccess(
               email,
+              password,
               res.data.userMetadata[0].userBuyingPropertyType
             )
+          } else {
+            setLoginError({
+              error: true,
+              message: 'No unit associated with account.',
+            })
           }
         } else {
           // if no password is set, show set password form
           setLoginError({ error: true, message: 'Wrong password.' })
-          setHasPassword(false)
           setUserData({
             ...userData,
             email: router.query.email,
+            hasPassword: false,
           })
         }
       })
@@ -100,16 +98,9 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         setUserData({
           ...userData,
           email: email,
+          hasPassword: res.data.password_set,
         })
-        if (res.data.password_set) {
-          setHasPassword(true)
-          if (router.query.password || userData.password) {
-            attemptSignIn(
-              email,
-              (router.query.password as string) || userData.password
-            )
-          }
-        }
+        if (!loggedIn) setShowLogin(res.data.password_set)
       } else {
         setLoginError({ error: true, message: 'No account found.' })
       }
@@ -117,31 +108,30 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   }
 
   useEffect(() => {
-    if (userData.password) {
-      checkAccount(userData.email)
-    }
-  }, [userData.password])
-
-  useEffect(() => {
     setLoading(true)
     setTimeout(() => setLoading(false), 1500)
   }, [loginError])
 
   useEffect(() => {
-    if (loggedIn && userData.email) {
+    if (loggedIn) {
       initGetBuyingProgress()
     }
   }, [loggedIn])
 
   useEffect(() => {
+    if (userData.password) {
+      attemptSignIn(userData.email, userData.password)
+    }
+  }, [userData.password])
+
+  useEffect(() => {
     const routerEmail = router.query.email as string
     if (routerEmail) {
-      setUserData({ ...userData, email: routerEmail })
       checkAccount(routerEmail)
     } else {
       setShowLogin(true)
     }
-  }, [])
+  }, [router.query.email])
 
   return loading ? (
     <div className={classNames(className)}>
@@ -163,20 +153,23 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         </div>
       )}
 
-      {showLogin && <LoginForm attemptSignIn={attemptSignIn} />}
+      {loggedIn && !userData.unit && (
+        <span className="text-button">{`No unit found for user.`}</span>
+      )}
+
+      {!loggedIn && showLogin && <LoginForm attemptSignIn={attemptSignIn} />}
 
       {!loginError.error && !userData.hasPassword && (
         <SetPasswordForm
           email={router.query.email as string}
           onPasswordSet={password => {
             setLoading(true)
-            setUserData({ ...userData, password: password })
-            setHasPassword(true)
+            setUserData({ ...userData, password: password, hasPassword: true })
           }}
         />
       )}
 
-      {showDepositForm && (
+      {loggedIn && userData.buyProgress === 'escrow-deposit' && (
         <>
           {userData.unit ? (
             <DepositForm
@@ -189,21 +182,14 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         </>
       )}
 
-      {loggedIn && userData.buyingProgress === 3 && (
+      {loggedIn && userData.buyingProgress === 'schedule-closing' && (
         <BuyCalendar
           email={userData.email as string}
           unit={userData.unit as string}
         />
       )}
 
-      {!loginError.error &&
-        hasPassword &&
-        !router.query.password &&
-        !userData.password && (
-          <span className="text-button">{`Account found. Add password as query.`}</span>
-        )}
-
-      {loginError.message && loginError.message.length > 1 && (
+      {loginError.message && (
         <span className="text-button">
           {loginError.message || `No account found.`}
         </span>

@@ -44,7 +44,7 @@ export const LoginForm: FC<LoginFormProps> = ({ attemptSignIn, className }) => {
                 placeholder={'YOUR EMAIL'}
                 type="email"
                 id="email"
-                value=""
+                className="input disabled:opacity-50"
                 required
                 {...register('email')}
               />
@@ -67,7 +67,7 @@ export const LoginForm: FC<LoginFormProps> = ({ attemptSignIn, className }) => {
                 type={'submit'}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Submitting...' : 'Create account'}
+                {isSubmitting ? 'Submitting...' : 'Sign in'}
                 <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
               </button>
             </div>
