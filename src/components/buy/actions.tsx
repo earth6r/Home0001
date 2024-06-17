@@ -32,10 +32,10 @@ export const getAccount = async (email: string) => {
 }
 
 // stripe
-export const setPaymentIntent = async (unit: string) => {
+export const setPaymentIntent = async (email: string, unit: string) => {
   return await axios.post(
     `${BASE_URL}/api/create-stripe-payment`,
-    { propertyType: unit },
+    { propertyType: unit, email: email },
     {
       headers: {
         'Content-Type': 'application/json',
