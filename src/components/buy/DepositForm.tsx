@@ -15,20 +15,24 @@ import { loadStripe } from '@stripe/stripe-js'
 import { setPaymentIntent } from './actions'
 
 type PaymentContainerProps = {
-  email?: string
   clientSecret?: string
+  onStripeSuccess?: () => void
 }
 
 interface DepositFormProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
   unit?: string
+  onStripeSuccess?: () => void
 }
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY || 'pk_test_'
 )
 
-const PaymentContainer: FC<PaymentContainerProps> = ({ clientSecret }) => {
+const PaymentContainer: FC<PaymentContainerProps> = ({
+  clientSecret,
+  onStripeSuccess,
+}) => {
   const {
     register,
     handleSubmit,
@@ -65,8 +69,8 @@ const PaymentContainer: FC<PaymentContainerProps> = ({ clientSecret }) => {
       })
       setFormSubmitted({ submitted: true, success: false })
     } else {
-      console.log(result)
       setFormSubmitted({ submitted: true, success: true })
+      onStripeSuccess && onStripeSuccess()
     }
   }
 
@@ -135,6 +139,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({ clientSecret }) => {
 export const DepositForm: FC<DepositFormProps> = ({
   email,
   unit,
+  onStripeSuccess,
   className,
 }) => {
   const [clientSecret, setClientSecret] = useState(null)
@@ -160,7 +165,10 @@ export const DepositForm: FC<DepositFormProps> = ({
 
         {clientSecret && (
           <Elements stripe={stripePromise} options={{ clientSecret }}>
-            <PaymentContainer clientSecret={clientSecret} />
+            <PaymentContainer
+              clientSecret={clientSecret}
+              onStripeSuccess={onStripeSuccess}
+            />
           </Elements>
         )}
       </div>
