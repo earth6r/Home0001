@@ -8,12 +8,14 @@ import DepositForm from './DepositForm'
 import { validateEmail } from '@lib/util/validate-email'
 import BuyCalendar from './BuyCalendar'
 import { accountSignIn, getAccount, getBuyingProgress } from './actions'
+import LoginForm from './LoginForm'
 
 interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
 
 export const BuyContainer: FC<BuyProps> = ({ className }) => {
   const router = useRouter()
 
+  const [showLogin, setShowLogin] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const [loginError, setLoginError] = useState<{
@@ -26,6 +28,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   const [showDepositForm, setShowDepositForm] = useState(false)
   const [userData, setUserData] = useState<any | null>({
     email: null,
+    hasPassword: true, // assume user has a password at first
     password: null,
     unit: null,
     buyingProgress: null,
@@ -54,19 +57,26 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     })
   }
 
+  const setLoginSuccess = (email: string, unit: string) => {
+    setLoginError({ error: false, message: '' })
+    setLoggedIn(true)
+    setUserData({
+      ...userData,
+      email: email,
+      unit: unit,
+    })
+  }
+
   const attemptSignIn = (email: string, password: string) => {
     setHasPassword(true)
     accountSignIn(email, password)
       .then(res => {
         if (res.data.user.user) {
-          setLoginError({ error: false, message: '' })
-          setLoggedIn(true)
           if (res.data.userMetadata && res.data.userMetadata[0]) {
-            setUserData({
-              ...userData,
-              email: router.query.email,
-              unit: res.data.userMetadata[0].userBuyingPropertyType,
-            })
+            setLoginSuccess(
+              email,
+              res.data.userMetadata[0].userBuyingPropertyType
+            )
           }
         } else {
           // if no password is set, show set password form
@@ -124,19 +134,14 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   }, [loggedIn])
 
   useEffect(() => {
-    const validEmail =
-      router.query.email && validateEmail(router.query.email as string)
-    if (!validEmail) {
-      setLoginError({ error: true, message: 'Invalid email.' })
-      return
-    }
-
     const routerEmail = router.query.email as string
     if (routerEmail) {
       setUserData({ ...userData, email: routerEmail })
       checkAccount(routerEmail)
+    } else {
+      setShowLogin(true)
     }
-  }, [router.query.email])
+  }, [])
 
   return loading ? (
     <div className={classNames(className)}>
@@ -158,6 +163,19 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         </div>
       )}
 
+      {showLogin && <LoginForm attemptSignIn={attemptSignIn} />}
+
+      {!loginError.error && !userData.hasPassword && (
+        <SetPasswordForm
+          email={router.query.email as string}
+          onPasswordSet={password => {
+            setLoading(true)
+            setUserData({ ...userData, password: password })
+            setHasPassword(true)
+          }}
+        />
+      )}
+
       {showDepositForm && (
         <>
           {userData.unit ? (
@@ -175,17 +193,6 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         <BuyCalendar
           email={userData.email as string}
           unit={userData.unit as string}
-        />
-      )}
-
-      {!loginError.error && !hasPassword && (
-        <SetPasswordForm
-          email={router.query.email as string}
-          onPasswordSet={password => {
-            setLoading(true)
-            setUserData({ ...userData, password: password })
-            setHasPassword(true)
-          }}
         />
       )}
 
