@@ -132,7 +132,11 @@ const PaymentContainer: FC<PaymentContainerProps> = ({ clientSecret }) => {
   )
 }
 
-export const DepositForm: FC<DepositFormProps> = ({ unit, className }) => {
+export const DepositForm: FC<DepositFormProps> = ({
+  email,
+  unit,
+  className,
+}) => {
   const [clientSecret, setClientSecret] = useState(null)
 
   useEffect(() => {
