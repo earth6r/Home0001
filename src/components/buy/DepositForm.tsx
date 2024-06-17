@@ -140,8 +140,8 @@ export const DepositForm: FC<DepositFormProps> = ({
   const [clientSecret, setClientSecret] = useState(null)
 
   useEffect(() => {
-    if (!unit) return
-    setPaymentIntent(unit)
+    if (!unit || !email) return
+    setPaymentIntent(email, unit)
       .then(res => {
         setClientSecret(res.data.clientSecret)
       })
