@@ -71,7 +71,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const buyingProgressValue = buyingProgress.docs[0].data().buyingProgress // Get the user's buying progress
 
   res.status(200).json({
-    buyingProgress: buyingProgressValue, // Respond with the user's buying progress
+    // @ts-expect-error fix this type
+    buyingProgress: mapBuyingProgress[buyingProgressValue], // Respond with the numerical value of the user's buying progress
   })
 }
 
