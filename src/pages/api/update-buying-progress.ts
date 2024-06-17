@@ -71,8 +71,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // TODO: cleanup to utils file
   const mapBuyingProgress = {
     'escrow-deposit': 1,
-    'download-documents': 2,
-    'schedule-closing': 3,
+    'schedule-closing': 2,
+    'download-documents': 3,
     'full-payment': 4,
     completed: 5,
   }
