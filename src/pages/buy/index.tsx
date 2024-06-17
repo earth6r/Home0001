@@ -4,7 +4,7 @@ import type { InferGetStaticPropsType, GetStaticProps, NextPage } from 'next'
 import type { Page as SanityPage } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
-import { BODY_QUERY, filterDataToSingleItem } from '@studio/lib'
+import { BUY_UNIT_QUERY, filterDataToSingleItem } from '@studio/lib'
 import PageTransition from '@components/transition/PageTransition'
 import classNames from 'classnames'
 import { BuyContainer } from '@components/buy'
@@ -15,8 +15,10 @@ const BUY_QUERY = groq`
   *[_type == "buy" && slug.current == $slug]{
     _id,
     _type,
+    title,
+    slug,
     seo,
-    ${BODY_QUERY}
+    ${BUY_UNIT_QUERY}
   }
 `
 
@@ -29,7 +31,7 @@ const Page: NextPage<PageProps> = (
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
 
-  return page?.body && (!page?._id.includes('drafts.') || preview) ? (
+  return !page?._id.includes('drafts.') || preview ? (
     <PageTransition ref={ref}>
       <article className={classNames('flex flex-col container pt-page')}>
         <BuyContainer />

@@ -38,9 +38,10 @@ export default {
       },
     },
     {
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
+      name: 'unitsList',
+      title: 'Units List',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'unit' }] }],
     },
     {
       name: 'seo',

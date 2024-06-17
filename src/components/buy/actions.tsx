@@ -15,6 +15,18 @@ export const getBuyingProgress = async (email: string) => {
   )
 }
 
+export const updateBuyingProgress = async (
+  email: string,
+  buyingProgress: string
+) => {
+  // buying progress stages: escrow-deposit, schedule-closing, download-documents, full-payment, completed
+  return await axios.post(
+    `${BASE_URL}/api/update-buying-progress`,
+    { email: email, buyingProgress: buyingProgress },
+    CONFIG
+  )
+}
+
 export const accountSignIn = async (email: string, password: string) => {
   return await axios.post(
     `${BASE_URL}/api/login/signin`,

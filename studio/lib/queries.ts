@@ -237,3 +237,18 @@ export const PROPERTIES_QUERY = `
   },
   ${BODY_QUERY}
 `
+
+export const BUY_UNIT_QUERY = `
+  _key,
+  "unitsList": unitsList[]->{
+    _key,
+    _id,
+    slug,
+    title,
+    price,
+    area,
+    "photographs": photographs[]{
+      ${MEDIA_QUERY}
+    },
+  },
+`

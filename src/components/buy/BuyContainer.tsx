@@ -9,7 +9,6 @@ import { validateEmail } from '@lib/util/validate-email'
 import BuyCalendar from './BuyCalendar'
 import { accountSignIn, getAccount, getBuyingProgress } from './actions'
 import LoginForm from './LoginForm'
-import { init } from 'next/dist/compiled/@vercel/og/satori'
 
 interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
 
@@ -24,9 +23,9 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   }>({ error: false, message: '' })
 
   const [showLogin, setShowLogin] = useState(false)
-  const [loggedIn, setLoggedIn] = useState(false)
 
   const [userData, setUserData] = useState<any | null>({
+    loggedIn: false,
     email: null,
     hasPassword: true, // assume user has a password at first
     password: null,
@@ -36,7 +35,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   const initGetBuyingProgress = () => {
     getBuyingProgress(userData.email).then(res => {
-      console.log('initGetBuyingProgress', res)
+      setLoading(false)
       setUserData({
         ...userData,
         buyingProgress: res.data.buyingProgress,
@@ -46,9 +45,10 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   const setLoginSuccess = (email: string, password: string, unit: string) => {
     setLoginError({ error: false, message: '' })
-    setLoggedIn(true)
+    setLoading(false)
     setUserData({
       ...userData,
+      loggedIn: true,
       email: email,
       password: password,
       unit: unit,
@@ -60,6 +60,7 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
       setLoginError({ error: true, message: 'Invalid email.' })
       return
     }
+    setLoading(true)
 
     accountSignIn(email, password)
       .then(res => {
@@ -75,23 +76,19 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
               error: true,
               message: 'No unit associated with account.',
             })
+            setLoading(false)
           }
-        } else {
-          // if no password is set, show set password form
-          setLoginError({ error: true, message: 'Wrong password.' })
-          setUserData({
-            ...userData,
-            email: router.query.email,
-            hasPassword: false,
-          })
         }
       })
       .catch(err => {
+        setLoading(false)
         setLoginError({ error: true, message: err.response.data.message })
       })
   }
 
   const checkAccount = (email: string) => {
+    console.log('checking account')
+    setLoading(true)
     getAccount(email).then(res => {
       if (res.data.user_exists) {
         setLoginError({ error: false, message: '' })
@@ -100,40 +97,32 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
           email: email,
           hasPassword: res.data.password_set,
         })
-        if (!loggedIn) setShowLogin(res.data.password_set)
+        if (!userData.loggedIn) setShowLogin(res.data.password_set)
       } else {
         setLoginError({ error: true, message: 'No account found.' })
       }
+      setLoading(false)
     })
   }
 
   useEffect(() => {
-    setLoading(true)
-    setTimeout(() => setLoading(false), 1500)
-  }, [loginError])
-
-  useEffect(() => {
-    if (loggedIn) {
+    if (userData.loggedIn && !userData.buyingProgress) {
       initGetBuyingProgress()
     }
-  }, [loggedIn])
+  }, [userData.loggedIn])
 
   useEffect(() => {
-    if (userData.password) {
-      attemptSignIn(userData.email, userData.password)
-    }
-  }, [userData.password])
-
-  useEffect(() => {
+    console.log('here', router.query.email)
     const routerEmail = router.query.email as string
     if (routerEmail) {
       checkAccount(routerEmail)
     } else {
       setShowLogin(true)
+      setLoading(false)
     }
-  }, [router.query.email])
+  }, [])
 
-  return loading ? (
+  return (
     <div className={classNames(className)}>
       {userData.unit && (
         <div className="rich-text mb-y">
@@ -142,22 +131,13 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         </div>
       )}
 
-      <span className="text-button">{`Loading...`}</span>
-    </div>
-  ) : (
-    <div className={classNames(className)}>
-      {userData.unit && (
-        <div className="rich-text mb-y">
-          <h2>{userData.unit}</h2>
-          <p>Unit info</p>
-        </div>
+      {!userData.loggedIn && showLogin && (
+        <LoginForm attemptSignIn={attemptSignIn} />
       )}
 
-      {loggedIn && !userData.unit && (
+      {userData.loggedIn && !userData.unit && (
         <span className="text-button">{`No unit found for user.`}</span>
       )}
-
-      {!loggedIn && showLogin && <LoginForm attemptSignIn={attemptSignIn} />}
 
       {!loginError.error && !userData.hasPassword && (
         <SetPasswordForm
@@ -169,20 +149,20 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         />
       )}
 
-      {loggedIn && userData.buyProgress === 'escrow-deposit' && (
-        <>
-          {userData.unit ? (
-            <DepositForm
-              email={userData.email}
-              unit={userData.unit as string}
-            />
-          ) : (
-            <span className="text-button">{`No unit found for user.`}</span>
-          )}
-        </>
+      {userData.buyingProgress === 'escrow-deposit' && (
+        <DepositForm
+          email={userData.email}
+          unit={userData.unit as string}
+          onStripeSuccess={() => {
+            setTimeout(() => {
+              setLoading(true)
+              initGetBuyingProgress()
+            }, 2000)
+          }}
+        />
       )}
 
-      {loggedIn && userData.buyingProgress === 'schedule-closing' && (
+      {userData.buyingProgress === 'schedule-closing' && (
         <BuyCalendar
           email={userData.email as string}
           unit={userData.unit as string}
@@ -190,10 +170,12 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
       )}
 
       {loginError.message && (
-        <span className="text-button">
+        <span className="inline-block mt-y text-button">
           {loginError.message || `No account found.`}
         </span>
       )}
+
+      {loading && <p className="!mx-0 mt-y text-button">{`Loading...`}</p>}
     </div>
   )
 }
