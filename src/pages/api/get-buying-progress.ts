@@ -36,11 +36,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Mapping of buying progress stages to numerical values
   // TODO: cleanup to utils file
   const mapBuyingProgress = {
-    'escrow-deposit': 1,
-    'schedule-closing': 2,
-    'download-documents': 3,
-    'full-payment': 4,
-    completed: 5,
+    1: 'escrow-deposit',
+    2: 'schedule-closing',
+    3: 'download-documents',
+    4: 'full-payment',
+    5: 'completed',
   }
 
   initializeAdmin() // Initialize Firebase Admin SDK
