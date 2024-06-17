@@ -44,10 +44,10 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         })
       } else {
         // show member page eventually, for now show available calendar slots
-        if (res.data.buyingProgress === 3) {
+        if (res.data.buyingProgress > 1) {
           setUserData({
             ...userData,
-            buyingProgress: 3,
+            buyingProgress: res.data.buyingProgress,
           })
         }
       }
