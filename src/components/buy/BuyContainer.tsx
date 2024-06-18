@@ -71,6 +71,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   }
 
   const initUpdateProcess = (progress: string) => {
+    setLoading(true)
     updateBuyingProgress(userData.email, progress).then(res => {
       setLoading(false)
       setUserData({
@@ -221,12 +222,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
         <BuyCalendar
           email={userData.email as string}
           unit={userData.unit as string}
-          onMeetingSet={() => {
-            setTimeout(() => {
-              setLoading(true)
-              initUpdateProcess('download-documents')
-            }, 2000)
-          }}
+          onMeetingSet={() => initUpdateProcess('download-documents')}
         />
       )}
 
@@ -237,10 +233,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
             <button
               className="button"
               disabled={loading}
-              onClick={() => {
-                setLoading(true)
-                initUpdateProcess('full-payment')
-              }}
+              onClick={() => initUpdateProcess('full-payment')}
             >
               {`Download documents`}
             </button>
