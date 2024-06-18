@@ -9,11 +9,14 @@ import { validateEmail } from '@lib/util/validate-email'
 import BuyCalendar from './BuyCalendar'
 import { accountSignIn, getAccount, getBuyingProgress } from './actions'
 import LoginForm from './LoginForm'
+import { SanityMedia, SanityMediaProps } from '@components/sanity'
 
 type BuyUnitProps = {
   title: string
   slug: string
-  price: number
+  price: string
+  area: string
+  photographs: SanityMediaProps[]
 }
 
 interface BuyContainerProps extends HTMLAttributes<HTMLFormElement> {
@@ -47,7 +50,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
 
   const filterUnits = (id: string) => {
     if (id) {
-      return units?.find(unit => unit.slug === id)
+      return units?.find(unit => (unit?.slug as any)?.current === id)
     }
   }
 
@@ -146,8 +149,24 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
     <div className={classNames(className)}>
       {filteredUnit && (
         <div className="rich-text mb-y">
+          <div className="max-w-[350px]">
+            {filteredUnit.photographs && (
+              <SanityMedia
+                {...(filteredUnit.photographs[0] as SanityMediaProps)}
+                imageProps={{
+                  alt: 'Unit image',
+                  quality: 8,
+                  priority: true,
+                  lqip: (filteredUnit.photographs[0].image as any)?.asset
+                    ?.metadata?.lqip,
+                }}
+                className="w-full h-auto object-contain"
+              />
+            )}
+          </div>
           <h2>{filteredUnit.title}</h2>
-          <p>Unit info</p>
+          <p>{filteredUnit.area}</p>
+          <p>{filteredUnit.price}</p>
         </div>
       )}
 
