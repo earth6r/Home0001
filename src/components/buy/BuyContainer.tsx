@@ -145,8 +145,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
     }
   }, [])
 
-  console.log(userData)
-
   return (
     <div className={classNames(className)}>
       {filteredUnit && (
@@ -190,24 +188,29 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
         />
       )}
 
-      {userData.buyingProgress === 'escrow-deposit' ||
-        (userData.buyingProgress === null && (
-          <DepositForm
-            email={userData.email}
-            unit={userData.unit as string}
-            onStripeSuccess={() => {
-              setTimeout(() => {
-                setLoading(true)
-                initGetBuyingProgress()
-              }, 2000)
-            }}
-          />
-        ))}
+      {userData.buyingProgress === 'escrow-deposit' && (
+        <DepositForm
+          email={userData.email}
+          unit={userData.unit as string}
+          onStripeSuccess={() => {
+            setTimeout(() => {
+              setLoading(true)
+              initGetBuyingProgress()
+            }, 2000)
+          }}
+        />
+      )}
 
       {userData.buyingProgress === 'schedule-closing' && (
         <BuyCalendar
           email={userData.email as string}
           unit={userData.unit as string}
+          onMeetingSet={() => {
+            setTimeout(() => {
+              setLoading(true)
+              initGetBuyingProgress()
+            }, 2000)
+          }}
         />
       )}
 

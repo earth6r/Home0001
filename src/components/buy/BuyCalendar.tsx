@@ -10,11 +10,13 @@ import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
   unit?: string
+  onMeetingSet: () => void
 }
 
 export const BuyCalendar: FC<BuyCalendarProps> = ({
   email,
   unit,
+  onMeetingSet,
   className,
 }) => {
   const {
@@ -40,6 +42,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
     createGoogleCalendarMeeting(data, email, unit, additionalEmails)
       .then(res => {
         console.log(res)
+        onMeetingSet()
         setFormSubmitted(true)
       })
       .catch(err => {
