@@ -7,7 +7,12 @@ import SetPasswordForm from './SetPasswordForm'
 import DepositForm from './DepositForm'
 import { validateEmail } from '@lib/util/validate-email'
 import BuyCalendar from './BuyCalendar'
-import { accountSignIn, getAccount, getBuyingProgress } from './actions'
+import {
+  accountSignIn,
+  getAccount,
+  getBuyingProgress,
+  updateBuyingProgress,
+} from './actions'
 import LoginForm from './LoginForm'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
 
@@ -17,6 +22,7 @@ type BuyUnitProps = {
   price: string
   area: string
   photographs: SanityMediaProps[]
+  file?: any
 }
 
 interface BuyContainerProps extends HTMLAttributes<HTMLFormElement> {
@@ -60,6 +66,16 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       setUserData({
         ...userData,
         buyingProgress: res.data.buyingProgress,
+      })
+    })
+  }
+
+  const initUpdateProcess = (progress: string) => {
+    updateBuyingProgress(userData.email, progress).then(res => {
+      setLoading(false)
+      setUserData({
+        ...userData,
+        buyingProgress: progress,
       })
     })
   }
@@ -208,10 +224,28 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
           onMeetingSet={() => {
             setTimeout(() => {
               setLoading(true)
-              initGetBuyingProgress()
+              initUpdateProcess('download-documents')
             }, 2000)
           }}
         />
+      )}
+
+      {userData.buyingProgress === 'download-documents' && filteredUnit && (
+        <div>
+          <h2>{`Download documents`}</h2>
+          <a href={filteredUnit.file?.asset.src}>
+            <button
+              className="button"
+              disabled={loading}
+              onClick={() => {
+                setLoading(true)
+                initUpdateProcess('full-payment')
+              }}
+            >
+              {`Download documents`}
+            </button>
+          </a>
+        </div>
       )}
 
       {loginError.message && (

@@ -625,13 +625,11 @@ export interface Unit extends SanityDocument {
   secondUnitDetails?: Array<SanityKeyed<Accordion>>;
 
   /**
-   * Closing Documents — `array`
+   * Closing Documents — `file`
    *
-   * Upload closing documents here
+   * Upload closing documents zip file here
    */
-  closingDocuments?: Array<
-    SanityKeyed<{ _type: "file"; asset: SanityReference<any> }>
-  >;
+  closingDocuments?: { _type: "file"; asset: SanityReference<any> };
 
   /**
    * Preview Image — `image`
