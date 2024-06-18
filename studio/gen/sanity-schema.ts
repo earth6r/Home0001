@@ -120,11 +120,11 @@ export interface Buy extends SanityDocument {
   };
 
   /**
-   * Body — `blockContent`
+   * Units List — `array`
    *
    *
    */
-  body?: BlockContent;
+  unitsList?: Array<SanityKeyedReference<Unit>>;
 
   /**
    * SEO — `seo`

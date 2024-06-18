@@ -10,9 +10,17 @@ import BuyCalendar from './BuyCalendar'
 import { accountSignIn, getAccount, getBuyingProgress } from './actions'
 import LoginForm from './LoginForm'
 
-interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
+type BuyUnitProps = {
+  title: string
+  slug: string
+  price: number
+}
 
-export const BuyContainer: FC<BuyProps> = ({ className }) => {
+interface BuyContainerProps extends HTMLAttributes<HTMLFormElement> {
+  units?: BuyUnitProps[]
+}
+
+export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   const router = useRouter()
 
   const [loading, setLoading] = useState(true)
@@ -32,6 +40,16 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     unit: null,
     buyingProgress: null,
   })
+
+  const [filteredUnit, setFilteredUnit] = useState<BuyUnitProps | undefined>(
+    undefined
+  )
+
+  const filterUnits = (id: string) => {
+    if (id) {
+      return units?.find(unit => unit.slug === id)
+    }
+  }
 
   const initGetBuyingProgress = () => {
     getBuyingProgress(userData.email).then(res => {
@@ -87,7 +105,6 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   }
 
   const checkAccount = (email: string) => {
-    console.log('checking account')
     setLoading(true)
     getAccount(email).then(res => {
       if (res.data.user_exists) {
@@ -106,13 +123,16 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   }
 
   useEffect(() => {
+    if (userData.unit) setFilteredUnit(filterUnits(userData.unit))
+  }, [userData.unit])
+
+  useEffect(() => {
     if (userData.loggedIn && !userData.buyingProgress) {
       initGetBuyingProgress()
     }
   }, [userData.loggedIn])
 
   useEffect(() => {
-    console.log('here', router.query.email)
     const routerEmail = router.query.email as string
     if (routerEmail) {
       checkAccount(routerEmail)
@@ -124,9 +144,9 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
 
   return (
     <div className={classNames(className)}>
-      {userData.unit && (
+      {filteredUnit && (
         <div className="rich-text mb-y">
-          <h2>{userData.unit}</h2>
+          <h2>{filteredUnit.title}</h2>
           <p>Unit info</p>
         </div>
       )}
