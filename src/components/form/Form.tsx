@@ -106,7 +106,7 @@ export const Form: FC<FormProps> = ({
           city: data.City,
           bedroomPreference: data.bedroom_preference,
           buyingTimelinedec2023: data.buyingtimelinedec2023,
-          userAgent: navigator.userAgent,
+          userAgent: navigator?.userAgent || null,
           fullQuery: localQuery || null,
         }
       )
