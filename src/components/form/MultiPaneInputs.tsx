@@ -273,7 +273,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           }
           const { first_name, last_name, email } = data
 
-          sendGoogleEvent('started waitlist form', options)
+          // sendGoogleEvent('started waitlist form', options)
           const formData = {
             first_name: first_name,
             last_name: last_name,
