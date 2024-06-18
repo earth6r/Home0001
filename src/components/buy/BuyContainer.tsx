@@ -160,7 +160,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       setShowLogin(true)
       setLoading(false)
     }
-  }, [])
+  }, [router.query.email])
 
   return (
     <div className={classNames(className)}>
