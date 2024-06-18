@@ -183,9 +183,8 @@ export default {
     {
       name: 'closingDocuments',
       title: 'Closing Documents',
-      type: 'array',
-      of: [{ type: 'file' }],
-      description: 'Upload closing documents here',
+      type: 'file',
+      description: 'Upload closing documents zip file here',
     },
     {
       name: 'previewImage',
