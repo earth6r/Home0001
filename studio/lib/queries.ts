@@ -250,7 +250,7 @@ export const BUY_UNIT_QUERY = `
     "photographs": photographs[]{
       ${MEDIA_QUERY}
     },
-    "file": file{
+    "file": closingDocuments{
       ${IMAGE_QUERY}
     },
   },
