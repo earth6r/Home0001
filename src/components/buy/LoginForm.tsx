@@ -33,7 +33,8 @@ export const LoginForm: FC<LoginFormProps> = ({ attemptSignIn, className }) => {
   }
 
   return (
-    <div className={classNames(className)}>
+    <div className={classNames(className, 'rich-text')}>
+      <h2>{`Sign In`}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
         <div
           className={classNames(className, 'w-full md:max-w-[526px] rich-text')}

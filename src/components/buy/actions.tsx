@@ -15,14 +15,11 @@ export const getBuyingProgress = async (email: string) => {
   )
 }
 
-export const updateBuyingProgress = async (
-  email: string,
-  buyingProgress: string
-) => {
+export const updateBuyingProgress = async (email: string, step: string) => {
   // buying progress stages: escrow-deposit, schedule-closing, download-documents, full-payment, completed
   return await axios.post(
     `${BASE_URL}/api/update-buying-progress`,
-    { email: email, buyingProgress: buyingProgress },
+    { email: email, buyingProgress: step },
     CONFIG
   )
 }
@@ -48,21 +45,16 @@ export const setPaymentIntent = async (email: string, unit: string) => {
   return await axios.post(
     `${BASE_URL}/api/create-stripe-payment`,
     { propertyType: unit, email: email },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
+    CONFIG
   )
 }
 
 // google calendar api
 export const getAvailableSlots = async () => {
-  return await axios.post(`${BASE_URL}/api/google/available-meeting-hours`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  return await axios.post(
+    `${BASE_URL}/api/google/available-meeting-hours`,
+    CONFIG
+  )
 }
 
 export const createGoogleCalendarMeeting = async (
@@ -92,10 +84,6 @@ export const createGoogleCalendarMeeting = async (
       eventDescription: `Home0001 closing for ${unit}`,
       additionalEmails: additionalEmails,
     },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
+    CONFIG
   )
 }
