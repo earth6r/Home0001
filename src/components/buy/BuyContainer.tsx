@@ -11,6 +11,7 @@ import BuyCalendar from './BuyCalendar'
 import {
   accountSignIn,
   getAccount,
+  getBookedCalendarDate,
   getBuyingProgress,
   updateBuyingProgress,
 } from './actions'
@@ -55,6 +56,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       fullPayment: false,
       completed: false,
     },
+    calendarDate: null,
   })
 
   const [filteredUnit, setFilteredUnit] = useState<BuyUnitProps | undefined>(
@@ -92,6 +94,21 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
         console.error(err)
         setLoading(false)
       })
+  }
+
+  const initGetCalendarDate = () => {
+    getBookedCalendarDate(userData.email)
+      .then(res => {
+        console.log(res)
+        setUserData({
+          ...userData,
+          calendarDate: res.data.date,
+        })
+      })
+      .catch(err => {
+        console.error(err)
+      })
+      .finally(() => setLoading(false))
   }
 
   const setLoginSuccess = (email: string, password: string, unit: string) => {
@@ -161,6 +178,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   useEffect(() => {
     if (userData.loggedIn) {
       initGetBuyingProgress()
+      initGetCalendarDate()
     }
   }, [userData.loggedIn])
 
@@ -241,11 +259,18 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
 
       {userData.loggedIn && userData.buyingProgress.escrowDeposit && (
         <>
-          <BuyCalendar
-            email={userData.email as string}
-            unit={userData.unit as string}
-            onMeetingSet={() => initUpdateProcess('scheduleClosing')}
-          />
+          {userData.calendarDate ? (
+            <span className="text-button">{`Closing scheduled for ${userData.calendarDate}`}</span>
+          ) : (
+            <BuyCalendar
+              email={userData.email as string}
+              unit={userData.unit as string}
+              onMeetingSet={() => {
+                initUpdateProcess('scheduleClosing')
+                initGetCalendarDate()
+              }}
+            />
+          )}
 
           {filteredUnit && (
             <div className="flex gap-x items-start mt-y rich-text">
