@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
@@ -47,7 +48,13 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
     hasPassword: true, // assume user has a password at first
     password: null,
     unit: null,
-    buyingProgress: null,
+    buyingProgress: {
+      escrowDeposit: false,
+      scheduleClosing: false,
+      downloadDocuments: false,
+      fullPayment: false,
+      completed: false,
+    },
   })
 
   const [filteredUnit, setFilteredUnit] = useState<BuyUnitProps | undefined>(
@@ -61,24 +68,30 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   }
 
   const initGetBuyingProgress = () => {
-    getBuyingProgress(userData.email).then(res => {
-      setLoading(false)
-      setUserData({
-        ...userData,
-        buyingProgress: res.data.buyingProgress,
+    getBuyingProgress(userData.email)
+      .then(res => {
+        setUserData({
+          ...userData,
+          buyingProgress: res.data.buyingProgress,
+        })
       })
-    })
+      .catch(err => {
+        console.error(err)
+      })
+      .finally(() => setLoading(false))
   }
 
-  const initUpdateProcess = (progress: string) => {
+  const initUpdateProcess = (step: string) => {
     setLoading(true)
-    updateBuyingProgress(userData.email, progress).then(res => {
-      setLoading(false)
-      setUserData({
-        ...userData,
-        buyingProgress: progress,
+    updateBuyingProgress(userData.email, step)
+      .then(res => {
+        console.log(res)
+        initGetBuyingProgress()
       })
-    })
+      .catch(err => {
+        console.error(err)
+        setLoading(false)
+      })
   }
 
   const setLoginSuccess = (email: string, password: string, unit: string) => {
@@ -146,7 +159,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   }, [userData.unit])
 
   useEffect(() => {
-    if (userData.loggedIn && !userData.buyingProgress) {
+    if (userData.loggedIn) {
       initGetBuyingProgress()
     }
   }, [userData.loggedIn])
@@ -160,6 +173,8 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       setLoading(false)
     }
   }, [router.query.email])
+
+  console.log(userData)
 
   return (
     <div className={classNames(className)}>
@@ -187,7 +202,16 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       )}
 
       {!userData.loggedIn && showLogin && (
-        <LoginForm attemptSignIn={attemptSignIn} />
+        <>
+          <LoginForm attemptSignIn={attemptSignIn} />
+          <button
+            className="mt-y text-button underline decoration-[2px] underline-offset-2 pb-[2px]"
+            onClick={() => {
+              setShowLogin(false)
+              setUserData({ ...userData, hasPassword: false })
+            }}
+          >{`Or finish setting up account`}</button>
+        </>
       )}
 
       {userData.loggedIn && !userData.unit && (
@@ -204,7 +228,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
         />
       )}
 
-      {userData.buyingProgress === 'escrow-deposit' && (
+      {userData.loggedIn && !userData.buyingProgress.escrowDeposit && (
         <DepositForm
           email={userData.email}
           unit={userData.unit as string}
@@ -212,32 +236,37 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
             setTimeout(() => {
               setLoading(true)
               initGetBuyingProgress()
-            }, 2000)
+            }, 5000)
           }}
         />
       )}
 
-      {userData.buyingProgress === 'schedule-closing' && (
-        <BuyCalendar
-          email={userData.email as string}
-          unit={userData.unit as string}
-          onMeetingSet={() => initUpdateProcess('download-documents')}
-        />
-      )}
+      {userData.loggedIn && userData.buyingProgress.escrowDeposit && (
+        <>
+          <BuyCalendar
+            email={userData.email as string}
+            unit={userData.unit as string}
+            onMeetingSet={() => initUpdateProcess('scheduleClosing')}
+          />
 
-      {userData.buyingProgress === 'download-documents' && filteredUnit && (
-        <div>
-          <h2>{`Download documents`}</h2>
-          <a href={filteredUnit.file?.asset.src}>
-            <button
-              className="button"
-              disabled={loading}
-              onClick={() => initUpdateProcess('full-payment')}
-            >
-              {`Download documents`}
-            </button>
-          </a>
-        </div>
+          {filteredUnit && (
+            <div className="flex gap-x items-start mt-y rich-text">
+              <a href={filteredUnit.file?.asset.url} target="_blank" download>
+                <button
+                  className="button text-button"
+                  disabled={loading}
+                  onClick={() => initUpdateProcess('downloadDocuments')}
+                >
+                  {`Download documents`}
+                </button>
+              </a>
+
+              {userData.buyingProgress.downloadDocuments && (
+                <span className="m-0">✅</span>
+              )}
+            </div>
+          )}
+        </>
       )}
 
       {loginError.message && (

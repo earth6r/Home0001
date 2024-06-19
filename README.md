@@ -219,3 +219,21 @@ Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
 \
  -H "Origin: https://buy.home0001.com" \
  -I
+
+# Error Handling Platform
+
+- send error via api call
+- make above wrapped in a function
+
+- store the error in a firestore collection
+- display the errors in the analytics site - error count over time chart - total
+  number of errors - errors in the last 24 hours - errors table (with action
+  button of marking it as resolved)
+
+schema:
+
+- createdAt
+- error
+- errorType optional
+- status code optional
+- resolved defaulted to false

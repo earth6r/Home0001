@@ -143,7 +143,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
 
       {formSubmitted.submitted && formSubmitted.success && (
         <div className="relative mt-ydouble mb-2">
-          <p className="font-medium uppercase">{`Payment successful`}</p>
+          <p className="font-medium uppercase">{`Payment successful. You will be redirected shortly, please don't refresh the page.`}</p>
         </div>
       )}
     </>
@@ -162,7 +162,7 @@ export const DepositForm: FC<DepositFormProps> = ({
         className={classNames(className, 'w-full md:max-w-[526px] rich-text')}
       >
         <h2>{`Make deposit`}</h2>
-        <p>{`We’ll send you a punch list and confirmation of your offer. In order to receive these documents including the offering plan you need to make a deposit of [TK].`}</p>
+        <p>{`We’ll send you a punch list and confirmation of your offer. In order to receive these documents including the offering plan you need to make a deposit of $${DEPOSIT_AMOUNT}.`}</p>
 
         <Elements
           stripe={stripePromise}
