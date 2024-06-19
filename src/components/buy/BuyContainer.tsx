@@ -204,13 +204,13 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       {!userData.loggedIn && showLogin && (
         <>
           <LoginForm attemptSignIn={attemptSignIn} />
-          <button
+          {/* <button
             className="mt-y text-button underline decoration-[2px] underline-offset-2 pb-[2px]"
             onClick={() => {
               setShowLogin(false)
               setUserData({ ...userData, hasPassword: false })
             }}
-          >{`Or finish setting up account`}</button>
+          >{`Or finish setting up account`}</button> */}
         </>
       )}
 
@@ -223,7 +223,12 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
           email={router.query.email as string}
           onPasswordSet={password => {
             setLoading(true)
-            setUserData({ ...userData, password: password, hasPassword: true })
+            setUserData({
+              ...userData,
+              loggedIn: true,
+              password: password,
+              hasPassword: true,
+            })
           }}
         />
       )}
