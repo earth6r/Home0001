@@ -31,6 +31,8 @@ const Page: NextPage<PageProps> = (
 ) => {
   const page: SanityBuy = filterDataToSingleItem(data)
 
+  console.log('page:', page)
+
   return !page?._id.includes('drafts.') || preview ? (
     <PageTransition ref={ref}>
       <article className={classNames('grid md:grid-cols-3 container pt-page')}>
