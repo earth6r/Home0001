@@ -76,6 +76,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
           ...userData,
           buyingProgress: res.data.buyingProgress,
         })
+        if (res.data.buyingProgress.scheduleClosing) initGetCalendarDate()
       })
       .catch(err => {
         console.error(err)
@@ -178,7 +179,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   useEffect(() => {
     if (userData.loggedIn) {
       initGetBuyingProgress()
-      initGetCalendarDate()
     }
   }, [userData.loggedIn])
 
@@ -267,7 +267,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
               unit={userData.unit as string}
               onMeetingSet={() => {
                 initUpdateProcess('scheduleClosing')
-                initGetCalendarDate()
               }}
             />
           )}
