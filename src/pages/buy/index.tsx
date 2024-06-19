@@ -1,7 +1,7 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react'
 import groq from 'groq'
 import type { InferGetStaticPropsType, GetStaticProps, NextPage } from 'next'
-import type { Page as SanityPage } from '@gen/sanity-schema'
+import type { Buy as SanityBuy } from '@gen/sanity-schema'
 import type { PageProps } from '@lib/next'
 import { getPageStaticProps } from '@lib/next'
 import { BUY_UNIT_QUERY, filterDataToSingleItem } from '@studio/lib'
@@ -29,12 +29,12 @@ const Page: NextPage<PageProps> = (
   { data, preview }: InferGetStaticPropsType<typeof getStaticProps>,
   ref: PageRefType
 ) => {
-  const page: SanityPage = filterDataToSingleItem(data)
+  const page: SanityBuy = filterDataToSingleItem(data)
 
   return !page?._id.includes('drafts.') || preview ? (
     <PageTransition ref={ref}>
       <article className={classNames('flex flex-col container pt-page')}>
-        <BuyContainer />
+        <BuyContainer units={page?.unitsList as any} />
       </article>
     </PageTransition>
   ) : null

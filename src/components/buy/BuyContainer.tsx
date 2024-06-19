@@ -7,12 +7,29 @@ import SetPasswordForm from './SetPasswordForm'
 import DepositForm from './DepositForm'
 import { validateEmail } from '@lib/util/validate-email'
 import BuyCalendar from './BuyCalendar'
-import { accountSignIn, getAccount, getBuyingProgress } from './actions'
+import {
+  accountSignIn,
+  getAccount,
+  getBuyingProgress,
+  updateBuyingProgress,
+} from './actions'
 import LoginForm from './LoginForm'
+import { SanityMedia, SanityMediaProps } from '@components/sanity'
 
-interface BuyProps extends HTMLAttributes<HTMLFormElement> {}
+type BuyUnitProps = {
+  title: string
+  slug: string
+  price: string
+  area: string
+  photographs: SanityMediaProps[]
+  file?: any
+}
 
-export const BuyContainer: FC<BuyProps> = ({ className }) => {
+interface BuyContainerProps extends HTMLAttributes<HTMLFormElement> {
+  units?: BuyUnitProps[]
+}
+
+export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   const router = useRouter()
 
   const [loading, setLoading] = useState(true)
@@ -33,6 +50,16 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     buyingProgress: null,
   })
 
+  const [filteredUnit, setFilteredUnit] = useState<BuyUnitProps | undefined>(
+    undefined
+  )
+
+  const filterUnits = (id: string) => {
+    if (id) {
+      return units?.find(unit => (unit?.slug as any)?.current === id)
+    }
+  }
+
   const initGetBuyingProgress = () => {
     getBuyingProgress(userData.email).then(res => {
       setLoading(false)
@@ -43,9 +70,19 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
     })
   }
 
+  const initUpdateProcess = (progress: string) => {
+    setLoading(true)
+    updateBuyingProgress(userData.email, progress).then(res => {
+      setLoading(false)
+      setUserData({
+        ...userData,
+        buyingProgress: progress,
+      })
+    })
+  }
+
   const setLoginSuccess = (email: string, password: string, unit: string) => {
     setLoginError({ error: false, message: '' })
-    setLoading(false)
     setUserData({
       ...userData,
       loggedIn: true,
@@ -87,7 +124,6 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   }
 
   const checkAccount = (email: string) => {
-    console.log('checking account')
     setLoading(true)
     getAccount(email).then(res => {
       if (res.data.user_exists) {
@@ -106,13 +142,16 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
   }
 
   useEffect(() => {
+    if (userData.unit) setFilteredUnit(filterUnits(userData.unit))
+  }, [userData.unit])
+
+  useEffect(() => {
     if (userData.loggedIn && !userData.buyingProgress) {
       initGetBuyingProgress()
     }
   }, [userData.loggedIn])
 
   useEffect(() => {
-    console.log('here', router.query.email)
     const routerEmail = router.query.email as string
     if (routerEmail) {
       checkAccount(routerEmail)
@@ -120,14 +159,30 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
       setShowLogin(true)
       setLoading(false)
     }
-  }, [])
+  }, [router.query.email])
 
   return (
     <div className={classNames(className)}>
-      {userData.unit && (
+      {filteredUnit && (
         <div className="rich-text mb-y">
-          <h2>{userData.unit}</h2>
-          <p>Unit info</p>
+          <div className="max-w-[350px]">
+            {filteredUnit.photographs && (
+              <SanityMedia
+                {...(filteredUnit.photographs[0] as SanityMediaProps)}
+                imageProps={{
+                  alt: 'Unit image',
+                  quality: 8,
+                  priority: true,
+                  lqip: (filteredUnit.photographs[0].image as any)?.asset
+                    ?.metadata?.lqip,
+                }}
+                className="w-full h-auto object-contain"
+              />
+            )}
+          </div>
+          <h2>{filteredUnit.title}</h2>
+          <p>{filteredUnit.area}</p>
+          <p>{filteredUnit.price}</p>
         </div>
       )}
 
@@ -166,7 +221,23 @@ export const BuyContainer: FC<BuyProps> = ({ className }) => {
         <BuyCalendar
           email={userData.email as string}
           unit={userData.unit as string}
+          onMeetingSet={() => initUpdateProcess('download-documents')}
         />
+      )}
+
+      {userData.buyingProgress === 'download-documents' && filteredUnit && (
+        <div>
+          <h2>{`Download documents`}</h2>
+          <a href={filteredUnit.file?.asset.src}>
+            <button
+              className="button"
+              disabled={loading}
+              onClick={() => initUpdateProcess('full-payment')}
+            >
+              {`Download documents`}
+            </button>
+          </a>
+        </div>
       )}
 
       {loginError.message && (

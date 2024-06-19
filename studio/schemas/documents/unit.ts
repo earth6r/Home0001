@@ -181,6 +181,12 @@ export default {
       of: [{ type: 'accordion', title: 'Unit Details' }],
     },
     {
+      name: 'closingDocuments',
+      title: 'Closing Documents',
+      type: 'file',
+      description: 'Upload closing documents zip file here',
+    },
+    {
       name: 'previewImage',
       title: 'Preview Image',
       type: 'image',

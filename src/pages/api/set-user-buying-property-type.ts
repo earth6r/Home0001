@@ -1,6 +1,7 @@
 // Import necessary modules
 import { initializeAdmin } from '@lib/firebase/admin' // Function to initialize Firebase Admin SDK
 import { enableCors } from '@lib/next/cors'
+import { propertyTypes } from '@lib/util/property-types'
 import admin from 'firebase-admin' // Firebase Admin SDK
 
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
@@ -34,27 +35,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  //   TODO: cleanup to utils file
-  const validUserBuyingPropertyTypes = [
-    'les-2A',
-    'les-2B',
-    'les-2C',
-    'les-2D',
-    'les-3A',
-    'les-3B',
-    'les-3C',
-    'les-3D',
-    'les-4A',
-    'les-4B',
-    'les-4C',
-    'les-4D',
-    'les-5B',
-    'les-6A',
-    'les-6B',
-    'townhouse-6',
-    'townhouse-7',
-  ]
-
   // Check if userBuyingPropertyType is a string
   if (typeof userBuyingPropertyType !== 'string') {
     res.status(400).json({
@@ -72,9 +52,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   // Validate buyingProgress value
-  if (!validUserBuyingPropertyTypes.includes(userBuyingPropertyType)) {
+  if (!propertyTypes.includes(userBuyingPropertyType)) {
     res.status(400).json({
-      error: `userBuyingPropertyType must be one of ${validUserBuyingPropertyTypes.join(
+      error: `userBuyingPropertyType must be one of ${propertyTypes.join(
         ', '
       )}`, // Respond with error if userBuyingPropertyType is invalid
     })
