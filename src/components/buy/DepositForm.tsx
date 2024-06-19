@@ -1,21 +1,22 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useState } from 'react'
+import React, { HTMLAttributes, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import {
   useStripe,
   useElements,
-  CardElement,
   Elements,
+  PaymentElement,
 } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { setPaymentIntent } from './actions'
 
 type PaymentContainerProps = {
-  clientSecret?: string
+  email?: string
+  unit?: string
   onStripeSuccess?: () => void
 }
 
@@ -25,12 +26,15 @@ interface DepositFormProps extends HTMLAttributes<HTMLFormElement> {
   onStripeSuccess?: () => void
 }
 
+const DEPOSIT_AMOUNT = 1000
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY || 'pk_test_'
 )
 
 const PaymentContainer: FC<PaymentContainerProps> = ({
-  clientSecret,
+  email,
+  unit,
   onStripeSuccess,
 }) => {
   const {
@@ -45,19 +49,24 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
     success: false,
   })
   const [formError, setFormError] = useState({ error: false, message: '' })
+  const [clientSecret, setClientSecret] = useState(null)
 
   const stripe = useStripe()
   const elements = useElements()
 
-  const onSubmit = async () => {
+  const initPayment = async () => {
+    if (!stripe || !elements) return
+    console.log('initPayment')
+
     // send init webhook and send email on submit to backend
-    if (!stripe || !elements || !clientSecret) return
+    const paymentEl = elements.getElement(PaymentElement)
+    if (!paymentEl || !clientSecret) return
 
-    const card = elements.getElement(CardElement)
-    if (!card) return
-
-    const result = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: { card },
+    const result = await stripe.confirmPayment({
+      elements,
+      clientSecret: clientSecret,
+      confirmParams: { return_url: '#paid' },
+      redirect: 'if_required',
     })
 
     if (result.error) {
@@ -74,31 +83,36 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
     }
   }
 
+  const onSubmit = async () => {
+    console.log('onSubmit')
+    if (!unit || !email || !elements) return
+
+    // Trigger form validation and wallet collection
+    const { error: submitError } = await elements.submit()
+    if (submitError) {
+      console.log(submitError)
+      return
+    }
+
+    console.log('setPaymentIntent')
+    setPaymentIntent(email, unit)
+      .then(res => {
+        setClientSecret(res.data.clientSecret)
+        initPayment()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   return (
     <>
       {!formSubmitted.success && (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           <div className={classNames('relative flex flex-col gap-y')}>
             <div className="relative flex flex-col gap-y">
-              <div className="input grid items-center w-full">
-                <CardElement
-                  options={{
-                    style: {
-                      base: {
-                        color: '#000',
-                        fontFamily: '"Has Grot", Arial, sans-serif',
-                        fontSize: '16px',
-                        '::placeholder': {
-                          color: '#E9E9E9',
-                        },
-                      },
-                      invalid: {
-                        color: '#000',
-                        iconColor: '#000',
-                      },
-                    },
-                  }}
-                />
+              <div className="grid items-center w-full">
+                <PaymentElement />
               </div>
 
               <div
@@ -142,19 +156,6 @@ export const DepositForm: FC<DepositFormProps> = ({
   onStripeSuccess,
   className,
 }) => {
-  const [clientSecret, setClientSecret] = useState(null)
-
-  useEffect(() => {
-    if (!unit || !email) return
-    setPaymentIntent(email, unit)
-      .then(res => {
-        setClientSecret(res.data.clientSecret)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [])
-
   return (
     <div className={classNames(className)}>
       <div
@@ -163,14 +164,16 @@ export const DepositForm: FC<DepositFormProps> = ({
         <h2>{`Make deposit`}</h2>
         <p>{`We’ll send you a punch list and confirmation of your offer. In order to receive these documents including the offering plan you need to make a deposit of [TK].`}</p>
 
-        {clientSecret && (
-          <Elements stripe={stripePromise} options={{ clientSecret }}>
-            <PaymentContainer
-              clientSecret={clientSecret}
-              onStripeSuccess={onStripeSuccess}
-            />
-          </Elements>
-        )}
+        <Elements
+          stripe={stripePromise}
+          options={{ mode: 'payment', amount: DEPOSIT_AMOUNT, currency: 'usd' }}
+        >
+          <PaymentContainer
+            email={email}
+            unit={unit}
+            onStripeSuccess={onStripeSuccess}
+          />
+        </Elements>
       </div>
     </div>
   )
