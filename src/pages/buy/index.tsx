@@ -33,8 +33,11 @@ const Page: NextPage<PageProps> = (
 
   return !page?._id.includes('drafts.') || preview ? (
     <PageTransition ref={ref}>
-      <article className={classNames('flex flex-col container pt-page')}>
-        <BuyContainer units={page?.unitsList as any} />
+      <article className={classNames('grid md:grid-cols-3 container pt-page')}>
+        <BuyContainer
+          units={page?.unitsList as any}
+          className="md:col-start-2"
+        />
       </article>
     </PageTransition>
   ) : null
