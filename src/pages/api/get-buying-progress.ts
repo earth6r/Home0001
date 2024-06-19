@@ -63,7 +63,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     .get()
   if (buyingProgress.empty) {
     res.status(200).json({
-      buyingProgress: null, // Respond with null if no buying progress is found
+      buyingProgress: mapBuyingProgress[1], // Respond with escrow-deposit if no buying progress is found
     })
     return
   }
