@@ -83,7 +83,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
 
   const setLoginSuccess = (email: string, password: string, unit: string) => {
     setLoginError({ error: false, message: '' })
-    setLoading(false)
     setUserData({
       ...userData,
       loggedIn: true,
