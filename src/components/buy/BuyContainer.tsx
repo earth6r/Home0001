@@ -236,7 +236,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
             setTimeout(() => {
               setLoading(true)
               initGetBuyingProgress()
-            }, 2000)
+            }, 5000)
           }}
         />
       )}

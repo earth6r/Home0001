@@ -143,7 +143,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
 
       {formSubmitted.submitted && formSubmitted.success && (
         <div className="relative mt-ydouble mb-2">
-          <p className="font-medium uppercase">{`Payment successful`}</p>
+          <p className="font-medium uppercase">{`Payment successful. You will be redirected shortly, please don't refresh the page.`}</p>
         </div>
       )}
     </>
