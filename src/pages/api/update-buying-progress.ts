@@ -13,7 +13,7 @@ export const config = {
 // Example cURL command to test the API endpoint
 // curl -X POST http://localhost:3000/api/update-buying-progress -H "Content-Type: application/json" -d '{"buyingProgress": "escrow-deposit", "email": "apinanapinan@icloud.com"}'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  let body = req.body // Extract the body from the request
+  let { body = null } = req
 
   const buyingProgress = body?.buyingProgress // Extract the buyingProgress field from the body
   const email = body?.email // Extract the email field from the body
@@ -53,28 +53,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Validate buyingProgress value
   if (
     ![
-      'escrow-deposit',
-      'download-documents',
-      'schedule-closing',
-      'full-payment',
+      'escrowDeposit',
+      'downloadDocuments',
+      'scheduleClosing',
+      'fullPayment',
       'completed',
     ].includes(buyingProgress)
   ) {
     res.status(400).json({
       error:
-        'buyingProgress must be one of escrow-deposit, download-documents, schedule-closing, full-payment, or completed', // Respond with error if buyingProgress is invalid
+        'buyingProgress must be one of escrowDeposit, downloadDocuments, scheduleClosing, fullPayment, completed', // Respond with error if buyingProgress is not a valid value
     })
     return
-  }
-
-  // Mapping of buying progress stages to numerical values
-  // TODO: cleanup to utils file
-  const mapBuyingProgress = {
-    'escrow-deposit': 1,
-    'schedule-closing': 2,
-    'download-documents': 3,
-    'full-payment': 4,
-    completed: 5,
   }
 
   initializeAdmin() // Initialize Firebase Admin SDK
@@ -111,9 +101,29 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     .collection('usersBuyingProgress')
     .doc(usersBuyingProgress.docs[0].id)
     .update({
-      // @ts-expect-error
-      buyingProgress: mapBuyingProgress[buyingProgress], // Update the buying progress using the mapped value
+      [buyingProgress]: true, // Update the buying progress using the mapped value
     })
+
+  // query the updated buying progress
+  const updatedBuyingProgress = await db
+    .collection('usersBuyingProgress')
+    .doc(usersBuyingProgress.docs[0].id)
+    .get()
+
+  // if .escrowDeposit is true, .scheduleClosing is true, .downloadDocuments is true, .fullPayment is true, then set .completed to true
+  if (
+    updatedBuyingProgress.data()?.escrowDeposit &&
+    updatedBuyingProgress.data()?.scheduleClosing &&
+    updatedBuyingProgress.data()?.downloadDocuments &&
+    updatedBuyingProgress.data()?.fullPayment
+  ) {
+    await db
+      .collection('usersBuyingProgress')
+      .doc(usersBuyingProgress.docs[0].id)
+      .update({
+        completed: true,
+      })
+  }
 
   // Respond with success message
   res.status(200).json({

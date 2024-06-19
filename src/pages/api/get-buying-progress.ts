@@ -63,16 +63,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     .get()
   if (buyingProgress.empty) {
     res.status(200).json({
-      buyingProgress: mapBuyingProgress[1], // Respond with escrow-deposit if no buying progress is found
+      buyingProgress: {
+        escrowDeposit: false,
+        scheduleClosing: false,
+        downloadDocuments: false,
+        fullPayment: false,
+        completed: false,
+      },
     })
     return
   }
 
-  const buyingProgressValue = buyingProgress.docs[0].data().buyingProgress // Get the user's buying progress
+  const buyingProgressValue = buyingProgress.docs[0].data() // Get the user's buying progress
 
   res.status(200).json({
-    // @ts-expect-error fix this type
-    buyingProgress: mapBuyingProgress[buyingProgressValue], // Respond with the numerical value of the user's buying progress
+    buyingProgress: {
+      escrowDeposit: buyingProgressValue.escrowDeposit,
+      scheduleClosing: buyingProgressValue.scheduleClosing,
+      downloadDocuments: buyingProgressValue.downloadDocuments,
+      fullPayment: buyingProgressValue.fullPayment,
+      completed: buyingProgressValue.completed,
+    }, // Respond with the numerical value of the user's buying progress
   })
 }
 
