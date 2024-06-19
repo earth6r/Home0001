@@ -228,18 +228,20 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
         />
       )}
 
-      {userData.loggedIn && !userData.buyingProgress.escrowDeposit && (
-        <DepositForm
-          email={userData.email}
-          unit={userData.unit as string}
-          onStripeSuccess={() => {
-            setTimeout(() => {
-              setLoading(true)
-              initGetBuyingProgress()
-            }, 5000)
-          }}
-        />
-      )}
+      {userData.loggedIn &&
+        !userData.buyingProgress.escrowDeposit &&
+        !loading && (
+          <DepositForm
+            email={userData.email}
+            unit={userData.unit as string}
+            onStripeSuccess={() => {
+              setTimeout(() => {
+                setLoading(true)
+                initGetBuyingProgress()
+              }, 5000)
+            }}
+          />
+        )}
 
       {userData.loggedIn && userData.buyingProgress.escrowDeposit && (
         <>
