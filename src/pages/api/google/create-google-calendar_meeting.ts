@@ -4,6 +4,7 @@ import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
 import axios from 'axios'
+import admin from 'firebase-admin'
 
 const Hubspot_Apikey = process.env.NEXT_PUBLIC_HUBSPOT_API_KEY
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
@@ -145,6 +146,34 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
               },
             }
           )
+
+          const db = admin.firestore()
+          const user = await db
+            .collection('users')
+            .where('email', '==', inviteeEmail)
+            .get()
+
+          if (!user.empty) {
+            const buyingProgress = await db
+              .collection('usersBuyingProgress')
+              .where('userUID', '==', user.docs[0].id)
+              .get()
+
+            if (!buyingProgress.empty) {
+              const buyingProgressValueId = buyingProgress.docs[0].id
+
+              await db
+                .collection('usersBuyingProgress')
+                .doc(buyingProgressValueId)
+                .update({
+                  scheduledCalendarDate: closingDate,
+                })
+            } else {
+              console.error('Buying progress not found in Firestore')
+            }
+          } else {
+            console.error('User not found in Firestore')
+          }
 
           res.status(200).json({ success: true, event: response.data.id })
         } catch (error) {
