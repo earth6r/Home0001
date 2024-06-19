@@ -87,3 +87,11 @@ export const createGoogleCalendarMeeting = async (
     CONFIG
   )
 }
+
+export const getBookedCalendarDate = async (email: string) => {
+  return await axios.post(
+    `${BASE_URL}/api/google/get-booked-calendar-date`,
+    { email: email },
+    CONFIG
+  )
+}

@@ -1,11 +1,16 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useState } from 'react'
+import React, { HTMLAttributes, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, type SwiperOptions } from 'swiper'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import IconChevron from '@components/icons/IconChevron'
 
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
@@ -33,8 +38,9 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   }>({ error: null, message: '' })
 
   const [availableSlots, setAvailableSlots] = useState([])
-  const [revealedTimes, setRevealedTimes] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const slidesRef = useRef(null)
 
   const onSubmit = async (data: any) => {
     if (!email || !unit) return
@@ -74,7 +80,6 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   return (
     <div className={classNames(className, 'rich-text')}>
       <h2>{`Schedule closing`}</h2>
-      <p>{`Available calendar slots`}</p>
 
       {!formSubmitted && (
         <form
@@ -84,38 +89,101 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
           <div className="flex flex-col justify-start gap-y mb-ydouble">
             {loading && <p className="!mx-0 mt-y">{`Loading...`}</p>}
 
-            {availableSlots.map(
-              ({ date, slots }: { date: string; slots: string[] }, index) => (
-                <div key={index} className="flex flex-col justify-start gap-y">
-                  <div className="flex gap-0">
-                    <input
-                      type="radio"
-                      id={date}
-                      value={date}
-                      {...register('date')}
-                      onChange={() => setRevealedTimes(index)}
-                    />
-                    <label htmlFor={date}>{date}</label>
-                  </div>
+            <Swiper
+              ref={slidesRef}
+              modules={[Navigation]}
+              loop={false}
+              spaceBetween={16}
+              speed={600}
+              slidesPerView={1}
+              navigation={{
+                nextEl: '.swiper-next',
+                prevEl: '.swiper-prev',
+              }}
+              className={classNames(
+                'calendar w-full ml-0 md:mx-auto overflow-hidden cursor-grab'
+              )}
+            >
+              {availableSlots.map(
+                ({ date, slots }: { date: string; slots: string[] }, index) => {
+                  const formattedDate = new Date(date).toLocaleDateString(
+                    'en-US',
+                    {
+                      weekday: undefined,
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    }
+                  )
 
-                  {revealedTimes === index && (
-                    <div className="flex flex-wrap gap-xhalf">
-                      {slots?.map((time: string, index: number) => (
-                        <div key={index} className="flex gap-0">
-                          <input
-                            type="radio"
-                            id={time}
-                            value={time}
-                            {...register('startTime')}
-                          />
-                          <label htmlFor={time}>{time}</label>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  return (
+                    <SwiperSlide key={index} className="block h-full">
+                      <div className="mb-y">
+                        <input
+                          type="radio"
+                          id={date}
+                          value={date}
+                          className="!hidden"
+                          {...register('date')}
+                        />
+                        <label htmlFor={date} className="text-button">
+                          {formattedDate}
+                        </label>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-xhalf">
+                        {slots?.map((time: string, index: number) => (
+                          <div
+                            key={index}
+                            className="flex items-center justify-center relative w-full h-btn cursor-pointer"
+                          >
+                            <input
+                              type="radio"
+                              id={time}
+                              value={time}
+                              className="background-checkbox"
+                              {...register('startTime')}
+                              onClick={() => {
+                                const dateEl = document.getElementById(date)
+                                if (dateEl) {
+                                  dateEl.click()
+                                }
+                              }}
+                            />
+                            <label
+                              htmlFor={time}
+                              className="relative cursor-pointer z-above"
+                            >
+                              {time}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </SwiperSlide>
+                  )
+                }
+              )}
+              <div
+                className={classNames(
+                  'flex absolute top-0 right-0 transition-opacity duration-200 pointer-events-none z-above'
+                )}
+              >
+                <div className="p-x transform -translate-y-1/3 swiper-prev pointer-events-auto cursor-pointer">
+                  <IconChevron
+                    width="13"
+                    fill="black"
+                    className={classNames('rotate-180')}
+                  />
                 </div>
-              )
-            )}
+                <div className="p-x transform -translate-y-1/3 swiper-next pointer-events-auto cursor-pointer">
+                  <IconChevron
+                    width="13"
+                    fill="black"
+                    className={classNames('relative')}
+                  />
+                </div>
+              </div>
+            </Swiper>
 
             <input
               type="email"
@@ -131,7 +199,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
             type={'submit'}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : 'Schedule time'}
+            {isSubmitting ? 'Submitting...' : 'Confirm'}
             <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
 

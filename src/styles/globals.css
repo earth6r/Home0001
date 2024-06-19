@@ -189,11 +189,19 @@ footer {
   align-items: center;
 }
 
+.calendar .swiper-wrapper {
+  align-items: start;
+}
+
 .swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+.calendar .swiper-slide {
+  display: block;
 }
 
 .swiper-prev,
