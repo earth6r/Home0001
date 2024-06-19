@@ -11,7 +11,7 @@ export const config = {
 }
 
 // Example cURL command to test the API endpoint
-// curl -X POST http://localhost:3000/api/update-buying-progress -H "Content-Type: application/json" -d '{"buyingProgress": "escrow-deposit", "email": "apinanapinan@icloud.com"}'
+// curl -X GET http://localhost:3000/api/google/get-booked-calendar-date?email=testing999@gmail.com
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   let { query = null } = req
 
@@ -64,7 +64,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Respond with success message
   res.status(200).json({
-    date: usersBuyingProgress.docs[0].data().scheduledCalendarDate, // Respond with the scheduled calendar date
+    date: usersBuyingProgress.docs[0].data()?.scheduledCalendarDate || null, // Respond with the scheduled calendar date
   })
 }
 
