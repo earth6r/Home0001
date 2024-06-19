@@ -32,6 +32,8 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY || 'pk_test_'
 )
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+
 const PaymentContainer: FC<PaymentContainerProps> = ({
   email,
   unit,
@@ -65,7 +67,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
     const result = await stripe.confirmPayment({
       elements,
       clientSecret: clientSecret,
-      confirmParams: { return_url: '#paid' },
+      confirmParams: { return_url: BASE_URL + '?deposit=success' },
       redirect: 'if_required',
     })
 
