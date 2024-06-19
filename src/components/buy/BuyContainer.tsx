@@ -202,16 +202,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       )}
 
       {!userData.loggedIn && showLogin && (
-        <>
-          <LoginForm attemptSignIn={attemptSignIn} />
-          {/* <button
-            className="mt-y text-button underline decoration-[2px] underline-offset-2 pb-[2px]"
-            onClick={() => {
-              setShowLogin(false)
-              setUserData({ ...userData, hasPassword: false })
-            }}
-          >{`Or finish setting up account`}</button> */}
-        </>
+        <LoginForm attemptSignIn={attemptSignIn} />
       )}
 
       {userData.loggedIn && !userData.unit && (
