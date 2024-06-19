@@ -5,6 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
 import axios from 'axios'
 import admin from 'firebase-admin'
+import { initializeAdmin } from '@lib/firebase/admin'
 
 const Hubspot_Apikey = process.env.NEXT_PUBLIC_HUBSPOT_API_KEY
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
@@ -146,6 +147,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
               },
             }
           )
+
+          initializeAdmin()
 
           const db = admin.firestore()
           const user = await db
