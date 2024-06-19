@@ -13,7 +13,7 @@ export const config = {
 // Handler function to process API requests
 // curl -X GET http://localhost:3000/api/get-buying-progress?email=apinanapinan@icloud.com
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const query = req.query // Extract query parameters from the request
+  const { query = null } = req
 
   const email = query?.email // Extract the 'email' query parameter
 
