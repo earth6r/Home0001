@@ -8,8 +8,7 @@ import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, type SwiperOptions } from 'swiper'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { Navigation } from 'swiper'
 import IconChevron from '@components/icons/IconChevron'
 
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
