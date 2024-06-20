@@ -36,9 +36,7 @@ export const LoginForm: FC<LoginFormProps> = ({ attemptSignIn, className }) => {
     <div className={classNames(className, 'rich-text')}>
       <h2>{`Sign In`}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
-        <div
-          className={classNames(className, 'w-full md:max-w-[526px] rich-text')}
-        >
+        <div className="w-full md:max-w-[526px] rich-text">
           <div className={classNames('relative flex flex-col gap-y')}>
             <div className="relative flex flex-col gap-y">
               <input

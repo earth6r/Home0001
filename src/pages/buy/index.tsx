@@ -34,9 +34,7 @@ const Page: NextPage<PageProps> = (
   return !page?._id.includes('drafts.') || preview ? (
     <PageTransition ref={ref}>
       <article
-        className={classNames(
-          'grid grid-cols-1 md:grid-cols-3 container pt-page'
-        )}
+        className={classNames('grid grid-cols-1 md:grid-cols-3 w-full pt-page')}
       >
         <BuyContainer
           units={page?.unitsList as any}

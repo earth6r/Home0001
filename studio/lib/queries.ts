@@ -246,8 +246,16 @@ export const BUY_UNIT_QUERY = `
     slug,
     title,
     price,
-    area,
-    "photographs": photographs[]{
+    factSheet,
+    dossierInventory,
+    "dossierRef": dossierRef->{
+      slug,
+    },
+    "property": property->{
+      header,
+      coordinates,
+    },
+    "photographs": photographs[][0]{
       ${MEDIA_QUERY}
     },
     "file": closingDocuments{
