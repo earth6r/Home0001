@@ -72,11 +72,11 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   const initGetBuyingProgress = () => {
     getBuyingProgress(userData.email)
       .then(res => {
+        console.log('initGetBuyingProgress: ', res.data.buyingProgress)
         setUserData({
           ...userData,
           buyingProgress: res.data.buyingProgress,
         })
-        if (res.data.buyingProgress.scheduleClosing) initGetCalendarDate()
       })
       .catch(err => {
         console.error(err)
@@ -88,7 +88,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
     setLoading(true)
     updateBuyingProgress(userData.email, step)
       .then(res => {
-        console.log(res)
         initGetBuyingProgress()
       })
       .catch(err => {
@@ -171,6 +170,10 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       setLoading(false)
     })
   }
+
+  useEffect(() => {
+    if (userData.buyingProgress.scheduleClosing) initGetCalendarDate()
+  }, [userData.buyingProgress.scheduleClosing])
 
   useEffect(() => {
     if (userData.unit) setFilteredUnit(filterUnits(userData.unit))

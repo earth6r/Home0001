@@ -31,11 +31,13 @@ const Page: NextPage<PageProps> = (
 ) => {
   const page: SanityBuy = filterDataToSingleItem(data)
 
-  console.log('page:', page)
-
   return !page?._id.includes('drafts.') || preview ? (
     <PageTransition ref={ref}>
-      <article className={classNames('grid md:grid-cols-3 container pt-page')}>
+      <article
+        className={classNames(
+          'grid grid-cols-1 md:grid-cols-3 container pt-page'
+        )}
+      >
         <BuyContainer
           units={page?.unitsList as any}
           className="md:col-start-2"
