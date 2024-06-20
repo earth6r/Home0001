@@ -190,7 +190,14 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   return (
     <div className={classNames(className, 'mb-page')}>
       {filteredUnit && (
-        <UnitBuySummary unit={filteredUnit} className="px-x mb-page" />
+        <div className="px-x mb-page">
+          <div className="mb-ydouble">
+            <h2 className="text-h2">Hello,</h2>
+            <h2 className="mb-ydouble text-h2 break-words">{userData.email}</h2>
+            <p className="text-md uppercase font-sansText">{`Your 0001 Home`}</p>
+          </div>
+          <UnitBuySummary unit={filteredUnit} />
+        </div>
       )}
 
       {!userData.loggedIn && showLogin && (
@@ -244,35 +251,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
               initUpdateProcess('scheduleClosing')
             }}
           />
-
-          {filteredUnit && (
-            <div className="flex gap-x items-start px-x mt-page rich-text">
-              <a href={filteredUnit.file?.asset.url} target="_blank" download>
-                <button
-                  className={classNames(
-                    userData.buyingProgress.downloadDocuments
-                      ? ''
-                      : 'hover:gap-[6px]',
-                    'flex items-center gap-[3px] h-[1em] transition-all duration-300'
-                  )}
-                  disabled={loading}
-                  onClick={() => initUpdateProcess('downloadDocuments')}
-                >
-                  <span className="font-sansText uppercase underline decoration-[2px] underline-offset-2">{`Download Documents`}</span>
-                  {userData.buyingProgress.downloadDocuments ? (
-                    <span className="m-0">✅</span>
-                  ) : (
-                    <IconSmallArrow
-                      width="16"
-                      height="12"
-                      fill="black"
-                      className="mt-[1px] transform -rotate-45"
-                    />
-                  )}
-                </button>
-              </a>
-            </div>
-          )}
         </>
       )}
 

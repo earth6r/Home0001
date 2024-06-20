@@ -160,9 +160,7 @@ export const DepositForm: FC<DepositFormProps> = ({
 }) => {
   return (
     <div className={classNames(className)}>
-      <div
-        className={classNames(className, 'w-full md:max-w-[526px] rich-text')}
-      >
+      <div className="w-full md:max-w-[526px] rich-text">
         <h2>{`Make deposit`}</h2>
         <p>{`We’ll send you a punch list and confirmation of your offer. In order to receive these documents including the offering plan you need to make a deposit of $${DEPOSIT_AMOUNT}.`}</p>
 
