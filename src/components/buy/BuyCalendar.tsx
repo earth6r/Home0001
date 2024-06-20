@@ -76,13 +76,33 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   }, [])
 
   return (
-    <div className={classNames(className, 'rich-text')}>
-      <h2>{`Schedule closing`}</h2>
+    <div
+      className={classNames(className, 'px-x py-ydouble bg-yellow rich-text')}
+    >
+      <div className="rich-text">
+        <p className="mb-y text-button font-sansText">{`When do you want to close?`}</p>
+        <p>Select a time for your document review with a notary.</p>
+        <p>
+          A calendar invite will be sent to you via mail after your appointment
+          is scheduled.
+        </p>
+        <p>
+          At your buying session you will need to bring the following:
+          <ol className="mt-yhalf">
+            <li>1. Bring your ID.</li>
+            <li>2. Review the documents so everything is clear.</li>
+            <li>
+              3. Have your financing in place and be ready to make a wire right
+              after the session.
+            </li>
+          </ol>
+        </p>
+      </div>
 
       {!formSubmitted && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full md:max-w-[526px] h-full"
+          className="w-full md:max-w-[526px] h-full mt-ydouble"
         >
           <div className="flex flex-col justify-start gap-y mb-ydouble">
             {loading && <p className="!mx-0 mt-y">{`Loading...`}</p>}

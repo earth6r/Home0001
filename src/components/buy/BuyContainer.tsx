@@ -16,16 +16,8 @@ import {
   updateBuyingProgress,
 } from './actions'
 import LoginForm from './LoginForm'
-import { SanityMedia, SanityMediaProps } from '@components/sanity'
-
-type BuyUnitProps = {
-  title: string
-  slug: string
-  price: string
-  area: string
-  photographs: SanityMediaProps[]
-  file?: any
-}
+import UnitBuySummary, { BuyUnitProps } from '@components/unit/UnitBuySummary'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface BuyContainerProps extends HTMLAttributes<HTMLFormElement> {
   units?: BuyUnitProps[]
@@ -72,7 +64,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   const initGetBuyingProgress = () => {
     getBuyingProgress(userData.email)
       .then(res => {
-        console.log('initGetBuyingProgress: ', res.data.buyingProgress)
         setUserData({
           ...userData,
           buyingProgress: res.data.buyingProgress,
@@ -99,7 +90,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   const initGetCalendarDate = () => {
     getBookedCalendarDate(userData.email)
       .then(res => {
-        console.log(res)
         setUserData({
           ...userData,
           calendarDate: res.data.date,
@@ -198,40 +188,22 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   console.log(userData)
 
   return (
-    <div className={classNames(className)}>
+    <div className={classNames(className, 'mb-page')}>
       {filteredUnit && (
-        <div className="rich-text mb-y">
-          <div className="max-w-[350px]">
-            {filteredUnit.photographs && (
-              <SanityMedia
-                {...(filteredUnit.photographs[0] as SanityMediaProps)}
-                imageProps={{
-                  alt: 'Unit image',
-                  quality: 8,
-                  priority: true,
-                  lqip: (filteredUnit.photographs[0].image as any)?.asset
-                    ?.metadata?.lqip,
-                }}
-                className="w-full h-auto object-contain"
-              />
-            )}
-          </div>
-          <h2>{filteredUnit.title}</h2>
-          <p>{filteredUnit.area}</p>
-          <p>{filteredUnit.price}</p>
-        </div>
+        <UnitBuySummary unit={filteredUnit} className="px-x mb-page" />
       )}
 
       {!userData.loggedIn && showLogin && (
-        <LoginForm attemptSignIn={attemptSignIn} />
+        <LoginForm className="px-x" attemptSignIn={attemptSignIn} />
       )}
 
       {userData.loggedIn && !userData.unit && (
-        <span className="text-button">{`No unit found for user.`}</span>
+        <span className="px-x text-button">{`No unit found for user.`}</span>
       )}
 
       {!loginError.error && !userData.hasPassword && (
         <SetPasswordForm
+          className="px-x"
           email={router.query.email as string}
           onPasswordSet={password => {
             setLoading(true)
@@ -249,6 +221,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
         !userData.buyingProgress.escrowDeposit &&
         !loading && (
           <DepositForm
+            className="px-x"
             email={userData.email}
             unit={userData.unit as string}
             onStripeSuccess={() => {
@@ -262,8 +235,12 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
 
       {userData.loggedIn && userData.buyingProgress.escrowDeposit && (
         <>
+          <p className="px-x mb-ydouble text-button">{`Your appointments`}</p>
           {userData.calendarDate ? (
-            <span className="text-button">{`Closing scheduled for ${userData.calendarDate}`}</span>
+            <div className="px-x">
+              <span className="inline-block mb-y text-button font-sansText">{`Your buying session has been requested for:`}</span>
+              <h2 className="text-h2">{`${userData.calendarDate}`}</h2>
+            </div>
           ) : (
             <BuyCalendar
               email={userData.email as string}
@@ -275,32 +252,43 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
           )}
 
           {filteredUnit && (
-            <div className="flex gap-x items-start mt-y rich-text">
+            <div className="flex gap-x items-start px-x mt-page rich-text">
               <a href={filteredUnit.file?.asset.url} target="_blank" download>
                 <button
-                  className="button text-button"
+                  className={classNames(
+                    userData.buyingProgress.downloadDocuments
+                      ? ''
+                      : 'hover:gap-[6px]',
+                    'flex items-center gap-[3px] h-[1em] transition-all duration-300'
+                  )}
                   disabled={loading}
                   onClick={() => initUpdateProcess('downloadDocuments')}
                 >
-                  {`Download documents`}
+                  <span className="font-sansText uppercase underline decoration-[2px] underline-offset-2">{`Download Documents`}</span>
+                  {userData.buyingProgress.downloadDocuments ? (
+                    <span className="m-0">✅</span>
+                  ) : (
+                    <IconSmallArrow
+                      width="16"
+                      height="12"
+                      fill="black"
+                      className="mt-[1px] transform -rotate-45"
+                    />
+                  )}
                 </button>
               </a>
-
-              {userData.buyingProgress.downloadDocuments && (
-                <span className="m-0">✅</span>
-              )}
             </div>
           )}
         </>
       )}
 
       {loginError.message && (
-        <span className="inline-block mt-y text-button">
+        <span className="inline-block px-x mt-y text-button">
           {loginError.message || `No account found.`}
         </span>
       )}
 
-      {loading && <p className="!mx-0 mt-y text-button">{`Loading...`}</p>}
+      {loading && <p className="px-x !mx-0 mt-y text-button">{`Loading...`}</p>}
     </div>
   )
 }

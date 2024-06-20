@@ -181,6 +181,12 @@ export default {
       of: [{ type: 'accordion', title: 'Unit Details' }],
     },
     {
+      name: 'dossierRef',
+      title: 'Dossier Reference',
+      type: 'reference',
+      to: [{ type: 'page' }],
+    },
+    {
       name: 'closingDocuments',
       title: 'Closing Documents',
       type: 'file',
