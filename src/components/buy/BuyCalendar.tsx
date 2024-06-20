@@ -47,7 +47,6 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
     const additionalEmails = data.additionalEmails.split(',')
     createGoogleCalendarMeeting(data, email, unit, additionalEmails)
       .then(res => {
-        console.log(res)
         onMeetingSet()
         setFormSubmitted(true)
       })
@@ -67,7 +66,6 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
           (days: any) => days.HasAvailability === true
         )
         setAvailableSlots(filteredSlots)
-        console.log(filteredSlots)
         setLoading(false)
       })
       .catch(err => {
