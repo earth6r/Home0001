@@ -236,20 +236,14 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       {userData.loggedIn && userData.buyingProgress.escrowDeposit && (
         <>
           <p className="px-x mb-ydouble text-button">{`Your appointments`}</p>
-          {userData.calendarDate ? (
-            <div className="px-x">
-              <span className="inline-block mb-y text-button font-sansText">{`Your buying session has been requested for:`}</span>
-              <h2 className="text-h2">{`${userData.calendarDate}`}</h2>
-            </div>
-          ) : (
-            <BuyCalendar
-              email={userData.email as string}
-              unit={userData.unit as string}
-              onMeetingSet={() => {
-                initUpdateProcess('scheduleClosing')
-              }}
-            />
-          )}
+          <BuyCalendar
+            email={userData.email as string}
+            unit={userData.unit as string}
+            calendarDate={userData.calendarDate}
+            onMeetingSet={() => {
+              initUpdateProcess('scheduleClosing')
+            }}
+          />
 
           {filteredUnit && (
             <div className="flex gap-x items-start px-x mt-page rich-text">
