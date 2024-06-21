@@ -38,6 +38,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   const [userData, setUserData] = useState<any | null>({
     loggedIn: false,
     email: null,
+    firstName: null,
     hasPassword: true, // assume user has a password at first
     password: null,
     unit: null,
@@ -101,7 +102,12 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       .finally(() => setLoading(false))
   }
 
-  const setLoginSuccess = (email: string, password: string, unit: string) => {
+  const setLoginSuccess = (
+    email: string,
+    password: string,
+    unit: string,
+    firstName: string
+  ) => {
     setLoginError({ error: false, message: '' })
     setUserData({
       ...userData,
@@ -109,6 +115,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       email: email,
       password: password,
       unit: unit,
+      firstName: firstName,
     })
   }
 
@@ -121,12 +128,14 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
 
     accountSignIn(email, password)
       .then(res => {
+        console.log('res:', res)
         if (res.data.user.user) {
           if (res.data.userMetadata && res.data.userMetadata[0]) {
             setLoginSuccess(
               email,
               password,
-              res.data.userMetadata[0].userBuyingPropertyType
+              res.data.userMetadata[0].userBuyingPropertyType,
+              res.data.userMetadata[0].firstName
             )
           } else {
             setLoginError({
@@ -191,7 +200,9 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
         <div className="px-x mb-page">
           <div className="mb-ydouble">
             <h2 className="text-h2">Hello,</h2>
-            <h2 className="mb-ydouble text-h2 break-words">{userData.email}</h2>
+            <h2 className="mb-ydouble text-h2 break-words">
+              {userData.firstName}
+            </h2>
             <p className="text-md uppercase font-sansText">{`Your 0001 Home`}</p>
           </div>
           <UnitBuySummary unit={filteredUnit} />
