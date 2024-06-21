@@ -173,7 +173,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
                             />
                             <label
                               htmlFor={time}
-                              className="relative cursor-pointer z-above"
+                              className="relative cursor-pointer pointer-events-none z-above"
                             >
                               {time}
                             </label>
