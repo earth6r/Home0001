@@ -63,9 +63,10 @@ export const UnitBuySummary: FC<BuySummaryProps> = ({ unit, className }) => {
       )}
 
       {unit?.dossierRef?.slug && (
-        <Link
+        <a
           href={`/${unit.dossierRef.slug.current}`}
           className="flex items-center gap-[3px] hover:gap-[6px] h-[1em] mt-y transition-all duration-300"
+          target="_blank"
         >
           <span className="font-sansText uppercase underline decoration-[2px] underline-offset-2">{`View Dossier`}</span>
           <IconSmallArrow
@@ -74,7 +75,7 @@ export const UnitBuySummary: FC<BuySummaryProps> = ({ unit, className }) => {
             fill="black"
             className="mt-[1px] transform -rotate-45"
           />
-        </Link>
+        </a>
       )}
 
       {unit.factSheet?.rows && (

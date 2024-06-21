@@ -103,7 +103,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
         </div>
       )}
 
-      {(!formSubmitted || !calendarDate) && (
+      {!calendarDate && !formSubmitted && (
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full md:max-w-[526px] h-full mt-ydouble"
