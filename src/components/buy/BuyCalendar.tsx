@@ -78,21 +78,31 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   return (
     <div className={classNames(className, 'px-x py-ydouble md:mx-x bg-yellow')}>
       <div className="rich-text">
-        <h2 className="mb-ydouble text-h2">
-          STEP 1: <br />
-          SCHEDULE YOUR HOMEBUYING session.
-        </h2>
+        {calendarDate ? (
+          <div className="mt-ydouble">
+            <span className="inline-block mb-y text-md uppercase font-sansText">{`Your buying session has been requested for:`}</span>
+            <h2 className="text-h2">{`${calendarDate}`}</h2>
+          </div>
+        ) : (
+          <>
+            <h2 className="mb-ydouble text-h2">
+              STEP 1: <br />
+              SCHEDULE YOUR HOMEBUYING session.
+            </h2>
 
-        <p>
-          You should have now received the documents that you will need to sign
-          in order to buy your home.
-        </p>
-        <p>
-          You’ll be able to sign these documents electronically with an online
-          notary in your single-session homebuying video call. Right before your
-          video call, another notary will visit you at your home, work, or
-          wherever is convenient for you to sign your mortgage papers.
-        </p>
+            <p>
+              You should have now received the documents that you will need to
+              sign in order to buy your home.
+            </p>
+            <p>
+              You’ll be able to sign these documents electronically with an
+              online notary in your single-session homebuying video call. Right
+              before your video call, another notary will visit you at your
+              home, work, or wherever is convenient for you to sign your
+              mortgage papers.
+            </p>
+          </>
+        )}
 
         <p className="text-button">WHAT DO YOU NEED?</p>
 
@@ -110,13 +120,6 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
           <li>{`A strong internet connection (for the video meeting).`}</li>
         </div>
       </div>
-
-      {calendarDate && (
-        <div className="mt-ydouble">
-          <span className="inline-block mb-y text-md uppercase font-sansText">{`Your buying session has been requested for:`}</span>
-          <h2 className="text-h2">{`${calendarDate}`}</h2>
-        </div>
-      )}
 
       {!calendarDate && !formSubmitted && (
         <form
@@ -143,9 +146,11 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
             >
               {availableSlots.map(
                 ({ date, slots }: { date: string; slots: string[] }, index) => {
+                  console.log(date)
                   const formattedDate = new Date(date).toLocaleDateString(
                     'en-US',
                     {
+                      timeZone: 'UTC',
                       weekday: undefined,
                       year: 'numeric',
                       month: 'long',
@@ -236,7 +241,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
             type={'submit'}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : 'Confirm'}
+            {isSubmitting ? 'Submitting...' : 'Book my homebuying session'}
             <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
 
@@ -250,7 +255,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
 
       {formSubmitted && (
         <div className="relative mt-ydouble mb-2">
-          <p className="font-medium uppercase">{`Meeting created`}</p>
+          <p className="font-medium uppercase">{`Session time submitted`}</p>
         </div>
       )}
     </div>
