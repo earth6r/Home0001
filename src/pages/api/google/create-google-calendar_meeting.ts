@@ -29,7 +29,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     inviteeEmail,
     location,
     eventDescription,
-    additionalEmails, // Add additionalGuests
+    // additionalEmails, // Add additionalGuests
   } = req.body
 
   if (
@@ -39,8 +39,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     !Array.isArray(staffEmails) ||
     !inviteeEmail ||
     !location ||
-    !eventDescription ||
-    !Array.isArray(additionalEmails)
+    !eventDescription
+    // || !Array.isArray(additionalEmails)
   ) {
     res.status(400).json({
       success: false,
@@ -108,7 +108,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         attendees: [
           { email: Subject },
           ...staffEmails.map((email: string) => ({ email })),
-          ...additionalEmails.map((email: string) => ({ email })),
+          // ...additionalEmails.map((email: string) => ({ email })),
         ],
       }
       const response = await calendar.events.insert({
