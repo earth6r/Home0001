@@ -57,6 +57,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const calendar = google.calendar({ version: 'v3', auth: auth as any })
   const startDateTime = new Date(`${date}T${startTime}:00.000Z`)
+  console.log('startDateTime:', startDateTime)
   const endDateTime = new Date(startDateTime.getTime() + 2 * 60 * 60 * 1000)
 
   try {
@@ -107,7 +108,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           ...additionalEmails.map((email: string) => ({ email })),
         ],
       }
-
+      console.log('event:', event)
       const response = await calendar.events.insert({
         calendarId: Subject,
         requestBody: event,
