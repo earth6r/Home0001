@@ -49,6 +49,7 @@
     "googleapis": "^139.0.0",
     "groq": "^2.15.0",
     "lodash": "^4.17.21",
+    "moment-timezone": "^0.5.45",
     "net": "^1.0.2",
     "next": "^13.0.0",
     "next-sanity": "5.5.4",

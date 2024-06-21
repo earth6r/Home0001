@@ -6,6 +6,7 @@ import { JWT } from 'google-auth-library'
 import axios from 'axios'
 import admin from 'firebase-admin'
 import { initializeAdmin } from '@lib/firebase/admin'
+import moment from 'moment-timezone'
 
 const Hubspot_Apikey = process.env.NEXT_PUBLIC_HUBSPOT_API_KEY
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
@@ -56,8 +57,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })
 
   const calendar = google.calendar({ version: 'v3', auth: auth as any })
-  const startDateTime = new Date(`${date}T${startTime}:00.000Z`)
-  console.log('startDateTime:', startDateTime)
+  const startDateTime = moment
+    .tz(`${date}T${startTime}:00`, 'America/New_York')
+    .toDate()
+
   const endDateTime = new Date(startDateTime.getTime() + 2 * 60 * 60 * 1000)
 
   try {
@@ -108,7 +111,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           ...additionalEmails.map((email: string) => ({ email })),
         ],
       }
-      console.log('event:', event)
       const response = await calendar.events.insert({
         calendarId: Subject,
         requestBody: event,

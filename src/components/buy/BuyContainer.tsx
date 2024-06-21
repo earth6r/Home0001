@@ -185,8 +185,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
     }
   }, [router.query.email])
 
-  console.log(userData)
-
   return (
     <div className={classNames(className, 'mb-page')}>
       {filteredUnit && (

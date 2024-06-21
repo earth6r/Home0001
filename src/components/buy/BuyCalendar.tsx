@@ -44,10 +44,6 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   const slidesRef = useRef(null)
 
   const onSubmit = async (data: any) => {
-    console.log('data:', data)
-    console.log('email:', email)
-    console.log('starTime type', typeof data.startTime)
-    console.log('date type', typeof data.date)
     if (!email || !unit) return
     const additionalEmails = data.additionalEmails.split(',')
     createGoogleCalendarMeeting(data, email, unit, additionalEmails)
