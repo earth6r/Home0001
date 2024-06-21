@@ -60,9 +60,7 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
   return (
     <div className={classNames(className)}>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
-        <div
-          className={classNames(className, 'w-full md:max-w-[526px] rich-text')}
-        >
+        <div className="w-full md:max-w-[526px] rich-text">
           <h2>{`Finish creating an account`}</h2>
           <p>{`0001 homes are released exclusively to our waitlist. Sign up here to continue:`}</p>
 

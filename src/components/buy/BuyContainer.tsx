@@ -23,6 +23,25 @@ interface BuyContainerProps extends HTMLAttributes<HTMLFormElement> {
   units?: BuyUnitProps[]
 }
 
+const STEPS = [
+  {
+    title: 'Step 1',
+    description: 'Schedule your homebuying session whenever suits you',
+  },
+  {
+    title: 'Step 2',
+    description: 'Single session homebuying call.',
+  },
+  {
+    title: 'Step 3',
+    description: 'Make the payment.',
+  },
+  {
+    title: 'Step 4',
+    description: 'Move in.',
+  },
+]
+
 export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   const router = useRouter()
 
@@ -251,7 +270,33 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
 
       {userData.loggedIn && userData.buyingProgress.escrowDeposit && (
         <>
-          <p className="px-x mb-ydouble text-button">{`Your appointments`}</p>
+          <div className="px-x mb-ydouble">
+            <div className="rich-text">
+              <p className="mb-ydouble text-base uppercase font-sansText">{`HOME0001 overview`}</p>
+              <p>
+                We’ve reinvented the typical months-long ordeal of buying a home
+                and streamlined every part of it so you can buy it online
+                instantly, safely, and securely.
+              </p>
+              <p>
+                We’ll guide you through each step of completing the purchase
+                online at your pace.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-x mt-ydouble">
+              {STEPS.map((step, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-2 w-full h-[102px] bg-lightgray p-x gap-x text-base uppercase font-sansText leading-[0.95]"
+                >
+                  <p className="m-0 text-left">{step.title}</p>
+                  <p className="m-0 text-left">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <BuyCalendar
             email={userData.email as string}
             unit={userData.unit as string}
