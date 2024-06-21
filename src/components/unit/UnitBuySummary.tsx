@@ -16,7 +16,6 @@ export type BuyUnitProps = {
   area: string
   property: {
     header: RichTextType
-    coordinates?: { lat?: string; long?: string }
   }
   factSheet?: any
   dossierInventory?: any
@@ -52,14 +51,6 @@ export const UnitBuySummary: FC<BuySummaryProps> = ({ unit, className }) => {
       </div>
       {unit.property.header && (
         <RichText blocks={unit.property.header} className="mt-y" />
-      )}
-
-      {unit.property?.coordinates && (
-        <MapDialog
-          text="View Map"
-          coordinates={unit.property?.coordinates}
-          className="text-xs font-bold"
-        />
       )}
 
       {unit?.dossierRef?.slug && (

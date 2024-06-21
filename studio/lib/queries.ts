@@ -253,7 +253,6 @@ export const BUY_UNIT_QUERY = `
     },
     "property": property->{
       header,
-      coordinates,
     },
     "photographs": photographs[][0]{
       ${MEDIA_QUERY}
