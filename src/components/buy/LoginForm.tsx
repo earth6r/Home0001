@@ -62,7 +62,7 @@ export const LoginForm: FC<LoginFormProps> = ({ attemptSignIn, className }) => {
               className={classNames('relative flex flex-col gap-2 md:gap-y')}
             >
               <button
-                className="relative flex justify-between items-center w-full md:w-btnWidth px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+                className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
                 type={'submit'}
                 disabled={isSubmitting}
               >

@@ -39,13 +39,10 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   unit,
   onStripeSuccess,
 }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState({
     submitted: false,
     success: false,
@@ -57,7 +54,11 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   const elements = useElements()
 
   const initPayment = async () => {
-    if (!stripe || !elements) return
+    if (!stripe || !elements) {
+      console.error('Missing required fields')
+      setIsSubmitting(false)
+      return
+    }
 
     // send init webhook and send email on submit to backend
     const paymentEl = elements.getElement(PaymentElement)
@@ -82,27 +83,39 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       setFormSubmitted({ submitted: true, success: true })
       onStripeSuccess && onStripeSuccess()
     }
+    setIsSubmitting(false)
   }
 
   const onSubmit = async () => {
-    if (!unit || !email || !elements) return
+    if (!unit || !email || !elements) {
+      console.error('Missing required fields')
+      return
+    }
+    setIsSubmitting(true)
 
     // Trigger form validation and wallet collection
     const { error: submitError } = await elements.submit()
     if (submitError) {
       console.log(submitError)
+      setIsSubmitting(false)
       return
     }
 
     setPaymentIntent(email, unit)
       .then(res => {
         setClientSecret(res.data.clientSecret)
-        initPayment()
       })
       .catch(err => {
         console.log(err)
+        setIsSubmitting(false)
       })
   }
+
+  useEffect(() => {
+    if (clientSecret) {
+      initPayment()
+    }
+  }, [clientSecret])
 
   return (
     <>
@@ -118,7 +131,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
                 className={classNames('relative flex flex-col gap-2 md:gap-y')}
               >
                 <button
-                  className="relative flex justify-between items-center w-full md:w-btnWidth px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+                  className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
                   type={'submit'}
                   disabled={isSubmitting || !stripe}
                 >
