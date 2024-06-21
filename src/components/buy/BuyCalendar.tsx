@@ -77,7 +77,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   }, [])
 
   return (
-    <div className={classNames(className, 'px-x py-ydouble bg-yellow')}>
+    <div className={classNames(className, 'px-x py-ydouble md:mx-x bg-yellow')}>
       <div className="rich-text">
         <p className="mb-y text-button font-sansText">{`When do you want to close?`}</p>
         <p>Select a time for your document review with a notary.</p>
