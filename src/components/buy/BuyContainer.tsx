@@ -222,7 +222,9 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
               {userData.firstName}
             </h2>
 
-            {userData.loggedIn && !userData.buyingProgress.escrowDeposit ? (
+            {userData.loggedIn &&
+            !userData.buyingProgress.escrowDeposit &&
+            !loading ? (
               <div className="mb-ydouble font-sansText text-md">
                 <p className="mb-y">{`You are at the first step to securing a 0001 home.`}</p>
                 <p className="mb-y">{`To begin, we require a deposit to secure your home and your purchase.`}</p>
@@ -286,7 +288,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
         <>
           <div className="px-x mb-ydouble">
             <div className="rich-text">
-              <p className="mb-ydouble text-base uppercase font-sansText">{`HOME0001 overview`}</p>
+              <p className="mb-ydouble text-base uppercase font-sansText">{`The HOME0001 buying experience`}</p>
               <p>{`We’ve reinvented the typical months-long ordeal of buying a home and streamlined every part of it so you can buy your home online in a single session, safely and securely.`}</p>
               <p>
                 {`We’ll guide you through each step of completing the purchase online at your pace.`}
