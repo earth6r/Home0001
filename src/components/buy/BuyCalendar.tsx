@@ -207,13 +207,13 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
               </div>
             </Swiper>
 
-            <input
-              type="email"
+            {/* <input
+              type="email"`
               className="input"
               placeholder="Additional emails (comma separated)"
               multiple
               {...register('additionalEmails')}
-            />
+            /> */}
           </div>
 
           <button
