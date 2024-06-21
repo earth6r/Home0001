@@ -28,6 +28,7 @@ export const Header: FC<HeaderProps> = ({
   waitlist,
   inquiry,
   path,
+  hideMenu,
   hideMenuButton,
   showTourLink,
   currentTitle,
@@ -315,12 +316,14 @@ export const Header: FC<HeaderProps> = ({
             </>
           )}
 
-          <HeaderMenu
-            customOpen={menuOpen}
-            onOpen={onOpen}
-            mainMenu={mainMenu as SanityMenu}
-            className="flex flex-col pointer-events-auto"
-          />
+          {!hideMenu && (
+            <HeaderMenu
+              customOpen={menuOpen}
+              onOpen={onOpen}
+              mainMenu={mainMenu as SanityMenu}
+              className="flex flex-col pointer-events-auto"
+            />
+          )}
         </div>
       </header>
     </div>
