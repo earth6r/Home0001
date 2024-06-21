@@ -133,23 +133,23 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             timeZone: 'America/New_York',
           })
 
-          const hubspotResponse = await axios.post(
-            `https://api.hubapi.com/contacts/v1/contact/email/${inviteeEmail}/profile`,
-            {
-              properties: [
-                {
-                  property: 'closing_date',
-                  value: closingDate,
-                },
-              ],
-            },
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${Hubspot_Apikey}`,
-              },
-            }
-          )
+          // const hubspotResponse = await axios.post(
+          //   `https://api.hubapi.com/contacts/v1/contact/email/${inviteeEmail}/profile`,
+          //   {
+          //     properties: [
+          //       {
+          //         property: 'closing_date',
+          //         value: closingDate,
+          //       },
+          //     ],
+          //   },
+          //   {
+          //     headers: {
+          //       'Content-Type': 'application/json',
+          //       Authorization: `Bearer ${Hubspot_Apikey}`,
+          //     },
+          //   }
+          // )
 
           initializeAdmin()
 
