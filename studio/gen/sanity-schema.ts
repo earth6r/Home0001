@@ -625,6 +625,13 @@ export interface Unit extends SanityDocument {
   secondUnitDetails?: Array<SanityKeyed<Accordion>>;
 
   /**
+   * Dossier Reference — `reference`
+   *
+   *
+   */
+  dossierRef?: SanityReference<Page>;
+
+  /**
    * Closing Documents — `file`
    *
    * Upload closing documents zip file here
