@@ -65,7 +65,6 @@ export const MessagingBlock: React.FC = () => {
         recipientPhone: phoneNumber,
         message: message,
       })
-      console.log('sent!')
     } catch (error) {
       console.error(error)
     }
@@ -77,7 +76,6 @@ export const MessagingBlock: React.FC = () => {
         recipientPhone: phoneNumber,
         message: message,
       })
-      console.log('sent!')
     } catch (error) {
       console.error(error)
     }

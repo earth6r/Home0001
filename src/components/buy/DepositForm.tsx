@@ -58,7 +58,6 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
 
   const initPayment = async () => {
     if (!stripe || !elements) return
-    console.log('initPayment')
 
     // send init webhook and send email on submit to backend
     const paymentEl = elements.getElement(PaymentElement)
@@ -86,7 +85,6 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   }
 
   const onSubmit = async () => {
-    console.log('onSubmit')
     if (!unit || !email || !elements) return
 
     // Trigger form validation and wallet collection
@@ -96,7 +94,6 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       return
     }
 
-    console.log('setPaymentIntent')
     setPaymentIntent(email, unit)
       .then(res => {
         setClientSecret(res.data.clientSecret)
