@@ -74,6 +74,7 @@ export const createGoogleCalendarMeeting = async (
       eventName: 'HOME0001 Closing',
       inviteeEmail: email,
       staffEmails: [
+        email,
         // 'dzelefsky@braverlaw.net',
         // 'scott@choicefamily.com',
         // 'Matthew@omnititle.com',
