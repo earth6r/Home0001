@@ -146,7 +146,6 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
             >
               {availableSlots.map(
                 ({ date, slots }: { date: string; slots: string[] }, index) => {
-                  console.log(date)
                   const formattedDate = new Date(date).toLocaleDateString(
                     'en-US',
                     {

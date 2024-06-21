@@ -98,6 +98,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
     setLoading(true)
     updateBuyingProgress(userData.email, step)
       .then(res => {
+        console.log('initUpdateProcess res:', res)
         initGetBuyingProgress()
       })
       .catch(err => {
