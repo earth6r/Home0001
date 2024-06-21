@@ -78,21 +78,37 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   return (
     <div className={classNames(className, 'px-x py-ydouble md:mx-x bg-yellow')}>
       <div className="rich-text">
-        <p className="mb-y text-button font-sansText">{`When do you want to close?`}</p>
-        <p>Select a time for your document review with a notary.</p>
+        <h2 className="mb-ydouble text-h2">
+          STEP 1: <br />
+          SCHEDULE YOUR HOMEBUYING session.
+        </h2>
+
         <p>
-          A calendar invite will be sent to you via mail after your appointment
-          is scheduled.
+          You should have now received the documents that you will need to sign
+          in order to buy your home.
         </p>
-        <p>At your buying session you will need to bring the following:</p>
-        <ol className="mt-yhalf">
-          <li>1. Bring your ID.</li>
-          <li>2. Review the documents so everything is clear.</li>
+        <p>
+          You’ll be able to sign these documents electronically with an online
+          notary in your single-session homebuying video call. Right before your
+          video call, another notary will visit you at your home, work, or
+          wherever is convenient for you to sign your mortgage papers.
+        </p>
+
+        <p className="text-button">WHAT DO YOU NEED?</p>
+
+        <div className="inline-block mt-ydouble">
           <li>
-            3. Have your financing in place and be ready to make a wire right
-            after the session.
+            {`Your government-issued photo ID such as a driver’s license or
+            passport.`}
           </li>
-        </ol>
+
+          <li>
+            {`A computer / mobile device with audio/video and Google Chrome
+            browser.`}
+          </li>
+
+          <li>{`A strong internet connection (for the video meeting).`}</li>
+        </div>
       </div>
 
       {calendarDate && (

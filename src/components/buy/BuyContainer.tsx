@@ -17,7 +17,6 @@ import {
 } from './actions'
 import LoginForm from './LoginForm'
 import UnitBuySummary, { BuyUnitProps } from '@components/unit/UnitBuySummary'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface BuyContainerProps extends HTMLAttributes<HTMLFormElement> {
   units?: BuyUnitProps[]
@@ -222,6 +221,21 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
             <h2 className="mb-ydouble text-h2 break-words">
               {userData.firstName}
             </h2>
+
+            {userData.loggedIn && !userData.buyingProgress.escrowDeposit ? (
+              <div className="mb-ydouble font-sansText text-md">
+                <p className="mb-y">{`You are at the first step to securing a 0001 home.`}</p>
+                <p className="mb-y">{`To begin, we require a deposit to secure your home and your purchase.`}</p>
+                <p className="mb-y">{`The deposit amount is:`}</p>
+                <p className="my-ydouble">{`$1000.00 USD`}</p>
+                <p className="">{`If you have any questions please scroll down.`}</p>
+              </div>
+            ) : (
+              <div className="mb-ydouble font-sansText text-md">
+                <p className="mb-y">{`${filteredUnit.title} is nearly yours.`}</p>
+                <p className="">{`Here you’ll find details on the home and on your next steps to buy it.`}</p>
+              </div>
+            )}
             <p className="text-md uppercase font-sansText">{`Your 0001 Home`}</p>
           </div>
           <UnitBuySummary unit={filteredUnit} />
@@ -273,14 +287,9 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
           <div className="px-x mb-ydouble">
             <div className="rich-text">
               <p className="mb-ydouble text-base uppercase font-sansText">{`HOME0001 overview`}</p>
+              <p>{`We’ve reinvented the typical months-long ordeal of buying a home and streamlined every part of it so you can buy your home online in a single session, safely and securely.`}</p>
               <p>
-                We’ve reinvented the typical months-long ordeal of buying a home
-                and streamlined every part of it so you can buy it online
-                instantly, safely, and securely.
-              </p>
-              <p>
-                We’ll guide you through each step of completing the purchase
-                online at your pace.
+                {`We’ll guide you through each step of completing the purchase online at your pace.`}
               </p>
             </div>
 
