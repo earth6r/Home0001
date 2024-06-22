@@ -270,6 +270,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       )}
 
       {userData.loggedIn &&
+        userData.unit &&
         !userData.buyingProgress.escrowDeposit &&
         !loading && (
           <DepositForm
