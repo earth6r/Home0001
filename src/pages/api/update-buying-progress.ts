@@ -11,7 +11,7 @@ export const config = {
 }
 
 // Example cURL command to test the API endpoint
-// curl -X POST http://localhost:3000/api/update-buying-progress -H "Content-Type: application/json" -d '{"buyingProgress": "escrow-deposit", "email": "apinanapinan@icloud.com"}'
+// curl -X POST http://localhost:3000/api/update-buying-progress -H "Content-Type: application/json" -d '{"buyingProgress": "escrowDeposit", "email": "apinanapinan@icloud.com"}'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   let { body = null } = req
 
