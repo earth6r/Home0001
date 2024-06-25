@@ -27,13 +27,16 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
   return (
     <div>
       {copy && (
-        <RichText blocks={copy} className={classNames('clear-both capital')} />
+        <RichText
+          blocks={copy}
+          className={classNames('clear-both capital mb-y')}
+        />
       )}
 
       {accordions && !showAccordions && (
         <button
           onClick={() => setShowAccordions(true)}
-          className={classNames('pr-x pt-yhalf')}
+          className={classNames('pr-x')}
         >
           <span
             className={classNames(
