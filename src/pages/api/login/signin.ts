@@ -8,8 +8,10 @@ import {
   query,
   where,
 } from 'firebase/firestore/lite'
+import admin from 'firebase-admin'
 
 import { type NextApiRequest, type NextApiResponse } from 'next'
+import { initializeAdmin } from '@lib/firebase/admin'
 
 // Set configuration options for the API route
 export const config = {
@@ -58,6 +60,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     let q = query(userMetadataRef, where('email', '==', email))
     let querySnapshot = await getDocs(q)
     const userMetadata = querySnapshot.docs.map(doc => doc.data())
+
+    // save user login to firestore
+    initializeAdmin() // Initialize Firebase Admin SDK
+    const userLogin = {
+      email: email,
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      login_type: 'main_page',
+      url: 'https://www.home0001.com',
+    }
+    await admin.firestore().collection('login_history').add(userLogin)
 
     // Respond with the signed-in user and a success code
     res.status(200).json({ user, code: 'success', userMetadata })
