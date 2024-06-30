@@ -68,6 +68,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (ipAddress) {
       try {
+        console.error(ipAddress)
         response = await axios.get(`http://ip-api.com/json/${ipAddress}`)
       } catch (error) {
         // Log the error to the console for debugging
