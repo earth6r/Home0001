@@ -65,7 +65,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   useEffect(() => {
     getAvailableSlots()
       .then(res => {
-        const filteredSlots = res.data.data.filter(
+        const filteredSlots = res?.data.data.filter(
           (days: any) => days.HasAvailability === true
         )
         setAvailableSlots(filteredSlots)

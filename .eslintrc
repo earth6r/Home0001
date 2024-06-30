@@ -21,7 +21,7 @@
     "no-process-env": "off",
     "no-shadow": "off",
     "no-console": [
-      "error",
+      "warn",
       {
         "allow": ["error"]
       }
