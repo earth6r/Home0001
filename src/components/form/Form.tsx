@@ -114,7 +114,6 @@ export const Form: FC<FormProps> = ({
       setFormSubmitted(true)
     } catch (error) {
       setFormError(error)
-      // eslint-disable-next-line no-console
       console.error(error)
 
       const errorData = new FormData()

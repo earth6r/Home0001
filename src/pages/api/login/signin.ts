@@ -74,7 +74,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         ipAddress = ipAddressData.ip
       } catch (error) {
         // Log the error to the console for debugging
-        // eslint-disable-next-line no-console
         console.error(error)
       }
     }
@@ -87,7 +86,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         response = await axios.get(`http://ip-api.com/json/${ipAddress}`)
       } catch (error) {
         // Log the error to the console for debugging
-        // eslint-disable-next-line no-console
         saveError(error, 'getIpAddressMetadata')
         console.error('Error getting IP address metadata:', error)
       }
@@ -145,7 +143,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Log the error to the console for debugging
-    // eslint-disable-next-line no-console
     console.error('Error setting password:', error)
 
     // Respond with an internal server error
