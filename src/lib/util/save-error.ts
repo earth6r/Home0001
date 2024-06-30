@@ -5,6 +5,7 @@ export const saveError = (
   errorType: string,
   statusCode: number | null = null
 ) => {
+  // TODO: save userAgent and user IP address
   return axios.post('/api/errors/save-to-firestore', {
     error: JSON.stringify(error),
     errorType,
