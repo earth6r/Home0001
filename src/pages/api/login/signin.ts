@@ -62,13 +62,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     let querySnapshot = await getDocs(q)
     const userMetadata = querySnapshot.docs.map(doc => doc.data())
 
-    const ipAddress = req.socket.remoteAddress || null
+    let ipAddress = null
+
+    try {
+      const ipAddressResponse = await fetch('https://api.ipify.org?format=json')
+      const ipAddressData = await ipAddressResponse.json()
+      ipAddress = ipAddressData.ip
+    } catch (error) {
+      // Log the error to the console for debugging
+      // eslint-disable-next-line no-console
+      console.error(error)
+    }
+
     let ipAddressMetadata = null
     let response
 
     if (ipAddress) {
       try {
-        console.error(ipAddress)
         response = await axios.get(`http://ip-api.com/json/${ipAddress}`)
       } catch (error) {
         // Log the error to the console for debugging
