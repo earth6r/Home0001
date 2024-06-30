@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
+import { saveError } from '@lib/util/save-error'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -51,9 +52,9 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
         error: true,
         message: (error as any).response.data.message as string,
       })
-      // eslint-disable-next-line no-console
       console.error(error)
       // setFormSubmitted(true)
+      saveError(error, 'setPassword')
     }
   }
 

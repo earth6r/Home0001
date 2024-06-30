@@ -9,6 +9,7 @@ import { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import { saveError } from '@lib/util/save-error'
 
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
@@ -133,26 +134,7 @@ export const Form: FC<FormProps> = ({
         body: errorData,
       })
 
-      // alert('Submitting ')
-      // await axios.post(
-      //   'https://us-central1-homeearthnet.cloudfunctions.net/register',
-      //   {
-      //     page: asPath,
-      //     routes: paths || 'error getting routes',
-      //     hutk: hutk,
-      //     error: error,
-      //     firstName: data.first_name,
-      //     lastName: data.last_name,
-      //     email: data.email,
-      //     locationsOfInterest: data.locations_of_interest,
-      //     Else: data.Else,
-      //     city: data.City,
-      //     bedroomPreference: data.bedroom_preference,
-      //     buyingTimelinedec2023: data.buyingtimelinedec2023,
-      //     userAgent: navigator.userAgent,
-      //     fullQuery: localQuery || null,
-      //   }
-      // )
+      saveError(error, 'submitRegisterForm')
 
       setFormSubmitted(true)
     }
