@@ -10,6 +10,7 @@ import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 import IconChevron from '@components/icons/IconChevron'
+import { saveError } from '@lib/util/save-error'
 
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
@@ -57,6 +58,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
           message: (err as any).response.data.message as string,
         })
         console.error(err)
+        saveError(err, 'createGoogleCalendarMeeting')
       })
   }
 
@@ -70,7 +72,6 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
         setLoading(false)
       })
       .catch(err => {
-        console.log(err)
         console.error(err)
         setLoading(false)
       })
