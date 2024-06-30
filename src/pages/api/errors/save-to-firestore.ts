@@ -16,7 +16,7 @@ type BodyItems = {
 }
 
 // API route handler for checking email existence
-// curl -X POST http://localhost:3000/api/login/check-password-setup-for-email -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com"}'
+// curl -X POST http://localhost:3000/api/errors/save-to-firestore -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com"}'
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Initialize Firebase Admin SDK
   initializeAdmin()

@@ -13,6 +13,7 @@ import admin from 'firebase-admin'
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import { initializeAdmin } from '@lib/firebase/admin'
 import axios from 'axios'
+import { saveError } from '@lib/util/save-error'
 
 // Set configuration options for the API route
 export const config = {
@@ -87,6 +88,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       } catch (error) {
         // Log the error to the console for debugging
         // eslint-disable-next-line no-console
+        saveError(error, 'getIpAddressMetadata')
         console.error('Error getting IP address metadata:', error)
       }
 
@@ -111,6 +113,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // Respond with the signed-in user and a success code
     res.status(200).json({ user, code: 'success', userMetadata })
   } catch (error: unknown) {
+    saveError(error, 'signin')
     // Handle too many requests error
     if ((error as any)?.code === 'auth/too-many-requests') {
       res.status(429).json({

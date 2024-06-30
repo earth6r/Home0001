@@ -17,6 +17,7 @@ import {
 } from './actions'
 import LoginForm from './LoginForm'
 import UnitBuySummary, { BuyUnitProps } from '@components/unit/UnitBuySummary'
+import { saveError } from '@lib/util/save-error'
 
 interface BuyContainerProps extends HTMLAttributes<HTMLFormElement> {
   units?: BuyUnitProps[]
@@ -90,6 +91,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       })
       .catch(err => {
         console.error(err)
+        saveError(err, 'getBuyingProgress')
       })
       .finally(() => setLoading(false))
   }
