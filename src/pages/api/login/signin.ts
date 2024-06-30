@@ -12,6 +12,7 @@ import admin from 'firebase-admin'
 
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import { initializeAdmin } from '@lib/firebase/admin'
+import axios from 'axios'
 
 // Set configuration options for the API route
 export const config = {
@@ -61,6 +62,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     let querySnapshot = await getDocs(q)
     const userMetadata = querySnapshot.docs.map(doc => doc.data())
 
+    const ipAddress = req.socket.remoteAddress || null
+    let ipAddressMetadata = null
+    let response
+
+    if (ipAddress) {
+      try {
+        response = await axios.get(`http://ip-api.com/json/${ipAddress}`)
+      } catch (error) {
+        // Log the error to the console for debugging
+        // eslint-disable-next-line no-console
+        console.error('Error getting IP address metadata:', error)
+      }
+
+      if (response && response.status >= 200 && response.status < 300) {
+        ipAddressMetadata = response.data
+      }
+    }
+
     // save user login to firestore
     initializeAdmin() // Initialize Firebase Admin SDK
     const userLogin = {
@@ -68,6 +87,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       login_type: 'main_page',
       url: 'https://www.home0001.com',
+      userAgent: req.headers['user-agent'] || null,
+      ipAddress: ipAddress,
+      ipAddressMetadata: ipAddressMetadata,
     }
     await admin.firestore().collection('login_history').add(userLogin)
 
