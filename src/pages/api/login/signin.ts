@@ -62,16 +62,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     let querySnapshot = await getDocs(q)
     const userMetadata = querySnapshot.docs.map(doc => doc.data())
 
-    let ipAddress = null
+    let ipAddress = req.headers['x-forwarded-for'] || null
 
-    try {
-      const ipAddressResponse = await fetch('https://api.ipify.org?format=json')
-      const ipAddressData = await ipAddressResponse.json()
-      ipAddress = ipAddressData.ip
-    } catch (error) {
-      // Log the error to the console for debugging
-      // eslint-disable-next-line no-console
-      console.error(error)
+    if (!ipAddress) {
+      try {
+        const ipAddressResponse = await fetch(
+          'https://api.ipify.org?format=json'
+        )
+        const ipAddressData = await ipAddressResponse.json()
+        ipAddress = ipAddressData.ip
+      } catch (error) {
+        // Log the error to the console for debugging
+        // eslint-disable-next-line no-console
+        console.error(error)
+      }
     }
 
     let ipAddressMetadata = null
