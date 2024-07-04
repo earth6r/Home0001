@@ -8,7 +8,7 @@ export const config = {
   maxDuration: 300, // Maximum duration for the API route to respond to a request (5 minutes)
 }
 
-// curl -X POST http://localhost:3000/api/book-property-tour -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"2022-01-01T00:00:00Z","property":"unit-6a"}'
+// curl -X POST http://localhost:3000/api/book-property-tour -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"2022-01-01T00:00:00Z","property":"unit-6a","phoneNumber":"1234567890"}'
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -22,7 +22,12 @@ export default async function handler(
     return
   }
 
-  const { email = null, timestamp = null, property = null } = body
+  const {
+    email = null,
+    timestamp = null,
+    property = null,
+    phoneNumber = null,
+  } = body
 
   if (!email) {
     res.status(400).json({
@@ -66,6 +71,13 @@ export default async function handler(
     return
   }
 
+  if (!phoneNumber) {
+    res.status(400).json({
+      error: 'Missing phoneNumber in request query', // Respond with error if phoneNumber is missing
+    })
+    return
+  }
+
   initializeAdmin() // Initialize Firebase Admin SDK
 
   const db = admin.firestore() // Get a reference to the Firestore database
@@ -92,6 +104,7 @@ export default async function handler(
     userUID: user.docs[0].id,
     property,
     timestamp,
+    phoneNumber,
   })
 
   res.status(200).json({
