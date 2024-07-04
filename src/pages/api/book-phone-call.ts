@@ -8,6 +8,7 @@ export const config = {
 }
 
 // curl -X POST http://localhost:3000/api/book-phone-call -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"2022-01-01T00:00:00Z"}'
+// TODO: might need to add phone number field and property type field
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
