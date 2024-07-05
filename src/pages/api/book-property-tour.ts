@@ -8,7 +8,7 @@ export const config = {
   maxDuration: 300, // Maximum duration for the API route to respond to a request (5 minutes)
 }
 
-// curl -X POST http://localhost:3000/api/book-property-tour -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"2022-01-01T00:00:00Z","property":"unit-6a","phoneNumber":"1234567890"}'
+// curl -X POST http://localhost:3000/api/book-property-tour -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"1720441800000","property":"unit-6a","phoneNumber":"1234567890"}'
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -67,6 +67,14 @@ export default async function handler(
   if (typeof timestamp !== 'string') {
     res.status(400).json({
       error: 'timestamp must be a string', // Respond with error if timestamp is not a string
+    })
+    return
+  }
+
+  // if timestamp converted to number is invalid, respond with error
+  if (isNaN(Number(timestamp))) {
+    res.status(400).json({
+      error: 'Invalid timestamp', // Respond with error if timestamp is invalid
     })
     return
   }
