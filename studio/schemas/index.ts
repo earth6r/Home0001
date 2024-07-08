@@ -41,6 +41,7 @@ import textAndAccordionBlock from './blocks/text-and-accordion-block'
 import brand from './documents/brand-page'
 import embed from './objects/embed'
 import cookiesToggle from './objects/cookies-toggle'
+import buy from './documents/buy-page'
 
 export const schemaTypes = [
   // objects
@@ -86,6 +87,7 @@ export const schemaTypes = [
 
   // documents
   brand,
+  buy,
   city,
   menus,
   page,

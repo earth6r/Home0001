@@ -12,6 +12,7 @@ import {
 } from '@lib/util/crypto-pricing'
 import { SanityInventoryModal } from '@components/sanity/table-modal'
 import { Accordion } from '@components/accordion'
+import Link from 'next/link'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
   unit,
@@ -64,18 +65,16 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
           </div>
 
           <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
-            {unit?.calendarLink && (
-              <SanityLink externalLink={unit.calendarLink}>
-                <button
-                  className={classNames(
-                    'w-full relative mb-y border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
-                  )}
-                >
-                  {`Request a tour`}
-                  <IconSmallArrow width="16" height="10" fill="white" />
-                </button>
-              </SanityLink>
-            )}
+            <Link href="/schedule-phone-call">
+              <button
+                className={classNames(
+                  'w-full relative mb-y border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
+                )}
+              >
+                {`Schedule a call`}
+                <IconSmallArrow width="16" height="10" fill="white" />
+              </button>
+            </Link>
 
             <a href="mailto:talin@home0001.com">
               <button
@@ -157,21 +156,16 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
           )}
 
           <div className="md:hidden pl-x pr-menu my-ydouble mr-x">
-            {unit?.calendarLink && (
-              <SanityLink
-                externalLink={unit.calendarLink}
-                className="block mb-y"
+            <Link href="/schedule-phone-call" className="block mb-y">
+              <button
+                className={classNames(
+                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
+                )}
               >
-                <button
-                  className={classNames(
-                    'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
-                  )}
-                >
-                  {`Request a tour`}
-                  <IconSmallArrow width="16" height="10" fill="black" />
-                </button>
-              </SanityLink>
-            )}
+                {`Request a tour`}
+                <IconSmallArrow width="16" height="10" fill="black" />
+              </button>
+            </Link>
 
             <a href="mailto:talin@home0001.com">
               <button

@@ -4,15 +4,15 @@ const coinGeckoAPIKey = process.env.NEXT_PUBLIC_COINGECKO_API_KEY
 
 const coinGeckoConfig = {
   headers: {
-    'x-cg-pro-api-key': coinGeckoAPIKey,
+    'x-cg-demo-api-key': coinGeckoAPIKey,
   },
 }
 const coinGeckoEthPriceApiUrl = (coinId: string) => {
-  const apiURL = `https://pro-api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=eth`
+  const apiURL = `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=eth`
   return apiURL
 }
 const coinGeckoBtcPriceApiUrl = (coinId: string) => {
-  const apiURL = `https://pro-api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=btc`
+  const apiURL = `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=btc`
   return apiURL
 }
 

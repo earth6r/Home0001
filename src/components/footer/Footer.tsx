@@ -51,7 +51,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 
       <div className="hidden xl:block">
         <p className="block mb-y">NY DRE #10351211814</p>
-        <p className="block">CA DRE #01427385</p>
+        <p className="block">CA DRE #02110748</p>
       </div>
     </footer>
   )
