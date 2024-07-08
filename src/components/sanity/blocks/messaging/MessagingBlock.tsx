@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+const cn = (...classes: string[]) => classes.filter(Boolean).join(' ')
+
 export const MessagingBlock: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('')
   const [message, setMessage] = useState<string>('')
@@ -24,11 +26,31 @@ export const MessagingBlock: React.FC = () => {
     }
 
     const responseData = await response.json()
-    console.log('responseData:', responseData)
     setConfirmed(true)
     return responseData.message
   }
 
+  async function sendMessageViaWhatsApp(messageData: {
+    recipientPhone: string
+    message: string
+  }): Promise<string> {
+    const response = await fetch('/api/send-whatsapp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(messageData),
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Failed to submit comment')
+    }
+
+    const responseData = await response.json()
+    setConfirmed(true)
+    return responseData.message
+  }
   const handleSend = () => {
     if (method === 'sms') {
       sendSMS()
@@ -43,15 +65,20 @@ export const MessagingBlock: React.FC = () => {
         recipientPhone: phoneNumber,
         message: message,
       })
-      console.log('sent!')
     } catch (error) {
       console.error(error)
     }
   }
 
-  const sendWhatsApp = () => {
-    // WhatsApp API code here
-    console.log('Sending message via WhatsApp')
+  const sendWhatsApp = async () => {
+    try {
+      await sendMessageViaWhatsApp({
+        recipientPhone: phoneNumber,
+        message: message,
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const validatePhoneNumber = (input: string) => {
@@ -61,6 +88,8 @@ export const MessagingBlock: React.FC = () => {
   }
 
   const isPhoneNumberValid = validatePhoneNumber(phoneNumber)
+
+  const isButtonReady = isPhoneNumberValid && message
 
   return confirmed ? (
     <div
@@ -84,7 +113,7 @@ export const MessagingBlock: React.FC = () => {
     </div>
   ) : (
     <div className="max-w-md mx-auto">
-      <div className="mb-4">
+      <div className="mb-4 mt-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="phoneNumber"
@@ -141,7 +170,10 @@ export const MessagingBlock: React.FC = () => {
       </div>
       <div className="text-center">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className={cn(
+            'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
+            isButtonReady ? '' : 'cursor-not-allowed opacity-50'
+          )}
           onClick={handleSend}
         >
           Send

@@ -64,15 +64,11 @@ export const Head: FC<HeadProps> = props => {
       />
       <link
         rel="icon"
-        type="image/svg+xml"
         href={
-          props.pageType === 'brand' ? '/favicon-earth.png' : '/favicon.png'
+          props.pageType === 'brand'
+            ? 'https://home0001.com/favicon-brand.png'
+            : '/favicon.png'
         }
-      />
-      <link
-        rel="mask-icon"
-        href="/safari-pinned-tab.svg"
-        color={COLORS.black}
       />
     </NextHead>
   )

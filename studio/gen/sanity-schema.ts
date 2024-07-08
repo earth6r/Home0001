@@ -86,6 +86,55 @@ export interface Brand extends SanityDocument {
 }
 
 /**
+ * Page
+ *
+ *
+ */
+export interface Buy extends SanityDocument {
+  _type: "buy";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Units List — `array`
+   *
+   *
+   */
+  unitsList?: Array<SanityKeyedReference<Unit>>;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * City
  *
  *
@@ -574,6 +623,20 @@ export interface Unit extends SanityDocument {
    *
    */
   secondUnitDetails?: Array<SanityKeyed<Accordion>>;
+
+  /**
+   * Dossier Reference — `reference`
+   *
+   *
+   */
+  dossierRef?: SanityReference<Page>;
+
+  /**
+   * Closing Documents — `file`
+   *
+   * Upload closing documents zip file here
+   */
+  closingDocuments?: { _type: "file"; asset: SanityReference<any> };
 
   /**
    * Preview Image — `image`
@@ -1512,6 +1575,7 @@ export type FlexWaitlistBlock = {
 
 export type Documents =
   | Brand
+  | Buy
   | City
   | Menus
   | Page
