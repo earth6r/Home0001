@@ -15,7 +15,6 @@ import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
 import { Cookies } from '@components/cookies'
 import { triggerToastPreview } from '@components/toast'
-import IconEarth from '@components/icons/IconEarth'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -97,24 +96,15 @@ export const Layout: FC<LayoutProps> = ({
         >
           <main className="flex-auto">{children}</main>
         </ReactLenis>
-<<<<<<< HEAD
-        {page?._type && (page._type as string) !== 'brand' && (
-          <Footer
-            path={asPath}
-            query={query}
-            footerMenu={siteSettings?.footerMenu as Menus | undefined}
-          />
-        )}
-        <Cookies
-          copy={siteSettings?.cookiesPaneCopy}
-          accordions={siteSettings?.cookiesAccordions}
-=======
 
         <Footer
           path={asPath}
           query={query}
           footerMenu={siteSettings?.footerMenu as Menus | undefined}
->>>>>>> main
+        />
+        <Cookies
+          copy={siteSettings?.cookiesPaneCopy}
+          accordions={siteSettings?.cookiesAccordions}
         />
       </div>
       <ToastContainer />
