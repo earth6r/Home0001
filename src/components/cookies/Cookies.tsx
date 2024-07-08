@@ -186,6 +186,10 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
                 onClick={() => acceptCookies()}
               >{`Accept`}</button>
               <span>{`/`}</span>
+              <button className="uppercase" onClick={() => declineCookies()}>
+                Reject
+              </button>
+              <span>{`/`}</span>
               <button
                 className="uppercase"
                 onClick={() => setDialogOpen(true)}
