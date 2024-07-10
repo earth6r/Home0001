@@ -117,7 +117,8 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
               brandStyle ? 'brand' : '',
               'input'
             )}
-            {...register('email', { required: 'Please enter your email' })}
+            required
+            {...register('email')}
             onChange={() => !unitInput && setUnitInput(true)}
           />
 
@@ -230,7 +231,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 type="radio"
                 value="persona_2"
                 id="purchasing"
-                {...register('hs_persona', { required: true })}
+                {...register('hs_persona', { required: 'Input  required' })}
               />
               <label
                 className="text-left cursor-pointer font-medium text-md"
@@ -245,7 +246,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 type="radio"
                 value="persona_3"
                 id="learn_more"
-                {...register('hs_persona', { required: true })}
+                {...register('hs_persona', { required: 'Input  required' })}
               />
               <label
                 className="text-left cursor-pointer font-medium text-md"
@@ -260,7 +261,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 type="radio"
                 value="persona_1"
                 id="realitor"
-                {...register('hs_persona', { required: true })}
+                {...register('hs_persona', { required: 'Input  required' })}
               />
               <label
                 className="text-left cursor-pointer font-medium text-md"

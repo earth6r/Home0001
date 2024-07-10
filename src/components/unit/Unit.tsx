@@ -13,6 +13,7 @@ import {
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
 import { SanityInventoryModal } from '@components/sanity/table-modal'
+import Link from 'next/link'
 
 export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
@@ -74,18 +75,16 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <IconSmallArrow width="16" height="10" />
             </button>
 
-            {unit?.calendarLink && (
-              <SanityLink externalLink={unit.calendarLink}>
-                <button
-                  className={classNames(
-                    'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
-                  )}
-                >
-                  {`Request a tour`}
-                  <IconSmallArrow width="16" height="10" fill="black" />
-                </button>
-              </SanityLink>
-            )}
+            <Link href="/schedule-phone-call">
+              <button
+                className={classNames(
+                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
+                )}
+              >
+                {`Schedule a call`}
+                <IconSmallArrow width="16" height="10" fill="black" />
+              </button>
+            </Link>
           </div>
 
           {unit?.summary && unit.summary.length > 0 && (
@@ -166,18 +165,16 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <IconSmallArrow width="16" height="10" />
             </button>
 
-            {unit?.calendarLink && (
-              <SanityLink externalLink={unit.calendarLink}>
-                <button
-                  className={classNames(
-                    'w-full relative border-1 border-black border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert text-button z-above p-x'
-                  )}
-                >
-                  {`Request a tour`}
-                  <IconSmallArrow width="16" height="10" fill="black" />
-                </button>
-              </SanityLink>
-            )}
+            <Link href="/schedule-phone-call">
+              <button
+                className={classNames(
+                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
+                )}
+              >
+                {`Schedule a call`}
+                <IconSmallArrow width="16" height="10" fill="black" />
+              </button>
+            </Link>
           </div>
 
           {unit?.layoutImages && (

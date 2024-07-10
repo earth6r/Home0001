@@ -64,6 +64,11 @@ export default {
       title: 'Videos Block',
     },
     {
+      name: 'messagingBlock',
+      type: 'messagingBlock',
+      title: 'Messaging Block',
+    },
+    {
       name: 'waitlistBlock',
       type: 'waitlistBlock',
       title: 'Waitlist Block',

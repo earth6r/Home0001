@@ -13,6 +13,8 @@ declare global {
       SANITY_STUDIO_PREVIEW_SECRET: string
       SANITY_API_TOKEN: string
       SANITY_PREVIEW_TOKEN: string
+      TWILIO_ACCOUNT_SID: string
+      TWILIO_AUTH_TOKEN: string
     }
   }
 }

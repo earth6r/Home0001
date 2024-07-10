@@ -41,8 +41,8 @@ export default {
         bodyLg: ['22px', '1.1'], // large paragraph rich text
         card: ['clamp(1.5rem, 1.294rem + 0.784vw, 2rem)', '0.9'], // property summary card
         header3: ['32px', '0.9'], // h3
-        xl: ['clamp(2.5rem, 2.088rem + 1.569vw, 3.5rem)', '0.85'], // h2
-        '2xl': ['clamp(2.5rem, 0.956rem + 5.882vw, 6.25rem)', '0.85'], // h1
+        xl: ['clamp(2.5rem, 2.088rem + 1.569vw, 3.5rem)', '0.9'], // h2
+        '2xl': ['clamp(2.5rem, 0.956rem + 5.882vw, 6.25rem)', '0.9'], // h1
       },
       letterSpacing: {
         details: '-0.02em',
@@ -140,7 +140,7 @@ export default {
         '.text-h1': {
           fontSize: theme('fontSize.2xl'),
           fontWeight: '700',
-          lineHeight: '0.85',
+          lineHeight: '0.9',
           letterSpacing: theme('letterSpacing.header'),
           textTransform: 'uppercase',
         },

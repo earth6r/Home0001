@@ -27,13 +27,16 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
   return (
     <div>
       {copy && (
-        <RichText blocks={copy} className={classNames('clear-both capital')} />
+        <RichText
+          blocks={copy}
+          className={classNames('clear-both capital mb-y')}
+        />
       )}
 
       {accordions && !showAccordions && (
         <button
           onClick={() => setShowAccordions(true)}
-          className={classNames('pr-x pt-yhalf')}
+          className={classNames('pr-x')}
         >
           <span
             className={classNames(
@@ -107,7 +110,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
   return (
     <Block className={classNames(className)}>
       {scrollHeader && (
-        <div className="flex flex-wrap md:grid md:grid-cols-2 h-[calc(100svh-var(--space-page))] mim-h-[600px] items-end md:items-center justify-center md:justify-normal">
+        <div className="flex flex-wrap md:grid md:grid-cols-1 h-[calc(100svh-var(--space-page))] min-h-[600px] items-end md:items-center justify-center md:justify-normal pr-menu">
           <RichText blocks={scrollHeader} />
 
           <IconRightArrowBold
@@ -115,13 +118,13 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
             onClick={scrollDown}
             className={classNames(
               scrolled ? 'opacity-0 pointer-events-none' : '',
-              'w-[33px] md:w-[161px] mb-ydouble md:mb-0 md:ml-xdouble transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
+              'w-[80px] md:w-[80px] mx-auto mb-ydouble md:mb-0 md:ml-0 md:my-4 transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
             )}
           />
         </div>
       )}
 
-      <div className="grid md:grid-cols-2">
+      <div className="grid md:grid-cols-2 mb-[96px]">
         {header && (
           <RichText
             blocks={header}
@@ -130,7 +133,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
             )}
           />
         )}
-        <div className="md:col-start-2 flex flex-wrap gap-ydouble">
+        <div className="md:col-start-2 flex flex-wrap gap-ydouble pr-menu">
           {items?.map(({ _key, copy, accordions }) => (
             <div key={_key}>
               <TextAndAccordion copy={copy} accordions={accordions} />

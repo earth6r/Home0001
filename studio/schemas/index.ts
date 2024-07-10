@@ -35,9 +35,12 @@ import flexWaitlistBlock from './blocks/flex-waitlist-block'
 import calendarBlock from './blocks/calendar-block'
 import video from './objects/video'
 import videosBlock from './blocks/videos-block'
+import messagingBlock from './blocks/messaging-block'
 import divider from './objects/divider'
 import textAndAccordionBlock from './blocks/text-and-accordion-block'
 import brand from './documents/brand-page'
+import embed from './objects/embed'
+import buy from './documents/buy-page'
 
 export const schemaTypes = [
   // objects
@@ -47,6 +50,7 @@ export const schemaTypes = [
   coordinates,
   cta,
   divider,
+  embed,
   figure,
   media,
   menuItem,
@@ -75,11 +79,13 @@ export const schemaTypes = [
   textAndAccordionBlock,
   unitBlock,
   videosBlock,
+  messagingBlock,
   waitlistBlock,
   flexWaitlistBlock,
 
   // documents
   brand,
+  buy,
   city,
   menus,
   page,
