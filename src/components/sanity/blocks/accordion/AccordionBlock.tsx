@@ -31,12 +31,11 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
       )}
     >
       <div
-        style={{
-          gridColumnStart: columns && columns > 2 ? 2 : 1,
-        }}
         className={classNames(
-          columns > 2 ? 'col-span-1' : 'col-span-2',
-          'md:col-start-2 md:col-span-1'
+          columns > 2
+            ? 'col-span-3 md:col-span-1 col-start-1 md:col-start-2'
+            : 'col-span-2 md:col-start-2',
+          ''
         )}
       >
         {accordions &&
