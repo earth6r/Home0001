@@ -287,8 +287,7 @@ const postStartedSubmitFields = async (
   data: any,
   portalId?: string,
   formGuid?: string,
-  config?: any,
-  hutk?: string
+  config?: any
 ) => {
   return await axios.post(
     `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
@@ -351,13 +350,7 @@ export const submitForm = async (
   } else if (formType === 'broker') {
     response = await postBrokerFields(data, portalId, formGuid, config, hutk)
   } else if (formType === 'started_submit') {
-    response = await postStartedSubmitFields(
-      data,
-      portalId,
-      formGuid,
-      config,
-      hutk
-    )
+    response = await postStartedSubmitFields(data, portalId, formGuid, config)
   } else if (formType === 'preference') {
     response = await postPreferenceFields(
       data,

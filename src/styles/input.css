@@ -65,6 +65,21 @@ input[type='checkbox'].unit-checkbox {
   top: 18px;
 }
 
+input.background-checkbox,
+input.background-checkbox:focus,
+input.background-checkbox:active {
+  @apply absolute w-full h-full m-0 top-0 left-0 p-0;
+  background: white;
+}
+
+input.background-checkbox:checked {
+  background: black;
+}
+
+input.background-checkbox:checked + label {
+  color: white;
+}
+
 @screen md {
   input[type='checkbox'],
   input[type='checkbox']:focus,
@@ -85,5 +100,11 @@ input[type='checkbox'].unit-checkbox {
     width: 1rem;
     height: 1rem;
     padding: 0;
+  }
+
+  input.background-checkbox,
+  input.background-checkbox:focus,
+  input.background-checkbox:active {
+    @apply w-full h-full m-0 left-0 p-0;
   }
 }

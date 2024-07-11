@@ -29,9 +29,9 @@ export const TextBlock: FC<TextBlockProps> = ({
         yellowBackground
           ? 'bg-yellow w-[calc(100%+(var(--space-x)*2))] -left-x px-x py-ydouble'
           : '',
-        !yellowBackground && grid ? `md:grid pr-menu` : '',
+        !yellowBackground && grid ? `md:grid` : '',
         bottomBorder ? 'pb-y -mb-y border-bottom' : '',
-        columns && columns < 3 ? 'md:pr-0' : ''
+        columns && columns < 3 ? '' : ''
       )}
     >
       {stickyHeader && header && (
@@ -43,12 +43,13 @@ export const TextBlock: FC<TextBlockProps> = ({
         />
       )}
       <div
+        className="pr-menu"
         style={{
           gridColumnStart: (columns && columns > 2) || stickyHeader ? 2 : 1,
         }}
       >
         {text && (
-          <RichText blocks={text} className={classNames('clear-both pr-x')} />
+          <RichText blocks={text} className={classNames('clear-both')} />
         )}
       </div>
     </Block>

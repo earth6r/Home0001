@@ -29,6 +29,12 @@ export default {
       },
     },
     {
+      name: 'password',
+      title: 'Password',
+      type: 'string',
+      description: 'Password protect this page',
+    },
+    {
       name: 'hideMenuButton',
       title: 'Hide Menu Button',
       description: 'Hide waitlist or tour button in header',
