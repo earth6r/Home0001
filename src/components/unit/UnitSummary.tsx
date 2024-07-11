@@ -6,14 +6,14 @@ import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import { sendGoogleEvent } from '@lib/util'
 import Link from 'next/link'
-import { ImageCarousel } from '@components/carousel'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
-export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
+import { SanityMedia, SanityMediaProps } from '@components/sanity'
+export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
   const [cryptoMode, setCryptoMode] = useCryptoMode()
@@ -69,17 +69,9 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
   }
 
   if (!unit) return null
-  if (
-    unit.photoLimit &&
-    unit?.photographs &&
-    unit?.photographs?.length > unit.photoLimit
-  ) {
-    unit.photographs = unit.photographs.slice(0, unit.photoLimit)
-  }
 
   return (
     <li className={classNames(className)}>
-      <div className={classNames(border ? 'border-top pt-ydouble' : '')}></div>
       <div
         className={classNames(
           unit.available ? '' : 'bg-white shadow-none opacity-30',
@@ -88,17 +80,19 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
       >
         <div className="z-above">
           <div className="flex flex-col relative overflow-x-hidden">
-            {unit?.photographs && unit?.photographs.length > 0 && (
-              <ImageCarousel
-                slides={unit?.photographs}
-                carousel={true}
-                pagination={true}
-                fullWidth={true}
-                className="px-x"
-                placement="unit summary images"
+            {unit?.photographs && (
+              <SanityMedia
+                {...(unit.photographs as SanityMediaProps)}
+                imageProps={{
+                  alt: 'Unit image',
+                  quality: 90,
+                  sizes: '(max-width: 768px) 100vw, 1000px',
+                  lqip: (unit.photographs.image as any)?.asset?.metadata?.lqip,
+                }}
+                className="w-full h-auto object-contain"
               />
             )}
-            <div className="block w-auto md:max-w-[calc(50vw-var(--space-x))] py-x ml-x mr-y md:mr-0 text-md uppercase">
+            <div className="block w-full py-x ml-x mr-y md:mr-0 text-md uppercase">
               <div className="mb-y">
                 {unit.title && (
                   <p className="text-h4 mb-y tracking-normal">{unit.title}</p>
@@ -128,7 +122,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
                 >
                   <button
                     className={classNames(
-                      `mt-2 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-btnWidth h-12 max-h-12 bg-black text-white font-medium text-xs z-above p-4 hover:invert hover:border-white transition-all`
+                      `mt-2 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-full h-12 max-h-12 bg-black text-white font-medium text-xs z-above p-4 hover:invert hover:border-white transition-all`
                     )}
                     onClick={() => {
                       updateUnit(unit, unit.title)

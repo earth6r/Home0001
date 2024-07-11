@@ -46,7 +46,7 @@ export interface KeyedUnitProps
         }
       }
     | Media
-  photographs?: SanityKeyed<Media>[]
+  photographs?: Media
   photoLimit?: number
   reserveFormCopy?: RichText
   confirmationCopy?: RichText
@@ -76,5 +76,4 @@ export interface UnitElProps
 export interface UnitListProps extends HTMLAttributes<HTMLElement> {
   unitList?: KeyedUnitProps[]
   unit?: KeyedUnitProps
-  border?: boolean
 }
