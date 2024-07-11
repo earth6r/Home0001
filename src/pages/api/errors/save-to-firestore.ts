@@ -53,11 +53,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // sendgrid email
   const msg = {
-    to: ['yogaratnamapinan@gmail.com', 'yan@home0001.com', 'jameslamarre@gmail.com'],
+    to: [
+      'yogaratnamapinan@gmail.com',
+      'yan@home0001.com',
+      'jameslamarre@gmail.com',
+    ],
     from: 'talin@home0001.com',
     subject: 'Error Occurred',
     text: JSON.stringify({ error, errorType, statusCode, resolved }),
-    html: `<strong>${JSON.stringify({ error, errorType, statusCode, resolved })}</strong>`,
+    html: `<strong>${JSON.stringify({
+      error,
+      errorType,
+      statusCode,
+      resolved,
+    })}</strong>`,
   }
 
   try {

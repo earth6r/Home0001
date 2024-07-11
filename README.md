@@ -238,5 +238,4 @@ schema:
 - status code optional
 - resolved defaulted to false
 
-
 feat/saving-user-bookings
