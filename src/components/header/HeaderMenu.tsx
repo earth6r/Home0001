@@ -100,7 +100,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                       setTimeout(close, 100)
                                       setBrokerInquiryOpen(true)
                                     }}
-                                    className="uppercase mb-ydouble"
+                                    className="uppercase mb-ydouble hover:underline underline-offset-2 decoration-[2px]"
                                   >
                                     Are you a realtor?
                                   </button>
@@ -124,7 +124,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                   isProperty || isUnit
                                     ? 'mb-y md:hidden'
                                     : 'py-y md:pt-0 md:pb-ydouble',
-                                  'inline-block'
+                                  'inline-block hover:underline underline-offset-2 decoration-[2px]'
                                 )}
                               />
                             )}
@@ -184,7 +184,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                 className={classNames(
                                   isUnit ? 'mb-y pl-xdouble' : '',
                                   isProperty ? 'pt-y' : '',
-                                  'inline-block mb-y'
+                                  'inline-block mb-y hover:underline underline-offset-2 decoration-[2px]'
                                 )}
                               />
                             )}

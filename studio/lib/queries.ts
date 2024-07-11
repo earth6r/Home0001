@@ -226,7 +226,7 @@ export const PROPERTIES_QUERY = `
     price,
     cryptoPrice,
     area,
-    "photographs": photographs[]{
+    "photographs": photographs[][0]{
       ${MEDIA_QUERY}
     },
     photoLimit,
