@@ -18,6 +18,7 @@ import {
   TextAndAccordionBlock,
   VideosBlock,
   FullbleedBlock,
+  MessagingBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
@@ -78,6 +79,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             videosBlock: ({ index, value }) => (
               <VideosBlock index={index} {...value} />
+            ),
+            messagingBlock: ({ index, value }) => (
+              <MessagingBlock index={index} {...value} />
             ),
           },
           marks: blockMarks,

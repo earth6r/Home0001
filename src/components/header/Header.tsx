@@ -28,6 +28,7 @@ export const Header: FC<HeaderProps> = ({
   waitlist,
   inquiry,
   path,
+  hideMenu,
   hideMenuButton,
   showTourLink,
   currentTitle,
@@ -289,19 +290,15 @@ export const Header: FC<HeaderProps> = ({
                     'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-200'
                   )}
                   onClick={() => {
-                    if (location.pathname.includes('les')) {
-                      window.open('https://www.home0001.com/les-tour', '_blank')
-                    } else {
-                      window.open(
-                        'https://www.home0001.com/echo-park-tour',
-                        '_blank'
-                      )
-                    }
+                    window.open(
+                      'https://www.home0001.com/schedule-phone-call',
+                      '_blank'
+                    )
                   }}
                 >
                   <div className="px-[6px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
                     <IconSmallArrow width="16" className="mr-[5px]" />
-                    {`Schedule a tour`}
+                    {`Schedule a call`}
                   </div>
                 </Btn>
               ) : (
@@ -319,12 +316,14 @@ export const Header: FC<HeaderProps> = ({
             </>
           )}
 
-          <HeaderMenu
-            customOpen={menuOpen}
-            onOpen={onOpen}
-            mainMenu={mainMenu as SanityMenu}
-            className="flex flex-col pointer-events-auto"
-          />
+          {!hideMenu && (
+            <HeaderMenu
+              customOpen={menuOpen}
+              onOpen={onOpen}
+              mainMenu={mainMenu as SanityMenu}
+              className="flex flex-col pointer-events-auto"
+            />
+          )}
         </div>
       </header>
     </div>

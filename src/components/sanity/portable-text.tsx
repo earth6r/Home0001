@@ -31,6 +31,9 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
   divider: () => {
     return <span className="block h-yhalf" />
   },
+  embed: ({ value }) => {
+    return <script type="text/javascript">{value.embed}</script>
+  },
 }
 
 /**
