@@ -69,7 +69,7 @@ export const Accordion: FC<AccordionProps> = ({
                       ? largeHeader
                         ? 'text-h2'
                         : 'text-h4'
-                      : 'font-medium text-xs',
+                      : 'w-[calc(100%-16px)] font-medium text-xs',
                     'uppercase'
                   )}
                 >
@@ -96,7 +96,11 @@ export const Accordion: FC<AccordionProps> = ({
                         height={12}
                       />
                     ) : (
-                      <IconPlus className="w-[18px]" width={16} height={16} />
+                      <IconPlus
+                        className="relative w-[16px] top-[1px]"
+                        width={16}
+                        height={16}
+                      />
                     )}
                   </>
                 )}
