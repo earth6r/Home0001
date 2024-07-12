@@ -84,65 +84,62 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
         )}
       >
         <div className="z-above">
-          <div className="flex flex-col relative overflow-x-hidden">
-            {unit?.photographs && (
-              <SanityMedia
-                {...(unit.photographs as SanityMediaProps)}
-                imageProps={{
-                  alt: 'Unit image',
-                  quality: 90,
-                  sizes: '(max-width: 768px) 100vw, 1000px',
-                  lqip: ((unit.photographs as Media).image as any)?.asset
-                    ?.metadata?.lqip,
-                }}
-                className="w-full h-auto object-contain"
-              />
-            )}
-            <div className="block w-full text-md uppercase">
-              <div className="p-x bg-darkergray">
-                {unit.title && (
-                  <p className="font-medium mb-yhalf tracking-normal">
-                    {unit.title}
-                  </p>
-                )}
-
-                <p className="font-medium mb-yhalf">
-                  {unit?.hidePrice
-                    ? 'Price upon request'
-                    : cryptoMode
-                    ? `${unit.price?.substring(1)} USDC / ${
-                        cryptoPrice[1]
-                      } BTC / ${cryptoPrice[0]} ETH`
-                    : unit?.price}
-                </p>
-
-                <p className="font-medium">{unit?.area}</p>
-              </div>
-
-              {unit.slug && (
-                <Link
-                  href={`/unit/${unit.slug?.current}`}
-                  onClick={() => {
-                    updateUnit(unit, unit.title)
+          <Link
+            href={`/unit/${unit.slug?.current}`}
+            onClick={() => {
+              updateUnit(unit, unit.title)
+            }}
+            className="inline-block w-full md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
+          >
+            <div className="flex flex-col relative overflow-x-hidden">
+              {unit?.photographs && (
+                <SanityMedia
+                  {...(unit.photographs as SanityMediaProps)}
+                  imageProps={{
+                    alt: 'Unit image',
+                    quality: 90,
+                    sizes: '(max-width: 768px) 100vw, 1000px',
+                    lqip: ((unit.photographs as Media).image as any)?.asset
+                      ?.metadata?.lqip,
                   }}
-                  className="inline-block w-full"
-                >
-                  <div
-                    className={classNames(
-                      'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
-                    )}
-                  >
-                    <h4 className="text-card text-white">{unit.title}</h4>
-
-                    <IconRightArrowBold
-                      className="relative w-[1em] mt-[0.1em]"
-                      fill="white"
-                    />
-                  </div>
-                </Link>
+                  className="w-full h-auto object-contain"
+                />
               )}
+              <div className="block w-full text-md uppercase">
+                <div className="p-x bg-darkergray">
+                  {unit.title && (
+                    <p className="font-medium mb-yhalf tracking-normal">
+                      {unit.title}
+                    </p>
+                  )}
+
+                  <p className="font-medium mb-yhalf">
+                    {unit?.hidePrice
+                      ? 'Price upon request'
+                      : cryptoMode
+                      ? `${unit.price?.substring(1)} USDC / ${
+                          cryptoPrice[1]
+                        } BTC / ${cryptoPrice[0]} ETH`
+                      : unit?.price}
+                  </p>
+
+                  <p className="font-medium">{unit?.area}</p>
+                </div>
+                <div
+                  className={classNames(
+                    'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
+                  )}
+                >
+                  <h4 className="text-card text-white">{unit.title}</h4>
+
+                  <IconRightArrowBold
+                    className="relative w-[1em] mt-[0.1em]"
+                    fill="white"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </li>

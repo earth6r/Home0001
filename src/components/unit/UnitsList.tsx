@@ -34,7 +34,7 @@ export const UnitsList: FC<UnitListProps> = ({ unitList, className }) => {
         {unitList &&
           unitList.map((unit: KeyedUnitProps) => {
             return (
-              <SwiperSlide key={unit._id} className="w-full md:max-w-[306px]">
+              <SwiperSlide key={unit._id} className="w-full md:max-w-[500px]">
                 <UnitSummary unit={unit} className="w-full" />
               </SwiperSlide>
             )
