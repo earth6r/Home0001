@@ -139,7 +139,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
             )}
           />
         )}
-        <div className="md:col-start-2 flex flex-wrap gap-ydouble pr-menu">
+        <div className="md:col-start-2 flex flex-wrap gap-[calc(var(--space-y)*4)] pr-menu">
           {items?.map(({ _key, copy, accordions }) => (
             <div key={_key}>
               <TextAndAccordion copy={copy} accordions={accordions} />
