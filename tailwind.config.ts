@@ -18,6 +18,7 @@ export default {
         gray: '#EDEDED',
         lightgray: '#DEDEDE',
         darkgray: '#E9E9E9',
+        darkergray: '#C6C6C6',
         yellow: '#FAFF00',
       },
       textColor: {

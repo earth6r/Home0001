@@ -14,7 +14,7 @@ export const UnitsList: FC<UnitListProps> = ({ unitList, className }) => {
       slidesPerView: 1.185,
     },
     [SCREENS.md]: {
-      slidesPerView: 2,
+      slidesPerView: 'auto',
     },
   }
 
@@ -26,12 +26,15 @@ export const UnitsList: FC<UnitListProps> = ({ unitList, className }) => {
         spaceBetween={16}
         breakpoints={breakpoints}
         speed={600}
-        className={classNames('w-full ml-0 overflow-visible cursor-grab')}
+        centerInsufficientSlides={true}
+        className={classNames(
+          'relative w-full max-w-full overflow-visible cursor-grab'
+        )}
       >
         {unitList &&
           unitList.map((unit: KeyedUnitProps) => {
             return (
-              <SwiperSlide key={unit._id} className="w-full max-w-[306px]">
+              <SwiperSlide key={unit._id} className="w-full md:max-w-[306px]">
                 <UnitSummary unit={unit} className="w-full" />
               </SwiperSlide>
             )
