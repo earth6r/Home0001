@@ -217,7 +217,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               pagination={true}
               perView={1}
               carousel={true}
-              slides={unit?.photographs}
+              slides={unit?.photographs as SanityKeyed<Media>[]}
               className="w-full h-full pl-x md:pl-0 pr-x overflow-hidden"
               placement="unit images"
             />
