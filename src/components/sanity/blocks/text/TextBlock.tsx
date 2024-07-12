@@ -43,7 +43,7 @@ export const TextBlock: FC<TextBlockProps> = ({
         />
       )}
       <div
-        className="pr-menu"
+        className={classNames(columns && columns === 2 ? 'pr-menu' : '')}
         style={{
           gridColumnStart: (columns && columns > 2) || stickyHeader ? 2 : 1,
         }}
