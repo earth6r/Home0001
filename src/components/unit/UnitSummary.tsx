@@ -14,6 +14,7 @@ import {
 } from '@lib/util/crypto-pricing'
 import { RichText, SanityMedia, SanityMediaProps } from '@components/sanity'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { Media } from '@studio/gen/sanity-schema'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -91,7 +92,8 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                   alt: 'Unit image',
                   quality: 90,
                   sizes: '(max-width: 768px) 100vw, 1000px',
-                  lqip: (unit.photographs.image as any)?.asset?.metadata?.lqip,
+                  lqip: ((unit.photographs as Media).image as any)?.asset
+                    ?.metadata?.lqip,
                 }}
                 className="w-full h-auto object-contain"
               />
