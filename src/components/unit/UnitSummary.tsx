@@ -12,7 +12,11 @@ import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
-import { SanityMedia, SanityMediaProps } from '@components/sanity'
+import { RichText, SanityMedia, SanityMediaProps } from '@components/sanity'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+
+const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
+
 export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
@@ -28,7 +32,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
       return [roundedEthPrice, roundedBtcPrice]
     }
 
-    if (unit?.price != 'Inquire') {
+    if (unit?.price != 'Inquire' && ENV !== 'dev') {
       const usdPrice = unit?.price
 
       fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
@@ -92,16 +96,15 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                 className="w-full h-auto object-contain"
               />
             )}
-            <div className="block w-full py-x ml-x mr-y md:mr-0 text-md uppercase">
-              <div className="mb-y">
+            <div className="block w-full text-md uppercase">
+              <div className="p-x bg-darkergray">
                 {unit.title && (
-                  <p className="text-h4 mb-y tracking-normal">{unit.title}</p>
+                  <p className="font-medium mb-yhalf tracking-normal">
+                    {unit.title}
+                  </p>
                 )}
 
-                <p className="font-medium mb-y">
-                  {unit?.propertyType?.typeTitle}
-                </p>
-                <p className="font-medium mb-y">
+                <p className="font-medium mb-yhalf">
                   {unit?.hidePrice
                     ? 'Price upon request'
                     : cryptoMode
@@ -110,7 +113,8 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                       } BTC / ${cryptoPrice[0]} ETH`
                     : unit?.price}
                 </p>
-                <p className="font-medium mb-y">{unit?.area}</p>
+
+                <p className="font-medium">{unit?.area}</p>
               </div>
 
               {unit.slug && (
@@ -119,20 +123,20 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                   onClick={() => {
                     updateUnit(unit, unit.title)
                   }}
+                  className="inline-block w-full"
                 >
-                  <button
+                  <div
                     className={classNames(
-                      `mt-2 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-full h-12 max-h-12 bg-black text-white font-medium text-xs z-above p-4 hover:invert hover:border-white transition-all`
+                      'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
                     )}
-                    onClick={() => {
-                      updateUnit(unit, unit.title)
-                    }}
                   >
-                    <span className="mb-0 py-2 text-left uppercase">
-                      {`Explore`}
-                    </span>
-                    <IconSmallArrow width="16" height="10" fill="white" />
-                  </button>
+                    <h4 className="text-card text-white">{unit.title}</h4>
+
+                    <IconRightArrowBold
+                      className="relative w-[1em] mt-[0.1em]"
+                      fill="white"
+                    />
+                  </div>
                 </Link>
               )}
             </div>
