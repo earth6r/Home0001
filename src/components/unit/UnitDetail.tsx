@@ -13,6 +13,8 @@ import {
 import { SanityInventoryModal } from '@components/sanity/table-modal'
 import { Accordion } from '@components/accordion'
 import Link from 'next/link'
+import { SanityKeyed } from 'sanity-codegen'
+import { Media } from '@studio/gen/sanity-schema'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
   unit,
