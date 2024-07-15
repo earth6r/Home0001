@@ -1,4 +1,8 @@
-import { useCookiesPrefs, useLocalCookies } from '@contexts/cookies'
+import {
+  useCookiesPrefs,
+  useFunctionalPref,
+  useLocalCookies,
+} from '@contexts/cookies'
 import classNames from 'classnames'
 import { useState, type FC, type HTMLProps, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
@@ -10,6 +14,11 @@ import {
 } from '@studio/gen/sanity-schema'
 import { RichText } from '@components/sanity'
 import { Accordion, AccordionProps } from '@components/accordion'
+import { disableGoogleEvents } from '@lib/util'
+
+interface CookieProps extends AccordionProps {
+  setSetting: (type: string, active: boolean) => void
+}
 
 type CookiesProps = {
   copy?: RichTextType
@@ -19,23 +28,22 @@ type CookiesProps = {
 interface CookiesDialogProps extends CookiesProps {
   open: boolean
   accordions?: Array<SanityKeyed<AccordionProps>>
-  accept: () => void
-  decline: () => void
+  acceptAnalytics: () => void
+  declineAnalytics: () => void
+  declineFunctional: () => void
+  close: () => void
 }
 
-const CookieSetting: FC<AccordionProps> = ({
+const CookieSetting: FC<CookieProps> = ({
   header,
   firstIndex,
   largeHeader,
   initialText,
   text,
   cta,
+  setSetting,
 }) => {
-  const [settingOn, setSettingOn] = useState(firstIndex)
-
-  useEffect(() => {
-    // do something if setting changes
-  }, [settingOn])
+  const [settingOn, setSettingOn] = useState(true)
 
   return (
     <div className="flex w-full gap-x mt-yhalf">
@@ -49,7 +57,10 @@ const CookieSetting: FC<AccordionProps> = ({
       />
       <Switch
         disabled={firstIndex}
-        onChange={() => setSettingOn(!settingOn)}
+        onChange={() => {
+          setSettingOn(!settingOn)
+          if (header) setSetting(header, settingOn)
+        }}
         className={classNames(
           settingOn ? 'bg-black' : 'bg-gray',
           firstIndex ? 'opacity-30' : 'opacity-100',
@@ -72,17 +83,44 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
   copy,
   accordions,
   open,
-  accept,
-  decline,
+  acceptAnalytics,
+  declineAnalytics,
+  declineFunctional,
+  close,
 }) => {
+  const [cookiesSettings, setCookiesSettings] = useState({
+    analytics: true,
+    functional: true,
+  })
+
+  const updateCookiesSetting = (type: string, active: boolean) => {
+    if (type.toLowerCase() === 'analytics') {
+      setCookiesSettings({ ...cookiesSettings, analytics: active })
+    } else if (type.toLowerCase() === 'functional') {
+      setCookiesSettings({ ...cookiesSettings, functional: active })
+    }
+  }
+
+  const submitChoices = () => {
+    if (cookiesSettings.analytics) {
+      acceptAnalytics()
+    } else {
+      declineAnalytics()
+    }
+
+    if (!cookiesSettings.functional) {
+      declineFunctional()
+    }
+  }
+
   return (
-    <Dialog open={open} onClose={decline}>
+    <Dialog open={open} onClose={close}>
       <div className="fixed w-[100vw] h-[100vh] top-0 left-0 right-0 bottom-0 bg-black opacity-40 z-header"></div>
       <Dialog.Panel className="fixed w-full md:max-w-[680px] h-[100svh] md:h-[75vh] md:max-h-[636px] top-0 md:top-1/2 md:transform md:-translate-y-1/2 py-xdouble px-x left-0 md:left-1/2 md:-translate-x-1/2 right-0 bg-white border-black overflow-scroll z-menu">
         {copy && (
-          <Dialog.Description>
+          <div>
             <RichText blocks={copy} className="mt-ydouble" />
-          </Dialog.Description>
+          </div>
         )}
 
         <div className="block mt-y">
@@ -92,6 +130,7 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
               <CookieSetting
                 key={accordion._key}
                 firstIndex={index === 0}
+                setSetting={updateCookiesSetting}
                 {...accordion}
               />
             ))}
@@ -100,13 +139,16 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
         <div className="grid grid-cols-2 gap-x w-full mt-y">
           <button
             className="h-btn text-button bg-black text-white"
-            onClick={decline}
+            onClick={() => {
+              declineAnalytics
+              declineFunctional
+            }}
           >
             Reject All
           </button>
           <button
             className="h-btn text-button bg-black text-white"
-            onClick={accept}
+            onClick={() => submitChoices()}
           >
             Confirm choices
           </button>
@@ -114,7 +156,7 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
 
         <button
           className="absolute flex justify-between w-full top-x left-0 px-x text-button"
-          onClick={decline}
+          onClick={close}
         >
           <span>HOME0001</span>
           <span>Close</span>
@@ -128,18 +170,24 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
   copy,
   accordions,
 }) => {
+  const [functionalActive, setFunctionalActive] = useFunctionalPref()
   const [cookies, setCookie, removeCookie] = useCookies(['hubspotutk'])
   const [hutk, setHutk] = useLocalCookies()
   const [showPrefs, setShowPrefs] = useCookiesPrefs()
   const [showBanner, setShowBanner] = useState(false)
   let [dialogOpen, setDialogOpen] = useState(showPrefs)
 
+  const closeModal = () => {
+    // layout updates
+    setDialogOpen(false)
+    setShowPrefs(false)
+  }
+
   const acceptCookies = () => {
     setHutk(cookies.hubspotutk)
     sessionStorage.setItem('cookieStorage', 'true')
+    sessionStorage.setItem('allowAnalytics', 'true')
     setShowBanner(false)
-    setDialogOpen(false)
-    setShowPrefs(false)
   }
 
   const declineCookies = () => {
@@ -147,9 +195,16 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
       removeCookie('hubspotutk')
     }
     sessionStorage.setItem('cookieStorage', 'true')
+    // turn off gtag and other analytics
+    disableGoogleEvents()
+    sessionStorage.setItem('allowAnalytics', 'false')
+    closeModal()
     setShowBanner(false)
-    setDialogOpen(false)
-    setShowPrefs(false)
+  }
+
+  const declineFunctional = () => {
+    setFunctionalActive(false)
+    sessionStorage.removeItem('firstTime')
   }
 
   useEffect(() => {
@@ -186,7 +241,13 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
                 onClick={() => acceptCookies()}
               >{`Accept`}</button>
               <span>{`/`}</span>
-              <button className="uppercase" onClick={() => declineCookies()}>
+              <button
+                className="uppercase"
+                onClick={() => {
+                  declineCookies()
+                  declineFunctional()
+                }}
+              >
                 Reject
               </button>
               <span>{`/`}</span>
@@ -202,8 +263,10 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
           copy={copy}
           accordions={accordions}
           open={dialogOpen}
-          accept={acceptCookies}
-          decline={declineCookies}
+          acceptAnalytics={acceptCookies}
+          declineAnalytics={declineCookies}
+          declineFunctional={declineFunctional}
+          close={closeModal}
         />
       </motion.div>
     </AnimatePresence>

@@ -14,3 +14,13 @@ export const sendGoogleEvent = (event: string, options?: {}) => {
     window['google_tag_manager'][GOOGLE_ID].dataLayer.reset()
   }
 }
+
+export const disableGoogleEvents = () => {
+  if (typeof window !== 'undefined' && GOOGLE_ID) {
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push('js', new Date())
+
+    window[`ga-disable-${GOOGLE_ID}`] = true
+    window.dataLayer.push('config', GOOGLE_ID)
+  }
+}
