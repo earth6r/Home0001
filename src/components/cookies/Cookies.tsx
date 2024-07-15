@@ -205,6 +205,10 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
   const declineFunctional = () => {
     setFunctionalActive(false)
     sessionStorage.removeItem('firstTime')
+    sessionStorage.removeItem('allowAnalytics')
+    sessionStorage.removeItem('routes')
+    sessionStorage.removeItem('cookieStorage')
+    sessionStorage.removeItem('query')
   }
 
   useEffect(() => {
