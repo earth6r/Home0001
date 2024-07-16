@@ -18,11 +18,7 @@ const getWhatsAppBusinessDetails = async (accessToken: string) => {
   })
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-): Promise<void> {
-  const { recipientPhone, message } = req.body
+export const sendMessage = async (recipientPhone: string, message: string) => {
   const authToken = process.env.WHATSAPP_PERMANENT_TOKEN
 
   const data = {
@@ -68,6 +64,21 @@ export default async function handler(
         message: message,
       }
     )
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error("Couldn't send message", error)
+    throw error
+  }
+}
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+): Promise<void> {
+  const { recipientPhone, message } = req.body
+
+  try {
+    await sendMessage(recipientPhone, message)
   } catch (error) {
     return res.status(500).json({ message: "Couldn't send message", error })
   }
