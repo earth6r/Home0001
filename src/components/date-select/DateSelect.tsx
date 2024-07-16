@@ -46,7 +46,7 @@ export const DateSelect: FC<DateSelectProps> = ({
             ({ date, slots }: { date: string; slots: string[] }, index) => {
               const formattedDate = new Date(date).toLocaleDateString('en-US', {
                 timeZone: 'UTC',
-                weekday: undefined,
+                weekday: 'short',
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',

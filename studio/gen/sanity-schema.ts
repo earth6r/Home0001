@@ -1242,13 +1242,6 @@ export type CalendarBlock = {
    *
    */
   header?: RichText;
-
-  /**
-   * Embed Code — `string`
-   *
-   * Value used in https://meetings.hubspot.com/ url
-   */
-  embedCode?: string;
 };
 
 export type CarouselBlock = {

@@ -6,7 +6,7 @@ import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
 import { DateSelect } from '@components/date-select'
 import { useForm } from 'react-hook-form'
-import { createGoogleCalendarMeeting, getAvailableSlots } from '@components/buy'
+import { getAvailableSlots } from '@components/buy'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
@@ -14,7 +14,6 @@ type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
 
 export const CalendarBlock: FC<CalendarBlockProps> = ({
   header,
-  embedCode,
   className,
 }) => {
   const {
@@ -79,12 +78,25 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
               onSubmit={handleSubmit(onSubmit)}
               className="w-full md:max-w-[526px] h-full mt-ydouble"
             >
+              <div className="rich-text mb-y">
+                <p className="uppercase">What time works best?</p>
+              </div>
+
               <DateSelect
                 availableSlots={availableSlots}
                 register={register}
                 loading={loading}
-                className="mb-y"
+                className="mb-yhalf"
               />
+
+              <div className="mb-ydouble">
+                <p className="uppercase font-medium small">
+                  <span className="block small">
+                    Meeting Duration: 15 minutes
+                  </span>
+                  <span className="block small">All times in EST</span>
+                </p>
+              </div>
 
               <div className={classNames('flex flex-row gap-y mb-y')}>
                 <input
@@ -126,11 +138,12 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 })}
               />
 
-              <input
-                placeholder={'Notes'}
-                type="textarea"
+              <textarea
+                placeholder={
+                  'What questions would you like to discuss? Can we prepare anything for you before the call?'
+                }
                 id="notes"
-                className="input mb-y"
+                className="input textarea mb-y"
                 {...register('notes')}
               />
 
