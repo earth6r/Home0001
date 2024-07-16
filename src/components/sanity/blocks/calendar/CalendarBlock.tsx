@@ -126,6 +126,14 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 })}
               />
 
+              <input
+                placeholder={'Notes'}
+                type="textarea"
+                id="notes"
+                className="input mb-y"
+                {...register('notes')}
+              />
+
               <button
                 className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
                 type={'submit'}
