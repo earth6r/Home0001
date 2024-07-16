@@ -14,7 +14,9 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
 }) => {
   return (
     <Block className={classNames(className, '')}>
-      {header && <RichText blocks={header} className="mb-y text-center" />}
+      {header && (
+        <RichText blocks={header} className="mb-y text-left md:text-center" />
+      )}
 
       <div
         className="meetings-iframe-container"
