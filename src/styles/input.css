@@ -23,6 +23,10 @@ textarea {
   border-right: none;
 }
 
+.textarea {
+  @apply h-[calc(var(--btn-height)*2)];
+}
+
 label {
   @apply normal-case;
 }
