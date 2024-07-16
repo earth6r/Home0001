@@ -53,13 +53,11 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               <Menu.Button as={HeaderToggleBtn} />
               <div
                 className={classNames(
-                  'fixed w-[100vw] h-[100vh] top-0 left-0 overflow-hidden bg-white text-left pointer-events-none'
+                  customOpen
+                    ? 'opacity-100 pointer-events-all'
+                    : 'opacity-0 pointer-events-none',
+                  'fixed w-[100vw] h-[100vh] top-0 right-0 overflow-hidden bg-white text-left transition-opacity'
                 )}
-                style={{
-                  transition: 'opacity var(--speed-fast)',
-                  opacity: customOpen ? '1' : '0',
-                  pointerEvents: customOpen ? 'all' : 'none',
-                }}
               >
                 <div
                   className={classNames(
@@ -67,24 +65,34 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                     'flex items-center absolute h-header px-x pointer-events-none'
                   )}
                 >
-                  <Logo />
+                  <Logo className="md:hidden" />
+                  <span className="hidden md:block text-base uppercase">
+                    Menu
+                  </span>
                 </div>
                 <nav
                   className={classNames(
                     open ? 'pointer-events-auto' : '',
-                    'overflow-auto z-40 md:shadow-none pt-[88px] md:pt-[126px] left-0 w-full h-full fade-enter-done'
+                    'md:grid md:grid-cols-2 overflow-auto z-40 md:shadow-none pt-[78px] md:pt-[132px] left-0 w-full h-full text-base fade-enter-done'
                   )}
                 >
                   <Menu.Items
                     as="ul"
                     ref={items}
-                    className="container flex flex-col gap-ydouble w-full outline-none"
+                    className="container flex flex-col w-full outline-none pb-ydouble"
                   >
+                    <li className="md:hidden uppercase mb-y">
+                      <span className="inline-block">Homes:</span>
+                    </li>
                     {mainMenu?.items?.map(({ _key, text, link }, index) => {
+                      const isUnit =
+                        (link?.internalLink?._type as string) === 'unit'
+                      const isProperty =
+                        (link?.internalLink?._type as string) === 'property'
                       return text && link ? (
                         <Fragment key={_key}>
                           {mainMenu.items &&
-                            index === mainMenu.items.length - 1 && (
+                            index === mainMenu.items.length && (
                               <Menu.Item as="li">
                                 {({ close }) => (
                                   <button
@@ -92,14 +100,17 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                       setTimeout(close, 100)
                                       setBrokerInquiryOpen(true)
                                     }}
-                                    className="uppercase"
+                                    className="uppercase mb-ydouble hover:underline underline-offset-2 decoration-[2px]"
                                   >
                                     Are you a realtor?
                                   </button>
                                 )}
                               </Menu.Item>
                             )}
-                          <Menu.Item as="li" className="uppercase">
+                          <Menu.Item
+                            as="li"
+                            className={classNames('uppercase')}
+                          >
                             {({ close }) => (
                               <SanityLink
                                 text={text}
@@ -108,6 +119,13 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                                   setHeaderLinksShown(true)
                                 }}
                                 {...(link as SanityLinkType)}
+                                className={classNames(
+                                  isUnit ? 'pl-xdouble' : '',
+                                  isProperty || isUnit
+                                    ? 'mb-y md:hidden'
+                                    : 'py-y md:pt-0 md:pb-ydouble',
+                                  'inline-block hover:underline underline-offset-2 decoration-[2px]'
+                                )}
                               />
                             )}
                           </Menu.Item>
@@ -115,7 +133,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       ) : null
                     })}
 
-                    <li className="flex items-center gap-y uppercase">
+                    <li className="flex items-center gap-y uppercase pt-y">
                       <span className="inline-block">Prices:</span>
 
                       <span className="inline-block">Fiat</span>
@@ -137,6 +155,43 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       </Switch>
                       <span className="inline-block">Crypto</span>
                     </li>
+                  </Menu.Items>
+
+                  <Menu.Items
+                    as="ul"
+                    ref={items}
+                    className="hidden md:flex flex-col w-full outline-none pb-ydouble"
+                  >
+                    <li className="uppercase">
+                      <span className="inline-block">Homes:</span>
+                    </li>
+                    {mainMenu?.items?.map(({ _key, text, link }, index) => {
+                      const isUnit =
+                        (link?.internalLink?._type as string) === 'unit'
+                      const isProperty =
+                        (link?.internalLink?._type as string) === 'property'
+                      return text && link && (isUnit || isProperty) ? (
+                        <Fragment key={_key}>
+                          <Menu.Item as="li" className="uppercase">
+                            {({ close }) => (
+                              <SanityLink
+                                text={text}
+                                onClick={() => {
+                                  setTimeout(close, 100)
+                                  setHeaderLinksShown(true)
+                                }}
+                                {...(link as SanityLinkType)}
+                                className={classNames(
+                                  isUnit ? 'mb-y pl-xdouble' : '',
+                                  isProperty ? 'pt-y' : '',
+                                  'inline-block mb-y hover:underline underline-offset-2 decoration-[2px]'
+                                )}
+                              />
+                            )}
+                          </Menu.Item>
+                        </Fragment>
+                      ) : null
+                    })}
                   </Menu.Items>
                 </nav>
               </div>
