@@ -72,39 +72,85 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
         <RichText blocks={header} className="mb-y text-left md:text-center" />
       )}
 
-      {!formSubmitted && (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full md:max-w-[526px] h-full mt-ydouble"
-        >
-          <DateSelect
-            availableSlots={availableSlots}
-            register={register}
-            loading={loading}
-          />
+      <div className="grid grid-cols-1 md:grid-cols-3">
+        <div className="md:col-start-2">
+          {!formSubmitted && (
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-full md:max-w-[526px] h-full mt-ydouble"
+            >
+              <DateSelect
+                availableSlots={availableSlots}
+                register={register}
+                loading={loading}
+                className="mb-y"
+              />
 
-          <button
-            className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-            type={'submit'}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Submitting...' : 'Book my homebuying session'}
-            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
-          </button>
+              <div className={classNames('flex flex-row gap-y mb-y')}>
+                <input
+                  type="text"
+                  id="first_name"
+                  className="input"
+                  placeholder="FIRST NAME"
+                  {...register('first_name', { required: 'Name required' })}
+                />
+                <input
+                  type="text"
+                  id="last_name"
+                  className="input"
+                  placeholder="LAST NAME"
+                  {...register('last_name', { required: 'Name required' })}
+                />
+              </div>
 
-          {formError.error && (
-            <p className="text-red mt-y font-medium uppercase">
-              {formError.message || `Meeting creation failed, please try again`}
-            </p>
+              <input
+                placeholder={'YOUR EMAIL'}
+                type="email"
+                id="email"
+                className="input mb-y"
+                required
+                {...register('email')}
+              />
+
+              <input
+                type="tel"
+                id="phone"
+                className="input mb-y"
+                placeholder="Phone Number"
+                required
+                {...register('phone', {
+                  required: 'Please enter your phone number',
+                  pattern: /^[0-9+-]+$/,
+                  minLength: 6,
+                  maxLength: 12,
+                })}
+              />
+
+              <button
+                className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+                type={'submit'}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Submitting...' : 'Book a call'}
+                <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+              </button>
+
+              {formError.error && (
+                <p className="text-red mt-y font-medium uppercase">
+                  {formError.message ||
+                    `Meeting creation failed, please try again`}
+                </p>
+              )}
+            </form>
           )}
-        </form>
-      )}
 
-      {formSubmitted && (
-        <div className="relative mt-ydouble mb-2">
-          <p className="font-medium uppercase">{`Session time submitted`}</p>
+          {formSubmitted && (
+            <div className="relative mt-ydouble mb-2">
+              <p className="font-medium uppercase">{`Session time submitted`}</p>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </Block>
   )
 }

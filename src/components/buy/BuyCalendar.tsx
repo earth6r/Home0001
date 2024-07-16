@@ -130,6 +130,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
             availableSlots={availableSlots}
             register={register}
             loading={loading}
+            className="mb-ydouble"
           />
 
           <button

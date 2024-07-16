@@ -24,7 +24,7 @@ export const DateSelect: FC<DateSelectProps> = ({
   const slidesRef = useRef(null)
   return (
     <div className={className}>
-      <div className="flex flex-col justify-start gap-y mb-ydouble">
+      <div className="flex flex-col justify-start gap-y">
         {loading && <p className="!mx-0 mt-y">{`Loading...`}</p>}
 
         <Swiper
