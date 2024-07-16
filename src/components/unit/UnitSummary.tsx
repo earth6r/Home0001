@@ -6,14 +6,19 @@ import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import { sendGoogleEvent } from '@lib/util'
 import Link from 'next/link'
-import { ImageCarousel } from '@components/carousel'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
-export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
+import { RichText, SanityMedia, SanityMediaProps } from '@components/sanity'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { Media } from '@studio/gen/sanity-schema'
+
+const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
+
+export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
   const router = useRouter()
   const { dispatch, state } = useContext(HomeContext)
   const [cryptoMode, setCryptoMode] = useCryptoMode()
@@ -28,7 +33,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
       return [roundedEthPrice, roundedBtcPrice]
     }
 
-    if (unit?.price != 'Inquire') {
+    if (unit?.price != 'Inquire' && ENV !== 'dev') {
       const usdPrice = unit?.price
 
       fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
@@ -69,17 +74,9 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
   }
 
   if (!unit) return null
-  if (
-    unit.photoLimit &&
-    unit?.photographs &&
-    unit?.photographs?.length > unit.photoLimit
-  ) {
-    unit.photographs = unit.photographs.slice(0, unit.photoLimit)
-  }
 
   return (
     <li className={classNames(className)}>
-      <div className={classNames(border ? 'border-top pt-ydouble' : '')}></div>
       <div
         className={classNames(
           unit.available ? '' : 'bg-white shadow-none opacity-30',
@@ -87,62 +84,62 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, border, className }) => {
         )}
       >
         <div className="z-above">
-          <div className="flex flex-col relative overflow-x-hidden">
-            {unit?.photographs && unit?.photographs.length > 0 && (
-              <ImageCarousel
-                slides={unit?.photographs}
-                carousel={true}
-                pagination={true}
-                fullWidth={true}
-                className="px-x"
-                placement="unit summary images"
-              />
-            )}
-            <div className="block w-auto md:max-w-[calc(50vw-var(--space-x))] py-x ml-x mr-y md:mr-0 text-md uppercase">
-              <div className="mb-y">
-                {unit.title && (
-                  <p className="text-h4 mb-y tracking-normal">{unit.title}</p>
-                )}
-
-                <p className="font-medium mb-y">
-                  {unit?.propertyType?.typeTitle}
-                </p>
-                <p className="font-medium mb-y">
-                  {unit?.hidePrice
-                    ? 'Price upon request'
-                    : cryptoMode
-                    ? `${unit.price?.substring(1)} USDC / ${
-                        cryptoPrice[1]
-                      } BTC / ${cryptoPrice[0]} ETH`
-                    : unit?.price}
-                </p>
-                <p className="font-medium mb-y">{unit?.area}</p>
-              </div>
-
-              {unit.slug && (
-                <Link
-                  href={`/unit/${unit.slug?.current}`}
-                  onClick={() => {
-                    updateUnit(unit, unit.title)
+          <Link
+            href={`/unit/${unit.slug?.current}`}
+            onClick={() => {
+              updateUnit(unit, unit.title)
+            }}
+            className="inline-block w-full md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
+          >
+            <div className="flex flex-col relative overflow-x-hidden">
+              {unit?.photographs && (
+                <SanityMedia
+                  {...(unit.photographs as SanityMediaProps)}
+                  imageProps={{
+                    alt: 'Unit image',
+                    quality: 90,
+                    sizes: '(max-width: 768px) 100vw, 1000px',
+                    lqip: ((unit.photographs as Media).image as any)?.asset
+                      ?.metadata?.lqip,
                   }}
-                >
-                  <button
-                    className={classNames(
-                      `mt-2 relative border-1 border-black border-solid mb-[2px] flex flex-row justify-between items-center w-btnWidth h-12 max-h-12 bg-black text-white font-medium text-xs z-above p-4 hover:invert hover:border-white transition-all`
-                    )}
-                    onClick={() => {
-                      updateUnit(unit, unit.title)
-                    }}
-                  >
-                    <span className="mb-0 py-2 text-left uppercase">
-                      {`Explore`}
-                    </span>
-                    <IconSmallArrow width="16" height="10" fill="white" />
-                  </button>
-                </Link>
+                  className="w-full h-auto object-contain"
+                />
               )}
+              <div className="block w-full text-md uppercase">
+                <div className="p-x bg-darkergray">
+                  {unit.title && (
+                    <p className="font-medium mb-yhalf tracking-normal">
+                      {unit.title}
+                    </p>
+                  )}
+
+                  <p className="font-medium mb-yhalf">
+                    {unit?.hidePrice
+                      ? 'Price upon request'
+                      : cryptoMode
+                      ? `${unit.price?.substring(1)} USDC / ${
+                          cryptoPrice[1]
+                        } BTC / ${cryptoPrice[0]} ETH`
+                      : unit?.price}
+                  </p>
+
+                  <p className="font-medium">{unit?.area}</p>
+                </div>
+                <div
+                  className={classNames(
+                    'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
+                  )}
+                >
+                  <h4 className="text-card text-white">{unit.title}</h4>
+
+                  <IconRightArrowBold
+                    className="relative w-[1em] mt-[0.1em]"
+                    fill="white"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </li>

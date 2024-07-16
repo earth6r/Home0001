@@ -13,6 +13,8 @@ import {
 import { SanityInventoryModal } from '@components/sanity/table-modal'
 import { Accordion } from '@components/accordion'
 import Link from 'next/link'
+import { SanityKeyed } from 'sanity-codegen'
+import { Media } from '@studio/gen/sanity-schema'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
   unit,
@@ -217,7 +219,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               pagination={true}
               perView={1}
               carousel={true}
-              slides={unit?.photographs}
+              slides={unit?.photographs as SanityKeyed<Media>[]}
               className="w-full h-full pl-x md:pl-0 pr-x overflow-hidden"
               placement="unit images"
             />

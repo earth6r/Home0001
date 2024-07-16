@@ -805,7 +805,7 @@ export type Link = {
      *
      *
      */
-    reference?: SanityReference<Page | Property>;
+    reference?: SanityReference<Page | Property | Unit>;
 
     /**
      * Anchor Slug — `slug`
@@ -1281,11 +1281,34 @@ export type PropertyBlock = {
 export type PropertiesBlock = {
   _type: "propertiesBlock";
   /**
-   * Properties — `array`
+   * Header — `string`
    *
    *
    */
-  properties?: Array<SanityKeyedReference<Property>>;
+  header?: string;
+
+  /**
+   * Cities — `array`
+   *
+   *
+   */
+  cities?: Array<
+    SanityKeyed<{
+      /**
+       * Header — `string`
+       *
+       *
+       */
+      header?: string;
+
+      /**
+       * Properties — `array`
+       *
+       *
+       */
+      properties?: Array<SanityKeyedReference<Property>>;
+    }>
+  >;
 };
 
 export type NewsletterBlock = {
