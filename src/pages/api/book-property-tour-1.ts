@@ -1,6 +1,7 @@
 import { initializeAdmin } from '@lib/firebase/admin'
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
 import admin from 'firebase-admin' // Firebase Admin SDK
+import { sendMessage } from './send-whatsapp'
 
 // Set configuration options for the API route
 export const config = {
@@ -55,6 +56,21 @@ export default async function handler(
     ...body,
     userUID: user.docs[0].id,
   })
+
+  const message = `A HOME0001 phone call has been booked by ${body?.firstname} ${body?.lastname} on ${body?.engagements_last_meeting_booked}.`
+
+  const numbers = [
+    '+15038676436',
+    '+4915168698913',
+    '+17134103755',
+    '+19175824100',
+    '+447577459373',
+    '+491634841797',
+  ]
+
+  for (const number of numbers) {
+    await sendMessage(number, message)
+  }
 
   res.status(200).json({
     status: 'success',
