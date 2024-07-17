@@ -33,8 +33,8 @@ export const bookPhoneCall = async (data: any) => {
         .toISOString()
         .replace('T', ' ')
         .substring(0, 19),
-      firstName: data.firstName,
-      lastName: data.lastName,
+      firstName: data.first_name,
+      lastName: data.last_name,
       notes: data.notes,
       phoneNumber: data.phoneNumber,
     },
