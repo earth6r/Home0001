@@ -52,7 +52,7 @@ export const DateSelect: FC<DateSelectProps> = ({
                         const formattedDate = new Date(date).toLocaleDateString(
                           'en-US',
                           {
-                            timeZone: 'UTC',
+                            timeZone: 'EST',
                             weekday: 'short',
                             year: 'numeric',
                             month: 'long',
@@ -104,12 +104,6 @@ export const DateSelect: FC<DateSelectProps> = ({
                           value={time}
                           className="background-checkbox"
                           {...register('startTime')}
-                          onClick={() => {
-                            const dateEl = document.getElementById(date)
-                            if (dateEl) {
-                              dateEl.click()
-                            }
-                          }}
                         />
                         <label
                           htmlFor={time}
