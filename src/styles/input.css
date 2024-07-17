@@ -7,6 +7,10 @@ textarea {
   @apply placeholder:opacity-100 placeholder:text-black font-bold font-sansText;
 }
 
+.select {
+  @apply relative appearance-none;
+}
+
 .input {
   @apply h-btn border-black font-bold font-sansText tracking-normal text-xs bg-white placeholder:opacity-100 placeholder:text-black px-[calc(var(--space-x)-1px)] py-2 w-full rounded-none placeholder:uppercase;
 }
