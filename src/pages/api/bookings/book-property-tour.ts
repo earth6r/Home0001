@@ -69,7 +69,12 @@ export default async function handler(
     console.error('Error creating calendar event', error)
   }
 
-  await sendWhatsappBookedMessage(firstName, lastName, startTimestamp)
+  try {
+    await sendWhatsappBookedMessage(firstName, lastName, startTimestamp)
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error sending WhatsApp message', error)
+  }
 
   res.status(200).json({
     status: 'success',
