@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useRef, useState } from 'react'
+import React, { HTMLAttributes, useRef } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
