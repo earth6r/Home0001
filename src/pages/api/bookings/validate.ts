@@ -57,7 +57,7 @@ export const validateBooking = (req: NextApiRequest) => {
   }
 
   // if timestamp string is not a valid date
-  if (new Date(startTimestamp) || new Date(endTimestamp)) {
+  if (isNaN(new Date(startTimestamp).getTime()) || isNaN(new Date(endTimestamp).getTime())) {
     return {
       error:
         'startTimestamp and endTimestamp must be formatted as YYYY-MM-DD HH:MM:SS', // Respond with error if startTimestamp or endTimestamp is not a valid date
