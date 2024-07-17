@@ -37,11 +37,9 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   const [loading, setLoading] = useState(true)
 
   const onSubmit = async (data: any) => {
-    console.log('onSubmit: ', data)
     if (!data.email) return
     bookPhoneCall(data)
       .then(res => {
-        console.log(res)
         setFormSubmitted(true)
       })
       .catch(err => {
