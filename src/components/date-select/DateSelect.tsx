@@ -8,6 +8,7 @@ import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 import IconChevron from '@components/icons/IconChevron'
+import { Icon } from '@chakra-ui/react'
 
 interface DateSelectProps extends HTMLAttributes<HTMLFormElement> {
   availableSlots: any[]
@@ -37,38 +38,43 @@ export const DateSelect: FC<DateSelectProps> = ({
         {!loading && (
           <>
             {availableSlots && availableSlots.length > 0 ? (
-              <select
-                className="input"
-                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                  setActiveIndex(e.target.value)
-                }
-              >
-                {availableSlots
-                  .slice(0, 14)
-                  .map(({ date }: { date: string; slots: string[] }, index) => {
-                    const formattedDate = new Date(date).toLocaleDateString(
-                      'en-US',
-                      {
-                        timeZone: 'UTC',
-                        weekday: 'short',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      }
-                    )
+              <div className="relative">
+                <select
+                  className="input select"
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                    setActiveIndex(e.target.value)
+                  }
+                >
+                  {availableSlots
+                    .slice(0, 14)
+                    .map(
+                      ({ date }: { date: string; slots: string[] }, index) => {
+                        const formattedDate = new Date(date).toLocaleDateString(
+                          'en-US',
+                          {
+                            timeZone: 'UTC',
+                            weekday: 'short',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          }
+                        )
 
-                    return (
-                      <option
-                        key={`option-${index}`}
-                        id={date}
-                        value={date}
-                        {...register('date')}
-                      >
-                        <span className="text-button">{formattedDate}</span>
-                      </option>
-                    )
-                  })}
-              </select>
+                        return (
+                          <option
+                            key={`option-${index}`}
+                            id={date}
+                            value={date}
+                            {...register('date')}
+                          >
+                            <span className="text-button">{formattedDate}</span>
+                          </option>
+                        )
+                      }
+                    )}
+                </select>
+                <IconChevron className="absolute w-[12px] right-x top-1/2 transform rotate-90 -translate-y-1/2" />
+              </div>
             ) : (
               <p className="!mx-0 mt-y text-button">{`No available times`}</p>
             )}
