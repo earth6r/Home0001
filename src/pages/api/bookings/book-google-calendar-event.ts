@@ -43,7 +43,6 @@ async function createCalendarEvent({
     // 'annika@home0001.com',
     'yan@home0001.com',
     // 'm@choicefamily.com',
-    'apinanapinan@icloud.com',
   ]
   if (
     !date ||
