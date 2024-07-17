@@ -50,15 +50,15 @@ export default async function handler(
 
   try {
     createCalendarEvent({
-      date: startTimestamp,
+      date: startTimestamp.split(' ')[0],
       startTime: startTimestamp.split(' ')[1].split(':')[0],
       eventName: 'Property Tour',
-      staffEmails: [''],
       inviteeEmail: email,
       location: 'TBD',
       eventDescription: 'Property Tour',
     })
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error creating calendar event', error)
   }
 
