@@ -25,6 +25,13 @@ async function createCalendarEvent({
   inviteeEmail,
   location,
   eventDescription,
+}: {
+  date: string
+  startTime: string
+  eventName: string
+  inviteeEmail: string
+  location: string
+  eventDescription: string
 }) {
   const staffEmails = [
     inviteeEmail,
