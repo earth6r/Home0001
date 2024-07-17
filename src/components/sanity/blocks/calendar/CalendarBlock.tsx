@@ -141,9 +141,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
               />
 
               <textarea
-                placeholder={
-                  'What questions would you like to discuss? Can we prepare anything for you before the call?'
-                }
+                placeholder={`Anything specific you'd like to discuss on the call?`}
                 id="notes"
                 className="input textarea mb-y"
                 {...register('notes')}
