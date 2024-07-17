@@ -15,17 +15,29 @@ export const getAvailableSlots = async () => {
   )
 }
 
-export const bookGoogleCalendarEvent = async (data: any) => {
+export const bookPhoneCall = async (data: any) => {
   console.log('data', data)
+  const startTimeDate = new Date(data.startTime)
+  const endTimeDate = new Date(
+    startTimeDate.setHours(startTimeDate.getHours() + 0.25)
+  )
   return await axios.post(
-    `${BASE_URL}/api/bookings/book-google-calendar-event`,
+    `${BASE_URL}/api/bookings/book-phone-call`,
     {
       date: data.date,
-      startTime: data.startTime,
-      eventName: 'HOME0001 Meeting',
-      inviteeEmail: data.email,
-      location: 'Link will be emailed',
-      eventDescription: `[tk]`,
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      notes: data.notes,
+      startTimestamp: startTimeDate
+        .toISOString()
+        .replace('T', ' ')
+        .substring(0, 19),
+      endTimestamp: endTimeDate
+        .toISOString()
+        .replace('T', ' ')
+        .substring(0, 19),
+      phoneNumber: data.phoneNumber,
     },
     CONFIG
   )
