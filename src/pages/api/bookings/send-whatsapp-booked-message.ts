@@ -1,9 +1,9 @@
 import { sendMessage } from '../send-whatsapp'
 
 export const sendWhatsappBookedMessage = async (
-  firstName,
-  lastName,
-  startTimestamp
+  firstName: string,
+  lastName: string,
+  startTimestamp: string
 ) => {
   const message = `A HOME0001 phone call has been booked by ${firstName} ${lastName} on ${startTimestamp}.`
 
