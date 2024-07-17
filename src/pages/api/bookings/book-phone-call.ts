@@ -56,15 +56,15 @@ export default async function handler(
 
   try {
     createCalendarEvent({
-      date: startTimestamp,
+      date: startTimestamp.split(' ')[0],
       startTime: startTimestamp.split(' ')[1].split(':')[0],
       eventName: 'Phone Call',
-      staffEmails: [''],
       inviteeEmail: email,
       location: 'Phone Call',
       eventDescription: 'Phone Call',
     })
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error creating calendar event', error)
   }
 
