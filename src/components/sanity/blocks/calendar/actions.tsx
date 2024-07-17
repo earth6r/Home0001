@@ -36,7 +36,7 @@ export const bookPhoneCall = async (data: any) => {
       firstName: data.first_name,
       lastName: data.last_name,
       notes: data.notes,
-      phoneNumber: data.phoneNumber,
+      phoneNumber: data.phone,
     },
     CONFIG
   )
