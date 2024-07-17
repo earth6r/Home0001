@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
-import type { FC } from 'react'
-import React, { HTMLAttributes, useRef } from 'react'
+import type { ChangeEvent, FC } from 'react'
+import React, { HTMLAttributes, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
@@ -21,52 +21,71 @@ export const DateSelect: FC<DateSelectProps> = ({
   register,
   className,
 }) => {
-  const slidesRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(availableSlots[0]?.date)
+
+  useEffect(() => {
+    if (availableSlots && availableSlots.length > 0) {
+      setActiveIndex(availableSlots[0]?.date)
+    }
+  }, [availableSlots])
+
   return (
     <div className={className}>
       <div className="flex flex-col justify-start gap-y">
-        {loading && <p className="!mx-0 mt-y">{`Loading...`}</p>}
+        {loading && <p className="!mx-0 mt-y text-button">{`Loading...`}</p>}
 
-        <Swiper
-          ref={slidesRef}
-          modules={[Navigation]}
-          loop={false}
-          spaceBetween={16}
-          speed={600}
-          slidesPerView={1}
-          navigation={{
-            nextEl: '.swiper-next',
-            prevEl: '.swiper-prev',
-          }}
-          className={classNames(
-            'calendar w-full ml-0 md:mx-auto overflow-hidden cursor-grab'
-          )}
-        >
+        {!loading && (
+          <>
+            {availableSlots && availableSlots.length > 0 ? (
+              <select
+                className="input"
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  setActiveIndex(e.target.value)
+                }
+              >
+                {availableSlots
+                  .slice(0, 14)
+                  .map(({ date }: { date: string; slots: string[] }, index) => {
+                    const formattedDate = new Date(date).toLocaleDateString(
+                      'en-US',
+                      {
+                        timeZone: 'UTC',
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      }
+                    )
+
+                    return (
+                      <option
+                        key={`option-${index}`}
+                        id={date}
+                        value={date}
+                        {...register('date')}
+                      >
+                        <span className="text-button">{formattedDate}</span>
+                      </option>
+                    )
+                  })}
+              </select>
+            ) : (
+              <p className="!mx-0 mt-y text-button">{`No available times`}</p>
+            )}
+          </>
+        )}
+
+        <div className="w-full ml-0 md:mx-auto">
           {availableSlots.map(
             ({ date, slots }: { date: string; slots: string[] }, index) => {
-              const formattedDate = new Date(date).toLocaleDateString('en-US', {
-                timeZone: 'UTC',
-                weekday: 'short',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })
-
               return (
-                <SwiperSlide key={index} className="block h-full">
-                  <div className="mb-y">
-                    <input
-                      type="radio"
-                      id={date}
-                      value={date}
-                      className="!hidden"
-                      {...register('date')}
-                    />
-                    <label htmlFor={date} className="text-button">
-                      {formattedDate}
-                    </label>
-                  </div>
-
+                <div
+                  key={`slots-${index}`}
+                  className={classNames(
+                    activeIndex === date ? 'block' : 'hidden',
+                    'h-full'
+                  )}
+                >
                   <div className="grid grid-cols-3 gap-xhalf">
                     {slots?.map((time: string, index: number) => (
                       <div
@@ -95,31 +114,11 @@ export const DateSelect: FC<DateSelectProps> = ({
                       </div>
                     ))}
                   </div>
-                </SwiperSlide>
+                </div>
               )
             }
           )}
-          <div
-            className={classNames(
-              'flex absolute top-0 right-0 transition-opacity duration-200 pointer-events-none z-above'
-            )}
-          >
-            <div className="p-x transform -translate-y-1/3 swiper-prev pointer-events-auto cursor-pointer">
-              <IconChevron
-                width="13"
-                fill="black"
-                className={classNames('rotate-180')}
-              />
-            </div>
-            <div className="p-x transform -translate-y-1/3 swiper-next pointer-events-auto cursor-pointer">
-              <IconChevron
-                width="13"
-                fill="black"
-                className={classNames('relative')}
-              />
-            </div>
-          </div>
-        </Swiper>
+        </div>
       </div>
     </div>
   )
