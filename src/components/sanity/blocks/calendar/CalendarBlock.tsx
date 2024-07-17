@@ -3,10 +3,14 @@ import { useEffect, useState, type FC } from 'react'
 import classNames from 'classnames'
 import type { CalendarBlock as CalendarBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
-import { Block, RichText } from '@components/sanity'
+import {
+  Block,
+  RichText,
+  bookGoogleCalendarEvent,
+  getAvailableSlots,
+} from '@components/sanity'
 import { DateSelect } from '@components/date-select'
 import { useForm } from 'react-hook-form'
-import { getAvailableSlots } from '@components/buy'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
@@ -34,19 +38,19 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
 
   const onSubmit = async (data: any) => {
     console.log('onSubmit: ', data)
-    // if (!data.email) return
-    // createGoogleCalendarMeeting(data, data.email)
-    //   .then(res => {
-    //     console.log(res)
-    //     setFormSubmitted(true)
-    //   })
-    //   .catch(err => {
-    //     setFormError({
-    //       error: true,
-    //       message: (err as any).response.data.message as string,
-    //     })
-    //     console.error(err)
-    //   })
+    if (!data.email) return
+    bookGoogleCalendarEvent(data)
+      .then(res => {
+        console.log(res)
+        setFormSubmitted(true)
+      })
+      .catch(err => {
+        setFormError({
+          error: true,
+          message: (err as any).response.data.message as string,
+        })
+        console.error(err)
+      })
   }
 
   useEffect(() => {
@@ -67,16 +71,14 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
 
   return (
     <Block className={classNames(className, '')}>
-      {header && (
-        <RichText blocks={header} className="mb-y text-left md:text-center" />
-      )}
+      {header && <RichText blocks={header} className="mb-y text-left" />}
 
       <div className="grid grid-cols-1 md:grid-cols-3">
-        <div className="md:col-start-2">
+        <div className="bg-yellow pb-y px-x">
           {!formSubmitted && (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="w-full md:max-w-[526px] h-full mt-ydouble"
+              className="w-full md:max-w-[526px] h-full mt-y"
             >
               <div className="rich-text mb-y">
                 <p className="uppercase">What time works best?</p>
