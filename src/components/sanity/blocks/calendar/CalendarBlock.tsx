@@ -166,7 +166,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
           )}
 
           {formSubmitted && (
-            <div className="relative mt-ydouble mb-2">
+            <div className="relative mt-y">
               <p className="font-medium uppercase">{`Session time submitted`}</p>
             </div>
           )}
