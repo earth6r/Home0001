@@ -18,9 +18,10 @@ export const getAvailableSlots = async () => {
 export const bookPhoneCall = async (data: any) => {
   console.log('data', data)
   const startDateTime = new Date(`${data.date} ${data.startTime}`)
-  const endDateTime = new Date(
-    startDateTime.setMinutes(startDateTime.getMinutes() + 15)
+  const startDateTimePlus = startDateTime.setMinutes(
+    startDateTime.getMinutes() + 15
   )
+  const endDateTime = new Date(startDateTimePlus)
   console.log('startDateTime', startDateTime)
   console.log('endDateTime', endDateTime)
   return await axios.post(
