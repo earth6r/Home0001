@@ -16,7 +16,6 @@ export const validateBooking = (req: NextApiRequest) => {
     email = null,
     startTimestamp = null,
     endTimestamp = null,
-    property = null,
     phoneNumber = null,
     firstName = null,
     lastName = null,
@@ -38,13 +37,6 @@ export const validateBooking = (req: NextApiRequest) => {
   ) {
     return {
       error: 'firstName and lastName must be a string', // Respond with error if firstName or lastName is missing
-      status: 400,
-    }
-  }
-
-  if (!property || typeof property !== 'string') {
-    return {
-      error: 'property must be a string', // Respond with error if property is not a string
       status: 400,
     }
   }
