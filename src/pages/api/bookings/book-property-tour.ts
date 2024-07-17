@@ -1,7 +1,7 @@
 import { initializeAdmin } from '@lib/firebase/admin'
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
 import admin from 'firebase-admin' // Firebase Admin SDK
-import { validateBooking } from './validate'
+import { validateBooking, validateProperty } from './validate'
 import { sendWhatsappBookedMessage } from './send-whatsapp-booked-message'
 import createCalendarEvent from './book-google-calendar-event'
 
@@ -19,6 +19,13 @@ export default async function handler(
 
   if (response.error) {
     res.status(response.status).json(response) // Respond with error if there is an error
+    return
+  }
+
+  const propertyResponse = validateProperty(req)
+
+  if (propertyResponse.error) {
+    res.status(propertyResponse.status).json(propertyResponse) // Respond with error if there is an error
     return
   }
 
