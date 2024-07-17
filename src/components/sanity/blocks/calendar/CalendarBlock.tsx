@@ -6,7 +6,7 @@ import type { SanityBlockElement } from '@components/sanity'
 import {
   Block,
   RichText,
-  bookGoogleCalendarEvent,
+  bookPhoneCall,
   getAvailableSlots,
 } from '@components/sanity'
 import { DateSelect } from '@components/date-select'
@@ -39,7 +39,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   const onSubmit = async (data: any) => {
     console.log('onSubmit: ', data)
     if (!data.email) return
-    bookGoogleCalendarEvent(data)
+    bookPhoneCall(data)
       .then(res => {
         console.log(res)
         setFormSubmitted(true)
