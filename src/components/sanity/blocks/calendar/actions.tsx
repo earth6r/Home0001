@@ -17,26 +17,25 @@ export const getAvailableSlots = async () => {
 
 export const bookPhoneCall = async (data: any) => {
   console.log('data', data)
-  const startTimeDate = new Date(data.startTime)
-  const endTimeDate = new Date(
-    startTimeDate.setHours(startTimeDate.getHours() + 0.25)
+  const startDateTime = new Date(`${data.date} ${data.startTime}`)
+  const endDateTime = new Date(
+    startDateTime.setMinutes(startDateTime.getMinutes() + 15)
   )
   return await axios.post(
     `${BASE_URL}/api/bookings/book-phone-call`,
     {
-      date: data.date,
       email: data.email,
+      startTimestamp: startDateTime
+        .toISOString()
+        .replace('T', ' ')
+        .substring(0, 19),
+      endTimestamp: endDateTime
+        .toISOString()
+        .replace('T', ' ')
+        .substring(0, 19),
       firstName: data.firstName,
       lastName: data.lastName,
       notes: data.notes,
-      startTimestamp: startTimeDate
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
-      endTimestamp: endTimeDate
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19),
       phoneNumber: data.phoneNumber,
     },
     CONFIG
