@@ -23,6 +23,7 @@ export const DateSelect: FC<DateSelectProps> = ({
   className,
 }) => {
   const [activeIndex, setActiveIndex] = useState(availableSlots[0]?.date)
+  const renderedSlots = availableSlots
 
   useEffect(() => {
     if (availableSlots && availableSlots.length > 0) {
@@ -37,15 +38,17 @@ export const DateSelect: FC<DateSelectProps> = ({
 
         {!loading && (
           <>
-            {availableSlots && availableSlots.length > 0 ? (
+            {renderedSlots && renderedSlots.length > 0 ? (
               <div className="relative">
                 <select
+                  id="date-select"
                   className="input select"
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  {...register('date')}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                     setActiveIndex(e.target.value)
-                  }
+                  }}
                 >
-                  {availableSlots
+                  {renderedSlots
                     .slice(0, 14)
                     .map(
                       ({ date }: { date: string; slots: string[] }, index) => {
@@ -63,9 +66,8 @@ export const DateSelect: FC<DateSelectProps> = ({
                         return (
                           <option
                             key={`option-${index}`}
-                            id={date}
+                            id="date-select"
                             value={date}
-                            {...register('date')}
                           >
                             <span className="text-button">{formattedDate}</span>
                           </option>
@@ -82,7 +84,7 @@ export const DateSelect: FC<DateSelectProps> = ({
         )}
 
         <div className="w-full ml-0 md:mx-auto">
-          {availableSlots.map(
+          {renderedSlots.map(
             ({ date, slots }: { date: string; slots: string[] }, index) => {
               return (
                 <div
