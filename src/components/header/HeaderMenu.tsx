@@ -1,7 +1,7 @@
-import type { FC, HTMLProps, Ref } from 'react'
-import { useRef, useEffect, forwardRef, Fragment } from 'react'
+import type { FC, HTMLProps } from 'react'
+import { useRef, Fragment } from 'react'
 import classNames from 'classnames'
-import { Menu, Switch } from '@headlessui/react'
+import { Switch } from '@headlessui/react'
 import type { SanityLinkType } from '@studio/lib'
 import { SanityLink } from '@components/sanity'
 import { Btn } from '@components/btns'
@@ -62,7 +62,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
           )}
         >
           <ul className="container flex flex-col w-full outline-none pb-ydouble">
-            <li className="md:hidden uppercase mb-y">
+            <li className="md:hidden uppercase mb-yhalf md:mb-y">
               <span className="inline-block">Homes:</span>
             </li>
             {mainMenu?.items?.map(({ _key, text, link }, index) => {
@@ -95,7 +95,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       className={classNames(
                         isUnit ? 'pl-xdouble' : '',
                         isProperty || isUnit
-                          ? 'mb-y md:hidden'
+                          ? 'py-yhalf md:hidden'
                           : 'py-y md:pt-0 md:pb-ydouble',
                         'inline-block hover:underline underline-offset-2 decoration-[2px]'
                       )}
@@ -133,7 +133,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
             <li className="uppercase">
               <span className="inline-block">Homes:</span>
             </li>
-            {mainMenu?.items?.map(({ _key, text, link }, index) => {
+            {mainMenu?.items?.map(({ _key, text, link }) => {
               const isUnit = (link?.internalLink?._type as string) === 'unit'
               const isProperty =
                 (link?.internalLink?._type as string) === 'property'
