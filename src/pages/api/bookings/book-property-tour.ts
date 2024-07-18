@@ -47,8 +47,8 @@ export default async function handler(
   await db.collection('usersBookPropertyTour').add({
     email,
     property,
-    startTimestamp,
-    endTimestamp,
+    startTimestamp: Number(new Date(startTimestamp).getTime()),
+    endTimestamp: Number(new Date(endTimestamp).getTime()),
     phoneNumber,
     firstName,
     lastName,
