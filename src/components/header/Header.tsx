@@ -319,6 +319,7 @@ export const Header: FC<HeaderProps> = ({
           {!hideMenu && (
             <HeaderMenu
               customOpen={menuOpen}
+              setCustomOpen={setMenuOpen}
               onOpen={onOpen}
               mainMenu={mainMenu as SanityMenu}
               className="flex flex-col pointer-events-auto"
