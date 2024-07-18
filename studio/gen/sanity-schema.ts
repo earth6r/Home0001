@@ -1159,6 +1159,8 @@ export type BlockContent = Array<
   | SanityKeyed<AnimatingBlock>
   | SanityKeyed<CalendarBlock>
   | SanityKeyed<CarouselBlock>
+  | SanityKeyed<DividerBlock>
+  | SanityKeyed<FullbleedBlock>
   | SanityKeyed<PropertyBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
@@ -1252,6 +1254,33 @@ export type CarouselBlock = {
    *
    */
   images?: Array<SanityKeyed<Media>>;
+};
+
+export type DividerBlock = {
+  _type: "dividerBlock";
+  /**
+   * Divider — `boolean`
+   *
+   *
+   */
+  divider?: boolean;
+};
+
+export type FullbleedBlock = {
+  _type: "fullbleedBlock";
+  /**
+   * Image — `media`
+   *
+   *
+   */
+  image?: Media;
+
+  /**
+   * Minimum Width — `number`
+   *
+   *
+   */
+  minWidth?: number;
 };
 
 export type PropertyBlock = {

@@ -17,6 +17,7 @@ import {
   CalendarBlock,
   TextAndAccordionBlock,
   VideosBlock,
+  FullbleedBlock,
   MessagingBlock,
 } from '.'
 
@@ -44,6 +45,10 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             carouselBlock: ({ index, value }) => (
               <CarouselBlock index={index} grid={grid} {...value} />
+            ),
+            dividerBlock: () => <div className="mt-block"></div>,
+            fullbleedBlock: ({ index, value }) => (
+              <FullbleedBlock index={index} grid={grid} {...value} />
             ),
             propertyBlock: ({ index, value }) => (
               <PropertyBlock index={index} grid={grid} {...value} />
