@@ -16,7 +16,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         Home0001: {property?.title}
       </h2>
       <div className="md:grid md:grid-cols-2 gap-y md:col-start-1 block relative md:pl-x">
-        <div className="flex flex-col md:col-span-1 md:justify-start md:items-start md:sticky top-0 left-0 md:h-[64vw] px-x md:px-0">
+        <div className="flex flex-col md:col-span-1 md:justify-start md:items-start md:sticky top-[64px] left-0 md:h-[64vw] px-x md:px-0">
           {property?.image && (
             <div className="col-span-2 block relative w-full mb-ydouble md:mb-y z-base">
               <SanityMedia
@@ -57,9 +57,8 @@ export const PropertyComponent: FC<PropertyElProps> = ({
       </div>
 
       {!block && (
-        <div className="mx-x md:mx-0 md:pt-0">
-          <div className="w-auto mt-ydouble pt-ydouble"></div>
-          <h2 className="text-h3 md:text-h1 md:px-x md:text-center">
+        <div className="pt-ydouble mt-ydouble overflow-hidden">
+          <h2 className="text-h2 md:text-h1 px-x md:text-center">
             Our Next Releases:
           </h2>
           {property?.unitsList && (
@@ -70,7 +69,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
                 </div>
               )}
               <UnitsList
-                className="mx-[-1rem] md:mx-0 animate-in flex flex-col mt-ydouble"
+                className="animate-in flex flex-col mt-ydouble mx-x"
                 unitList={property?.unitsList}
               />
             </>

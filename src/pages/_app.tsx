@@ -4,6 +4,7 @@ import { Layout } from '@components/layout'
 import { Scripts } from '@components/scripts'
 import ContextProvider from '@/contexts'
 // import { IntercomProvider } from '@components/intercom'
+import { Analytics } from '@vercel/analytics/react'
 
 import 'focus-visible'
 import 'swiper/css'
@@ -64,6 +65,7 @@ function App({ Component, pageProps }: AppProps<{}>) {
         <Scripts />
         <AnimatePresence initial={false} mode="popLayout">
           <Component {...pageProps} />
+          <Analytics />
         </AnimatePresence>
       </Layout>
       {/* </IntercomProvider> */}

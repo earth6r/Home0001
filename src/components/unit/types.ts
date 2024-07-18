@@ -46,7 +46,7 @@ export interface KeyedUnitProps
         }
       }
     | Media
-  photographs?: SanityKeyed<Media>[]
+  photographs?: SanityKeyed<Media>[] | Media
   photoLimit?: number
   reserveFormCopy?: RichText
   confirmationCopy?: RichText

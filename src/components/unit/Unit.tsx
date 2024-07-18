@@ -14,6 +14,8 @@ import {
 } from '@lib/util/crypto-pricing'
 import { SanityInventoryModal } from '@components/sanity/table-modal'
 import Link from 'next/link'
+import { SanityKeyed } from 'sanity-codegen'
+import { Media } from '@studio/gen/sanity-schema'
 
 export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
@@ -75,7 +77,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <IconSmallArrow width="16" height="10" />
             </button>
 
-            <Link href="/schedule-phone-call">
+            <Link href="/schedule-call">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
@@ -165,7 +167,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <IconSmallArrow width="16" height="10" />
             </button>
 
-            <Link href="/schedule-phone-call">
+            <Link href="/schedule-call">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
@@ -215,7 +217,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               pagination={true}
               perView={1}
               carousel={true}
-              slides={unit?.photographs}
+              slides={unit?.photographs as SanityKeyed<Media>[]}
               className="w-full h-full px-x md:pl-0 overflow-hidden"
               placement="unit images"
             />
