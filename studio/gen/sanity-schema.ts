@@ -805,7 +805,7 @@ export type Link = {
      *
      *
      */
-    reference?: SanityReference<Page | Property>;
+    reference?: SanityReference<Page | Property | Unit>;
 
     /**
      * Anchor Slug — `slug`
@@ -1244,13 +1244,6 @@ export type CalendarBlock = {
    *
    */
   header?: RichText;
-
-  /**
-   * Embed Code — `string`
-   *
-   * Value used in https://meetings.hubspot.com/ url
-   */
-  embedCode?: string;
 };
 
 export type CarouselBlock = {
@@ -1310,11 +1303,34 @@ export type PropertyBlock = {
 export type PropertiesBlock = {
   _type: "propertiesBlock";
   /**
-   * Properties — `array`
+   * Header — `string`
    *
    *
    */
-  properties?: Array<SanityKeyedReference<Property>>;
+  header?: string;
+
+  /**
+   * Cities — `array`
+   *
+   *
+   */
+  cities?: Array<
+    SanityKeyed<{
+      /**
+       * Header — `string`
+       *
+       *
+       */
+      header?: string;
+
+      /**
+       * Properties — `array`
+       *
+       *
+       */
+      properties?: Array<SanityKeyedReference<Property>>;
+    }>
+  >;
 };
 
 export type NewsletterBlock = {

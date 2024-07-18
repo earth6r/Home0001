@@ -13,6 +13,8 @@ import {
 import { SanityInventoryModal } from '@components/sanity/table-modal'
 import { Accordion } from '@components/accordion'
 import Link from 'next/link'
+import { SanityKeyed } from 'sanity-codegen'
+import { Media } from '@studio/gen/sanity-schema'
 
 export const UnitDetailComponent: FC<UnitElProps> = ({
   unit,
@@ -65,7 +67,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
           </div>
 
           <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
-            <Link href="/schedule-phone-call">
+            <Link href="/schedule-call">
               <button
                 className={classNames(
                   'w-full relative mb-y border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
@@ -156,7 +158,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
           )}
 
           <div className="md:hidden pl-x pr-menu my-ydouble mr-x">
-            <Link href="/schedule-phone-call" className="block mb-y">
+            <Link href="/schedule-call" className="block mb-y">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
@@ -217,7 +219,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({
               pagination={true}
               perView={1}
               carousel={true}
-              slides={unit?.photographs}
+              slides={unit?.photographs as SanityKeyed<Media>[]}
               className="w-full h-full pl-x md:pl-0 pr-x overflow-hidden"
               placement="unit images"
             />
