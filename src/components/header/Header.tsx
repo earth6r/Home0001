@@ -291,7 +291,7 @@ export const Header: FC<HeaderProps> = ({
                   )}
                   onClick={() => {
                     window.open(
-                      'https://www.home0001.com/schedule-phone-call',
+                      'https://www.home0001.com/schedule-call',
                       '_blank'
                     )
                   }}

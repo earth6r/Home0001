@@ -77,7 +77,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <IconSmallArrow width="16" height="10" />
             </button>
 
-            <Link href="/schedule-phone-call">
+            <Link href="/schedule-call">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
@@ -167,7 +167,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <IconSmallArrow width="16" height="10" />
             </button>
 
-            <Link href="/schedule-phone-call">
+            <Link href="/schedule-call">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
