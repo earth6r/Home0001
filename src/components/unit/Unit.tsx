@@ -67,16 +67,6 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           </div>
 
           <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
-            <button
-              onClick={() => setInquiryOpen(true)}
-              className={classNames(
-                'w-full relative border-1 border-black border-solid hover:border-white mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
-              )}
-            >
-              {`Inquire`}
-              <IconSmallArrow width="16" height="10" />
-            </button>
-
             <Link href="/schedule-call">
               <button
                 className={classNames(
