@@ -11,7 +11,7 @@ export default {
       name: 'header',
       title: 'Accordion Header',
       type: 'string',
-      validation: (Rule: Rule): Rule => Rule.required(),
+      // validation: (Rule: Rule): Rule => Rule.required(),
     },
     {
       name: 'largeHeader',
