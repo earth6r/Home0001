@@ -98,7 +98,7 @@ export const DateSelect: FC<DateSelectProps> = ({
                     {slots?.map((time: string, index: number) => (
                       <div
                         key={index}
-                        className="flex items-center justify-center relative w-full h-btn cursor-pointer"
+                        className="flex items-center justify-center relative w-full h-btn cursor-pointer font-medium"
                       >
                         <input
                           type="radio"
