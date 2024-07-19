@@ -6,6 +6,7 @@ import { JWT } from 'google-auth-library'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE_SECOND
+console.log(Subject,"--------------------------------------->subject");
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
