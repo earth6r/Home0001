@@ -9,7 +9,7 @@ import { initializeAdmin } from '@lib/firebase/admin'
 import moment from 'moment-timezone'
 
 const Hubspot_Apikey = process.env.NEXT_PUBLIC_HUBSPOT_API_KEY
-const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE_SECOND
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
@@ -59,7 +59,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const calendar = google.calendar({ version: 'v3', auth: auth as any })
   let startdatetime= new Date(date +" "+startTime);
   const startDateTime =moment(startdatetime).format();
-  const endDateTime =  moment(startDateTime).add(2, "h").format();
+  const endDateTime =  moment(startDateTime).add(15, "m").format();
+
 
   try {
     const eventsResponse = await calendar.events.list({
@@ -111,6 +112,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         requestBody: event,
         sendUpdates: 'all',
       })
+
 
       if (response?.data?.id) {
         try {
