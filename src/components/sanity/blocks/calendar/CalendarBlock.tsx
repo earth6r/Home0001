@@ -80,7 +80,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
             <form
               id={`calendar-block-${index}`}
               onSubmit={handleSubmit(onSubmit)}
-              className="w-full md:max-w-[526px] h-full"
+              className="w-full md:max-w-[526px] md:mx-auto h-full"
             >
               <div className="rich-text mb-y">
                 <p className="uppercase">What time works best?</p>
