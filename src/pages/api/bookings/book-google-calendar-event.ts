@@ -56,6 +56,11 @@ async function createCalendarEvent({
     throw new Error('Missing required fields or staffEmails is not an array.')
   }
 
+  const zoomLink =
+    'https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09'
+
+  const fullEventDescription = `${eventDescription}\n\nJoin Zoom Meeting:\n${zoomLink}`
+
   const startDateTime = moment
     .tz(`${date}T${startTime}:00`, 'America/New_York')
     .toDate()
@@ -65,7 +70,7 @@ async function createCalendarEvent({
   const event = {
     summary: eventName,
     location: location,
-    description: eventDescription,
+    description: fullEventDescription,
     start: {
       dateTime: startDateTime.toISOString(),
       timeZone: 'America/New_York',
