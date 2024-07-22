@@ -58,8 +58,8 @@ async function createCalendarEvent({
 
   const fullEventDescription = `${eventDescription}\n\nJoin Zoom Meeting:\n${zoomLink}`
 
-  const startDateTime = moment.tz(startTime, 'America/New_York').toDate()
-  const endDateTime = moment.tz(endTime, 'America/New_York').toDate()
+  const startDateTime = moment.utc(startTime).toDate()
+  const endDateTime = moment.utc(endTime).toDate()
 
   const event = {
     summary: eventName,
