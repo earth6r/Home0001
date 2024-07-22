@@ -51,6 +51,7 @@ export interface KeyedUnitProps
   reserveFormCopy?: RichText
   confirmationCopy?: RichText
   summary?: RichText
+  typeSummary?: RichText
   factSheet?: any
   inventory?: RichText
   dossierInventory?: RichText

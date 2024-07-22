@@ -107,9 +107,9 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
               )}
               <div className="block w-full text-md uppercase">
                 <div className="p-x bg-darkergray">
-                  {unit.title && (
+                  {unit.propertyType?.typeTitle && (
                     <p className="font-medium mb-yhalf tracking-normal">
-                      {unit.title}
+                      {unit.propertyType?.typeTitle}
                     </p>
                   )}
 
@@ -130,7 +130,9 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                     'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
                   )}
                 >
-                  <h4 className="text-card text-white">{unit.title}</h4>
+                  <h4 className="text-card text-white">
+                    {unit.propertyType?.typeTitle}
+                  </h4>
 
                   <IconRightArrowBold
                     className="relative w-[1em] mt-[0.1em]"

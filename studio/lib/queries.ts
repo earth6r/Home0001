@@ -66,6 +66,7 @@ export const UNIT_QUERY = `
   area,
   amenities,
   summary,
+  typeSummary,
   factSheet,
   reserveFormCopy,
   confirmationCopy,

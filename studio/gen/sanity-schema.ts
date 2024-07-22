@@ -562,6 +562,13 @@ export interface Unit extends SanityDocument {
   summary?: RichText;
 
   /**
+   * Property Type Summary — `richText`
+   *
+   *
+   */
+  typeSummary?: RichText;
+
+  /**
    * Fact Sheet — `table`
    *
    *

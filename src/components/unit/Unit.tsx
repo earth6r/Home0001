@@ -45,13 +45,11 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
       <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
         <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
-          <h2 className="hidden md:inline-block text-h2 mb-y">{unit?.title}</h2>
+          <h2 className="hidden md:inline-block text-h2 mb-y">
+            {unit?.propertyType?.typeTitle}
+          </h2>
 
           <div className="rich-text px-x md:px-0">
-            {unit?.propertyType && (
-              <p className="small uppercase">{unit?.propertyType?.typeTitle}</p>
-            )}
-
             <p className="small uppercase m-0">
               {unit?.hidePrice
                 ? 'Price upon request'
@@ -79,14 +77,25 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             </Link>
           </div>
 
-          {unit?.summary && unit.summary.length > 0 && (
+          {unit?.typeSummary && unit.typeSummary.length > 0 ? (
             <div className="px-x md:px-0 mt-ydouble md:mt-0">
               <p className="text-h4 mb-y md:mb-yhalf">Overview:</p>
               <RichText
-                blocks={unit?.summary}
+                blocks={unit.typeSummary}
                 className="font-medium max-w-[500px]"
               />
             </div>
+          ) : (
+            unit?.summary &&
+            unit?.summary.length > 0 && (
+              <div className="px-x md:px-0 mt-ydouble md:mt-0">
+                <p className="text-h4 mb-y md:mb-yhalf">Overview:</p>
+                <RichText
+                  blocks={unit.summary}
+                  className="font-medium max-w-[500px]"
+                />
+              </div>
+            )
           )}
 
           {unit?.factSheet?.rows && (
