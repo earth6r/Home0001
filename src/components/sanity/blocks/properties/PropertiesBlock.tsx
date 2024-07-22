@@ -12,7 +12,7 @@ import { sendGoogleEvent } from '@lib/util'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import SCREENS from '@globals/screens'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { type SwiperOptions } from 'swiper'
+import { Navigation, type SwiperOptions } from 'swiper'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -94,6 +94,7 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
       slidesPerView: 2,
     },
   }
+  const [activeNav, setActiveNav] = useState(false)
 
   return (
     <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
@@ -107,6 +108,8 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
             <div
               key={`city-${header}`}
               className="mb-ydouble last-of-type:mb-0"
+              onMouseOver={() => setActiveNav(true)}
+              onMouseOut={() => setActiveNav(false)}
             >
               {header && (
                 <h2 className="mb-y text-h2 pr-menu md:pr-0">{header}</h2>
@@ -116,8 +119,13 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
                 loop={false}
                 spaceBetween={16}
                 breakpoints={breakpoints}
+                modules={[Navigation]}
                 speed={600}
-                className={classNames('overflow-visible cursor-grab')}
+                navigation={{
+                  nextEl: '.swiper-next',
+                  prevEl: '.swiper-prev',
+                }}
+                className={classNames('relative overflow-visible cursor-grab')}
               >
                 {properties &&
                   (properties as KeyedProperty[])?.map(
@@ -132,6 +140,27 @@ export const PropertiesBlock: FC<CitiesBlockProps> = ({
                       </SwiperSlide>
                     )
                   )}
+                <div
+                  className={classNames(
+                    activeNav ? 'opacity-100' : 'opacity-0',
+                    'hidden md:flex md:justify-between absolute w-full h-[60px] top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+                  )}
+                >
+                  <IconRightArrowBold
+                    width="80"
+                    fill="black"
+                    className={classNames(
+                      'pr-xhalf rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
+                    )}
+                  />
+                  <IconRightArrowBold
+                    width="80"
+                    fill="black"
+                    className={classNames(
+                      'pr-xhalf relative swiper-next pointer-events-auto cursor-pointer hover:scale-95'
+                    )}
+                  />
+                </div>
               </Swiper>
             </div>
           ))}
