@@ -55,7 +55,7 @@ export const DateSelect: FC<DateSelectProps> = ({
                         const formattedDate = new Date(date).toLocaleDateString(
                           'en-US',
                           {
-                            timeZone: 'EST',
+                            timeZone: 'UTC',
                             weekday: 'short',
                             year: 'numeric',
                             month: 'long',
