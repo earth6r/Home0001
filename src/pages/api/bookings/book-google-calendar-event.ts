@@ -19,18 +19,16 @@ const auth = new JWT({
 const calendar = google.calendar({ version: 'v3', auth })
 
 async function createCalendarEvent({
-  date,
   startTime,
+  endTime,
   eventName,
   inviteeEmail,
-  location,
   eventDescription,
 }: {
-  date: string
   startTime: string
+  endTime: string
   eventName: string
   inviteeEmail: string
-  location: string
   eventDescription: string
 }) {
   const staffEmails = [
@@ -45,12 +43,11 @@ async function createCalendarEvent({
     // 'm@choicefamily.com',
   ]
   if (
-    !date ||
     !startTime ||
+    !endTime ||
     !eventName ||
     !Array.isArray(staffEmails) ||
     !inviteeEmail ||
-    !location ||
     !eventDescription
   ) {
     throw new Error('Missing required fields or staffEmails is not an array.')
@@ -61,15 +58,12 @@ async function createCalendarEvent({
 
   const fullEventDescription = `${eventDescription}\n\nJoin Zoom Meeting:\n${zoomLink}`
 
-  const startDateTime = moment
-    .tz(`${date}T${startTime}:00`, 'America/New_York')
-    .toDate()
-
-  const endDateTime = new Date(startDateTime.getTime() + 2 * 60 * 60 * 1000)
+  const startDateTime = moment.tz(startTime, 'America/New_York').toDate()
+  const endDateTime = moment.tz(endTime, 'America/New_York').toDate()
 
   const event = {
     summary: eventName,
-    location: location,
+    location: zoomLink,
     description: fullEventDescription,
     start: {
       dateTime: startDateTime.toISOString(),

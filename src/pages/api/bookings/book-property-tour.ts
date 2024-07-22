@@ -57,11 +57,10 @@ export default async function handler(
 
   try {
     createCalendarEvent({
-      date: startTimestamp.split(' ')[0],
-      startTime: startTimestamp.split(' ')[1].split(':')[0],
+      startTime: startTimestamp,
+      endTime: endTimestamp,
       eventName: 'Property Tour',
       inviteeEmail: email,
-      location: 'TBD',
       eventDescription: 'Property Tour',
     })
   } catch (error) {
