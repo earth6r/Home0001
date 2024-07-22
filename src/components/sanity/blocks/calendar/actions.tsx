@@ -20,7 +20,6 @@ export const bookPhoneCall = async (data: any) => {
   const startDateTime = moment.utc(`${data.date} ${data.startTime}`)
   const startDateTimePlus = moment.utc(`${data.date} ${data.startTime}`)
   const endDateTime = startDateTimePlus.add(15, 'minutes')
-  console.log('bookPhoneCall')
   return await axios.post(
     `${BASE_URL}/api/bookings/book-phone-call`,
     {
