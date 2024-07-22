@@ -1419,9 +1419,9 @@ export type TextBlock = {
   stickyHeader?: boolean;
 
   /**
-   * Header — `richText`
+   * Sticky Header Content — `richText`
    *
-   *
+   * Content for the sticky header
    */
   header?: RichText;
 
