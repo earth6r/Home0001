@@ -68,15 +68,17 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   }, [])
 
   return (
-    <Block className={classNames(className, '')}>
-      {header && <RichText blocks={header} className="mb-y text-left" />}
+    <Block className={classNames(className)}>
+      {header && (
+        <RichText blocks={header} className="mb-y text-left md:text-center" />
+      )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        <div className="bg-yellow pb-y px-x">
+      <div className="grid grid-cols-1 md:grid-cols-3 relative w-[calc(100%+var(--space-x)*2)] -left-x bg-yellow py-ydouble px-x">
+        <div className="md:col-start-2">
           {!formSubmitted && (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="w-full md:max-w-[526px] h-full mt-y"
+              className="w-full md:max-w-[526px] h-full"
             >
               <div className="rich-text mb-y">
                 <p className="uppercase">What time works best?</p>
@@ -86,15 +88,17 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 availableSlots={availableSlots}
                 register={register}
                 loading={loading}
-                className="mb-yhalf"
+                className="mb-y"
               />
 
-              <div className="mb-ydouble">
+              <div className="mb-y">
                 <p className="uppercase font-medium small">
                   <span className="block small">
                     Meeting Duration: 15 minutes
                   </span>
-                  <span className="block small">All times in EST</span>
+                  <span className="block small font-sansText">
+                    All times in EST
+                  </span>
                 </p>
               </div>
 
@@ -146,7 +150,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
               />
 
               <button
-                className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+                className="relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
                 type={'submit'}
                 disabled={isSubmitting}
               >

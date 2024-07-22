@@ -42,7 +42,7 @@ export const DateSelect: FC<DateSelectProps> = ({
               <div className="relative">
                 <select
                   id="date-select"
-                  className="input select"
+                  className="input select text-button font-sans"
                   {...register('date')}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                     setActiveIndex(e.target.value)
