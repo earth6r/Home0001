@@ -17,14 +17,11 @@ type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
   CalendarBlockType
 
 export const CalendarBlock: FC<CalendarBlockProps> = ({
+  index,
   header,
   className,
 }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -34,13 +31,16 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   }>({ error: null, message: '' })
 
   const [availableSlots, setAvailableSlots] = useState([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const onSubmit = async (data: any) => {
     if (!data.email) return
+    setIsSubmitting(true)
     bookPhoneCall(data)
       .then(res => {
         setFormSubmitted(true)
+        setIsSubmitting(false)
       })
       .catch(err => {
         setFormError({
@@ -48,6 +48,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
           message: (err as any).response.data.message as string,
         })
         console.error(err)
+        setIsSubmitting(false)
       })
   }
 
@@ -77,6 +78,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
         <div className="md:col-start-2">
           {!formSubmitted && (
             <form
+              id={`calendar-block-${index}`}
               onSubmit={handleSubmit(onSubmit)}
               className="w-full md:max-w-[526px] h-full"
             >
@@ -151,7 +153,8 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
 
               <button
                 className="relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-                type={'submit'}
+                type="submit"
+                form={`calendar-block-${index}`}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Submitting...' : 'Book a call'}
@@ -168,7 +171,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
           )}
 
           {formSubmitted && (
-            <div className="relative mt-y">
+            <div className="relative">
               <p className="font-medium uppercase">{`Session time submitted`}</p>
             </div>
           )}
