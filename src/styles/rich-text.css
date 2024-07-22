@@ -21,6 +21,10 @@
   margin-top: var(--space-y-double);
 }
 
+.rich-text > h4 + p {
+  margin-top: var(--space-y-half);
+}
+
 .rich-text > ul,
 .rich-text > ol,
 .rich-text > blockquote,
@@ -81,6 +85,10 @@
 
 .rich-text h3 {
   @apply text-h3;
+}
+
+.rich-text h4 {
+  @apply text-h4;
 }
 
 .rich-text p,
