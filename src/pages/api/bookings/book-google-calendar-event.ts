@@ -67,11 +67,11 @@ async function createCalendarEvent({
     description: fullEventDescription,
     start: {
       dateTime: startDateTime.toISOString(),
-      timeZone: 'America/New_York',
+      timeZone: 'UTC',
     },
     end: {
       dateTime: endDateTime.toISOString(),
-      timeZone: 'America/New_York',
+      timeZone: 'UTC',
     },
     attendees: [
       { email: Subject },
