@@ -17,9 +17,17 @@ export const getAvailableSlots = async () => {
 }
 
 export const bookPhoneCall = async (data: any) => {
-  const startDateTime = moment.utc(`${data.date} ${data.startTime}`)
-  const startDateTimePlus = moment.utc(`${data.date} ${data.startTime}`)
+  const startDateTime = moment
+    .tz(`${data.date} ${data.startTime}`, 'America/New_York')
+    .utc()
+  const startDateTimePlus = moment
+    .tz(`${data.date} ${data.startTime}`, 'America/New_York')
+    .utc()
   const endDateTime = startDateTimePlus.add(15, 'minutes')
+  console.log(
+    'startDateTime',
+    startDateTime.toISOString().replace('T', ' ').substring(0, 19)
+  )
   return await axios.post(
     `${BASE_URL}/api/bookings/book-phone-call`,
     {
