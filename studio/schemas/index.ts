@@ -39,6 +39,8 @@ import messagingBlock from './blocks/messaging-block'
 import divider from './objects/divider'
 import textAndAccordionBlock from './blocks/text-and-accordion-block'
 import brand from './documents/brand-page'
+import dividerBlock from './blocks/divider-block'
+import fullbleedBlock from './blocks/fullbleed-block'
 import embed from './objects/embed'
 import cookiesToggle from './objects/cookies-toggle'
 import buy from './documents/buy-page'
@@ -73,6 +75,8 @@ export const schemaTypes = [
   animatingBlock,
   calendarBlock,
   carouselBlock,
+  dividerBlock,
+  fullbleedBlock,
   propertyBlock,
   propertiesBlock,
   newsletterBlock,

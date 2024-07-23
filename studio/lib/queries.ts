@@ -66,6 +66,7 @@ export const UNIT_QUERY = `
   area,
   amenities,
   summary,
+  typeSummary,
   factSheet,
   reserveFormCopy,
   confirmationCopy,
@@ -179,12 +180,16 @@ export const BODY_QUERY = `
     "citiesList": citiesList[]->{
       ${CITY_QUERY},
     },
-    "properties": properties[]->{
-      "cardImage": cardImage{
-        ${MEDIA_QUERY}
+    "cities": cities[]{
+      ...,
+      header,
+      "properties": properties[]->{
+        "cardImage": cardImage{
+          ${MEDIA_QUERY}
+        },
+        longTitle,
+        slug,
       },
-      longTitle,
-      slug,
     },
     "propertyRef": propertyRef->{
       ${PROPERTY_QUERY}
@@ -222,7 +227,7 @@ export const PROPERTIES_QUERY = `
     price,
     cryptoPrice,
     area,
-    "photographs": photographs[]{
+    "photographs": photographs[][0]{
       ${MEDIA_QUERY}
     },
     photoLimit,

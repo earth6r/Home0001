@@ -21,7 +21,7 @@ export const VideosBlock: FC<VideosBlockProps> = ({ videos, className }) => {
               className="w-full aspect-square object-cover"
             />
             {video.caption && (
-              <p className="text-sm font-sansText font-medium text-right mt-y">
+              <p className="text-sm font-sansText font-medium text-left mt-y">
                 {video.caption}
               </p>
             )}

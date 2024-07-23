@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import { Layout } from '@components/layout'
 import { Scripts } from '@components/scripts'
 import ContextProvider from '@/contexts'
+import { Analytics } from '@vercel/analytics/react'
 
 import 'focus-visible'
 import 'swiper/css'
@@ -63,6 +64,7 @@ function App({ Component, pageProps }: AppProps<{}>) {
         <Scripts />
         <AnimatePresence initial={false} mode="popLayout">
           <Component {...pageProps} />
+          <Analytics />
         </AnimatePresence>
       </Layout>
     </ContextProvider>

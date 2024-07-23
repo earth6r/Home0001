@@ -5,7 +5,7 @@ import type {
   SanityReference,
   UnitGroup,
 } from '@gen/sanity-schema'
-import type { HTMLAttributes } from 'react'
+import type { Dispatch, HTMLAttributes, SetStateAction } from 'react'
 
 export interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
@@ -41,6 +41,7 @@ export interface HeaderProps
 
 export interface HeaderMenuProps extends HeaderProps {
   customOpen?: boolean
+  setCustomOpen: Dispatch<SetStateAction<boolean>>
   onOpen?: (open: boolean) => void
   closeMenu?: () => void
 }

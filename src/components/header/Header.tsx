@@ -291,7 +291,7 @@ export const Header: FC<HeaderProps> = ({
                   )}
                   onClick={() => {
                     window.open(
-                      'https://www.home0001.com/schedule-phone-call',
+                      'https://www.home0001.com/schedule-call',
                       '_blank'
                     )
                   }}
@@ -319,6 +319,7 @@ export const Header: FC<HeaderProps> = ({
           {!hideMenu && (
             <HeaderMenu
               customOpen={menuOpen}
+              setCustomOpen={setMenuOpen}
               onOpen={onOpen}
               mainMenu={mainMenu as SanityMenu}
               className="flex flex-col pointer-events-auto"
