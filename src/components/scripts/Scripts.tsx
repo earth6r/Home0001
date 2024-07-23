@@ -1,4 +1,5 @@
 import Script from 'next/script'
+import { useEffect, useState } from 'react'
 
 const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID
 const FACEBOOK_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
@@ -7,9 +8,18 @@ const HOTJAR_SV = process.env.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION
 const HUBSPOT_ID = process.env.NEXT_PUBLIC_HUBSPOT_ID
 
 export const Scripts = () => {
+  const [analytics, setAnalytics] = useState(true)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (sessionStorage.getItem('allowAnalytics') === 'false') {
+        setAnalytics(false)
+      }
+    }
+  }, [])
   return (
     <>
-      {GOOGLE_ID && GOOGLE_ID.length > 0 ? (
+      {GOOGLE_ID && GOOGLE_ID.length > 0 && analytics ? (
         <>
           <Script id="google-analytics" strategy="afterInteractive">
             <noscript>
@@ -24,7 +34,7 @@ export const Scripts = () => {
           </Script>
         </>
       ) : null}
-      {/* {FACEBOOK_ID && FACEBOOK_ID.length > 0 ? (
+      {/* {FACEBOOK_ID && FACEBOOK_ID.length > 0 && analytics ? (
         <Script id="facebook-pixel-analytics" strategy="afterInteractive">
           {`
               !function(f,b,e,v,n,t,s)
@@ -39,7 +49,7 @@ export const Scripts = () => {
             `}
         </Script>
       ) : null} */}
-      {HOTJAR_ID && HOTJAR_ID.length > 0 ? (
+      {HOTJAR_ID && HOTJAR_ID.length > 0 && analytics ? (
         <Script id="hotjar-analytics" strategy="afterInteractive">
           {`
             (function(h,o,t,j,a,r){

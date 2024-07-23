@@ -42,6 +42,7 @@ import brand from './documents/brand-page'
 import dividerBlock from './blocks/divider-block'
 import fullbleedBlock from './blocks/fullbleed-block'
 import embed from './objects/embed'
+import cookiesToggle from './objects/cookies-toggle'
 import buy from './documents/buy-page'
 
 export const schemaTypes = [
@@ -49,6 +50,7 @@ export const schemaTypes = [
   link,
   accordion,
   color,
+  cookiesToggle,
   coordinates,
   cta,
   divider,

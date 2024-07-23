@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import { Layout } from '@components/layout'
 import { Scripts } from '@components/scripts'
 import ContextProvider from '@/contexts'
-// import { IntercomProvider } from '@components/intercom'
 import { Analytics } from '@vercel/analytics/react'
 
 import 'focus-visible'
@@ -60,7 +60,6 @@ function App({ Component, pageProps }: AppProps<{}>) {
 
   return (
     <ContextProvider>
-      {/* <IntercomProvider> */}
       <Layout {...pageProps}>
         <Scripts />
         <AnimatePresence initial={false} mode="popLayout">
@@ -68,7 +67,6 @@ function App({ Component, pageProps }: AppProps<{}>) {
           <Analytics />
         </AnimatePresence>
       </Layout>
-      {/* </IntercomProvider> */}
     </ContextProvider>
   )
 }

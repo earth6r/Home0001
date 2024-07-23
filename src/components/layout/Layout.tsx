@@ -13,8 +13,8 @@ import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
+import { Cookies } from '@components/cookies'
 import { triggerToastPreview } from '@components/toast'
-import IconEarth from '@components/icons/IconEarth'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -40,6 +40,7 @@ export const Layout: FC<LayoutProps> = ({
       triggerToastPreview({
         deactivateUrl: `${BASE_URL}/api/exit-preview?path=${asPath}`,
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -101,6 +102,10 @@ export const Layout: FC<LayoutProps> = ({
           path={asPath}
           query={query}
           footerMenu={siteSettings?.footerMenu as Menus | undefined}
+        />
+        <Cookies
+          copy={siteSettings?.cookiesPaneCopy}
+          accordions={siteSettings?.cookiesAccordions}
         />
       </div>
       <ToastContainer />

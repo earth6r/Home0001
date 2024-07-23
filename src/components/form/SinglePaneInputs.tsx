@@ -1,8 +1,8 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useContext, useState, useEffect } from 'react'
+import { HTMLAttributes, useContext, useState } from 'react'
 import classNames from 'classnames'
 import { Link } from '@components/links'
-import { FieldValues, UseFormRegister, useForm } from 'react-hook-form'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
 import { useCookies } from 'react-cookie'
 import brand from '@/pages/brand'
@@ -58,15 +58,6 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
   register,
   className,
 }) => {
-  const [cookies, setCookie, removeCookie] = useCookies()
-  const [hutk, setHutk] = useState<string | undefined>()
-
-  useEffect(() => {
-    if (cookies.hubspotutk) {
-      setHutk(cookies.hubspotutk)
-    }
-  }, [])
-
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
   const [unitInput, setUnitInput] = useState(false)
 
