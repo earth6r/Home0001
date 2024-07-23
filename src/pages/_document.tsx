@@ -10,7 +10,6 @@ class MyDocument extends Document {
             sizes="180x180"
             href="/agentive_webclip.png"
           />
-          <link rel="manifest" href="/manifest.json" />
           <script
             dangerouslySetInnerHTML={{
               __html: `

@@ -25,7 +25,8 @@ export default {
     {
       name: 'header',
       type: 'richText',
-      title: 'Header',
+      title: 'Sticky Header Content',
+      description: 'Content for the sticky header',
     },
     textField,
     {

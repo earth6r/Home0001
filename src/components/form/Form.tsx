@@ -163,7 +163,7 @@ export const Form: FC<FormProps> = ({
               <p className="text-base">
                 To set up a 15 minute phone consultation{' '}
                 <a
-                  href="https://www.home0001.com/request-call"
+                  href="https://www.home0001.com/schedule-call"
                   target="_blank"
                   className={'underline font-bold'}
                 >

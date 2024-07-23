@@ -10,6 +10,9 @@ import Link from 'next/link'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { sendGoogleEvent } from '@lib/util'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import SCREENS from '@globals/screens'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, type SwiperOptions } from 'swiper'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -18,14 +21,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   index,
 }) => {
   const scrollRef = useRef(null)
-  const isInView = useInView(scrollRef, { once: true, amount: 0.4 })
-  const [isMobile, setIsMobile] = useState(true)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsMobile(window.innerWidth <= 768)
-    }
-  }, [])
+  const isInView = useInView(scrollRef, { once: true, amount: 0.1 })
 
   return (
     <AnimatePresence>
@@ -54,7 +50,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
               <SanityMedia
                 imageProps={{
                   alt: image.alt || 'Building image',
-                  quality: 6,
+                  quality: 90,
                   priority: false,
                   sizes: '(max-width: 768px) 100vw, 50vw',
                   lqip: (image?.image as any)?.asset?.metadata?.lqip,
@@ -67,7 +63,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
           {longTitle && (
             <div
               className={classNames(
-                'inline-flex justify-between md:justify-start items-start gap-[32px] w-[var(--btn-width)] md:w-auto relative p-[16px] bg-black text-card font-bold text-left uppercase'
+                'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
               )}
             >
               <RichText blocks={longTitle} className="card" />
@@ -85,29 +81,89 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
 }
 
 export const PropertiesBlock: FC<CitiesBlockProps> = ({
-  properties,
+  header,
+  cities,
   className,
 }) => {
+  const slidesRef = useRef(null)
+  const breakpoints: SwiperOptions['breakpoints'] = {
+    0: {
+      slidesPerView: 1.185,
+    },
+    [SCREENS.md]: {
+      slidesPerView: 2,
+    },
+  }
+  const [activeNav, setActiveNav] = useState(false)
+
   return (
     <Block className={classNames(className, 'mt-0 py-[32px] bg-lightgray')}>
-      <div className="xl:max-w-[65%] mx-auto px-x md:px-[calc(var(--space-menu)+12px)] xl:px-0">
+      <div className="xl:max-w-[65%] mx-auto px-x md:px-[calc(var(--space-menu)+12px)] xl:px-0 overflow-hidden">
         <h2 className="mb-ydouble text-h2 pr-menu md:pr-0">
-          Now available in:
+          {header || `Now available in:`}
         </h2>
-        <div className="grid md:grid-cols-2 gap-ydouble md:gap-y">
-          {properties &&
-            (properties as KeyedProperty[])?.map(
-              ({ cardImage, longTitle, slug }, index) => (
-                <PropertySummary
-                  key={slug.current}
-                  image={cardImage}
-                  longTitle={longTitle}
-                  slug={slug}
-                  index={index}
-                />
-              )
-            )}
-        </div>
+
+        {cities &&
+          cities.map(({ header, properties }) => (
+            <div
+              key={`city-${header}`}
+              className="mb-ydouble last-of-type:mb-0"
+              onMouseOver={() => setActiveNav(true)}
+              onMouseOut={() => setActiveNav(false)}
+            >
+              {header && (
+                <h2 className="mb-y text-h2 pr-menu md:pr-0">{header}</h2>
+              )}
+              <Swiper
+                ref={slidesRef}
+                loop={false}
+                spaceBetween={16}
+                breakpoints={breakpoints}
+                modules={[Navigation]}
+                speed={600}
+                navigation={{
+                  nextEl: '.swiper-next',
+                  prevEl: '.swiper-prev',
+                }}
+                className={classNames('relative overflow-visible cursor-grab')}
+              >
+                {properties &&
+                  (properties as KeyedProperty[])?.map(
+                    ({ cardImage, longTitle, slug }, index) => (
+                      <SwiperSlide key={slug.current}>
+                        <PropertySummary
+                          image={cardImage}
+                          longTitle={longTitle}
+                          slug={slug}
+                          index={index}
+                        />
+                      </SwiperSlide>
+                    )
+                  )}
+                <div
+                  className={classNames(
+                    activeNav ? 'opacity-100' : 'opacity-0',
+                    'hidden md:flex md:justify-between absolute w-full h-[60px] top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+                  )}
+                >
+                  <IconRightArrowBold
+                    width="80"
+                    fill="black"
+                    className={classNames(
+                      'pr-xhalf rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
+                    )}
+                  />
+                  <IconRightArrowBold
+                    width="80"
+                    fill="black"
+                    className={classNames(
+                      'pr-xhalf relative swiper-next pointer-events-auto cursor-pointer hover:scale-95'
+                    )}
+                  />
+                </div>
+              </Swiper>
+            </div>
+          ))}
       </div>
     </Block>
   )

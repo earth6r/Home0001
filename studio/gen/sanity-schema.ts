@@ -562,6 +562,13 @@ export interface Unit extends SanityDocument {
   summary?: RichText;
 
   /**
+   * Property Type Summary — `richText`
+   *
+   *
+   */
+  typeSummary?: RichText;
+
+  /**
    * Fact Sheet — `table`
    *
    *
@@ -819,7 +826,7 @@ export type Link = {
      *
      *
      */
-    reference?: SanityReference<Page | Property>;
+    reference?: SanityReference<Page | Property | Unit>;
 
     /**
      * Anchor Slug — `slug`
@@ -1190,6 +1197,8 @@ export type BlockContent = Array<
   | SanityKeyed<AnimatingBlock>
   | SanityKeyed<CalendarBlock>
   | SanityKeyed<CarouselBlock>
+  | SanityKeyed<DividerBlock>
+  | SanityKeyed<FullbleedBlock>
   | SanityKeyed<PropertyBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
@@ -1273,13 +1282,6 @@ export type CalendarBlock = {
    *
    */
   header?: RichText;
-
-  /**
-   * Embed Code — `string`
-   *
-   * Value used in https://meetings.hubspot.com/ url
-   */
-  embedCode?: string;
 };
 
 export type CarouselBlock = {
@@ -1290,6 +1292,33 @@ export type CarouselBlock = {
    *
    */
   images?: Array<SanityKeyed<Media>>;
+};
+
+export type DividerBlock = {
+  _type: "dividerBlock";
+  /**
+   * Divider — `boolean`
+   *
+   *
+   */
+  divider?: boolean;
+};
+
+export type FullbleedBlock = {
+  _type: "fullbleedBlock";
+  /**
+   * Image — `media`
+   *
+   *
+   */
+  image?: Media;
+
+  /**
+   * Minimum Width — `number`
+   *
+   *
+   */
+  minWidth?: number;
 };
 
 export type PropertyBlock = {
@@ -1312,11 +1341,34 @@ export type PropertyBlock = {
 export type PropertiesBlock = {
   _type: "propertiesBlock";
   /**
-   * Properties — `array`
+   * Header — `string`
    *
    *
    */
-  properties?: Array<SanityKeyedReference<Property>>;
+  header?: string;
+
+  /**
+   * Cities — `array`
+   *
+   *
+   */
+  cities?: Array<
+    SanityKeyed<{
+      /**
+       * Header — `string`
+       *
+       *
+       */
+      header?: string;
+
+      /**
+       * Properties — `array`
+       *
+       *
+       */
+      properties?: Array<SanityKeyedReference<Property>>;
+    }>
+  >;
 };
 
 export type NewsletterBlock = {
@@ -1405,9 +1457,9 @@ export type TextBlock = {
   stickyHeader?: boolean;
 
   /**
-   * Header — `richText`
+   * Sticky Header Content — `richText`
    *
-   *
+   * Content for the sticky header
    */
   header?: RichText;
 
