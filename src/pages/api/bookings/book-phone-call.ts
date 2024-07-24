@@ -38,8 +38,8 @@ export default async function handler(
 
   await db.collection('usersBookPhoneCall').add({
     email,
-    startTimestamp: Number(new Date(startTimestamp).getTime()),
-    endTimestamp: Number(new Date(endTimestamp).getTime()),
+    startTimestamp: Number(new Date(Date.UTC(startTimestamp)).getTime()),
+    endTimestamp: Number(new Date(Date.UTC(endTimestamp)).getTime()),
     firstName,
     lastName,
     notes,
