@@ -5,7 +5,7 @@ export const sendWhatsappBookedMessage = async (
   lastName: string,
   startTimestamp: string
 ) => {
-  const message = `A HOME0001 phone call has been booked by ${firstName} ${lastName} on ${startTimestamp}.`
+  const message = `A HOME0001 phone call has been booked by ${firstName} ${lastName} on ${startTimestamp} UTC.`
 
   const numbers = [
     // '+15038676436',

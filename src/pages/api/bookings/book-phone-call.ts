@@ -10,6 +10,16 @@ export const config = {
   maxDuration: 300, // Maximum duration for the API route to respond to a request (5 minutes)
 }
 
+export function parseTimestamp(timestamp: string) {
+  let [datePart, timePart] = timestamp.split(' ')
+  let [year, month, day] = datePart.split('-').map(Number)
+  let [hours, minutes, seconds] = timePart.split(':').map(Number)
+
+  return Number(
+    new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds)).getTime()
+  )
+}
+
 // curl -X POST http://localhost:3000/api/book-phone-call -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"1720441800000","phoneNumber":"1234567890"}'
 export default async function handler(
   req: NextApiRequest,
@@ -36,10 +46,13 @@ export default async function handler(
 
   const db = admin.firestore() // Get a reference to the Firestore database
 
+  const startTimestampFormatted = parseTimestamp(startTimestamp)
+  const endTimestampFormatted = parseTimestamp(endTimestamp)
+
   await db.collection('usersBookPhoneCall').add({
     email,
-    startTimestamp: Number(new Date(startTimestamp).getTime()),
-    endTimestamp: Number(new Date(endTimestamp).getTime()),
+    startTimestamp: startTimestampFormatted,
+    endTimestamp: endTimestampFormatted,
     firstName,
     lastName,
     notes,
