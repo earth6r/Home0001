@@ -4,6 +4,7 @@ import admin from 'firebase-admin' // Firebase Admin SDK
 import { validateBooking, validateProperty } from './validate'
 import { sendWhatsappBookedMessage } from './send-whatsapp-booked-message'
 import createCalendarEvent from './book-google-calendar-event'
+import { parseTimestamp } from './book-phone-call'
 
 // Set configuration options for the API route
 export const config = {
@@ -44,11 +45,14 @@ export default async function handler(
 
   const db = admin.firestore() // Get a reference to the Firestore database
 
+  const startTimestampFormatted = parseTimestamp(startTimestamp)
+  const endTimestampFormatted = parseTimestamp(endTimestamp)
+
   await db.collection('usersBookPropertyTour').add({
     email,
     property,
-    startTimestamp: Number(new Date(startTimestamp).getTime()),
-    endTimestamp: Number(new Date(endTimestamp).getTime()),
+    startTimestamp: startTimestampFormatted,
+    endTimestamp: endTimestampFormatted,
     phoneNumber,
     firstName,
     lastName,
