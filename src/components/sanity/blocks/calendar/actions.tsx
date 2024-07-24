@@ -24,10 +24,6 @@ export const bookPhoneCall = async (data: any) => {
     .tz(`${data.date} ${data.startTime}`, 'America/New_York')
     .utc()
   const endDateTime = startDateTimePlus.add(15, 'minutes')
-  console.log(
-    'startDateTime',
-    startDateTime.toISOString().replace('T', ' ').substring(0, 19)
-  )
   return await axios.post(
     `${BASE_URL}/api/bookings/book-phone-call`,
     {

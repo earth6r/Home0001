@@ -6,13 +6,12 @@ import slugify from 'slugify'
 import { useRouter } from 'next/router'
 import { sendGoogleEvent } from '@lib/util'
 import Link from 'next/link'
-import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
-import { RichText, SanityMedia, SanityMediaProps } from '@components/sanity'
+import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { Media } from '@studio/gen/sanity-schema'
 

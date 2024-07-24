@@ -42,7 +42,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
   return (
     <div className={classNames(className)}>
-      <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
+      <h2 className="md:hidden text-h2 mb-ydouble px-x">
+        {unit?.propertyType?.typeTitle}
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
         <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
           <h2 className="hidden md:inline-block text-h2 mb-y">
@@ -156,16 +158,6 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
 
           <div className="md:hidden my-ydouble pl-x pr-menu mr-x">
-            <button
-              onClick={() => setInquiryOpen(true)}
-              className={classNames(
-                'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert text-button z-above p-x'
-              )}
-            >
-              {`Inquire`}
-              <IconSmallArrow width="16" height="10" />
-            </button>
-
             <Link href="/schedule-call">
               <button
                 className={classNames(
