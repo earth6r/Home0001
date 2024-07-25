@@ -72,7 +72,6 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
     })
 
     if (result.error) {
-      // eslint-disable-next-line no-console
       console.log(result.error.message)
       setFormError({
         error: true,
@@ -103,7 +102,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
 
     setPaymentIntent(email, unit)
       .then(res => {
-        setClientSecret(res.data.clientSecret)
+        setClientSecret(res?.data.clientSecret)
       })
       .catch(err => {
         console.log(err)
