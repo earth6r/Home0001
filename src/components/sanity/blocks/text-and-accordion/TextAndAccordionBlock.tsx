@@ -10,6 +10,8 @@ import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
 import { Accordion } from '@components/accordion'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import IconCirclePlus from '@components/icons/IconCirclePlus'
+import IconCircleMinus from '@components/icons/IconCircleMinus'
 
 type TextAndAccordionProps = {
   copy?: RichTextType
@@ -42,7 +44,9 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
             className={classNames(
               'inline-block underline decoration-[2px] underline-offset-2 pb-[2px] text-sm font-sansText font-bold'
             )}
-          >{`Read more`}</span>
+          >
+            <IconCirclePlus width={16} />
+          </span>
         </button>
       )}
 
@@ -56,7 +60,7 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
             text={text}
             cta={cta}
             readMore={false}
-            className="w-btnWidth mt-yhalf first-of-type:mt-0"
+            className="w-[306px] mt-y first-of-type:mt-0"
           />
         ))}
 
@@ -66,7 +70,9 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
             className={classNames(
               'inline-block underline decoration-[2px] underline-offset-2 pb-[2px] text-sm font-sansText font-bold'
             )}
-          >{`Read less`}</span>
+          >
+            <IconCircleMinus width={16} />
+          </span>
         </button>
       )}
     </div>
@@ -118,7 +124,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
             onClick={scrollDown}
             className={classNames(
               scrolled ? 'opacity-0 pointer-events-none' : '',
-              'w-[80px] md:w-[80px] mx-auto mb-ydouble md:mb-0 md:ml-0 md:my-4 transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
+              'w-[80px] mx-auto mb-ydouble md:ml-0 md:my-4 transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
             )}
           />
         </div>
@@ -129,11 +135,11 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
           <RichText
             blocks={header}
             className={classNames(
-              'md:inline md:sticky md:h-1/5 md:top-[var(--header-height)] col-start-1 md:pr-x mb-ydouble'
+              'md:inline md:sticky md:h-1/5 md:top-[var(--header-height)] col-start-1 md:pr-x mb-[64px]'
             )}
           />
         )}
-        <div className="md:col-start-2 flex flex-wrap gap-ydouble pr-menu">
+        <div className="md:col-start-2 flex flex-wrap gap-[calc(var(--space-y)*4)] pr-menu">
           {items?.map(({ _key, copy, accordions }) => (
             <div key={_key}>
               <TextAndAccordion copy={copy} accordions={accordions} />

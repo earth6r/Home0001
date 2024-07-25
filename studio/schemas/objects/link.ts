@@ -17,7 +17,7 @@ export default {
         {
           name: 'reference',
           type: 'reference',
-          to: [{ type: 'page' }, { type: 'property' }],
+          to: [{ type: 'page' }, { type: 'property' }, { type: 'unit' }],
           weak: true,
         },
         {
