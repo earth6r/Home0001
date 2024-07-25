@@ -38,11 +38,11 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
     if (!data.email) return
     setIsSubmitting(true)
     bookPhoneCall(data)
-      .then(res => {
+      .then(() => {
         setFormSubmitted(true)
         setIsSubmitting(false)
       })
-      .catch(err => {
+      .catch((err: any) => {
         setFormError({
           error: true,
           message: (err as any).response.data.message as string,
@@ -54,14 +54,14 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
 
   useEffect(() => {
     getAvailableSlots()
-      .then(res => {
-        const filteredSlots = res.data.data.filter(
+      .then((res: any) => {
+        const filteredSlots = res?.data?.data?.filter(
           (days: any) => days.HasAvailability === true
         )
         setAvailableSlots(filteredSlots)
         setLoading(false)
       })
-      .catch(err => {
+      .catch((err: any) => {
         console.log(err)
         console.error(err)
         setLoading(false)
