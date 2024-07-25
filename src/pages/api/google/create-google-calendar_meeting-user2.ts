@@ -7,10 +7,9 @@ import axios from 'axios'
 import admin from 'firebase-admin'
 import { initializeAdmin } from '@lib/firebase/admin'
 import moment from 'moment-timezone'
-import { saveError } from '@lib/util/save-error'
 
 const Hubspot_Apikey = process.env.NEXT_PUBLIC_HUBSPOT_API_KEY
-const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE_SECOND
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
@@ -60,7 +59,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const calendar = google.calendar({ version: 'v3', auth: auth as any })
   let startdatetime= new Date(date +" "+startTime);
   const startDateTime =moment(startdatetime).format();
-  const endDateTime =  moment(startDateTime).add(2, "h").format();
+  const endDateTime =  moment(startDateTime).add(15, "m").format();
+
 
   try {
     const eventsResponse = await calendar.events.list({
@@ -112,6 +112,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         requestBody: event,
         sendUpdates: 'all',
       })
+
 
       if (response?.data?.id) {
         try {
@@ -168,7 +169,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           res.status(200).json({ success: true, event: response.data.id })
         } catch (error) {
           console.error('Error:', error)
-          saveError(error, 'create-google-calendar-meeting')
           res.status(500).json({ success: false, error: error })
         }
       } else {
