@@ -127,6 +127,11 @@ export default {
       type: 'richText',
     },
     {
+      name: 'typeSummary',
+      title: 'Property Type Summary',
+      type: 'richText',
+    },
+    {
       name: 'factSheet',
       title: 'Fact Sheet',
       type: 'table',

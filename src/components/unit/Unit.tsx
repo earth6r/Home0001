@@ -14,6 +14,8 @@ import {
 } from '@lib/util/crypto-pricing'
 import { SanityInventoryModal } from '@components/sanity/table-modal'
 import Link from 'next/link'
+import { SanityKeyed } from 'sanity-codegen'
+import { Media } from '@studio/gen/sanity-schema'
 
 export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
@@ -40,16 +42,16 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
   return (
     <div className={classNames(className)}>
-      <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
+      <h2 className="md:hidden text-h2 mb-ydouble px-x">
+        {unit?.propertyType?.typeTitle}
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
         <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
-          <h2 className="hidden md:inline-block text-h2 mb-y">{unit?.title}</h2>
+          <h2 className="hidden md:inline-block text-h2 mb-y">
+            {unit?.propertyType?.typeTitle}
+          </h2>
 
           <div className="rich-text px-x md:px-0">
-            {unit?.propertyType && (
-              <p className="small uppercase">{unit?.propertyType?.typeTitle}</p>
-            )}
-
             <p className="small uppercase m-0">
               {unit?.hidePrice
                 ? 'Price upon request'
@@ -65,17 +67,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           </div>
 
           <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
-            <button
-              onClick={() => setInquiryOpen(true)}
-              className={classNames(
-                'w-full relative border-1 border-black border-solid hover:border-white mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
-              )}
-            >
-              {`Inquire`}
-              <IconSmallArrow width="16" height="10" />
-            </button>
-
-            <Link href="/schedule-phone-call">
+            <Link href="/schedule-call">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
@@ -87,14 +79,25 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             </Link>
           </div>
 
-          {unit?.summary && unit.summary.length > 0 && (
+          {unit?.typeSummary && unit.typeSummary.length > 0 ? (
             <div className="px-x md:px-0 mt-ydouble md:mt-0">
               <p className="text-h4 mb-y md:mb-yhalf">Overview:</p>
               <RichText
-                blocks={unit?.summary}
+                blocks={unit.typeSummary}
                 className="font-medium max-w-[500px]"
               />
             </div>
+          ) : (
+            unit?.summary &&
+            unit?.summary.length > 0 && (
+              <div className="px-x md:px-0 mt-ydouble md:mt-0">
+                <p className="text-h4 mb-y md:mb-yhalf">Overview:</p>
+                <RichText
+                  blocks={unit.summary}
+                  className="font-medium max-w-[500px]"
+                />
+              </div>
+            )
           )}
 
           {unit?.factSheet?.rows && (
@@ -155,17 +158,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
 
           <div className="md:hidden my-ydouble pl-x pr-menu mr-x">
-            <button
-              onClick={() => setInquiryOpen(true)}
-              className={classNames(
-                'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert text-button z-above p-x'
-              )}
-            >
-              {`Inquire`}
-              <IconSmallArrow width="16" height="10" />
-            </button>
-
-            <Link href="/schedule-phone-call">
+            <Link href="/schedule-call">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
@@ -215,7 +208,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               pagination={true}
               perView={1}
               carousel={true}
-              slides={unit?.photographs}
+              slides={unit?.photographs as SanityKeyed<Media>[]}
               className="w-full h-full px-x md:pl-0 overflow-hidden"
               placement="unit images"
             />
