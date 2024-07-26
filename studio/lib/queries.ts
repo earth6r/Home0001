@@ -173,6 +173,13 @@ export const BODY_QUERY = `
       "media": media{
         ${MEDIA_QUERY}
       },
+      "text": text[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      },
     },
     "media": media{
       ${MEDIA_QUERY}
