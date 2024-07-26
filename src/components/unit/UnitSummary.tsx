@@ -104,7 +104,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                   className="w-full h-auto object-contain"
                 />
               )}
-              <div className="block w-full text-md uppercase">
+              <div className="block w-full text-md">
                 <div className="p-x bg-darkergray">
                   {unit.propertyType?.typeTitle && (
                     <p className="font-medium mb-yhalf tracking-normal">
