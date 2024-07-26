@@ -113,9 +113,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
           {unit?.unitDetails && (
             <>
-              {/* <p className="hidden md:block xl:hidden text-h4 px-x md:px-0 mt-ydouble mb-yhalf">
+              <p className="hidden md:block xl:hidden text-h4 px-x md:px-0 mt-ydouble mb-yhalf">
                 Details:
-              </p> */}
+              </p>
               <RichText
                 blocks={unit?.unitDetails}
                 className="hidden md:block xl:hidden pr-0"
