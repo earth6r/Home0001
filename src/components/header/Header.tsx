@@ -125,7 +125,7 @@ export const Header: FC<HeaderProps> = ({
             <span
               className={classNames(
                 hideBreadcrumb ? 'opacity-0' : '',
-                'transition-opacity duration-200'
+                'hidden sm:inline-block transition-opacity duration-200'
               )}
             >
               :
@@ -141,7 +141,7 @@ export const Header: FC<HeaderProps> = ({
               <span
                 className={classNames(
                   hideBreadcrumb ? 'opacity-0' : '',
-                  'uppercase pointer-events-auto transition-opacity duration-200'
+                  'hidden sm:inline-block uppercase pointer-events-auto transition-opacity duration-200'
                 )}
               >
                 &nbsp;{`${(property as unknown as Property)?.headerText}`}
@@ -153,7 +153,7 @@ export const Header: FC<HeaderProps> = ({
             <span
               className={classNames(
                 hideBreadcrumb ? 'opacity-0' : '',
-                'transition-opacity duration-200'
+                'hidden sm:inline-block transition-opacity duration-200'
               )}
             >
               :
@@ -163,7 +163,7 @@ export const Header: FC<HeaderProps> = ({
             <span
               className={classNames(
                 hideBreadcrumb ? 'opacity-0' : '',
-                'uppercase transition-opacity duration-200'
+                'hidden sm:inline-block uppercase transition-opacity duration-200'
               )}
             >
               &nbsp;{`${currentTitle}`}
