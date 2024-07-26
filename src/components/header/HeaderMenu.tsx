@@ -17,7 +17,6 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   mainMenu,
   className,
 }) => {
-  const items = useRef<HTMLDivElement | null>(null)
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
