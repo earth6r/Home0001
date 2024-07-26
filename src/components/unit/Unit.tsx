@@ -56,13 +56,13 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               {unit?.hidePrice
                 ? 'Price upon request'
                 : cryptoMode
-                ? `Price: ${unit?.price?.substring(1)} USDC / ${
+                ? `${unit?.price?.substring(1)} USDC / ${
                     cryptoPrice[1]
                   } BTC / ${cryptoPrice[0]} ETH`
-                : `Price: ${unit?.price}`}
+                : `${unit?.price}`}
             </p>
             {unit?.area && (
-              <p className="small uppercase m-0">{`Size: ${unit?.area}`}</p>
+              <p className="small uppercase m-0">{`${unit?.area}`}</p>
             )}
           </div>
 
@@ -113,9 +113,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
           {unit?.unitDetails && (
             <>
-              <p className="hidden md:block xl:hidden text-h4 px-x md:px-0 mt-ydouble mb-yhalf">
+              {/* <p className="hidden md:block xl:hidden text-h4 px-x md:px-0 mt-ydouble mb-yhalf">
                 Details:
-              </p>
+              </p> */}
               <RichText
                 blocks={unit?.unitDetails}
                 className="hidden md:block xl:hidden pr-0"
@@ -137,9 +137,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
         <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 mt-ydouble md:mt-0 md:z-modal">
           {unit?.unitDetails && (
             <>
-              <p className="md:hidden xl:block text-h4 px-x md:px-0 mb-y md:mb-yhalf">
+              {/* <p className="md:hidden xl:block text-h4 px-x md:px-0 mb-y md:mb-yhalf">
                 Details:
-              </p>
+              </p> */}
               <RichText
                 blocks={unit?.unitDetails}
                 className="md:hidden xl:block pl-x pr-menu md:px-0"
