@@ -1,10 +1,8 @@
 import { initializeAdmin } from '@lib/firebase/admin'
 import { enableCors } from '@lib/next/cors'
-import axios from 'axios'
 import admin from 'firebase-admin'
 import { type NextApiRequest, type NextApiResponse } from 'next'
 
-// eslint-disable-next-line import/no-unresolved
 import sgMail from '@sendgrid/mail'
 
 // Set configuration options for the API route
