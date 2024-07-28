@@ -23,7 +23,7 @@ export const DateSelect: FC<DateSelectProps> = ({
   className,
 }) => {
   //@ts-ignore
-  const [activeIndex, setActiveIndex] = useState(availableSlots[0]?.date)
+  const [activeIndex, setActiveIndex] = useState(availableSlots?.[0]?.date)
   const renderedSlots = availableSlots
 
   useEffect(() => {

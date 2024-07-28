@@ -61,13 +61,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     ],
     from: 'talin@home0001.com',
     subject: 'Error Occurred',
-    text: JSON.stringify({ error, errorType, statusCode, resolved }),
-    html: `<strong>${JSON.stringify({
-      error,
-      errorType,
-      statusCode,
-      resolved,
-    })}</strong>`,
+    text: JSON.stringify({ error, errorType, statusCode, resolved, reference: `https://analytics.home0001.com/error-details?uid=${errorRef.id}` }),
+    html: `<strong>
+      <h1>Error Occurred</h1>
+      <p>Error: ${error.slice(0, 100)}</p>
+      <p>Error Type: ${errorType}</p>
+      <p>Status Code: ${statusCode}</p>
+      <p>Resolved: ${resolved}</p>
+      <p>Error Reference: https://analytics.home0001.com/error-details?uid=${error?.uid}</p>
+      </strong>`,
   }
 
   try {
