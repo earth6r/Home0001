@@ -85,7 +85,7 @@ export const DateSelect: FC<DateSelectProps> = ({
         )}
 
         <div className="w-full ml-0 md:mx-auto">
-          {renderedSlots.map(
+          {renderedSlots && renderedSlots.map(
             ({ date, slots }: { date: string; slots: string[] }, index) => {
               return (
                 <div
