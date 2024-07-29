@@ -12,8 +12,8 @@ const Hubspot_Apikey = process.env.NEXT_PUBLIC_HUBSPOT_API_KEY
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE_SECOND
 
 const keys = {
-  client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
-  private_key: process.env.GOOGLE_API_PRIVATE_KEY,
+  client_email: process.env.GOOGLE_API_CLIENT_EMAIL_SECOND,
+  private_key: process.env.GOOGLE_API_PRIVATE_KEY_SECOND,
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
