@@ -63,10 +63,9 @@ export default async function handler(
     createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
-      eventName: 'HOME0001 Phone Call',
+      eventName: 'Zoom with HOME0001',
       inviteeEmail: email,
-      eventDescription:
-        'You are scheduled for a phone call with HOME0001 to discuss available properties.',
+      eventDescription: 'You are scheduled for a zoom call with HOME0001.',
     })
   } catch (error) {
     // eslint-disable-next-line no-console
