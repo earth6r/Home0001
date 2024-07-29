@@ -111,7 +111,7 @@
 
 .rich-text ul,
 .rich-text ol {
-  @apply mx-auto;
+  @apply mx-auto mb-y;
 }
 
 .rich-text.inventory ul {
