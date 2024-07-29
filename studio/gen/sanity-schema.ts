@@ -1251,6 +1251,13 @@ export type CalendarBlock = {
    *
    */
   header?: RichText;
+
+  /**
+   * Success Message — `richText`
+   *
+   *
+   */
+  successMessage?: RichText;
 };
 
 export type CarouselBlock = {

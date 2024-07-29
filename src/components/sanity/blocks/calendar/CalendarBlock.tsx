@@ -21,6 +21,7 @@ type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
 export const CalendarBlock: FC<CalendarBlockProps> = ({
   index,
   header,
+  successMessage,
   className,
 }) => {
   const {
@@ -184,12 +185,18 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
           )}
 
           {formSubmitted && (
-            <div className="relative">
-              <p className="font-medium uppercase">{`Your call with HOME0001 is scheduled.`}</p>
-              <p className="font-medium mt-y">
-                {`Please check your email for event details.`}
-              </p>
-            </div>
+            <>
+              {successMessage ? (
+                <RichText blocks={successMessage} className="relative" />
+              ) : (
+                <div className="relative">
+                  <p className="font-medium uppercase">{`Your call with HOME0001 is scheduled.`}</p>
+                  <p className="font-medium mt-y">
+                    {`Please check your email for event details.`}
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
