@@ -17,6 +17,8 @@ import Link from 'next/link'
 import { SanityKeyed } from 'sanity-codegen'
 import { Media } from '@studio/gen/sanity-schema'
 
+const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
+
 export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   const [inquiryModal, setInquiryOpen] = useInquiryModal()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
@@ -31,7 +33,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
       return [roundedEthPrice, roundedBtcPrice]
     }
 
-    if (unit?.price != 'Inquire') {
+    if (unit?.price != 'Inquire' && ENV === 'production') {
       const usdPrice = unit?.price
 
       fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
