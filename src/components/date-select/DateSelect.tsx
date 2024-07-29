@@ -16,6 +16,22 @@ interface DateSelectProps extends HTMLAttributes<HTMLFormElement> {
   loading: boolean
 }
 
+function convertTo12HourFormat(time24: any) {
+  // Split the time into hours and minutes
+  let [hours, minutes] = time24.split(':').map(Number)
+
+  // Determine AM or PM
+  let period = hours >= 12 ? 'PM' : 'AM'
+
+  // Convert hours from 24-hour format to 12-hour format
+  hours = hours % 12 || 12 // Converts '0' or '12' to '12'
+
+  // Construct the 12-hour time string
+  let time12 = `${hours}:${minutes.toString().padStart(2, '0')} ${period}`
+
+  return time12
+}
+
 export const DateSelect: FC<DateSelectProps> = ({
   availableSlots,
   loading,
@@ -85,42 +101,43 @@ export const DateSelect: FC<DateSelectProps> = ({
         )}
 
         <div className="w-full ml-0 md:mx-auto">
-          {renderedSlots && renderedSlots.map(
-            ({ date, slots }: { date: string; slots: string[] }, index) => {
-              return (
-                <div
-                  key={`slots-${index}`}
-                  className={classNames(
-                    activeIndex === date ? 'block' : 'hidden',
-                    'h-full'
-                  )}
-                >
-                  <div className="grid grid-cols-3 gap-xhalf">
-                    {slots?.map((time: string, index: number) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-center relative w-full h-btn cursor-pointer font-medium"
-                      >
-                        <input
-                          type="radio"
-                          id={time}
-                          value={time}
-                          className="background-checkbox"
-                          {...register('startTime')}
-                        />
-                        <label
-                          htmlFor={time}
-                          className="relative cursor-pointer pointer-events-none z-above"
+          {renderedSlots &&
+            renderedSlots.map(
+              ({ date, slots }: { date: string; slots: string[] }, index) => {
+                return (
+                  <div
+                    key={`slots-${index}`}
+                    className={classNames(
+                      activeIndex === date ? 'block' : 'hidden',
+                      'h-full'
+                    )}
+                  >
+                    <div className="grid grid-cols-3 gap-xhalf">
+                      {slots?.map((time: string, index: number) => (
+                        <div
+                          key={index}
+                          className="flex items-center justify-center relative w-full h-btn cursor-pointer font-medium"
                         >
-                          {time}
-                        </label>
-                      </div>
-                    ))}
+                          <input
+                            type="radio"
+                            id={time}
+                            value={time}
+                            className="background-checkbox"
+                            {...register('startTime')}
+                          />
+                          <label
+                            htmlFor={time}
+                            className="relative cursor-pointer pointer-events-none z-above"
+                          >
+                            {convertTo12HourFormat(time)}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )
-            }
-          )}
+                )
+              }
+            )}
         </div>
       </div>
     </div>
