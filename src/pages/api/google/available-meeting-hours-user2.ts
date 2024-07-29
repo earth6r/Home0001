@@ -10,9 +10,9 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar']
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE_SECOND
 
 const keys = {
-  client_email: process.env.GOOGLE_API_CLIENT_EMAIL_SECOND,
+  client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
   // @ts-ignore
-  private_key: process.env.GOOGLE_API_PRIVATE_KEY_SECOND.replace(/\\n/g, '\n'),
+  private_key: process.env.GOOGLE_API_PRIVATE_KEY.replace(/\\n/g, '\n'),
 }
 
 async function getAllDayEvents(
