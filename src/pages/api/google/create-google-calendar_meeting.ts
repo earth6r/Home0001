@@ -45,7 +45,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   ) {
     res.status(400).json({
       success: false,
-      message: 'Missing required fields or staffEmails is not an array.',
+      message: 'Access or token issues',
     })
     return
   }

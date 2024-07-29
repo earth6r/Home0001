@@ -3,10 +3,11 @@ import { enableCors } from '@lib/next/cors'
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
+import moment from 'moment-timezone'
+
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE_SECOND
-console.log(Subject,"--------------------------------------->subject");
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
@@ -26,99 +27,47 @@ async function getAllDayEvents(
     timeMin,
     timeMax,
     singleEvents: true,
-    orderBy: 'startTime',
-    timeZone: 'America/New_York',
+    orderBy: 'startTime'
   })
-
   const events = response.data.items || []
-
   return events.some(event => event.start?.date)
 }
 
-function formatTime(date: Date): string {
-  const newdate = new Date(date)
-
-  const localTimeString = newdate.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-    timeZone: 'UTC',
-  })
-  return localTimeString
-}
 
 async function getAvailableSlotsForDay(
   auth: any,
   date: Date
 ): Promise<{ start: string }[]> {
   const calendar = google.calendar({ version: 'v3', auth })
-  const dayOfWeek = date.getDay()
+  const dayOfWeek = new Date(date).getDay()
   if (dayOfWeek < 1 || dayOfWeek > 5) {
     return []
   }
 
-  const dayStart = new Date(
-    Date.UTC(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      0,
-      0,
-      0,
-      0
-    )
-  )
-  const dayEnd = new Date(
-    Date.UTC(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      23,
-      59,
-      59,
-      999
-    )
-  )
+  let reservestartdate_specifictime= moment.tz(date, "America/New_York").set({ hour: 0, minute: 0 });
+  const reservestartDateTime =moment(reservestartdate_specifictime).format();
+  const reserveendDateTime =  moment.tz(reservestartDateTime, "America/New_York").add(23, "h").format();
 
   const isReserved = await getAllDayEvents(
     auth,
-    dayStart.toISOString(),
-    dayEnd.toISOString()
+    reservestartDateTime,
+    reserveendDateTime
   )
   if (isReserved) {
     return []
   }
 
-  const timeMin = new Date(
-    Date.UTC(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      12,
-      0,
-      0,
-      0
-    )
-  )
-  const timeMax = new Date(
-    Date.UTC(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      17,
-      0,
-      0,
-      0
-    )
-  )
-
+  let startdate_specifictime= moment.tz(date, "America/New_York").set({ hour: 12, minute: 0 });
+  const startDateTime =moment(startdate_specifictime).format();
+  const endDateTime =  moment.tz(startDateTime, "America/New_York").add(5, "h").format();
+  
   const response = await calendar.events.list({
     calendarId: Subject,
-    timeMin: timeMin.toISOString(),
-    timeMax: timeMax.toISOString(),
+    timeMin: startDateTime,
+    timeMax: endDateTime,
     singleEvents: true,
-    orderBy: 'startTime',
-    timeZone: 'America/New_York',
+    orderBy: 'startTime'
+
   })
 
   const events = response.data.items || []
@@ -129,16 +78,16 @@ async function getAvailableSlotsForDay(
 
   if (events.length === 0) {
     for (
-      let start = timeMin;
-      start <= timeMax;
+      let start = new Date(startDateTime);
+      start <= new Date(endDateTime);
       start = new Date(start.getTime() + slotOverlap)
     ) {
-      availableSlots.push({ start: formatTime(start) })
+      availableSlots.push({ start:  moment(start).format('HH:mm') })
     }
   } else {
     for (
-      let start = timeMin;
-      start <= timeMax;
+      let start = new Date(startDateTime);
+      start <= new Date(endDateTime);
       start = new Date(start.getTime() + slotOverlap)
     ) {
       const end = new Date(start.getTime() + slotDuration)
@@ -150,7 +99,7 @@ async function getAvailableSlotsForDay(
       })
 
       if (isFree) {
-        availableSlots.push({ start: formatTime(start) })
+        availableSlots.push({ start:  moment(start).format('HH:mm') })
       }
     }
   }
@@ -163,8 +112,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     res.setHeader('Allow', ['POST'])
     return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
-  const utcnow = new Date()
-  const now = new Date(utcnow.getTime() - utcnow.getTimezoneOffset() * 60000)
 
   const auth = new google.auth.JWT(
     keys.client_email,
@@ -174,9 +121,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   )
 
   try {
-    const datePromises = Array.from({ length: 90 }, (_, i) => {
-      const currentDate = new Date(now)
-      currentDate.setDate(now.getDate() + i)
+    const datePromises = Array.from({ length: 10 }, (_, i) => {
+      const currentDate = new Date();
+      currentDate.setDate(new Date().getDate() + i)
 
       if (i < 4) {
         return Promise.resolve({
