@@ -98,9 +98,6 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                   <span className="block small">
                     Meeting Duration: 15 minutes
                   </span>
-                  <span className="block small font-sansText">
-                    All times in EST
-                  </span>
                 </p>
               </div>
 

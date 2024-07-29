@@ -80,6 +80,10 @@ input.background-checkbox:active {
   background: white;
 }
 
+input.background-checkbox.disabled {
+  @apply bg-darkergray pointer-events-none;
+}
+
 input.background-checkbox:checked {
   background: black;
 }
