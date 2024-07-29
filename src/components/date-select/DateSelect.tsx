@@ -1,14 +1,10 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { ChangeEvent, FC } from 'react'
-import React, { HTMLAttributes, useEffect, useRef, useState } from 'react'
+import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
-
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper'
 import IconChevron from '@components/icons/IconChevron'
-import { Icon } from '@chakra-ui/react'
 
 interface DateSelectProps extends HTMLAttributes<HTMLFormElement> {
   availableSlots: any[]
@@ -16,7 +12,9 @@ interface DateSelectProps extends HTMLAttributes<HTMLFormElement> {
   loading: boolean
 }
 
-function convertTo12HourFormat(time24: any) {
+const TIMES_LIST = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+
+const convertTo12HourFormat = (time24: any) => {
   // Split the time into hours and minutes
   let [hours, minutes] = time24.split(':').map(Number)
 
@@ -50,7 +48,7 @@ export const DateSelect: FC<DateSelectProps> = ({
 
   return (
     <div className={className}>
-      <div className="flex flex-col justify-start gap-y">
+      <div className="flex flex-col justify-start gap-y h-[224px]">
         {loading && <p className="!mx-0 mt-y text-button">{`Loading...`}</p>}
 
         {!loading && (
@@ -85,8 +83,9 @@ export const DateSelect: FC<DateSelectProps> = ({
                             key={`option-${index}`}
                             id="date-select"
                             value={date}
+                            className="text-button"
                           >
-                            <span className="text-button">{formattedDate}</span>
+                            {formattedDate}
                           </option>
                         )
                       }
@@ -112,8 +111,35 @@ export const DateSelect: FC<DateSelectProps> = ({
                       'h-full'
                     )}
                   >
-                    <div className="grid grid-cols-3 gap-xhalf">
-                      {slots?.map((time: string, index: number) => (
+                    <div className="grid grid-cols-2 gap-xhalf">
+                      {TIMES_LIST?.map((time: string, index: number) => (
+                        <div
+                          key={index}
+                          className={classNames(
+                            slots.includes(time) ? 'cursor-pointer' : '',
+                            'flex items-center justify-center relative w-full h-btn font-medium'
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            id={time}
+                            value={time}
+                            className={classNames(
+                              slots.includes(time) ? '' : 'disabled ',
+                              'background-checkbox'
+                            )}
+                            {...register('startTime')}
+                          />
+                          <label
+                            htmlFor={time}
+                            className="relative cursor-pointer pointer-events-none z-above"
+                          >
+                            {`${convertTo12HourFormat(time)} EST`}
+                          </label>
+                        </div>
+                      ))}
+
+                      {/* {slots?.map((time: string, index: number) => (
                         <div
                           key={index}
                           className="flex items-center justify-center relative w-full h-btn cursor-pointer font-medium"
@@ -129,10 +155,10 @@ export const DateSelect: FC<DateSelectProps> = ({
                             htmlFor={time}
                             className="relative cursor-pointer pointer-events-none z-above"
                           >
-                            {convertTo12HourFormat(time)}
+                            {`${convertTo12HourFormat(time)} EST`}
                           </label>
                         </div>
-                      ))}
+                      ))} */}
                     </div>
                   </div>
                 )
