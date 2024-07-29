@@ -177,7 +177,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const currentDate = new Date(now)
       currentDate.setDate(now.getDate() + i)
 
-      if (i < 4) {
+      if (i < 2) {
         return Promise.resolve({
           date: currentDate.toISOString().split('T')[0],
           slots: [],

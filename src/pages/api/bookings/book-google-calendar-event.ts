@@ -39,8 +39,9 @@ async function createCalendarEvent({
     // 'gio@choicefamily.com',
     // 'andres@hoggholdings.com',
     // 'annika@home0001.com',
-    'yan@home0001.com',
+    // 'yan@home0001.com',
     // 'm@choicefamily.com',
+    'collective@home0001.com',
   ]
   if (
     !startTime ||
