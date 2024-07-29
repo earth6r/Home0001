@@ -10,8 +10,10 @@ import {
   getAvailableSlots,
 } from '@components/sanity'
 import { DateSelect } from '@components/date-select'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import 'react-phone-number-input/style.css'
 
 type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
   CalendarBlockType
@@ -21,7 +23,12 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   header,
   className,
 }) => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -74,7 +81,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
         <RichText blocks={header} className="mb-y text-left md:text-center" />
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 relative w-[calc(100%+var(--space-x)*2)] -left-x bg-yellow py-ydouble px-x">
+      <div className="grid grid-cols-1 md:grid-cols-3 relative w-[calc(100%+var(--space-x)*2)] min-h-[660px] -left-x bg-yellow py-ydouble px-x">
         <div className="md:col-start-2">
           {!formSubmitted && (
             <form
@@ -107,6 +114,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                   id="first_name"
                   className="input"
                   placeholder="FIRST NAME"
+                  required
                   {...register('first_name', { required: 'Name required' })}
                 />
                 <input
@@ -114,6 +122,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                   id="last_name"
                   className="input"
                   placeholder="LAST NAME"
+                  required
                   {...register('last_name', { required: 'Name required' })}
                 />
               </div>
@@ -127,19 +136,26 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 {...register('email')}
               />
 
-              <input
-                type="tel"
-                id="phone"
-                className="input mb-y"
-                placeholder="Phone Number"
-                required
-                {...register('phone', {
-                  required: 'Please enter your phone number',
-                  pattern: /^[0-9+-]+$/,
-                  minLength: 6,
-                  maxLength: 12,
-                })}
+              <Controller
+                control={control}
+                rules={{
+                  validate: (value = '') => isValidPhoneNumber(value),
+                }}
+                {...register('phone')}
+                render={({ field: { onChange, value } }) => (
+                  <PhoneInput
+                    value={value}
+                    onChange={onChange}
+                    defaultCountry="US"
+                    placeholder="PHONE NUMBER"
+                    id="phone"
+                    className="input mb-y"
+                  />
+                )}
               />
+              {errors.phone && (
+                <p className="mb-y text-button">Invalid Phone Number</p>
+              )}
 
               <textarea
                 placeholder={`Anything specific you'd like to discuss on the call?`}
