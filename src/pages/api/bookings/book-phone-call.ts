@@ -74,7 +74,13 @@ export default async function handler(
   }
 
   try {
-    await sendWhatsappBookedMessage(firstName, lastName, startTimestamp)
+    await sendWhatsappBookedMessage(
+      firstName,
+      lastName,
+      startTimestamp,
+      email,
+      phoneNumber
+    )
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error sending WhatsApp message', error)
