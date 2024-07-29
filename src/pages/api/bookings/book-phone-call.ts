@@ -65,7 +65,7 @@ export default async function handler(
       endTime: endTimestamp,
       eventName: 'Zoom with HOME0001',
       inviteeEmail: email,
-      eventDescription: 'You are scheduled for a zoom call with HOME0001.',
+      eventDescription: `You're scheduled for a zoom call with HOME0001.`,
     })
   } catch (error) {
     // eslint-disable-next-line no-console
