@@ -121,7 +121,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   )
 
   try {
-    const datePromises = Array.from({ length: 10 }, (_, i) => {
+    const datePromises = Array.from({ length: 90 }, (_, i) => {
       const currentDate = new Date();
       currentDate.setDate(new Date().getDate() + i)
       if (i < 2) {
