@@ -5,7 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
 import moment from 'moment-timezone'
 
-const SCOPES = ['https://www.googleapis.com/auth/calendar']
+const SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
 
 const keys = {
@@ -113,16 +113,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 
-  const auth = new google.auth.JWT(
-    keys.client_email,
-    undefined,
-    keys.private_key,
-    SCOPES
-  )
+  const auth = new JWT({
+    email: keys.client_email,
+    key: keys.private_key,
+    scopes: SCOPES,
+    subject: Subject,
+  })
 
   try {
     const datePromises = Array.from({ length: 90 }, (_, i) => {
       const currentDate = new Date();
+
       currentDate.setDate(new Date().getDate() + i)
       if (i < 2) {
         return Promise.resolve({
