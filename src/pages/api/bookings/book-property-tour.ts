@@ -5,6 +5,8 @@ import { validateBooking, validateProperty } from './validate'
 import { sendWhatsappBookedMessage } from './send-whatsapp-booked-message'
 import createCalendarEvent from './book-google-calendar-event'
 import { parseTimestamp } from './book-phone-call'
+import { updateHubspotContact } from './update-hubspot-contact'
+import { saveError } from '@lib/util/save-error'
 
 // Set configuration options for the API route
 export const config = {
@@ -80,6 +82,14 @@ export default async function handler(
       // eslint-disable-next-line no-console
       console.error('Error sending WhatsApp message', error)
     }
+  }
+
+  try {
+    await updateHubspotContact(email, new Date(startTimestampFormatted))
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error updating HubSpot contact', error)
+    saveError(error, 'updateHubspotContact')
   }
 
   res.status(200).json({

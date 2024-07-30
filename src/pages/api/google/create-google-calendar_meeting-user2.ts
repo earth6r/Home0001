@@ -68,7 +68,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       timeMin: startDateTime,
       timeMax: endDateTime,
       singleEvents: true,
-      orderBy: 'startTime'
+      orderBy: 'startTime',
     })
 
     const events = eventsResponse.data.items || []
