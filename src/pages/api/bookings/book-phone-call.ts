@@ -4,12 +4,15 @@ import admin from 'firebase-admin' // Firebase Admin SDK
 import { sendWhatsappBookedMessage } from './send-whatsapp-booked-message'
 import { validateBooking } from './validate'
 import createCalendarEvent from './book-google-calendar-event'
+import { updateHubspotContact } from './update-hubspot-contact'
+import { saveError } from '@lib/util/save-error'
 
 // Set configuration options for the API route
 export const config = {
   maxDuration: 300, // Maximum duration for the API route to respond to a request (5 minutes)
 }
 
+// TODO: move to a utils or something (booking-utils.ts)
 export function parseTimestamp(timestamp: string) {
   let [datePart, timePart] = timestamp.split(' ')
   let [year, month, day] = datePart.split('-').map(Number)
@@ -86,6 +89,14 @@ export default async function handler(
       // eslint-disable-next-line no-console
       console.error('Error sending WhatsApp message', error)
     }
+  }
+
+  try {
+    await updateHubspotContact(email, new Date(startTimestampFormatted))
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error updating HubSpot contact', error)
+    saveError(error, 'updateHubspotContact')
   }
 
   res.status(200).json({
