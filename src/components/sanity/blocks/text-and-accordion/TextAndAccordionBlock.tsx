@@ -116,7 +116,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
   return (
     <Block className={classNames(className)}>
       {scrollHeader && (
-        <div className="flex flex-wrap md:grid md:grid-cols-1 h-[calc(100svh-var(--space-page))] min-h-[600px] items-end md:items-center justify-center md:justify-normal pr-menu">
+        <div className="flex flex-wrap md:grid md:grid-cols-1 h-[calc(100svh-var(--space-page))] min-h-[600px] items-end md:items-center justify-left md:justify-normal mb-ydouble md:mb-0 md:pr-menu">
           <RichText blocks={scrollHeader} />
 
           <IconRightArrowBold
@@ -124,7 +124,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
             onClick={scrollDown}
             className={classNames(
               scrolled ? 'opacity-0 pointer-events-none' : '',
-              'w-[80px] mx-auto mb-ydouble md:ml-0 md:my-4 transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
+              'w-[80px] mb-ydouble md:ml-0 md:my-10 transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
             )}
           />
         </div>
