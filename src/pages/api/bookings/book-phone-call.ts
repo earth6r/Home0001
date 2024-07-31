@@ -28,75 +28,85 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const response = validateBooking(req) // Validate the request body
-
-  if (response.error) {
-    res.status(response.status).json(response) // Respond with error if there is an error
-    return
-  }
-
-  const {
-    email = null,
-    firstName = null,
-    lastName = null,
-    notes = null,
-    startTimestamp = null,
-    endTimestamp = null,
-    phoneNumber = null,
-    blockWhatsApp = false,
-  } = req.body
-
-  initializeAdmin() // Initialize Firebase Admin SDK
-
-  const db = admin.firestore() // Get a reference to the Firestore database
-
-  const startTimestampFormatted = parseTimestamp(startTimestamp)
-  const endTimestampFormatted = parseTimestamp(endTimestamp)
-
-  await db.collection('usersBookPhoneCall').add({
-    email,
-    startTimestamp: startTimestampFormatted,
-    endTimestamp: endTimestampFormatted,
-    firstName,
-    lastName,
-    notes,
-    phoneNumber,
-  })
-
   try {
-    createCalendarEvent({
-      startTime: startTimestamp,
-      endTime: endTimestamp,
-      eventName: 'Zoom with HOME0001',
-      inviteeEmail: email,
-      eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
-    })
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error creating calendar event', error)
-  }
+    const response = validateBooking(req) // Validate the request body
 
-  if (!blockWhatsApp) {
+    if (response.error) {
+      // TODO: remove after since this is just a call error by client
+      console.error('Error validating booking', response.error)
+      res.status(response.status).json(response) // Respond with error if there is an error
+      return
+    }
+
+    const {
+      email = null,
+      firstName = null,
+      lastName = null,
+      notes = null,
+      startTimestamp = null,
+      endTimestamp = null,
+      phoneNumber = null,
+      blockWhatsApp = false,
+    } = req.body
+
+    initializeAdmin() // Initialize Firebase Admin SDK
+
+    const db = admin.firestore() // Get a reference to the Firestore database
+
+    const startTimestampFormatted = parseTimestamp(startTimestamp)
+    const endTimestampFormatted = parseTimestamp(endTimestamp)
+
+    await db.collection('usersBookPhoneCall').add({
+      email,
+      startTimestamp: startTimestampFormatted,
+      endTimestamp: endTimestampFormatted,
+      firstName,
+      lastName,
+      notes,
+      phoneNumber,
+    })
+
     try {
-      await sendWhatsappBookedMessage(
-        firstName,
-        lastName,
-        startTimestamp,
-        email,
-        phoneNumber
-      )
+      createCalendarEvent({
+        startTime: startTimestamp,
+        endTime: endTimestamp,
+        eventName: 'Zoom with HOME0001',
+        inviteeEmail: email,
+        eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
+      })
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('Error sending WhatsApp message', error)
+      console.error('Error creating calendar event', error)
+      saveError(error, 'createCalendarEvent')
     }
-  }
 
-  try {
-    await updateHubspotContact(email, new Date(startTimestampFormatted))
+    if (!blockWhatsApp) {
+      try {
+        await sendWhatsappBookedMessage(
+          firstName,
+          lastName,
+          startTimestamp,
+          email,
+          phoneNumber
+        )
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error sending WhatsApp message', error)
+        saveError(error, 'sendWhatsappBookedMessage')
+      }
+    }
+
+    try {
+      await updateHubspotContact(email, new Date(startTimestampFormatted))
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error updating HubSpot contact', error)
+      saveError(error, 'updateHubspotContact')
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Error updating HubSpot contact', error)
-    saveError(error, 'updateHubspotContact')
+    console.error('Error saving booking', error)
+    saveError(error, 'saveBooking')
   }
 
   res.status(200).json({
