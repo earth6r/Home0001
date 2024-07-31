@@ -66,33 +66,31 @@ export const DateSelect: FC<DateSelectProps> = ({
                     if (resetField) resetField('startTime')
                   }}
                 >
-                  {renderedSlots
-                    .slice(0, 14)
-                    .map(
-                      ({ date }: { date: string; slots: string[] }, index) => {
-                        const formattedDate = new Date(date).toLocaleDateString(
-                          'en-US',
-                          {
-                            timeZone: 'UTC',
-                            weekday: 'short',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          }
-                        )
+                  {renderedSlots.map(
+                    ({ date }: { date: string; slots: string[] }, index) => {
+                      const formattedDate = new Date(date).toLocaleDateString(
+                        'en-US',
+                        {
+                          timeZone: 'UTC',
+                          weekday: 'short',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        }
+                      )
 
-                        return (
-                          <option
-                            key={`option-${index}`}
-                            id="date-select"
-                            value={date}
-                            className="text-button"
-                          >
-                            {formattedDate}
-                          </option>
-                        )
-                      }
-                    )}
+                      return (
+                        <option
+                          key={`option-${index}`}
+                          id="date-select"
+                          value={date}
+                          className="text-button"
+                        >
+                          {formattedDate}
+                        </option>
+                      )
+                    }
+                  )}
                 </select>
                 <IconChevron className="absolute w-[12px] right-x top-1/2 transform rotate-90 -translate-y-1/2" />
               </div>
