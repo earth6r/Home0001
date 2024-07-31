@@ -7,6 +7,7 @@ import createCalendarEvent from './book-google-calendar-event'
 import { parseTimestamp } from './book-phone-call'
 import { updateHubspotContact } from './update-hubspot-contact'
 import { saveError } from '@lib/util/save-error'
+import { sendMessage } from '../send-whatsapp'
 
 // Set configuration options for the API route
 export const config = {
@@ -84,13 +85,25 @@ export default async function handler(
     }
   }
 
-  try {
-    await updateHubspotContact(email, new Date(startTimestampFormatted))
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error updating HubSpot contact', error)
-    saveError(error, 'updateHubspotContact')
-  }
+  // try {
+  //   await updateHubspotContact(email, new Date(startTimestampFormatted))
+  // } catch (error: any) {
+  //   // eslint-disable-next-line no-console
+  //   console.error('Error updating HubSpot contact', error)
+  //   const errorData = {
+  //     error,
+  //     additionalInfo: {
+  //       email,
+  //       startTimestamp: startTimestampFormatted,
+  //       response: error.response ? error.response.data : null,
+  //     },
+  //   }
+  //   saveError(errorData, 'updateHubspotContact')
+  //   sendMessage(
+  //     '+17134103755',
+  //     `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`
+  //   )
+  // }
 
   res.status(200).json({
     status: 'success',

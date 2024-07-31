@@ -6,6 +6,7 @@ import { validateBooking } from './validate'
 import createCalendarEvent from './book-google-calendar-event'
 import { updateHubspotContact } from './update-hubspot-contact'
 import { saveError } from '@lib/util/save-error'
+import { sendMessage } from '../send-whatsapp'
 
 // Set configuration options for the API route
 export const config = {
@@ -23,90 +24,97 @@ export function parseTimestamp(timestamp: string) {
   )
 }
 
-// curl -X POST http://localhost:3000/api/book-phone-call -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"1720441800000","phoneNumber":"1234567890"}'
+// curl -X POST http://localhost:3000/api/bookings/book-phone-call -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"1720441800000","phoneNumber":"1234567890"}'
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
+  const response = validateBooking(req) // Validate the request body
+
+  if (response.error) {
+    // TODO: remove after since this is just a call error by client
+    console.error('Error validating booking', response.error)
+    res.status(response.status).json(response) // Respond with error if there is an error
+    return
+  }
+
+  const {
+    email = null,
+    firstName = null,
+    lastName = null,
+    notes = null,
+    startTimestamp = null,
+    endTimestamp = null,
+    phoneNumber = null,
+    blockWhatsApp = false,
+  } = req.body
+
+  initializeAdmin() // Initialize Firebase Admin SDK
+
+  const db = admin.firestore() // Get a reference to the Firestore database
+
+  const startTimestampFormatted = parseTimestamp(startTimestamp)
+  const endTimestampFormatted = parseTimestamp(endTimestamp)
+
+  await db.collection('usersBookPhoneCall').add({
+    email,
+    startTimestamp: startTimestampFormatted,
+    endTimestamp: endTimestampFormatted,
+    firstName,
+    lastName,
+    notes,
+    phoneNumber,
+  })
+
   try {
-    const response = validateBooking(req) // Validate the request body
-
-    if (response.error) {
-      // TODO: remove after since this is just a call error by client
-      console.error('Error validating booking', response.error)
-      res.status(response.status).json(response) // Respond with error if there is an error
-      return
-    }
-
-    const {
-      email = null,
-      firstName = null,
-      lastName = null,
-      notes = null,
-      startTimestamp = null,
-      endTimestamp = null,
-      phoneNumber = null,
-      blockWhatsApp = false,
-    } = req.body
-
-    initializeAdmin() // Initialize Firebase Admin SDK
-
-    const db = admin.firestore() // Get a reference to the Firestore database
-
-    const startTimestampFormatted = parseTimestamp(startTimestamp)
-    const endTimestampFormatted = parseTimestamp(endTimestamp)
-
-    await db.collection('usersBookPhoneCall').add({
-      email,
-      startTimestamp: startTimestampFormatted,
-      endTimestamp: endTimestampFormatted,
-      firstName,
-      lastName,
-      notes,
-      phoneNumber,
+    createCalendarEvent({
+      startTime: startTimestamp,
+      endTime: endTimestamp,
+      eventName: 'Zoom with HOME0001',
+      inviteeEmail: email,
+      eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
     })
-
-    try {
-      createCalendarEvent({
-        startTime: startTimestamp,
-        endTime: endTimestamp,
-        eventName: 'Zoom with HOME0001',
-        inviteeEmail: email,
-        eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
-      })
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Error creating calendar event', error)
-      saveError(error, 'createCalendarEvent')
-    }
-
-    if (!blockWhatsApp) {
-      try {
-        await sendWhatsappBookedMessage(
-          firstName,
-          lastName,
-          startTimestamp,
-          email,
-          phoneNumber
-        )
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('Error sending WhatsApp message', error)
-        saveError(error, 'sendWhatsappBookedMessage')
-      }
-    }
-
-    try {
-      await updateHubspotContact(email, new Date(startTimestampFormatted))
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Error updating HubSpot contact', error)
-      saveError(error, 'updateHubspotContact')
-    }
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Error saving booking', error)
-    saveError(error, 'saveBooking')
+    console.error('Error creating calendar event', error)
+    saveError(error, 'createCalendarEvent')
+  }
+
+  if (!blockWhatsApp) {
+    try {
+      await sendWhatsappBookedMessage(
+        firstName,
+        lastName,
+        startTimestamp,
+        email,
+        phoneNumber
+      )
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error sending WhatsApp message', error)
+      saveError(error, 'sendWhatsappBookedMessage')
+    }
+  }
+
+  try {
+    await updateHubspotContact(email, new Date(startTimestampFormatted))
+  } catch (error: any) {
+    // eslint-disable-next-line no-console
+    console.error('Error updating HubSpot contact', error)
+    const errorData = {
+      error,
+      additionalInfo: {
+        email,
+        startTimestamp: startTimestampFormatted,
+        response: error.response ? error.response.data : null,
+      },
+    }
+
+    saveError(errorData, 'updateHubspotContact')
+    sendMessage(
+      '+17134103755',
+      `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`
+    )
   }
 
   res.status(200).json({
