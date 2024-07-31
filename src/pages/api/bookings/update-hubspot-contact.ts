@@ -32,6 +32,7 @@ export const updateHubspotContact = async (email: string, date: Date) => {
     timeZone: 'America/New_York',
   }
 
+  // @ts-expect-error TODO: fix this
   const estDateTime = utcDateTime.toLocaleString('en-US', options)
   const estDateOnly = new Date(utcDate.toLocaleString('en-US', options1))
 
