@@ -82,7 +82,7 @@ async function getAvailableSlotsForDay(
       start <= new Date(endDateTime);
       start = new Date(start.getTime() + slotOverlap)
     ) {
-      availableSlots.push({ start: moment(start).format('HH:mm') })
+      availableSlots.push({ start: new Date(start).toString() });
     }
   } else {
     for (
@@ -99,7 +99,7 @@ async function getAvailableSlotsForDay(
       })
 
       if (isFree) {
-        availableSlots.push({ start: moment(start).format('HH:mm') })
+        availableSlots.push({ start: new Date(start).toString() });
       }
     }
   }
@@ -141,7 +141,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     })
 
     const allAvailableSlots = await Promise.all(datePromises)
-    res.status(200).json({ data: allAvailableSlots,currentdate:new Date().toString() })
+    res.status(200).json({ data: allAvailableSlots })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Internal Server Error' })

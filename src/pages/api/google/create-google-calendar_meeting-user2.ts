@@ -23,7 +23,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
   const {
     date,
-    startTime,
     eventName,
     staffEmails,
     inviteeEmail,
@@ -34,7 +33,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (
     !date ||
-    !startTime ||
     !eventName ||
     !Array.isArray(staffEmails) ||
     !inviteeEmail ||
@@ -57,7 +55,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })
 
   const calendar = google.calendar({ version: 'v3', auth: auth as any })
-  let startdatetime= new Date(date +" "+startTime);
+  let startdatetime= new Date(date);
   const startDateTime =moment(startdatetime).format();
   const endDateTime =  moment(startDateTime).add(15, "m").format();
 

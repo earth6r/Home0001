@@ -24,7 +24,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
   const {
     date,
-    startTime,
     eventName,
     staffEmails,
     inviteeEmail,
@@ -33,9 +32,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     // additionalEmails, // Add additionalGuests
   } = req.body
 
+
+
   if (
     !date ||
-    !startTime ||
     !eventName ||
     !Array.isArray(staffEmails) ||
     !inviteeEmail ||
@@ -49,7 +49,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     })
     return
   }
-
+ 
   const auth = new JWT({
     email: keys.client_email,
     key: keys.private_key,
@@ -58,7 +58,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })
 
   const calendar = google.calendar({ version: 'v3', auth: auth as any })
-  let startdatetime= new Date(date +" "+startTime);
+  let startdatetime= new Date(date);
   const startDateTime =moment(startdatetime).format();
   const endDateTime =  moment(startDateTime).add(2, "h").format();
 
