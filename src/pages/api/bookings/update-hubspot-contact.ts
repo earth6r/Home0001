@@ -2,8 +2,20 @@ import axios from 'axios'
 
 export const updateHubspotContact = async (email: string, date: Date) => {
   const utcDate = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
   )
+
+  const utcDateTime = new Date(
+    Date.UTC(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate(),
+      date.getUTCHours(),
+      date.getUTCMinutes(),
+      date.getUTCSeconds()
+    )
+  )
+
   const options = {
     weekday: 'long',
     month: 'long',
@@ -15,18 +27,25 @@ export const updateHubspotContact = async (email: string, date: Date) => {
     timeZoneName: 'short',
   }
 
-  const formattedDate = utcDate.toLocaleString('en-US', options)
+  // only date, no time
+  const options1 = {
+    timeZone: 'America/New_York',
+  }
 
-  const dateParts = formattedDate.split(', ')
+  const estDateTime = utcDateTime.toLocaleString('en-US', options)
+  const estDateOnly = new Date(utcDate.toLocaleString('en-US', options1))
 
-  const formattedString = `${dateParts[0]}, ${dateParts[1]}`
+  const dateParts = estDateTime.split(', ')
+
+  const formattedStringDateTime = `${dateParts[0]}, ${dateParts[1]}`
+  const formattedStringDate = estDateOnly.toISOString()
 
   const response = await axios.patch(
     `https://api.hubapi.com/crm/v3/objects/contacts/${email}?idProperty=email`,
     {
       properties: {
-        upcoming_meeting_scheduled: formattedString,
-        upcoming_meeting_scheduled_date: utcDate.toISOString(),
+        upcoming_meeting_scheduled: formattedStringDateTime,
+        upcoming_meeting_scheduled_date: formattedStringDate,
       },
     },
     {
