@@ -1,6 +1,7 @@
 import axios from 'axios'
 import moment from 'moment-timezone'
 import { saveError } from '@lib/util/save-error'
+import { FieldValues } from 'react-hook-form'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 const CONFIG = {
@@ -22,7 +23,7 @@ export const getAvailableSlots = async () => {
   }
 }
 
-export const bookPhoneCall = async (data: any) => {
+export const bookPhoneCall = async (data: FieldValues) => {
   const startDateTime = moment
     .tz(`${data.date} ${data.startTime}`, 'America/New_York')
     .utc()
