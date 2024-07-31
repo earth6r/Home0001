@@ -1,6 +1,11 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { BiCode, BiText } from 'react-icons/bi'
 import { GrImage } from 'react-icons/gr'
 import { RxDividerHorizontal } from 'react-icons/rx'
+
+const IndentDecorator = (props: any) => {
+  return <span style={{ paddingLeft: '16px' }}>{props.children}</span>
+}
 
 export default {
   name: 'richText',
@@ -23,6 +28,12 @@ export default {
         decorators: [
           { title: 'Strong', value: 'strong' },
           { title: 'Emphasis', value: 'em' },
+          {
+            title: 'Indented',
+            value: 'indented',
+            icon: () => '→',
+            component: IndentDecorator,
+          },
         ],
         annotations: [
           {
