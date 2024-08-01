@@ -9,6 +9,7 @@ import IconChevron from '@components/icons/IconChevron'
 interface DateSelectProps extends HTMLAttributes<HTMLFormElement> {
   availableSlots: any[]
   register: UseFormRegister<FieldValues>
+  resetField?: (field: string) => void
   loading: boolean
 }
 
@@ -34,6 +35,7 @@ export const DateSelect: FC<DateSelectProps> = ({
   availableSlots,
   loading,
   register,
+  resetField,
   className,
 }) => {
   //@ts-ignore
@@ -61,35 +63,34 @@ export const DateSelect: FC<DateSelectProps> = ({
                   {...register('date')}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                     setActiveIndex(e.target.value)
+                    if (resetField) resetField('startTime')
                   }}
                 >
-                  {renderedSlots
-                    .slice(0, 14)
-                    .map(
-                      ({ date }: { date: string; slots: string[] }, index) => {
-                        const formattedDate = new Date(date).toLocaleDateString(
-                          'en-US',
-                          {
-                            timeZone: 'UTC',
-                            weekday: 'short',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          }
-                        )
+                  {renderedSlots.map(
+                    ({ date }: { date: string; slots: string[] }, index) => {
+                      const formattedDate = new Date(date).toLocaleDateString(
+                        'en-US',
+                        {
+                          timeZone: 'UTC',
+                          weekday: 'short',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        }
+                      )
 
-                        return (
-                          <option
-                            key={`option-${index}`}
-                            id="date-select"
-                            value={date}
-                            className="text-button"
-                          >
-                            {formattedDate}
-                          </option>
-                        )
-                      }
-                    )}
+                      return (
+                        <option
+                          key={`option-${index}`}
+                          id="date-select"
+                          value={date}
+                          className="text-button"
+                        >
+                          {formattedDate}
+                        </option>
+                      )
+                    }
+                  )}
                 </select>
                 <IconChevron className="absolute w-[12px] right-x top-1/2 transform rotate-90 -translate-y-1/2" />
               </div>
@@ -104,42 +105,42 @@ export const DateSelect: FC<DateSelectProps> = ({
             renderedSlots.map(
               ({ date, slots }: { date: string; slots: string[] }, index) => {
                 return (
-                  <div
-                    key={`slots-${index}`}
-                    className={classNames(
-                      activeIndex === date ? 'block' : 'hidden',
-                      'h-full'
-                    )}
-                  >
-                    <div className="grid grid-cols-2 gap-xhalf">
-                      {TIMES_LIST?.map((time: string, index: number) => (
-                        <div
-                          key={index}
-                          className={classNames(
-                            slots.includes(time) ? 'cursor-pointer' : '',
-                            'flex items-center justify-center relative w-full h-btn font-medium'
-                          )}
-                        >
-                          <input
-                            type="radio"
-                            id={time}
-                            value={time}
+                  activeIndex === date && (
+                    <div
+                      key={`slots-${index}`}
+                      className={classNames('h-full')}
+                    >
+                      <div className="grid grid-cols-2 gap-xhalf">
+                        {TIMES_LIST?.map((time: string, index: number) => (
+                          <div
+                            key={index}
+                            id="time-select"
                             className={classNames(
-                              slots.includes(time) ? '' : 'disabled ',
-                              'background-checkbox'
+                              slots.includes(time) ? 'cursor-pointer' : '',
+                              'flex items-center justify-center relative w-full h-btn font-medium'
                             )}
-                            {...register('startTime')}
-                          />
-                          <label
-                            htmlFor={time}
-                            className="relative cursor-pointer pointer-events-none z-above"
                           >
-                            {`${convertTo12HourFormat(time)} EST`}
-                          </label>
-                        </div>
-                      ))}
+                            <input
+                              type="radio"
+                              id={time}
+                              value={time}
+                              className={classNames(
+                                slots.includes(time) ? '' : 'disabled ',
+                                'background-checkbox'
+                              )}
+                              required
+                              {...register('startTime')}
+                            />
+                            <label
+                              htmlFor={time}
+                              className="relative cursor-pointer pointer-events-none z-above"
+                            >
+                              {`${convertTo12HourFormat(time)} EST`}
+                            </label>
+                          </div>
+                        ))}
 
-                      {/* {slots?.map((time: string, index: number) => (
+                        {/* {slots?.map((time: string, index: number) => (
                         <div
                           key={index}
                           className="flex items-center justify-center relative w-full h-btn cursor-pointer font-medium"
@@ -159,8 +160,9 @@ export const DateSelect: FC<DateSelectProps> = ({
                           </label>
                         </div>
                       ))} */}
+                      </div>
                     </div>
-                  </div>
+                  )
                 )
               }
             )}

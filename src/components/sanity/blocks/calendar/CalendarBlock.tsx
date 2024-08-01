@@ -10,7 +10,7 @@ import {
   getAvailableSlots,
 } from '@components/sanity'
 import { DateSelect } from '@components/date-select'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, FieldValues, useForm } from 'react-hook-form'
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import 'react-phone-number-input/style.css'
@@ -27,6 +27,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   const {
     register,
     handleSubmit,
+    resetField,
     control,
     formState: { errors },
   } = useForm({
@@ -42,8 +43,8 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  const onSubmit = async (data: any) => {
-    if (!data.email) return
+  const onSubmit = async (data: FieldValues) => {
+    if (!data.email || !data.startTime) return
     setIsSubmitting(true)
     bookPhoneCall(data)
       .then(() => {
@@ -97,6 +98,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
               <DateSelect
                 availableSlots={availableSlots}
                 register={register}
+                resetField={resetField}
                 loading={loading}
                 className="mb-y"
               />
