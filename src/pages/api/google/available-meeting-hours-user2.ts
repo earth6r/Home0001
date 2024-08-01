@@ -81,7 +81,7 @@ async function getAvailableSlotsForDay(
       start <= new Date(endDateTime);
       start = new Date(start.getTime() + slotOverlap)
     ) {
-      availableSlots.push({ start:  new Date(start).toString() })
+      availableSlots.push({ start:  moment.tz(start,"America/New_York").format('HH:mm') })
     }
   } else {
     for (
@@ -98,7 +98,7 @@ async function getAvailableSlotsForDay(
       })
 
       if (isFree) {
-        availableSlots.push({ start:  new Date(start).toString() })
+        availableSlots.push({ start:  moment.tz(start,"America/New_York").format('HH:mm') })
       }
     }
   }

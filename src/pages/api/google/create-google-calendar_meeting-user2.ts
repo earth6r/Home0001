@@ -23,6 +23,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
   const {
     date,
+    startTime,
     eventName,
     staffEmails,
     inviteeEmail,
@@ -33,6 +34,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (
     !date ||
+    !startTime||
     !eventName ||
     !Array.isArray(staffEmails) ||
     !inviteeEmail ||
@@ -55,9 +57,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })
 
   const calendar = google.calendar({ version: 'v3', auth: auth as any })
-  let startdatetime= new Date(date);
-  const startDateTime =moment(startdatetime).format();
-  const endDateTime =  moment(startDateTime).add(15, "m").format();
+  const startDateTime =moment.tz(date+' '+startTime, "America/New_York").format();
+  const endDateTime =  moment.tz(startDateTime, "America/New_York").add(15, "m").format();
 
 
   try {
@@ -114,7 +115,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       if (response?.data?.id) {
         try {
-          const closingDate = moment(startdatetime).format('dddd, MMMM Do YYYY, h:mm A')
+          const closingDate =moment.tz(date+' '+startTime, "America/New_York").format('dddd, MMMM Do YYYY, h:mm A')
 
           // const hubspotResponse = await axios.post(
           //   `https://api.hubapi.com/contacts/v1/contact/email/${inviteeEmail}/profile`,
