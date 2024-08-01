@@ -4,12 +4,16 @@ import admin from 'firebase-admin' // Firebase Admin SDK
 import { sendWhatsappBookedMessage } from './send-whatsapp-booked-message'
 import { validateBooking } from './validate'
 import createCalendarEvent from './book-google-calendar-event'
+import { updateHubspotContact } from './update-hubspot-contact'
+import { saveError } from '@lib/util/save-error'
+import { sendMessage } from '../send-whatsapp'
 
 // Set configuration options for the API route
 export const config = {
   maxDuration: 300, // Maximum duration for the API route to respond to a request (5 minutes)
 }
 
+// TODO: move to a utils or something (booking-utils.ts)
 export function parseTimestamp(timestamp: string) {
   let [datePart, timePart] = timestamp.split(' ')
   let [year, month, day] = datePart.split('-').map(Number)
@@ -20,7 +24,7 @@ export function parseTimestamp(timestamp: string) {
   )
 }
 
-// curl -X POST http://localhost:3000/api/book-phone-call -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"1720441800000","phoneNumber":"1234567890"}'
+// curl -X POST http://localhost:3000/api/bookings/book-phone-call -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"1720441800000","phoneNumber":"1234567890"}'
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -28,6 +32,8 @@ export default async function handler(
   const response = validateBooking(req) // Validate the request body
 
   if (response.error) {
+    // TODO: remove after since this is just a call error by client
+    console.error('Error validating booking', response.error)
     res.status(response.status).json(response) // Respond with error if there is an error
     return
   }
@@ -71,6 +77,7 @@ export default async function handler(
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error creating calendar event', error)
+    saveError(error, 'createCalendarEvent')
   }
 
   if (!blockWhatsApp) {
@@ -85,7 +92,29 @@ export default async function handler(
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error sending WhatsApp message', error)
+      saveError(error, 'sendWhatsappBookedMessage')
     }
+  }
+
+  try {
+    await updateHubspotContact(email, new Date(startTimestampFormatted))
+  } catch (error: any) {
+    // eslint-disable-next-line no-console
+    console.error('Error updating HubSpot contact', error)
+    const errorData = {
+      error,
+      additionalInfo: {
+        email,
+        startTimestamp: startTimestampFormatted,
+        response: error.response ? error.response.data : null,
+      },
+    }
+
+    saveError(errorData, 'updateHubspotContact')
+    sendMessage(
+      '+17134103755',
+      `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`
+    )
   }
 
   res.status(200).json({
