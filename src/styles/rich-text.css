@@ -119,7 +119,7 @@
 
 .rich-text ul,
 .rich-text ol {
-  @apply mx-auto my-ydouble;
+  @apply mx-auto mb-ydouble;
 }
 
 .rich-text ul {
