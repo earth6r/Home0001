@@ -57,11 +57,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })
 
   const calendar = google.calendar({ version: 'v3', auth: auth as any })
-  let startdatetime= new Date(date +" "+startTime);
-  const startDateTime =moment(startdatetime).format();
-  const endDateTime =  moment(startDateTime).add(15, "m").format();
+  // let startdatetime = new Date(date + ' ' + startTime)
+  // const startDateTime = moment(startdatetime).format()
+  // const endDateTime = moment(startDateTime).add(15, 'm').format()
 
-
+  // Assuming the input time is in 'America/New_York' time zone, you can change it to the desired time zone
+  const timezone = 'America/New_York'
+  let startdatetime = moment.tz(date + ' ' + startTime, timezone).toDate()
+  const startDateTime = moment.tz(startdatetime, timezone).format()
+  const endDateTime = moment.tz(startdatetime, timezone).add(15, 'm').format()
   try {
     const eventsResponse = await calendar.events.list({
       calendarId: Subject,
@@ -81,9 +85,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const eventEnd = new Date(event.end.dateTime)
 
       if (
-        (new Date(startDateTime) >= eventStart && new Date(startDateTime) < eventEnd) ||
-        ((new Date(endDateTime) > eventStart && new Date(endDateTime) <= eventEnd) ||
-        (new Date(startDateTime) <= eventStart && new Date(endDateTime) >= eventEnd))
+        (new Date(startDateTime) >= eventStart &&
+          new Date(startDateTime) < eventEnd) ||
+        (new Date(endDateTime) > eventStart &&
+          new Date(endDateTime) <= eventEnd) ||
+        (new Date(startDateTime) <= eventStart &&
+          new Date(endDateTime) >= eventEnd)
       ) {
         slotAvailable = false
         break
@@ -96,10 +103,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         location: location,
         description: eventDescription,
         start: {
-          dateTime: startDateTime
+          dateTime: startDateTime,
         },
         end: {
-          dateTime: endDateTime
+          dateTime: endDateTime,
         },
         attendees: [
           { email: Subject },
@@ -113,10 +120,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         sendUpdates: 'all',
       })
 
-
       if (response?.data?.id) {
         try {
-          const closingDate = moment(startdatetime).format('dddd, MMMM Do YYYY, h:mm A')
+          const closingDate = moment(startdatetime).format(
+            'dddd, MMMM Do YYYY, h:mm A'
+          )
 
           // const hubspotResponse = await axios.post(
           //   `https://api.hubapi.com/contacts/v1/contact/email/${inviteeEmail}/profile`,
