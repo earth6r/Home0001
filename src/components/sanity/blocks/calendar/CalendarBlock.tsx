@@ -40,6 +40,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   }>({ error: null, message: '' })
 
   const [availableSlots, setAvailableSlots] = useState([])
+  console.log('availableSlots:', availableSlots)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
 
