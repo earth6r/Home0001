@@ -57,6 +57,7 @@ async function getAvailableSlotsForDay(
   if (isReserved) {
     return []
   }
+ 
   let startdate_specifictime= moment.tz(date, "America/New_York").set({ hour: 10, minute: 0 });
   const startDateTime =moment(startdate_specifictime).format();
   const endDateTime =  moment.tz(startDateTime, "America/New_York").add(5, "h").format();
@@ -90,14 +91,15 @@ async function getAvailableSlotsForDay(
       start <= new Date(endDateTime);
       start = new Date(start.getTime() + slotOverlap)
     ) {
-      const end = new Date(start.getTime() + slotDuration)
+      const end = new Date(start.getTime() + slotDuration);
 
       const isFree = events.every(event => {
         const eventStart = new Date(event.start!.dateTime!)
         const eventEnd = new Date(event.end!.dateTime!)
-        return end <= eventStart || start >= eventEnd
+        const formatTime = (date:any) => date.toISOString().slice(0, 16);
+        return formatTime(end) <= formatTime(eventStart) || formatTime(start) >= formatTime(eventEnd) 
       })
-
+      
       if (isFree) {
         availableSlots.push({ start:  moment.tz(start,"America/New_York").format('HH:mm') });
       }
