@@ -1,3 +1,4 @@
+import moment from 'moment-timezone'
 import { sendMessage } from '../send-whatsapp'
 
 export const sendWhatsappBookedMessage = async (
@@ -7,7 +8,15 @@ export const sendWhatsappBookedMessage = async (
   email?: string,
   phoneNumber?: string
 ) => {
-  const message = `A HOME0001 phone call was booked at ${startTimestamp} UTC. Name: ${firstName} ${lastName} Email: ${email} Phone: ${phoneNumber}.`
+  // convert startTimestamp from UTC to EST
+  // start timestamp format YYYY-MM-DD HH:MM:SS
+  const [datePart, timePart] = startTimestamp.split(' ')
+  const [year, month, day] = datePart.split('-').map(Number)
+  const [hours, minutes, seconds] = timePart.split(':').map(Number)
+  const startTimestampUTC = new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds))
+  moment.tz.setDefault('America/New_York')
+  const startTimestampEST = moment(startTimestampUTC).tz('America/New_York').format('YYYY-MM-DD HH:mm:ss')
+  const message = `A HOME0001 phone call was booked at ${startTimestampEST} EST. Name: ${firstName} ${lastName} Email: ${email} Phone: ${phoneNumber}.`
 
   const numbers = [
     '+15038676436',
