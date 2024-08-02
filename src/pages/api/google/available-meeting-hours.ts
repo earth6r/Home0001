@@ -3,10 +3,10 @@ import { enableCors } from '@lib/next/cors'
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
+import moment from 'moment-timezone'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
-console.log(Subject, '--------------------------------------->subject')
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
@@ -36,14 +36,7 @@ async function getAllDayEvents(
 }
 
 function formatTime(date: Date): string {
-  const newdate = new Date(date)
-
-  const localTimeString = newdate.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-    timeZone: 'UTC',
-  })
+  const localTimeString = moment.tz(date, 'America/New_York').format('HH:mm')
   return localTimeString
 }
 
@@ -70,6 +63,7 @@ async function getAvailableSlotsForDay(
       0
     )
   )
+
   const dayEnd = new Date(
     Date.UTC(
       date.getUTCFullYear(),
@@ -96,18 +90,19 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      12,
+      15,
       0,
       0,
       0
     )
   )
+
   const timeMax = new Date(
     Date.UTC(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      17,
+      21,
       0,
       0,
       0
