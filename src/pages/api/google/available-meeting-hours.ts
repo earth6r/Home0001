@@ -6,6 +6,7 @@ import { JWT } from 'google-auth-library'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+console.log(Subject, '--------------------------------------->subject')
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
@@ -53,6 +54,7 @@ async function getAvailableSlotsForDay(
   const calendar = google.calendar({ version: 'v3', auth })
   const dayOfWeek = date.getDay()
   const twoWeeksLimit = new Date().getTime() + 14 * 24 * 60 * 60 * 1000
+
   if (dayOfWeek < 1 || dayOfWeek > 5 || date.getTime() > twoWeeksLimit) {
     return []
   }
@@ -94,7 +96,7 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      10,
+      12,
       0,
       0,
       0
@@ -105,7 +107,7 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      15,
+      17,
       0,
       0,
       0
@@ -124,7 +126,7 @@ async function getAvailableSlotsForDay(
   const events = response.data.items || []
   const availableSlots: { start: string }[] = []
 
-  const slotDuration = 2 * 60 * 60 * 1000
+  const slotDuration = 15 * 60
   const slotOverlap = 1 * 60 * 60 * 1000
 
   if (events.length === 0) {
@@ -178,7 +180,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const currentDate = new Date(now)
       currentDate.setDate(now.getDate() + i)
 
-      if (i < 2) {
+      if (i < 4) {
         return Promise.resolve({
           date: currentDate.toISOString().split('T')[0],
           slots: [],
