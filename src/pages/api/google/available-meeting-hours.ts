@@ -96,7 +96,6 @@ async function getAvailableSlotsForDay(
       0
     )
   )
-
   const timeMax = new Date(
     Date.UTC(
       date.getUTCFullYear(),
