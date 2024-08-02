@@ -6,7 +6,7 @@ import { JWT } from 'google-auth-library'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE_SECOND
-console.log(Subject,"--------------------------------------->subject");
+console.log(Subject, '--------------------------------------->subject')
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
@@ -53,7 +53,9 @@ async function getAvailableSlotsForDay(
 ): Promise<{ start: string }[]> {
   const calendar = google.calendar({ version: 'v3', auth })
   const dayOfWeek = date.getDay()
-  if (dayOfWeek < 1 || dayOfWeek > 5) {
+  const twoWeeksLimit = new Date().getTime() + 14 * 24 * 60 * 60 * 1000
+
+  if (dayOfWeek < 1 || dayOfWeek > 5 || date.getTime() > twoWeeksLimit) {
     return []
   }
 
