@@ -14,7 +14,7 @@ const CONFIG = {
 export const getAvailableSlots = async () => {
   try {
     return await axios.post(
-      `${BASE_URL}/api/google/available-meeting-hours-user2`,
+      `${BASE_URL}/api/google/available-meeting-hours`,
       CONFIG
     )
   } catch (error) {
