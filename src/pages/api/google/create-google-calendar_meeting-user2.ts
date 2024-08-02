@@ -57,11 +57,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })
 
   const calendar = google.calendar({ version: 'v3', auth: auth as any })
-  // let startdatetime = new Date(date + ' ' + startTime)
-  // const startDateTime = moment(startdatetime).format()
-  // const endDateTime = moment(startDateTime).add(15, 'm').format()
 
-  // Assuming the input time is in 'America/New_York' time zone, you can change it to the desired time zone
   const timezone = 'America/New_York'
   let startdatetime = moment.tz(date + ' ' + startTime, timezone).toDate()
   const startDateTime = moment.tz(startdatetime, timezone).format()
