@@ -1,48 +1,79 @@
 import axios from 'axios'
 import { saveError } from './save-error'
 
-const coinGeckoAPIKey = process.env.NEXT_PUBLIC_COINGECKO_API_KEY
-
-const coinGeckoConfig = {
-  headers: {
-    'x-cg-demo-api-key': coinGeckoAPIKey,
-  },
-}
-const coinGeckoEthPriceApiUrl = (coinId: string) => {
-  const apiURL = `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=eth`
-  return apiURL
-}
-const coinGeckoBtcPriceApiUrl = (coinId: string) => {
-  const apiURL = `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=btc`
-  return apiURL
-}
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 export const convertUsdToEthPrice = async (usdPrice: string) => {
-  const numberPrice = Number(usdPrice.replace(/[^0-9.-]+/g, ''))
-  const apiURL = coinGeckoEthPriceApiUrl('usd-coin')
-
   try {
-    const ethToUsdPrice = await axios.get(apiURL, coinGeckoConfig)
-    const currentEthPriceOfUsd = ethToUsdPrice.data['usd-coin'].eth
-    const priceInEth = numberPrice * currentEthPriceOfUsd
-    return priceInEth
+    return (await getCryptoPrices(usdPrice, 'eth')) as number
   } catch (error) {
     console.error(error)
-    saveError(error, 'convertUsdToEthPrice')
-    throw new Error('Failed to convert USD to ETH price')
+    saveError(
+      {
+        error,
+        additionalInfo: {
+          usdPrice,
+          unit: 'eth',
+        },
+      },
+      'getCryptoPrices'
+    )
+    return -1
   }
 }
+
 export const convertUsdToBtcPrice = async (usdPrice: string) => {
   try {
-    const numberPrice = Number(usdPrice.replace(/[^0-9.-]+/g, ''))
-    const apiURL = coinGeckoBtcPriceApiUrl('usd-coin')
-    const btcToUsdPrice = await axios.get(apiURL, coinGeckoConfig)
-    const currentBtcPriceOfUsd = btcToUsdPrice.data['usd-coin'].btc
-    const priceInBtc = numberPrice * currentBtcPriceOfUsd
-    return priceInBtc
+    return (await getCryptoPrices(usdPrice, 'btc')) as number
   } catch (error) {
     console.error(error)
-    saveError(error, 'convertUsdToBtcPrice')
-    throw new Error('Failed to convert USD to BTC price')
+    saveError(
+      {
+        error,
+        additionalInfo: {
+          usdPrice,
+          unit: 'btc',
+        },
+      },
+      'getCryptoPrices'
+    )
+    return -1
+  }
+}
+
+export const getCryptoPrices = async (
+  usdPrice: string,
+  unit: string
+): Promise<number> => {
+  const numberPrice = Number(usdPrice.replace(/[^0-9.-]+/g, ''))
+  let response
+  try {
+    response = await axios.get(`${BASE_URL}/api/crypto/get-crypto-prices`)
+  } catch (error) {
+    console.error(error)
+    saveError(
+      {
+        error,
+        additionalInfo: {
+          usdPrice,
+          unit,
+        },
+      },
+      'getCryptoPrices'
+    )
+    return -1
+  }
+  const bitcoinUSD = response.data.bitcoin
+  const ethereumUSD = response.data.ethereum
+
+  const ethPrice = numberPrice / ethereumUSD
+  const btcPrice = numberPrice / bitcoinUSD
+
+  if (unit === 'eth') {
+    return ethPrice
+  } else if (unit === 'btc') {
+    return btcPrice
+  } else {
+    return -1
   }
 }
