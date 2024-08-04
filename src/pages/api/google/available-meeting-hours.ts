@@ -46,9 +46,9 @@ async function getAvailableSlotsForDay(
 ): Promise<{ start: string }[]> {
   const calendar = google.calendar({ version: 'v3', auth })
   const dayOfWeek = date.getDay()
-  const twoWeeksLimit = new Date().getTime() + 14 * 24 * 60 * 60 * 1000
+  const threeWeeksLimit = new Date().getTime() + 21 * 24 * 60 * 60 * 1000
 
-  if (dayOfWeek < 1 || dayOfWeek > 5 || date.getTime() > twoWeeksLimit) {
+  if (dayOfWeek < 1 || dayOfWeek > 5 || date.getTime() > threeWeeksLimit) {
     return []
   }
 
