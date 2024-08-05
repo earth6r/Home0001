@@ -7,7 +7,7 @@ import {
   Block,
   RichText,
   bookPhoneCall,
-  getAvailableSlots,
+  getAvailableCallSlots,
 } from '@components/sanity'
 import { DateSelect } from '@components/date-select'
 import { Controller, FieldValues, useForm } from 'react-hook-form'
@@ -63,7 +63,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   }
 
   useEffect(() => {
-    getAvailableSlots()
+    getAvailableCallSlots()
       .then((res: any) => {
         const filteredSlots = res?.data?.data?.filter(
           (days: any) => days.HasAvailability === true

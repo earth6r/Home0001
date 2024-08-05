@@ -75,11 +75,11 @@ export const setPaymentIntent = async (email: string, unit: string) => {
   }
 }
 
-// google calendar api
+//! Endpoint for calls, not meetings
 export const getAvailableSlots = async () => {
   try {
     return await axios.post(
-      `${BASE_URL}/api/google/available-meeting-hours`,
+      `${BASE_URL}/api/google/available-call-hours`,
       CONFIG
     )
   } catch (error) {
@@ -94,11 +94,8 @@ export const createGoogleCalendarMeeting = async (
   unit: string
   // additionalEmails?: string[]
 ) => {
-  console.log('data', data)
-  console.log('email', email)
-  console.log('unit', unit)
-
   try {
+    //! endpoint no longer exists
     return await axios.post(
       `${BASE_URL}/api/google/create-google-calendar_meeting`,
       {
