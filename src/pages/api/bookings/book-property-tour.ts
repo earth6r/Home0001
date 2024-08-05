@@ -3,7 +3,7 @@ import { type NextApiRequest, type NextApiResponse } from 'next' // Type definit
 import admin from 'firebase-admin' // Firebase Admin SDK
 import { validateBooking, validateProperty } from './validate'
 import { sendWhatsappBookedMessage } from './send-whatsapp-booked-message'
-import createCalendarEvent from './book-google-calendar-event'
+import createCalendarEvent from './book-Talin-call'
 import { parseTimestamp } from './book-phone-call'
 import { updateHubspotContact } from './update-hubspot-contact'
 import { saveError } from '@lib/util/save-error'
