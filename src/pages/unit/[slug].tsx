@@ -85,12 +85,14 @@ const UnitPage: NextPage<PageProps> = (
       <article>
         <div className="pt-header">
           <Unit unit={page} />
-          <div className="mt-header">
-            <Property
-              property={page?.property as PropertyContentProps}
-              block={true}
-            />
-          </div>
+          {page.property && (
+            <div className="mt-header">
+              <Property
+                property={page.property as PropertyContentProps}
+                block={true}
+              />
+            </div>
+          )}
         </div>
       </article>
     </PageTransition>
