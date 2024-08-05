@@ -59,6 +59,6 @@ export interface PropertyTypeElProps
 }
 
 export interface PropertyTypeListProps extends HTMLAttributes<HTMLElement> {
-  propertyTypeList?: KeyedPropertyTypeProps[]
+  propertyTypesList?: KeyedPropertyTypeProps[]
   propertyType?: KeyedPropertyTypeProps
 }
