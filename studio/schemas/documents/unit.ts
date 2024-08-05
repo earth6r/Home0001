@@ -66,11 +66,6 @@ export default {
       },
     },
     {
-      title: 'Calendar Link',
-      name: 'calendarLink',
-      type: 'url',
-    },
-    {
       title: 'Property Type',
       name: 'propertyType',
       type: 'reference',
@@ -127,20 +122,9 @@ export default {
       type: 'richText',
     },
     {
-      name: 'typeSummary',
-      title: 'Property Type Summary',
-      type: 'richText',
-    },
-    {
       name: 'factSheet',
       title: 'Fact Sheet',
       type: 'table',
-      options: { collapsable: true, collapsed: true },
-    },
-    {
-      name: 'inventory',
-      title: 'Inventory',
-      type: 'richText',
       options: { collapsable: true, collapsed: true },
     },
     {
@@ -165,16 +149,6 @@ export default {
       ],
     },
     {
-      name: 'reserveFormCopy',
-      title: 'Reservation Form Info',
-      type: 'richText',
-    },
-    {
-      name: 'confirmationCopy',
-      title: 'Form Confirmation Message',
-      type: 'richText',
-    },
-    {
       name: 'moreInfo',
       title: 'More Info',
       type: 'richText',
@@ -184,12 +158,6 @@ export default {
       title: 'Second Unit Details',
       type: 'array',
       of: [{ type: 'accordion', title: 'Unit Details' }],
-    },
-    {
-      name: 'dossierRef',
-      title: 'Dossier Reference',
-      type: 'reference',
-      to: [{ type: 'page' }],
     },
     {
       name: 'closingDocuments',
@@ -216,18 +184,10 @@ export default {
   preview: {
     select: {
       title: 'title',
-      propertyType: 'propertyType.typeTitle',
-      propertyHeader: 'property.location.title',
     },
-    prepare({
-      title,
-      propertyType,
-      propertyHeader,
-    }: PreviewProps): PreviewValue {
-      const preparedTitle = propertyType ? `${title} – ${propertyType}` : title
+    prepare({ title }: PreviewProps): PreviewValue {
       return {
-        title: preparedTitle,
-        subtitle: propertyHeader,
+        title: title,
       }
     },
   },

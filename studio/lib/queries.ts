@@ -66,19 +66,53 @@ export const UNIT_QUERY = `
   area,
   amenities,
   summary,
-  typeSummary,
   factSheet,
-  reserveFormCopy,
-  confirmationCopy,
   dossierInventory,
   moreInfo,
   unitDetails,
   secondUnitDetails,
-  calendarLink,
   "propertyType": propertyType->{
     typeTitle,
     typeValue,
   },
+  "headlineImage": headlineImage{
+    ${MEDIA_QUERY}
+  },
+  "photographs": photographs[]{
+    ${MEDIA_QUERY}
+  },
+  "layoutImages": layoutImages[]{
+    ${MEDIA_QUERY}
+  },
+  "property": property->{
+    headerText,
+    slug,
+    "location": location->{
+      title,
+    },
+  },
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
+  },
+`
+
+export const PROPERTY_TYPE_QUERY = `
+  _key,
+  _id,
+  slug,
+  typeTitle,
+  headerText,
+  available,
+  price,
+  cryptoPrice,
+  area,
+  amenities,
+  summary,
+  inventory,
+  moreInfo,
+  unitDetails,
+  secondUnitDetails,
   "headlineImage": headlineImage{
     ${MEDIA_QUERY}
   },

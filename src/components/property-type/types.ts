@@ -12,25 +12,18 @@ import type {
   Unit as UnitProps,
 } from '@studio/gen/sanity-schema'
 
-export interface KeyedPropertyType extends SanityReference<PropertyType> {
-  typeTitle?: string
-  slug?: string
-}
+export interface PropertyTypeContentProps
+  extends Omit<KeyedPropertyTypeProps, '_type' | '_key' | '_ref'> {}
 
-export interface UnitContentProps
-  extends Omit<KeyedUnitProps, '_type' | '_key' | '_ref'> {}
-
-export interface KeyedUnitProps
+export interface KeyedPropertyTypeProps
   extends SanityKeyedReference<UnitProps>,
     Omit<HTMLAttributes<HTMLElement>, 'property'> {
   _id?: string
-  title?: string
+  typeTitle?: string
   slug?: { _type: 'slug'; current: string }
   available?: boolean
   property?: SanityReference<Property>
-  propertyType?: KeyedPropertyType
   price?: string
-  hidePrice?: boolean
   cryptoPrice?: string
   area?: string
   amenities?: RichText
@@ -46,11 +39,8 @@ export interface KeyedUnitProps
       }
     | Media
   photographs?: SanityKeyed<Media>[] | Media
-  photoLimit?: number
   summary?: RichText
-  factSheet?: any
   inventory?: RichText
-  dossierInventory?: RichText
   unitDetails?: RichText
   secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]
@@ -62,16 +52,13 @@ export interface KeyedUnitProps
   moreInfo?: RichText
 }
 
-export interface UnitElProps
-  extends Omit<KeyedUnitProps, '_type' | '_key' | '_ref' | 'property'>,
+export interface PropertyTypeElProps
+  extends Omit<KeyedPropertyTypeProps, '_type' | '_key' | '_ref' | 'property'>,
     HTMLAttributes<HTMLElement> {
-  unit?: UnitContentProps
-  accordions?: SanityKeyed<Accordion>[]
-  propertyType?: KeyedPropertyType
+  propertyType?: PropertyTypeContentProps
 }
 
-export interface UnitListProps extends HTMLAttributes<HTMLElement> {
-  unitList?: KeyedUnitProps[]
-  unit?: KeyedUnitProps
-  border?: boolean
+export interface PropertyTypeListProps extends HTMLAttributes<HTMLElement> {
+  propertyTypeList?: KeyedPropertyTypeProps[]
+  propertyType?: KeyedPropertyTypeProps
 }
