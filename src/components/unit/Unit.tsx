@@ -68,13 +68,24 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             <Link href="/schedule-call">
               <button
                 className={classNames(
-                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
+                  'w-full relative mb-y border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
                 )}
               >
                 {`Schedule a call`}
-                <IconSmallArrow width="16" height="10" fill="black" />
+                <IconSmallArrow width="16" height="10" fill="white" />
               </button>
             </Link>
+
+            <a href="mailto:talin@home0001.com">
+              <button
+                className={classNames(
+                  'w-full relative border-1 border-black hover:border-white border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-white hover:invert transition-all duration-200 text-button z-above p-x'
+                )}
+              >
+                {`Get in touch`}
+                <IconSmallArrow width="16" height="10" fill="black" />
+              </button>
+            </a>
           </div>
 
           {unit?.summary && unit?.summary.length > 0 && (
@@ -144,17 +155,28 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="md:hidden my-ydouble pl-x pr-menu mr-x">
-            <Link href="/schedule-call">
+          <div className="md:hidden pl-x pr-menu my-ydouble mr-x">
+            <Link href="/schedule-call" className="block mb-y">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
                 )}
               >
-                {`Schedule a call`}
+                {`Request a tour`}
                 <IconSmallArrow width="16" height="10" fill="black" />
               </button>
             </Link>
+
+            <a href="mailto:talin@home0001.com">
+              <button
+                className={classNames(
+                  'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
+                )}
+              >
+                {`Ask us a question`}
+                <IconSmallArrow width="16" height="10" fill="white" />
+              </button>
+            </a>
           </div>
 
           {unit?.layoutImages && (

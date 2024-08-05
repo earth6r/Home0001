@@ -54,49 +54,6 @@ export const CITY_QUERY = `
   }
 `
 
-export const UNIT_QUERY = `
-  _key,
-  _id,
-  slug,
-  title,
-  headerText,
-  available,
-  price,
-  cryptoPrice,
-  area,
-  amenities,
-  summary,
-  factSheet,
-  dossierInventory,
-  moreInfo,
-  unitDetails,
-  secondUnitDetails,
-  "propertyType": propertyType->{
-    typeTitle,
-    typeValue,
-  },
-  "headlineImage": headlineImage{
-    ${MEDIA_QUERY}
-  },
-  "photographs": photographs[]{
-    ${MEDIA_QUERY}
-  },
-  "layoutImages": layoutImages[]{
-    ${MEDIA_QUERY}
-  },
-  "property": property->{
-    headerText,
-    slug,
-    "location": location->{
-      title,
-    },
-  },
-  seo,
-  "previewImage": previewImage{
-    ${MEDIA_QUERY}
-  },
-`
-
 export const PROPERTY_TYPE_QUERY = `
   _key,
   _id,
@@ -179,6 +136,45 @@ export const PROPERTY_QUERY = `
   },
 `
 
+export const UNIT_QUERY = `
+  _key,
+  _id,
+  slug,
+  title,
+  headerText,
+  available,
+  price,
+  cryptoPrice,
+  area,
+  amenities,
+  summary,
+  factSheet,
+  dossierInventory,
+  moreInfo,
+  unitDetails,
+  secondUnitDetails,
+  "propertyType": propertyType->{
+    typeTitle,
+    typeValue,
+  },
+  "headlineImage": headlineImage{
+    ${MEDIA_QUERY}
+  },
+  "photographs": photographs[]{
+    ${MEDIA_QUERY}
+  },
+  "layoutImages": layoutImages[]{
+    ${MEDIA_QUERY}
+  },
+  "property": property->{
+    ${PROPERTY_QUERY}
+  },
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
+  },
+`
+
 export const BODY_QUERY = `
   "body": body[]{
     ...,
@@ -258,23 +254,17 @@ export const PROPERTIES_QUERY = `
   },
   waitlistLinkText,
   availableText,
-  "unitsList": unitsList[]->{
+  "propertyTypesList": propertyTypesList[]->{
     _key,
     _id,
     slug,
-    title,
+    typeTitle,
     available,
-    hidePrice,
     price,
     cryptoPrice,
     area,
     "photographs": photographs[][0]{
       ${MEDIA_QUERY}
-    },
-    photoLimit,
-    "propertyType": propertyType->{
-      typeTitle,
-      typeValue,
     },
   },
   seo,
