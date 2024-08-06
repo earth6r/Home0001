@@ -97,7 +97,12 @@ export default async function handler(
   }
 
   try {
-    await updateHubspotContact(email, new Date(startTimestampFormatted))
+    await updateHubspotContact(
+      email,
+      new Date(startTimestampFormatted),
+      firstName,
+      lastName
+    )
   } catch (error: any) {
     // eslint-disable-next-line no-console
     console.error('Error updating HubSpot contact', error)
