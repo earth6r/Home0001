@@ -46,7 +46,7 @@ export const updateHubspotContact = async (email: string, date: Date) => {
     {
       properties: {
         upcoming_meeting_scheduled: formattedStringDateTime,
-        upcoming_meeting_scheduled_date: formattedStringDate,
+        // upcoming_meeting_scheduled_date: formattedStringDate, // NOTE: do not need this right now
       },
     },
     {
