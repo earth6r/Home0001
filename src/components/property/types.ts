@@ -12,6 +12,7 @@ import type {
   BlockContent,
 } from '@studio/gen/sanity-schema'
 import { City } from 'schema-dts'
+import { KeyedPropertyTypeProps } from '@components/property-type'
 
 export interface KeyedLocationProps extends SanityReference<City> {
   title?: string
@@ -20,7 +21,7 @@ export interface KeyedLocationProps extends SanityReference<City> {
 export interface PropertyContentProps
   extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref'> {
   cityId?: string
-  unitsList?: KeyedUnitProps[]
+  propertyTypesList?: KeyedPropertyTypeProps[]
   propertyDetails?: SanityKeyed<Accordion>[]
   waitlistLinkText?: string
   availableText?: string

@@ -54,11 +54,11 @@ export const CITY_QUERY = `
   }
 `
 
-export const UNIT_QUERY = `
+export const PROPERTY_TYPE_QUERY = `
   _key,
   _id,
   slug,
-  title,
+  typeTitle,
   headerText,
   available,
   price,
@@ -66,19 +66,10 @@ export const UNIT_QUERY = `
   area,
   amenities,
   summary,
-  typeSummary,
-  factSheet,
-  reserveFormCopy,
-  confirmationCopy,
-  dossierInventory,
+  inventory,
   moreInfo,
   unitDetails,
   secondUnitDetails,
-  calendarLink,
-  "propertyType": propertyType->{
-    typeTitle,
-    typeValue,
-  },
   "headlineImage": headlineImage{
     ${MEDIA_QUERY}
   },
@@ -142,6 +133,45 @@ export const PROPERTY_QUERY = `
     "media": media{
       ${MEDIA_QUERY}
     },
+  },
+`
+
+export const UNIT_QUERY = `
+  _key,
+  _id,
+  slug,
+  title,
+  headerText,
+  available,
+  price,
+  cryptoPrice,
+  area,
+  amenities,
+  summary,
+  factSheet,
+  dossierInventory,
+  moreInfo,
+  unitDetails,
+  secondUnitDetails,
+  "propertyType": propertyType->{
+    typeTitle,
+    typeValue,
+  },
+  "headlineImage": headlineImage{
+    ${MEDIA_QUERY}
+  },
+  "photographs": photographs[]{
+    ${MEDIA_QUERY}
+  },
+  "layoutImages": layoutImages[]{
+    ${MEDIA_QUERY}
+  },
+  "property": property->{
+    ${PROPERTY_QUERY}
+  },
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
   },
 `
 
@@ -224,23 +254,17 @@ export const PROPERTIES_QUERY = `
   },
   waitlistLinkText,
   availableText,
-  "unitsList": unitsList[]->{
+  "propertyTypesList": propertyTypesList[]->{
     _key,
     _id,
     slug,
-    title,
+    typeTitle,
     available,
-    hidePrice,
     price,
     cryptoPrice,
     area,
     "photographs": photographs[][0]{
       ${MEDIA_QUERY}
-    },
-    photoLimit,
-    "propertyType": propertyType->{
-      typeTitle,
-      typeValue,
     },
   },
   seo,

@@ -102,10 +102,10 @@ export default {
       type: 'string',
     },
     {
-      name: 'unitsList',
-      title: 'Units',
+      name: 'propertyTypesList',
+      title: 'Property Types',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'unit' }] }],
+      of: [{ type: 'reference', to: [{ type: 'propertyType' }] }],
     },
     {
       name: 'previewImage',

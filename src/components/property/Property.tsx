@@ -2,8 +2,8 @@ import { type FC, memo } from 'react'
 import classNames from 'classnames'
 import { BlockContent, RichText, SanityMedia } from '@components/sanity'
 import MapDialog from '@components/map/MapDialog'
-import { UnitsList } from '@components/unit'
 import { PropertyElProps } from './types'
+import { PropertyTypesList } from '@components/property-type'
 
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,
@@ -58,19 +58,19 @@ export const PropertyComponent: FC<PropertyElProps> = ({
 
       {!block && (
         <div className="pt-ydouble mt-ydouble overflow-hidden">
-          <h2 className="text-h2 md:text-h1 px-x md:text-center">
-            Our Next Releases:
-          </h2>
-          {property?.unitsList && (
+          {property?.propertyTypesList && (
             <>
+              <h2 className="text-h2 md:text-h1 px-x md:text-center">
+                Our Next Releases:
+              </h2>
               {property?.availableText && (
                 <div className="mt-9 md:px-x uppercase">
                   {property?.availableText}
                 </div>
               )}
-              <UnitsList
+              <PropertyTypesList
                 className="animate-in flex flex-col mt-ydouble mx-x"
-                unitList={property?.unitsList}
+                propertyTypesList={property?.propertyTypesList}
               />
             </>
           )}
