@@ -113,6 +113,8 @@ export const updateHubspotContact = async (
         },
         'updateHubspotContact'
       )
+
+      throw error
     }
   }
 }
