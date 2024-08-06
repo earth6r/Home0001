@@ -413,18 +413,135 @@ export interface PropertyType extends SanityDocument {
   typeTitle?: string;
 
   /**
-   * Type Value — `string`
+   * Header Text — `string`
    *
    *
    */
-  typeValue?: string;
+  headerText?: string;
 
   /**
-   * Related Cities — `array`
+   * Slug — `slug`
    *
    *
    */
-  relatedCities?: Array<SanityKeyedReference<City>>;
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Available — `boolean`
+   *
+   *
+   */
+  available?: boolean;
+
+  /**
+   * Property — `reference`
+   *
+   *
+   */
+  property?: SanityReference<Property>;
+
+  /**
+   * Price — `string`
+   *
+   *
+   */
+  price?: string;
+
+  /**
+   * Crypto Price — `string`
+   *
+   *
+   */
+  cryptoPrice?: string;
+
+  /**
+   * Area — `string`
+   *
+   *
+   */
+  area?: string;
+
+  /**
+   * Amenities — `richText`
+   *
+   *
+   */
+  amenities?: RichText;
+
+  /**
+   * Headline Image — `media`
+   *
+   *
+   */
+  headlineImage?: Media;
+
+  /**
+   * Photographs — `array`
+   *
+   *
+   */
+  photographs?: Array<SanityKeyed<Media>>;
+
+  /**
+   * Summary — `richText`
+   *
+   *
+   */
+  summary?: RichText;
+
+  /**
+   * Inventory — `richText`
+   *
+   *
+   */
+  inventory?: RichText;
+
+  /**
+   * Unit Details — `richText`
+   *
+   *
+   */
+  unitDetails?: RichText;
+
+  /**
+   * Layout Images — `array`
+   *
+   *
+   */
+  layoutImages?: Array<SanityKeyed<Media>>;
+
+  /**
+   * More Info — `richText`
+   *
+   *
+   */
+  moreInfo?: RichText;
+
+  /**
+   * Second Unit Details — `array`
+   *
+   *
+   */
+  secondUnitDetails?: Array<SanityKeyed<Accordion>>;
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
 }
 
 /**
@@ -483,13 +600,6 @@ export interface Unit extends SanityDocument {
    *
    */
   property?: SanityReference<Property>;
-
-  /**
-   * Calendar Link — `url`
-   *
-   *
-   */
-  calendarLink?: string;
 
   /**
    * Property Type — `reference`
@@ -562,25 +672,11 @@ export interface Unit extends SanityDocument {
   summary?: RichText;
 
   /**
-   * Property Type Summary — `richText`
-   *
-   *
-   */
-  typeSummary?: RichText;
-
-  /**
    * Fact Sheet — `table`
    *
    *
    */
   factSheet?: Table;
-
-  /**
-   * Inventory — `richText`
-   *
-   *
-   */
-  inventory?: RichText;
 
   /**
    * Dossier Inventory — `richText`
@@ -604,20 +700,6 @@ export interface Unit extends SanityDocument {
   layoutImages?: Array<SanityKeyed<Media>>;
 
   /**
-   * Reservation Form Info — `richText`
-   *
-   *
-   */
-  reserveFormCopy?: RichText;
-
-  /**
-   * Form Confirmation Message — `richText`
-   *
-   *
-   */
-  confirmationCopy?: RichText;
-
-  /**
    * More Info — `richText`
    *
    *
@@ -630,13 +712,6 @@ export interface Unit extends SanityDocument {
    *
    */
   secondUnitDetails?: Array<SanityKeyed<Accordion>>;
-
-  /**
-   * Dossier Reference — `reference`
-   *
-   *
-   */
-  dossierRef?: SanityReference<Page>;
 
   /**
    * Closing Documents — `file`

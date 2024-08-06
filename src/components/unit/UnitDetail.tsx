@@ -16,11 +16,7 @@ import Link from 'next/link'
 import { SanityKeyed } from 'sanity-codegen'
 import { Media } from '@studio/gen/sanity-schema'
 
-export const UnitDetailComponent: FC<UnitElProps> = ({
-  unit,
-  accordions,
-  className,
-}) => {
+export const UnitDetailComponent: FC<UnitElProps> = ({ unit, className }) => {
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
 

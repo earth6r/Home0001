@@ -121,7 +121,7 @@ export const Header: FC<HeaderProps> = ({
             )}
           />
 
-          {(path?.includes('property') || path?.includes('unit')) && (
+          {(path?.includes('property') || path?.includes('property-type')) && (
             <span
               className={classNames(
                 hideBreadcrumb ? 'opacity-0' : '',
@@ -132,7 +132,7 @@ export const Header: FC<HeaderProps> = ({
             </span>
           )}
 
-          {path?.includes('unit') && (
+          {path?.includes('property-type') && (
             <Link
               href={`/property/${
                 (property as unknown as Property)?.slug?.current
@@ -149,7 +149,7 @@ export const Header: FC<HeaderProps> = ({
             </Link>
           )}
 
-          {path?.includes('unit') && (
+          {path?.includes('property-type') && (
             <span
               className={classNames(
                 hideBreadcrumb ? 'opacity-0' : '',
@@ -159,7 +159,7 @@ export const Header: FC<HeaderProps> = ({
               :
             </span>
           )}
-          {(path?.includes('property') || path?.includes('unit')) && (
+          {(path?.includes('property') || path?.includes('property-type')) && (
             <span
               className={classNames(
                 hideBreadcrumb ? 'opacity-0' : '',
