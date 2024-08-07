@@ -83,31 +83,31 @@ export default async function handler(
     }
   }
 
-  try {
-    await updateHubspotContact(
-      email,
-      new Date(startTimestampFormatted),
-      firstName,
-      lastName
-    )
-  } catch (error: any) {
-    // eslint-disable-next-line no-console
-    console.error('Error updating HubSpot contact', error)
-    const errorData = {
-      error,
-      additionalInfo: {
-        email,
-        startTimestamp: startTimestampFormatted,
-        response: error.response ? error.response.data : null,
-      },
-    }
+  // try {
+  //   await updateHubspotContact(
+  //     email,
+  //     new Date(startTimestampFormatted),
+  //     firstName,
+  //     lastName
+  //   )
+  // } catch (error: any) {
+  //   // eslint-disable-next-line no-console
+  //   console.error('Error updating HubSpot contact', error)
+  //   const errorData = {
+  //     error,
+  //     additionalInfo: {
+  //       email,
+  //       startTimestamp: startTimestampFormatted,
+  //       response: error.response ? error.response.data : null,
+  //     },
+  //   }
 
-    saveError(errorData, 'updateHubspotContact')
-    sendMessage(
-      '+17134103755',
-      `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`
-    )
-  }
+  //   saveError(errorData, 'updateHubspotContact')
+  //   sendMessage(
+  //     '+17134103755',
+  //     `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`
+  //   )
+  // }
 
   res.status(200).json({
     status: 'success',
