@@ -74,7 +74,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Log the error to the console for debugging
-    // eslint-disable-next-line no-console
     console.error('Error checking email existence:', error)
 
     // Respond with an internal server error

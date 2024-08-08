@@ -106,7 +106,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Log the error to the console for debugging
-    // eslint-disable-next-line no-console
     console.error('Error setting password:', error)
 
     // Respond with an internal server error

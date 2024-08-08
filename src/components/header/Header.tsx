@@ -121,18 +121,18 @@ export const Header: FC<HeaderProps> = ({
             )}
           />
 
-          {(path?.includes('property') || path?.includes('unit')) && (
+          {(path?.includes('property') || path?.includes('property-type')) && (
             <span
               className={classNames(
                 hideBreadcrumb ? 'opacity-0' : '',
-                'transition-opacity duration-200'
+                'hidden sm:inline-block transition-opacity duration-200'
               )}
             >
               :
             </span>
           )}
 
-          {path?.includes('unit') && (
+          {path?.includes('property-type') && (
             <Link
               href={`/property/${
                 (property as unknown as Property)?.slug?.current
@@ -141,7 +141,7 @@ export const Header: FC<HeaderProps> = ({
               <span
                 className={classNames(
                   hideBreadcrumb ? 'opacity-0' : '',
-                  'uppercase pointer-events-auto transition-opacity duration-200'
+                  'hidden sm:inline-block uppercase pointer-events-auto transition-opacity duration-200'
                 )}
               >
                 &nbsp;{`${(property as unknown as Property)?.headerText}`}
@@ -149,21 +149,21 @@ export const Header: FC<HeaderProps> = ({
             </Link>
           )}
 
-          {path?.includes('unit') && (
+          {path?.includes('property-type') && (
             <span
               className={classNames(
                 hideBreadcrumb ? 'opacity-0' : '',
-                'transition-opacity duration-200'
+                'hidden sm:inline-block transition-opacity duration-200'
               )}
             >
               :
             </span>
           )}
-          {(path?.includes('property') || path?.includes('unit')) && (
+          {(path?.includes('property') || path?.includes('property-type')) && (
             <span
               className={classNames(
                 hideBreadcrumb ? 'opacity-0' : '',
-                'uppercase transition-opacity duration-200'
+                'hidden sm:inline-block uppercase transition-opacity duration-200'
               )}
             >
               &nbsp;{`${currentTitle}`}

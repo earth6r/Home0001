@@ -1,10 +1,8 @@
 import { type FC, useContext, useEffect, useState } from 'react'
 import { HomeContext } from '@contexts/home'
 import classNames from 'classnames'
-import { KeyedUnitProps, UnitListProps } from './types'
-import slugify from 'slugify'
+import { PropertyTypeListProps } from './types'
 import { useRouter } from 'next/router'
-import { sendGoogleEvent } from '@lib/util'
 import Link from 'next/link'
 import { useCryptoMode } from '@contexts/header'
 import {
@@ -17,9 +15,10 @@ import { Media } from '@studio/gen/sanity-schema'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
-export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
-  const router = useRouter()
-  const { dispatch, state } = useContext(HomeContext)
+export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
+  propertyType,
+  className,
+}) => {
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
 
@@ -32,97 +31,61 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
       return [roundedEthPrice, roundedBtcPrice]
     }
 
-    if (unit?.price != 'Inquire' && ENV !== 'dev') {
-      const usdPrice = unit?.price
+    if (propertyType?.price != 'Inquire' && ENV !== 'dev') {
+      const usdPrice = propertyType?.price
 
       fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
         setCryptoPrice(cryptoPrices)
       })
     }
-  }, [unit])
+  }, [propertyType])
 
-  const dispatchUnit = (unit: KeyedUnitProps, title?: string) => {
-    dispatch({
-      ...state,
-      type: 'SET_UNIT',
-      payload: {
-        unit: unit,
-        unitSlug: title,
-      },
-    })
-  }
-
-  const updatePath = (title?: string) => {
-    if (title !== router.query.unit && router.query.city) {
-      router.push(`?city=${router.query.city}&unit=${title}`, undefined, {
-        shallow: true,
-      })
-    }
-  }
-
-  const updateUnit = (unit: KeyedUnitProps, title?: string) => {
-    if (unit._id === state.unit?._id) return
-    const slugifiedTitle = title && slugify(title, { lower: true })
-    dispatchUnit(unit, slugifiedTitle)
-    updatePath(slugifiedTitle)
-
-    if (unit.title) {
-      const options = { unit: unit.title }
-      sendGoogleEvent('clicked unit', options)
-    }
-  }
-
-  if (!unit) return null
+  if (!propertyType) return null
 
   return (
     <li className={classNames(className)}>
       <div
         className={classNames(
-          unit.available ? '' : 'bg-white shadow-none opacity-30',
+          propertyType.available ? '' : 'bg-white shadow-none opacity-30',
           `w-auto flex-col`
         )}
       >
         <div className="z-above">
           <Link
-            href={`/unit/${unit.slug?.current}`}
-            onClick={() => {
-              updateUnit(unit, unit.title)
-            }}
+            href={`/property-type/${propertyType.slug?.current}`}
             className="inline-block w-full md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
           >
             <div className="flex flex-col relative overflow-x-hidden">
-              {unit?.photographs && (
+              {propertyType?.photographs && (
                 <SanityMedia
-                  {...(unit.photographs as SanityMediaProps)}
+                  {...(propertyType.photographs as SanityMediaProps)}
                   imageProps={{
                     alt: 'Unit image',
                     quality: 90,
                     sizes: '(max-width: 768px) 100vw, 1000px',
-                    lqip: ((unit.photographs as Media).image as any)?.asset
-                      ?.metadata?.lqip,
+                    lqip: ((propertyType.photographs as Media).image as any)
+                      ?.asset?.metadata?.lqip,
                   }}
                   className="w-full h-auto object-contain"
                 />
               )}
               <div className="block w-full text-md">
                 <div className="p-x bg-darkergray">
-                  {unit.propertyType?.typeTitle && (
+                  {propertyType.typeTitle && (
                     <p className="font-medium mb-yhalf tracking-normal">
-                      {unit.propertyType?.typeTitle}
+                      {propertyType.typeTitle}
                     </p>
                   )}
 
                   <p className="font-medium mb-yhalf">
-                    {unit?.hidePrice
-                      ? 'Price upon request'
-                      : cryptoMode
-                      ? `${unit.price?.substring(1)} USDC / ${
+                    {cryptoMode
+                      ? `${propertyType.price?.substring(1)} USDC / ${
                           cryptoPrice[1]
                         } BTC / ${cryptoPrice[0]} ETH`
-                      : unit?.price}
+                      : propertyType?.price}
                   </p>
 
-                  <p className="font-medium">{unit?.area}</p>
+                  <p className="font-medium">{propertyType?.area}</p>
                 </div>
                 <div
                   className={classNames(
@@ -130,7 +93,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                   )}
                 >
                   <h4 className="text-card text-white">
-                    {unit.propertyType?.typeTitle}
+                    {propertyType.typeTitle}
                   </h4>
 
                   <IconRightArrowBold
@@ -147,4 +110,4 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
   )
 }
 
-export default UnitSummary
+export default PropertyTypeSummary

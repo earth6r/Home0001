@@ -10,8 +10,10 @@ import {
   getAvailableSlots,
 } from '@components/sanity'
 import { DateSelect } from '@components/date-select'
-import { useForm } from 'react-hook-form'
+import { Controller, FieldValues, useForm } from 'react-hook-form'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import 'react-phone-number-input/style.css'
 
 type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
   CalendarBlockType
@@ -19,9 +21,16 @@ type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
 export const CalendarBlock: FC<CalendarBlockProps> = ({
   index,
   header,
+  successMessage,
   className,
 }) => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    resetField,
+    control,
+    formState: { errors },
+  } = useForm({
     shouldUseNativeValidation: true,
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -31,18 +40,19 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   }>({ error: null, message: '' })
 
   const [availableSlots, setAvailableSlots] = useState([])
+  console.log('availableSlots:', availableSlots)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  const onSubmit = async (data: any) => {
-    if (!data.email) return
+  const onSubmit = async (data: FieldValues) => {
+    if (!data.email || !data.startTime) return
     setIsSubmitting(true)
     bookPhoneCall(data)
-      .then(res => {
+      .then(() => {
         setFormSubmitted(true)
         setIsSubmitting(false)
       })
-      .catch(err => {
+      .catch((err: any) => {
         setFormError({
           error: true,
           message: (err as any).response.data.message as string,
@@ -54,14 +64,14 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
 
   useEffect(() => {
     getAvailableSlots()
-      .then(res => {
-        const filteredSlots = res.data.data.filter(
+      .then((res: any) => {
+        const filteredSlots = res?.data?.data?.filter(
           (days: any) => days.HasAvailability === true
         )
         setAvailableSlots(filteredSlots)
         setLoading(false)
       })
-      .catch(err => {
+      .catch((err: any) => {
         console.log(err)
         console.error(err)
         setLoading(false)
@@ -74,7 +84,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
         <RichText blocks={header} className="mb-y text-left md:text-center" />
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 relative w-[calc(100%+var(--space-x)*2)] -left-x bg-yellow py-ydouble px-x">
+      <div className="grid grid-cols-1 md:grid-cols-3 relative w-[calc(100%+var(--space-x)*2)] min-h-[660px] -left-x bg-yellow py-ydouble px-x">
         <div className="md:col-start-2">
           {!formSubmitted && (
             <form
@@ -89,6 +99,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
               <DateSelect
                 availableSlots={availableSlots}
                 register={register}
+                resetField={resetField}
                 loading={loading}
                 className="mb-y"
               />
@@ -97,9 +108,6 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 <p className="uppercase font-medium small">
                   <span className="block small">
                     Meeting Duration: 15 minutes
-                  </span>
-                  <span className="block small font-sansText">
-                    All times in EST
                   </span>
                 </p>
               </div>
@@ -110,6 +118,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                   id="first_name"
                   className="input"
                   placeholder="FIRST NAME"
+                  required
                   {...register('first_name', { required: 'Name required' })}
                 />
                 <input
@@ -117,6 +126,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                   id="last_name"
                   className="input"
                   placeholder="LAST NAME"
+                  required
                   {...register('last_name', { required: 'Name required' })}
                 />
               </div>
@@ -130,19 +140,26 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 {...register('email')}
               />
 
-              <input
-                type="tel"
-                id="phone"
-                className="input mb-y"
-                placeholder="Phone Number"
-                required
-                {...register('phone', {
-                  required: 'Please enter your phone number',
-                  pattern: /^[0-9+-]+$/,
-                  minLength: 6,
-                  maxLength: 12,
-                })}
+              <Controller
+                control={control}
+                rules={{
+                  validate: (value = '') => isValidPhoneNumber(value),
+                }}
+                {...register('phone')}
+                render={({ field: { onChange, value } }) => (
+                  <PhoneInput
+                    value={value}
+                    onChange={onChange}
+                    defaultCountry="US"
+                    placeholder="PHONE NUMBER"
+                    id="phone"
+                    className="input mb-y"
+                  />
+                )}
               />
+              {errors.phone && (
+                <p className="mb-y text-button">Invalid Phone Number</p>
+              )}
 
               <textarea
                 placeholder={`Anything specific you'd like to discuss on the call?`}
@@ -171,9 +188,18 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
           )}
 
           {formSubmitted && (
-            <div className="relative">
-              <p className="font-medium uppercase">{`Session time submitted`}</p>
-            </div>
+            <>
+              {successMessage ? (
+                <RichText blocks={successMessage} className="relative" />
+              ) : (
+                <div className="relative">
+                  <p className="font-medium uppercase">{`Your call with HOME0001 is scheduled.`}</p>
+                  <p className="font-medium mt-y">
+                    {`Please check your email for event details.`}
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

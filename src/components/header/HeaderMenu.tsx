@@ -17,7 +17,6 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   mainMenu,
   className,
 }) => {
-  const items = useRef<HTMLDivElement | null>(null)
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
@@ -66,7 +65,8 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               <span className="inline-block">Homes:</span>
             </li>
             {mainMenu?.items?.map(({ _key, text, link }, index) => {
-              const isUnit = (link?.internalLink?._type as string) === 'unit'
+              const isPropertyType =
+                (link?.internalLink?._type as string) === 'propertyType'
               const isProperty =
                 (link?.internalLink?._type as string) === 'property'
               return text && link ? (
@@ -93,8 +93,8 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       }}
                       {...(link as SanityLinkType)}
                       className={classNames(
-                        isUnit ? 'pl-xdouble' : '',
-                        isProperty || isUnit
+                        isPropertyType ? 'pl-xdouble' : '',
+                        isProperty || isPropertyType
                           ? 'py-yhalf md:hidden'
                           : 'py-y md:pt-0 md:pb-ydouble',
                         'inline-block hover:underline underline-offset-2 decoration-[2px]'
@@ -134,10 +134,11 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               <span className="inline-block">Homes:</span>
             </li>
             {mainMenu?.items?.map(({ _key, text, link }) => {
-              const isUnit = (link?.internalLink?._type as string) === 'unit'
+              const isPropertyType =
+                (link?.internalLink?._type as string) === 'propertyType'
               const isProperty =
                 (link?.internalLink?._type as string) === 'property'
-              return text && link && (isUnit || isProperty) ? (
+              return text && link && (isPropertyType || isProperty) ? (
                 <Fragment key={_key}>
                   <li className="uppercase">
                     <SanityLink
@@ -148,7 +149,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       }}
                       {...(link as SanityLinkType)}
                       className={classNames(
-                        isUnit ? 'mb-y pl-xdouble' : '',
+                        isPropertyType ? 'mb-y pl-xdouble' : '',
                         isProperty ? 'pt-y' : '',
                         'inline-block mb-y hover:underline underline-offset-2 decoration-[2px]'
                       )}

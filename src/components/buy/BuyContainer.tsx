@@ -17,6 +17,7 @@ import {
 } from './actions'
 import LoginForm from './LoginForm'
 import UnitBuySummary, { BuyUnitProps } from '@components/unit/UnitBuySummary'
+import { saveError } from '@lib/util/save-error'
 
 interface BuyContainerProps extends HTMLAttributes<HTMLFormElement> {
   units?: BuyUnitProps[]
@@ -85,11 +86,12 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       .then(res => {
         setUserData({
           ...userData,
-          buyingProgress: res.data.buyingProgress,
+          buyingProgress: res?.data.buyingProgress,
         })
       })
       .catch(err => {
         console.error(err)
+        saveError(err, 'getBuyingProgress')
       })
       .finally(() => setLoading(false))
   }
@@ -112,7 +114,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
       .then(res => {
         setUserData({
           ...userData,
-          calendarDate: res.data.date,
+          calendarDate: res?.data.date,
         })
       })
       .catch(err => {
@@ -148,8 +150,8 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
     accountSignIn(email, password)
       .then(res => {
         console.log('res:', res)
-        if (res.data.user.user) {
-          if (res.data.userMetadata && res.data.userMetadata[0]) {
+        if (res?.data.user.user) {
+          if (res?.data.userMetadata && res?.data.userMetadata[0]) {
             setLoginSuccess(
               email,
               password,
@@ -174,14 +176,14 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
   const checkAccount = (email: string) => {
     setLoading(true)
     getAccount(email).then(res => {
-      if (res.data.user_exists) {
+      if (res?.data.user_exists) {
         setLoginError({ error: false, message: '' })
         setUserData({
           ...userData,
           email: email,
-          hasPassword: res.data.password_set,
+          hasPassword: res?.data.password_set,
         })
-        if (!userData.loggedIn) setShowLogin(res.data.password_set)
+        if (!userData.loggedIn) setShowLogin(res?.data.password_set)
       } else {
         setLoginError({ error: true, message: 'No account found.' })
       }
