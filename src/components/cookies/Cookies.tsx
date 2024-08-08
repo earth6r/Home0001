@@ -15,6 +15,7 @@ import {
 import { RichText } from '@components/sanity'
 import { Accordion, AccordionProps } from '@components/accordion'
 import { disableGoogleEvents } from '@lib/util'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface CookieProps extends AccordionProps {
   setSetting: (type: string, active: boolean) => void
@@ -138,19 +139,24 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
 
         <div className="grid grid-cols-2 gap-x w-full mt-y">
           <button
-            className="h-btn text-button bg-black text-white"
+            className="flex justify-between items-center h-btn px-x text-button bg-black text-white"
             onClick={() => {
               declineAnalytics
               declineFunctional
             }}
           >
-            Reject All
+            {`Reject`}
+            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
           <button
-            className="h-btn text-button bg-black text-white"
+            className="flex justify-between items-center h-btn px-x text-button bg-black text-white"
             onClick={() => submitChoices()}
           >
-            Confirm choices
+            <div>
+              <span>{`Confirm`}</span>
+              <span className="hidden sm:inline-block">&nbsp;{`choices`}</span>
+            </div>
+            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
         </div>
 
@@ -233,13 +239,13 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
           transition: `opacity 100ms ease-in-out`,
         }}
         className={classNames(
-          'flex justify-between fixed w-full bottom-y px-x font-medium font-sansText z-modal'
+          'flex justify-between items-center fixed w-full bottom-y px-x font-medium font-sansText text-[13px] xs:text-base z-modal'
         )}
       >
         {!dialogOpen && (
           <>
             <span>{`We use cookies`}</span>
-            <div className="flex gap-xhalf">
+            <div className="flex items-center gap-xhalf">
               <button
                 className="uppercase"
                 onClick={() => acceptCookies()}
@@ -252,7 +258,7 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
                   declineFunctional()
                 }}
               >
-                Reject
+                {`Reject`}
               </button>
               <span>{`/`}</span>
               <button

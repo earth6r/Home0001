@@ -371,11 +371,11 @@ export interface Property extends SanityDocument {
   availableText?: string;
 
   /**
-   * Units — `array`
+   * Property Types — `array`
    *
    *
    */
-  unitsList?: Array<SanityKeyedReference<Unit>>;
+  propertyTypesList?: Array<SanityKeyedReference<PropertyType>>;
 
   /**
    * Preview Image — `image`
@@ -901,7 +901,7 @@ export type Link = {
      *
      *
      */
-    reference?: SanityReference<Page | Property | Unit>;
+    reference?: SanityReference<Page | Property | PropertyType | Unit>;
 
     /**
      * Anchor Slug — `slug`
