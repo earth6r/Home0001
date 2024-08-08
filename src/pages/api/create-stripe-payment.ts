@@ -2,6 +2,7 @@
 import { enableCors } from '@lib/next/cors'
 import { Stripe } from 'stripe'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { saveError } from '@lib/util/save-error'
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string, {
   apiVersion: '2024-04-10',
@@ -24,7 +25,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       metadata: paymentIntent.metadata,
     })
   } catch (err) {
-    console.log(err)
+    console.error(err)
+    saveError(
+      {
+        error: err,
+        additionalInfo: {
+          email,
+          propertyType,
+        },
+      },
+      'createStripePayment'
+    )
     return res.status(400).json({
       status: err,
     })

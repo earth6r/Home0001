@@ -41,7 +41,6 @@ export default async function handler(
   if (typeof slug === 'string') {
     if (slug.charAt(0) !== '/') slug = `/${slug}`
   } else {
-    // eslint-disable-next-line no-console
     console.warn('invalid slug parameter, defaulting to homepage')
     slug = '/'
   }
@@ -65,7 +64,6 @@ export default async function handler(
       }).then(previewRes => previewRes.text())
       return res.send(previewHtml)
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error(error)
       return res.status(500).json({
         message: 'Error fetching preview',

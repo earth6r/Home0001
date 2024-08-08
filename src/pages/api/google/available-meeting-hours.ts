@@ -3,6 +3,7 @@ import { enableCors } from '@lib/next/cors'
 import { google } from 'googleapis'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { JWT } from 'google-auth-library'
+import moment from 'moment-timezone'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
 const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
@@ -35,14 +36,7 @@ async function getAllDayEvents(
 }
 
 function formatTime(date: Date): string {
-  const newdate = new Date(date)
-
-  const localTimeString = newdate.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-    timeZone: 'UTC',
-  })
+  const localTimeString = moment.tz(date, 'America/New_York').format('HH:mm')
   return localTimeString
 }
 
@@ -52,7 +46,9 @@ async function getAvailableSlotsForDay(
 ): Promise<{ start: string }[]> {
   const calendar = google.calendar({ version: 'v3', auth })
   const dayOfWeek = date.getDay()
-  if (dayOfWeek < 1 || dayOfWeek > 5) {
+  const threeWeeksLimit = new Date().getTime() + 21 * 24 * 60 * 60 * 1000
+
+  if (dayOfWeek < 1 || dayOfWeek > 5 || date.getTime() > threeWeeksLimit) {
     return []
   }
 
@@ -67,6 +63,7 @@ async function getAvailableSlotsForDay(
       0
     )
   )
+
   const dayEnd = new Date(
     Date.UTC(
       date.getUTCFullYear(),
@@ -93,7 +90,7 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      10,
+      14,
       0,
       0,
       0
@@ -104,7 +101,7 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      15,
+      21,
       0,
       0,
       0
@@ -123,8 +120,8 @@ async function getAvailableSlotsForDay(
   const events = response.data.items || []
   const availableSlots: { start: string }[] = []
 
-  const slotDuration = 2 * 60 * 60 * 1000
-  const slotOverlap = 1 * 60 * 60 * 1000
+  const slotDuration = 15 * 60
+  const slotOverlap = 60 * 60 * 1000
 
   if (events.length === 0) {
     for (
@@ -177,7 +174,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const currentDate = new Date(now)
       currentDate.setDate(now.getDate() + i)
 
-      if (i < 4) {
+      if (i < 2) {
         return Promise.resolve({
           date: currentDate.toISOString().split('T')[0],
           slots: [],

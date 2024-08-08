@@ -17,7 +17,12 @@ export default {
         {
           name: 'reference',
           type: 'reference',
-          to: [{ type: 'page' }, { type: 'property' }, { type: 'unit' }],
+          to: [
+            { type: 'page' },
+            { type: 'property' },
+            { type: 'propertyType' },
+            { type: 'unit' },
+          ],
           weak: true,
         },
         {

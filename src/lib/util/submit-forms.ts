@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { saveError } from './save-error'
 
 const HUBSPOT_ID = process.env.NEXT_PUBLIC_HUBSPOT_ID
 
@@ -73,20 +74,27 @@ const postPreferenceFields = async (
         : '',
     },
   ]
-  return await axios.post(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
-    {
-      portalId,
-      formGuid,
-      fields: dataFields,
-      context: {
-        hutk: hutk ? hutk : null,
-        pageUri: document.URL,
-        pageName: document.title,
+
+  try {
+    return await axios.post(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+      {
+        portalId,
+        formGuid,
+        fields: dataFields,
+        context: {
+          hutk: hutk ? hutk : null,
+          pageUri: document.URL,
+          pageName: document.title,
+        },
       },
-    },
-    config
-  )
+      config
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postPreferenceFields')
+    throw new Error('Failed to submit form')
+  }
 }
 const postModalFields = async (
   data: any,
@@ -128,20 +136,26 @@ const postModalFields = async (
     },
   ]
 
-  return await axios.post(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
-    {
-      portalId,
-      formGuid,
-      fields: dataFields,
-      context: {
-        hutk: hutk ? hutk : null,
-        pageUri: document.URL,
-        pageName: document.title,
+  try {
+    return await axios.post(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+      {
+        portalId,
+        formGuid,
+        fields: dataFields,
+        context: {
+          hutk: hutk ? hutk : null,
+          pageUri: document.URL,
+          pageName: document.title,
+        },
       },
-    },
-    config
-  )
+      config
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postModalFields')
+    throw new Error('Failed to submit form')
+  }
 }
 const postContactFields = async (
   data: any,
@@ -150,26 +164,32 @@ const postContactFields = async (
   config?: any,
   hutk?: string
 ) => {
-  return await axios.post(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
-    {
-      portalId,
-      formGuid,
-      fields: [
-        { name: 'email', value: data.email },
-        { name: 'firstname', value: data.first_name },
-        { name: 'lastname', value: data.last_name },
-        { name: 'hs_persona', value: data.hs_persona },
-        { name: 'message', value: data.message },
-      ],
-      context: {
-        hutk: hutk ? hutk : null,
-        pageUri: document.URL,
-        pageName: document.title,
+  try {
+    return await axios.post(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+      {
+        portalId,
+        formGuid,
+        fields: [
+          { name: 'email', value: data.email },
+          { name: 'firstname', value: data.first_name },
+          { name: 'lastname', value: data.last_name },
+          { name: 'hs_persona', value: data.hs_persona },
+          { name: 'message', value: data.message },
+        ],
+        context: {
+          hutk: hutk ? hutk : null,
+          pageUri: document.URL,
+          pageName: document.title,
+        },
       },
-    },
-    config
-  )
+      config
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postContactFields')
+    throw new Error('Failed to submit form')
+  }
 }
 
 const postNewsletterFields = async (
@@ -179,25 +199,31 @@ const postNewsletterFields = async (
   config?: any,
   hutk?: string
 ) => {
-  return await axios.post(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
-    {
-      portalId,
-      formGuid,
-      fields: [
-        {
-          name: 'email',
-          value: data.email,
+  try {
+    return await axios.post(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+      {
+        portalId,
+        formGuid,
+        fields: [
+          {
+            name: 'email',
+            value: data.email,
+          },
+        ],
+        context: {
+          hutk: hutk ? hutk : null,
+          pageUri: document.URL,
+          pageName: document.title,
         },
-      ],
-      context: {
-        hutk: hutk ? hutk : null,
-        pageUri: document.URL,
-        pageName: document.title,
       },
-    },
-    config
-  )
+      config
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postNewsletterFields')
+    throw new Error('Failed to submit form')
+  }
 }
 
 const postUnitFields = async (
@@ -207,45 +233,51 @@ const postUnitFields = async (
   config?: any,
   hutk?: string
 ) => {
-  return await axios.post(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
-    {
-      portalId,
-      formGuid,
-      fields: [
-        {
-          name: 'firstname',
-          value: data.first_name,
+  try {
+    return await axios.post(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+      {
+        portalId,
+        formGuid,
+        fields: [
+          {
+            name: 'firstname',
+            value: data.first_name,
+          },
+          {
+            name: 'lastname',
+            value: data.last_name,
+          },
+          {
+            name: 'email',
+            value: data.email,
+          },
+          {
+            name: 'phone',
+            value: data.phone,
+          },
+          {
+            name: 'unit_of_interest',
+            value: data.unit_of_interest,
+          },
+          // {
+          //   name: 'sms_opt_in',
+          //   value: data.sms_opt_in,
+          // },
+        ],
+        context: {
+          hutk: hutk ? hutk : null,
+          pageUri: document.URL,
+          pageName: document.title,
         },
-        {
-          name: 'lastname',
-          value: data.last_name,
-        },
-        {
-          name: 'email',
-          value: data.email,
-        },
-        {
-          name: 'phone',
-          value: data.phone,
-        },
-        {
-          name: 'unit_of_interest',
-          value: data.unit_of_interest,
-        },
-        // {
-        //   name: 'sms_opt_in',
-        //   value: data.sms_opt_in,
-        // },
-      ],
-      context: {
-        hutk: hutk ? hutk : null,
-        pageUri: document.URL,
-        pageName: document.title,
       },
-    },
-    config
-  )
+      config
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postUnitFields')
+    throw new Error('Failed to submit form')
+  }
 }
 const postBrokerFields = async (
   data: any,
@@ -254,68 +286,81 @@ const postBrokerFields = async (
   config?: any,
   hutk?: string
 ) => {
-  return await axios.post(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
-    {
-      portalId,
-      formGuid,
-      fields: [
-        {
-          name: 'firstname',
-          value: data.first_name,
-        },
-        {
-          name: 'lastname',
-          value: data.last_name,
-        },
+  try {
+    return await axios.post(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+      {
+        portalId,
+        formGuid,
+        fields: [
+          {
+            name: 'firstname',
+            value: data.first_name,
+          },
+          {
+            name: 'lastname',
+            value: data.last_name,
+          },
 
-        {
-          name: 'email',
-          value: data.email,
+          {
+            name: 'email',
+            value: data.email,
+          },
+        ],
+        context: {
+          hutk: hutk ? hutk : null,
+          pageUri: document.URL,
+          pageName: document.title,
         },
-      ],
-      context: {
-        hutk: hutk ? hutk : null,
-        pageUri: document.URL,
-        pageName: document.title,
       },
-    },
-    config
-  )
+      config
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postBrokerFields')
+    throw new Error('Failed to submit form')
+  }
 }
+
 const postStartedSubmitFields = async (
   data: any,
   portalId?: string,
   formGuid?: string,
   config?: any
 ) => {
-  return await axios.post(
-    `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
-    {
-      portalId,
-      formGuid,
-      fields: [
-        {
-          name: 'firstname',
-          value: data.first_name,
-        },
-        {
-          name: 'lastname',
-          value: data.last_name,
-        },
+  try {
+    return await axios.post(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+      {
+        portalId,
+        formGuid,
+        fields: [
+          {
+            name: 'firstname',
+            value: data.first_name,
+          },
+          {
+            name: 'lastname',
+            value: data.last_name,
+          },
 
-        {
-          name: 'email',
-          value: data.email,
+          {
+            name: 'email',
+            value: data.email,
+          },
+        ],
+        context: {
+          pageUri: document.URL,
+          pageName: document.title,
         },
-      ],
-      context: {
-        pageUri: document.URL,
-        pageName: document.title,
       },
-    },
-    config
-  )
+      config
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postStartedSubmitFields')
+    throw new Error('Failed to submit form')
+  }
 }
 
 export const submitForm = async (

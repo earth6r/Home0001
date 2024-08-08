@@ -42,7 +42,9 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
               {propertyLink ? (
                 <SanityLink
                   {...(propertyLink as SanityLinkType)}
-                  className={classNames('text-h2')}
+                  className={classNames(
+                    'text-h2 underline decoration-[0.1em] underline-offset-2'
+                  )}
                 >
                   <div
                     onClick={() => {
@@ -101,9 +103,9 @@ const AnimatingImage: FC<AnimatingImageProps> = ({
       ref={ref}
       className={classNames(
         aspect === 'short'
-          ? 'aspect-[1.4]'
+          ? 'aspect-[1.25]'
           : aspect === 'tall'
-          ? 'aspect-[0.835]'
+          ? 'aspect-[0.8]'
           : 'aspect-square',
         'relative overflow-hidden my-y z-above'
       )}
@@ -111,9 +113,9 @@ const AnimatingImage: FC<AnimatingImageProps> = ({
       <div
         className={classNames(
           aspect === 'short'
-            ? 'aspect-[1.4] h-auto'
+            ? 'aspect-[1.25] h-auto'
             : aspect === 'tall'
-            ? 'aspect-[0.835] h-auto'
+            ? 'aspect-[0.8] h-auto'
             : 'aspect-square',
           'relative w-full'
         )}
@@ -167,7 +169,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     active: {
       marginTop: 0,
       transition: {
-        delay: 2.2,
+        delay: 2.8,
         duration: 0.6,
         ease: 'easeInOut',
       },
@@ -181,7 +183,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     active: (i: number) => ({
       opacity: 1,
       transition: {
-        delay: i * 0.2,
+        delay: i * 0.15,
         duration: 0,
       },
     }),
@@ -196,7 +198,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
       scale: 1,
       opacity: 1,
       transition: {
-        delay: 1.8,
+        delay: 2.6,
         duration: 0.6,
         ease: 'easeInOut',
       },
@@ -220,7 +222,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'md:max-w-[768px] lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-ydouble'
+        'lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-ydouble'
       )}
     >
       {showContent && (

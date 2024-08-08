@@ -20,7 +20,12 @@
   "rules": {
     "no-process-env": "off",
     "no-shadow": "off",
-    "no-console": "warn",
+    "no-console": [
+      "warn",
+      {
+        "allow": ["error"]
+      }
+    ],
     "no-warning-comments": [
       "error",
       {
