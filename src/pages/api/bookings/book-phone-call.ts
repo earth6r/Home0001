@@ -72,7 +72,7 @@ export default async function handler(
       endTime: endTimestamp,
       eventName: 'Zoom with HOME0001',
       inviteeEmail: email,
-      eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
+      eventDescription: `A member of the HOME0001 collective will meet you on Zoom to answer all your questions, talk you through upcoming home releases and schedule a tour. You can find the Zoom link above ^^ or you can follow this link: <a href="https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09">JOIN CALL</a><br><br>If you'd prefer us to give you a call, please share your number & preferred channel (WhatsApp, Facetime, Signal, Telegram).<br><br>In case you need to reschedule or just can't make it, please let us know so we can coordinate with the team.`,
     })
   } catch (error) {
     // eslint-disable-next-line no-console
