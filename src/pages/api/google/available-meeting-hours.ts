@@ -90,7 +90,7 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      15,
+      14,
       0,
       0,
       0
@@ -101,7 +101,7 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      20,
+      21,
       0,
       0,
       0
@@ -121,7 +121,7 @@ async function getAvailableSlotsForDay(
   const availableSlots: { start: string }[] = []
 
   const slotDuration = 15 * 60
-  const slotOverlap = 1 * 60 * 60 * 1000
+  const slotOverlap = 60 * 60 * 1000
 
   if (events.length === 0) {
     for (
