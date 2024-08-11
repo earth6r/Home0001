@@ -5,7 +5,8 @@ export const updateHubspotContact = async (
   email: string,
   date: Date,
   firstName?: string,
-  lastName?: string
+  lastName?: string,
+  overrideProperty?: string
 ) => {
   const utcDate = new Date(
     Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
@@ -45,15 +46,19 @@ export const updateHubspotContact = async (
   const dateParts = estDateTime.split(', ')
 
   const formattedStringDateTime = `${dateParts[0]}, ${dateParts[1]}`
-  const formattedStringDate = estDateOnly.toISOString()
 
   try {
     const response = await axios.patch(
       `https://api.hubapi.com/crm/v3/objects/contacts/${email}?idProperty=email`,
       {
         properties: {
-          upcoming_meeting_scheduled: formattedStringDateTime,
-          // upcoming_meeting_scheduled_date: formattedStringDate, // NOTE: do not need this right now
+          ...(overrideProperty
+            ? {
+                [overrideProperty]: formattedStringDateTime,
+              }
+            : {
+                upcoming_meeting_scheduled: formattedStringDateTime,
+              }),
         },
       },
       {

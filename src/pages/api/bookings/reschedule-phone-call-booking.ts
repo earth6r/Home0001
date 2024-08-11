@@ -1,13 +1,8 @@
-// TODO: need to only create calendar and send wa message and update hubspot
-import { initializeAdmin } from '@lib/firebase/admin'
-import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
-import admin from 'firebase-admin' // Firebase Admin SDK
-import { sendWhatsappBookedMessage } from './send-whatsapp-booked-message'
-import { validateBooking } from './validate'
-import createCalendarEvent from './book-google-calendar-event'
-import { updateHubspotContact } from './update-hubspot-contact'
 import { saveError } from '@lib/util/save-error'
-import { sendMessage } from '../send-whatsapp'
+import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
+import createCalendarEvent from '../../../lib/util/book-google-calendar-event'
+import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booked-message'
+import { validateBooking } from './validate'
 
 // Set configuration options for the API route
 export const config = {
@@ -50,8 +45,6 @@ export default async function handler(
     blockWhatsApp = false,
   } = req.body
 
-  const startTimestampFormatted = parseTimestamp(startTimestamp)
-
   try {
     createCalendarEvent({
       startTime: startTimestamp,
@@ -59,6 +52,7 @@ export default async function handler(
       eventName: 'Zoom with HOME0001',
       inviteeEmail: email,
       eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
+      calendarEmail: 'talin@home0001.com',
     })
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -74,7 +68,8 @@ export default async function handler(
         startTimestamp,
         email,
         phoneNumber,
-        true
+        true,
+        false
       )
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -82,32 +77,6 @@ export default async function handler(
       saveError(error, 'sendWhatsappBookedMessage')
     }
   }
-
-  // try {
-  //   await updateHubspotContact(
-  //     email,
-  //     new Date(startTimestampFormatted),
-  //     firstName,
-  //     lastName
-  //   )
-  // } catch (error: any) {
-  //   // eslint-disable-next-line no-console
-  //   console.error('Error updating HubSpot contact', error)
-  //   const errorData = {
-  //     error,
-  //     additionalInfo: {
-  //       email,
-  //       startTimestamp: startTimestampFormatted,
-  //       response: error.response ? error.response.data : null,
-  //     },
-  //   }
-
-  //   saveError(errorData, 'updateHubspotContact')
-  //   sendMessage(
-  //     '+17134103755',
-  //     `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`
-  //   )
-  // }
 
   res.status(200).json({
     status: 'success',

@@ -1,20 +1,30 @@
 import { initializeAdmin } from '@lib/firebase/admin'
-import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
-import admin from 'firebase-admin' // Firebase Admin SDK
-import { validateBooking, validateProperty } from './validate'
-import { sendWhatsappBookedMessage } from './send-whatsapp-booked-message'
-import createCalendarEvent from './book-google-calendar-event'
-import { parseTimestamp } from './book-phone-call'
-import { updateHubspotContact } from './update-hubspot-contact'
 import { saveError } from '@lib/util/save-error'
+import admin from 'firebase-admin' // Firebase Admin SDK
+import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
+import createCalendarEvent from '../../../lib/util/book-google-calendar-event'
+import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booked-message'
+import { updateHubspotContact } from '../../../lib/util/update-hubspot-contact'
 import { sendMessage } from '../send-whatsapp'
+import { validateBooking } from './validate'
 
 // Set configuration options for the API route
 export const config = {
   maxDuration: 300, // Maximum duration for the API route to respond to a request (5 minutes)
 }
 
-// curl -X POST http://localhost:3000/api/book-property-tour -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"1720441800000","property":"unit-6a","phoneNumber":"1234567890"}'
+// TODO: move to a utils or something (booking-utils.ts)
+export function parseTimestamp(timestamp: string) {
+  let [datePart, timePart] = timestamp.split(' ')
+  let [year, month, day] = datePart.split('-').map(Number)
+  let [hours, minutes, seconds] = timePart.split(':').map(Number)
+
+  return Number(
+    new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds)).getTime()
+  )
+}
+
+// curl -X POST http://localhost:3000/api/bookings/book-phone-call -H "Content-Type: application/json" -d '{"email":"apinanapinan@icloud.com","timestamp":"1720441800000","phoneNumber":"1234567890"}'
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -22,26 +32,20 @@ export default async function handler(
   const response = validateBooking(req) // Validate the request body
 
   if (response.error) {
+    // TODO: remove after since this is just a call error by client
+    console.error('Error validating booking', response.error)
     res.status(response.status).json(response) // Respond with error if there is an error
-    return
-  }
-
-  const propertyResponse = validateProperty(req)
-
-  if (propertyResponse.error) {
-    res.status(propertyResponse.status).json(propertyResponse) // Respond with error if there is an error
     return
   }
 
   const {
     email = null,
-    startTimestamp = null,
-    endTimestamp = null,
-    property = null,
-    phoneNumber = null,
     firstName = null,
     lastName = null,
     notes = null,
+    startTimestamp = null,
+    endTimestamp = null,
+    phoneNumber = null,
     blockWhatsApp = false,
   } = req.body
 
@@ -54,56 +58,73 @@ export default async function handler(
 
   await db.collection('usersBookPropertyTour').add({
     email,
-    property,
     startTimestamp: startTimestampFormatted,
     endTimestamp: endTimestampFormatted,
-    phoneNumber,
     firstName,
     lastName,
     notes,
+    phoneNumber,
   })
 
   try {
     createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
-      eventName: 'Property Tour',
+      eventName: 'Zoom with HOME0001',
       inviteeEmail: email,
-      eventDescription: 'Property Tour',
+      eventDescription: `You're scheduled for a property tour with HOME0001.`,
+      calendarEmail: 'lowereastside@home0001.com',
     })
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error creating calendar event', error)
+    saveError(error, 'createCalendarEvent')
   }
 
   if (!blockWhatsApp) {
     try {
-      await sendWhatsappBookedMessage(firstName, lastName, startTimestamp)
+      await sendWhatsappBookedMessage(
+        firstName,
+        lastName,
+        startTimestamp,
+        email,
+        phoneNumber,
+        false,
+        true
+      )
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error sending WhatsApp message', error)
+      saveError(error, 'sendWhatsappBookedMessage')
     }
   }
 
-  // try {
-  //   await updateHubspotContact(email, new Date(startTimestampFormatted), firstName, lastName)
-  // } catch (error: any) {
-  //   // eslint-disable-next-line no-console
-  //   console.error('Error updating HubSpot contact', error)
-  //   const errorData = {
-  //     error,
-  //     additionalInfo: {
-  //       email,
-  //       startTimestamp: startTimestampFormatted,
-  //       response: error.response ? error.response.data : null,
-  //     },
-  //   }
-  //   saveError(errorData, 'updateHubspotContact')
-  //   sendMessage(
-  //     '+17134103755',
-  //     `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`
-  //   )
-  // }
+  try {
+    await updateHubspotContact(
+      email,
+      new Date(startTimestampFormatted),
+      firstName,
+      lastName,
+      'upcoming_property_tour_date'
+    )
+  } catch (error: any) {
+    // eslint-disable-next-line no-console
+    console.error('Error updating HubSpot contact', error)
+    const errorData = {
+      error,
+      additionalInfo: {
+        email,
+        startTimestamp: startTimestampFormatted,
+        response: error.response ? error.response.data : null,
+      },
+    }
+
+    saveError(errorData, 'updateHubspotContact')
+    sendMessage(
+      '+17134103755',
+      `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`
+    )
+  }
 
   res.status(200).json({
     status: 'success',

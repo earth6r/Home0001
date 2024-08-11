@@ -1,5 +1,5 @@
 import moment from 'moment-timezone'
-import { sendMessage } from '../send-whatsapp'
+import { sendMessage } from '../../pages/api/send-whatsapp'
 
 export const sendWhatsappBookedMessage = async (
   firstName: string,
@@ -7,10 +7,12 @@ export const sendWhatsappBookedMessage = async (
   startTimestamp: string,
   email?: string,
   phoneNumber?: string,
-  rescheduled?: boolean
+  rescheduled?: boolean,
+  isPropertyTour?: boolean
 ) => {
   // convert startTimestamp from UTC to EST
   // start timestamp format YYYY-MM-DD HH:MM:SS
+  // TODO: use similar logic to create booking conversion from est to utc
   const [datePart, timePart] = startTimestamp.split(' ')
   const [year, month, day] = datePart.split('-').map(Number)
   const [hours, minutes, seconds] = timePart.split(':').map(Number)
@@ -24,7 +26,8 @@ export const sendWhatsappBookedMessage = async (
 
   const wording =
     typeof rescheduled === 'boolean' && rescheduled ? 'rescheduled' : 'booked'
-  const message = `A HOME0001 phone call was ${wording} at ${startTimestampEST} EST. Name: ${firstName} ${lastName} Email: ${email} Phone: ${phoneNumber}.`
+  const bookingTypeWording = isPropertyTour ? 'property tour' : 'phone call'
+  const message = `A HOME0001 ${bookingTypeWording} was ${wording} at ${startTimestampEST} EST. Name: ${firstName} ${lastName} Email: ${email} Phone: ${phoneNumber}.`
 
   const numbers = [
     '+15038676436',
