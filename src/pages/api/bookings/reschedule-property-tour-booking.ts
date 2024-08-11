@@ -53,6 +53,7 @@ export default async function handler(
       inviteeEmail: email,
       eventDescription: `You're scheduled for a property tour with HOME0001.`,
       calendarEmail: 'talin@home0001.com',
+      zoom: false,
     })
   } catch (error) {
     // eslint-disable-next-line no-console
