@@ -2,21 +2,8 @@ import { google } from 'googleapis'
 import { JWT } from 'google-auth-library'
 import moment from 'moment-timezone'
 
-const keys = {
-  client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
-  private_key: process.env.GOOGLE_API_PRIVATE_KEY,
-}
-
-const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
-
-const auth = new JWT({
-  email: keys.client_email,
-  key: keys.private_key,
-  scopes: ['https://www.googleapis.com/auth/calendar.events'],
-  subject: Subject,
-})
-
-const calendar = google.calendar({ version: 'v3', auth })
+const PRIVATE_KEY =
+  process.env.GOOGLE_API_PRIVATE_KEY?.replace(/\\n/g, '\n') ?? ''
 
 async function createCalendarEvent({
   startTime,
@@ -24,24 +11,42 @@ async function createCalendarEvent({
   eventName,
   inviteeEmail,
   eventDescription,
+  calendarEmail,
 }: {
   startTime: string
   endTime: string
   eventName: string
   inviteeEmail: string
   eventDescription: string
+  calendarEmail: string
 }) {
+  const keys = {
+    client_email: calendarEmail,
+    private_key: PRIVATE_KEY,
+  }
+
+  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+
+  const auth = new JWT({
+    email: keys.client_email,
+    key: keys.private_key,
+    scopes: ['https://www.googleapis.com/auth/calendar.events'],
+    subject: Subject,
+  })
+
+  const calendar = google.calendar({ version: 'v3', auth })
+
   const staffEmails = [
     inviteeEmail,
-    // 'dzelefsky@braverlaw.net',
-    // 'scott@choicefamily.com',
-    // 'Matthew@omnititle.com',
-    // 'gio@choicefamily.com',
-    // 'andres@hoggholdings.com',
-    // 'annika@home0001.com',
-    // 'yan@home0001.com',
-    // 'm@choicefamily.com',
-    'talin@home0001.com',
+    'dzelefsky@braverlaw.net',
+    'scott@choicefamily.com',
+    'Matthew@omnititle.com',
+    'gio@choicefamily.com',
+    'andres@hoggholdings.com',
+    'annika@home0001.com',
+    'yan@home0001.com',
+    'm@choicefamily.com',
+    calendarEmail,
   ]
   if (
     !startTime ||
