@@ -49,7 +49,7 @@ export default async function handler(
     createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
-      eventName: 'Zoom with HOME0001',
+      eventName: 'Tour with HOME0001',
       inviteeEmail: email,
       eventDescription: `You're scheduled for a property tour with HOME0001.`,
       calendarEmail: 'talin@home0001.com',
