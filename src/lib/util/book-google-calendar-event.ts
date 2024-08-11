@@ -2,8 +2,10 @@ import { google } from 'googleapis'
 import { JWT } from 'google-auth-library'
 import moment from 'moment-timezone'
 
-const PRIVATE_KEY =
-  process.env.GOOGLE_API_PRIVATE_KEY?.replace(/\\n/g, '\n') ?? ''
+const keys = {
+  client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
+  private_key: process.env.GOOGLE_API_PRIVATE_KEY,
+}
 
 async function createCalendarEvent({
   startTime,
@@ -22,11 +24,6 @@ async function createCalendarEvent({
   calendarEmail: string
   zoom?: boolean
 }) {
-  const keys = {
-    client_email: calendarEmail,
-    private_key: PRIVATE_KEY,
-  }
-
   const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
 
   const auth = new JWT({
@@ -40,14 +37,15 @@ async function createCalendarEvent({
 
   const staffEmails = [
     inviteeEmail,
-    'dzelefsky@braverlaw.net',
-    'scott@choicefamily.com',
-    'Matthew@omnititle.com',
-    'gio@choicefamily.com',
-    'andres@hoggholdings.com',
-    'annika@home0001.com',
+    // 'dzelefsky@braverlaw.net',
+    // 'scott@choicefamily.com',
+    // 'Matthew@omnititle.com',
+    // 'gio@choicefamily.com',
+    // 'andres@hoggholdings.com',
+    // 'annika@home0001.com',
+    // 'm@choicefamily.com',
     'yan@home0001.com',
-    'm@choicefamily.com',
+    'talin@home0001.com',
     calendarEmail,
   ]
   if (
@@ -74,7 +72,7 @@ async function createCalendarEvent({
 
   const event = {
     summary: eventName,
-    location: zoomLink,
+    location: zoomLink, // TODO: need this from yan
     description: fullEventDescription,
     start: {
       dateTime: startDateTime.toISOString(),
