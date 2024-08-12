@@ -45,7 +45,6 @@ async function createCalendarEvent({
     // 'annika@home0001.com',
     // 'm@choicefamily.com',
     'yan@home0001.com',
-    'talin@home0001.com',
     calendarEmail,
   ]
   if (
