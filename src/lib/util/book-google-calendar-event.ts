@@ -71,7 +71,7 @@ async function createCalendarEvent({
 
   const event = {
     summary: eventName,
-    location: zoomLink, // TODO: need this from yan
+    location: zoom ? zoomLink : '48 Allen Street, New York, NY 10002',
     description: fullEventDescription,
     start: {
       dateTime: startDateTime.toISOString(),
