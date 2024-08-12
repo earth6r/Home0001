@@ -44,12 +44,15 @@ import fullbleedBlock from './blocks/fullbleed-block'
 import embed from './objects/embed'
 import cookiesToggle from './objects/cookies-toggle'
 import buy from './documents/buy-page'
+import tableBlock from './blocks/table-block'
+import contentRow from './objects/content-row'
 
 export const schemaTypes = [
   // objects
   link,
   accordion,
   color,
+  contentRow,
   cookiesToggle,
   coordinates,
   cta,
@@ -81,6 +84,7 @@ export const schemaTypes = [
   propertiesBlock,
   newsletterBlock,
   contactBlock,
+  tableBlock,
   textBlock,
   textAndAccordionBlock,
   unitBlock,

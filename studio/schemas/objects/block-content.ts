@@ -54,6 +54,11 @@ export default {
       title: 'Contact Block',
     },
     {
+      name: 'tableBlock',
+      type: 'tableBlock',
+      title: 'Table Block',
+    },
+    {
       name: 'textBlock',
       type: 'textBlock',
       title: 'Text Block',
