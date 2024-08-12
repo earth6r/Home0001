@@ -104,8 +104,8 @@ const postModalFields = async (
   hutk?: string
 ) => {
   const dataFields = [
-    { name: 'firstname', value: data.first_name },
-    { name: 'lastname', value: data.last_name },
+    { name: 'firstname', value: data.first_name || '' },
+    { name: 'lastname', value: data.last_name || '' },
     { name: 'email', value: data.email },
     {
       name: 'bedroom_preference',
