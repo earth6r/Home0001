@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { BiCode, BiText } from 'react-icons/bi'
-import { GrImage, GrSwitch } from 'react-icons/gr'
-import { RxDividerHorizontal } from 'react-icons/rx'
+import { GrImage } from 'react-icons/gr'
+import { RxDividerHorizontal, RxSwitch } from 'react-icons/rx'
 
 const IndentDecorator = (props: any) => {
   return <span style={{ paddingLeft: '16px' }}>{props.children}</span>
@@ -64,22 +64,22 @@ export default {
           icon: RxDividerHorizontal,
         },
         {
-          title: 'Tooltip',
-          name: 'tooltip',
-          type: 'tooltip',
-          icon: BiText,
-        },
-        {
           title: 'Embed',
           name: 'embed',
           type: 'embed',
           icon: BiCode,
         },
         {
+          title: 'Tooltip',
+          name: 'tooltip',
+          type: 'tooltip',
+          icon: BiText,
+        },
+        {
           title: 'Cookies Toggle',
           name: 'cookiesToggle',
           type: 'cookiesToggle',
-          icon: GrSwitch,
+          icon: RxSwitch,
         },
       ],
     },

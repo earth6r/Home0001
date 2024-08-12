@@ -966,6 +966,31 @@ export type Accordion = {
 
 export type Color = "black" | "white";
 
+export type ContentRow = {
+  _type: "contentRow";
+  /**
+   * Cells — `object`
+   *
+   *
+   */
+  cells?: {
+    _type: "cells";
+    /**
+     * Header — `string`
+     *
+     *
+     */
+    header?: string;
+
+    /**
+     * Content — `richText`
+     *
+     *
+     */
+    content?: RichText;
+  };
+};
+
 export type CookiesToggle = {
   _type: "cookiesToggle";
   /**
@@ -1278,6 +1303,7 @@ export type BlockContent = Array<
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
+  | SanityKeyed<TableBlock>
   | SanityKeyed<TextBlock>
   | SanityKeyed<TextAndAccordionBlock>
   | SanityKeyed<UnitBlock>
@@ -1520,6 +1546,16 @@ export type ContactBlock = {
    *
    */
   audienceId?: string;
+};
+
+export type TableBlock = {
+  _type: "tableBlock";
+  /**
+   * Table — `array`
+   *
+   *
+   */
+  table?: Array<SanityKeyed<ContentRow>>;
 };
 
 export type TextBlock = {
