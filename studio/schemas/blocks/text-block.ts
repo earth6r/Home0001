@@ -12,11 +12,11 @@ export default {
       name: 'anchor',
       title: 'Anchor',
       type: 'string',
-      description: 'Add an anchor tag to this text block (ie #ab-fab)',
+      description: 'Add an anchor tag to this text block (ie ab-fab)',
       validation: (Rule: Rule) =>
         Rule.custom<string>(input => {
           if (typeof input !== 'string') return true
-          if (!input.includes('#')) return 'Anchor must start with #'
+          if (input.includes('#')) return 'Do not include #'
           return true
         }),
     },
