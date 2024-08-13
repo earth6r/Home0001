@@ -13,10 +13,7 @@ export const TableBlock: FC<TableBlockProps> = ({ table, grid, className }) => {
       {table &&
         table.length > 0 &&
         table.map(({ _key, cells }) => (
-          <div
-            key={_key}
-            className="flex items-start gap-x p-x border-bottom--gray last-of-type:border-b-0"
-          >
+          <div key={_key} className="flex items-start gap-x p-x">
             {cells && cells.header && (
               <p className="inline-block w-[140px] text-md font-medium text-left">
                 {cells.header}
