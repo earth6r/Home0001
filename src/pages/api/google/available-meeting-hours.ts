@@ -6,7 +6,7 @@ import { JWT } from 'google-auth-library'
 import moment from 'moment-timezone'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
-const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+const Subject = 'talin@home0001.com' // test with talin@home0001.com as well
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
@@ -15,6 +15,7 @@ const keys = {
 }
 
 async function getAllDayEvents(
+  email: string,
   auth: any,
   timeMin: string,
   timeMax: string
@@ -41,6 +42,7 @@ function formatTime(date: Date): string {
 }
 
 async function getAvailableSlotsForDay(
+  email: string,
   auth: any,
   date: Date
 ): Promise<{ start: string }[]> {
@@ -77,6 +79,7 @@ async function getAvailableSlotsForDay(
   )
 
   const isReserved = await getAllDayEvents(
+    email,
     auth,
     dayStart.toISOString(),
     dayEnd.toISOString()
@@ -159,6 +162,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     res.setHeader('Allow', ['POST'])
     return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
+
+  const { email } = req.query as { email: string }
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' })
+  }
+
   const utcnow = new Date()
   const now = new Date(utcnow.getTime() - utcnow.getTimezoneOffset() * 60000)
 
@@ -181,7 +191,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           HasAvailability: false,
         })
       }
-      return getAvailableSlotsForDay(auth, currentDate).then(slots => ({
+      return getAvailableSlotsForDay(email, auth, currentDate).then(slots => ({
         date: currentDate.toISOString().split('T')[0],
         slots: slots.map(slot => slot.start),
         HasAvailability: slots.length > 0,
