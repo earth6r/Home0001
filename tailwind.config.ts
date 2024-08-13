@@ -138,9 +138,6 @@ export default {
         '.border-bottom': {
           borderBottom: '1.5px solid black',
         },
-        '.border-bottom--gray': {
-          borderBottom: '1px solid #EDEDED',
-        },
         '.text-h1': {
           fontSize: theme('fontSize.2xl'),
           fontWeight: '700',
