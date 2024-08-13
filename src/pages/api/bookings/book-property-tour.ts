@@ -74,7 +74,7 @@ export default async function handler(
     lastName,
     notes,
     phoneNumber,
-    status: 'pending',
+    status: pending ? 'pending' : 'scheduled',
   })
 
   if (pending) {
