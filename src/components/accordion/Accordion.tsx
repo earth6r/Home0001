@@ -18,6 +18,7 @@ interface AccordionProps extends HTMLAttributes<HTMLElement> {
   cta?: Cta
   readMore?: boolean
   location?: { property: string; unit: string }
+  open?: boolean
 }
 
 export const Accordion: FC<AccordionProps> = ({
@@ -28,6 +29,7 @@ export const Accordion: FC<AccordionProps> = ({
   cta,
   location,
   readMore,
+  open,
   className,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -50,7 +52,7 @@ export const Accordion: FC<AccordionProps> = ({
 
   return (
     <div className={classNames(className, readMore ? '' : 'border-black')}>
-      <Disclosure>
+      <Disclosure defaultOpen={open}>
         {({ open }) => {
           return (
             <>

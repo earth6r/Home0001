@@ -4,6 +4,7 @@ import type { TextBlock as TextBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
 import { Accordion } from '@components/accordion'
+import { useRouter } from 'next/router'
 
 type TextBlockProps = Omit<SanityBlockElement, keyof TextBlockType> &
   TextBlockType
@@ -20,6 +21,7 @@ export const TextBlock: FC<TextBlockProps> = ({
   grid,
   className,
 }) => {
+  const { asPath } = useRouter()
   return (
     <Block
       id={anchor}
@@ -53,7 +55,13 @@ export const TextBlock: FC<TextBlockProps> = ({
         {text && (
           <RichText blocks={text} className={classNames('clear-both')} />
         )}
-        {accordion && <Accordion {...accordion} readMore={true} />}
+        {accordion && (
+          <Accordion
+            {...accordion}
+            readMore={true}
+            open={asPath.includes(`#${anchor}`)}
+          />
+        )}
       </div>
     </Block>
   )
