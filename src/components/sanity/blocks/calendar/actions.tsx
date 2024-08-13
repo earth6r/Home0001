@@ -11,10 +11,10 @@ const CONFIG = {
 }
 
 // google calendar api
-export const getAvailableSlots = async () => {
+export const getAvailableSlots = async (email: string) => {
   try {
     return await axios.post(
-      `${BASE_URL}/api/google/available-meeting-hours?email=talin@home0001.com`,
+      `${BASE_URL}/api/google/available-meeting-hours?email=${email}`,
       CONFIG
     )
   } catch (error) {
