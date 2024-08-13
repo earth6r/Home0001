@@ -43,6 +43,7 @@ import dividerBlock from './blocks/divider-block'
 import fullbleedBlock from './blocks/fullbleed-block'
 import embed from './objects/embed'
 import buy from './documents/buy-page'
+import rdPage from './documents/rd-page'
 
 export const schemaTypes = [
   // objects
@@ -95,6 +96,7 @@ export const schemaTypes = [
   page,
   property,
   propertyType,
+  rdPage,
   unit,
   siteSettings,
 ]
