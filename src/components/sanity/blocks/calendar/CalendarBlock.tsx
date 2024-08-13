@@ -21,6 +21,8 @@ type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
 export const CalendarBlock: FC<CalendarBlockProps> = ({
   index,
   header,
+  email,
+  times,
   successMessage,
   className,
 }) => {
@@ -63,7 +65,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   }
 
   useEffect(() => {
-    getAvailableSlots()
+    getAvailableSlots(email || 'talin@home0001.com')
       .then((res: any) => {
         const filteredSlots = res?.data?.data?.filter(
           (days: any) => days.HasAvailability === true
@@ -76,6 +78,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
         console.error(err)
         setLoading(false)
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -101,6 +104,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 register={register}
                 resetField={resetField}
                 loading={loading}
+                times={times}
                 className="mb-y"
               />
 

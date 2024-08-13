@@ -10,6 +10,7 @@ interface DateSelectProps extends HTMLAttributes<HTMLFormElement> {
   availableSlots: any[]
   register: UseFormRegister<FieldValues>
   resetField?: (field: string) => void
+  times?: string[]
   loading: boolean
 }
 
@@ -34,6 +35,7 @@ const convertTo12HourFormat = (time24: any) => {
 export const DateSelect: FC<DateSelectProps> = ({
   availableSlots,
   loading,
+  times = TIMES_LIST,
   register,
   resetField,
   className,
@@ -111,7 +113,7 @@ export const DateSelect: FC<DateSelectProps> = ({
                       className={classNames('h-full')}
                     >
                       <div className="grid grid-cols-2 gap-xhalf">
-                        {TIMES_LIST?.map((time: string, index: number) => (
+                        {times?.map((time: string, index: number) => (
                           <div
                             key={index}
                             id="time-select"

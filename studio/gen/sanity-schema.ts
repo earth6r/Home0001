@@ -1328,6 +1328,20 @@ export type CalendarBlock = {
   header?: RichText;
 
   /**
+   * email — `string`
+   *
+   *
+   */
+  email?: string;
+
+  /**
+   * Times — `array`
+   *
+   * Add the times to show are possibly available to meet
+   */
+  times?: Array<SanityKeyed<string>>;
+
+  /**
    * Success Message — `richText`
    *
    *
