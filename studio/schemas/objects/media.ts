@@ -20,6 +20,16 @@ const MediaObject = {
       type: 'image',
     },
     {
+      name: 'file',
+      title: 'File',
+      type: 'file',
+    },
+    {
+      name: 'video',
+      title: 'Video',
+      type: 'video',
+    },
+    {
       name: 'alt',
       type: 'string',
       title: 'Alternative text',
@@ -34,11 +44,6 @@ const MediaObject = {
       name: 'caption',
       type: 'richText',
     },
-    {
-      name: 'file',
-      title: 'File',
-      type: 'file',
-    },
   ],
   preview: {
     select: {
@@ -50,7 +55,7 @@ const MediaObject = {
       if (image) title = 'Image'
       return {
         title: alt || 'Media',
-        subtitle: 'Image',
+        subtitle: alt ? 'Media' : '',
         media: image,
       }
     },

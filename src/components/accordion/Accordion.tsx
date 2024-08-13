@@ -63,21 +63,23 @@ export const Accordion: FC<AccordionProps> = ({
                   `w-full text-left`
                 )}
               >
-                <h2
-                  className={classNames(
-                    readMore
-                      ? largeHeader
-                        ? 'text-h2'
-                        : 'text-h4'
-                      : 'w-[calc(100%-16px)] font-medium text-xs',
-                    'uppercase'
-                  )}
-                >
-                  {header}
-                </h2>
+                {header && (
+                  <h2
+                    className={classNames(
+                      readMore
+                        ? largeHeader
+                          ? 'text-h2'
+                          : 'text-h4'
+                        : 'w-[calc(100%-16px)] font-medium text-xs',
+                      'uppercase'
+                    )}
+                  >
+                    {header}
+                  </h2>
+                )}
 
                 {readMore ? (
-                  <div className="pr-x pt-yhalf">
+                  <div className={classNames(header ? 'pt-yhalf pr-x' : '')}>
                     {initialText && <RichText blocks={initialText} />}
 
                     <span

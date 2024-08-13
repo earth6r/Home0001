@@ -1,4 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
+import { AiOutlinePlusSquare } from 'react-icons/ai'
 import { BiCode, BiText } from 'react-icons/bi'
 import { GrImage } from 'react-icons/gr'
 import { RxDividerHorizontal } from 'react-icons/rx'
