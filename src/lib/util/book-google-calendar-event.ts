@@ -82,7 +82,7 @@ async function createCalendarEvent({
       timeZone: 'UTC',
     },
     attendees: [
-      { email: Subject },
+      // { email: Subject },
       { email: inviteeEmail },
       ...staffEmails.map(email => ({ email })),
     ],
