@@ -30,7 +30,7 @@ async function createCalendarEvent({
     email: keys.client_email,
     key: keys.private_key,
     scopes: ['https://www.googleapis.com/auth/calendar.events'],
-    subject: Subject,
+    subject: calendarEmail,
   })
 
   const calendar = google.calendar({ version: 'v3', auth })
