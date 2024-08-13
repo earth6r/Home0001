@@ -33,6 +33,16 @@ const nextConfig = {
           ],
           destination: '/buy/:path*',
         },
+        {
+          source: '/:path*',
+          has: [
+            {
+              type: 'host',
+              value: '0001.home0001.com',
+            },
+          ],
+          destination: '/rd/:path*',
+        },
       ],
     }
   },

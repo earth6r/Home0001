@@ -545,6 +545,55 @@ export interface PropertyType extends SanityDocument {
 }
 
 /**
+ * R+D Page
+ *
+ *
+ */
+export interface RdPage extends SanityDocument {
+  _type: "rdPage";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * unit
  *
  *
@@ -1031,6 +1080,20 @@ export type Media = {
   };
 
   /**
+   * File — `file`
+   *
+   *
+   */
+  file?: { _type: "file"; asset: SanityReference<any> };
+
+  /**
+   * Video — `video`
+   *
+   *
+   */
+  video?: Video;
+
+  /**
    * Alternative text — `string`
    *
    * Important for SEO and accessiblity.
@@ -1043,13 +1106,6 @@ export type Media = {
    *
    */
   caption?: RichText;
-
-  /**
-   * File — `file`
-   *
-   *
-   */
-  file?: { _type: "file"; asset: SanityReference<any> };
 };
 
 export type MenuItem = {
@@ -1494,6 +1550,13 @@ export type ContactBlock = {
 export type TextBlock = {
   _type: "textBlock";
   /**
+   * Anchor — `string`
+   *
+   * Add an anchor tag to this text block (ie #ab-fab)
+   */
+  anchor?: string;
+
+  /**
    * Columns — `number`
    *
    * Number of columns to display on larger screens. Defaults to 3 if blank
@@ -1520,6 +1583,13 @@ export type TextBlock = {
    *
    */
   text?: RichText;
+
+  /**
+   * Accordion — `accordion`
+   *
+   *
+   */
+  accordion?: Accordion;
 
   /**
    * Yellow Background — `boolean`
@@ -1684,6 +1754,7 @@ export type Documents =
   | Page
   | Property
   | PropertyType
+  | RdPage
   | Unit
   | SiteSettings;
 

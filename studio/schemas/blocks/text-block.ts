@@ -1,3 +1,4 @@
+import type { Rule } from '@sanity/types'
 import { BiText } from 'react-icons/bi'
 import { textField } from './fields'
 
@@ -7,6 +8,18 @@ export default {
   title: 'Text Block',
   icon: BiText,
   fields: [
+    {
+      name: 'anchor',
+      title: 'Anchor',
+      type: 'string',
+      description: 'Add an anchor tag to this text block (ie #ab-fab)',
+      validation: (Rule: Rule) =>
+        Rule.custom<string>(input => {
+          if (typeof input !== 'string') return true
+          if (!input.includes('#')) return 'Anchor must start with #'
+          return true
+        }),
+    },
     {
       name: 'columns',
       title: 'Columns',
@@ -29,6 +42,11 @@ export default {
       description: 'Content for the sticky header',
     },
     textField,
+    {
+      title: 'Accordion',
+      name: 'accordion',
+      type: 'accordion',
+    },
     {
       name: 'yellowBackground',
       type: 'boolean',
