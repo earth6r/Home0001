@@ -52,7 +52,7 @@ export default async function handler(
       eventName: 'Tour with HOME0001',
       inviteeEmail: email,
       eventDescription: `You're scheduled for a property tour with HOME0001.`,
-      calendarEmail: 'talin@home0001.com',
+      calendarEmail: 'lowereastside@home0001.com',
       zoom: false,
     })
   } catch (error) {
