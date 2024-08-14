@@ -1328,11 +1328,39 @@ export type CalendarBlock = {
   header?: RichText;
 
   /**
+   * Calendar Type — `string`
+   *
+   * Add the type of calendar
+   */
+  calendarType?: "phone" | "tour";
+
+  /**
    * email — `string`
    *
    *
    */
   email?: string;
+
+  /**
+   * Booking Notice — `string`
+   *
+   * Add the number of days to book out from today
+   */
+  notice?: "1" | "2" | "3" | "4" | "5" | "6" | "7";
+
+  /**
+   * Start of week — `string`
+   *
+   * Add the day of the week to start
+   */
+  start?: "1" | "2" | "3" | "4" | "5" | "6";
+
+  /**
+   * End of week — `string`
+   *
+   * Add the day of the week to end
+   */
+  end?: "2" | "3" | "4" | "5" | "6" | "7";
 
   /**
    * Times — `array`

@@ -21,7 +21,11 @@ type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
 export const CalendarBlock: FC<CalendarBlockProps> = ({
   index,
   header,
+  calendarType,
   email,
+  notice,
+  start,
+  end,
   times,
   successMessage,
   className,
@@ -40,6 +44,9 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
     error: boolean | null
     message: string
   }>({ error: null, message: '' })
+  const calendarNotice = notice || '2'
+  const calendarStart = start || '1'
+  const calendarEnd = end || '5'
 
   const [availableSlots, setAvailableSlots] = useState([])
   console.log('availableSlots:', availableSlots)
@@ -65,7 +72,12 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   }
 
   useEffect(() => {
-    getAvailableSlots(email || 'talin@home0001.com')
+    getAvailableSlots(
+      email || 'talin@home0001.com',
+      calendarNotice,
+      calendarStart,
+      calendarEnd
+    )
       .then((res: any) => {
         const filteredSlots = res?.data?.data?.filter(
           (days: any) => days.HasAvailability === true

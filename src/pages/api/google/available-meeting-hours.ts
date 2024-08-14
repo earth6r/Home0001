@@ -168,7 +168,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const {
     email,
-    bookingNotice = '2',
+    bookingNotice = '2', // how many days in advance someone can book
     weekStart = '1',
     weekEnd = '5',
   } = req.query as {

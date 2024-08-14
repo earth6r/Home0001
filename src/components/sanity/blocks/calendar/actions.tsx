@@ -11,10 +11,15 @@ const CONFIG = {
 }
 
 // google calendar api
-export const getAvailableSlots = async (email: string) => {
+export const getAvailableSlots = async (
+  email: string,
+  notice: string,
+  start: string,
+  end: string
+) => {
   try {
     return await axios.post(
-      `${BASE_URL}/api/google/available-meeting-hours?email=${email}`,
+      `${BASE_URL}/api/google/available-meeting-hours?email=${email}?bookingNotice=${notice}?weekStart=${start}?weekEnd=${end}`,
       CONFIG
     )
   } catch (error) {
@@ -23,7 +28,12 @@ export const getAvailableSlots = async (email: string) => {
   }
 }
 
-export const bookPhoneCall = async (data: FieldValues) => {
+export const bookPhoneCall = async (data: FieldValues, type = 'phone') => {
+  const bookingUrl =
+    type === 'phone'
+      ? `${BASE_URL}/api/bookings/book-phone-call`
+      : `${BASE_URL}/api/bookings/book-property-tour`
+
   const startDateTime = moment
     .tz(`${data.date} ${data.startTime}`, 'America/New_York')
     .utc()
@@ -34,7 +44,7 @@ export const bookPhoneCall = async (data: FieldValues) => {
 
   try {
     return await axios.post(
-      `${BASE_URL}/api/bookings/book-phone-call`,
+      bookingUrl,
       {
         email: data.email,
         startTimestamp: startDateTime
@@ -54,6 +64,6 @@ export const bookPhoneCall = async (data: FieldValues) => {
     )
   } catch (error) {
     console.error(error)
-    saveError(error, 'bookPhoneCall')
+    saveError(error, 'bookingCalendarEvent')
   }
 }
