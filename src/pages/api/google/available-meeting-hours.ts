@@ -15,7 +15,6 @@ const keys = {
 }
 
 async function getAllDayEvents(
-  email: string,
   auth: any,
   timeMin: string,
   timeMax: string
@@ -37,20 +36,25 @@ async function getAllDayEvents(
 }
 
 function formatTime(date: Date): string {
-  const localTimeString = moment.tz(date, 'America/New_York').format('HH:mm')
-  return localTimeString
+  return moment.tz(date, 'America/New_York').format('HH:mm')
 }
 
 async function getAvailableSlotsForDay(
   email: string,
   auth: any,
-  date: Date
+  date: Date,
+  weekStart: number,
+  weekEnd: number
 ): Promise<{ start: string }[]> {
   const calendar = google.calendar({ version: 'v3', auth })
   const dayOfWeek = date.getDay()
   const threeWeeksLimit = new Date().getTime() + 21 * 24 * 60 * 60 * 1000
 
-  if (dayOfWeek < 1 || dayOfWeek > 5 || date.getTime() > threeWeeksLimit) {
+  if (
+    dayOfWeek < weekStart ||
+    dayOfWeek > weekEnd ||
+    date.getTime() > threeWeeksLimit
+  ) {
     return []
   }
 
@@ -79,7 +83,6 @@ async function getAvailableSlotsForDay(
   )
 
   const isReserved = await getAllDayEvents(
-    email,
     auth,
     dayStart.toISOString(),
     dayEnd.toISOString()
@@ -163,7 +166,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 
-  const { email } = req.query as { email: string }
+  const {
+    email,
+    bookingNotice = '2',
+    weekStart = '1',
+    weekEnd = '5',
+  } = req.query as {
+    email: string
+    bookingNotice: string
+    weekStart: string
+    weekEnd: string
+  }
 
   if (!email) {
     return res.status(400).json({ error: 'Email is required' })
@@ -184,14 +197,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const currentDate = new Date(now)
       currentDate.setDate(now.getDate() + i)
 
-      if (i < 2) {
+      if (i < Number(bookingNotice)) {
         return Promise.resolve({
           date: currentDate.toISOString().split('T')[0],
           slots: [],
           HasAvailability: false,
         })
       }
-      return getAvailableSlotsForDay(email, auth, currentDate).then(slots => ({
+      return getAvailableSlotsForDay(
+        email,
+        auth,
+        currentDate,
+        Number(weekStart),
+        Number(weekEnd)
+      ).then(slots => ({
         date: currentDate.toISOString().split('T')[0],
         slots: slots.map(slot => slot.start),
         HasAvailability: slots.length > 0,
