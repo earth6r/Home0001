@@ -79,7 +79,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
 
                   <p className="font-medium mb-yhalf">
                     {cryptoMode
-                      ? `${propertyType.price?.substring(1)} USDC / ${
+                      ? `${propertyType.price?.substring(0)} USDC / ${
                           cryptoPrice[1]
                         } BTC / ${cryptoPrice[0]} ETH`
                       : propertyType?.price}
