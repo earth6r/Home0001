@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useEffect, useState, type FC } from 'react'
+import { ChangeEvent, useEffect, useState, type FC } from 'react'
 import classNames from 'classnames'
 import type { CalendarBlock as CalendarBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
@@ -14,6 +14,7 @@ import { Controller, FieldValues, useForm } from 'react-hook-form'
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import 'react-phone-number-input/style.css'
+import IconChevron from '@components/icons/IconChevron'
 
 type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
   CalendarBlockType
@@ -179,12 +180,40 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 <p className="mb-y text-button">Invalid Phone Number</p>
               )}
 
-              <textarea
-                placeholder={`Anything specific you'd like to discuss on the call?`}
-                id="notes"
-                className="input textarea mb-y"
-                {...register('notes')}
-              />
+              <div className="relative mb-y">
+                <p className="mb-yhalf text-button">{`Communication Preference`}</p>
+                <select
+                  id="preferred-comms"
+                  className="input select text-button font-sans"
+                  {...register('comms')}
+                >
+                  <option
+                    key="option-comms-0"
+                    id="preferred-comms"
+                    value="whatsapp"
+                    className="text-button"
+                  >
+                    {`WhatsApp`}
+                  </option>
+                  <option
+                    key="option-comms-1"
+                    id="preferred-comms"
+                    value="whatsapp"
+                    className="text-button"
+                  >
+                    {`SMS`}
+                  </option>
+                  <option
+                    key="option-comms-2"
+                    id="preferred-comms"
+                    value="telegram"
+                    className="text-button"
+                  >
+                    {`Telegram`}
+                  </option>
+                </select>
+                <IconChevron className="absolute w-[12px] right-x top-1/2 transform rotate-90 -translate-y-1/2" />
+              </div>
 
               <button
                 className="relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
