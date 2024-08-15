@@ -1,5 +1,5 @@
 import moment from 'moment-timezone'
-import { sendMessage } from '../../pages/api/send-whatsapp'
+import { sendWAMessagePropertyTourBooked } from '../../pages/api/send-whatsapp'
 
 export const sendWhatsappBookedMessage = async (
   firstName: string,
@@ -40,6 +40,6 @@ export const sendWhatsappBookedMessage = async (
   ]
 
   for (const number of numbers) {
-    await sendMessage(number, message)
+    await sendWAMessagePropertyTourBooked(number, message)
   }
 }

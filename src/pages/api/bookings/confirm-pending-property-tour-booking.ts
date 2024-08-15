@@ -44,6 +44,7 @@ export default async function handler(
   await bookingRef.update({
     startTimestamp: startTimestampFormatted,
     endTimestamp: endTimestampFormatted,
+    status: 'scheduled',
   })
 
   try {
