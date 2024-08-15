@@ -28,7 +28,7 @@ export const getAvailableSlots = async (
   }
 }
 
-export const bookPhoneCall = async (data: FieldValues, type = 'phone') => {
+export const bookMeeting = async (data: FieldValues, type = 'phone') => {
   const bookingUrl =
     type === 'phone'
       ? `${BASE_URL}/api/bookings/book-phone-call`
