@@ -112,7 +112,7 @@ export const DateSelect: FC<DateSelectProps> = ({
                       key={`slots-${index}`}
                       className={classNames('h-full')}
                     >
-                      <div className="grid grid-cols-2 gap-xhalf">
+                      <div className="grid grid-cols-3 gap-xhalf">
                         {times?.map((time: string, index: number) => (
                           <div
                             key={index}
