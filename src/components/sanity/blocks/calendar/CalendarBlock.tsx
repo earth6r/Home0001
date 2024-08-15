@@ -39,6 +39,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   } = useForm({
     shouldUseNativeValidation: true,
   })
+  console.log('calendarType', calendarType)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [formError, setFormError] = useState<{
     error: boolean | null
@@ -190,7 +191,11 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 form={`calendar-block-${index}`}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Submitting...' : 'Book a call'}
+                {isSubmitting
+                  ? 'Submitting...'
+                  : calendarType == 'tour'
+                  ? 'Book a tour'
+                  : 'Book a call'}
                 <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
               </button>
 
