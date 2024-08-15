@@ -6,7 +6,7 @@ import type { SanityBlockElement } from '@components/sanity'
 import {
   Block,
   RichText,
-  bookPhoneCall,
+  bookMeeting,
   getAvailableSlots,
 } from '@components/sanity'
 import { DateSelect } from '@components/date-select'
@@ -57,7 +57,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   const onSubmit = async (data: FieldValues) => {
     if (!data.email || !data.startTime) return
     setIsSubmitting(true)
-    bookPhoneCall(data)
+    bookMeeting(data)
       .then(() => {
         setFormSubmitted(true)
         setIsSubmitting(false)
@@ -124,7 +124,8 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
               <div className="mb-y">
                 <p className="uppercase font-medium small">
                   <span className="block small">
-                    Meeting Duration: 15 minutes
+                    Meeting Duration:{' '}
+                    {calendarType == 'tour' ? '1 hour' : '15 minutes'}
                   </span>
                 </p>
               </div>
