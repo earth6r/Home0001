@@ -212,7 +212,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                     {`Telegram`}
                   </option>
                 </select>
-                <IconChevron className="absolute w-[12px] right-x top-1/2 transform rotate-90 -translate-y-1/2" />
+                <IconChevron className="absolute w-[12px] right-x top-[55%] transform rotate-90" />
               </div>
 
               <button
