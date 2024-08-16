@@ -19,7 +19,7 @@ export const getAvailableSlots = async (
 ) => {
   try {
     return await axios.post(
-      `${BASE_URL}/api/google/available-meeting-hours?email=${email}?bookingNotice=${notice}?weekStart=${start}?weekEnd=${end}`,
+      `${BASE_URL}/api/google/available-meeting-hours?email=${email}&bookingNotice=${notice}&weekStart=${start}&weekEnd=${end}`,
       CONFIG
     )
   } catch (error) {
