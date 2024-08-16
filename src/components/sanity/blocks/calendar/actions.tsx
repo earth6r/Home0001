@@ -29,7 +29,7 @@ export const getAvailableSlots = async (
 }
 
 export const bookMeeting = async (data: FieldValues, type = 'phone') => {
-  const bookingUrl =
+  const endpoint =
     type === 'phone'
       ? `${BASE_URL}/api/bookings/book-phone-call`
       : `${BASE_URL}/api/bookings/book-property-tour`
@@ -42,9 +42,9 @@ export const bookMeeting = async (data: FieldValues, type = 'phone') => {
     .utc()
   const endDateTime = startDateTimePlus.add(15, 'minutes')
 
-  try {
-    return await axios.post(
-      bookingUrl,
+  const callBookMeeting = async () => {
+    return axios.post(
+      endpoint,
       {
         email: data.email,
         startTimestamp: startDateTime
@@ -62,6 +62,21 @@ export const bookMeeting = async (data: FieldValues, type = 'phone') => {
       },
       CONFIG
     )
+  }
+
+  const callPreferredComms = async () => {
+    return axios.post(
+      `${BASE_URL}/api/bookings/set-preferred-communication-medium`,
+      {
+        email: data.email,
+        preferredCommunicationMedium: data.comms,
+      },
+      CONFIG
+    )
+  }
+
+  try {
+    return await Promise.all([callBookMeeting(), callPreferredComms()])
   } catch (error) {
     console.error(error)
     saveError(error, 'bookingCalendarEvent')
