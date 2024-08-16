@@ -6,7 +6,6 @@ import { JWT } from 'google-auth-library'
 import moment from 'moment-timezone'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
-const Subject = 'talin@home0001.com' // test with talin@home0001.com as well
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
@@ -16,13 +15,14 @@ const keys = {
 
 async function getAllDayEvents(
   auth: any,
+  email: string,
   timeMin: string,
   timeMax: string
 ): Promise<boolean> {
   const calendar = google.calendar({ version: 'v3', auth })
 
   const response = await calendar.events.list({
-    calendarId: Subject,
+    calendarId: email,
     timeMin,
     timeMax,
     singleEvents: true,
@@ -84,6 +84,7 @@ async function getAvailableSlotsForDay(
 
   const isReserved = await getAllDayEvents(
     auth,
+    email,
     dayStart.toISOString(),
     dayEnd.toISOString()
   )
@@ -115,7 +116,7 @@ async function getAvailableSlotsForDay(
   )
 
   const response = await calendar.events.list({
-    calendarId: Subject,
+    calendarId: email,
     timeMin: timeMin.toISOString(),
     timeMax: timeMax.toISOString(),
     singleEvents: true,
