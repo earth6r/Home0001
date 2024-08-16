@@ -58,7 +58,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   const onSubmit = async (data: FieldValues) => {
     if (!data.email || !data.startTime) return
     setIsSubmitting(true)
-    bookMeeting(data)
+    bookMeeting(data, calendarType)
       .then(() => {
         setFormSubmitted(true)
         setIsSubmitting(false)
