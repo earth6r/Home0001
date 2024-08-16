@@ -123,3 +123,43 @@ export const updateHubspotContact = async (
     }
   }
 }
+
+export const updateHubspotContactProperty = async (
+  email: string,
+  propertyName: string,
+  propertyValue: any
+) => {
+  try {
+    const response = await axios.patch(
+      `https://api.hubapi.com/crm/v3/objects/contacts/${email}?idProperty=email`,
+      {
+        properties: {
+          [propertyName]: propertyValue,
+        },
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
+        },
+      }
+    )
+
+    return response.data
+  } catch (error: any) {
+    console.error('Error updating Hubspot contact property', error)
+    saveError(
+      {
+        error,
+        additionalInfo: {
+          email,
+          propertyName,
+          propertyValue,
+        },
+      },
+      'updateHubspotContactProperty'
+    )
+
+    throw error
+  }
+}
