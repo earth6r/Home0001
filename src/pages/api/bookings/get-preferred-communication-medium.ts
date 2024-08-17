@@ -22,7 +22,7 @@ export default async function handler(
   }
 
   const userRef = await db
-    .collection('users')
+    .collection('potentialCustomers')
     .where('email', '==', email)
     .limit(1)
     .get()
