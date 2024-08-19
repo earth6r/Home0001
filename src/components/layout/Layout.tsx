@@ -39,6 +39,7 @@ export const Layout: FC<LayoutProps> = ({
       triggerToastPreview({
         deactivateUrl: `${BASE_URL}/api/exit-preview?path=${asPath}`,
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

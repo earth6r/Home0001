@@ -57,6 +57,7 @@ function App({ Component, pageProps }: AppProps<{}>) {
     return () => {
       events.off('routeChangeComplete', handleRouteChange)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
