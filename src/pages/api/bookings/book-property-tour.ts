@@ -47,24 +47,42 @@ export default async function handler(
     endTimestamp = null,
     phoneNumber = null,
     blockWhatsApp = false,
+    pending = false, // if true, don't create calendar event, don't save to hubspot, don't send whatsapp message, don't save start and end timestamp to firestore
   } = req.body
 
   initializeAdmin() // Initialize Firebase Admin SDK
 
   const db = admin.firestore() // Get a reference to the Firestore database
 
-  const startTimestampFormatted = parseTimestamp(startTimestamp)
-  const endTimestampFormatted = parseTimestamp(endTimestamp)
+  let startTimestampFormatted
+  let endTimestampFormatted
+
+  if (!pending) {
+    startTimestampFormatted = parseTimestamp(startTimestamp)
+    endTimestampFormatted = parseTimestamp(endTimestamp)
+  }
 
   await db.collection('usersBookPropertyTour').add({
     email,
-    startTimestamp: startTimestampFormatted,
-    endTimestamp: endTimestampFormatted,
+    ...(pending
+      ? {}
+      : {
+          startTimestamp: startTimestampFormatted,
+          endTimestamp: endTimestampFormatted,
+        }),
     firstName,
     lastName,
     notes,
     phoneNumber,
+    status: pending ? 'pending' : 'scheduled',
   })
+
+  if (pending) {
+    res.status(200).json({
+      status: 'success',
+    })
+    return
+  }
 
   try {
     createCalendarEvent({
@@ -103,7 +121,7 @@ export default async function handler(
   try {
     await updateHubspotContact(
       email,
-      new Date(startTimestampFormatted),
+      new Date(startTimestampFormatted as number),
       firstName,
       lastName,
       'upcoming_property_tour_date'

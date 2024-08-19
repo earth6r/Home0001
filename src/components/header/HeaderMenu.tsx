@@ -51,8 +51,8 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
             'flex items-center absolute h-header px-x pointer-events-none'
           )}
         >
-          <Logo className="md:hidden" />
-          <span className="hidden md:block text-base uppercase">Menu</span>
+          <Logo className="hidden" />
+          <span className="block text-base uppercase">Menu</span>
         </div>
         <nav
           className={classNames(
@@ -60,7 +60,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
             'md:grid md:grid-cols-2 overflow-auto z-40 md:shadow-none pt-[78px] md:pt-[132px] left-0 w-full h-full text-base fade-enter-done'
           )}
         >
-          <ul className="container flex flex-col w-full outline-none pb-ydouble">
+          <ul className="container flex flex-col w-full outline-none pb-[192px]">
             <li className="md:hidden uppercase mb-yhalf md:mb-y">
               <span className="inline-block">Homes:</span>
             </li>

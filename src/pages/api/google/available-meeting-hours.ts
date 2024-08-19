@@ -6,7 +6,6 @@ import { JWT } from 'google-auth-library'
 import moment from 'moment-timezone'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar']
-const Subject = 'talin@home0001.com' // test with talin@home0001.com as well
 
 const keys = {
   client_email: process.env.GOOGLE_API_CLIENT_EMAIL,
@@ -15,15 +14,15 @@ const keys = {
 }
 
 async function getAllDayEvents(
-  email: string,
   auth: any,
+  email: string,
   timeMin: string,
   timeMax: string
 ): Promise<boolean> {
   const calendar = google.calendar({ version: 'v3', auth })
 
   const response = await calendar.events.list({
-    calendarId: Subject,
+    calendarId: email,
     timeMin,
     timeMax,
     singleEvents: true,
@@ -37,20 +36,25 @@ async function getAllDayEvents(
 }
 
 function formatTime(date: Date): string {
-  const localTimeString = moment.tz(date, 'America/New_York').format('HH:mm')
-  return localTimeString
+  return moment.tz(date, 'America/New_York').format('HH:mm')
 }
 
 async function getAvailableSlotsForDay(
   email: string,
   auth: any,
-  date: Date
+  date: Date,
+  weekStart: number,
+  weekEnd: number
 ): Promise<{ start: string }[]> {
   const calendar = google.calendar({ version: 'v3', auth })
   const dayOfWeek = date.getDay()
   const threeWeeksLimit = new Date().getTime() + 21 * 24 * 60 * 60 * 1000
 
-  if (dayOfWeek < 1 || dayOfWeek > 5 || date.getTime() > threeWeeksLimit) {
+  if (
+    dayOfWeek < weekStart ||
+    dayOfWeek > weekEnd ||
+    date.getTime() > threeWeeksLimit
+  ) {
     return []
   }
 
@@ -79,8 +83,8 @@ async function getAvailableSlotsForDay(
   )
 
   const isReserved = await getAllDayEvents(
-    email,
     auth,
+    email,
     dayStart.toISOString(),
     dayEnd.toISOString()
   )
@@ -93,7 +97,7 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      14,
+      11,
       0,
       0,
       0
@@ -104,7 +108,7 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      21,
+      23,
       0,
       0,
       0
@@ -112,7 +116,7 @@ async function getAvailableSlotsForDay(
   )
 
   const response = await calendar.events.list({
-    calendarId: Subject,
+    calendarId: email,
     timeMin: timeMin.toISOString(),
     timeMax: timeMax.toISOString(),
     singleEvents: true,
@@ -163,7 +167,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 
-  const { email } = req.query as { email: string }
+  const {
+    email,
+    bookingNotice = '2', // how many days in advance someone can book
+    weekStart = '1',
+    weekEnd = '5',
+  } = req.query as {
+    email: string
+    bookingNotice: string
+    weekStart: string
+    weekEnd: string
+  }
 
   if (!email) {
     return res.status(400).json({ error: 'Email is required' })
@@ -184,14 +198,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const currentDate = new Date(now)
       currentDate.setDate(now.getDate() + i)
 
-      if (i < 2) {
+      if (i < Number(bookingNotice)) {
         return Promise.resolve({
           date: currentDate.toISOString().split('T')[0],
           slots: [],
           HasAvailability: false,
         })
       }
-      return getAvailableSlotsForDay(email, auth, currentDate).then(slots => ({
+      return getAvailableSlotsForDay(
+        email,
+        auth,
+        currentDate,
+        Number(weekStart),
+        Number(weekEnd)
+      ).then(slots => ({
         date: currentDate.toISOString().split('T')[0],
         slots: slots.map(slot => slot.start),
         HasAvailability: slots.length > 0,

@@ -20,6 +20,7 @@ export const validateBooking = (req: NextApiRequest) => {
     firstName = null,
     lastName = null,
     notes = null,
+    pending = false,
   } = body
 
   if (!email || typeof email !== 'string') {
@@ -38,6 +39,27 @@ export const validateBooking = (req: NextApiRequest) => {
     return {
       error: 'firstName and lastName must be a string', // Respond with error if firstName or lastName is missing
       status: 400,
+    }
+  }
+
+  if (!phoneNumber || typeof phoneNumber !== 'string') {
+    return {
+      error: 'phoneNumber must be a string', // Respond with error if phoneNumber is not a string
+      status: 400,
+    }
+  }
+
+  if (notes && typeof notes !== 'string') {
+    return {
+      error: 'notes must be a string', // Respond with error if notes is not a string
+      status: 400,
+    }
+  }
+
+  if (pending) {
+    return {
+      error: null,
+      status: 200,
     }
   }
 
@@ -68,20 +90,6 @@ export const validateBooking = (req: NextApiRequest) => {
     }
   }
 
-  if (!phoneNumber || typeof phoneNumber !== 'string') {
-    return {
-      error: 'phoneNumber must be a string', // Respond with error if phoneNumber is not a string
-      status: 400,
-    }
-  }
-
-  if (notes && typeof notes !== 'string') {
-    return {
-      error: 'notes must be a string', // Respond with error if notes is not a string
-      status: 400,
-    }
-  }
-
   const startTimestampEpoch = new Date(startTimestamp).getTime()
   const endTimestampEpoch = new Date(endTimestamp).getTime()
   const currentTimestampEpoch = new Date().getTime()
@@ -96,38 +104,6 @@ export const validateBooking = (req: NextApiRequest) => {
   if (startTimestampEpoch <= currentTimestampEpoch) {
     return {
       error: 'startTimestamp must be in the future', // Respond with error if startTimestamp is in the past
-      status: 400,
-    }
-  }
-
-  return {
-    error: null,
-    status: 200,
-  }
-}
-
-export const validateProperty = (req: NextApiRequest) => {
-  const { body = null } = req
-
-  if (!body) {
-    return {
-      error: 'Missing body in request', // Respond with error if body is missing
-      status: 400,
-    }
-  }
-
-  const { property = null } = body
-
-  if (!property || typeof property !== 'string') {
-    return {
-      error: 'property must be a string', // Respond with error if property is not a string
-      status: 400,
-    }
-  }
-
-  if (!propertyTypes.includes(property)) {
-    return {
-      error: 'Invalid property type', // Respond with error if property is not a valid property type
       status: 400,
     }
   }
