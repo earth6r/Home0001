@@ -1,4 +1,4 @@
-import { useRef, type FC, HTMLAttributes, useState } from 'react'
+import { useRef, type FC, HTMLAttributes, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import type { Cta, RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { Disclosure, Transition } from '@headlessui/react'
@@ -49,6 +49,23 @@ export const Accordion: FC<AccordionProps> = ({
       setOpenedOnce(true)
     }
   }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const resizeAccordion = () => {
+        if (ref.current) {
+          ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
+        }
+      }
+
+      window.addEventListener('resize', resizeAccordion)
+
+      return () => {
+        window.removeEventListener('resize', resizeAccordion)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className={classNames(className, readMore ? '' : 'border-black')}>
