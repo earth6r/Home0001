@@ -1,4 +1,4 @@
-import { useRef, type FC, HTMLAttributes, useState } from 'react'
+import { useRef, type FC, HTMLAttributes, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import type { Cta, RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { Disclosure, Transition } from '@headlessui/react'
@@ -19,6 +19,7 @@ export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   readMore?: boolean
   firstIndex?: boolean
   location?: { property: string; unit: string }
+  open?: boolean
 }
 
 export const Accordion: FC<AccordionProps> = ({
@@ -29,6 +30,7 @@ export const Accordion: FC<AccordionProps> = ({
   cta,
   location,
   readMore,
+  open,
   className,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -49,9 +51,26 @@ export const Accordion: FC<AccordionProps> = ({
     }
   }
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const resizeAccordion = () => {
+        if (ref.current) {
+          ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
+        }
+      }
+
+      window.addEventListener('resize', resizeAccordion)
+
+      return () => {
+        window.removeEventListener('resize', resizeAccordion)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className={classNames(className, readMore ? '' : 'border-black')}>
-      <Disclosure>
+      <Disclosure defaultOpen={open}>
         {({ open }) => {
           return (
             <>
@@ -64,21 +83,23 @@ export const Accordion: FC<AccordionProps> = ({
                   `w-full text-left`
                 )}
               >
-                <h2
-                  className={classNames(
-                    readMore
-                      ? largeHeader
-                        ? 'text-h2'
-                        : 'text-h4'
-                      : 'w-[calc(100%-16px)] font-medium text-xs',
-                    'uppercase'
-                  )}
-                >
-                  {header}
-                </h2>
+                {header && (
+                  <h2
+                    className={classNames(
+                      readMore
+                        ? largeHeader
+                          ? 'text-h2'
+                          : 'text-h4'
+                        : 'w-[calc(100%-16px)] font-medium text-xs',
+                      'uppercase'
+                    )}
+                  >
+                    {header}
+                  </h2>
+                )}
 
                 {readMore ? (
-                  <div className="pr-x pt-yhalf">
+                  <div className={classNames(header ? 'pt-yhalf pr-x' : '')}>
                     {initialText && <RichText blocks={initialText} />}
 
                     <span

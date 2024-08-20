@@ -545,6 +545,55 @@ export interface PropertyType extends SanityDocument {
 }
 
 /**
+ * R+D Page
+ *
+ *
+ */
+export interface RdPage extends SanityDocument {
+  _type: "rdPage";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * unit
  *
  *
@@ -1087,6 +1136,20 @@ export type Media = {
   };
 
   /**
+   * File — `file`
+   *
+   *
+   */
+  file?: { _type: "file"; asset: SanityReference<any> };
+
+  /**
+   * Video — `video`
+   *
+   *
+   */
+  video?: Video;
+
+  /**
    * Alternative text — `string`
    *
    * Important for SEO and accessiblity.
@@ -1099,13 +1162,6 @@ export type Media = {
    *
    */
   caption?: RichText;
-
-  /**
-   * File — `file`
-   *
-   *
-   */
-  file?: { _type: "file"; asset: SanityReference<any> };
 };
 
 export type MenuItem = {
@@ -1385,6 +1441,48 @@ export type CalendarBlock = {
   header?: RichText;
 
   /**
+   * Calendar Type — `string`
+   *
+   * Add the type of calendar
+   */
+  calendarType?: "phone" | "tour";
+
+  /**
+   * email — `string`
+   *
+   *
+   */
+  email?: string;
+
+  /**
+   * Booking Notice — `string`
+   *
+   * Add the number of days to book out from today
+   */
+  notice?: "1" | "2" | "3" | "4" | "5" | "6" | "7";
+
+  /**
+   * Start of week — `string`
+   *
+   * Add the day of the week to start
+   */
+  start?: "1" | "2" | "3" | "4" | "5" | "6";
+
+  /**
+   * End of week — `string`
+   *
+   * Add the day of the week to end
+   */
+  end?: "2" | "3" | "4" | "5" | "6" | "7";
+
+  /**
+   * Times — `array`
+   *
+   * Add the times to show are possibly available to meet
+   */
+  times?: Array<SanityKeyed<string>>;
+
+  /**
    * Success Message — `richText`
    *
    *
@@ -1561,6 +1659,13 @@ export type TableBlock = {
 export type TextBlock = {
   _type: "textBlock";
   /**
+   * Anchor — `string`
+   *
+   * Add an anchor tag to this text block (ie #ab-fab)
+   */
+  anchor?: string;
+
+  /**
    * Columns — `number`
    *
    * Number of columns to display on larger screens. Defaults to 3 if blank
@@ -1587,6 +1692,13 @@ export type TextBlock = {
    *
    */
   text?: RichText;
+
+  /**
+   * Accordion — `accordion`
+   *
+   *
+   */
+  accordion?: Accordion;
 
   /**
    * Yellow Background — `boolean`
@@ -1751,6 +1863,7 @@ export type Documents =
   | Page
   | Property
   | PropertyType
+  | RdPage
   | Unit
   | SiteSettings;
 

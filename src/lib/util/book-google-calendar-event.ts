@@ -7,30 +7,34 @@ const keys = {
   private_key: process.env.GOOGLE_API_PRIVATE_KEY,
 }
 
-const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
-
-const auth = new JWT({
-  email: keys.client_email,
-  key: keys.private_key,
-  scopes: ['https://www.googleapis.com/auth/calendar.events'],
-  subject: Subject,
-})
-
-const calendar = google.calendar({ version: 'v3', auth })
-
 async function createCalendarEvent({
   startTime,
   endTime,
   eventName,
   inviteeEmail,
   eventDescription,
+  calendarEmail,
+  zoom = true,
 }: {
   startTime: string
   endTime: string
   eventName: string
   inviteeEmail: string
   eventDescription: string
+  calendarEmail: string
+  zoom?: boolean
 }) {
+  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+
+  const auth = new JWT({
+    email: keys.client_email,
+    key: keys.private_key,
+    scopes: ['https://www.googleapis.com/auth/calendar.events'],
+    subject: calendarEmail,
+  })
+
+  const calendar = google.calendar({ version: 'v3', auth })
+
   const staffEmails = [
     inviteeEmail,
     // 'dzelefsky@braverlaw.net',
@@ -39,9 +43,9 @@ async function createCalendarEvent({
     // 'gio@choicefamily.com',
     // 'andres@hoggholdings.com',
     // 'annika@home0001.com',
-    // 'yan@home0001.com',
     // 'm@choicefamily.com',
-    'talin@home0001.com',
+    'yan@home0001.com',
+    calendarEmail,
   ]
   if (
     !startTime ||
@@ -57,13 +61,18 @@ async function createCalendarEvent({
   const zoomLink =
     'https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09'
 
+  let fullEventDescription = `${eventDescription}`
+  if (zoom) {
+    fullEventDescription += `\n\nJoin Zoom Meeting:\n${zoomLink}`
+  }
+
   const startDateTime = moment.utc(startTime).toDate()
   const endDateTime = moment.utc(endTime).toDate()
 
   const event = {
     summary: eventName,
-    location: zoomLink,
-    description: eventDescription,
+    location: zoom ? zoomLink : '48 Allen Street, New York, NY 10002',
+    description: fullEventDescription,
     start: {
       dateTime: startDateTime.toISOString(),
       timeZone: 'UTC',
@@ -73,7 +82,7 @@ async function createCalendarEvent({
       timeZone: 'UTC',
     },
     attendees: [
-      { email: Subject },
+      // { email: Subject },
       { email: inviteeEmail },
       ...staffEmails.map(email => ({ email })),
     ],

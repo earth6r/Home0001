@@ -184,6 +184,22 @@ export const BODY_QUERY = `
         ...,
         ${LINK_MARKDEFS_QUERY}
       },
+      cta{
+        ${CTA_QUERY}
+      },
+    },
+    "accordion": accordion{
+      ...,
+      "text": text[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      },
+      cta{
+        ${CTA_QUERY}
+      }
     },
     "accordions": accordions[]{
       ...,

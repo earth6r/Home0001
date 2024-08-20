@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-import { useEffect, useState, type FC } from 'react'
+import { ChangeEvent, useEffect, useState, type FC } from 'react'
 import classNames from 'classnames'
 import type { CalendarBlock as CalendarBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import {
   Block,
   RichText,
-  bookPhoneCall,
+  bookMeeting,
   getAvailableSlots,
 } from '@components/sanity'
 import { DateSelect } from '@components/date-select'
@@ -14,6 +14,7 @@ import { Controller, FieldValues, useForm } from 'react-hook-form'
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import 'react-phone-number-input/style.css'
+import IconChevron from '@components/icons/IconChevron'
 
 type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
   CalendarBlockType
@@ -21,6 +22,12 @@ type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
 export const CalendarBlock: FC<CalendarBlockProps> = ({
   index,
   header,
+  calendarType,
+  email,
+  notice,
+  start,
+  end,
+  times,
   successMessage,
   className,
 }) => {
@@ -33,11 +40,15 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   } = useForm({
     shouldUseNativeValidation: true,
   })
+  console.log('calendarType', calendarType)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [formError, setFormError] = useState<{
     error: boolean | null
     message: string
   }>({ error: null, message: '' })
+  const calendarNotice = notice || '2'
+  const calendarStart = start || '1'
+  const calendarEnd = end || '5'
 
   const [availableSlots, setAvailableSlots] = useState([])
   console.log('availableSlots:', availableSlots)
@@ -47,7 +58,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   const onSubmit = async (data: FieldValues) => {
     if (!data.email || !data.startTime) return
     setIsSubmitting(true)
-    bookPhoneCall(data)
+    bookMeeting(data, calendarType)
       .then(() => {
         setFormSubmitted(true)
         setIsSubmitting(false)
@@ -63,7 +74,12 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   }
 
   useEffect(() => {
-    getAvailableSlots()
+    getAvailableSlots(
+      email || 'talin@home0001.com',
+      calendarNotice,
+      calendarStart,
+      calendarEnd
+    )
       .then((res: any) => {
         const filteredSlots = res?.data?.data?.filter(
           (days: any) => days.HasAvailability === true
@@ -76,6 +92,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
         console.error(err)
         setLoading(false)
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -101,13 +118,15 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 register={register}
                 resetField={resetField}
                 loading={loading}
+                times={times}
                 className="mb-y"
               />
 
               <div className="mb-y">
                 <p className="uppercase font-medium small">
                   <span className="block small">
-                    Meeting Duration: 15 minutes
+                    Meeting Duration:{' '}
+                    {calendarType == 'tour' ? '1 hour' : '15 minutes'}
                   </span>
                 </p>
               </div>
@@ -161,12 +180,40 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 <p className="mb-y text-button">Invalid Phone Number</p>
               )}
 
-              <textarea
-                placeholder={`Anything specific you'd like to discuss on the call?`}
-                id="notes"
-                className="input textarea mb-y"
-                {...register('notes')}
-              />
+              <div className="relative mb-y">
+                <p className="mb-yhalf text-button">{`Communication Preference`}</p>
+                <select
+                  id="preferred-comms"
+                  className="input select text-button font-sans"
+                  {...register('comms')}
+                >
+                  <option
+                    key="option-comms-0"
+                    id="preferred-comms"
+                    value="whatsapp"
+                    className="text-button"
+                  >
+                    {`WhatsApp`}
+                  </option>
+                  <option
+                    key="option-comms-1"
+                    id="preferred-comms"
+                    value="whatsapp"
+                    className="text-button"
+                  >
+                    {`SMS`}
+                  </option>
+                  <option
+                    key="option-comms-2"
+                    id="preferred-comms"
+                    value="telegram"
+                    className="text-button"
+                  >
+                    {`Telegram`}
+                  </option>
+                </select>
+                <IconChevron className="absolute w-[12px] right-x top-[55%] transform rotate-90" />
+              </div>
 
               <button
                 className="relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
@@ -174,7 +221,11 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 form={`calendar-block-${index}`}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Submitting...' : 'Book a call'}
+                {isSubmitting
+                  ? 'Submitting...'
+                  : calendarType == 'tour'
+                  ? 'Book a tour'
+                  : 'Book a call'}
                 <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
               </button>
 

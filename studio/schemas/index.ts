@@ -46,6 +46,7 @@ import cookiesToggle from './objects/cookies-toggle'
 import buy from './documents/buy-page'
 import tableBlock from './blocks/table-block'
 import contentRow from './objects/content-row'
+import rdPage from './documents/rd-page'
 
 export const schemaTypes = [
   // objects
@@ -101,6 +102,7 @@ export const schemaTypes = [
   page,
   property,
   propertyType,
+  rdPage,
   unit,
   siteSettings,
 ]
