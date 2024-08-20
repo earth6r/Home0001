@@ -62,9 +62,15 @@ export const Layout: FC<LayoutProps> = ({
         <Header
           className="flex-initial"
           path={asPath}
+          title={
+            page?._type && (page._type as string) === 'rdPage'
+              ? '0001'
+              : 'HOME0001'
+          }
           hideMenuButton={
             page?.hideMenuButton ||
-            (page?._type && (page._type as string) === 'buy')
+            (page?._type && (page._type as string) === 'buy') ||
+            (page?._type && (page._type as string) === 'rdPage')
           }
           hideMenu={page?._type && (page._type as string) === 'buy'}
           showTourLink={page?.showTourLink}

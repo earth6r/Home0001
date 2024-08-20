@@ -37,10 +37,10 @@ const SanityCookiesToggle: FC<SanityCookiesToggleProps> = ({
 export const blockTypes: Partial<PortableTextReactComponents['types']> = {
   media: ({ value }) => {
     return (
-      <div className={`max-w-[273px] md:max-w-[522px] mx-auto text-center`}>
+      <div>
         <SanityMedia
           imageProps={{
-            alt: value?.alt || 'Building image',
+            alt: value?.alt || 'Media',
             lqip: (value?.image as any)?.asset?.metadata?.lqip,
           }}
           className="w-full h-auto object-cover"
