@@ -47,7 +47,7 @@ export default async function handler(
 
   let googleCalendarEventId
   try {
-    googleCalendarEventId = createCalendarEvent({
+    googleCalendarEventId = await createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
       eventName: 'Zoom with HOME0001',
