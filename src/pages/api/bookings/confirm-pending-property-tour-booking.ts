@@ -1,5 +1,5 @@
 import { initializeAdmin } from '@lib/firebase/admin'
-import createCalendarEvent from '@lib/util/book-google-calendar-event'
+import { createCalendarEvent } from '@lib/util/book-google-calendar-event'
 import { saveError } from '@lib/util/save-error'
 import { sendWhatsappBookedMessage } from '@lib/util/send-whatsapp-booked-message'
 import { updateHubspotContact } from '@lib/util/update-hubspot-contact'

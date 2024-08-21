@@ -1,5 +1,12 @@
 {
-  "cSpell.words": ["Firestore", "groq", "hookform", "hutk", "serializers"],
+  "cSpell.words": [
+    "Firestore",
+    "groq",
+    "hookform",
+    "Hubspot",
+    "hutk",
+    "serializers"
+  ],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   },

@@ -2,7 +2,7 @@ import { initializeAdmin } from '@lib/firebase/admin'
 import { saveError } from '@lib/util/save-error'
 import admin from 'firebase-admin' // Firebase Admin SDK
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
-import createCalendarEvent from '../../../lib/util/book-google-calendar-event'
+import { createCalendarEvent } from '../../../lib/util/book-google-calendar-event'
 import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booked-message'
 import { updateHubspotContact } from '../../../lib/util/update-hubspot-contact'
 import { sendMessage } from '../send-whatsapp'
