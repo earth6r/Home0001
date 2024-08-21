@@ -1,6 +1,9 @@
 import { saveError } from '@lib/util/save-error'
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
-import createCalendarEvent from '../../../lib/util/book-google-calendar-event'
+import {
+  createCalendarEvent,
+  deleteCalendarEvent,
+} from '../../../lib/util/book-google-calendar-event'
 import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booked-message'
 import { validateBooking } from './validate'
 
@@ -43,10 +46,17 @@ export default async function handler(
     endTimestamp = null,
     phoneNumber = null,
     blockWhatsApp = false,
+    googleCalendarEventIdExistingBooking = null,
   } = req.body
 
   let googleCalendarEventId
   try {
+    if (googleCalendarEventIdExistingBooking) {
+      await deleteCalendarEvent({
+        calendarEmail: 'lowereastside@home0001.com',
+        eventId: googleCalendarEventIdExistingBooking,
+      })
+    }
     googleCalendarEventId = await createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
