@@ -94,7 +94,7 @@ async function createCalendarEvent({
     sendUpdates: 'all',
   })
 
-  return response.data.id
+  return response.data.id // event id
 }
 
 export default createCalendarEvent
