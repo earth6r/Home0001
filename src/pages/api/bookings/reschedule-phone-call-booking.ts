@@ -79,6 +79,8 @@ export default async function handler(
     }
   }
 
+  console.error('googleCalendarEventId', googleCalendarEventId)
+
   res.status(200).json({
     status: 'success',
     googleCalendarEventId,
