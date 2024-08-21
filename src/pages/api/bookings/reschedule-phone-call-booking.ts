@@ -45,8 +45,9 @@ export default async function handler(
     blockWhatsApp = false,
   } = req.body
 
+  let googleCalendarEventId
   try {
-    createCalendarEvent({
+    googleCalendarEventId = createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
       eventName: 'Zoom with HOME0001',
@@ -80,5 +81,6 @@ export default async function handler(
 
   res.status(200).json({
     status: 'success',
+    googleCalendarEventId,
   })
 }
