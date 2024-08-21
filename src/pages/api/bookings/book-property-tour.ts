@@ -85,7 +85,7 @@ export default async function handler(
   }
 
   try {
-    const googleCalendarEventId = createCalendarEvent({
+    const googleCalendarEventId = await createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
       eventName: 'Property Tour with HOME0001',
