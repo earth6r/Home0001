@@ -62,7 +62,7 @@ export default async function handler(
     endTimestampFormatted = parseTimestamp(endTimestamp)
   }
 
-  await db.collection('usersBookPropertyTour').add({
+  const firebaseResponse = await db.collection('usersBookPropertyTour').add({
     email,
     ...(pending
       ? {}
@@ -85,7 +85,7 @@ export default async function handler(
   }
 
   try {
-    createCalendarEvent({
+    const googleCalendarEventId = createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
       eventName: 'Property Tour with HOME0001',
@@ -93,6 +93,10 @@ export default async function handler(
       eventDescription: `You're scheduled for a property tour with HOME0001.`,
       calendarEmail: 'lowereastside@home0001.com',
       zoom: false,
+    })
+
+    firebaseResponse.update({
+      googleCalendarEventId,
     })
   } catch (error) {
     // eslint-disable-next-line no-console
