@@ -56,7 +56,7 @@ export default async function handler(
       //   calendarEmail: 'talin@home0001.com',
       //   eventId: googleCalendarEventIdExistingBooking,
       // })
-      await updateCalendarEvent({
+      googleCalendarEventId = await updateCalendarEvent({
         startTime: startTimestamp,
         endTime: endTimestamp,
         eventId: googleCalendarEventIdExistingBooking,
