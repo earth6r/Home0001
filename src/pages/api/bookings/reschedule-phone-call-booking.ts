@@ -2,7 +2,6 @@ import { saveError } from '@lib/util/save-error'
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
 import {
   createCalendarEvent,
-  deleteCalendarEvent,
   updateCalendarEvent,
 } from '../../../lib/util/book-google-calendar-event'
 import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booked-message'
