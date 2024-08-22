@@ -3,6 +3,7 @@ import { type NextApiRequest, type NextApiResponse } from 'next' // Type definit
 import {
   createCalendarEvent,
   deleteCalendarEvent,
+  updateCalendarEvent,
 } from '../../../lib/util/book-google-calendar-event'
 import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booked-message'
 import { validateBooking } from './validate'
@@ -52,20 +53,27 @@ export default async function handler(
   let googleCalendarEventId
   try {
     if (googleCalendarEventIdExistingBooking) {
-      await deleteCalendarEvent({
+      // await deleteCalendarEvent({
+      //   calendarEmail: 'lowereastside@home0001.com',
+      //   eventId: googleCalendarEventIdExistingBooking,
+      // })
+      await updateCalendarEvent({
         calendarEmail: 'lowereastside@home0001.com',
         eventId: googleCalendarEventIdExistingBooking,
+        startTime: startTimestamp,
+        endTime: endTimestamp,
+      })
+    } else {
+      googleCalendarEventId = await createCalendarEvent({
+        startTime: startTimestamp,
+        endTime: endTimestamp,
+        eventName: 'Tour with HOME0001',
+        inviteeEmail: email,
+        eventDescription: `You're scheduled for a property tour with HOME0001.`,
+        calendarEmail: 'lowereastside@home0001.com',
+        zoom: false,
       })
     }
-    googleCalendarEventId = await createCalendarEvent({
-      startTime: startTimestamp,
-      endTime: endTimestamp,
-      eventName: 'Tour with HOME0001',
-      inviteeEmail: email,
-      eventDescription: `You're scheduled for a property tour with HOME0001.`,
-      calendarEmail: 'lowereastside@home0001.com',
-      zoom: false,
-    })
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error creating calendar event', error)
