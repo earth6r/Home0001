@@ -123,5 +123,50 @@ async function deleteCalendarEvent({
   return response.data
 }
 
+async function updateCalendarEvent({
+  startTime,
+  endTime,
+  eventId,
+  calendarEmail,
+}: {
+  startTime: string
+  endTime: string
+  eventId: string
+  calendarEmail: string
+}) {
+  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+
+  const auth = new JWT({
+    email: keys.client_email,
+    key: keys.private_key,
+    scopes: ['https://www.googleapis.com/auth/calendar.events'],
+    subject: calendarEmail,
+  })
+
+  const calendar = google.calendar({ version: 'v3', auth })
+
+  const startDateTime = moment.utc(startTime).toDate()
+  const endDateTime = moment.utc(endTime).toDate()
+
+  const event = {
+    start: {
+      dateTime: startDateTime.toISOString(),
+      timeZone: 'UTC',
+    },
+    end: {
+      dateTime: endDateTime.toISOString(),
+      timeZone: 'UTC',
+    },
+  }
+
+  const response = await calendar.events.update({
+    calendarId: Subject,
+    eventId,
+    requestBody: event,
+  })
+
+  return response.data.id // event id
+}
+
 export default createCalendarEvent
-export { createCalendarEvent, deleteCalendarEvent }
+export { createCalendarEvent, deleteCalendarEvent, updateCalendarEvent }
