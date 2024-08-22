@@ -61,6 +61,9 @@ export default async function handler(
         endTime: endTimestamp,
         eventId: googleCalendarEventIdExistingBooking,
         calendarEmail: 'talin@home0001.com',
+        eventName: 'Phone call with HOME0001',
+        inviteeEmail: email,
+        eventDescription: `You're scheduled for a phone call with HOME0001.`,
       })
     } else {
       googleCalendarEventId = await createCalendarEvent({
