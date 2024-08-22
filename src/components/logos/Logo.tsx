@@ -8,6 +8,7 @@ export interface LogoProps extends Omit<NextLinkProps, 'href'> {
   external?: boolean
   active?: boolean
   className?: string
+  content?: string
 }
 
 export const Logo: FC<LogoProps> = ({
@@ -15,6 +16,7 @@ export const Logo: FC<LogoProps> = ({
   active,
   className,
   href = '/',
+  content,
   ...props
 }) => {
   return (
@@ -25,7 +27,7 @@ export const Logo: FC<LogoProps> = ({
         })}
         {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
       >
-        <span className="uppercase">Home0001</span>
+        <span className="uppercase">{content || 'HOME0001'}</span>
       </a>
     </NextLink>
   )

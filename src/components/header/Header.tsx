@@ -34,6 +34,7 @@ export const Header: FC<HeaderProps> = ({
   currentTitle,
   property,
   mainMenu,
+  title,
   className,
 }) => {
   const router = useRouter()
@@ -115,6 +116,7 @@ export const Header: FC<HeaderProps> = ({
       >
         <div className="flex items-baseline">
           <Logo
+            content={title}
             className={classNames(
               hideBreadcrumb ? 'opacity-0' : '',
               'flex items-center h-header pointer-events-auto transition-opacity duration-200'

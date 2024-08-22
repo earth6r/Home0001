@@ -37,6 +37,7 @@ export interface HeaderProps
     brokerCopy?: RichTextType
     brokerSuccess?: RichTextType
   }
+  title?: string
 }
 
 export interface HeaderMenuProps extends HeaderProps {

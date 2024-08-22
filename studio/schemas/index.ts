@@ -42,13 +42,19 @@ import brand from './documents/brand-page'
 import dividerBlock from './blocks/divider-block'
 import fullbleedBlock from './blocks/fullbleed-block'
 import embed from './objects/embed'
+import cookiesToggle from './objects/cookies-toggle'
 import buy from './documents/buy-page'
+import tableBlock from './blocks/table-block'
+import contentRow from './objects/content-row'
+import rdPage from './documents/rd-page'
 
 export const schemaTypes = [
   // objects
   link,
   accordion,
   color,
+  contentRow,
+  cookiesToggle,
   coordinates,
   cta,
   divider,
@@ -79,6 +85,7 @@ export const schemaTypes = [
   propertiesBlock,
   newsletterBlock,
   contactBlock,
+  tableBlock,
   textBlock,
   textAndAccordionBlock,
   unitBlock,
@@ -95,6 +102,7 @@ export const schemaTypes = [
   page,
   property,
   propertyType,
+  rdPage,
   unit,
   siteSettings,
 ]

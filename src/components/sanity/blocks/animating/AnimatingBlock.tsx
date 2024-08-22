@@ -18,6 +18,7 @@ import { SanityLinkType } from '@studio/lib'
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import { useLenis } from '@studio-freight/react-lenis'
+import { useFunctionalPref } from '@contexts/cookies'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
   AnimatingBlockType
@@ -156,6 +157,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   const [cryptoMode, setCryptoMode] = useCryptoMode()
 
   const lenis = useLenis()
+  const [functionalActive, setFunctionalActive] = useFunctionalPref()
 
   // account for header ~ JLM
   const citiesPos = header && citiesPosition && citiesPosition - 1
@@ -204,6 +206,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   }
 
   useEffect(() => {
+    if (!functionalActive) return
     const isFirstVisit = sessionStorage.getItem('firstTime')
     if (isFirstVisit !== 'false') {
       setAnimateActive(true)
@@ -212,6 +215,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     } else {
       setShowContent(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

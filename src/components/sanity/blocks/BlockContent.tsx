@@ -19,6 +19,7 @@ import {
   VideosBlock,
   FullbleedBlock,
   MessagingBlock,
+  TableBlock,
 } from '.'
 
 export const BlockContent: FC<SanityBlockElement> = ({
@@ -58,6 +59,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             newsletterBlock: ({ index, value }) => (
               <NewsletterBlock index={index} grid={grid} {...value} />
+            ),
+            tableBlock: ({ index, value }) => (
+              <TableBlock index={index} grid={grid} {...value} />
             ),
             textBlock: ({ index, value }) => (
               <TextBlock index={index} grid={grid} {...value} />

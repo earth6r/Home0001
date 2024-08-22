@@ -9,7 +9,7 @@ export default {
   groups: [
     {
       name: 'global',
-      title: 'Meta Settings',
+      title: 'Global Settings',
       default: true,
     },
     {
@@ -39,6 +39,19 @@ export default {
       type: 'text',
       group: 'global',
       validation: (Rule: Rule): Rule => Rule.required(),
+    },
+    {
+      name: 'cookiesPaneCopy',
+      title: 'Cookies Pane Copy',
+      type: 'richText',
+      group: 'global',
+    },
+    {
+      name: 'cookiesAccordions',
+      title: 'Cookies Accordions',
+      type: 'array',
+      of: [{ type: 'accordion', title: 'Accordion' }],
+      group: 'global',
     },
     {
       name: 'image',
