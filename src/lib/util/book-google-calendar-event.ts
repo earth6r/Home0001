@@ -128,11 +128,17 @@ async function updateCalendarEvent({
   endTime,
   eventId,
   calendarEmail,
+  eventName,
+  inviteeEmail,
+  eventDescription,
 }: {
   startTime: string
   endTime: string
   eventId: string
   calendarEmail: string
+  eventName: string
+  inviteeEmail: string
+  eventDescription: string
 }) {
   const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
 
@@ -148,6 +154,19 @@ async function updateCalendarEvent({
   const startDateTime = moment.utc(startTime).toDate()
   const endDateTime = moment.utc(endTime).toDate()
 
+  const staffEmails = [
+    inviteeEmail,
+    // 'dzelefsky@braverlaw.net',
+    // 'scott@choicefamily.com',
+    // 'Matthew@omnititle.com',
+    // 'gio@choicefamily.com',
+    // 'andres@hoggholdings.com',
+    // 'annika@home0001.com',
+    // 'm@choicefamily.com',
+    'yan@home0001.com',
+    calendarEmail,
+  ]
+
   const event = {
     start: {
       dateTime: startDateTime.toISOString(),
@@ -157,6 +176,12 @@ async function updateCalendarEvent({
       dateTime: endDateTime.toISOString(),
       timeZone: 'UTC',
     },
+    summary: eventName,
+    description: eventDescription,
+    attendees: [
+      { email: inviteeEmail },
+      ...staffEmails.map(email => ({ email })),
+    ],
   }
 
   const response = await calendar.events.update({
@@ -168,5 +193,4 @@ async function updateCalendarEvent({
   return response.data.id // event id
 }
 
-export default createCalendarEvent
 export { createCalendarEvent, deleteCalendarEvent, updateCalendarEvent }
