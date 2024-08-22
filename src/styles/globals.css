@@ -157,6 +157,14 @@ footer {
   font-feature-settings: 'case' on;
 }
 
+.table-border-black {
+  border: 1px solid theme('colors.black');
+}
+
+.table-border-black + .table-border-black {
+  border-top: 0px solid theme('colors.black');
+}
+
 /* 3rd party styling */
 .chakra-portal {
   position: relative;

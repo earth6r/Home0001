@@ -545,6 +545,55 @@ export interface PropertyType extends SanityDocument {
 }
 
 /**
+ * R+D Page
+ *
+ *
+ */
+export interface RdPage extends SanityDocument {
+  _type: "rdPage";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * unit
  *
  *
@@ -763,6 +812,20 @@ export interface SiteSettings extends SanityDocument {
   description?: string;
 
   /**
+   * Cookies Pane Copy — `richText`
+   *
+   *
+   */
+  cookiesPaneCopy?: RichText;
+
+  /**
+   * Cookies Accordions — `array`
+   *
+   *
+   */
+  cookiesAccordions?: Array<SanityKeyed<Accordion>>;
+
+  /**
    * Site Image — `image`
    *
    *
@@ -952,6 +1015,48 @@ export type Accordion = {
 
 export type Color = "black" | "white";
 
+export type ContentRow = {
+  _type: "contentRow";
+  /**
+   * Cells — `object`
+   *
+   *
+   */
+  cells?: {
+    _type: "cells";
+    /**
+     * Header — `string`
+     *
+     *
+     */
+    header?: string;
+
+    /**
+     * Content — `richText`
+     *
+     *
+     */
+    content?: RichText;
+  };
+};
+
+export type CookiesToggle = {
+  _type: "cookiesToggle";
+  /**
+   * Linked Copy — `string`
+   *
+   *
+   */
+  linkedCopy?: string;
+
+  /**
+   * Cookies Toggle — `boolean`
+   *
+   *
+   */
+  cookiesToggle?: boolean;
+};
+
 export type Coordinates = {
   _type: "coordinates";
   /**
@@ -1031,6 +1136,20 @@ export type Media = {
   };
 
   /**
+   * File — `file`
+   *
+   *
+   */
+  file?: { _type: "file"; asset: SanityReference<any> };
+
+  /**
+   * Video — `video`
+   *
+   *
+   */
+  video?: Video;
+
+  /**
    * Alternative text — `string`
    *
    * Important for SEO and accessiblity.
@@ -1043,13 +1162,6 @@ export type Media = {
    *
    */
   caption?: RichText;
-
-  /**
-   * File — `file`
-   *
-   *
-   */
-  file?: { _type: "file"; asset: SanityReference<any> };
 };
 
 export type MenuItem = {
@@ -1247,6 +1359,7 @@ export type BlockContent = Array<
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
+  | SanityKeyed<TableBlock>
   | SanityKeyed<TextBlock>
   | SanityKeyed<TextAndAccordionBlock>
   | SanityKeyed<UnitBlock>
@@ -1533,8 +1646,25 @@ export type ContactBlock = {
   audienceId?: string;
 };
 
+export type TableBlock = {
+  _type: "tableBlock";
+  /**
+   * Table — `array`
+   *
+   *
+   */
+  table?: Array<SanityKeyed<ContentRow>>;
+};
+
 export type TextBlock = {
   _type: "textBlock";
+  /**
+   * Anchor — `string`
+   *
+   * Add an anchor tag to this text block (ie #ab-fab)
+   */
+  anchor?: string;
+
   /**
    * Columns — `number`
    *
@@ -1562,6 +1692,13 @@ export type TextBlock = {
    *
    */
   text?: RichText;
+
+  /**
+   * Accordion — `accordion`
+   *
+   *
+   */
+  accordion?: Accordion;
 
   /**
    * Yellow Background — `boolean`
@@ -1726,6 +1863,7 @@ export type Documents =
   | Page
   | Property
   | PropertyType
+  | RdPage
   | Unit
   | SiteSettings;
 
