@@ -52,10 +52,6 @@ export default async function handler(
   let googleCalendarEventId
   try {
     if (googleCalendarEventIdExistingBooking) {
-      // await deleteCalendarEvent({
-      //   calendarEmail: 'lowereastside@home0001.com',
-      //   eventId: googleCalendarEventIdExistingBooking,
-      // })
       await updateCalendarEvent({
         calendarEmail: 'lowereastside@home0001.com',
         eventId: googleCalendarEventIdExistingBooking,
