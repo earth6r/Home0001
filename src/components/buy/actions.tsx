@@ -114,7 +114,7 @@ export const createGoogleCalendarMeeting = async (
           // 'gio@choicefamily.com',
           // 'andres@hoggholdings.com',
           // 'annika@home0001.com',
-          'yan@home0001.com',
+          // 'yan@home0001.com',
           // 'm@choicefamily.com',
         ],
         location: 'Link will be emailed',
