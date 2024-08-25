@@ -45,6 +45,7 @@ async function createCalendarEvent({
     // 'annika@home0001.com',
     // 'm@choicefamily.com',
     // 'yan@home0001.com',
+    'collective@home0001.com',
     calendarEmail,
   ]
   if (
@@ -164,6 +165,7 @@ async function updateCalendarEvent({
     // 'annika@home0001.com',
     // 'm@choicefamily.com',
     // 'yan@home0001.com',
+    'collective@home0001.com',
     calendarEmail,
   ]
 

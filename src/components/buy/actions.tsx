@@ -116,6 +116,7 @@ export const createGoogleCalendarMeeting = async (
           // 'annika@home0001.com',
           // 'yan@home0001.com',
           // 'm@choicefamily.com',
+          'collective@home0001.com',
         ],
         location: 'Link will be emailed',
         eventDescription: `Home0001 closing for ${unit}`,
