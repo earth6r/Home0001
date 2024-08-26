@@ -126,7 +126,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 <p className="uppercase font-medium small">
                   <span className="block small">
                     Meeting Duration:{' '}
-                    {calendarType == 'tour' ? '1 hour' : '15 minutes'}
+                    {calendarType == 'tour' ? '45 minutes' : '15 minutes'}
                   </span>
                 </p>
               </div>
