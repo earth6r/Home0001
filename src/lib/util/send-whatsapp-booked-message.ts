@@ -40,6 +40,7 @@ export const sendWhatsappBookedMessage = async (
     '+19175824100',
     '+447577459373',
     '+491634841797',
+    '+17868633711',
   ]
 
   for (const number of numbers) {
