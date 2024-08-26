@@ -48,6 +48,11 @@ async function createCalendarEvent({
     'collective@home0001.com',
     calendarEmail,
   ]
+
+  if (!zoom) {
+    staffEmails.push('carl@home0001.com')
+  }
+
   if (
     !startTime ||
     !endTime ||
