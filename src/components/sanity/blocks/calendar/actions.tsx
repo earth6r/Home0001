@@ -40,7 +40,14 @@ export const bookMeeting = async (data: FieldValues, type = 'phone') => {
   const startDateTimePlus = moment
     .tz(`${data.date} ${data.startTime}`, 'America/New_York')
     .utc()
-  const endDateTime = startDateTimePlus.add(15, 'minutes')
+
+  let endDateTime
+
+  if (type === 'phone') {
+    endDateTime = startDateTimePlus.add(15, 'minutes')
+  } else {
+    endDateTime = startDateTimePlus.add(45, 'minutes')
+  }
 
   const callBookMeeting = async () => {
     return axios.post(
