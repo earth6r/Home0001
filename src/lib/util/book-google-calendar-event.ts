@@ -48,6 +48,11 @@ async function createCalendarEvent({
     'collective@home0001.com',
     calendarEmail,
   ]
+
+  if (!zoom) {
+    staffEmails.push('carl@home0001.com')
+  }
+
   if (
     !startTime ||
     !endTime ||
@@ -132,6 +137,7 @@ async function updateCalendarEvent({
   eventName,
   inviteeEmail,
   eventDescription,
+  zoom = true,
 }: {
   startTime: string
   endTime: string
@@ -140,6 +146,7 @@ async function updateCalendarEvent({
   eventName: string
   inviteeEmail: string
   eventDescription: string
+  zoom?: boolean
 }) {
   const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
 
@@ -168,6 +175,10 @@ async function updateCalendarEvent({
     'collective@home0001.com',
     calendarEmail,
   ]
+
+  if (!zoom) {
+    staffEmails.push('carl@home0001.com')
+  }
 
   const event = {
     start: {

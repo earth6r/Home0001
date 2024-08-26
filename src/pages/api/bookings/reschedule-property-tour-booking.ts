@@ -60,6 +60,7 @@ export default async function handler(
         eventName: 'Tour with HOME0001',
         inviteeEmail: email,
         eventDescription: `You're scheduled for a property tour with HOME0001.`,
+        zoom: false,
       })
     } else {
       googleCalendarEventId = await createCalendarEvent({
