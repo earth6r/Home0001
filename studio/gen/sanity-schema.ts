@@ -1661,7 +1661,7 @@ export type TextBlock = {
   /**
    * Anchor — `string`
    *
-   * Add an anchor tag to this text block (ie #ab-fab)
+   * Add an anchor tag to this text block (ie ab-fab)
    */
   anchor?: string;
 
