@@ -90,7 +90,7 @@ export default async function handler(
       endTime: endTimestamp,
       eventName: 'Property Tour with HOME0001',
       inviteeEmail: email,
-      eventDescription: `You're scheduled for a property tour with HOME0001.`,
+      eventDescription: `You'll be meeting a member of the collective in front of the HOME0001 building at 48 Allen, between Hester and Grand Street.<br><br>Feel free to call or message us anytime at +1 973-791-5529 (SMS & WhatsApp) in case you're running late, need to reschedule or have any questions.`,
       calendarEmail: 'lowereastside@home0001.com',
       zoom: false,
     })

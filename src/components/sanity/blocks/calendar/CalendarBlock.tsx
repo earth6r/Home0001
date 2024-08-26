@@ -177,7 +177,10 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 )}
               />
               {errors.phone && (
-                <p className="mb-y text-button">Invalid Phone Number</p>
+                <p className="mb-y text-button text-red-600 leading-loose">
+                  Invalid Phone Number: Please select the country code from the
+                  dropdown and do not include any spaces.
+                </p>
               )}
 
               <div className="relative mb-y">

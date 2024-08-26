@@ -44,9 +44,15 @@ async function createCalendarEvent({
     // 'andres@hoggholdings.com',
     // 'annika@home0001.com',
     // 'm@choicefamily.com',
-    'yan@home0001.com',
+    // 'yan@home0001.com',
+    'collective@home0001.com',
     calendarEmail,
   ]
+
+  if (!zoom) {
+    staffEmails.push('carl@home0001.com')
+  }
+
   if (
     !startTime ||
     !endTime ||
@@ -131,6 +137,7 @@ async function updateCalendarEvent({
   eventName,
   inviteeEmail,
   eventDescription,
+  zoom = true,
 }: {
   startTime: string
   endTime: string
@@ -139,6 +146,7 @@ async function updateCalendarEvent({
   eventName: string
   inviteeEmail: string
   eventDescription: string
+  zoom?: boolean
 }) {
   const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
 
@@ -163,9 +171,14 @@ async function updateCalendarEvent({
     // 'andres@hoggholdings.com',
     // 'annika@home0001.com',
     // 'm@choicefamily.com',
-    'yan@home0001.com',
+    // 'yan@home0001.com',
+    'collective@home0001.com',
     calendarEmail,
   ]
+
+  if (!zoom) {
+    staffEmails.push('carl@home0001.com')
+  }
 
   const event = {
     start: {
