@@ -60,6 +60,7 @@ export default async function handler(
         eventName: 'Phone call with HOME0001',
         inviteeEmail: email,
         eventDescription: `You're scheduled for a phone call with HOME0001.`,
+        zoom: true,
       })
     } else {
       googleCalendarEventId = await createCalendarEvent({
@@ -69,6 +70,7 @@ export default async function handler(
         inviteeEmail: email,
         eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
         calendarEmail: 'talin@home0001.com',
+        zoom: true,
       })
     }
   } catch (error) {
