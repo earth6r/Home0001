@@ -41,7 +41,7 @@ export const bookMeeting = async (data: FieldValues, type = 'phone') => {
     .tz(`${data.date} ${data.startTime}`, 'America/New_York')
     .utc()
 
-  let endDateTime
+  let endDateTime: moment.Moment
 
   if (type === 'phone') {
     endDateTime = startDateTimePlus.add(15, 'minutes')
