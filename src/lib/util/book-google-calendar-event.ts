@@ -122,7 +122,7 @@ async function deleteCalendarEvent({
   const calendar = google.calendar({ version: 'v3', auth })
 
   const response = await calendar.events.delete({
-    calendarId: Subject,
+    calendarId: calendarEmail,
     eventId,
   })
 
@@ -173,7 +173,7 @@ async function updateCalendarEvent({
     // 'm@choicefamily.com',
     // 'yan@home0001.com',
     'collective@home0001.com',
-    calendarEmail,
+    'lowereastside@home0001.com',
   ]
 
   if (!zoom) {
@@ -198,7 +198,7 @@ async function updateCalendarEvent({
   }
 
   const response = await calendar.events.update({
-    calendarId: Subject,
+    calendarId: calendarEmail,
     eventId,
     requestBody: event,
   })
