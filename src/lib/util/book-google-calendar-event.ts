@@ -46,7 +46,7 @@ async function createCalendarEvent({
     // 'm@choicefamily.com',
     // 'yan@home0001.com',
     'collective@home0001.com',
-    calendarEmail,
+    // calendarEmail,
   ]
 
   if (!zoom) {
@@ -173,7 +173,7 @@ async function updateCalendarEvent({
     // 'm@choicefamily.com',
     // 'yan@home0001.com',
     'collective@home0001.com',
-    calendarEmail,
+    // calendarEmail,
   ]
 
   if (!zoom) {
