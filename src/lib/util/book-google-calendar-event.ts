@@ -95,7 +95,7 @@ async function createCalendarEvent({
   }
 
   const response = await calendar.events.insert({
-    calendarId: Subject,
+    calendarId: calendarEmail,
     requestBody: event,
     sendUpdates: 'all',
   })
