@@ -1,5 +1,5 @@
 import { initializeAdmin } from '@lib/firebase/admin'
-import createCalendarEvent from '@lib/util/book-google-calendar-event'
+import { createCalendarEvent } from '@lib/util/book-google-calendar-event'
 import { saveError } from '@lib/util/save-error'
 import { sendWhatsappBookedMessage } from '@lib/util/send-whatsapp-booked-message'
 import { updateHubspotContact } from '@lib/util/update-hubspot-contact'
@@ -48,7 +48,7 @@ export default async function handler(
   })
 
   try {
-    createCalendarEvent({
+    const googleCalendarEventId = await createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
       eventName: 'Property Tour with HOME0001',
@@ -56,6 +56,10 @@ export default async function handler(
       eventDescription: `You're scheduled for a property tour with HOME0001.`,
       calendarEmail: 'lowereastside@home0001.com',
       zoom: false,
+    })
+
+    await bookingRef.update({
+      googleCalendarEventId,
     })
   } catch (error) {
     // eslint-disable-next-line no-console

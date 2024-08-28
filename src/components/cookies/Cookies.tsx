@@ -103,15 +103,16 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
   }
 
   const submitChoices = () => {
-    if (cookiesSettings.analytics) {
-      acceptAnalytics()
+    const { analytics, functional } = cookiesSettings
+
+    if (functional) {
+      analytics ? acceptAnalytics() : declineAnalytics()
     } else {
-      declineAnalytics()
+      declineFunctional()
+      analytics ? acceptAnalytics() : declineAnalytics()
     }
 
-    if (!cookiesSettings.functional) {
-      declineFunctional()
-    }
+    close()
   }
 
   return (
@@ -141,8 +142,8 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
           <button
             className="flex justify-between items-center h-btn px-x text-button bg-black text-white"
             onClick={() => {
-              declineAnalytics
-              declineFunctional
+              declineAnalytics()
+              declineFunctional()
             }}
           >
             {`Reject`}

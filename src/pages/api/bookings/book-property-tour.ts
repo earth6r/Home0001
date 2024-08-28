@@ -2,7 +2,7 @@ import { initializeAdmin } from '@lib/firebase/admin'
 import { saveError } from '@lib/util/save-error'
 import admin from 'firebase-admin' // Firebase Admin SDK
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
-import createCalendarEvent from '../../../lib/util/book-google-calendar-event'
+import { createCalendarEvent } from '../../../lib/util/book-google-calendar-event'
 import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booked-message'
 import { updateHubspotContact } from '../../../lib/util/update-hubspot-contact'
 import { sendMessage } from '../send-whatsapp'
@@ -62,7 +62,7 @@ export default async function handler(
     endTimestampFormatted = parseTimestamp(endTimestamp)
   }
 
-  await db.collection('usersBookPropertyTour').add({
+  const firebaseResponse = await db.collection('usersBookPropertyTour').add({
     email,
     ...(pending
       ? {}
@@ -85,14 +85,18 @@ export default async function handler(
   }
 
   try {
-    createCalendarEvent({
+    const googleCalendarEventId = await createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
       eventName: 'Property Tour with HOME0001',
       inviteeEmail: email,
-      eventDescription: `You're scheduled for a property tour with HOME0001.`,
+      eventDescription: `You'll be meeting a member of the collective in front of the HOME0001 building at 48 Allen, between Hester and Grand Street.<br><br>Feel free to call or message us anytime at +1 973-791-5529 (SMS & WhatsApp) in case you're running late, need to reschedule or have any questions.`,
       calendarEmail: 'lowereastside@home0001.com',
       zoom: false,
+    })
+
+    firebaseResponse.update({
+      googleCalendarEventId,
     })
   } catch (error) {
     // eslint-disable-next-line no-console

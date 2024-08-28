@@ -1,6 +1,9 @@
 import { saveError } from '@lib/util/save-error'
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
-import createCalendarEvent from '../../../lib/util/book-google-calendar-event'
+import {
+  createCalendarEvent,
+  updateCalendarEvent,
+} from '../../../lib/util/book-google-calendar-event'
 import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booked-message'
 import { validateBooking } from './validate'
 
@@ -43,18 +46,33 @@ export default async function handler(
     endTimestamp = null,
     phoneNumber = null,
     blockWhatsApp = false,
+    googleCalendarEventIdExistingBooking = null,
   } = req.body
 
+  let googleCalendarEventId
   try {
-    createCalendarEvent({
-      startTime: startTimestamp,
-      endTime: endTimestamp,
-      eventName: 'Tour with HOME0001',
-      inviteeEmail: email,
-      eventDescription: `You're scheduled for a property tour with HOME0001.`,
-      calendarEmail: 'lowereastside@home0001.com',
-      zoom: false,
-    })
+    if (googleCalendarEventIdExistingBooking) {
+      await updateCalendarEvent({
+        calendarEmail: 'lowereastside@home0001.com',
+        eventId: googleCalendarEventIdExistingBooking,
+        startTime: startTimestamp,
+        endTime: endTimestamp,
+        eventName: 'Tour with HOME0001',
+        inviteeEmail: email,
+        eventDescription: `You're scheduled for a property tour with HOME0001.`,
+        zoom: false,
+      })
+    } else {
+      googleCalendarEventId = await createCalendarEvent({
+        startTime: startTimestamp,
+        endTime: endTimestamp,
+        eventName: 'Tour with HOME0001',
+        inviteeEmail: email,
+        eventDescription: `You're scheduled for a property tour with HOME0001.`,
+        calendarEmail: 'lowereastside@home0001.com',
+        zoom: false,
+      })
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error creating calendar event', error)
@@ -81,5 +99,6 @@ export default async function handler(
 
   res.status(200).json({
     status: 'success',
+    googleCalendarEventId,
   })
 }

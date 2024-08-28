@@ -2,7 +2,7 @@ import { initializeAdmin } from '@lib/firebase/admin'
 import { saveError } from '@lib/util/save-error'
 import admin from 'firebase-admin' // Firebase Admin SDK
 import { type NextApiRequest, type NextApiResponse } from 'next' // Type definitions for Next.js API routes
-import createCalendarEvent from '../../../lib/util/book-google-calendar-event'
+import { createCalendarEvent } from '../../../lib/util/book-google-calendar-event'
 import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booked-message'
 import { updateHubspotContact } from '../../../lib/util/update-hubspot-contact'
 import { sendMessage } from '../send-whatsapp'
@@ -56,7 +56,7 @@ export default async function handler(
   const startTimestampFormatted = parseTimestamp(startTimestamp)
   const endTimestampFormatted = parseTimestamp(endTimestamp)
 
-  await db.collection('usersBookPhoneCall').add({
+  const firebaseResponse = await db.collection('usersBookPhoneCall').add({
     email,
     startTimestamp: startTimestampFormatted,
     endTimestamp: endTimestampFormatted,
@@ -67,13 +67,17 @@ export default async function handler(
   })
 
   try {
-    createCalendarEvent({
+    const googleCalendarEventId = await createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
       eventName: 'Zoom with HOME0001',
       inviteeEmail: email,
       eventDescription: `A member of the HOME0001 collective will meet you on Zoom to answer all your questions, talk you through upcoming home releases and schedule a tour. You can find the Zoom link above ^^ or you can follow this link: <a href="https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09">JOIN CALL</a><br><br>If you'd prefer us to give you a call, please share your number & preferred channel (WhatsApp, Facetime, Signal, Telegram).<br><br>In case you need to reschedule or just can't make it, please let us know so we can coordinate with the team.`,
       calendarEmail: 'talin@home0001.com',
+    })
+
+    firebaseResponse.update({
+      googleCalendarEventId,
     })
   } catch (error) {
     // eslint-disable-next-line no-console

@@ -44,9 +44,15 @@ async function createCalendarEvent({
     // 'andres@hoggholdings.com',
     // 'annika@home0001.com',
     // 'm@choicefamily.com',
-    'yan@home0001.com',
+    // 'yan@home0001.com',
+    'collective@home0001.com',
     calendarEmail,
   ]
+
+  if (!zoom) {
+    staffEmails.push('carl@home0001.com')
+  }
+
   if (
     !startTime ||
     !endTime ||
@@ -94,7 +100,110 @@ async function createCalendarEvent({
     sendUpdates: 'all',
   })
 
-  return response.data.id
+  return response.data.id // event id
 }
 
-export default createCalendarEvent
+async function deleteCalendarEvent({
+  calendarEmail,
+  eventId,
+}: {
+  calendarEmail: string
+  eventId: string
+}) {
+  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+
+  const auth = new JWT({
+    email: keys.client_email,
+    key: keys.private_key,
+    scopes: ['https://www.googleapis.com/auth/calendar.events'],
+    subject: calendarEmail,
+  })
+
+  const calendar = google.calendar({ version: 'v3', auth })
+
+  const response = await calendar.events.delete({
+    calendarId: Subject,
+    eventId,
+  })
+
+  return response.data
+}
+
+async function updateCalendarEvent({
+  startTime,
+  endTime,
+  eventId,
+  calendarEmail,
+  eventName,
+  inviteeEmail,
+  eventDescription,
+  zoom = true,
+}: {
+  startTime: string
+  endTime: string
+  eventId: string
+  calendarEmail: string
+  eventName: string
+  inviteeEmail: string
+  eventDescription: string
+  zoom?: boolean
+}) {
+  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
+
+  const auth = new JWT({
+    email: keys.client_email,
+    key: keys.private_key,
+    scopes: ['https://www.googleapis.com/auth/calendar.events'],
+    subject: calendarEmail,
+  })
+
+  const calendar = google.calendar({ version: 'v3', auth })
+
+  const startDateTime = moment.utc(startTime).toDate()
+  const endDateTime = moment.utc(endTime).toDate()
+
+  const staffEmails = [
+    inviteeEmail,
+    // 'dzelefsky@braverlaw.net',
+    // 'scott@choicefamily.com',
+    // 'Matthew@omnititle.com',
+    // 'gio@choicefamily.com',
+    // 'andres@hoggholdings.com',
+    // 'annika@home0001.com',
+    // 'm@choicefamily.com',
+    // 'yan@home0001.com',
+    'collective@home0001.com',
+    calendarEmail,
+  ]
+
+  if (!zoom) {
+    staffEmails.push('carl@home0001.com')
+  }
+
+  const event = {
+    start: {
+      dateTime: startDateTime.toISOString(),
+      timeZone: 'UTC',
+    },
+    end: {
+      dateTime: endDateTime.toISOString(),
+      timeZone: 'UTC',
+    },
+    summary: eventName,
+    description: eventDescription,
+    attendees: [
+      { email: inviteeEmail },
+      ...staffEmails.map(email => ({ email })),
+    ],
+  }
+
+  const response = await calendar.events.update({
+    calendarId: Subject,
+    eventId,
+    requestBody: event,
+  })
+
+  return response.data.id // event id
+}
+
+export { createCalendarEvent, deleteCalendarEvent, updateCalendarEvent }

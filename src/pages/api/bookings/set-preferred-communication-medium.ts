@@ -39,22 +39,22 @@ export default async function handler(
   }
 
   const userRef = await db
-    .collection('users')
+    .collection('potentialCustomers')
     .where('email', '==', email)
     .limit(1)
     .get()
 
   if (userRef.empty) {
-    res.status(404).json({
-      status: 'error',
-      message: 'User not found',
+    // create the user
+    await db.collection('potentialCustomers').add({
+      email,
+      preferredCommunicationMedium,
     })
-    return
+  } else {
+    await db.collection('potentialCustomers').doc(userRef.docs[0].id).update({
+      preferredCommunicationMedium,
+    })
   }
-
-  await db.collection('users').doc(userRef.docs[0].id).update({
-    preferredCommunicationMedium,
-  })
 
   await updateHubspotContactProperty(
     email,
