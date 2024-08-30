@@ -90,7 +90,7 @@ export default async function handler(
       endTime: endTimestamp,
       eventName: 'Tour HOME0001 Lower East Side',
       inviteeEmail: email,
-      eventDescription: `You'll be meeting a member of the collective in front of the HOME0001 building at 48 Allen, between Hester and Grand Street.<br><br>Feel free to call or message us anytime at +1 973-791-5529 (SMS & WhatsApp) in case you're running late, need to reschedule or have any questions.`,
+      eventDescription: `A member of the collective will meet you in front of our LES building at 48 Allen St. (btw Hester and Grand) to show you our upcoming studios and 1BR.<br><br>Feel free to call or message anytime at +1 (973) 791-5529 (SMS, WhatsApp) or message Talin at <a href="mailto:talin@home0001.com">talin@home0001.com</a>if you need assistance or have any questions. Please kindly give us a heads up in case you're running late or need to reschedule.`,
       calendarEmail: 'lowereastside@home0001.com',
       zoom: false,
     })
