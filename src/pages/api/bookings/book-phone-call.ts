@@ -85,7 +85,7 @@ export default async function handler(
           reminders: {
             useDefault: false,
             overrides: [
-              { method: 'email', minutes: 24 * 60 }, // 1 day before
+              { method: 'email', minutes: 1440 }, // 1 day before
               { method: 'popup', minutes: 60 }, // 1 hour before
             ],
           },
