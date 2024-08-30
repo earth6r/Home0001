@@ -68,9 +68,6 @@ async function createCalendarEvent({
     'https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09'
 
   let fullEventDescription = `${eventDescription}`
-  if (zoom) {
-    fullEventDescription += `\n\nJoin Zoom Meeting:\n${zoomLink}`
-  }
 
   const startDateTime = moment.utc(startTime).toDate()
   const endDateTime = moment.utc(endTime).toDate()
