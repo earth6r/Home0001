@@ -70,9 +70,9 @@ export default async function handler(
     const googleCalendarEventId = await createCalendarEvent({
       startTime: startTimestamp,
       endTime: endTimestamp,
-      eventName: 'Zoom with HOME0001',
+      eventName: 'Zoom w/HOME0001',
       inviteeEmail: email,
-      eventDescription: `A member of the HOME0001 collective will meet you on Zoom to answer all your questions, talk you through upcoming home releases and schedule a tour. You can find the Zoom link above ^^ or you can follow this link: <a href="https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09">JOIN CALL</a><br><br>If you'd prefer us to give you a call, please share your number & preferred channel (WhatsApp, Facetime, Signal, Telegram).<br><br>In case you need to reschedule or just can't make it, please let us know so we can coordinate with the team.`,
+      eventDescription: `A member of the HOME0001 collective will meet you on Zoom to answer your questions and talk you through our available homes. Here’s the meeting link: <br><br><a href="https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09">JOIN CALL</a><br><br>If you'd like us to call you instead, please share your number & preferred channel (WhatsApp, Facetime, Signal, Telegram).<br><br>Please kindly give us a heads up if you're running late or need to reschedule. Feel free to text us at +1 (973) 791-5529 or contact Talin at talin@home0001.com`,
       calendarEmail: 'talin@home0001.com',
     })
 
