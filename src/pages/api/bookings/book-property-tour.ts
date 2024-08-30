@@ -48,6 +48,9 @@ export default async function handler(
     phoneNumber = null,
     blockWhatsApp = false,
     pending = false, // if true, don't create calendar event, don't save to hubspot, don't send whatsapp message, don't save start and end timestamp to firestore
+
+    disableTextReminder = false,
+    disableCalendarInvite = false,
   } = req.body
 
   initializeAdmin() // Initialize Firebase Admin SDK
@@ -75,6 +78,9 @@ export default async function handler(
     notes,
     phoneNumber,
     status: pending ? 'pending' : 'scheduled',
+
+    disableTextReminder,
+    disableCalendarInvite,
   })
 
   if (pending) {
@@ -84,24 +90,26 @@ export default async function handler(
     return
   }
 
-  try {
-    const googleCalendarEventId = await createCalendarEvent({
-      startTime: startTimestamp,
-      endTime: endTimestamp,
-      eventName: 'Tour HOME0001 Lower East Side',
-      inviteeEmail: email,
-      eventDescription: `A member of the collective will meet you in front of our LES building at 48 Allen St. (btw Hester and Grand) to show you our upcoming studios and 1BR.<br><br>Feel free to call or message anytime at +1 (973) 791-5529 (SMS, WhatsApp) or message Talin at <a href="mailto:talin@home0001.com">talin@home0001.com</a>if you need assistance or have any questions. Please kindly give us a heads up in case you're running late or need to reschedule.`,
-      calendarEmail: 'lowereastside@home0001.com',
-      zoom: false,
-    })
+  if (!disableCalendarInvite) {
+    try {
+      const googleCalendarEventId = await createCalendarEvent({
+        startTime: startTimestamp,
+        endTime: endTimestamp,
+        eventName: 'Tour HOME0001 Lower East Side',
+        inviteeEmail: email,
+        eventDescription: `A member of the collective will meet you in front of our LES building at 48 Allen St. (btw Hester and Grand) to show you our upcoming studios and 1BR.<br><br>Feel free to call or message anytime at +1 (973) 791-5529 (SMS, WhatsApp) or message Talin at <a href="mailto:talin@home0001.com">talin@home0001.com</a>if you need assistance or have any questions. Please kindly give us a heads up in case you're running late or need to reschedule.`,
+        calendarEmail: 'lowereastside@home0001.com',
+        zoom: false,
+      })
 
-    firebaseResponse.update({
-      googleCalendarEventId,
-    })
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error creating calendar event', error)
-    saveError(error, 'createCalendarEvent')
+      firebaseResponse.update({
+        googleCalendarEventId,
+      })
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error creating calendar event', error)
+      saveError(error, 'createCalendarEvent')
+    }
   }
 
   if (!blockWhatsApp) {
