@@ -72,8 +72,6 @@ export default async function handler(
     disableCalendarInvite,
   })
 
-  console.error('calendar', disableCalendarInvite)
-
   if (!disableCalendarInvite) {
     try {
       const googleCalendarEventId = await createCalendarEvent({
