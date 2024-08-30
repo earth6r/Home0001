@@ -100,6 +100,15 @@ export default async function handler(
         eventDescription: `A member of the collective will meet you in front of our LES building at 48 Allen St. (btw Hester and Grand) to show you our upcoming studios and 1BR.<br><br>Feel free to call or message anytime at +1 (973) 791-5529 (SMS, WhatsApp) or message Talin at <a href="mailto:talin@home0001.com">talin@home0001.com</a>if you need assistance or have any questions. Please kindly give us a heads up in case you're running late or need to reschedule.`,
         calendarEmail: 'lowereastside@home0001.com',
         zoom: false,
+        customizedNotifications: {
+          reminders: {
+            useDefault: false,
+            overrides: [
+              { method: 'email', minutes: 24 * 60 }, // 1 day before
+              { method: 'popup', minutes: 60 * 2 }, // 2 hours before
+            ],
+          },
+        },
       })
 
       firebaseResponse.update({

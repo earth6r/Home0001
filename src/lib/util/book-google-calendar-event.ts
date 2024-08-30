@@ -15,6 +15,7 @@ async function createCalendarEvent({
   eventDescription,
   calendarEmail,
   zoom = true,
+  customizedNotifications = {},
 }: {
   startTime: string
   endTime: string
@@ -23,9 +24,8 @@ async function createCalendarEvent({
   eventDescription: string
   calendarEmail: string
   zoom?: boolean
+  customizedNotifications?: any
 }) {
-  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
-
   const auth = new JWT({
     email: keys.client_email,
     key: keys.private_key,
@@ -72,7 +72,15 @@ async function createCalendarEvent({
   const startDateTime = moment.utc(startTime).toDate()
   const endDateTime = moment.utc(endTime).toDate()
 
-  const event = {
+  const event: {
+    summary: string
+    location: string
+    description: string
+    start: { dateTime: string; timeZone: string }
+    end: { dateTime: string; timeZone: string }
+    attendees: { email: string }[]
+    reminders?: any
+  } = {
     summary: eventName,
     location: zoom ? zoomLink : '48 Allen Street, New York, NY 10002',
     description: fullEventDescription,
@@ -89,6 +97,10 @@ async function createCalendarEvent({
       { email: inviteeEmail },
       ...staffEmails.map(email => ({ email })),
     ],
+  }
+
+  if (customizedNotifications?.reminders) {
+    event['reminders'] = customizedNotifications.reminders
   }
 
   const response = await calendar.events.insert({
