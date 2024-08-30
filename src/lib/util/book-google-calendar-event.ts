@@ -97,13 +97,8 @@ async function createCalendarEvent({
       { email: inviteeEmail },
       ...staffEmails.map(email => ({ email })),
     ],
+    ...customizedNotifications,
   }
-
-  if (customizedNotifications?.reminders) {
-    event['reminders'] = customizedNotifications.reminders
-  }
-
-  console.error('event', event)
 
   const response = await calendar.events.insert({
     calendarId: calendarEmail,

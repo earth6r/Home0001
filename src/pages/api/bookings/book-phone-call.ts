@@ -146,7 +146,7 @@ export default async function handler(
     )
   }
 
-  res.status(500).json({
+  res.status(200).json({
     status: 'success',
   })
 }
