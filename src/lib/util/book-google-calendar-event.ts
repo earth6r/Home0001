@@ -103,6 +103,8 @@ async function createCalendarEvent({
     event['reminders'] = customizedNotifications.reminders
   }
 
+  console.error('event', event)
+
   const response = await calendar.events.insert({
     calendarId: calendarEmail,
     requestBody: event,
