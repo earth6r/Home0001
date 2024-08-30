@@ -152,8 +152,6 @@ async function updateCalendarEvent({
   eventDescription: string
   zoom?: boolean
 }) {
-  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
-
   const auth = new JWT({
     email: keys.client_email,
     key: keys.private_key,
