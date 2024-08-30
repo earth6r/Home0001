@@ -15,6 +15,7 @@ async function createCalendarEvent({
   eventDescription,
   calendarEmail,
   zoom = true,
+  customizedNotifications = {},
 }: {
   startTime: string
   endTime: string
@@ -23,9 +24,8 @@ async function createCalendarEvent({
   eventDescription: string
   calendarEmail: string
   zoom?: boolean
+  customizedNotifications?: any
 }) {
-  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
-
   const auth = new JWT({
     email: keys.client_email,
     key: keys.private_key,
@@ -68,14 +68,19 @@ async function createCalendarEvent({
     'https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09'
 
   let fullEventDescription = `${eventDescription}`
-  if (zoom) {
-    fullEventDescription += `\n\nJoin Zoom Meeting:\n${zoomLink}`
-  }
 
   const startDateTime = moment.utc(startTime).toDate()
   const endDateTime = moment.utc(endTime).toDate()
 
-  const event = {
+  const event: {
+    summary: string
+    location: string
+    description: string
+    start: { dateTime: string; timeZone: string }
+    end: { dateTime: string; timeZone: string }
+    attendees: { email: string }[]
+    reminders?: any
+  } = {
     summary: eventName,
     location: zoom ? zoomLink : '48 Allen Street, New York, NY 10002',
     description: fullEventDescription,
@@ -92,10 +97,11 @@ async function createCalendarEvent({
       { email: inviteeEmail },
       ...staffEmails.map(email => ({ email })),
     ],
+    ...customizedNotifications,
   }
 
   const response = await calendar.events.insert({
-    calendarId: Subject,
+    calendarId: calendarEmail,
     requestBody: event,
     sendUpdates: 'all',
   })
@@ -110,8 +116,6 @@ async function deleteCalendarEvent({
   calendarEmail: string
   eventId: string
 }) {
-  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
-
   const auth = new JWT({
     email: keys.client_email,
     key: keys.private_key,
@@ -122,7 +126,7 @@ async function deleteCalendarEvent({
   const calendar = google.calendar({ version: 'v3', auth })
 
   const response = await calendar.events.delete({
-    calendarId: Subject,
+    calendarId: calendarEmail,
     eventId,
   })
 
@@ -148,8 +152,6 @@ async function updateCalendarEvent({
   eventDescription: string
   zoom?: boolean
 }) {
-  const Subject = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_IMPERSONATE
-
   const auth = new JWT({
     email: keys.client_email,
     key: keys.private_key,
@@ -173,7 +175,7 @@ async function updateCalendarEvent({
     // 'm@choicefamily.com',
     // 'yan@home0001.com',
     'collective@home0001.com',
-    calendarEmail,
+    'lowereastside@home0001.com',
   ]
 
   if (!zoom) {
@@ -198,7 +200,7 @@ async function updateCalendarEvent({
   }
 
   const response = await calendar.events.update({
-    calendarId: Subject,
+    calendarId: calendarEmail,
     eventId,
     requestBody: event,
   })
