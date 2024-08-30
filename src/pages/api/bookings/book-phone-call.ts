@@ -47,6 +47,9 @@ export default async function handler(
     endTimestamp = null,
     phoneNumber = null,
     blockWhatsApp = false,
+
+    disableTextReminder = false,
+    disableCalendarInvite = false,
   } = req.body
 
   initializeAdmin() // Initialize Firebase Admin SDK
@@ -64,25 +67,30 @@ export default async function handler(
     lastName,
     notes,
     phoneNumber,
+
+    disableTextReminder,
+    disableCalendarInvite,
   })
 
-  try {
-    const googleCalendarEventId = await createCalendarEvent({
-      startTime: startTimestamp,
-      endTime: endTimestamp,
-      eventName: 'Zoom w/HOME0001',
-      inviteeEmail: email,
-      eventDescription: `A member of the HOME0001 collective will meet you on Zoom to answer your questions and talk you through our available homes. Here’s the meeting link: <br><br><a href="https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09">JOIN CALL</a><br><br>If you'd like us to call you instead, please share your number & preferred channel (WhatsApp, Facetime, Signal, Telegram).<br><br>Please kindly give us a heads up if you're running late or need to reschedule. Feel free to text us at +1 (973) 791-5529 or contact Talin at talin@home0001.com`,
-      calendarEmail: 'talin@home0001.com',
-    })
+  if (!disableCalendarInvite) {
+    try {
+      const googleCalendarEventId = await createCalendarEvent({
+        startTime: startTimestamp,
+        endTime: endTimestamp,
+        eventName: 'Zoom w/HOME0001',
+        inviteeEmail: email,
+        eventDescription: `A member of the HOME0001 collective will meet you on Zoom to answer your questions and talk you through our available homes. Here’s the meeting link: <br><br><a href="https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09">JOIN CALL</a><br><br>If you'd like us to call you instead, please share your number & preferred channel (WhatsApp, Facetime, Signal, Telegram).<br><br>Please kindly give us a heads up if you're running late or need to reschedule. Feel free to text us at +1 (973) 791-5529 or contact Talin at talin@home0001.com`,
+        calendarEmail: 'talin@home0001.com',
+      })
 
-    firebaseResponse.update({
-      googleCalendarEventId,
-    })
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error creating calendar event', error)
-    saveError(error, 'createCalendarEvent')
+      firebaseResponse.update({
+        googleCalendarEventId,
+      })
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error creating calendar event', error)
+      saveError(error, 'createCalendarEvent')
+    }
   }
 
   if (!blockWhatsApp) {

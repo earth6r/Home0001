@@ -47,36 +47,41 @@ export default async function handler(
     phoneNumber = null,
     blockWhatsApp = false,
     googleCalendarEventIdExistingBooking = null,
+
+    disableCalendarInvite = false,
   } = req.body
 
-  let googleCalendarEventId
-  try {
-    if (googleCalendarEventIdExistingBooking) {
-      googleCalendarEventId = await updateCalendarEvent({
-        startTime: startTimestamp,
-        endTime: endTimestamp,
-        eventId: googleCalendarEventIdExistingBooking,
-        calendarEmail: 'talin@home0001.com',
-        eventName: 'Phone call with HOME0001',
-        inviteeEmail: email,
-        eventDescription: `You're scheduled for a phone call with HOME0001.`,
-        zoom: true,
-      })
-    } else {
-      googleCalendarEventId = await createCalendarEvent({
-        startTime: startTimestamp,
-        endTime: endTimestamp,
-        eventName: 'Zoom with HOME0001',
-        inviteeEmail: email,
-        eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
-        calendarEmail: 'talin@home0001.com',
-        zoom: true,
-      })
+  let googleCalendarEventId = null
+
+  if (!disableCalendarInvite) {
+    try {
+      if (googleCalendarEventIdExistingBooking) {
+        googleCalendarEventId = await updateCalendarEvent({
+          startTime: startTimestamp,
+          endTime: endTimestamp,
+          eventId: googleCalendarEventIdExistingBooking,
+          calendarEmail: 'talin@home0001.com',
+          eventName: 'Phone call with HOME0001',
+          inviteeEmail: email,
+          eventDescription: `You're scheduled for a phone call with HOME0001.`,
+          zoom: true,
+        })
+      } else {
+        googleCalendarEventId = await createCalendarEvent({
+          startTime: startTimestamp,
+          endTime: endTimestamp,
+          eventName: 'Zoom with HOME0001',
+          inviteeEmail: email,
+          eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
+          calendarEmail: 'talin@home0001.com',
+          zoom: true,
+        })
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error creating calendar event', error)
+      saveError(error, 'createCalendarEvent')
     }
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error creating calendar event', error)
-    saveError(error, 'createCalendarEvent')
   }
 
   if (!blockWhatsApp) {
