@@ -96,7 +96,6 @@ async function createCalendarEvent({
       // { email: Subject },
       {
         email: inviteeEmail,
-        ...customizedNotifications,
       },
       ...staffEmails.map(email => ({ email })),
     ],
