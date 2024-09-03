@@ -41,7 +41,7 @@ export const Modal: FC<ModalProps> = ({
           exit={{ transform: 'translate3d(100%, 0, 0)' }}
           className="fixed inset-0 w-auto md:w-[390px] h-[100vh] top-0 right-0 md:ml-auto z-modal"
         >
-          <div className="flex justify-between items-center fixed w-full h-[50px] md:h-[78px] top-0 right-0 px-x z-modal">
+          <div className="flex justify-between items-center fixed w-full h-header top-0 right-0 px-x z-modal">
             <AnimatePresence>
               {isOpen && (
                 <motion.div
