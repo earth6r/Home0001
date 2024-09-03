@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { AiOutlinePlusSquare } from 'react-icons/ai'
+import { BiCarousel } from 'react-icons/bi'
 import { BiCode, BiText } from 'react-icons/bi'
 import { GrImage } from 'react-icons/gr'
 import { RxDividerHorizontal, RxSwitch } from 'react-icons/rx'
@@ -58,6 +58,12 @@ export default {
         ],
       },
       of: [
+        {
+          title: 'Carousel',
+          name: 'carousel',
+          type: 'carousel',
+          icon: BiCarousel,
+        },
         {
           title: 'Divider',
           name: 'divider',
