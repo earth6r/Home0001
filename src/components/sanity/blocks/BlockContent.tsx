@@ -20,15 +20,17 @@ import {
   FullbleedBlock,
   MessagingBlock,
   TableBlock,
+  ImagesBlock,
 } from '.'
+import classNames from 'classnames'
 
 export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
   grid,
   className,
   style,
-}) =>
-  blocks ? (
+}) => {
+  return blocks ? (
     <div className={className} style={style}>
       <PortableText
         value={blocks}
@@ -49,7 +51,30 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             dividerBlock: () => <div className="mt-block"></div>,
             fullbleedBlock: ({ index, value }) => (
-              <FullbleedBlock index={index} grid={grid} {...value} />
+              <FullbleedBlock
+                index={index}
+                grid={grid}
+                {...value}
+                className={classNames(
+                  (blocks as any)[index - 1]?._type === 'imagesBlock' ||
+                    (blocks as any)[index - 1]?._type === 'fullbleedBlock'
+                    ? 'mt-yhalf'
+                    : ''
+                )}
+              />
+            ),
+            imagesBlock: ({ index, value }) => (
+              <ImagesBlock
+                index={index}
+                grid={grid}
+                {...value}
+                className={classNames(
+                  (blocks as any)[index - 1]?._type === 'imagesBlock' ||
+                    (blocks as any)[index - 1]?._type === 'fullbleedBlock'
+                    ? 'mt-yhalf'
+                    : ''
+                )}
+              />
             ),
             propertyBlock: ({ index, value }) => (
               <PropertyBlock index={index} grid={grid} {...value} />
@@ -94,5 +119,6 @@ export const BlockContent: FC<SanityBlockElement> = ({
       />
     </div>
   ) : null
+}
 
 export default BlockContent

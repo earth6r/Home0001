@@ -34,6 +34,11 @@ export default {
       title: 'Full Bleed Block',
     },
     {
+      name: 'imagesBlock',
+      type: 'imagesBlock',
+      title: 'Images Row Block',
+    },
+    {
       name: 'propertyBlock',
       type: 'propertyBlock',
       title: 'Property Block',

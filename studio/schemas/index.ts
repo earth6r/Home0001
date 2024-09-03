@@ -47,11 +47,14 @@ import buy from './documents/buy-page'
 import tableBlock from './blocks/table-block'
 import contentRow from './objects/content-row'
 import rdPage from './documents/rd-page'
+import carousel from './objects/carousel'
+import imagesBlock from './blocks/images-block'
 
 export const schemaTypes = [
   // objects
   link,
   accordion,
+  carousel,
   color,
   contentRow,
   cookiesToggle,
@@ -81,6 +84,7 @@ export const schemaTypes = [
   carouselBlock,
   dividerBlock,
   fullbleedBlock,
+  imagesBlock,
   propertyBlock,
   propertiesBlock,
   newsletterBlock,

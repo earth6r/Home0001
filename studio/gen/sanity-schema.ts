@@ -1013,6 +1013,16 @@ export type Accordion = {
   cta?: Cta;
 };
 
+export type Carousel = {
+  _type: "carousel";
+  /**
+   * Images — `array`
+   *
+   *
+   */
+  images?: Array<SanityKeyed<Media>>;
+};
+
 export type Color = "black" | "white";
 
 export type ContentRow = {
@@ -1355,6 +1365,7 @@ export type BlockContent = Array<
   | SanityKeyed<CarouselBlock>
   | SanityKeyed<DividerBlock>
   | SanityKeyed<FullbleedBlock>
+  | SanityKeyed<ImagesBlock>
   | SanityKeyed<PropertyBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
@@ -1525,6 +1536,16 @@ export type FullbleedBlock = {
    *
    */
   minWidth?: number;
+};
+
+export type ImagesBlock = {
+  _type: "imagesBlock";
+  /**
+   * Images — `array`
+   *
+   * Shows images in a row on desktop and as a vertical list on mobile
+   */
+  images?: Array<SanityKeyed<Media>>;
 };
 
 export type PropertyBlock = {

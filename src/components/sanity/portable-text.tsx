@@ -8,6 +8,7 @@ import { SanityLink, SanityMedia } from '.'
 import { SanityTooltip } from './tooltip'
 import { useCookiesPrefs } from '@contexts/cookies'
 import { type FC, type HTMLAttributes } from 'react'
+import { ImageCarousel } from '@components/carousel'
 
 interface SanityCookiesToggleProps extends HTMLAttributes<HTMLElement> {
   linkedCopy?: string
@@ -60,6 +61,17 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
   },
   cookiesToggle: ({ value }) => {
     return <SanityCookiesToggle {...value} />
+  },
+  carousel: ({ value }) => {
+    return (
+      <ImageCarousel
+        slides={value.images}
+        carousel={false}
+        perView={2}
+        className="w-full"
+        placement="property details"
+      />
+    )
   },
 }
 
