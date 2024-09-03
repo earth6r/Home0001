@@ -49,7 +49,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
         <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
           <h2 className="hidden md:inline-block text-h2 mb-y">{unit?.title}</h2>
 
-          <div className="rich-text px-x md:px-0">
+          <div className="rich-text pl-x md:px-0">
             <p className="small uppercase m-0">
               {unit?.hidePrice
                 ? 'Price upon request'
