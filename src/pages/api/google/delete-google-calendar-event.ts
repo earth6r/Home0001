@@ -2,6 +2,10 @@ import { enableCors } from '@lib/next/cors'
 import { deleteCalendarEvent } from '@lib/util/book-google-calendar-event'
 import { NextApiRequest, NextApiResponse } from 'next'
 
+export const config = {
+  maxDuration: 300,
+}
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'DELETE') {
     res.setHeader('Allow', ['DELETE'])
