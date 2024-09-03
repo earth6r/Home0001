@@ -56,7 +56,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             {propertyType?.typeTitle}
           </h2>
 
-          <div className="rich-text px-x md:px-0">
+          <div className="rich-text pl-x md:px-0">
             <p className="small uppercase m-0">
               {cryptoMode
                 ? `${propertyType?.price?.substring(0)} / ${
