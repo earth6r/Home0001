@@ -133,6 +133,7 @@
 .rich-text.inventory ul {
   column-count: 2;
   column-gap: 16px;
+  padding: 0;
 }
 
 .rich-text li {
@@ -144,7 +145,7 @@
 }
 
 .rich-text.inventory ul li {
-  @apply font-normal text-xs tracking-tight;
+  @apply px-0 font-normal text-xs tracking-tight;
   border: none;
   break-inside: avoid;
 }
