@@ -249,7 +249,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 <div className="relative">
                   <p className="font-medium uppercase">{`Your call with HOME0001 is scheduled.`}</p>
                   <p className="font-medium mt-y">
-                    {`Please check your email for event details.`}
+                    {`Please check your email for details.`}
                   </p>
                 </div>
               )}

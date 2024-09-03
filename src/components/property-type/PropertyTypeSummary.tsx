@@ -25,7 +25,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
       const currentEthPrice = await convertUsdToEthPrice(usdPrice)
-      const roundedEthPrice = Number(currentEthPrice.toFixed(2))
+      const roundedEthPrice = Number(currentEthPrice.toFixed(1))
       const currentBtcPrice = await convertUsdToBtcPrice(usdPrice)
       const roundedBtcPrice = Number(currentBtcPrice.toFixed(2))
       return [roundedEthPrice, roundedBtcPrice]
@@ -79,7 +79,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
 
                   <p className="font-medium mb-yhalf">
                     {cryptoMode
-                      ? `${propertyType.price?.substring(0)} USDC / ${
+                      ? `${propertyType.price?.substring(0)} / ${
                           cryptoPrice[1]
                         } BTC / ${cryptoPrice[0]} ETH`
                       : propertyType?.price}
