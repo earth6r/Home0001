@@ -63,7 +63,7 @@ export default async function handler(
           calendarEmail: 'talin@home0001.com',
           eventName: 'Phone call with HOME0001',
           inviteeEmail: email,
-          eventDescription: `You're scheduled for a phone call with HOME0001.`,
+          eventDescription: `A member of the HOME0001 collective will meet you on Zoom to answer your questions and talk you through our available homes. Here’s the meeting link: <br><br><a href="https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09">JOIN CALL</a><br><br>If you'd like us to call you instead, please share your number & preferred channel (WhatsApp, Facetime, Signal, Telegram).<br><br>Please kindly give us a heads up if you're running late or need to reschedule. Feel free to text us at +1 (973) 791-5529 or contact Talin at talin@home0001.com`,
           zoom: true,
         })
       } else {
@@ -72,7 +72,7 @@ export default async function handler(
           endTime: endTimestamp,
           eventName: 'Zoom with HOME0001',
           inviteeEmail: email,
-          eventDescription: `You're scheduled for a Zoom call with HOME0001.`,
+          eventDescription: `A member of the HOME0001 collective will meet you on Zoom to answer your questions and talk you through our available homes. Here’s the meeting link: <br><br><a href="https://zoom.us/j/9199989063?pwd=RzhRMklXNWdJNGVKZjRkRTdkUmZOZz09">JOIN CALL</a><br><br>If you'd like us to call you instead, please share your number & preferred channel (WhatsApp, Facetime, Signal, Telegram).<br><br>Please kindly give us a heads up if you're running late or need to reschedule. Feel free to text us at +1 (973) 791-5529 or contact Talin at talin@home0001.com`,
           calendarEmail: 'talin@home0001.com',
           zoom: true,
         })
