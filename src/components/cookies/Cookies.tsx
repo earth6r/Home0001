@@ -118,10 +118,10 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
   return (
     <Dialog open={open} onClose={close}>
       <div className="fixed w-[100vw] h-[100vh] top-0 left-0 right-0 bottom-0 bg-black opacity-40 z-header"></div>
-      <Dialog.Panel className="fixed w-full md:max-w-[680px] h-[100svh] md:h-[75vh] md:max-h-[636px] top-0 md:top-1/2 md:transform md:-translate-y-1/2 py-xdouble px-x left-0 md:left-1/2 md:-translate-x-1/2 right-0 bg-white border-black overflow-scroll z-menu">
+      <Dialog.Panel className="fixed w-full md:max-w-[680px] h-[100svh] md:h-[75vh] md:max-h-[636px] top-0 md:top-1/2 md:transform md:-translate-y-1/2 pb-xdouble px-x left-0 md:left-1/2 md:-translate-x-1/2 right-0 bg-white md:border-black overflow-scroll z-menu">
         {copy && (
           <div>
-            <RichText blocks={copy} className="mt-ydouble" />
+            <RichText blocks={copy} className="mt-header" />
           </div>
         )}
 
@@ -162,10 +162,10 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
         </div>
 
         <button
-          className="absolute flex justify-between w-full top-x left-0 px-x text-button"
+          className="absolute flex justify-between items-center w-full h-header top-0 left-0 px-x text-button"
           onClick={close}
         >
-          <span>HOME0001</span>
+          <span style={{ fontFeatureSettings: `'case' on` }}>HOME0001</span>
           <span>Close</span>
         </button>
       </Dialog.Panel>
