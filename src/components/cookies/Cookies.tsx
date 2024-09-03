@@ -240,7 +240,7 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
           transition: `opacity 100ms ease-in-out`,
         }}
         className={classNames(
-          'flex justify-between items-center fixed w-full bottom-y px-x font-medium font-sansText text-[13px] xs:text-base z-modal'
+          'flex justify-between items-center fixed w-full bottom-y px-x font-medium xs:text-base z-modal'
         )}
       >
         {!dialogOpen && (
