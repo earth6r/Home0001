@@ -210,10 +210,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
         {fields?.showContact && (
           <>
-            <label
-              htmlFor="hs_persona"
-              className="font-medium mt-yhalf text-md"
-            >
+            <label htmlFor="hs_persona" className="font-medium mt-y text-md">
               Which best describes you?
             </label>
 
@@ -265,7 +262,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
             <textarea
               rows={5}
               id="message"
-              className="block p-5 mt-yhalf"
+              className="block p-5 mt-y"
               placeholder="LEAVE US A MESSAGE"
               {...register('message', { required: 'Message required' })}
             />
@@ -274,7 +271,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
         <div
           className={classNames(
-            fields?.showLocation ? 'mt-10' : 'mt-1 md:mt-6',
+            fields?.showLocation ? 'mt-10' : 'mt-y',
             brandStyle ? '!m-0' : '',
             'relative flex flex-col gap-2 md:gap-y'
           )}
@@ -284,7 +281,8 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
               brandStyle
                 ? 'border-black px-1 font-normal'
                 : 'h-btn text-white bg-black',
-              'md:max-w-[var(--btn-width)] w-full text-center uppercase font-medium text-xs'
+              fields?.showContact ? '' : 'md:max-w-[var(--btn-width)]',
+              'w-full text-center uppercase font-medium text-xs'
             )}
             type="submit"
             disabled={isSubmitting}

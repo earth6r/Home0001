@@ -160,7 +160,7 @@ export const Accordion: FC<AccordionProps> = ({
                       <div className="cta w-full relative mt-y">
                         <SanityLink
                           {...(cta.link as SanityLinkType)}
-                          className="w-full md:max-w-[var(--btn-width)] border-1 border-black border-solid flex flex-row justify-between items-center bg-black text-white hover:invert text-button z-above px-4 py-3.5"
+                          className="w-full md:max-w-[var(--btn-width)] border-1 border-black hover:border-white border-solidd flex flex-row justify-between items-center bg-black text-white hover:invert text-button z-above px-4 py-3.5"
                         >
                           <span className="text-left uppercase leading-none">
                             {cta.text || 'Learn more'}

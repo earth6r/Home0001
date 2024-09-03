@@ -118,16 +118,16 @@ export const Header: FC<HeaderProps> = ({
           <Logo
             content={title}
             className={classNames(
-              hideBreadcrumb ? 'opacity-0' : '',
-              'flex items-center h-header pointer-events-auto transition-opacity duration-200'
+              hideBreadcrumb ? '-translate-y-[46px]' : 'translate-y-0',
+              'flex items-center relative h-header pointer-events-auto transform transition-transform duration-200'
             )}
           />
 
           {(path?.includes('property') || path?.includes('property-type')) && (
             <span
               className={classNames(
-                hideBreadcrumb ? 'opacity-0' : '',
-                'hidden sm:inline-block transition-opacity duration-200'
+                hideBreadcrumb ? '-translate-y-[46px]' : 'translate-y-0',
+                'hidden sm:inline-block relative transform transition-transform duration-200'
               )}
             >
               :
@@ -142,8 +142,8 @@ export const Header: FC<HeaderProps> = ({
             >
               <span
                 className={classNames(
-                  hideBreadcrumb ? 'opacity-0' : '',
-                  'hidden sm:inline-block uppercase pointer-events-auto transition-opacity duration-200'
+                  hideBreadcrumb ? '-translate-y-[46px]' : 'translate-y-0',
+                  'hidden sm:inline-block relative uppercase pointer-events-auto transform transition-transform duration-200'
                 )}
               >
                 &nbsp;{`${(property as unknown as Property)?.headerText}`}
@@ -154,8 +154,8 @@ export const Header: FC<HeaderProps> = ({
           {path?.includes('property-type') && (
             <span
               className={classNames(
-                hideBreadcrumb ? 'opacity-0' : '',
-                'hidden sm:inline-block transition-opacity duration-200'
+                hideBreadcrumb ? '-translate-y-[46px]' : 'translate-y-0',
+                'hidden sm:inline-block relative transform transition-transform duration-200'
               )}
             >
               :
@@ -164,8 +164,8 @@ export const Header: FC<HeaderProps> = ({
           {(path?.includes('property') || path?.includes('property-type')) && (
             <span
               className={classNames(
-                hideBreadcrumb ? 'opacity-0' : '',
-                'hidden sm:inline-block uppercase transition-opacity duration-200'
+                hideBreadcrumb ? '-translate-y-[46px]' : 'translate-y-0',
+                'hidden sm:inline-block relative uppercase transform transition-transform duration-200'
               )}
             >
               &nbsp;{`${currentTitle}`}

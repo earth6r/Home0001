@@ -22,7 +22,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               <SanityMedia
                 imageProps={{
                   alt: property?.image.alt || 'Building image',
-                  quality: 8,
+                  quality: 80,
                   priority: true,
                   lqip: (property?.image?.image as any)?.asset?.metadata?.lqip,
                 }}
