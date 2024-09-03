@@ -66,7 +66,10 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
                 'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
               )}
             >
-              <RichText blocks={longTitle} className="card" />
+              <RichText
+                blocks={longTitle}
+                className="card max-w-[200px] md:max-w-none"
+              />
 
               <IconRightArrowBold
                 className="relative w-[1em] mt-[0.1em]"

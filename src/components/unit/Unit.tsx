@@ -27,7 +27,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
       const currentEthPrice = await convertUsdToEthPrice(usdPrice)
-      const roundedEthPrice = Number(currentEthPrice.toFixed(2))
+      const roundedEthPrice = Number(currentEthPrice.toFixed(1))
       const currentBtcPrice = await convertUsdToBtcPrice(usdPrice)
       const roundedBtcPrice = Number(currentBtcPrice.toFixed(2))
       return [roundedEthPrice, roundedBtcPrice]
@@ -54,9 +54,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               {unit?.hidePrice
                 ? 'Price upon request'
                 : cryptoMode
-                ? `${unit?.price?.substring(1)} USDC / ${
-                    cryptoPrice[1]
-                  } BTC / ${cryptoPrice[0]} ETH`
+                ? `${unit?.price?.substring(1)} / ${cryptoPrice[1]} BTC / ${
+                    cryptoPrice[0]
+                  } ETH`
                 : `${unit?.price}`}
             </p>
             {unit?.area && (
