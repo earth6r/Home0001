@@ -245,7 +245,7 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
       >
         {!dialogOpen && (
           <>
-            <span>{`We use cookies`}</span>
+            <span>{`WE USE COOKIES.`}</span>
             <div className="flex items-center gap-xhalf">
               <button
                 className="uppercase"
