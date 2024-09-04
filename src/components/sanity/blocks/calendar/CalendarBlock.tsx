@@ -40,7 +40,6 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   } = useForm({
     shouldUseNativeValidation: true,
   })
-  console.log('calendarType', calendarType)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [formError, setFormError] = useState<{
     error: boolean | null
@@ -51,7 +50,6 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   const calendarEnd = end || '5'
 
   const [availableSlots, setAvailableSlots] = useState([])
-  console.log('availableSlots:', availableSlots)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
 

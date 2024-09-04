@@ -131,4 +131,10 @@ export default {
       group: 'metadata',
     },
   ],
+  preview: {
+    select: {
+      title: 'typeTitle',
+      subtitle: 'property.title',
+    },
+  },
 }

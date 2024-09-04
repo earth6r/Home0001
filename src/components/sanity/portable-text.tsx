@@ -6,6 +6,31 @@ import type {
 import { reactNodeToString } from '@lib/util'
 import { SanityLink, SanityMedia } from '.'
 import { SanityTooltip } from './tooltip'
+import { useCookiesPrefs } from '@contexts/cookies'
+import { type FC, type HTMLAttributes } from 'react'
+import { ImageCarousel } from '@components/carousel'
+
+interface SanityCookiesToggleProps extends HTMLAttributes<HTMLElement> {
+  linkedCopy?: string
+  cookiesToggle?: boolean
+}
+
+const SanityCookiesToggle: FC<SanityCookiesToggleProps> = ({
+  className,
+  ...props
+}) => {
+  const [showPrefs, setShowPrefs] = useCookiesPrefs()
+  return (
+    <button
+      className="underline"
+      onClick={() => {
+        setShowPrefs(true)
+      }}
+    >
+      {props.linkedCopy}
+    </button>
+  )
+}
 
 /**
  * PortableText types used globally
@@ -13,10 +38,10 @@ import { SanityTooltip } from './tooltip'
 export const blockTypes: Partial<PortableTextReactComponents['types']> = {
   media: ({ value }) => {
     return (
-      <div className={`max-w-[273px] md:max-w-[522px] mx-auto text-center`}>
+      <div>
         <SanityMedia
           imageProps={{
-            alt: value?.alt || 'Building image',
+            alt: value?.alt || 'Media',
             lqip: (value?.image as any)?.asset?.metadata?.lqip,
           }}
           className="w-full h-auto object-cover"
@@ -33,6 +58,20 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
   },
   embed: ({ value }) => {
     return <script type="text/javascript">{value.embed}</script>
+  },
+  cookiesToggle: ({ value }) => {
+    return <SanityCookiesToggle {...value} />
+  },
+  carousel: ({ value }) => {
+    return (
+      <ImageCarousel
+        slides={value.images}
+        carousel={false}
+        perView={2}
+        className="w-full"
+        placement="property details"
+      />
+    )
   },
 }
 

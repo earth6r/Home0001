@@ -6,8 +6,8 @@ import { submitForm } from '@lib/util/submit-forms'
 import { sendGoogleEvent } from '@lib/util'
 import { RichText } from '@components/sanity'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
-import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { useLocalCookies } from '@contexts/cookies'
 import axios from 'axios'
 import { saveError } from '@lib/util/save-error'
 
@@ -40,16 +40,8 @@ export const Form: FC<FormProps> = ({
   children,
 }) => {
   const [formError, setFormError] = useState<unknown | string | null>(null)
-  const [cookies, setCookie, removeCookie] = useCookies()
-  const [hutk, setHutk] = useState<string | undefined>()
+  const [hutk, setHutk] = useLocalCookies()
   const { asPath } = useRouter()
-
-  useEffect(() => {
-    if (cookies.hubspotutk) {
-      setHutk(cookies.hubspotutk)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const onSubmit = async (data: any) => {
     const options = {

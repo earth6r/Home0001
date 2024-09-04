@@ -20,7 +20,7 @@ export const Block: FC<BlockProps> = ({
     <div
       ref={el}
       id={slug?.current}
-      className={classNames(styles.block, className, `flex-auto`)}
+      className={classNames(styles.block, className, 'flex-auto')}
       {...props}
     >
       {children}
