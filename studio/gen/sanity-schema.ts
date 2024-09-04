@@ -1360,6 +1360,7 @@ export type InventoryModule = {
 
 export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
+  | SanityKeyed<AccordionRowBlock>
   | SanityKeyed<AnimatingBlock>
   | SanityKeyed<CalendarBlock>
   | SanityKeyed<CarouselBlock>
@@ -1402,6 +1403,30 @@ export type AccordionBlock = {
    * Set to true to hide plus and minus and show read more copy
    */
   readMore?: boolean;
+
+  /**
+   * Black Bottom Border — `boolean`
+   *
+   *
+   */
+  bottomBorder?: boolean;
+};
+
+export type AccordionRowBlock = {
+  _type: "accordionRowBlock";
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
+   * Accordions — `array`
+   *
+   *
+   */
+  accordions?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Black Bottom Border — `boolean`

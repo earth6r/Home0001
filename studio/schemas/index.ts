@@ -49,6 +49,7 @@ import contentRow from './objects/content-row'
 import rdPage from './documents/rd-page'
 import carousel from './objects/carousel'
 import imagesBlock from './blocks/images-block'
+import accordionRowBlock from './blocks/accordion-row-block'
 
 export const schemaTypes = [
   // objects
@@ -79,6 +80,7 @@ export const schemaTypes = [
   // blocks
   blockContent,
   accordionBlock,
+  accordionRowBlock,
   animatingBlock,
   calendarBlock,
   carouselBlock,

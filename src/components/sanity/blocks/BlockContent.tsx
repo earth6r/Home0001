@@ -21,6 +21,7 @@ import {
   MessagingBlock,
   TableBlock,
   ImagesBlock,
+  AccordionRowBlock,
 } from '.'
 import classNames from 'classnames'
 
@@ -39,6 +40,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ...blockTypes,
             accordionBlock: ({ index, value }) => (
               <AccordionBlock index={index} grid={grid} {...value} />
+            ),
+            accordionRowBlock: ({ index, value }) => (
+              <AccordionRowBlock index={index} grid={grid} {...value} />
             ),
             animatingBlock: ({ index, value }) => (
               <AnimatingBlock index={index} grid={grid} {...value} />
