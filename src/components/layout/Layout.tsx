@@ -72,7 +72,10 @@ export const Layout: FC<LayoutProps> = ({
             (page?._type && (page._type as string) === 'buy') ||
             (page?._type && (page._type as string) === 'rdPage')
           }
-          hideMenu={page?._type && (page._type as string) === 'buy'}
+          hideMenu={
+            (page?._type && (page._type as string) === 'buy') ||
+            (page?._type && (page._type as string) === 'rdPage')
+          }
           showTourLink={page?.showTourLink}
           property={(page as Unit)?.property}
           currentTitle={
