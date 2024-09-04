@@ -96,6 +96,7 @@ export const Header: FC<HeaderProps> = ({
     if (router.asPath !== '/') {
       setHeaderLinksShown(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

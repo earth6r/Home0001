@@ -145,7 +145,7 @@ export const Accordion: FC<AccordionProps> = ({
                 <Disclosure.Panel>
                   <div
                     className={classNames(
-                      readMore ? 'pr-x md:pl-0' : 'pl-x pr-10 pt-2 pb-5 ',
+                      readMore ? 'md:pl-0' : 'pl-x pr-10 pt-2 pb-5 ',
                       ''
                     )}
                   >
