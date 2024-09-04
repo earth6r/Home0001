@@ -1,10 +1,10 @@
+import { Property } from '@gen/sanity-schema'
 import type { PreviewValue } from '@sanity/types'
 import { MdMeetingRoom } from 'react-icons/md'
 
 interface PreviewProps {
   title?: string
-  propertyType?: string
-  propertyHeader?: string
+  property?: Property
 }
 
 export default {
@@ -184,11 +184,7 @@ export default {
   preview: {
     select: {
       title: 'title',
-    },
-    prepare({ title }: PreviewProps): PreviewValue {
-      return {
-        title: title,
-      }
+      subtitle: 'property.title',
     },
   },
 }
