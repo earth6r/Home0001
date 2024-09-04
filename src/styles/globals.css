@@ -204,7 +204,7 @@ footer {
 .swiper-slide {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   overflow: hidden;
 }
 
