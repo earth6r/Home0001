@@ -65,7 +65,7 @@ const CookieSetting: FC<CookieProps> = ({
         className={classNames(
           settingOn ? 'bg-black' : 'bg-gray',
           firstIndex ? 'opacity-30' : 'opacity-100',
-          `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto`
+          `relative inline-flex h-6 w-11 items-center self-center rounded-full pointer-events-auto`
         )}
       >
         {' '}
@@ -121,7 +121,7 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
       <Dialog.Panel className="fixed w-full md:max-w-[680px] h-[100svh] md:h-[75vh] md:max-h-[636px] top-0 md:top-1/2 md:transform md:-translate-y-1/2 pb-xdouble px-x left-0 md:left-1/2 md:-translate-x-1/2 right-0 bg-white md:border-black overflow-scroll z-menu">
         {copy && (
           <div>
-            <RichText blocks={copy} className="mt-header" />
+            <RichText blocks={copy} className="mt-header pt-ydouble md:pt-y" />
           </div>
         )}
 
