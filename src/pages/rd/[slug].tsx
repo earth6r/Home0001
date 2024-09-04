@@ -46,9 +46,6 @@ const RDPage: NextPage<PageProps> = (
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article className="flex flex-col pt-page px-x">
-        <h1 className="text-h1 text-left md:text-center mb-ydouble">
-          {page.title}
-        </h1>
         <BlockContent grid={true} blocks={page?.body} />
       </article>
     </PageTransition>
