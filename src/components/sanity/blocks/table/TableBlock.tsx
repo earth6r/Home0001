@@ -7,7 +7,7 @@ import { Block, RichText } from '@components/sanity'
 type TableBlockProps = Omit<SanityBlockElement, keyof TableBlockType> &
   TableBlockType
 
-export const TableBlock: FC<TableBlockProps> = ({ table, grid, className }) => {
+export const TableBlock: FC<TableBlockProps> = ({ table, className }) => {
   return (
     <Block className={classNames(className, 'lg:w-1/2 m-0 table-border-black')}>
       {table &&

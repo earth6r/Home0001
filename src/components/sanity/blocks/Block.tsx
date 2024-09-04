@@ -2,6 +2,7 @@ import type { FC, HTMLAttributes } from 'react'
 import { useRef } from 'react'
 import type { Slug } from '@sanity/types'
 import classNames from 'classnames'
+import styles from './block.module.css'
 
 export interface BlockProps extends HTMLAttributes<HTMLDivElement> {
   slug?: Slug | undefined
@@ -19,10 +20,7 @@ export const Block: FC<BlockProps> = ({
     <div
       ref={el}
       id={slug?.current}
-      className={classNames(
-        className,
-        'relative flex-auto mt-ydouble first-of-type:mt-0'
-      )}
+      className={classNames(styles.block, className, 'flex-auto')}
       {...props}
     >
       {children}
