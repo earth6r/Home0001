@@ -140,24 +140,22 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
 
         <div className="grid grid-cols-2 gap-x w-full mt-y">
           <button
-            className="flex justify-between items-center h-btn px-x text-button bg-black text-white"
+            className="flex justify-center items-center h-btn px-x text-button bg-white border-black"
             onClick={() => {
               declineAnalytics()
               declineFunctional()
             }}
           >
             {`Reject`}
-            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
           <button
-            className="flex justify-between items-center h-btn px-x text-button bg-black text-white"
+            className="flex justify-center items-center h-btn px-x text-button bg-black text-white"
             onClick={() => submitChoices()}
           >
             <div>
               <span>{`Confirm`}</span>
               <span className="hidden sm:inline-block">&nbsp;{`choices`}</span>
             </div>
-            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
         </div>
 
@@ -165,8 +163,8 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
           className="absolute flex justify-between items-center w-full h-header top-0 left-0 px-x text-button"
           onClick={close}
         >
-          <span style={{ fontFeatureSettings: `'case' on` }}>HOME0001</span>
-          <span>Close</span>
+          <span style={{ fontFeatureSettings: `'case' on` }}>COOKIES</span>
+          <span style={{ fontFeatureSettings: `'case' on` }}>CLOSE</span>
         </button>
       </Dialog.Panel>
     </Dialog>
