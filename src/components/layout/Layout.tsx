@@ -13,8 +13,8 @@ import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
+import { Cookies } from '@components/cookies'
 import { triggerToastPreview } from '@components/toast'
-import IconEarth from '@components/icons/IconEarth'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -62,9 +62,15 @@ export const Layout: FC<LayoutProps> = ({
         <Header
           className="flex-initial"
           path={asPath}
+          title={
+            page?._type && (page._type as string) === 'rdPage'
+              ? '0001'
+              : 'HOME0001'
+          }
           hideMenuButton={
             page?.hideMenuButton ||
-            (page?._type && (page._type as string) === 'buy')
+            (page?._type && (page._type as string) === 'buy') ||
+            (page?._type && (page._type as string) === 'rdPage')
           }
           hideMenu={page?._type && (page._type as string) === 'buy'}
           showTourLink={page?.showTourLink}
@@ -102,6 +108,10 @@ export const Layout: FC<LayoutProps> = ({
           path={asPath}
           query={query}
           footerMenu={siteSettings?.footerMenu as Menus | undefined}
+        />
+        <Cookies
+          copy={siteSettings?.cookiesPaneCopy}
+          accordions={siteSettings?.cookiesAccordions}
         />
       </div>
       <ToastContainer />

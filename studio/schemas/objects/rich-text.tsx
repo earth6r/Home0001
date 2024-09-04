@@ -1,7 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
+import { BiCarousel } from 'react-icons/bi'
 import { BiCode, BiText } from 'react-icons/bi'
 import { GrImage } from 'react-icons/gr'
-import { RxDividerHorizontal } from 'react-icons/rx'
+import { RxDividerHorizontal, RxSwitch } from 'react-icons/rx'
 
 const IndentDecorator = (props: any) => {
   return <span style={{ paddingLeft: '16px' }}>{props.children}</span>
@@ -58,10 +59,22 @@ export default {
       },
       of: [
         {
+          title: 'Carousel',
+          name: 'carousel',
+          type: 'carousel',
+          icon: BiCarousel,
+        },
+        {
           title: 'Divider',
           name: 'divider',
           type: 'divider',
           icon: RxDividerHorizontal,
+        },
+        {
+          title: 'Embed',
+          name: 'embed',
+          type: 'embed',
+          icon: BiCode,
         },
         {
           title: 'Tooltip',
@@ -70,10 +83,10 @@ export default {
           icon: BiText,
         },
         {
-          title: 'Embed',
-          name: 'embed',
-          type: 'embed',
-          icon: BiCode,
+          title: 'Cookies Toggle',
+          name: 'cookiesToggle',
+          type: 'cookiesToggle',
+          icon: RxSwitch,
         },
       ],
     },

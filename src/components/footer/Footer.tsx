@@ -4,12 +4,14 @@ import type { FooterProps } from './types'
 import { SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
 import { useBrokerInquiryModal } from '@contexts/modals'
+import { useCookiesPrefs } from '@contexts/cookies'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   footerMenu,
 }) => {
   const year = new Date().getFullYear()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
+  const [showPrefs, setShowPrefs] = useCookiesPrefs()
 
   return (
     <footer
@@ -37,6 +39,16 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
               </li>
             ) : null
           })}
+          <li>
+            <button
+              className="text-button"
+              onClick={() => {
+                setShowPrefs(true)
+              }}
+            >
+              {`Cookies Settings`}
+            </button>
+          </li>
         </ul>
 
         <div className="xl:hidden xl:justify-between xl:items-start w-full leading-[1.3] xl:leading-none">

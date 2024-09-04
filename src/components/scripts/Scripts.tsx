@@ -1,4 +1,5 @@
 import Script from 'next/script'
+import { useEffect, useState } from 'react'
 
 const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID
 const FACEBOOK_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
@@ -6,10 +7,75 @@ const HOTJAR_ID = process.env.NEXT_PUBLIC_HOTJAR_ID
 const HOTJAR_SV = process.env.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION
 const HUBSPOT_ID = process.env.NEXT_PUBLIC_HUBSPOT_ID
 
+const isInUkOrEu = (countryCode: string): boolean => {
+  const ukEuCountries: Set<string> = new Set([
+    'UK',
+    'IE',
+    'DE',
+    'FR',
+    'IT',
+    'ES',
+    'NL',
+    'BE',
+    'LU',
+    'AT',
+    'SE',
+    'DK',
+    'FI',
+    'PT',
+    'GR',
+    'CZ',
+    'HU',
+    'PL',
+    'SK',
+    'SI',
+    'EE',
+    'LV',
+    'LT',
+    'CY',
+    'MT',
+    'RO',
+    'BG',
+    'HR',
+  ])
+  return ukEuCountries.has(countryCode.toUpperCase())
+}
+
 export const Scripts = () => {
+  const [analytics, setAnalytics] = useState(false)
+
+  const fetchCountryCode = async (): Promise<string> => {
+    try {
+      const response = await fetch('https://ipapi.co/country/')
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const countryCode = await response.text()
+      return countryCode
+    } catch (error) {
+      console.error('Error fetching country code:', error)
+      return 'US'
+    }
+  }
+
+  const enableAnalytics = (countryCode: string): void => {
+    if (!isInUkOrEu(countryCode)) {
+      console.log('Analytics enabled')
+      if (sessionStorage.getItem('allowAnalytics') !== 'false') {
+        setAnalytics(true)
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      fetchCountryCode().then(enableAnalytics)
+    }
+  }, [])
+
   return (
     <>
-      {GOOGLE_ID && GOOGLE_ID.length > 0 ? (
+      {GOOGLE_ID && GOOGLE_ID.length > 0 && analytics ? (
         <>
           <Script id="google-analytics" strategy="afterInteractive">
             <noscript>
@@ -24,7 +90,7 @@ export const Scripts = () => {
           </Script>
         </>
       ) : null}
-      {/* {FACEBOOK_ID && FACEBOOK_ID.length > 0 ? (
+      {/* {FACEBOOK_ID && FACEBOOK_ID.length > 0 && analytics ? (
         <Script id="facebook-pixel-analytics" strategy="afterInteractive">
           {`
               !function(f,b,e,v,n,t,s)
@@ -39,7 +105,7 @@ export const Scripts = () => {
             `}
         </Script>
       ) : null} */}
-      {HOTJAR_ID && HOTJAR_ID.length > 0 ? (
+      {HOTJAR_ID && HOTJAR_ID.length > 0 && analytics ? (
         <Script id="hotjar-analytics" strategy="afterInteractive">
           {`
             (function(h,o,t,j,a,r){
@@ -53,7 +119,7 @@ export const Scripts = () => {
           `}
         </Script>
       ) : null}
-      {HUBSPOT_ID && HUBSPOT_ID.length > 0 ? (
+      {HUBSPOT_ID && HUBSPOT_ID.length > 0 && analytics ? (
         <script
           type="text/javascript"
           id="hs-script-loader"

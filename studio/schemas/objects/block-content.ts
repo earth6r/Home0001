@@ -34,6 +34,11 @@ export default {
       title: 'Full Bleed Block',
     },
     {
+      name: 'imagesBlock',
+      type: 'imagesBlock',
+      title: 'Images Row Block',
+    },
+    {
       name: 'propertyBlock',
       type: 'propertyBlock',
       title: 'Property Block',
@@ -52,6 +57,11 @@ export default {
       name: 'contactBlock',
       type: 'contactBlock',
       title: 'Contact Block',
+    },
+    {
+      name: 'tableBlock',
+      type: 'tableBlock',
+      title: 'Table Block',
     },
     {
       name: 'textBlock',
