@@ -1,6 +1,7 @@
 import { useRef, type FC, useEffect } from 'react'
 import type { SanityVideoProps } from './types'
 import { getFileAsset } from '@sanity/asset-utils'
+import lenis from '@studio-freight/react-lenis'
 
 const PROJECT_ID = process.env.SANITY_STUDIO_API_PROJECT_ID || 'cr71fv96'
 const DATASET = process.env.SANITY_STUDIO_API_DATASET || 'dev'
