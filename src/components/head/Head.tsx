@@ -65,8 +65,8 @@ export const Head: FC<HeadProps> = props => {
       <link
         rel="icon"
         href={
-          props.pageType === 'brand'
-            ? 'https://home0001.com/favicon-brand.png'
+          props.pageType === 'rdPage'
+            ? 'https://home0001.com/favicon-0001.png'
             : '/favicon.png'
         }
       />
