@@ -23,7 +23,7 @@ export const FullbleedBlock: FC<FullbleedBlockProps> = ({
             style: { minWidth: minWidth ? `${minWidth}px` : '' },
             lqip: (image?.image as any)?.asset?.metadata?.lqip,
           }}
-          className="relative w-full h-auto object-contain mt-0 px-28 md:pb-ydouble md:max-w-sm"
+          className="relative w-full h-auto object-contain mt-0 px-28 md:pb-y md:px-0 md:max-w-[180px]"
           {...(image as SanityMediaProps)}
         />
       )}
