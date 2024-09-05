@@ -205,6 +205,7 @@ async function updateCalendarEvent({
     calendarId: calendarEmail,
     eventId,
     requestBody: event,
+    sendUpdates: 'all',
   })
 
   return response.data.id // event id
