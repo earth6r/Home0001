@@ -59,6 +59,11 @@ export default {
       type: 'boolean',
       title: 'Black Bottom Border',
     },
+    {
+      name: 'topBorder',
+      type: 'boolean',
+      title: 'Black Top Border',
+    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Text block' }),

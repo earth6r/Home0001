@@ -127,7 +127,7 @@ export default {
           border: '1px solid black',
         },
         '.border-top': {
-          borderTop: '1px solid black',
+          borderTop: '1.5px solid black',
         },
         '.border-left': {
           borderLeft: '1px solid black',
