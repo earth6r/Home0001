@@ -107,11 +107,14 @@ export const Layout: FC<LayoutProps> = ({
           <main className="flex-auto">{children}</main>
         </ReactLenis>
 
-        <Footer
-          path={asPath}
-          query={query}
-          footerMenu={siteSettings?.footerMenu as Menus | undefined}
-        />
+        {(page?._type as string) !== 'rdPage' && (
+          <Footer
+            path={asPath}
+            query={query}
+            footerMenu={siteSettings?.footerMenu as Menus | undefined}
+          />
+        )}
+
         <Cookies
           copy={siteSettings?.cookiesPaneCopy}
           accordions={siteSettings?.cookiesAccordions}
