@@ -15,6 +15,7 @@ export const TextBlock: FC<TextBlockProps> = ({
   accordion,
   columns = 3,
   bottomBorder,
+  topBorder,
   yellowBackground,
   stickyHeader,
   header,
@@ -36,7 +37,8 @@ export const TextBlock: FC<TextBlockProps> = ({
           ? 'bg-yellow w-[calc(100%+(var(--space-x)*2))] -left-x px-x py-ydouble'
           : '',
         !yellowBackground && grid ? `md:grid` : '',
-        bottomBorder ? 'pb-ydouble border-bottom' : ''
+        bottomBorder ? 'pb-ydouble border-bottom' : '',
+        topBorder ? 'pt-ydouble border-top mt-40' : ''
       )}
     >
       {stickyHeader && header && (
