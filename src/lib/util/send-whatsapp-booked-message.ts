@@ -2,6 +2,8 @@ import moment from 'moment-timezone'
 import {
   sendMessage,
   sendWAMessagePropertyTourBooked,
+  sendWAMessageReschedulePhoneCall,
+  sendWAMessageReschedulePropertyTour,
 } from '../../pages/api/send-whatsapp'
 
 export const sendWhatsappBookedMessage = async (
@@ -44,10 +46,18 @@ export const sendWhatsappBookedMessage = async (
   ]
 
   for (const number of numbers) {
-    if (isPropertyTour) {
-      await sendWAMessagePropertyTourBooked(number, message)
+    if (rescheduled) {
+      if (isPropertyTour) {
+        await sendWAMessageReschedulePropertyTour(number, message)
+      } else {
+        await sendWAMessageReschedulePhoneCall(number, message)
+      }
     } else {
-      await sendMessage(number, message)
+      if (isPropertyTour) {
+        await sendWAMessagePropertyTourBooked(number, message)
+      } else {
+        await sendMessage(number, message)
+      }
     }
   }
 }
