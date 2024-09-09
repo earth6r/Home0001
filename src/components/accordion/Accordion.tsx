@@ -43,7 +43,7 @@ export const Accordion: FC<AccordionProps> = ({
       setTimeout(() => {
         if (ref.current)
           ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
-      }, 200)
+      }, 250)
     }
 
     if (!openedOnce) {
