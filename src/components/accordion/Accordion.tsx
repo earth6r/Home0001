@@ -41,8 +41,9 @@ export const Accordion: FC<AccordionProps> = ({
     if (ref.current) {
       ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
       setTimeout(() => {
-        lenis.resize()
-      }, 300)
+        if (ref.current)
+          ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
+      }, 1000)
     }
 
     if (!openedOnce) {
