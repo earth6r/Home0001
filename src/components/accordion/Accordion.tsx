@@ -40,6 +40,9 @@ export const Accordion: FC<AccordionProps> = ({
   const beforeEnter = () => {
     if (ref.current) {
       ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
+      setTimeout(() => {
+        lenis.resize()
+      }, 300)
     }
 
     if (!openedOnce) {
@@ -136,7 +139,7 @@ export const Accordion: FC<AccordionProps> = ({
                 enter="maxHeight duration-200 ease-in-out"
                 enterFrom="max-h-0"
                 beforeEnter={beforeEnter}
-                // afterEnter={() => setTimeout(() => lenis.resize(), 100)}
+                afterEnter={() => lenis.resize()}
                 leave="maxHeight duration-200 ease-in-out"
                 afterLeave={() => lenis.resize()}
                 beforeLeave={() => {
