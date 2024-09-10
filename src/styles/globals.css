@@ -198,13 +198,13 @@ footer {
 }
 
 .calendar .swiper-wrapper {
-  align-items: start;
+  align-items: flex-start;
 }
 
 .swiper-slide {
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   overflow: hidden;
 }
 
