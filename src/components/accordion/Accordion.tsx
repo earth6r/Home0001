@@ -38,8 +38,13 @@ export const Accordion: FC<AccordionProps> = ({
   const lenis = useLenis()
 
   const beforeEnter = () => {
-    if (ref.current)
+    if (ref.current) {
       ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
+      setTimeout(() => {
+        if (ref.current)
+          ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
+      }, 1000)
+    }
 
     if (!openedOnce) {
       const options = {

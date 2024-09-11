@@ -22,7 +22,6 @@ export const LINK_QUERY = `
     slug,
   },
   "anchor": internalLink.anchor,
-  "query": internalLink.query,
 `
 
 export const LINK_MARKDEFS_QUERY = `
@@ -33,7 +32,6 @@ export const LINK_MARKDEFS_QUERY = `
       slug,
     },
     "anchor": @.internalLink.anchor,
-    "query": @.internalLink.query,
   },
 `
 

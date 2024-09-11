@@ -83,6 +83,21 @@ export default async function handler(
     disableCalendarInvite,
   })
 
+  const potentialCustomerResponse = await db
+    .collection('potentialCustomers')
+    .where('email', '==', email)
+    .get()
+
+  if (!potentialCustomerResponse.empty) {
+    const potentialCustomer = potentialCustomerResponse.docs[0]
+    await potentialCustomer.ref.update({
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+    })
+  }
+
   if (pending) {
     res.status(200).json({
       status: 'success',
