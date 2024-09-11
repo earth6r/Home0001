@@ -105,7 +105,8 @@
   @apply font-sansText text-bodyLg font-bold;
 }
 
-.rich-text p strong {
+.rich-text p strong,
+.rich-text li strong {
   @apply font-sansText leading-[1.1];
 }
 
@@ -201,5 +202,9 @@
 @media (hover: hover) {
   .rich-text a:hover {
     font-weight: bold;
+  }
+
+  .rich-text p a:hover {
+    @apply font-sansText;
   }
 }
