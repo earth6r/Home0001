@@ -958,13 +958,6 @@ export type Link = {
      *
      */
     anchor?: { _type: "anchor"; current: string };
-
-    /**
-     * Query Parameter — `slug`
-     *
-     * Use on a page with a Properties Block to move to a specified property or unit, starts with ?
-     */
-    query?: { _type: "query"; current: string };
   };
 
   /**
