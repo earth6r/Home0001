@@ -115,7 +115,7 @@
 .rich-text h3 .indented,
 .rich-text h4 .indented,
 .rich-text p .indented {
-  @apply pl-x;
+  @apply pl-xdouble block;
 }
 
 .rich-text ul,
