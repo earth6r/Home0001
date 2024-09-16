@@ -43,8 +43,6 @@ export const Layout: FC<LayoutProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log('siteSettings', siteSettings)
-
   return (
     <>
       <Head
@@ -109,12 +107,22 @@ export const Layout: FC<LayoutProps> = ({
           <main className="flex-auto">{children}</main>
         </ReactLenis>
 
-        {(page?._type as string) !== 'rdPage' && (
+        {(page?._type as string) !== 'rdPage' ? (
           <Footer
             path={asPath}
             query={query}
             footerMenu={siteSettings?.footerMenu as Menus | undefined}
           />
+        ) : (
+          siteSettings?.RDFooterMenu && (
+            <Footer
+              path={asPath}
+              query={query}
+              footerMenu={
+                siteSettings?.RDFooterMenu as unknown as Menus | undefined
+              }
+            />
+          )
         )}
 
         <Cookies

@@ -1,16 +1,14 @@
 import classNames from 'classnames'
-import { Fragment, type FC, type HTMLProps } from 'react'
+import { type FC, type HTMLProps } from 'react'
 import type { FooterProps } from './types'
 import { SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
-import { useBrokerInquiryModal } from '@contexts/modals'
 import { useCookiesPrefs } from '@contexts/cookies'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   footerMenu,
 }) => {
   const year = new Date().getFullYear()
-  const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   const [showPrefs, setShowPrefs] = useCookiesPrefs()
 
   return (
@@ -31,7 +29,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 
       <div className="xl:flex xl:flex-wrap xl:w-full xl:gap-y">
         <div className="hidden xl:block w-full mb-y"></div>
-        <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full pb-ydouble xl:pb-0">
+        <ul className="flex flex-col xl:flex-row xl:justify-end gap-y w-full pb-ydouble xl:pb-0">
           {footerMenu?.items?.map(({ _key, text, link }) => {
             return text && link ? (
               <li key={_key}>

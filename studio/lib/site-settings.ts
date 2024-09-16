@@ -56,6 +56,15 @@ export const SITE_SETTINGS_QUERY = groq`
         }
       }
     },
+    RDFooterMenu->{
+      items[]{
+        _key,
+        text,
+        link{
+          ${LINK_QUERY}
+        }
+      }
+    },
     waitlistHeader,
     waitlistCopy,
     waitlistSuccess,
