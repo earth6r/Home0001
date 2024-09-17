@@ -2,6 +2,7 @@
 import { BiCarousel } from 'react-icons/bi'
 import { BiCode, BiText } from 'react-icons/bi'
 import { GrImage } from 'react-icons/gr'
+import { MdInventory } from 'react-icons/md'
 import { RxDividerHorizontal, RxSwitch } from 'react-icons/rx'
 
 const IndentDecorator = (props: any) => {
@@ -54,6 +55,12 @@ export default {
                 type: 'string',
               },
             ],
+          },
+          {
+            title: 'Inventory Toggle',
+            name: 'inventoryToggle',
+            type: 'inventoryToggle',
+            icon: MdInventory,
           },
         ],
       },

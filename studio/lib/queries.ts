@@ -64,7 +64,15 @@ export const PROPERTY_TYPE_QUERY = `
   area,
   amenities,
   summary,
-  inventory,
+  "inventory": inventory->{
+    ...,
+    items[]{
+      ...,
+      "image": image{
+        ${IMAGE_QUERY}
+      },
+    }, 
+  },
   moreInfo,
   unitDetails,
   secondUnitDetails,
@@ -147,7 +155,15 @@ export const UNIT_QUERY = `
   amenities,
   summary,
   factSheet,
-  dossierInventory,
+  "inventory": inventory->{
+    ...,
+    items[]{
+      ...,
+      "image": image{
+        ${IMAGE_QUERY}
+      },
+    }, 
+  },
   moreInfo,
   unitDetails,
   secondUnitDetails,
@@ -181,6 +197,17 @@ export const BODY_QUERY = `
       markDefs[]{
         ...,
         ${LINK_MARKDEFS_QUERY}
+      },
+      "inventoryToggle": inventoryToggle{
+        "inventory": inventory->{
+          ...,
+          items[]{
+            ...,
+            "image": image{
+              ${IMAGE_QUERY}
+            },
+          }, 
+        }, 
       },
       cta{
         ${CTA_QUERY}
@@ -221,6 +248,15 @@ export const BODY_QUERY = `
         ...,
         markDefs[]{
           ...,
+          "inventory": inventory->{
+            ...,
+            items[]{
+              ...,
+              "image": image{
+                ${IMAGE_QUERY}
+              },
+            }, 
+          },
           ${LINK_MARKDEFS_QUERY}
         },
       },
@@ -297,7 +333,15 @@ export const BUY_UNIT_QUERY = `
     title,
     price,
     factSheet,
-    dossierInventory,
+  "inventory": inventory->{
+    ...,
+    items[]{
+      ...,
+      "image": image{
+        ${IMAGE_QUERY}
+      },
+    }, 
+  },
     "dossierRef": dossierRef->{
       slug,
     },

@@ -40,7 +40,12 @@ export interface KeyedPropertyTypeProps
     | Media
   photographs?: SanityKeyed<Media>[] | Media
   summary?: RichText
-  inventory?: RichText
+  inventory?: {
+    items: {
+      title: string
+      image: SanityImageAsset
+    }[]
+  }
   unitDetails?: RichText
   secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]
