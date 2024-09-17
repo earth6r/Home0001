@@ -120,6 +120,15 @@ export const PROPERTY_QUERY = `
       ...,
       markDefs[]{
         ...,
+        "inventory": inventory->{
+          ...,
+          items[]{
+            ...,
+            "image": image{
+              ${IMAGE_QUERY}
+            },
+          }, 
+        },
         ${LINK_MARKDEFS_QUERY}
       },
     },
@@ -196,9 +205,6 @@ export const BODY_QUERY = `
       ...,
       markDefs[]{
         ...,
-        ${LINK_MARKDEFS_QUERY}
-      },
-      "inventoryToggle": inventoryToggle{
         "inventory": inventory->{
           ...,
           items[]{
@@ -207,7 +213,8 @@ export const BODY_QUERY = `
               ${IMAGE_QUERY}
             },
           }, 
-        }, 
+        },
+        ${LINK_MARKDEFS_QUERY}
       },
       cta{
         ${CTA_QUERY}
@@ -333,15 +340,15 @@ export const BUY_UNIT_QUERY = `
     title,
     price,
     factSheet,
-  "inventory": inventory->{
-    ...,
-    items[]{
+    "inventory": inventory->{
       ...,
-      "image": image{
-        ${IMAGE_QUERY}
-      },
-    }, 
-  },
+      items[]{
+        ...,
+        "image": image{
+          ${IMAGE_QUERY}
+        },
+      }, 
+    },
     "dossierRef": dossierRef->{
       slug,
     },
