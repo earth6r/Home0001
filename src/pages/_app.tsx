@@ -89,9 +89,9 @@ function App({ Component, pageProps }: AppProps<{}>) {
       <Layout {...pageProps}>
         <Scripts />
         <AnimatePresence initial={false} mode="popLayout">
-          <Component {...pageProps} />
-          <Analytics />
+          <Component {...pageProps} key="component" />
         </AnimatePresence>
+        <Analytics />
       </Layout>
     </ContextProvider>
   )

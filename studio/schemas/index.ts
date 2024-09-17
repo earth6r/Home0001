@@ -49,6 +49,8 @@ import contentRow from './objects/content-row'
 import rdPage from './documents/rd-page'
 import carousel from './objects/carousel'
 import imagesBlock from './blocks/images-block'
+import inventory from './documents/inventory'
+import inventoryToggle from './objects/inventory-toggle'
 
 export const schemaTypes = [
   // objects
@@ -63,6 +65,7 @@ export const schemaTypes = [
   divider,
   embed,
   figure,
+  inventoryToggle,
   media,
   menuItem,
   seo,
@@ -102,6 +105,7 @@ export const schemaTypes = [
   brand,
   buy,
   city,
+  inventory,
   menus,
   page,
   property,
