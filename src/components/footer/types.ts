@@ -6,4 +6,5 @@ export interface FooterProps extends HTMLAttributes<HTMLElement> {
   footerMenu?: SanityMenu
   path?: string
   query?: ParsedUrlQuery
+  fullContent?: boolean
 }

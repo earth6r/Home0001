@@ -118,6 +118,7 @@ export const Layout: FC<LayoutProps> = ({
             <Footer
               path={asPath}
               query={query}
+              fullContent={false}
               footerMenu={
                 siteSettings?.RDFooterMenu as unknown as Menus | undefined
               }
