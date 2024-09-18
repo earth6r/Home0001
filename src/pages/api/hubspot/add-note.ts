@@ -19,6 +19,8 @@ export default async function handler(
     }
   )
 
+  console.error('response', response.data)
+
   const contact = response.data.results.find(
     (contact: any) => contact.properties.email === email
   )
