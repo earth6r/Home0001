@@ -59,7 +59,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
             className="inline-block w-full md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
           >
             <div className="flex flex-col relative overflow-x-hidden">
-              {propertyType?.photographs && propertyType.photographs[0] && (
+              {propertyType?.photographs && (
                 <SanityMedia
                   {...(propertyType.photographs[0] as SanityMediaProps)}
                   imageProps={{
