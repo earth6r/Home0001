@@ -11,7 +11,7 @@ type Data = {
 export const sendMessage = async (
   recipientPhone: string,
   message: string,
-  template = null
+  template: string | null = null
 ) => {
   const authToken = process.env.WHATSAPP_PERMANENT_TOKEN
 
