@@ -8,7 +8,11 @@ type Data = {
   error?: unknown
 }
 
-export const sendMessage = async (recipientPhone: string, message: string) => {
+export const sendMessage = async (
+  recipientPhone: string,
+  message: string,
+  template = null
+) => {
   const authToken = process.env.WHATSAPP_PERMANENT_TOKEN
 
   const data = {
@@ -16,7 +20,7 @@ export const sendMessage = async (recipientPhone: string, message: string) => {
     to: recipientPhone,
     type: 'template',
     template: {
-      name: 'primary_test',
+      name: template || 'primary_test',
       language: {
         code: 'en',
       },
@@ -315,10 +319,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ): Promise<void> {
+  const { template = null } = req.query
   const { recipientPhone, message } = req.body
 
   try {
-    await sendMessage(recipientPhone, message)
+    await sendMessage(recipientPhone, message, template)
   } catch (error) {
     saveError(error, 'send-whatsapp')
     return res.status(500).json({ message: "Couldn't send message", error })

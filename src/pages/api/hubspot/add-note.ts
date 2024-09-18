@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next/types'
-import { updateHubspotContactProperties } from '@lib/util/update-hubspot-contact'
 import axios from 'axios'
 import { saveError } from '@lib/util/save-error'
 

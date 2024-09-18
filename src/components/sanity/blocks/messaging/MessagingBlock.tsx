@@ -34,7 +34,7 @@ export const MessagingBlock: React.FC = () => {
     recipientPhone: string
     message: string
   }): Promise<string> {
-    const response = await fetch('/api/send-whatsapp', {
+    const response = await fetch('/api/send-whatsapp?template=chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
