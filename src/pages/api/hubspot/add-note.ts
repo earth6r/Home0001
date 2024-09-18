@@ -19,7 +19,7 @@ export default async function handler(
     }
   )
 
-  console.error('response', response.data)
+  console.error('response', JSON.stringify(response.data))
 
   const contact = response.data.results.find(
     (contact: any) => contact.properties.email === email
