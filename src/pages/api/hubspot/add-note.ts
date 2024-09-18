@@ -9,8 +9,21 @@ export default async function handler(
   const { email } = req.query as { email: string }
   const { note } = req.body
 
-  const response = await axios.get(
-    `https://api.hubapi.com/crm/v3/objects/contacts`,
+  const response = await axios.post(
+    `https://api.hubapi.com/crm/v3/objects/contacts/search`,
+    {
+      filterGroups: [
+        {
+          filters: [
+            {
+              propertyName: 'email',
+              operator: 'EQ',
+              value: email,
+            },
+          ],
+        },
+      ],
+    },
     {
       headers: {
         'Content-Type': 'application/json',
@@ -19,13 +32,7 @@ export default async function handler(
     }
   )
 
-  console.error('response', JSON.stringify(response.data))
-
-  const contact = response.data.results.find(
-    (contact: any) => contact.properties.email === email
-  )
-
-  if (!contact) {
+  if (response.data.results.length === 0) {
     res.status(404).json({
       status: 'error',
       message: 'Contact not found',
@@ -34,7 +41,7 @@ export default async function handler(
     return
   }
 
-  const hubspotContactId = contact.id
+  const hubspotContactId = response.data.results[0].id
 
   try {
     await axios.patch(
