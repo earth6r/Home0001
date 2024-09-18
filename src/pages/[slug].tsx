@@ -52,7 +52,8 @@ const Page: NextPage<PageProps> = (
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
   const filteredBlocks = page.body?.filter(
-    (block: any) => block._type === 'propertyBlock'
+    (block: any) =>
+      block._type === 'propertyBlock' || block._type === 'propertiesBlock'
   )
   const [showLogin, setShowLogin] = useState(true)
 
@@ -83,11 +84,11 @@ const Page: NextPage<PageProps> = (
           </div>
         ) : (
           <BlockContent
-            grid={true}
+            grid={filteredBlocks && filteredBlocks?.length === 0}
             blocks={page?.body}
             className={classNames(
               filteredBlocks && filteredBlocks?.length > 0 ? '' : 'container',
-              'flex flex-col pt-page'
+              'flex flex-col w-full pt-page'
             )}
           />
         )}
