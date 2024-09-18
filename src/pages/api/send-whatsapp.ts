@@ -8,6 +8,10 @@ type Data = {
   error?: unknown
 }
 
+export const config = {
+  maxDuration: 300,
+}
+
 export const sendMessage = async (
   recipientPhone: string,
   message: string,
