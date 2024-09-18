@@ -59,7 +59,7 @@ export default async function handler(
           ownerIds: [],
         },
         metadata: {
-          body: ``,
+          body: note,
         },
       },
       {
