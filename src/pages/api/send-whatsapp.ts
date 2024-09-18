@@ -319,7 +319,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ): Promise<void> {
-  const { template = null } = req.query
+  const { template = null } = req.query as { template: string | null }
   const { recipientPhone, message } = req.body
 
   try {
