@@ -12,11 +12,14 @@ import {
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { Media } from '@studio/gen/sanity-schema'
+import { KeyedProperty } from '@components/sanity/blocks/properties/types'
+import { KeyedPropertyType } from '@components/unit'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
 export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
   propertyType,
+  showCity,
   className,
 }) => {
   const [cryptoMode, setCryptoMode] = useCryptoMode()
@@ -56,14 +59,14 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
             className="inline-block w-full md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
           >
             <div className="flex flex-col relative overflow-x-hidden">
-              {propertyType?.photographs && (
+              {propertyType?.photographs && propertyType.photographs[0] && (
                 <SanityMedia
-                  {...(propertyType.photographs as SanityMediaProps)}
+                  {...(propertyType.photographs[0] as SanityMediaProps)}
                   imageProps={{
                     alt: 'Unit image',
                     quality: 90,
                     sizes: '(max-width: 768px) 100vw, 1000px',
-                    lqip: ((propertyType.photographs as Media).image as any)
+                    lqip: ((propertyType.photographs[0] as Media).image as any)
                       ?.asset?.metadata?.lqip,
                   }}
                   className="w-full h-auto object-contain"
@@ -94,6 +97,9 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                 >
                   <h4 className="text-card text-white">
                     {propertyType.typeTitle}
+                    <br />
+                    {showCity &&
+                      (propertyType?.property as any)?.location.title}
                   </h4>
 
                   <IconRightArrowBold

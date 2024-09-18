@@ -1360,6 +1360,7 @@ export type BlockContent = Array<
   | SanityKeyed<FullbleedBlock>
   | SanityKeyed<ImagesBlock>
   | SanityKeyed<PropertyBlock>
+  | SanityKeyed<PropertyTypesBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
@@ -1556,6 +1557,23 @@ export type PropertyBlock = {
    *
    */
   footerCopy?: string;
+};
+
+export type PropertyTypesBlock = {
+  _type: "propertyTypesBlock";
+  /**
+   * Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Property Types — `array`
+   *
+   *
+   */
+  propertyTypes?: Array<SanityKeyedReference<PropertyType>>;
 };
 
 export type PropertiesBlock = {

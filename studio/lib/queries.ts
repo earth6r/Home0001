@@ -242,6 +242,9 @@ export const BODY_QUERY = `
         slug,
       },
     },
+    "propertyTypes": propertyTypes[]->{
+      ${PROPERTY_TYPE_QUERY}
+    },
     "propertyRef": propertyRef->{
       ${PROPERTY_QUERY}
     },

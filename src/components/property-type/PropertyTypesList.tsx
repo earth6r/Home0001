@@ -10,6 +10,7 @@ import PropertyTypeSummary from './PropertyTypeSummary'
 
 export const PropertyTypesList: FC<PropertyTypeListProps> = ({
   propertyTypesList,
+  showCity = false,
   className,
 }) => {
   const slidesRef = useRef(null)
@@ -50,10 +51,11 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
             return (
               <SwiperSlide
                 key={propertyType._id}
-                className="w-full md:max-w-[500px]"
+                className="w-full md:max-w-[360px]"
               >
                 <PropertyTypeSummary
                   propertyType={propertyType}
+                  showCity={showCity}
                   className="w-full"
                 />
               </SwiperSlide>

@@ -49,6 +49,7 @@ import contentRow from './objects/content-row'
 import rdPage from './documents/rd-page'
 import carousel from './objects/carousel'
 import imagesBlock from './blocks/images-block'
+import propertyTypesBlock from './blocks/property-types-block'
 
 export const schemaTypes = [
   // objects
@@ -86,6 +87,7 @@ export const schemaTypes = [
   fullbleedBlock,
   imagesBlock,
   propertyBlock,
+  propertyTypesBlock,
   propertiesBlock,
   newsletterBlock,
   contactBlock,

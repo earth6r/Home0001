@@ -87,7 +87,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               <p className="text-h4 mb-y md:mb-yhalf">Overview:</p>
               <RichText
                 blocks={propertyType.summary}
-                className="font-medium max-w-[500px]"
+                className="font-medium max-w-[360px]"
               />
             </div>
           )}
