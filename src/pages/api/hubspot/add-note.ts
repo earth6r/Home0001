@@ -44,7 +44,7 @@ export default async function handler(
   const hubspotContactId = response.data.results[0].id
 
   try {
-    await axios.patch(
+    await axios.post(
       `https://api.hubapi.com/engagements/v1/engagements`,
       {
         engagement: {
