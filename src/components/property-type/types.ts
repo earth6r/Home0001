@@ -38,7 +38,7 @@ export interface KeyedPropertyTypeProps
         }
       }
     | Media
-  photographs?: SanityKeyed<Media>[] | Media
+  photographs?: SanityKeyed<Media>[]
   summary?: RichText
   inventory?: RichText
   unitDetails?: RichText
@@ -61,4 +61,5 @@ export interface PropertyTypeElProps
 export interface PropertyTypeListProps extends HTMLAttributes<HTMLElement> {
   propertyTypesList?: KeyedPropertyTypeProps[]
   propertyType?: KeyedPropertyTypeProps
+  showCity?: boolean
 }
