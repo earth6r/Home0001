@@ -11,6 +11,7 @@ export const sendGoogleEvent = (event: string, options?: {}) => {
       event: isProductionSite ? event : 'test_' + event,
       options,
     })
+    console.log('Google Event:', event, options)
     window['google_tag_manager'][GOOGLE_ID].dataLayer.reset()
   }
 }
