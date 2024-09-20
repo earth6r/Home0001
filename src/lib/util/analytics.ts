@@ -8,7 +8,7 @@ export const sendGoogleEvent = (event: string, options?: {}) => {
       window?.location?.origin === 'https://www.home0001.com'
 
     window.dataLayer.push({
-      event: isProductionSite ? event : 'test_' + event,
+      event: 'beta_' + event,
       options,
     })
     window['google_tag_manager'][GOOGLE_ID].dataLayer.reset()
