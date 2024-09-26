@@ -49,7 +49,7 @@ export interface KeyedUnitProps
   photoLimit?: number
   summary?: RichText
   factSheet?: any
-  inventory?: RichText
+  inventory?: any
   dossierInventory?: RichText
   unitDetails?: RichText
   secondUnitDetails?: SanityKeyed<Accordion>[]

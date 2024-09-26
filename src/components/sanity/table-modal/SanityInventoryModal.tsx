@@ -2,26 +2,34 @@ import { useState, type FC, type HTMLAttributes } from 'react'
 import { Modal } from '@components/modal'
 import classNames from 'classnames'
 import { sendGoogleEvent } from '@lib/util'
-import { RichText as RichTextType } from '@studio/gen/sanity-schema'
-import { RichText } from '../rich-text'
 import { useLenis } from '@studio-freight/react-lenis'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import { SanityImageAsset } from 'sanity-codegen'
+import { SanityImage } from '../media'
 
 interface SanityInventoryModalProps extends HTMLAttributes<HTMLElement> {
-  inventory: RichTextType
+  inventory?: {
+    items: {
+      title: string
+      image: SanityImageAsset
+    }[]
+  }
   title: string
   buttonLabel: string
   unit?: string
+  buttonType?: 'button' | 'link'
 }
 
 export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
   inventory,
   title,
   buttonLabel,
+  buttonType = 'button',
   className,
   unit,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const lenis = useLenis()
 
   const handleGoogleEvent = () => {
@@ -38,27 +46,75 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
         onClose={() => {
           setIsOpen(false)
           lenis.resize()
+          setActiveIndex(null)
         }}
       >
         <div className="pt-header pb-[6rem] md:pb-ydouble px-x h-full flex flex-col text-sm overflow-y-scroll">
-          <div>
-            {inventory && <RichText blocks={inventory} className="inventory" />}
+          <div className="flex flex-wrap gap-xhalf">
+            {inventory &&
+              inventory.items.map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    activeIndex === index
+                      ? setActiveIndex(null)
+                      : setActiveIndex(index)
+                  }}
+                  className={classNames(
+                    activeIndex === index
+                      ? 'w-full text-black bg-gray'
+                      : 'w-[calc(34.08%-var(--space-x-half))] text-white bg-black',
+                    'flex items-center justify-center relative p-x aspect-square transition-[width] duration-500'
+                  )}
+                >
+                  <SanityImage
+                    asset={item.image}
+                    props={{ alt: 'Inventory Image', sizes: '100px' }}
+                    className={classNames(
+                      activeIndex === index ? 'opacity-100' : 'opacity-0',
+                      'absolute w-full h-full aspect-square top-0 left-0'
+                    )}
+                  />
+                  <span
+                    className={classNames(
+                      activeIndex === index
+                        ? 'top-x'
+                        : 'top-1/2 -translate-y-1/2',
+                      'absolute text-base uppercase font-sansText transform transition-all duration-500'
+                    )}
+                  >
+                    {item.title}
+                  </span>
+                </button>
+              ))}
           </div>
         </div>
       </Modal>
 
-      <div className="flex items-center gap-[5px] py-[4px] px-[6px] border-black">
-        <IconSmallArrow fill="black" width="15" height="11" />
+      {buttonType === 'button' ? (
+        <div className="flex items-center gap-[5px] py-[4px] px-[6px] border-black">
+          <IconSmallArrow fill="black" width="15" height="11" />
+          <button
+            onClick={() => {
+              setIsOpen(true)
+              handleGoogleEvent()
+            }}
+            className="uppercase font-medium leading-none"
+          >
+            {buttonLabel}
+          </button>
+        </div>
+      ) : (
         <button
           onClick={() => {
             setIsOpen(true)
             handleGoogleEvent()
           }}
-          className="uppercase font-medium leading-none"
+          className="inline underline"
         >
           {buttonLabel}
         </button>
-      </div>
+      )}
     </div>
   )
 }

@@ -86,8 +86,8 @@ export default {
     {
       name: 'inventory',
       title: 'Inventory',
-      type: 'richText',
-      options: { collapsable: true, collapsed: true },
+      type: 'reference',
+      to: [{ type: 'inventory' }],
     },
     {
       name: 'unitDetails',

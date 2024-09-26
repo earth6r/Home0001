@@ -10,10 +10,10 @@ interface ModalProps extends HTMLAttributes<HTMLElement> {
 
 const CloseButton: FC<ModalProps> = ({ onClose }) => {
   return (
-    <div className="z-modal">
+    <div className="flex items-center h-full z-modal">
       <button
         onClick={onClose}
-        className="uppercase font-medium py-y"
+        className="uppercase font-medium py-y text-base"
       >{`Close`}</button>
     </div>
   )
@@ -53,7 +53,7 @@ export const Modal: FC<ModalProps> = ({
                 ></motion.div>
               )}
             </AnimatePresence>
-            <span className="inline-block uppercase font-medium z-modal">
+            <span className="inline-block uppercase font-medium !font-sans tracking-normal !text-base z-modal">
               {title}
             </span>
             <CloseButton onClose={onClose} />

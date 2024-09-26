@@ -20,7 +20,6 @@ import { Media } from '@studio/gen/sanity-schema'
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
 export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
-  const [inquiryModal, setInquiryOpen] = useInquiryModal()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
 
@@ -121,7 +120,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             </>
           )}
 
-          {unit?.inventory && (
+          {unit?.inventory && unit.inventory.items && (
             <SanityInventoryModal
               title="Inventory"
               inventory={unit.inventory}
@@ -145,7 +144,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             </>
           )}
 
-          {unit?.inventory && (
+          {unit?.inventory && unit.inventory.items && (
             <SanityInventoryModal
               title="Inventory"
               inventory={unit.inventory}

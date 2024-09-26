@@ -9,6 +9,7 @@ import { SanityTooltip } from './tooltip'
 import { useCookiesPrefs } from '@contexts/cookies'
 import { type FC, type HTMLAttributes } from 'react'
 import { ImageCarousel } from '@components/carousel'
+import { SanityInventoryModal } from './table-modal'
 
 interface SanityCookiesToggleProps extends HTMLAttributes<HTMLElement> {
   linkedCopy?: string
@@ -88,6 +89,20 @@ export const blockMarks: Partial<PortableTextReactComponents['marks']> = {
   },
   indented: ({ children }) => {
     return <span className="indented">{children}</span>
+  },
+  inventoryToggle: ({ value }) => {
+    return (
+      value.inventory.items && (
+        <SanityInventoryModal
+          title="Inventory"
+          inventory={value.inventory}
+          buttonLabel={value.linkedCopy}
+          className="inline"
+          buttonType="link"
+          unit={value.title}
+        />
+      )
+    )
   },
 }
 

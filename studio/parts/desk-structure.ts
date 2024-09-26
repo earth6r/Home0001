@@ -1,6 +1,11 @@
 import { FaMoneyBillWave, FaLocationDot } from 'react-icons/fa6'
 import { GrSettingsOption } from 'react-icons/gr'
-import { MdHomeWork, MdArchitecture, MdOutlineScience } from 'react-icons/md'
+import {
+  MdHomeWork,
+  MdArchitecture,
+  MdOutlineScience,
+  MdInventory,
+} from 'react-icons/md'
 import { RiFileList3Line } from 'react-icons/ri'
 import { StructureBuilder } from 'sanity/desk'
 import { MdMeetingRoom } from 'react-icons/md'
@@ -64,6 +69,11 @@ export const deskStructure = (S: StructureBuilder) =>
             .filter('_type == $type')
             .params({ type: 'menus' })
         ),
+      S.divider(),
+      S.listItem()
+        .title('Inventories')
+        .child(S.documentTypeList('inventory').title('Inventories'))
+        .icon(MdInventory),
       S.divider(),
       S.listItem()
         .title('R + D')
