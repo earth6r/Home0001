@@ -124,7 +124,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
         </div>
 
-        <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 mt-ydouble md:mt-0 md:z-modal">
+        <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
           {unit?.unitDetails && (
             <RichText
               blocks={unit?.unitDetails}
@@ -137,12 +137,12 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               title="Inventory"
               inventory={unit.inventory}
               buttonLabel="View Inventory"
-              className="inline-block md:hidden xl:flex px-x md:px-0 mt-y"
+              className="flex md:hidden xl:flex px-x md:px-0"
               unit={unit.title}
             />
           )}
 
-          <div className="md:hidden pl-x pr-menu my-ydouble mr-x">
+          <div className="md:hidden pl-x pr-menu mt-y mr-x">
             <Link href="/schedule-call" className="block mb-y">
               <button
                 className={classNames(
@@ -178,7 +178,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
 
           {unit?.moreInfo && (
-            <div className="px-x md:px-0 mt-y">
+            <div className="px-x md:px-0">
               <RichText blocks={unit?.moreInfo} />
             </div>
           )}
@@ -190,7 +190,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 header={header}
                 text={text}
                 location={{ property: 'property', unit: 'unit' }}
-                className="px-x md:px-0 mt-y mb-ydouble border-x-0 border-t-0"
+                className="px-x md:px-0 mb-ydouble border-x-0 border-t-0"
               />
             ))}
         </div>
