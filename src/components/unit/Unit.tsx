@@ -1,12 +1,11 @@
 import { type FC, memo, useEffect, useState } from 'react'
 import { ImageCarousel } from '@components/carousel'
-import { RichText, SanityLink } from '@components/sanity'
+import { RichText } from '@components/sanity'
 import { UnitElProps } from './types'
 import classNames from 'classnames'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
-import { useInquiryModal } from '@contexts/modals'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
@@ -109,15 +108,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
 
           {unit?.unitDetails && (
-            <>
-              <p className="hidden md:block xl:hidden text-h4 px-x md:px-0 mt-ydouble mb-yhalf">
-                Details:
-              </p>
-              <RichText
-                blocks={unit?.unitDetails}
-                className="hidden md:block xl:hidden pr-0"
-              />
-            </>
+            <RichText
+              blocks={unit?.unitDetails}
+              className="hidden md:block xl:hidden pr-0"
+            />
           )}
 
           {unit?.inventory && unit.inventory.items && (
@@ -133,15 +127,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
         <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 mt-ydouble md:mt-0 md:z-modal">
           {unit?.unitDetails && (
-            <>
-              <p className="md:hidden xl:block text-h4 px-x md:px-0 mb-y md:mb-yhalf">
-                Details:
-              </p>
-              <RichText
-                blocks={unit?.unitDetails}
-                className="md:hidden xl:block pl-x pr-menu md:px-0"
-              />
-            </>
+            <RichText
+              blocks={unit?.unitDetails}
+              className="md:hidden xl:block pl-x pr-menu md:px-0"
+            />
           )}
 
           {unit?.inventory && unit.inventory.items && (
@@ -179,17 +168,14 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           </div>
 
           {unit?.layoutImages && (
-            <>
-              <p className="text-h4 px-x md:px-0 mb-y xl:mt-ydouble">Plans:</p>
-              <ImageCarousel
-                pagination={true}
-                perView={1}
-                carousel={true}
-                slides={unit?.layoutImages}
-                className="w-full px-x md:px-0 overflow-hidden"
-                placement="unit layouts"
-              />
-            </>
+            <ImageCarousel
+              pagination={true}
+              perView={1}
+              carousel={true}
+              slides={unit?.layoutImages}
+              className="w-full px-x md:px-0 overflow-hidden"
+              placement="unit layouts"
+            />
           )}
 
           {unit?.moreInfo && (
