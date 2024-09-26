@@ -165,6 +165,58 @@ export interface City extends SanityDocument {
 }
 
 /**
+ * Inventory
+ *
+ *
+ */
+export interface Inventory extends SanityDocument {
+  _type: "inventory";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Unit — `reference`
+   *
+   *
+   */
+  unit?: SanityReference<Unit>;
+
+  /**
+   * Inventory Items — `array`
+   *
+   *
+   */
+  items?: Array<
+    SanityKeyed<{
+      _type: "inventoryItem";
+      /**
+       * Title — `string`
+       *
+       *
+       */
+      title?: string;
+
+      /**
+       * Image — `image`
+       *
+       *
+       */
+      image?: {
+        _type: "image";
+        asset: SanityReference<SanityImageAsset>;
+        crop?: SanityImageCrop;
+        hotspot?: SanityImageHotspot;
+      };
+    }>
+  >;
+}
+
+/**
  * Menus
  *
  *
@@ -490,11 +542,11 @@ export interface PropertyType extends SanityDocument {
   summary?: RichText;
 
   /**
-   * Inventory — `richText`
+   * Inventory — `reference`
    *
    *
    */
-  inventory?: RichText;
+  inventory?: SanityReference<Inventory>;
 
   /**
    * Unit Details — `richText`
@@ -728,11 +780,11 @@ export interface Unit extends SanityDocument {
   factSheet?: Table;
 
   /**
-   * Dossier Inventory — `richText`
+   * Inventory — `reference`
    *
    *
    */
-  dossierInventory?: RichText;
+  inventory?: SanityReference<Inventory>;
 
   /**
    * Unit Details — `richText`
@@ -1122,6 +1174,23 @@ export type Figure = {
    *
    */
   media?: Media;
+};
+
+export type InventoryToggle = {
+  _type: "inventoryToggle";
+  /**
+   * Linked Copy — `string`
+   *
+   *
+   */
+  linkedCopy?: string;
+
+  /**
+   * Inventory — `reference`
+   *
+   *
+   */
+  inventory?: SanityReference<Inventory>;
 };
 
 export type Media = {
@@ -1898,6 +1967,7 @@ export type Documents =
   | Brand
   | Buy
   | City
+  | Inventory
   | Menus
   | Page
   | Property

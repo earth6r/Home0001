@@ -3,10 +3,8 @@ import { ImageCarousel } from '@components/carousel'
 import { RichText } from '@components/sanity'
 import { PropertyTypeElProps } from './types'
 import classNames from 'classnames'
-import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
-import { useInquiryModal } from '@contexts/modals'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
@@ -23,7 +21,6 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   propertyType,
   className,
 }) => {
-  const [inquiryModal, setInquiryOpen] = useInquiryModal()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
 

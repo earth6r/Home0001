@@ -119,7 +119,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({ unit, className }) => {
             </>
           )}
 
-          {unit?.inventory && (
+          {unit?.inventory && unit.inventory.items && (
             <SanityInventoryModal
               title="Inventory"
               inventory={unit.inventory}
@@ -143,10 +143,10 @@ export const UnitDetailComponent: FC<UnitElProps> = ({ unit, className }) => {
             </>
           )}
 
-          {unit?.dossierInventory && (
+          {unit?.inventory && unit.inventory.items && (
             <SanityInventoryModal
               title="Inventory"
-              inventory={unit.dossierInventory}
+              inventory={unit.inventory}
               buttonLabel="View Inventory"
               className="inline-block md:hidden px-x md:px-0 xl:flex mt-y"
               unit={unit.title}

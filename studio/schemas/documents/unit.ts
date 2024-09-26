@@ -128,10 +128,10 @@ export default {
       options: { collapsable: true, collapsed: true },
     },
     {
-      name: 'dossierInventory',
-      title: 'Dossier Inventory',
-      type: 'richText',
-      options: { collapsable: true, collapsed: true },
+      name: 'inventory',
+      title: 'Inventory',
+      type: 'reference',
+      to: [{ type: 'inventory' }],
     },
     {
       name: 'unitDetails',

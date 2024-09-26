@@ -1,9 +1,9 @@
 import { HTMLAttributes } from 'react'
 import type {
   Accordion,
+  Inventory,
   Media,
   Property,
-  PropertyType,
   RichText,
   SanityImageAsset,
   SanityKeyed,
@@ -40,7 +40,7 @@ export interface KeyedPropertyTypeProps
     | Media
   photographs?: SanityKeyed<Media>[]
   summary?: RichText
-  inventory?: RichText
+  inventory?: any
   unitDetails?: RichText
   secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]
