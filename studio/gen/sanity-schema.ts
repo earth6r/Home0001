@@ -759,6 +759,13 @@ export interface Unit extends SanityDocument {
   factSheet?: Table;
 
   /**
+   * CTAs — `array`
+   *
+   *
+   */
+  ctas?: Array<SanityKeyed<Cta>>;
+
+  /**
    * Photographs — `array`
    *
    *
@@ -1130,6 +1137,13 @@ export type Cta = {
    *
    */
   link?: Link;
+
+  /**
+   * Color — `string`
+   *
+   *
+   */
+  color?: "Black" | "White";
 };
 
 export type Divider = {

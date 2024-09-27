@@ -40,6 +40,7 @@ export const CTA_QUERY = `
   "link": link{
     ${LINK_QUERY}
   },
+  color,
 `
 
 export const CITY_QUERY = `
@@ -164,7 +165,7 @@ export const UNIT_QUERY = `
   area,
   summary,
   factSheet,
-  cta{
+  "ctas": ctas[]{
     ${CTA_QUERY}
   },
   "inventory": inventory->{

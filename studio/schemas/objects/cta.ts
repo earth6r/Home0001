@@ -24,6 +24,8 @@ export default {
       title: 'Color',
       options: {
         list: ['Black', 'White'],
+        layout: 'radio',
+        direction: 'horizontal',
       },
     },
   ],

@@ -1,6 +1,7 @@
 import { HTMLAttributes } from 'react'
 import type {
   Accordion,
+  Cta,
   Media,
   Property,
   PropertyType,
@@ -37,6 +38,7 @@ export interface KeyedUnitProps
   hidePrice?: boolean
   cryptoPrice?: string
   area?: string
+  ctas?: Cta[]
   photographs?: SanityKeyed<Media>[] | Media
   photoLimit?: number
   summary?: RichText
