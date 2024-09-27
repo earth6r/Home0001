@@ -97,6 +97,10 @@
   @apply text-md font-medium;
 }
 
+.rich-text p.caption {
+  @apply font-sansText text-caption font-bold;
+}
+
 .rich-text p.small {
   @apply font-sansText text-xs font-bold;
 }

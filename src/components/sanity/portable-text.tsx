@@ -113,6 +113,7 @@ export const blockBlock: Record<
   PortableTextBlockStyle,
   PortableTextBlockComponent | undefined
 > = {
+  caption: ({ children }) => <p className="caption">{children}</p>,
   small: ({ children }) => <p className="small">{children}</p>,
   large: ({ children }) => <p className="large">{children}</p>,
 }
