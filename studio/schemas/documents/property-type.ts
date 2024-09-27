@@ -63,11 +63,6 @@ export default {
       type: 'string',
     },
     {
-      name: 'amenities',
-      title: 'Amenities',
-      type: 'richText',
-    },
-    {
       name: 'headlineImage',
       title: 'Headline Image',
       type: 'media',
@@ -108,12 +103,6 @@ export default {
       name: 'moreInfo',
       title: 'More Info',
       type: 'richText',
-    },
-    {
-      name: 'secondUnitDetails',
-      title: 'Second Unit Details',
-      type: 'array',
-      of: [{ type: 'accordion', title: 'Unit Details' }],
     },
     {
       name: 'previewImage',

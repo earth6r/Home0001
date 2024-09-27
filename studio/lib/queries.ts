@@ -62,7 +62,6 @@ export const PROPERTY_TYPE_QUERY = `
   price,
   cryptoPrice,
   area,
-  amenities,
   summary,
   "inventory": inventory->{
     ...,
@@ -73,9 +72,7 @@ export const PROPERTY_TYPE_QUERY = `
       },
     }, 
   },
-  moreInfo,
   unitDetails,
-  secondUnitDetails,
   "headlineImage": headlineImage{
     ${MEDIA_QUERY}
   },
@@ -161,7 +158,6 @@ export const UNIT_QUERY = `
   price,
   cryptoPrice,
   area,
-  amenities,
   summary,
   factSheet,
   "inventory": inventory->{
@@ -173,9 +169,7 @@ export const UNIT_QUERY = `
       },
     }, 
   },
-  moreInfo,
   unitDetails,
-  secondUnitDetails,
   "propertyType": propertyType->{
     typeTitle,
     typeValue,
