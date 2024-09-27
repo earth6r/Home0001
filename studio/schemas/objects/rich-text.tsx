@@ -18,6 +18,7 @@ export default {
       type: 'block',
       styles: [
         { title: 'Normal', value: 'normal' },
+        { title: 'Caption', value: 'caption' },
         { title: 'Small', value: 'small' },
         { title: 'Large', value: 'large' },
         { title: 'H1', value: 'h1' },
