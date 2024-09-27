@@ -69,7 +69,7 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
                 >
                   <SanityImage
                     asset={item.image}
-                    props={{ alt: 'Inventory Image', sizes: '100px' }}
+                    props={{ alt: 'Inventory Image', sizes: '400px' }}
                     className={classNames(
                       activeIndex === index ? 'opacity-100' : 'opacity-0',
                       'absolute w-full h-full aspect-square top-0 left-0'
