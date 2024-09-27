@@ -101,7 +101,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               table={unit.factSheet}
               modalType="fact sheet"
               buttonLabel="View Fact Sheet"
-              className="flex px-x md:px-0 mb-y"
+              className="flex px-x md:px-0"
               unit={unit.title}
             />
           )}
@@ -118,7 +118,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               title="Inventory"
               inventory={unit.inventory}
               buttonLabel="View Inventory"
-              className="hidden md:flex mt-y"
+              className="hidden md:flex"
               unit={unit.title}
             />
           )}
@@ -195,7 +195,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             ))}
         </div>
 
-        <div className="order-1 md:sticky md:top-[var(--header-height)] md:right-0 md:aspect-[0.797]">
+        <div className="order-1 md:sticky md:top-[var(--header-height)] md:right-0">
           {unit?.photographs && (
             <ImageCarousel
               pagination={true}
