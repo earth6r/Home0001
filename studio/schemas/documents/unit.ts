@@ -120,6 +120,12 @@ export default {
       options: { collapsable: true, collapsed: true },
     },
     {
+      name: 'ctas',
+      title: 'CTAs',
+      type: 'array',
+      of: [{ type: 'cta' }],
+    },
+    {
       name: 'photographs',
       title: 'Photographs',
       type: 'array',
