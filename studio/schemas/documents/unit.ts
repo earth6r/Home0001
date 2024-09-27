@@ -95,14 +95,10 @@ export default {
       type: 'string',
     },
     {
-      name: 'amenities',
-      title: 'Amenities',
-      type: 'richText',
-    },
-    {
-      name: 'headlineImage',
-      title: 'Headline Image',
-      type: 'media',
+      name: 'factSheet',
+      title: 'Fact Sheet',
+      type: 'table',
+      options: { collapsable: true, collapsed: true },
     },
     {
       name: 'photographs',
@@ -118,14 +114,8 @@ export default {
     },
     {
       name: 'summary',
-      title: 'Summary',
+      title: 'First Content Block',
       type: 'richText',
-    },
-    {
-      name: 'factSheet',
-      title: 'Fact Sheet',
-      type: 'table',
-      options: { collapsable: true, collapsed: true },
     },
     {
       name: 'inventory',
@@ -135,29 +125,14 @@ export default {
     },
     {
       name: 'unitDetails',
-      title: 'Unit Details',
+      title: 'Second Content Block',
       type: 'richText',
     },
     {
       name: 'layoutImages',
       title: 'Layout Images',
       type: 'array',
-      of: [
-        {
-          type: 'media',
-        },
-      ],
-    },
-    {
-      name: 'moreInfo',
-      title: 'More Info',
-      type: 'richText',
-    },
-    {
-      name: 'secondUnitDetails',
-      title: 'Second Unit Details',
-      type: 'array',
-      of: [{ type: 'accordion', title: 'Unit Details' }],
+      of: [{ type: 'media' }],
     },
     {
       name: 'closingDocuments',

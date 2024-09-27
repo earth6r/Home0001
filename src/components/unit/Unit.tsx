@@ -42,11 +42,11 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
   return (
     <div className={classNames(className)}>
-      <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
+      <h2 className="text-h2 px-x mb-ydouble md:max-w-[50%] xl:max-w-[35%]">
+        {unit?.title}
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
-        <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
-          <h2 className="hidden md:inline-block text-h2 mb-y">{unit?.title}</h2>
-
+        <div className="col-span-1 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
           <div className="rich-text pl-x md:px-0">
             <p className="small uppercase m-0">
               {unit?.hidePrice
@@ -62,7 +62,18 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             )}
           </div>
 
-          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
+          {unit?.factSheet?.rows && (
+            <SanityTableModal
+              title="Fact Sheet"
+              table={unit.factSheet}
+              modalType="fact sheet"
+              buttonLabel="View Fact Sheet"
+              className="flex px-x md:px-0 mt-y"
+              unit={unit.title}
+            />
+          )}
+
+          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mb-y">
             <Link href="/schedule-call">
               <button
                 className={classNames(
@@ -95,17 +106,6 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 className="font-medium max-w-[500px]"
               />
             </div>
-          )}
-
-          {unit?.factSheet?.rows && (
-            <SanityTableModal
-              title="Fact Sheet"
-              table={unit.factSheet}
-              modalType="fact sheet"
-              buttonLabel="View Fact Sheet"
-              className="flex px-x md:px-0"
-              unit={unit.title}
-            />
           )}
 
           {unit?.unitDetails && (
@@ -182,17 +182,6 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               <RichText blocks={unit?.moreInfo} />
             </div>
           )}
-
-          {unit?.secondUnitDetails &&
-            unit.secondUnitDetails.map(({ _key, header, text }) => (
-              <Accordion
-                key={_key}
-                header={header}
-                text={text}
-                location={{ property: 'property', unit: 'unit' }}
-                className="px-x md:px-0 mb-ydouble border-x-0 border-t-0"
-              />
-            ))}
         </div>
 
         <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0 md:aspect-[0.797]">
