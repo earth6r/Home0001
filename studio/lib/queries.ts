@@ -164,6 +164,9 @@ export const UNIT_QUERY = `
   area,
   summary,
   factSheet,
+  cta{
+    ${CTA_QUERY}
+  },
   "inventory": inventory->{
     ...,
     items[]{
@@ -177,9 +180,6 @@ export const UNIT_QUERY = `
   "propertyType": propertyType->{
     typeTitle,
     typeValue,
-  },
-  "headlineImage": headlineImage{
-    ${MEDIA_QUERY}
   },
   "photographs": photographs[]{
     ${MEDIA_QUERY}

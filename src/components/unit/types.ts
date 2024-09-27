@@ -37,33 +37,18 @@ export interface KeyedUnitProps
   hidePrice?: boolean
   cryptoPrice?: string
   area?: string
-  amenities?: RichText
-  headlineImage?:
-    | {
-        _type: 'image'
-        asset: SanityReference<SanityImageAsset>
-        alt: string
-        image?: {
-          _type: 'image'
-          asset: SanityImageAsset
-        }
-      }
-    | Media
   photographs?: SanityKeyed<Media>[] | Media
   photoLimit?: number
   summary?: RichText
   factSheet?: any
   inventory?: any
-  dossierInventory?: RichText
   unitDetails?: RichText
-  secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]
   layoutImagesOptions?: {
     carousel?: boolean
     zoomWidth?: number
     zoomHeight?: number
   }
-  moreInfo?: RichText
 }
 
 export interface UnitElProps

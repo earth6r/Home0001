@@ -59,6 +59,15 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
 
           <div className="rich-text pl-x md:px-0">
+            {unit?.bedrooms && (
+              <p className="font-sansText uppercase m-0">{`Bedrooms: ${unit?.bedrooms}`}</p>
+            )}
+            {unit?.bathrooms && (
+              <p className="font-sansText uppercase m-0">{`Bathrooms: ${unit?.bathrooms}`}</p>
+            )}
+            {unit?.area && (
+              <p className="font-sansText uppercase m-0">{`Size: ${unit?.area}`}</p>
+            )}
             <p className="font-sansText uppercase m-0">
               {unit?.hidePrice
                 ? 'Price upon request'
@@ -68,9 +77,6 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                   } ETH`
                 : `${unit?.price}`}
             </p>
-            {unit?.area && (
-              <p className="font-sansText uppercase m-0">{`${unit?.area}`}</p>
-            )}
           </div>
 
           {unit?.factSheet?.rows && (
@@ -186,12 +192,6 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               className="w-full px-x md:px-0 overflow-hidden"
               placement="unit layouts"
             />
-          )}
-
-          {unit?.moreInfo && (
-            <div className="px-x md:px-0">
-              <RichText blocks={unit?.moreInfo} />
-            </div>
           )}
         </div>
 

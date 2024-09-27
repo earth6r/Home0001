@@ -41,7 +41,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               <MapDialog
                 text="View Map"
                 coordinates={property?.coordinates}
-                className="text-xs font-bold"
+                className="text-xs font-bold mt-y"
               />
             )}
           </div>
