@@ -15,6 +15,7 @@ import { SanityInventoryModal } from '@components/sanity/table-modal'
 import Link from 'next/link'
 import { SanityKeyed } from 'sanity-codegen'
 import { Media } from '@studio/gen/sanity-schema'
+import { MapDialog } from '@components/map'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -48,6 +49,14 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
         <div className="col-span-1 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
           {unit?.address && <RichText blocks={unit?.address} />}
+
+          {unit?.coordinates && (
+            <MapDialog
+              text="View Map"
+              coordinates={unit?.coordinates}
+              className="text-xs font-bold mb-y"
+            />
+          )}
 
           <div className="rich-text pl-x md:px-0">
             <p className="font-sansText uppercase m-0">
