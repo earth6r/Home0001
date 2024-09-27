@@ -27,6 +27,10 @@ export interface KeyedUnitProps
   title?: string
   slug?: { _type: 'slug'; current: string }
   available?: boolean
+  bedrooms?: number
+  bathrooms?: number
+  coordinates?: { lat: number; lng: number }
+  address?: RichText
   property?: SanityReference<Property>
   propertyType?: KeyedPropertyType
   price?: string

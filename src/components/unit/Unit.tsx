@@ -47,8 +47,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
         <div className="col-span-1 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
+          {unit?.address && <RichText blocks={unit?.address} />}
+
           <div className="rich-text pl-x md:px-0">
-            <p className="small uppercase m-0">
+            <p className="font-sansText uppercase m-0">
               {unit?.hidePrice
                 ? 'Price upon request'
                 : cryptoMode
@@ -58,7 +60,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                 : `${unit?.price}`}
             </p>
             {unit?.area && (
-              <p className="small uppercase m-0">{`${unit?.area}`}</p>
+              <p className="font-sansText uppercase m-0">{`${unit?.area}`}</p>
             )}
           </div>
 
@@ -68,7 +70,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               table={unit.factSheet}
               modalType="fact sheet"
               buttonLabel="View Fact Sheet"
-              className="flex px-x md:px-0 mt-y"
+              className="flex px-x md:px-0 my-y"
               unit={unit.title}
             />
           )}
