@@ -1,11 +1,10 @@
 import { type FC, memo, useEffect, useState } from 'react'
 import { ImageCarousel } from '@components/carousel'
-import { RichText } from '@components/sanity'
+import { RichText, SanityLink } from '@components/sanity'
 import { UnitElProps } from './types'
 import classNames from 'classnames'
 import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
-import { Accordion } from '@components/accordion'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
@@ -16,6 +15,7 @@ import Link from 'next/link'
 import { SanityKeyed } from 'sanity-codegen'
 import { Media } from '@studio/gen/sanity-schema'
 import { MapDialog } from '@components/map'
+import { SanityLinkType } from '@studio/lib'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -40,6 +40,8 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
       })
     }
   }, [unit])
+
+  console.log(unit)
 
   return (
     <div className={classNames(className)}>
@@ -90,28 +92,33 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mb-y">
-            <Link href="/schedule-call">
-              <button
-                className={classNames(
-                  'w-full relative mb-y border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
-                )}
-              >
-                {`Schedule a call`}
-                <IconSmallArrow width="16" height="10" fill="white" />
-              </button>
-            </Link>
-
-            <a href="mailto:talin@home0001.com">
-              <button
-                className={classNames(
-                  'w-full relative border-1 border-black hover:border-white border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-white hover:invert transition-all duration-200 text-button z-above p-x'
-                )}
-              >
-                {`Get in touch`}
-                <IconSmallArrow width="16" height="10" fill="black" />
-              </button>
-            </a>
+          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:flex md:flex-col md:gap-y md:pr-menu">
+            {unit?.ctas &&
+              unit?.ctas.map((cta, index) => (
+                <div
+                  key={`${cta.link}-${index}`}
+                  className="cta w-full relative"
+                >
+                  <SanityLink
+                    {...(cta.link as SanityLinkType)}
+                    className={classNames(
+                      cta.color === 'Black'
+                        ? 'bg-black text-white'
+                        : 'bg-white',
+                      'w-full md:max-w-[var(--btn-width)] border-1 border-black hover:border-white border-solidd flex flex-row justify-between items-center hover:invert text-button z-above px-4 py-3.5'
+                    )}
+                  >
+                    <span className="text-left uppercase leading-none">
+                      {cta.text || 'Learn more'}
+                    </span>
+                    <IconSmallArrow
+                      width="16"
+                      height="10"
+                      fill={cta.color === 'Black' ? 'white' : 'black'}
+                    />
+                  </SanityLink>
+                </div>
+              ))}
           </div>
         </div>
 
@@ -159,28 +166,33 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="md:hidden pl-x pr-menu mt-y mr-x">
-            <Link href="/schedule-call" className="block mb-y">
-              <button
-                className={classNames(
-                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
-                )}
-              >
-                {`Request a tour`}
-                <IconSmallArrow width="16" height="10" fill="black" />
-              </button>
-            </Link>
-
-            <a href="mailto:talin@home0001.com">
-              <button
-                className={classNames(
-                  'w-full relative border-1 border-black border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-black text-white hover:invert transition-all duration-200 text-button z-above p-x'
-                )}
-              >
-                {`Ask us a question`}
-                <IconSmallArrow width="16" height="10" fill="white" />
-              </button>
-            </a>
+          <div className="flex md:hidden flex-col gap-y pl-x pr-menu mt-y mr-x">
+            {unit?.ctas &&
+              unit?.ctas.map((cta, index) => (
+                <div
+                  key={`${cta.link}-${index}`}
+                  className="cta w-full relative"
+                >
+                  <SanityLink
+                    {...(cta.link as SanityLinkType)}
+                    className={classNames(
+                      cta.color === 'Black'
+                        ? 'bg-black text-white'
+                        : 'bg-white',
+                      'w-full md:max-w-[var(--btn-width)] border-1 border-black hover:border-white border-solidd flex flex-row justify-between items-center hover:invert text-button z-above px-4 py-3.5'
+                    )}
+                  >
+                    <span className="text-left uppercase leading-none">
+                      {cta.text || 'Learn more'}
+                    </span>
+                    <IconSmallArrow
+                      width="16"
+                      height="10"
+                      fill={cta.color === 'Black' ? 'white' : 'black'}
+                    />
+                  </SanityLink>
+                </div>
+              ))}
           </div>
 
           {unit?.layoutImages && (
