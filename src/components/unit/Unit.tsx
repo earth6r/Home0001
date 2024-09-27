@@ -47,7 +47,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
         {unit?.title}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
-        <div className="col-span-1 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
+        <div className="col-span-1 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pl-x md:pl-0 pr-x md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
           {unit?.address && <RichText blocks={unit?.address} />}
 
           {unit?.coordinates && (
@@ -58,7 +58,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="rich-text pl-x md:px-0">
+          <div className="rich-text">
             {unit?.bedrooms && (
               <p className="font-sansText uppercase m-0">{`Bedrooms: ${unit?.bedrooms}`}</p>
             )}
@@ -85,17 +85,17 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               table={unit.factSheet}
               modalType="fact sheet"
               buttonLabel="View Fact Sheet"
-              className="flex px-x md:px-0 my-y"
+              className="flex my-y"
               unit={unit.title}
             />
           )}
 
-          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:flex md:flex-col md:gap-y md:pr-menu">
+          <div className="flex flex-col gap-y md:pr-menu">
             {unit?.ctas &&
               unit?.ctas.map((cta, index) => (
                 <div
                   key={`${cta.link}-${index}`}
-                  className="cta w-full relative"
+                  className="flex w-full relative"
                 >
                   <SanityLink
                     {...(cta.link as SanityLinkType)}
@@ -103,7 +103,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                       cta.color === 'Black'
                         ? 'bg-black text-white'
                         : 'bg-white',
-                      'w-full md:max-w-[var(--btn-width)] border-1 border-black hover:border-white border-solidd flex flex-row justify-between items-center hover:invert text-button z-above px-4 py-3.5'
+                      'w-[var(--btn-width)] border-1 border-black hover:border-white border-solidd flex flex-row justify-between items-center hover:invert text-button z-above px-4 py-3.5'
                     )}
                   >
                     <span className="text-left uppercase leading-none">
@@ -122,12 +122,22 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
         <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
           {unit?.summary && unit?.summary.length > 0 && (
-            <div className="px-x md:px-0 mt-ydouble md:mt-0">
+            <div className="px-x md:px-0">
               <RichText
                 blocks={unit.summary}
                 className="font-medium max-w-[500px]"
               />
             </div>
+          )}
+
+          {unit?.inventory && unit.inventory.items && (
+            <SanityInventoryModal
+              title="Inventory"
+              inventory={unit.inventory}
+              buttonLabel="View Inventory"
+              className="flex px-x md:px-0"
+              unit={unit.title}
+            />
           )}
 
           {unit?.unitDetails && (
@@ -137,61 +147,12 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          {unit?.inventory && unit.inventory.items && (
-            <SanityInventoryModal
-              title="Inventory"
-              inventory={unit.inventory}
-              buttonLabel="View Inventory"
-              className="hidden md:flex xl:hidden mt-y"
-              unit={unit.title}
-            />
-          )}
-
           {unit?.unitDetails && (
             <RichText
               blocks={unit?.unitDetails}
               className="md:hidden xl:block pl-x pr-menu md:px-0"
             />
           )}
-
-          {unit?.inventory && unit.inventory.items && (
-            <SanityInventoryModal
-              title="Inventory"
-              inventory={unit.inventory}
-              buttonLabel="View Inventory"
-              className="flex md:hidden xl:flex px-x md:px-0"
-              unit={unit.title}
-            />
-          )}
-
-          <div className="flex md:hidden flex-col gap-y pl-x pr-menu mt-y mr-x">
-            {unit?.ctas &&
-              unit?.ctas.map((cta, index) => (
-                <div
-                  key={`${cta.link}-${index}`}
-                  className="cta w-full relative"
-                >
-                  <SanityLink
-                    {...(cta.link as SanityLinkType)}
-                    className={classNames(
-                      cta.color === 'Black'
-                        ? 'bg-black text-white'
-                        : 'bg-white',
-                      'w-full md:max-w-[var(--btn-width)] border-1 border-black hover:border-white border-solidd flex flex-row justify-between items-center hover:invert text-button z-above px-4 py-3.5'
-                    )}
-                  >
-                    <span className="text-left uppercase leading-none">
-                      {cta.text || 'Learn more'}
-                    </span>
-                    <IconSmallArrow
-                      width="16"
-                      height="10"
-                      fill={cta.color === 'Black' ? 'white' : 'black'}
-                    />
-                  </SanityLink>
-                </div>
-              ))}
-          </div>
 
           {unit?.layoutImages && (
             <ImageCarousel
@@ -205,7 +166,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
         </div>
 
-        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0 md:aspect-[0.797]">
+        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0">
           {unit?.photographs && (
             <ImageCarousel
               pagination={true}
