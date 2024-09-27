@@ -74,6 +74,15 @@ export default {
       disableNew: false,
     },
     {
+      name: 'address',
+      title: 'Address',
+      type: 'richText',
+    },
+    {
+      type: 'coordinates',
+      name: 'coordinates',
+    },
+    {
       name: 'price',
       title: 'Price',
       type: 'string',
@@ -93,6 +102,16 @@ export default {
       name: 'area',
       title: 'Area',
       type: 'string',
+    },
+    {
+      name: 'bedrooms',
+      title: 'Bedrooms',
+      type: 'number',
+    },
+    {
+      name: 'bathrooms',
+      title: 'Bathrooms',
+      type: 'number',
     },
     {
       name: 'factSheet',

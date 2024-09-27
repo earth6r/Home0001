@@ -514,13 +514,6 @@ export interface PropertyType extends SanityDocument {
   area?: string;
 
   /**
-   * Amenities — `richText`
-   *
-   *
-   */
-  amenities?: RichText;
-
-  /**
    * Headline Image — `media`
    *
    *
@@ -568,13 +561,6 @@ export interface PropertyType extends SanityDocument {
    *
    */
   moreInfo?: RichText;
-
-  /**
-   * Second Unit Details — `array`
-   *
-   *
-   */
-  secondUnitDetails?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Preview Image — `image`
@@ -710,6 +696,20 @@ export interface Unit extends SanityDocument {
   propertyType?: SanityReference<PropertyType>;
 
   /**
+   * Address — `richText`
+   *
+   *
+   */
+  address?: RichText;
+
+  /**
+   * coordinates — `coordinates`
+   *
+   *
+   */
+  coordinates?: Coordinates;
+
+  /**
    * Price — `string`
    *
    *
@@ -738,18 +738,25 @@ export interface Unit extends SanityDocument {
   area?: string;
 
   /**
-   * Amenities — `richText`
+   * Bedrooms — `number`
    *
    *
    */
-  amenities?: RichText;
+  bedrooms?: number;
 
   /**
-   * Headline Image — `media`
+   * Bathrooms — `number`
    *
    *
    */
-  headlineImage?: Media;
+  bathrooms?: number;
+
+  /**
+   * Fact Sheet — `table`
+   *
+   *
+   */
+  factSheet?: Table;
 
   /**
    * Photographs — `array`
@@ -766,18 +773,11 @@ export interface Unit extends SanityDocument {
   photoLimit?: number;
 
   /**
-   * Summary — `richText`
+   * First Content Block — `richText`
    *
    *
    */
   summary?: RichText;
-
-  /**
-   * Fact Sheet — `table`
-   *
-   *
-   */
-  factSheet?: Table;
 
   /**
    * Inventory — `reference`
@@ -787,7 +787,7 @@ export interface Unit extends SanityDocument {
   inventory?: SanityReference<Inventory>;
 
   /**
-   * Unit Details — `richText`
+   * Second Content Block — `richText`
    *
    *
    */
@@ -799,20 +799,6 @@ export interface Unit extends SanityDocument {
    *
    */
   layoutImages?: Array<SanityKeyed<Media>>;
-
-  /**
-   * More Info — `richText`
-   *
-   *
-   */
-  moreInfo?: RichText;
-
-  /**
-   * Second Unit Details — `array`
-   *
-   *
-   */
-  secondUnitDetails?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Closing Documents — `file`
