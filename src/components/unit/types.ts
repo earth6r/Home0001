@@ -29,7 +29,7 @@ export interface KeyedUnitProps
   available?: boolean
   bedrooms?: number
   bathrooms?: number
-  coordinates?: { lat: number; lng: number }
+  coordinates?: { lat?: string; long?: string }
   address?: RichText
   property?: SanityReference<Property>
   propertyType?: KeyedPropertyType
