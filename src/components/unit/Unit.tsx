@@ -43,9 +43,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
   return (
     <div className={classNames(className)}>
       <h2 className="md:hidden text-h2 mb-ydouble px-x">{unit?.title}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
-        <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
-          <h2 className="hidden md:inline-block text-h2 mb-y">{unit?.title}</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x md:px-x md:pr-0">
+        <div className="col-span-1 order-2 md:order-1 flex flex-col gap-y pr-menu md:pr-0 mt-y md:mt-0 md:mb-y md:z-modal">
+          <h2 className="hidden md:inline-block text-h2">{unit?.title}</h2>
 
           <div className="rich-text pl-x md:px-0">
             <p className="small uppercase m-0">
@@ -62,7 +62,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             )}
           </div>
 
-          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
+          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mb-y">
             <Link href="/schedule-call">
               <button
                 className={classNames(
@@ -77,7 +77,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             <a href="mailto:talin@home0001.com">
               <button
                 className={classNames(
-                  'w-full relative border-1 border-black hover:border-white border-solid mb-y flex flex-row justify-between items-center h-12 max-h-12 bg-white hover:invert transition-all duration-200 text-button z-above p-x'
+                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white hover:invert transition-all duration-200 text-button z-above p-x'
                 )}
               >
                 {`Get in touch`}
@@ -87,7 +87,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           </div>
 
           {unit?.summary && unit?.summary.length > 0 && (
-            <div className="px-x md:px-0 mt-ydouble md:mt-0">
+            <div className="px-x md:px-0 mt-y md:mt-0">
               <RichText
                 blocks={unit.summary}
                 className="font-medium max-w-[500px]"
@@ -101,7 +101,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               table={unit.factSheet}
               modalType="fact sheet"
               buttonLabel="View Fact Sheet"
-              className="inline-block px-x md:px-0 mt-y"
+              className="flex px-x md:px-0 mb-y"
               unit={unit.title}
             />
           )}
@@ -109,7 +109,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           {unit?.unitDetails && (
             <RichText
               blocks={unit?.unitDetails}
-              className="hidden md:block xl:hidden pr-0"
+              className="hidden md:block pr-0"
             />
           )}
 
@@ -118,17 +118,17 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               title="Inventory"
               inventory={unit.inventory}
               buttonLabel="View Inventory"
-              className="hidden md:flex xl:hidden mt-y"
+              className="hidden md:flex mt-y"
               unit={unit.title}
             />
           )}
         </div>
 
-        <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
+        <div className="order-3 md:order-2 md:col-start-1 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
           {unit?.unitDetails && (
             <RichText
               blocks={unit?.unitDetails}
-              className="md:hidden xl:block pl-x pr-menu md:px-0"
+              className="md:hidden pl-x pr-menu md:px-0"
             />
           )}
 
@@ -137,7 +137,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               title="Inventory"
               inventory={unit.inventory}
               buttonLabel="View Inventory"
-              className="flex md:hidden xl:flex px-x md:px-0"
+              className="flex md:hidden px-x md:px-0"
               unit={unit.title}
             />
           )}
@@ -195,7 +195,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             ))}
         </div>
 
-        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0 md:aspect-[0.797]">
+        <div className="order-1 md:sticky md:top-[var(--header-height)] md:right-0 md:aspect-[0.797]">
           {unit?.photographs && (
             <ImageCarousel
               pagination={true}
