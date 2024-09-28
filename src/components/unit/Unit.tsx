@@ -55,7 +55,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             <MapDialog
               text="View Map"
               coordinates={unit?.coordinates}
-              className=" text-md font-bold my-y"
+              className=" text-md font-bold mb-y"
             />
           )}
 
