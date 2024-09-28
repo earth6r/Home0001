@@ -43,18 +43,19 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
   return (
     <div className={classNames(className)}>
-      <h2 className="text-h2 px-x mb-ydouble md:max-w-[50%] xl:max-w-[35%]">
+      <h2 className="md:hidden text-h2 px-x mb-ydouble md:max-w-[50%] xl:max-w-[35%]">
         {unit?.title}
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
-        <div className="col-span-1 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pl-x md:pl-0 pr-x md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-10 md:gap-x md:px-x md:pr-0">
+        <div className="col-span-1 xl:col-span-3 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pl-x md:pl-0 pr-x md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
+          <h2 className="hidden md:block text-h2 mb-y">{unit?.title}</h2>
           {unit?.address && <RichText blocks={unit?.address} />}
 
           {unit?.coordinates && (
             <MapDialog
               text="View Map"
               coordinates={unit?.coordinates}
-              className="text-xs font-bold mb-y"
+              className=" text-md font-bold my-y"
             />
           )}
 
@@ -90,7 +91,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="flex flex-col gap-y md:pr-menu">
+          <div className="flex flex-col gap-y mb-y">
             {unit?.ctas &&
               unit?.ctas.map((cta, index) => (
                 <div
@@ -103,7 +104,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
                       cta.color === 'Black'
                         ? 'bg-black text-white'
                         : 'bg-white',
-                      'w-[var(--btn-width)] border-1 border-black hover:border-white border-solidd flex flex-row justify-between items-center hover:invert text-button z-above px-4 py-3.5'
+                      'w-[var(--btn-width)] border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center hover:invert text-button z-above px-4 py-3.5'
                     )}
                   >
                     <span className="text-left uppercase leading-none">
@@ -120,7 +121,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           </div>
         </div>
 
-        <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
+        <div className="order-2 md:order-2 xl:order-1 md:col-start-1 xl:col-start-4 xl:col-span-3 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
           {unit?.summary && unit?.summary.length > 0 && (
             <div className="px-x md:px-0">
               <RichText
@@ -135,7 +136,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               title="Inventory"
               inventory={unit.inventory}
               buttonLabel="View Inventory"
-              className="flex px-x md:px-0"
+              className="flex px-x my-y md:px-0"
               unit={unit.title}
             />
           )}
@@ -166,7 +167,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
         </div>
 
-        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0">
+        <div className="order-1 xl:col-start-7 xl:col-span-4 self-start md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0">
           {unit?.photographs && (
             <ImageCarousel
               pagination={true}
