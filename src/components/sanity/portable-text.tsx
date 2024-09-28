@@ -55,7 +55,7 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
     return <SanityTooltip {...value} />
   },
   divider: () => {
-    return <span className="block h-yhalf" />
+    return <span className="block h-[2px]" />
   },
   embed: ({ value }) => {
     return <script type="text/javascript">{value.embed}</script>
