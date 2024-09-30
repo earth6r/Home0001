@@ -121,9 +121,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           </div>
         </div>
 
-        <div className="order-2 md:order-2 xl:order-1 md:col-start-1 xl:col-start-4 xl:col-span-3 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
+        <div className="pr-x md:pr-0 order-2 md:order-2 xl:order-1 md:col-start-1 xl:col-start-4 xl:col-span-3 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
           {unit?.summary && unit?.summary.length > 0 && (
-            <div className="px-x md:px-0">
+            <div className="pl-x pr-menu md:px-0">
               <RichText blocks={unit.summary} className="font-medium" />
             </div>
           )}
@@ -148,7 +148,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           {unit?.unitDetails && (
             <RichText
               blocks={unit?.unitDetails}
-              className="md:hidden xl:block px-x md:px-0"
+              className="pr-menu md:hidden xl:block px-x md:px-0"
             />
           )}
 
