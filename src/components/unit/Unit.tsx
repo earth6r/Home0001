@@ -47,7 +47,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
         {unit?.title}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-10 md:gap-x md:px-x md:pr-0">
-        <div className="col-span-1 xl:col-span-3 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pl-x md:pl-0 pr-x md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
+        <div className="col-span-1 xl:col-span-3 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pl-x md:pl-0 pr-x md:pr-0 mt-y md:mt-0 xl:mb-0 md:z-modal">
           <h2 className="hidden md:block text-h2 mb-y">{unit?.title}</h2>
           {unit?.address && <RichText blocks={unit?.address} />}
 
@@ -124,10 +124,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
         <div className="order-2 md:order-2 xl:order-1 md:col-start-1 xl:col-start-4 xl:col-span-3 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
           {unit?.summary && unit?.summary.length > 0 && (
             <div className="px-x md:px-0">
-              <RichText
-                blocks={unit.summary}
-                className="font-medium max-w-[500px]"
-              />
+              <RichText blocks={unit.summary} className="font-medium" />
             </div>
           )}
 
@@ -151,7 +148,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           {unit?.unitDetails && (
             <RichText
               blocks={unit?.unitDetails}
-              className="md:hidden xl:block pl-x pr-menu md:px-0"
+              className="md:hidden xl:block px-x md:px-0"
             />
           )}
 
