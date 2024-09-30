@@ -3,10 +3,8 @@ import { ImageCarousel } from '@components/carousel'
 import { RichText } from '@components/sanity'
 import { PropertyTypeElProps } from './types'
 import classNames from 'classnames'
-import SanityTableModal from '@components/sanity/table-modal/SanityTableModal'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
 import { Accordion } from '@components/accordion'
-import { useInquiryModal } from '@contexts/modals'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
@@ -23,7 +21,6 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   propertyType,
   className,
 }) => {
-  const [inquiryModal, setInquiryOpen] = useInquiryModal()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
 
@@ -70,13 +67,13 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           </div>
 
           <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
-            <Link href="/schedule-call">
+            <Link href="#property-type-waitlist">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
                 )}
               >
-                {`Schedule a call`}
+                {`Join the Waitlist`}
                 <IconSmallArrow width="16" height="10" fill="black" />
               </button>
             </Link>
@@ -139,13 +136,13 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           )}
 
           <div className="md:hidden my-ydouble pl-x pr-menu mr-x">
-            <Link href="/schedule-call">
+            <Link href="#property-type-waitlist">
               <button
                 className={classNames(
                   'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
                 )}
               >
-                {`Schedule a call`}
+                {`Join the Waitlist`}
                 <IconSmallArrow width="16" height="10" fill="black" />
               </button>
             </Link>

@@ -70,6 +70,7 @@ const PropertyTypePage: NextPage<PageProps> = (
           <PropertyType propertyType={page} />
 
           <Waitlist
+            id="property-type-waitlist"
             waitlist={{
               header: siteSettings.waitlistHeader,
               text: siteSettings?.waitlistCopy,
