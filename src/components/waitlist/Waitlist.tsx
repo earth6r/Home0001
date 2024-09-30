@@ -42,6 +42,7 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Waitlist: FC<WaitlistProps> = ({
+  id,
   formType = 'modal',
   waitlist,
   formActions,
@@ -53,7 +54,7 @@ export const Waitlist: FC<WaitlistProps> = ({
   const { state } = useContext(HomeContext)
 
   return (
-    <div className={classNames(className)}>
+    <div id={id} className={classNames(className)}>
       <div
         className={classNames(
           formType === 'unit' ? 'md:h-[659px] pb-y md:pb-ydouble' : 'h-[630px]',

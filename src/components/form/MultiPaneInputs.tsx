@@ -7,6 +7,7 @@ import Pane from './Pane'
 import { useBrokerInquiryModal } from '@contexts/modals'
 import { sendGoogleEvent } from '@lib/util'
 import { submitForm } from '@lib/util'
+import { set } from 'sanity'
 
 interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
@@ -254,6 +255,7 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   formValues,
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
+  const [initialFieldsError, setInitialFieldsError] = useState(false)
   return (
     <div className={classNames(className, block ? '' : 'w-full')}>
       <Pane
@@ -282,8 +284,12 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
           //todo: should we move form ID to sanity for this one?
           const form_ID = 'e44ec9f1-928b-429b-8293-0b561d7b64b5'
           await submitForm(formData, form_ID, 'started_submit')
-          setCurrentStep(currentStep + 1)
-          setFullWidth && setFullWidth()
+          if (first_name && last_name && email) {
+            setCurrentStep(currentStep + 1)
+            setFullWidth && setFullWidth()
+          } else {
+            setInitialFieldsError(true)
+          }
         }}
       >
         <NameEmailPane
@@ -295,6 +301,9 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
             'flex flex-col gap-y md:h-auto'
           )}
         />
+        {initialFieldsError && (
+          <p className="mt-y text-base">All fields required</p>
+        )}
       </Pane>
 
       <Pane
