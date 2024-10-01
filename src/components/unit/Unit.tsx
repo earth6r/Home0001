@@ -46,39 +46,38 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
       <h2 className="md:hidden text-h2 px-x mb-ydouble md:max-w-[50%] xl:max-w-[35%]">
         {unit?.title}
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-10 md:gap-x md:px-x md:pr-0">
-        <div className="col-span-1 xl:col-span-3 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pl-x md:pl-0 pr-x md:pr-0 mt-y md:mt-0 xl:mb-0 md:z-modal">
-          <h2 className="hidden md:block text-h2 mb-y">{unit?.title}</h2>
-          {unit?.address && <RichText blocks={unit?.address} />}
-
-          {unit?.coordinates && (
-            <MapDialog
-              text="View Map"
-              coordinates={unit?.coordinates}
-              className=" text-md font-bold mb-y"
-            />
-          )}
-
-          <div className="rich-text">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
+        <div className="col-span-1 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pl-x md:pl-0 pr-x md:pr-0 mt-y md:mt-0 xl:mb-0 md:z-modal">
+          <h2 className="hidden md:block text-h2">{unit?.title}</h2>
+          <div className="text-xs font-sansText">
             {unit?.bedrooms && (
-              <p className="font-sansText uppercase m-0">{`Bedrooms: ${unit?.bedrooms}`}</p>
+              <p className="uppercase m-0">{`${unit?.bedrooms} Bedrooms`}</p>
             )}
             {unit?.bathrooms && (
-              <p className="font-sansText uppercase m-0">{`Bathrooms: ${unit?.bathrooms}`}</p>
+              <p className="font-sansText uppercase m-0">{`${unit?.bathrooms} Bathrooms`}</p>
             )}
             {unit?.area && (
-              <p className="font-sansText uppercase m-0">{`Size: ${unit?.area}`}</p>
+              <p className="font-sansText uppercase mt-y">{`Size: ${unit?.area}`}</p>
             )}
-            <p className="font-sansText uppercase m-0">
+            <p className="font-sansText uppercase">
               {unit?.hidePrice
                 ? 'Price upon request'
                 : cryptoMode
                 ? `${unit?.price?.substring(1)} / ${cryptoPrice[1]} BTC / ${
                     cryptoPrice[0]
                   } ETH`
-                : `${unit?.price}`}
+                : `Price: ${unit?.price}`}
             </p>
           </div>
+          {unit?.address && <RichText blocks={unit?.address} />}
+
+          {unit?.coordinates && (
+            <MapDialog
+              text="View Map"
+              coordinates={unit?.coordinates}
+              className="text-xs font-bold"
+            />
+          )}
 
           {unit?.factSheet?.rows && (
             <SanityTableModal
@@ -86,7 +85,17 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
               table={unit.factSheet}
               modalType="fact sheet"
               buttonLabel="View Fact Sheet"
-              className="flex my-y"
+              className="flex mt-yhalf"
+              unit={unit.title}
+            />
+          )}
+
+          {unit?.inventory && unit.inventory.items && (
+            <SanityInventoryModal
+              title="Inventory"
+              inventory={unit.inventory}
+              buttonLabel="View Inventory"
+              className="flex mb-yhalf"
               unit={unit.title}
             />
           )}
@@ -121,21 +130,11 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           </div>
         </div>
 
-        <div className="pr-x md:pr-0 order-2 md:order-2 xl:order-1 md:col-start-1 xl:col-start-4 xl:col-span-3 flex flex-col gap-y mt-y md:mt-0 md:z-modal">
+        <div className="pr-x order-3 md:order-2 flex flex-col gap-y mt-yhalf md:mt-0 md:z-modal">
           {unit?.summary && unit?.summary.length > 0 && (
             <div className="pl-x pr-menu md:px-0">
               <RichText blocks={unit.summary} className="font-medium" />
             </div>
-          )}
-
-          {unit?.inventory && unit.inventory.items && (
-            <SanityInventoryModal
-              title="Inventory"
-              inventory={unit.inventory}
-              buttonLabel="View Inventory"
-              className="flex px-x my-y md:px-0"
-              unit={unit.title}
-            />
           )}
 
           {unit?.unitDetails && (
@@ -164,7 +163,7 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
         </div>
 
-        <div className="order-1 xl:col-start-7 xl:col-span-4 self-start md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0">
+        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0">
           {unit?.photographs && (
             <ImageCarousel
               pagination={true}
