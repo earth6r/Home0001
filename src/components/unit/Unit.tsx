@@ -41,6 +41,8 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
     }
   }, [unit])
 
+  console.log('unit?.unitDetails: ', unit?.unitDetails)
+
   return (
     <div className={classNames(className)}>
       <h2 className="md:hidden text-h2 px-x mb-ydouble md:max-w-[50%] xl:max-w-[35%]">
