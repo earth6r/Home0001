@@ -62,9 +62,9 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
                   }}
                   className={classNames(
                     activeIndex === index
-                      ? 'w-full text-black bg-gray'
-                      : 'w-[calc(34.08%-var(--space-x-half))] text-white bg-black',
-                    'flex items-center justify-center relative p-x aspect-square transition-[width] duration-500'
+                      ? 'w-full text-black bg-gray duration-500'
+                      : 'w-[calc(34.08%-var(--space-x-half))] xl:w-[calc(33.9%-var(--space-x-half))] text-white bg-black duration-500',
+                    'flex items-center justify-center relative p-x aspect-square transition-[width]'
                   )}
                 >
                   <SanityImage
@@ -72,15 +72,15 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
                     props={{ alt: 'Inventory Image', sizes: '400px' }}
                     className={classNames(
                       activeIndex === index ? 'opacity-100' : 'opacity-0',
-                      'absolute w-full h-full aspect-square top-0 left-0'
+                      'absolute w-full h-full aspect-square top-0 left-0 duration-500'
                     )}
                   />
                   <span
                     className={classNames(
                       activeIndex === index
-                        ? 'top-x'
-                        : 'top-1/2 -translate-y-1/2',
-                      'absolute text-base uppercase font-sansText transform transition-all duration-500'
+                        ? 'top-xhalf duration-700'
+                        : 'top-1/2 -translate-y-1/2 duration-700',
+                      'p-xhalf absolute text-sm uppercase font-sansText transform transition-all'
                     )}
                   >
                     {item.title}
