@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { set } from 'sanity'
 
 const cn = (...classes: string[]) => classes.filter(Boolean).join(' ')
 
@@ -7,6 +8,7 @@ export const MessagingBlock: React.FC = () => {
   const [message, setMessage] = useState<string>('')
   const [method, setMethod] = useState<string>('sms')
   const [confirmed, setConfirmed] = useState<boolean>(false)
+  const [submitted, setSubmitted] = useState<boolean>(false)
 
   async function sendMessage(messageData: {
     recipientPhone: string
@@ -52,6 +54,7 @@ export const MessagingBlock: React.FC = () => {
     return responseData.message
   }
   const handleSend = () => {
+    setSubmitted(true)
     if (method === 'sms') {
       sendSMS()
     } else {
@@ -67,6 +70,8 @@ export const MessagingBlock: React.FC = () => {
       })
     } catch (error) {
       console.error(error)
+    } finally {
+      setSubmitted(false)
     }
   }
 
@@ -78,6 +83,8 @@ export const MessagingBlock: React.FC = () => {
       })
     } catch (error) {
       console.error(error)
+    } finally {
+      setSubmitted(false)
     }
   }
 
@@ -174,6 +181,7 @@ export const MessagingBlock: React.FC = () => {
             'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
             isButtonReady ? '' : 'cursor-not-allowed opacity-50'
           )}
+          disabled={submitted || !isButtonReady}
           onClick={handleSend}
         >
           Send
