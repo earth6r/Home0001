@@ -177,7 +177,18 @@ export const UNIT_QUERY = `
       },
     }, 
   },
-  unitDetails,
+  "unitDetails": unitDetails[]{
+    ...,
+    "children": children[]{
+      ...,
+      "images": images[]{
+        ...,
+        "image": image{
+          ${IMAGE_QUERY}
+        },
+      }, 
+    }, 
+  },
   "propertyType": propertyType->{
     typeTitle,
     typeValue,

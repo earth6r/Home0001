@@ -67,7 +67,7 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
     return (
       <ImageCarousel
         slides={value.images}
-        carousel={false}
+        carousel={true}
         perView={2}
         className="w-full"
         placement="property details"

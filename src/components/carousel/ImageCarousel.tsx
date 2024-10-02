@@ -17,6 +17,7 @@ export interface ImageSlideProps extends SanityMediaProps {
   alt: string
   lastIndex?: boolean
   fullWidth?: boolean
+  zoom?: boolean
 }
 
 export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
@@ -43,6 +44,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
   alt,
   fullWidth,
   lastIndex,
+  zoom = false,
   className,
 }) => {
   const lenis = useLenis()
@@ -52,7 +54,8 @@ const ImageSlide: FC<ImageSlideProps> = ({
       className={classNames(
         className,
         fullWidth ? 'md:h-[431px] md:w-auto' : '',
-        'block relative w-full h-auto overflow-hidden cursor-zoom-in active:cursor-grabbing select-none'
+        zoom ? 'cursor-zoom-in active:cursor-grabbing' : '',
+        'block relative w-full h-auto overflow-hidden select-none'
       )}
     >
       <SanityMedia
@@ -99,6 +102,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   useEffect(() => {
     if (!slidesRef?.current || typeof window === 'undefined' || !carousel)
       return
+
     const lightbox = new PhotoSwipeLightbox({
       gallery: slidesRef.current,
       children: '.swiper-slide',
@@ -122,6 +126,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
     return () => {
       lightbox.destroy()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -176,6 +181,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       className={classNames('overflow-hidden')}
                     >
                       <ImageSlide
+                        zoom={true}
                         image={image as any}
                         lastIndex={index === slides.length - 1}
                         alt={alt}
