@@ -179,6 +179,9 @@ export const UNIT_QUERY = `
   },
   "unitDetails": unitDetails[]{
     ...,
+    "image": image{
+      ${IMAGE_QUERY}
+    },
     "children": children[]{
       ...,
       "images": images[]{
