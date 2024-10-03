@@ -236,10 +236,25 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           </div>
         </Swiper>
       ) : (
-        <div className="flex items-center overflow-hidden">
-          {slides && slides[0].alt && (
-            <ImageSlide image={slides[0].image as any} alt={slides[0].alt} />
-          )}
+        <div ref={slidesRef}>
+          <div className="flex items-center overflow-hidden swiper-slide">
+            {slides && slides[0].alt && (
+              <a
+                href={`https://cdn.sanity.io/${
+                  (slides[0].image?.asset as any).path
+                }`}
+                data-pswp-width={1000}
+                data-pswp-height={1100}
+                className={classNames('overflow-hidden')}
+              >
+                <ImageSlide
+                  image={slides[0].image as any}
+                  alt={slides[0].alt}
+                  zoom={true}
+                />
+              </a>
+            )}
+          </div>
         </div>
       )}
     </div>
