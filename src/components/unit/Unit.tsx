@@ -41,8 +41,6 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
     }
   }, [unit])
 
-  console.log('unit?.unitDetails: ', unit?.unitDetails)
-
   return (
     <div className={classNames(className)}>
       <h2 className="md:hidden text-h2 px-x mb-ydouble md:max-w-[50%] xl:max-w-[35%]">
@@ -158,14 +156,14 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           )}
         </div>
 
-        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky self-start md:top-[var(--header-height)] md:right-0 xl:left-0">
+        <div className="order-1 xl:order-3 xl:col-start-3 md:h-0 xl:h-auto xl:sticky self-start md:top-[var(--header-height)] md:right-0 xl:left-0">
           {unit?.photographs && (
             <ImageCarousel
               pagination={true}
               perView={1}
               carousel={true}
               slides={unit?.photographs as SanityKeyed<Media>[]}
-              className="w-full h-full px-x md:pl-0 overflow-hidden"
+              className="w-full h-auto px-x md:pl-0 overflow-hidden"
               placement="unit images"
             />
           )}
