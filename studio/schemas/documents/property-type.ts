@@ -63,11 +63,6 @@ export default {
       type: 'string',
     },
     {
-      name: 'amenities',
-      title: 'Amenities',
-      type: 'richText',
-    },
-    {
       name: 'headlineImage',
       title: 'Headline Image',
       type: 'media',
@@ -86,8 +81,8 @@ export default {
     {
       name: 'inventory',
       title: 'Inventory',
-      type: 'richText',
-      options: { collapsable: true, collapsed: true },
+      type: 'reference',
+      to: [{ type: 'inventory' }],
     },
     {
       name: 'unitDetails',
@@ -108,12 +103,6 @@ export default {
       name: 'moreInfo',
       title: 'More Info',
       type: 'richText',
-    },
-    {
-      name: 'secondUnitDetails',
-      title: 'Second Unit Details',
-      type: 'array',
-      of: [{ type: 'accordion', title: 'Unit Details' }],
     },
     {
       name: 'previewImage',

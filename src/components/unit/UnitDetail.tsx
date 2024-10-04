@@ -119,7 +119,7 @@ export const UnitDetailComponent: FC<UnitElProps> = ({ unit, className }) => {
             </>
           )}
 
-          {unit?.inventory && (
+          {unit?.inventory && unit.inventory.items && (
             <SanityInventoryModal
               title="Inventory"
               inventory={unit.inventory}
@@ -143,10 +143,10 @@ export const UnitDetailComponent: FC<UnitElProps> = ({ unit, className }) => {
             </>
           )}
 
-          {unit?.dossierInventory && (
+          {unit?.inventory && unit.inventory.items && (
             <SanityInventoryModal
               title="Inventory"
-              inventory={unit.dossierInventory}
+              inventory={unit.inventory}
               buttonLabel="View Inventory"
               className="inline-block md:hidden px-x md:px-0 xl:flex mt-y"
               unit={unit.title}
@@ -190,23 +190,6 @@ export const UnitDetailComponent: FC<UnitElProps> = ({ unit, className }) => {
               />
             </>
           )}
-
-          {unit?.moreInfo && (
-            <div className="px-x md:px-0 mt-y">
-              <RichText blocks={unit?.moreInfo} />
-            </div>
-          )}
-
-          {unit?.secondUnitDetails &&
-            unit.secondUnitDetails.map(({ _key, header, text }) => (
-              <Accordion
-                key={_key}
-                header={header}
-                text={text}
-                location={{ property: 'property', unit: 'unit' }}
-                className="px-x md:px-0 mt-y mb-ydouble border-x-0 border-t-0"
-              />
-            ))}
         </div>
 
         <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0 md:aspect-[0.797]">

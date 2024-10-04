@@ -1,6 +1,7 @@
 import { HTMLAttributes } from 'react'
 import type {
   Accordion,
+  Cta,
   Media,
   Property,
   PropertyType,
@@ -27,39 +28,29 @@ export interface KeyedUnitProps
   title?: string
   slug?: { _type: 'slug'; current: string }
   available?: boolean
+  bedrooms?: number
+  bathrooms?: number
+  coordinates?: { lat?: string; long?: string }
+  address?: RichText
   property?: SanityReference<Property>
   propertyType?: KeyedPropertyType
   price?: string
   hidePrice?: boolean
   cryptoPrice?: string
   area?: string
-  amenities?: RichText
-  headlineImage?:
-    | {
-        _type: 'image'
-        asset: SanityReference<SanityImageAsset>
-        alt: string
-        image?: {
-          _type: 'image'
-          asset: SanityImageAsset
-        }
-      }
-    | Media
+  ctas?: Cta[]
   photographs?: SanityKeyed<Media>[] | Media
   photoLimit?: number
   summary?: RichText
   factSheet?: any
-  inventory?: RichText
-  dossierInventory?: RichText
+  inventory?: any
   unitDetails?: RichText
-  secondUnitDetails?: SanityKeyed<Accordion>[]
   layoutImages?: SanityKeyed<Media>[]
   layoutImagesOptions?: {
     carousel?: boolean
     zoomWidth?: number
     zoomHeight?: number
   }
-  moreInfo?: RichText
 }
 
 export interface UnitElProps

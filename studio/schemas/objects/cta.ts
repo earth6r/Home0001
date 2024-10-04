@@ -18,6 +18,16 @@ export default {
       type: 'link',
       title: 'Link',
     },
+    {
+      name: 'color',
+      type: 'string',
+      title: 'Color',
+      options: {
+        list: ['Black', 'White'],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
+    },
   ],
   validation: (Rule: Rule): Rule =>
     Rule.custom<Cta>(cta => {

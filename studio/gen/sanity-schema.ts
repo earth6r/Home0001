@@ -165,6 +165,58 @@ export interface City extends SanityDocument {
 }
 
 /**
+ * Inventory
+ *
+ *
+ */
+export interface Inventory extends SanityDocument {
+  _type: "inventory";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Unit — `reference`
+   *
+   *
+   */
+  unit?: SanityReference<Unit>;
+
+  /**
+   * Inventory Items — `array`
+   *
+   *
+   */
+  items?: Array<
+    SanityKeyed<{
+      _type: "inventoryItem";
+      /**
+       * Title — `string`
+       *
+       *
+       */
+      title?: string;
+
+      /**
+       * Image — `image`
+       *
+       *
+       */
+      image?: {
+        _type: "image";
+        asset: SanityReference<SanityImageAsset>;
+        crop?: SanityImageCrop;
+        hotspot?: SanityImageHotspot;
+      };
+    }>
+  >;
+}
+
+/**
  * Menus
  *
  *
@@ -462,13 +514,6 @@ export interface PropertyType extends SanityDocument {
   area?: string;
 
   /**
-   * Amenities — `richText`
-   *
-   *
-   */
-  amenities?: RichText;
-
-  /**
    * Headline Image — `media`
    *
    *
@@ -490,11 +535,11 @@ export interface PropertyType extends SanityDocument {
   summary?: RichText;
 
   /**
-   * Inventory — `richText`
+   * Inventory — `reference`
    *
    *
    */
-  inventory?: RichText;
+  inventory?: SanityReference<Inventory>;
 
   /**
    * Unit Details — `richText`
@@ -516,13 +561,6 @@ export interface PropertyType extends SanityDocument {
    *
    */
   moreInfo?: RichText;
-
-  /**
-   * Second Unit Details — `array`
-   *
-   *
-   */
-  secondUnitDetails?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Preview Image — `image`
@@ -658,6 +696,20 @@ export interface Unit extends SanityDocument {
   propertyType?: SanityReference<PropertyType>;
 
   /**
+   * Address — `richText`
+   *
+   *
+   */
+  address?: RichText;
+
+  /**
+   * coordinates — `coordinates`
+   *
+   *
+   */
+  coordinates?: Coordinates;
+
+  /**
    * Price — `string`
    *
    *
@@ -686,18 +738,32 @@ export interface Unit extends SanityDocument {
   area?: string;
 
   /**
-   * Amenities — `richText`
+   * Bedrooms — `number`
    *
    *
    */
-  amenities?: RichText;
+  bedrooms?: number;
 
   /**
-   * Headline Image — `media`
+   * Bathrooms — `number`
    *
    *
    */
-  headlineImage?: Media;
+  bathrooms?: number;
+
+  /**
+   * Fact Sheet — `table`
+   *
+   *
+   */
+  factSheet?: Table;
+
+  /**
+   * CTAs — `array`
+   *
+   *
+   */
+  ctas?: Array<SanityKeyed<Cta>>;
 
   /**
    * Photographs — `array`
@@ -714,28 +780,21 @@ export interface Unit extends SanityDocument {
   photoLimit?: number;
 
   /**
-   * Summary — `richText`
+   * First Content Block — `richText`
    *
    *
    */
   summary?: RichText;
 
   /**
-   * Fact Sheet — `table`
+   * Inventory — `reference`
    *
    *
    */
-  factSheet?: Table;
+  inventory?: SanityReference<Inventory>;
 
   /**
-   * Dossier Inventory — `richText`
-   *
-   *
-   */
-  dossierInventory?: RichText;
-
-  /**
-   * Unit Details — `richText`
+   * Second Content Block — `richText`
    *
    *
    */
@@ -747,20 +806,6 @@ export interface Unit extends SanityDocument {
    *
    */
   layoutImages?: Array<SanityKeyed<Media>>;
-
-  /**
-   * More Info — `richText`
-   *
-   *
-   */
-  moreInfo?: RichText;
-
-  /**
-   * Second Unit Details — `array`
-   *
-   *
-   */
-  secondUnitDetails?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Closing Documents — `file`
@@ -1092,6 +1137,13 @@ export type Cta = {
    *
    */
   link?: Link;
+
+  /**
+   * Color — `string`
+   *
+   *
+   */
+  color?: "Black" | "White";
 };
 
 export type Divider = {
@@ -1122,6 +1174,23 @@ export type Figure = {
    *
    */
   media?: Media;
+};
+
+export type InventoryToggle = {
+  _type: "inventoryToggle";
+  /**
+   * Linked Copy — `string`
+   *
+   *
+   */
+  linkedCopy?: string;
+
+  /**
+   * Inventory — `reference`
+   *
+   *
+   */
+  inventory?: SanityReference<Inventory>;
 };
 
 export type Media = {
@@ -1360,6 +1429,7 @@ export type BlockContent = Array<
   | SanityKeyed<FullbleedBlock>
   | SanityKeyed<ImagesBlock>
   | SanityKeyed<PropertyBlock>
+  | SanityKeyed<PropertyTypesBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
@@ -1556,6 +1626,23 @@ export type PropertyBlock = {
    *
    */
   footerCopy?: string;
+};
+
+export type PropertyTypesBlock = {
+  _type: "propertyTypesBlock";
+  /**
+   * Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Property Types — `array`
+   *
+   *
+   */
+  propertyTypes?: Array<SanityKeyedReference<PropertyType>>;
 };
 
 export type PropertiesBlock = {
@@ -1880,6 +1967,7 @@ export type Documents =
   | Brand
   | Buy
   | City
+  | Inventory
   | Menus
   | Page
   | Property

@@ -60,7 +60,6 @@ export const Scripts = () => {
 
   const enableAnalytics = (countryCode: string): void => {
     if (!isInUkOrEu(countryCode)) {
-      console.log('Analytics enabled')
       if (sessionStorage.getItem('allowAnalytics') !== 'false') {
         setAnalytics(true)
       }
