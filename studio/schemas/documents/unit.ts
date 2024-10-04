@@ -74,6 +74,15 @@ export default {
       disableNew: false,
     },
     {
+      name: 'address',
+      title: 'Address',
+      type: 'richText',
+    },
+    {
+      type: 'coordinates',
+      name: 'coordinates',
+    },
+    {
       name: 'price',
       title: 'Price',
       type: 'string',
@@ -95,14 +104,26 @@ export default {
       type: 'string',
     },
     {
-      name: 'amenities',
-      title: 'Amenities',
-      type: 'richText',
+      name: 'bedrooms',
+      title: 'Bedrooms',
+      type: 'number',
     },
     {
-      name: 'headlineImage',
-      title: 'Headline Image',
-      type: 'media',
+      name: 'bathrooms',
+      title: 'Bathrooms',
+      type: 'number',
+    },
+    {
+      name: 'factSheet',
+      title: 'Fact Sheet',
+      type: 'table',
+      options: { collapsable: true, collapsed: true },
+    },
+    {
+      name: 'ctas',
+      title: 'CTAs',
+      type: 'array',
+      of: [{ type: 'cta' }],
     },
     {
       name: 'photographs',
@@ -118,46 +139,25 @@ export default {
     },
     {
       name: 'summary',
-      title: 'Summary',
+      title: 'First Content Block',
       type: 'richText',
     },
     {
-      name: 'factSheet',
-      title: 'Fact Sheet',
-      type: 'table',
-      options: { collapsable: true, collapsed: true },
-    },
-    {
-      name: 'dossierInventory',
-      title: 'Dossier Inventory',
-      type: 'richText',
-      options: { collapsable: true, collapsed: true },
+      name: 'inventory',
+      title: 'Inventory',
+      type: 'reference',
+      to: [{ type: 'inventory' }],
     },
     {
       name: 'unitDetails',
-      title: 'Unit Details',
+      title: 'Second Content Block',
       type: 'richText',
     },
     {
       name: 'layoutImages',
       title: 'Layout Images',
       type: 'array',
-      of: [
-        {
-          type: 'media',
-        },
-      ],
-    },
-    {
-      name: 'moreInfo',
-      title: 'More Info',
-      type: 'richText',
-    },
-    {
-      name: 'secondUnitDetails',
-      title: 'Second Unit Details',
-      type: 'array',
-      of: [{ type: 'accordion', title: 'Unit Details' }],
+      of: [{ type: 'media' }],
     },
     {
       name: 'closingDocuments',

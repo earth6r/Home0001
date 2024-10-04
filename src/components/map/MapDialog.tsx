@@ -4,6 +4,7 @@ import { Dialog } from '@headlessui/react'
 import { MapDialogProps } from './types'
 import { sendGoogleEvent } from '@lib/util/analytics'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+
 export const MapDialog: FC<MapDialogProps> = ({
   text,
   coordinates,
@@ -13,7 +14,7 @@ export const MapDialog: FC<MapDialogProps> = ({
 
   return (
     <div className={className}>
-      <div className="flex items-center gap-[3px] hover:gap-[6px] h-[1em] mt-y transition-all duration-300">
+      <div className="flex items-center gap-[3px] hover:gap-[6px] h-[1em] transition-all duration-300">
         <button
           aria-label={`Open Map`}
           onClick={() => {

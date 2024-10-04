@@ -1,5 +1,5 @@
 :root {
-  --rich-text-y: 1em;
+  --rich-text-y: 0.75em;
 }
 
 .rich-text > * {
@@ -32,7 +32,7 @@
 .rich-text.inventory > p,
 .rich-text > ol + *,
 .rich-text > blockquote + * {
-  margin-top: calc(var(--rich-text-y) * 0.5);
+  margin-top: calc(var(--rich-text-y) * 1);
 }
 
 .rich-text.inventory > ul {
@@ -95,6 +95,10 @@
 .rich-text span,
 .rich-text li {
   @apply text-md font-medium;
+}
+
+.rich-text p.caption {
+  @apply font-sansText text-caption font-bold;
 }
 
 .rich-text p.small {

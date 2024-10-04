@@ -4,11 +4,14 @@ import type {
   PortableTextBlockComponent,
 } from '@portabletext/react'
 import { reactNodeToString } from '@lib/util'
-import { SanityLink, SanityMedia } from '.'
+import { SanityLink, SanityMedia, SanityMediaProps } from '.'
 import { SanityTooltip } from './tooltip'
 import { useCookiesPrefs } from '@contexts/cookies'
 import { type FC, type HTMLAttributes } from 'react'
 import { ImageCarousel } from '@components/carousel'
+import { SanityInventoryModal } from './table-modal'
+import { Media } from '@studio/gen/sanity-schema'
+import ImageZoom from '@components/image-zoom/ImageZoom'
 
 interface SanityCookiesToggleProps extends HTMLAttributes<HTMLElement> {
   linkedCopy?: string
@@ -32,29 +35,44 @@ const SanityCookiesToggle: FC<SanityCookiesToggleProps> = ({
   )
 }
 
+const SanityZoomMedia: FC<Media> = media => {
+  return media?.image?.asset && (media?.image?.asset as any).path ? (
+    <ImageZoom media={media as SanityMediaProps}>
+      <SanityMedia
+        imageProps={{
+          alt: media?.alt || 'Media',
+          lqip: (media?.image as any)?.asset?.metadata?.lqip,
+        }}
+        className="w-full h-auto object-cover"
+        {...(media as any)}
+      />
+    </ImageZoom>
+  ) : (
+    <div>
+      <SanityMedia
+        imageProps={{
+          alt: media?.alt || 'Media',
+          lqip: (media?.image as any)?.asset?.metadata?.lqip,
+        }}
+        className="w-full h-auto object-cover"
+        {...(media as any)}
+      />
+    </div>
+  )
+}
+
 /**
  * PortableText types used globally
  */
 export const blockTypes: Partial<PortableTextReactComponents['types']> = {
   media: ({ value }) => {
-    return (
-      <div>
-        <SanityMedia
-          imageProps={{
-            alt: value?.alt || 'Media',
-            lqip: (value?.image as any)?.asset?.metadata?.lqip,
-          }}
-          className="w-full h-auto object-cover"
-          {...(value as any)}
-        />
-      </div>
-    )
+    return <SanityZoomMedia {...value} />
   },
   tooltip: ({ value }) => {
     return <SanityTooltip {...value} />
   },
   divider: () => {
-    return <span className="block h-yhalf" />
+    return <span className="block h-[2px]" />
   },
   embed: ({ value }) => {
     return <script type="text/javascript">{value.embed}</script>
@@ -66,7 +84,7 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
     return (
       <ImageCarousel
         slides={value.images}
-        carousel={false}
+        carousel={true}
         perView={2}
         className="w-full"
         placement="property details"
@@ -89,6 +107,20 @@ export const blockMarks: Partial<PortableTextReactComponents['marks']> = {
   indented: ({ children }) => {
     return <span className="indented">{children}</span>
   },
+  inventoryToggle: ({ value }) => {
+    return (
+      value.inventory.items && (
+        <SanityInventoryModal
+          title="Inventory"
+          inventory={value.inventory}
+          buttonLabel={value.linkedCopy}
+          className="inline"
+          buttonType="link"
+          unit={value.title}
+        />
+      )
+    )
+  },
 }
 
 /**
@@ -98,6 +130,7 @@ export const blockBlock: Record<
   PortableTextBlockStyle,
   PortableTextBlockComponent | undefined
 > = {
+  caption: ({ children }) => <p className="caption">{children}</p>,
   small: ({ children }) => <p className="small">{children}</p>,
   large: ({ children }) => <p className="large">{children}</p>,
 }

@@ -21,6 +21,7 @@ import {
   MessagingBlock,
   TableBlock,
   ImagesBlock,
+  PropertyTypesBlock,
 } from '.'
 import classNames from 'classnames'
 
@@ -78,6 +79,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             propertyBlock: ({ index, value }) => (
               <PropertyBlock index={index} grid={grid} {...value} />
+            ),
+            propertyTypesBlock: ({ index, value }) => (
+              <PropertyTypesBlock index={index} grid={grid} {...value} />
             ),
             propertiesBlock: ({ index, value }) => (
               <PropertiesBlock index={index} grid={grid} {...value} />

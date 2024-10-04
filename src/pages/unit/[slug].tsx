@@ -3,7 +3,6 @@ import {
   forwardRef,
   useContext,
   useEffect,
-  useState,
 } from 'react'
 import groq from 'groq'
 import type {
@@ -19,18 +18,13 @@ import { UNIT_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { Unit } from '@components/unit'
 import PageTransition from '@components/transition/PageTransition'
 import { HomeContext } from '@contexts/home'
-import { Waitlist } from '@components/waitlist'
-import { useForm } from 'react-hook-form'
-import classNames from 'classnames'
 import { Property, PropertyContentProps } from '@components/property'
-import { PropertyBlock } from '@components/sanity'
 
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 
 const ALL_SLUGS_QUERY = groq`*[_type == "unit" && defined(slug.current)][].slug.current`
 const PROPERTY_QUERY = groq`
   *[_type == "unit" && slug.current == $slug]{
-    ...,
     ${UNIT_QUERY}
   }
 `
@@ -47,28 +41,11 @@ export const getStaticProps: GetStaticProps = context =>
   getPageStaticProps({ ...context, query: PROPERTY_QUERY })
 
 const UnitPage: NextPage<PageProps> = (
-  {
-    data,
-    siteSettings,
-    preview,
-  }: InferGetStaticPropsType<typeof getStaticProps>,
+  { data, preview }: InferGetStaticPropsType<typeof getStaticProps>,
   ref: PageRefType
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
   const { state, dispatch } = useContext(HomeContext)
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    trigger,
-    getValues,
-    formState: { isSubmitting },
-  } = useForm({
-    shouldUseNativeValidation: true,
-  })
-  const [formSubmitted, setFormSubmitted] = useState(false)
-  const [fullWidth, setFullWidth] = useState(false)
 
   useEffect(() => {
     dispatch({
@@ -78,6 +55,7 @@ const UnitPage: NextPage<PageProps> = (
         unitSlug: page?.slug?.current,
       },
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return page?.title && (!page?._id.includes('drafts.') || preview) ? (

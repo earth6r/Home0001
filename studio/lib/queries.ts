@@ -40,6 +40,7 @@ export const CTA_QUERY = `
   "link": link{
     ${LINK_QUERY}
   },
+  color,
 `
 
 export const CITY_QUERY = `
@@ -62,12 +63,17 @@ export const PROPERTY_TYPE_QUERY = `
   price,
   cryptoPrice,
   area,
-  amenities,
   summary,
-  inventory,
-  moreInfo,
+  "inventory": inventory->{
+    ...,
+    items[]{
+      ...,
+      "image": image{
+        ${IMAGE_QUERY}
+      },
+    }, 
+  },
   unitDetails,
-  secondUnitDetails,
   "headlineImage": headlineImage{
     ${MEDIA_QUERY}
   },
@@ -112,6 +118,15 @@ export const PROPERTY_QUERY = `
       ...,
       markDefs[]{
         ...,
+        "inventory": inventory->{
+          ...,
+          items[]{
+            ...,
+            "image": image{
+              ${IMAGE_QUERY}
+            },
+          }, 
+        },
         ${LINK_MARKDEFS_QUERY}
       },
     },
@@ -141,22 +156,45 @@ export const UNIT_QUERY = `
   title,
   headerText,
   available,
+  coordinates,
+  address,
+  bedrooms,
+  bathrooms,
   price,
   cryptoPrice,
   area,
-  amenities,
   summary,
   factSheet,
-  dossierInventory,
-  moreInfo,
-  unitDetails,
-  secondUnitDetails,
+  "ctas": ctas[]{
+    ${CTA_QUERY}
+  },
+  "inventory": inventory->{
+    ...,
+    items[]{
+      ...,
+      "image": image{
+        ${IMAGE_QUERY}
+      },
+    }, 
+  },
+  "unitDetails": unitDetails[]{
+    ...,
+    "image": image{
+      ${IMAGE_QUERY}
+    },
+    "children": children[]{
+      ...,
+      "images": images[]{
+        ...,
+        "image": image{
+          ${IMAGE_QUERY}
+        },
+      }, 
+    }, 
+  },
   "propertyType": propertyType->{
     typeTitle,
     typeValue,
-  },
-  "headlineImage": headlineImage{
-    ${MEDIA_QUERY}
   },
   "photographs": photographs[]{
     ${MEDIA_QUERY}
@@ -180,6 +218,15 @@ export const BODY_QUERY = `
       ...,
       markDefs[]{
         ...,
+        "inventory": inventory->{
+          ...,
+          items[]{
+            ...,
+            "image": image{
+              ${IMAGE_QUERY}
+            },
+          }, 
+        },
         ${LINK_MARKDEFS_QUERY}
       },
       cta{
@@ -221,6 +268,15 @@ export const BODY_QUERY = `
         ...,
         markDefs[]{
           ...,
+          "inventory": inventory->{
+            ...,
+            items[]{
+              ...,
+              "image": image{
+                ${IMAGE_QUERY}
+              },
+            }, 
+          },
           ${LINK_MARKDEFS_QUERY}
         },
       },
@@ -241,6 +297,9 @@ export const BODY_QUERY = `
         longTitle,
         slug,
       },
+    },
+    "propertyTypes": propertyTypes[]->{
+      ${PROPERTY_TYPE_QUERY}
     },
     "propertyRef": propertyRef->{
       ${PROPERTY_QUERY}
@@ -277,7 +336,7 @@ export const PROPERTIES_QUERY = `
     price,
     cryptoPrice,
     area,
-    "photographs": photographs[][0]{
+    "photographs": photographs[]{
       ${MEDIA_QUERY}
     },
   },
@@ -297,7 +356,15 @@ export const BUY_UNIT_QUERY = `
     title,
     price,
     factSheet,
-    dossierInventory,
+    "inventory": inventory->{
+      ...,
+      items[]{
+        ...,
+        "image": image{
+          ${IMAGE_QUERY}
+        },
+      }, 
+    },
     "dossierRef": dossierRef->{
       slug,
     },
