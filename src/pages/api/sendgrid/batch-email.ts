@@ -86,7 +86,10 @@ export default async function handler(
       await batchEmails.add({
         email,
         timestamp: Math.floor(new Date().getTime() / 1000),
-        from,
+        from: {
+          email: from,
+          name: 'Home0001',
+        },
         subject,
         text: textContent,
         html: htmlContent,
