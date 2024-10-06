@@ -71,13 +71,6 @@ export default async function handler(
       text: textContent,
       html: htmlContent,
       reply_to,
-      dynamic_template_data: {
-        Sender_Name: 'Home0001', // TODO: fix
-        Sender_Address: '1234 Home0001 St.', // TODO: fix
-        Sender_City: 'Home0001 City', // TODO: fix
-        Sender_State: 'Home0001 State', // TODO: fix
-        Sender_Zip: '12345', // TODO: fix
-      },
     }))
 
     await sendgrid.send(messages)
