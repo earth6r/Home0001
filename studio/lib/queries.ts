@@ -154,6 +154,8 @@ export const UNIT_QUERY = `
   _id,
   slug,
   title,
+  hideMenuButton,
+  showTourLink,
   headerText,
   available,
   coordinates,
