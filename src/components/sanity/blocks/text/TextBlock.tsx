@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import { useEffect, useState, type FC } from 'react'
 import classNames from 'classnames'
 import type { TextBlock as TextBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
@@ -23,6 +23,22 @@ export const TextBlock: FC<TextBlockProps> = ({
   className,
 }) => {
   const { asPath } = useRouter()
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    window.addEventListener('resize', checkMobile)
+
+    return () => {
+      window.removeEventListener('resize', checkMobile)
+    }
+  }, [])
+
   return (
     <Block
       id={anchor}
@@ -30,6 +46,7 @@ export const TextBlock: FC<TextBlockProps> = ({
         gridTemplateColumns: columns
           ? `repeat(${columns}, minmax(0, 1fr))`
           : 'repeat(3, minmax(0, 1fr))',
+        paddingRight: columns === 2 && isMobile ? 'var(--space-menu)' : '',
       }}
       className={classNames(
         className,
