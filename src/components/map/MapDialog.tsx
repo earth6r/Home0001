@@ -39,7 +39,7 @@ export const MapDialog: FC<MapDialogProps> = ({
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}
-        className="fixed max-w-[600px] w-[calc(100%-(2*var(--space-x)))] top-ydouble left-x z-header"
+        className="fixed max-w-[600px] w-[calc(100%-(2*var(--space-x)))] top-ydouble left-x z-modal"
       >
         <Dialog.Panel className="block border-1 border-solid border-black w-full h-full bg-white">
           <Map coordinates={coordinates} />
