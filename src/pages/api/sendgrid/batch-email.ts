@@ -5,10 +5,11 @@ import { initializeAdmin } from '@lib/firebase/admin'
 import sendgridClient from '@sendgrid/client'
 
 const apiKey = process.env.SENDGRID_API_KEY
-console.log('SENDGRID_API_KEY:', apiKey)
+
 if (!apiKey) {
   throw new Error('SENDGRID_API_KEY is not defined')
 }
+
 sendgrid.setApiKey(apiKey)
 
 export const config = {
