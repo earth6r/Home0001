@@ -6,7 +6,8 @@
     "Hubspot",
     "hutk",
     "SENDGRID",
-    "serializers"
+    "serializers",
+    "singlesends"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
