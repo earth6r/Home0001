@@ -5,6 +5,7 @@ import { initializeAdmin } from '@lib/firebase/admin'
 import sendgridClient from '@sendgrid/client'
 
 const apiKey = process.env.SENDGRID_API_KEY
+console.log('SENDGRID_API_KEY:', apiKey)
 if (!apiKey) {
   throw new Error('SENDGRID_API_KEY is not defined')
 }
@@ -42,13 +43,16 @@ export default async function handler(
     const [response, body] = await sendgridClient.request({
       method: 'GET',
       url: `/v3/marketing/singlesends/${templateId}`,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+      },
     })
 
     templateContent = body
 
     if (templateContent.error) {
       return res.status(500).json({
-        message: "Couldn't retrieve template content",
+        message: "Couldn't retrieve template content 1/2",
         error: templateContent.error,
       })
     }
@@ -56,7 +60,7 @@ export default async function handler(
     console.error('Error fetching template content:', error)
     return res
       .status(500)
-      .json({ message: "Couldn't retrieve template content", error })
+      .json({ message: "Couldn't retrieve template content 2/2", error })
   }
 
   const subject = templateContent.email_config.subject
