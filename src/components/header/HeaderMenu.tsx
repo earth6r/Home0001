@@ -9,6 +9,7 @@ import type { HeaderMenuProps } from './types'
 import { Logo } from '@components/logos'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import { useBrokerInquiryModal } from '@contexts/modals'
+import { useLenis } from '@studio-freight/react-lenis'
 
 export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   customOpen = false,
@@ -17,6 +18,8 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   mainMenu,
   className,
 }) => {
+  const lenis = useLenis()
+
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
@@ -25,7 +28,10 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
     <div className={className}>
       <Btn
         className="inline-block w-[66px] p-3 -m-3 leading-none z-header"
-        onClick={() => setCustomOpen(!customOpen)}
+        onClick={() => {
+          lenis.start()
+          setCustomOpen(!customOpen)
+        }}
         custom={true}
       >
         {customOpen ? (
