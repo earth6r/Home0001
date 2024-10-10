@@ -10,7 +10,7 @@ import 'photoswipe/style.css'
 import { sendGoogleEvent } from '@lib/util'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { useLenis } from '@studio-freight/react-lenis'
-import { SwiperOptions } from 'swiper/types'
+import { type SwiperOptions } from 'swiper/types'
 import { Navigation, Pagination } from 'swiper/modules'
 
 export interface ImageSlideProps extends SanityMediaProps {

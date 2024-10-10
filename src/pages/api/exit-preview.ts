@@ -6,6 +6,6 @@ export default function handler(
 ): void {
   res.clearPreviewData()
   res.setDraftMode({ enable: false })
-  res.redirect(`${req?.query?.path}` ?? '/')
+  res.redirect((req?.query?.path as string) || '/')
   res.end()
 }

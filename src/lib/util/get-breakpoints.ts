@@ -9,7 +9,7 @@ export type Breakpoints = { [key in keyof typeof SCREENS]: boolean }
  */
 export const getBreakpoints = (size: number): Breakpoints =>
   Object.fromEntries(
-    Object.entries(SCREENS).map(([key, val]) => [key, val <= size])
+    Object.entries(SCREENS).map(([key, val]) => [key, (val as number) <= size])
   ) as Breakpoints
 
 export default getBreakpoints
