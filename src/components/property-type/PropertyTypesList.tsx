@@ -64,7 +64,7 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
           })}
         <div
           className={classNames(
-            activeNav ? 'opacity-100' : 'opacity-0',
+            isMobile || activeNav ? 'opacity-100' : 'opacity-0',
             'flex justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
           )}
         >
