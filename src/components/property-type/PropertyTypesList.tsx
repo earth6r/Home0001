@@ -7,6 +7,7 @@ import { Navigation, type SwiperOptions } from 'swiper'
 import { SCREENS } from '@/globals'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import PropertyTypeSummary from './PropertyTypeSummary'
+import { isDesktop, isTablet } from 'react-device-detect'
 
 export const PropertyTypesList: FC<PropertyTypeListProps> = ({
   propertyTypesList,
@@ -41,6 +42,7 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
           nextEl: '.swiper-next',
           prevEl: '.swiper-prev',
         }}
+        centerInsufficientSlides={isDesktop || isTablet}
         className={classNames(
           'relative w-full max-w-full overflow-visible cursor-grab'
         )}
