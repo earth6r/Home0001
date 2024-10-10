@@ -2,7 +2,6 @@ import { type FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import { Media } from '@studio/gen/sanity-schema'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, type SwiperOptions, Pagination } from 'swiper'
 import classNames from 'classnames'
 import { SCREENS } from '@/globals'
 // eslint-disable-next-line import/no-unresolved
@@ -11,6 +10,8 @@ import 'photoswipe/style.css'
 import { sendGoogleEvent } from '@lib/util'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { useLenis } from '@studio-freight/react-lenis'
+import { SwiperOptions } from 'swiper/types'
+import { Navigation, Pagination } from 'swiper/modules'
 
 export interface ImageSlideProps extends SanityMediaProps {
   _key?: string

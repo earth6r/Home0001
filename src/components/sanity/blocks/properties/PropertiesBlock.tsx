@@ -12,7 +12,8 @@ import { sendGoogleEvent } from '@lib/util'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import SCREENS from '@globals/screens'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, type SwiperOptions } from 'swiper'
+import { SwiperOptions } from 'swiper/types'
+import { Navigation } from 'swiper/modules'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
