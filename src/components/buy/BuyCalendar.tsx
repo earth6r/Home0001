@@ -7,9 +7,6 @@ import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
 
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper'
-import IconChevron from '@components/icons/IconChevron'
 import { saveError } from '@lib/util/save-error'
 import { DateSelect } from '@components/date-select'
 

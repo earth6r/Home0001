@@ -6,7 +6,7 @@ import UnitSummary from './UnitSummary'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { SCREENS } from '@/globals'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
-import { SwiperOptions } from 'swiper/types'
+import { type SwiperOptions } from 'swiper/types'
 import { Navigation } from 'swiper/modules'
 
 export const UnitsList: FC<UnitListProps> = ({ unitList, className }) => {
