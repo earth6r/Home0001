@@ -3,10 +3,11 @@ import classNames from 'classnames'
 import { KeyedPropertyTypeProps, PropertyTypeListProps } from './types'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, type SwiperOptions } from 'swiper'
 import { SCREENS } from '@/globals'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import PropertyTypeSummary from './PropertyTypeSummary'
+import { SwiperOptions } from 'swiper/types'
+import { Navigation } from 'swiper/modules'
 
 export const PropertyTypesList: FC<PropertyTypeListProps> = ({
   propertyTypesList,
@@ -63,8 +64,8 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
           })}
         <div
           className={classNames(
-            activeNav ? 'opacity-100' : 'opacity-100 md:opacity-0',
-            'flex justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+            activeNav ? 'opacity-100' : 'opacity-0',
+            'hidden md:flex md:justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
           )}
         >
           <IconRightArrowBold

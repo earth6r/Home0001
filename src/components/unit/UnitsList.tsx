@@ -4,9 +4,10 @@ import { KeyedUnitProps, UnitListProps } from './types'
 import UnitSummary from './UnitSummary'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, type SwiperOptions } from 'swiper'
 import { SCREENS } from '@/globals'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { SwiperOptions } from 'swiper/types'
+import { Navigation } from 'swiper/modules'
 
 export const UnitsList: FC<UnitListProps> = ({ unitList, className }) => {
   const slidesRef = useRef(null)
