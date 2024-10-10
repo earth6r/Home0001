@@ -3,7 +3,7 @@ import type { PageDocument } from '../types'
 const PREVIEW_SECRET = process.env.SANITY_STUDIO_PREVIEW_SECRET
 const APP_URL = process.env.SANITY_STUDIO_NEXT_URL
 
-type pageTypes = 'page' | 'property' | 'unit' | 'brand' | 'property-type' | 'rd'
+type pageTypes = 'page' | 'property' | 'unit' | 'brand' | 'propertyType' | 'rd'
 
 const getBaseDocumentSlug = (docType: pageTypes): string => {
   switch (docType) {
@@ -11,7 +11,7 @@ const getBaseDocumentSlug = (docType: pageTypes): string => {
       return '/rd'
     case 'unit':
       return '/unit'
-    case 'property-type':
+    case 'propertyType':
       return '/property-type'
     case 'property':
       return '/property'
