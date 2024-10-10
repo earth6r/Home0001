@@ -7,7 +7,6 @@ import { Navigation, type SwiperOptions } from 'swiper'
 import { SCREENS } from '@/globals'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import PropertyTypeSummary from './PropertyTypeSummary'
-import { isDesktop, isMobile, isTablet } from 'react-device-detect'
 
 export const PropertyTypesList: FC<PropertyTypeListProps> = ({
   propertyTypesList,
@@ -64,7 +63,7 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
           })}
         <div
           className={classNames(
-            isMobile || activeNav ? 'opacity-100' : 'opacity-0',
+            activeNav ? 'opacity-100' : 'opacity-100 md:opacity-0',
             'flex justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
           )}
         >
