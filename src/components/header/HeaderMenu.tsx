@@ -63,7 +63,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
         <nav
           className={classNames(
             customOpen ? 'pointer-events-auto' : '',
-            'md:grid md:grid-cols-2 overflow-auto z-40 md:shadow-none pt-[78px] md:pt-[132px] left-0 w-full h-full text-base fade-enter-done'
+            'md:grid md:grid-cols-2 overflow-auto z-40 pt-[78px] md:pt-[132px] left-0 w-full h-full text-base fade-enter-done'
           )}
         >
           <ul className="container flex flex-col w-full outline-none pb-[192px]">

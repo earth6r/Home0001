@@ -78,7 +78,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
     <li className={classNames(className)}>
       <div
         className={classNames(
-          unit.available ? '' : 'bg-white shadow-none opacity-30',
+          unit.available ? '' : 'bg-white opacity-30',
           `w-auto flex-col`
         )}
       >
