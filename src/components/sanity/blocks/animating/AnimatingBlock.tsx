@@ -58,7 +58,7 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
               ) : (
                 <div
                   className={classNames(
-                    'text-h2 bg-transparent text-lightgray shadow-none'
+                    'text-h2 bg-transparent text-lightgray'
                   )}
                 >
                   <span
