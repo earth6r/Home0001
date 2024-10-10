@@ -41,7 +41,6 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
           nextEl: '.swiper-next',
           prevEl: '.swiper-prev',
         }}
-        centerInsufficientSlides={true}
         className={classNames(
           'relative w-full max-w-full overflow-visible cursor-grab'
         )}
