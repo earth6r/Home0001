@@ -7,7 +7,7 @@ import { Navigation, type SwiperOptions } from 'swiper'
 import { SCREENS } from '@/globals'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import PropertyTypeSummary from './PropertyTypeSummary'
-import { isDesktop, isTablet } from 'react-device-detect'
+import { isDesktop, isMobile, isTablet } from 'react-device-detect'
 
 export const PropertyTypesList: FC<PropertyTypeListProps> = ({
   propertyTypesList,
@@ -42,7 +42,7 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
           nextEl: '.swiper-next',
           prevEl: '.swiper-prev',
         }}
-        centerInsufficientSlides={isDesktop || isTablet}
+        centerInsufficientSlides={true}
         className={classNames(
           'relative w-full max-w-full overflow-visible cursor-grab'
         )}
@@ -65,7 +65,7 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
         <div
           className={classNames(
             activeNav ? 'opacity-100' : 'opacity-0',
-            'hidden md:flex md:justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+            'flex justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
           )}
         >
           <IconRightArrowBold
