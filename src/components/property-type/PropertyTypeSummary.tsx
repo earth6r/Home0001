@@ -12,8 +12,6 @@ import {
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { Media } from '@studio/gen/sanity-schema'
-import { KeyedProperty } from '@components/sanity/blocks/properties/types'
-import { KeyedPropertyType } from '@components/unit'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -49,7 +47,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
     <li className={classNames(className)}>
       <div
         className={classNames(
-          propertyType.available ? '' : 'bg-white shadow-none opacity-30',
+          propertyType.available ? '' : 'bg-white opacity-30',
           `w-auto flex-col`
         )}
       >
