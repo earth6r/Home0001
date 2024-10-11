@@ -18,9 +18,11 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
       slidesPerView: 1.185,
+      centerInsufficientSlides: false,
     },
     [SCREENS.md]: {
       slidesPerView: 'auto',
+      centerInsufficientSlides: true,
     },
   }
   const [activeNav, setActiveNav] = useState(false)
@@ -42,7 +44,6 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
           nextEl: '.swiper-next',
           prevEl: '.swiper-prev',
         }}
-        centerInsufficientSlides={true}
         className={classNames(
           'relative w-full max-w-full overflow-visible cursor-grab'
         )}
