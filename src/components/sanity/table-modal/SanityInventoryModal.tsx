@@ -110,7 +110,7 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
             setIsOpen(true)
             handleGoogleEvent()
           }}
-          className="inline underline"
+          className="inline underline text-left"
         >
           {buttonLabel}
         </button>
