@@ -99,6 +99,7 @@ export default async function handler(
         delivered: false,
         opened: [],
         clickedUrls: [],
+        singleSendId: templateId,
       })
 
       console.log(`Email sent and logged for: ${email}`)
