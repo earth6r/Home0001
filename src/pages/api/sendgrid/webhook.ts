@@ -4,6 +4,7 @@ import admin from 'firebase-admin' // Firebase Admin SDK
 import { initializeAdmin } from '@lib/firebase/admin'
 import sendgridClient from '@sendgrid/client'
 import fs from 'fs'
+import axios from 'axios'
 
 const apiKey = process.env.SENDGRID_API_KEY
 
@@ -45,47 +46,40 @@ export default async function handler(
 
     // filter by sg_event_id
     const emailEventHistory = await db
-      .collection('emailEventHistory')
+      .collection('emailsSentHistory')
       .where('sgMessageId', '==', sg_message_id)
       .get()
 
     if (eventType === 'delivered') {
       if (!emailEventHistory.empty) {
         await db
-          .collection('emailEventHistory')
+          .collection('emailsSentHistory')
           .doc(emailEventHistory.docs[0].id)
           .update({
             delivered: true,
             updatedAt: timestamp,
+            ip: ip || emailEventHistory.docs[0].data()?.ip || null,
+            useragent:
+              useragent || emailEventHistory.docs[0].data()?.useragent || null,
           })
       } else {
-        await db.collection('emailEventHistory').add({
-          email,
-          sgEventId: sg_event_id,
-          sgMessageId: sg_message_id,
-          useragent: useragent || null,
-          ip: ip || null,
-          delivered: true,
-          createdAt: timestamp,
-          updatedAt: timestamp,
-          opens: 0,
-          clicks: 0,
-          clickedUrls: [],
-        })
-
-        // TODO: get the email template id and that info and save to db
+        throw new Error('delivered event without existing sent event')
       }
     }
 
     if (eventType === 'open') {
       if (!emailEventHistory.empty) {
         await db
-          .collection('emailEventHistory')
+          .collection('emailsSentHistory')
           .doc(emailEventHistory.docs[0].id)
           .update({
-            opened: true,
-            openedAt: timestamp,
+            opened: admin.firestore.FieldValue.arrayUnion({
+              timestamp,
+            }),
             updatedAt: timestamp,
+            ip: ip || emailEventHistory.docs[0].data()?.ip || null,
+            useragent:
+              useragent || emailEventHistory.docs[0].data()?.useragent || null,
           })
       } else {
         throw new Error('open event without existing delivered event')
@@ -95,15 +89,17 @@ export default async function handler(
     if (eventType === 'click') {
       if (!emailEventHistory.empty) {
         await db
-          .collection('emailEventHistory')
+          .collection('emailsSentHistory')
           .doc(emailEventHistory.docs[0].id)
           .update({
-            clicks: admin.firestore.FieldValue.increment(1),
             updatedAt: timestamp,
             clickedUrls: admin.firestore.FieldValue.arrayUnion({
               url: event.url,
               timestamp,
             }),
+            ip: ip || emailEventHistory.docs[0].data()?.ip || null,
+            useragent:
+              useragent || emailEventHistory.docs[0].data()?.useragent || null,
           })
       } else {
         throw new Error('click event without existing delivered event')

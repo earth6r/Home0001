@@ -68,43 +68,55 @@ export default async function handler(
   const htmlContent = templateContent.email_config.html_content
   const textContent = templateContent.email_config.plain_content
 
-  const sendEmails = async (emailList: string[]) => {
-    const messages = emailList.map(email => ({
-      to: email,
-      from,
-      subject,
-      text: textContent,
-      html: htmlContent,
-      reply_to,
-    }))
-
-    await sendgrid.send(messages)
-  }
-
-  try {
-    await sendEmails(emails)
-
-    // Log the emails sent
-    const batchEmails = db.collection('emailsSentHistory')
-
-    for (const email of emails) {
-      await batchEmails.add({
-        email,
-        timestamp: Math.floor(new Date().getTime() / 1000),
+  // Function to send email and save to Firestore one by one
+  const sendEmailAndLog = async (email: string) => {
+    try {
+      // Step 1: Send the email
+      const response = await sendgrid.send({
+        to: email,
         from: {
           email: from,
-          name: 'Home0001',
+          name: 'HOME0001',
         },
         subject,
         text: textContent,
         html: htmlContent,
-        reply_to,
+        replyTo: reply_to,
       })
+
+      const sg_message_id = response[0].headers['x-message-id']
+
+      // Step 2: Log the email to Firestore
+      await db.collection('emailsSentHistory').add({
+        email,
+        createdAt: Math.floor(new Date().getTime() / 1000),
+        from,
+        subject,
+        text: textContent,
+        html: htmlContent,
+        replyTo: reply_to,
+        sg_message_id,
+        delivered: false,
+        opened: [],
+        clickedUrls: [],
+      })
+
+      console.log(`Email sent and logged for: ${email}`)
+    } catch (error) {
+      console.error(`Error sending email to ${email}:`, error)
+      throw new Error(`Failed to send email to ${email}`)
+    }
+  }
+
+  try {
+    // Send and log emails one by one
+    for (const email of emails) {
+      await sendEmailAndLog(email)
     }
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: "Couldn't send emails", error })
   }
 
-  return res.status(200).json({ message: 'Emails sent' })
+  return res.status(200).json({ message: 'Emails sent successfully' })
 }
