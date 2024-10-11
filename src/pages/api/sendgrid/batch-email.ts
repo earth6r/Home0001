@@ -107,7 +107,7 @@ export default async function handler(
         text: textContent,
         html: htmlContent,
         replyTo: reply_to,
-        sg_message_id,
+        sgMessageId: sg_message_id,
         delivered: false,
         opened: [],
         clickedUrls: [],
