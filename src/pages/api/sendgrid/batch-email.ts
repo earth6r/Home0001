@@ -71,6 +71,18 @@ export default async function handler(
   // Function to send email and save to Firestore one by one
   const sendEmailAndLog = async (email: string) => {
     try {
+      // Step 0: Check if the email is already in the database
+      const emailExists = await db
+        .collection('emailsSentHistory')
+        .where('email', '==', email)
+        .where('singleSendId', '==', templateId)
+        .get()
+
+      if (!emailExists.empty) {
+        console.log(`Email already sent to: ${email}`)
+        return
+      }
+
       // Step 1: Send the email
       const response = await sendgrid.send({
         to: email,
