@@ -1584,6 +1584,44 @@ export type DividerBlock = {
   divider?: boolean;
 };
 
+export type FormBlock = {
+  _type: "formBlock";
+  /**
+   * Header — `string`
+   *
+   *
+   */
+  header?: string;
+
+  /**
+   * Text — `richText`
+   *
+   *
+   */
+  text?: RichText;
+
+  /**
+   * Audience ID — `string`
+   *
+   *
+   */
+  audienceId?: string;
+
+  /**
+   * Success Message — `richText`
+   *
+   *
+   */
+  successMessage?: RichText;
+
+  /**
+   * Form Fields — `array`
+   *
+   *
+   */
+  formFields?: Array<SanityKeyed<FormField>>;
+};
+
 export type FullbleedBlock = {
   _type: "fullbleedBlock";
   /**
@@ -1982,3 +2020,10 @@ export type Documents =
  * sanity-codegen will let you type this explicity.
  */
 type Table = any;
+
+/**
+ * This interface is a stub. It was referenced in your sanity schema but
+ * the definition was not actually found. Future versions of
+ * sanity-codegen will let you type this explicity.
+ */
+type FormField = any;
