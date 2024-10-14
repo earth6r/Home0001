@@ -3,6 +3,40 @@ import { saveError } from './save-error'
 
 const HUBSPOT_ID = process.env.NEXT_PUBLIC_HUBSPOT_ID
 
+const postBlockFields = async (
+  data: any,
+  portalId?: string,
+  formGuid?: string,
+  config?: any,
+  hutk?: string,
+  actionUrl?: string
+) => {
+  if (!actionUrl) {
+    throw new Error('No actionUrl provided')
+  }
+
+  try {
+    return await axios.post(
+      `${actionUrl}/${portalId}/${formGuid}`,
+      {
+        portalId,
+        formGuid,
+        fields: data,
+        context: {
+          hutk: hutk ? hutk : null,
+          pageUri: document.URL,
+          pageName: document.title,
+        },
+      },
+      config
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postBlockFields')
+    throw new Error('Failed to submit form')
+  }
+}
+
 const postPreferenceFields = async (
   data: any,
   portalId?: string,
@@ -96,6 +130,7 @@ const postPreferenceFields = async (
     throw new Error('Failed to submit form')
   }
 }
+
 const postModalFields = async (
   data: any,
   portalId?: string,
@@ -367,7 +402,8 @@ export const submitForm = async (
   data: any,
   audienceId: string,
   formType: string,
-  hutk?: string
+  hutk?: string,
+  actionUrl?: string
 ) => {
   const portalId = HUBSPOT_ID
   const formGuid = audienceId
@@ -403,6 +439,15 @@ export const submitForm = async (
       formGuid,
       config,
       hutk
+    )
+  } else if (formType === 'block') {
+    response = await postBlockFields(
+      data,
+      portalId,
+      formGuid,
+      config,
+      hutk,
+      actionUrl
     )
   }
 
