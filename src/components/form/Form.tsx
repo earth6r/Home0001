@@ -21,11 +21,13 @@ interface FormProps extends HTMLAttributes<HTMLFormElement> {
     | 'unit'
     | 'broker'
     | 'preference'
+    | 'block'
   successMessage?: RichTextType | string
   handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
   formSubmitted: boolean
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>
   isHomeBlock?: boolean
+  actionUrl?: string
 }
 
 export const Form: FC<FormProps> = ({
@@ -36,6 +38,7 @@ export const Form: FC<FormProps> = ({
   handleSubmit,
   formSubmitted,
   setFormSubmitted,
+  actionUrl,
   isHomeBlock,
   children,
 }) => {
@@ -66,7 +69,7 @@ export const Form: FC<FormProps> = ({
     }
 
     try {
-      result = await submitForm(data, audienceId, formType, hutk)
+      result = await submitForm(data, audienceId, formType, hutk, actionUrl)
 
       const errorData = new FormData()
       errorData.append('Page', asPath)

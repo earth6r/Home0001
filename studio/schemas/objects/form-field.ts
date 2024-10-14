@@ -11,7 +11,8 @@ export default {
       name: 'fieldId',
       title: 'Field ID',
       type: 'string',
-      description: 'A unique identifier for this field from Hubspot etc.',
+      description:
+        'A unique identifier for this field from Hubspot etc. (first_name, last_name, email, etc.)',
       validation: (Rule: Rule): Rule => Rule.required(),
     },
     {
@@ -43,7 +44,7 @@ export default {
       title: 'Text Area Rows',
       type: 'number',
       // This field will not be hidden if the type is 'textArea'
-      hidden: ({ parent }: any) => parent?.type !== 'textArea',
+      hidden: ({ parent }: any) => parent?.fieldType !== 'textArea',
     },
     {
       name: 'placeholder',
@@ -51,7 +52,14 @@ export default {
       type: 'string',
       // This field will be hidden if the type is 'select' or 'hidden'
       hidden: ({ parent }: any) =>
-        parent?.type !== 'select' && parent?.type !== 'hidden',
+        parent?.fieldType === 'select' || parent?.fieldType === 'hidden',
+    },
+    {
+      name: 'optionsLabel',
+      title: 'Options Label',
+      type: 'string',
+      // This field will not be hidden if the type is 'select'
+      hidden: ({ parent }: any) => parent?.fieldType !== 'select',
     },
     {
       name: 'selectType',
@@ -66,7 +74,7 @@ export default {
         ],
       },
       // This field will not be hidden if the type is 'select'
-      hidden: ({ parent }: any) => parent?.type === 'select',
+      hidden: ({ parent }: any) => parent?.fieldType !== 'select',
     },
     {
       name: 'options',
@@ -93,7 +101,7 @@ export default {
         },
       ],
       // This field will not be hidden if the type is 'select'
-      hidden: ({ parent }: any) => parent?.type === 'select',
+      hidden: ({ parent }: any) => parent?.fieldType !== 'select',
     },
   ],
 }

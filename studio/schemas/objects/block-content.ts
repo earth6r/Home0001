@@ -29,6 +29,11 @@ export default {
       title: 'Divider Block',
     },
     {
+      name: 'formBlock',
+      type: 'formBlock',
+      title: 'Form Block',
+    },
+    {
       name: 'fullbleedBlock',
       type: 'fullbleedBlock',
       title: 'Full Bleed Block',
