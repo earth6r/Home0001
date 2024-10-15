@@ -27,4 +27,6 @@ export default async function handler(
     email,
     unsubscribedAt: Math.floor(new Date().getTime() / 1000),
   })
+
+  return res.status(200).json({ message: 'Email unsubscribed' })
 }
