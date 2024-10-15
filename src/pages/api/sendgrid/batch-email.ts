@@ -65,8 +65,8 @@ export default async function handler(
   }
 
   const subject = templateContent.email_config.subject
-  const htmlContent = templateContent.email_config.html_content
-  const textContent = templateContent.email_config.plain_content
+  let htmlContent = templateContent.email_config.html_content
+  let textContent = templateContent.email_config.plain_content
 
   // Function to send email and save to Firestore one by one
   const sendEmailAndLog = async (email: string) => {
@@ -92,6 +92,14 @@ export default async function handler(
       if (!unsubscribed.empty) {
         console.log(`Email is unsubscribed: ${email}`)
         return
+      }
+
+      if (htmlContent.includes('[[email]]')) {
+        htmlContent = htmlContent.replace('[[email]]', `${email}`)
+      }
+
+      if (textContent.includes('[[email]]')) {
+        textContent = textContent.replace('[[email]]', `${email}`)
       }
 
       // Step 1: Send the email
