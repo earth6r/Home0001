@@ -155,7 +155,7 @@ export const FormBlock: FC<FormBlockProps> = ({
                                 </option>
                               ))}
                             </select>
-                            <IconChevron className="absolute w-[12px] right-x top-[60%] transform rotate-90" />
+                            <IconChevron className="absolute w-[12px] right-x bottom-[18px] transform rotate-90" />
                           </div>
                         )}
                       </div>
