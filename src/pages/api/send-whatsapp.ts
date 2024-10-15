@@ -15,7 +15,8 @@ export const config = {
 export const sendMessage = async (
   recipientPhone: string,
   message: string,
-  template: string | null = null
+  template: string | null = null,
+  initialMessage: boolean = true
 ) => {
   const authToken = process.env.WHATSAPP_PERMANENT_TOKEN
 
@@ -55,13 +56,15 @@ export const sendMessage = async (
       config
     )
 
-    await axios.post(
-      `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
-      {
-        to: recipientPhone,
-        message: message,
-      }
-    )
+    if (initialMessage) {
+      await axios.post(
+        `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
+        {
+          to: recipientPhone,
+          message: message,
+        }
+      )
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error("Couldn't send message", error)
