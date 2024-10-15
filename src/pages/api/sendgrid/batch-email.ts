@@ -71,7 +71,7 @@ export default async function handler(
   // Function to send email and save to Firestore one by one
   const sendEmailAndLog = async (email: string) => {
     try {
-      // Step 0: Check if the email is already in the database
+      // Check if the email is already in the database
       const emailExists = await db
         .collection('emailsSentHistory')
         .where('email', '==', email)
@@ -80,6 +80,17 @@ export default async function handler(
 
       if (!emailExists.empty) {
         console.log(`Email already sent to: ${email}`)
+        return
+      }
+
+      // check if the email is unsubscribed
+      const unsubscribed = await db
+        .collection('unsubscribedSendgridEmails')
+        .where('email', '==', email)
+        .get()
+
+      if (!unsubscribed.empty) {
+        console.log(`Email is unsubscribed: ${email}`)
         return
       }
 
