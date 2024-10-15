@@ -9,6 +9,7 @@ import { Form } from '@components/form'
 import type { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import Pane from '@components/form/Pane'
 import { TypedObject } from 'sanity'
+import IconChevron from '@components/icons/IconChevron'
 
 type FormBlockProps = Omit<SanityBlockElement, keyof FormBlockType> &
   FormBlockType
@@ -129,33 +130,32 @@ export const FormBlock: FC<FormBlockProps> = ({
                         )}
 
                         {field.fieldType === 'select' && (
-                          <div className="flex flex-col gap-yhalf">
+                          <div className="flex flex-col gap-yhalf relative">
                             <label
                               htmlFor={field.fieldId}
                               className="text-left text-md"
                             >
                               {field.optionsLabel}
                             </label>
-                            {field.options?.map((option, i) => (
-                              <div key={`option${field.fieldId}-${i}`}>
-                                <input
-                                  type={field.selectType}
+                            <select
+                              className="input select text-button font-sans"
+                              {...register(field.fieldId as string, {
+                                required: field.isRequired
+                                  ? 'Input required'
+                                  : false,
+                              })}
+                            >
+                              {field.options?.map((option, i) => (
+                                <option
+                                  key={`option${field.fieldId}-${i}`}
                                   value={option.value}
                                   id={option.id}
-                                  {...register(field.fieldId as string, {
-                                    required: field.isRequired
-                                      ? 'Input required'
-                                      : false,
-                                  })}
-                                />
-                                <label
-                                  className="text-left cursor-pointer font-medium text-md"
-                                  htmlFor={option.id}
                                 >
                                   {option.label}
-                                </label>
-                              </div>
-                            ))}
+                                </option>
+                              ))}
+                            </select>
+                            <IconChevron className="absolute w-[12px] right-x top-[60%] transform rotate-90" />
                           </div>
                         )}
                       </div>
