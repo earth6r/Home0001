@@ -2,6 +2,14 @@ import { NextApiRequest, NextApiResponse } from 'next/types'
 import admin from 'firebase-admin' // Firebase Admin SDK
 import { initializeAdmin } from '@lib/firebase/admin'
 
+const html = `
+<html>
+  <body>
+    <h1>Email unsubscribed successfully</h1>
+  </body>
+</html>
+`
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -12,21 +20,23 @@ export default async function handler(
 
   const db = admin.firestore() // Get a reference to the Firestore database
 
-  // check if email is already unsubscribed
+  // Check if email is already unsubscribed
   const unsubscribed = await db
     .collection('unsubscribedSendgridEmails')
     .where('email', '==', email)
     .get()
 
   if (!unsubscribed.empty) {
-    return res.status(200).json({ message: 'Email already unsubscribed' })
+    res.setHeader('Content-Type', 'text/html')
+    return res.status(200).send(html)
   }
 
-  // unsubscribe email
+  // Unsubscribe email
   await db.collection('unsubscribedSendgridEmails').add({
     email,
     unsubscribedAt: Math.floor(new Date().getTime() / 1000),
   })
 
-  return res.status(200).json({ message: 'Email unsubscribed' })
+  res.setHeader('Content-Type', 'text/html')
+  return res.status(200).send(html)
 }
