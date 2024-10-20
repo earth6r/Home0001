@@ -11,6 +11,7 @@ function generateToken() {
   return token
 }
 
+// NOTE: do not use this for whatsapp
 export const createVisitorAndChatRoom = async (
   name: string,
   email: string,
