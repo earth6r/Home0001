@@ -19,6 +19,8 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import { useLenis } from '@studio-freight/react-lenis'
 import { useFunctionalPref } from '@contexts/cookies'
+import { PostHogFeature } from 'posthog-js/react'
+import { useFeatureFlagEnabled } from 'posthog-js/react'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
   AnimatingBlockType
@@ -159,8 +161,12 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   const lenis = useLenis()
   const [functionalActive, setFunctionalActive] = useFunctionalPref()
 
+  const flagEnabled = useFeatureFlagEnabled('alt-home')
+
   // account for header ~ JLM
-  const citiesPos = header && citiesPosition && citiesPosition - 1
+  const citiesPos = flagEnabled
+    ? 2
+    : header && citiesPosition && citiesPosition - 1
 
   const headerVariants = {
     initial: {
