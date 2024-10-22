@@ -165,7 +165,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
 
   // account for header ~ JLM
   const citiesPos = flagEnabled
-    ? 2
+    ? 5
     : header && citiesPosition && citiesPosition - 1
 
   const headerVariants = {
@@ -303,7 +303,9 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                     )}
 
                     {index === citiesPos && (
-                      <div className="mt-y">
+                      <div
+                        className={classNames(citiesPos === 5 ? '' : 'mt-y')}
+                      >
                         <CitiesList citiesList={citiesList} />
                       </div>
                     )}
