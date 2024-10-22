@@ -164,9 +164,10 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   const flagEnabled = useFeatureFlagEnabled('alt-home')
 
   // account for header ~ JLM
-  const citiesPos = flagEnabled
-    ? 5
-    : header && citiesPosition && citiesPosition - 1
+  // const citiesPos = flagEnabled
+  //   ? 5
+  //   : header && citiesPosition && citiesPosition - 1
+  const citiesPos = header && citiesPosition && citiesPosition - 1
 
   const headerVariants = {
     initial: {
