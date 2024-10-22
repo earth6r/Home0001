@@ -18,6 +18,23 @@ import { AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useLenis } from '@studio-freight/react-lenis'
 
+import posthog from 'posthog-js'
+import { PostHogProvider } from 'posthog-js/react'
+
+const PS_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
+
+if (typeof window !== 'undefined' || !PS_KEY) {
+  posthog.init(PS_KEY as string, {
+    api_host:
+      process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
+    person_profiles: 'identified_only',
+    // Enable debug mode in development
+    loaded: posthog => {
+      if (process.env.NODE_ENV === 'development') posthog.debug()
+    },
+  })
+}
+
 function App({ Component, pageProps }: AppProps<{}>) {
   const { query, events, asPath } = useRouter()
   const lenis = useLenis()
@@ -33,6 +50,7 @@ function App({ Component, pageProps }: AppProps<{}>) {
     if (path === lastPath) return
     paths.push(path)
     sessionStorage.setItem('routes', JSON.stringify(paths))
+    posthog?.capture('$pageview')
   }
 
   useEffect(() => {
@@ -86,13 +104,15 @@ function App({ Component, pageProps }: AppProps<{}>) {
 
   return (
     <ContextProvider>
-      <Layout {...pageProps}>
-        <Scripts />
-        <AnimatePresence initial={false} mode="popLayout">
-          <Component {...pageProps} key="component" />
-        </AnimatePresence>
-        <Analytics />
-      </Layout>
+      <PostHogProvider client={posthog}>
+        <Layout {...pageProps}>
+          <Scripts />
+          <AnimatePresence initial={false} mode="popLayout">
+            <Component {...pageProps} key="component" />
+          </AnimatePresence>
+          <Analytics />
+        </Layout>
+      </PostHogProvider>
     </ContextProvider>
   )
 }
