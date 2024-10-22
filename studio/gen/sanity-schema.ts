@@ -1166,6 +1166,89 @@ export type Embed = {
   embed?: string;
 };
 
+export type FormField = {
+  _type: "formField";
+  /**
+   * Field ID — `string`
+   *
+   * A unique identifier for this field from Hubspot etc. (first_name, last_name, email, etc.)
+   */
+  fieldId?: string;
+
+  /**
+   * Is required — `boolean`
+   *
+   * Is this field required for form submission?
+   */
+  isRequired?: boolean;
+
+  /**
+   * Field Type — `string`
+   *
+   *
+   */
+  fieldType?: "text" | "textArea" | "email" | "tel" | "select" | "hidden";
+
+  /**
+   * Text Area Rows — `number`
+   *
+   *
+   */
+  rows?: number;
+
+  /**
+   * Input Placeholder — `string`
+   *
+   *
+   */
+  placeholder?: string;
+
+  /**
+   * Options Label — `string`
+   *
+   *
+   */
+  optionsLabel?: string;
+
+  /**
+   * Select Type — `string`
+   *
+   *
+   */
+  selectType?: "radio" | "checkbox";
+
+  /**
+   * Options — `array`
+   *
+   *
+   */
+  options?: Array<
+    SanityKeyed<{
+      _type: "optionItem";
+      /**
+       * id — `string`
+       *
+       *
+       */
+      id?: string;
+
+      /**
+       * value — `string`
+       *
+       *
+       */
+      value?: string;
+
+      /**
+       * label — `string`
+       *
+       *
+       */
+      label?: string;
+    }>
+  >;
+};
+
 export type Figure = {
   _type: "figure";
   /**
@@ -1426,6 +1509,7 @@ export type BlockContent = Array<
   | SanityKeyed<CalendarBlock>
   | SanityKeyed<CarouselBlock>
   | SanityKeyed<DividerBlock>
+  | SanityKeyed<FormBlock>
   | SanityKeyed<FullbleedBlock>
   | SanityKeyed<ImagesBlock>
   | SanityKeyed<PropertyBlock>
@@ -1584,6 +1668,75 @@ export type DividerBlock = {
   divider?: boolean;
 };
 
+export type FormBlock = {
+  _type: "formBlock";
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
+
+  /**
+   * URL Submit — `string`
+   *
+   *
+   */
+  urlSubmit?: string;
+
+  /**
+   * Audience ID/Form GUID — `string`
+   *
+   *
+   */
+  audienceId?: string;
+
+  /**
+   * Success Message — `richText`
+   *
+   *
+   */
+  successMessage?: RichText;
+
+  /**
+   * Panes — `array`
+   *
+   *
+   */
+  panes?: Array<
+    SanityKeyed<{
+      _type: "pane";
+      /**
+       * Header — `string`
+       *
+       *
+       */
+      header?: string;
+
+      /**
+       * Copy — `string`
+       *
+       *
+       */
+      copy?: string;
+
+      /**
+       * Form Fields — `array`
+       *
+       *
+       */
+      formFields?: Array<SanityKeyed<FormField>>;
+    }>
+  >;
+
+  /**
+   * Background Color — `string`
+   *
+   * Background color for the form
+   */
+  backgroundColor?: "white" | "yellow";
+};
+
 export type FullbleedBlock = {
   _type: "fullbleedBlock";
   /**
@@ -1695,7 +1848,14 @@ export type NewsletterBlock = {
   text?: RichText;
 
   /**
-   * Audience ID — `string`
+   * URL Submit — `string`
+   *
+   *
+   */
+  urlSubmit?: string;
+
+  /**
+   * Audience ID/Form GUID — `string`
    *
    *
    */
@@ -1740,7 +1900,7 @@ export type ContactBlock = {
   text?: RichText;
 
   /**
-   * Audience ID — `string`
+   * Audience ID/Form GUID — `string`
    *
    *
    */
@@ -1911,7 +2071,14 @@ export type WaitlistBlock = {
   text?: RichText;
 
   /**
-   * Audience ID — `string`
+   * URL Submit — `string`
+   *
+   *
+   */
+  urlSubmit?: string;
+
+  /**
+   * Audience ID/Form GUID — `string`
    *
    *
    */
@@ -1942,7 +2109,14 @@ export type FlexWaitlistBlock = {
   text?: RichText;
 
   /**
-   * Audience ID — `string`
+   * URL Submit — `string`
+   *
+   *
+   */
+  urlSubmit?: string;
+
+  /**
+   * Audience ID/Form GUID — `string`
    *
    *
    */

@@ -52,6 +52,8 @@ import imagesBlock from './blocks/images-block'
 import propertyTypesBlock from './blocks/property-types-block'
 import inventory from './documents/inventory'
 import inventoryToggle from './objects/inventory-toggle'
+import formBlock from './blocks/form-block'
+import formField from './objects/form-field'
 
 export const schemaTypes = [
   // objects
@@ -65,6 +67,7 @@ export const schemaTypes = [
   cta,
   divider,
   embed,
+  formField,
   figure,
   inventoryToggle,
   media,
@@ -87,6 +90,7 @@ export const schemaTypes = [
   calendarBlock,
   carouselBlock,
   dividerBlock,
+  formBlock,
   fullbleedBlock,
   imagesBlock,
   propertyBlock,
