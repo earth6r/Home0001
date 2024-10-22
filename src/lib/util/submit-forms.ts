@@ -15,13 +15,17 @@ const postBlockFields = async (
     throw new Error('No actionUrl provided')
   }
 
+  const formattedData = Object.entries(data).map(([key, value]) => {
+    return { name: key, value: value }
+  })
+
   try {
     return await axios.post(
       `${actionUrl}/${portalId}/${formGuid}`,
       {
         portalId,
         formGuid,
-        fields: data,
+        fields: formattedData,
         context: {
           hutk: hutk ? hutk : null,
           pageUri: document.URL,
