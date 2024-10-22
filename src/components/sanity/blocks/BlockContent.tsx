@@ -22,6 +22,7 @@ import {
   TableBlock,
   ImagesBlock,
   PropertyTypesBlock,
+  FormBlock,
 } from '.'
 import classNames from 'classnames'
 
@@ -63,6 +64,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
                     : ''
                 )}
               />
+            ),
+            formBlock: ({ index, value }) => (
+              <FormBlock index={index} grid={grid} {...value} />
             ),
             imagesBlock: ({ index, value }) => (
               <ImagesBlock

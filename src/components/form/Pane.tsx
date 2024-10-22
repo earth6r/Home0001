@@ -16,6 +16,7 @@ interface PaneProps extends HTMLAttributes<HTMLElement> {
   buttonCopy?: string
   buttonType?: 'button' | 'submit'
   isSubmitting: boolean
+  padding?: boolean
   onBack?: () => void
 }
 
@@ -29,6 +30,7 @@ const Pane: FC<PaneProps> = ({
   buttonCopy,
   buttonType,
   isSubmitting,
+  padding = true,
   onClick,
   onBack,
   className,
@@ -46,7 +48,7 @@ const Pane: FC<PaneProps> = ({
       leaveTo="top-1 opacity-0"
       className={classNames(
         className,
-        'flex flex-wrap items-stretch md:items-start relative w-full h-full'
+        'flex flex-wrap items-stretch md:items-start gap-y relative w-full h-full'
       )}
     >
       <>
@@ -56,9 +58,9 @@ const Pane: FC<PaneProps> = ({
             'w-full h-[calc(100%-var(--btn-height)-[6rem])] overflow-visible'
           )}
         >
-          {currentStep === 0 && (
+          {header && currentStep === 0 && (
             <h2 className={classNames('pb-y md:pb-ydouble text-h3')}>
-              {header || `Join the waitlist:`}
+              {header}
             </h2>
           )}
 
@@ -66,7 +68,7 @@ const Pane: FC<PaneProps> = ({
             className={classNames(
               block ? '' : 'md:grid md:grid-cols-2 gap-y h-auto',
               largeHeader ? '' : 'md:mt-y md:-mb-y pt-0',
-              'md:w-full md:pr-menu'
+              padding ? 'md:w-full md:pr-menu' : ''
             )}
           >
             <div>
@@ -76,7 +78,7 @@ const Pane: FC<PaneProps> = ({
                     'pb-y md:pb-ydouble text-h3 hidden md:block'
                   )}
                 >
-                  {header || `Join the waitlist:`}
+                  {header}
                 </h2>
               )}
 
@@ -152,7 +154,10 @@ const Pane: FC<PaneProps> = ({
           ) : null}
 
           <button
-            className="relative flex justify-between items-center w-full md:w-btnWidth px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            className={classNames(
+              padding ? 'md:w-btnWidth' : '',
+              'relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above'
+            )}
             type={buttonType || 'submit'}
             disabled={isSubmitting}
             onClick={onClick}

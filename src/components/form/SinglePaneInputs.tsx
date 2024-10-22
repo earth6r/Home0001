@@ -4,8 +4,6 @@ import classNames from 'classnames'
 import { Link } from '@components/links'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { HomeContext } from '@contexts/home'
-import { useCookies } from 'react-cookie'
-import brand from '@/pages/brand'
 
 interface SinglePaneInputsProps extends HTMLAttributes<HTMLElement> {
   fields?: {
