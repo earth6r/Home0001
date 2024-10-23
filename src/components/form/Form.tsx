@@ -44,7 +44,7 @@ export const Form: FC<FormProps> = ({
 }) => {
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const [hutk, setHutk] = useLocalCookies()
-  const { asPath } = useRouter()
+  const { asPath, query } = useRouter()
 
   const onSubmit = async (data: any) => {
     const options = {
@@ -69,7 +69,14 @@ export const Form: FC<FormProps> = ({
     }
 
     try {
-      result = await submitForm(data, audienceId, formType, hutk, actionUrl)
+      result = await submitForm(
+        data,
+        audienceId,
+        formType,
+        hutk,
+        actionUrl,
+        query as Record<string, string>
+      )
 
       const errorData = new FormData()
       errorData.append('Page', asPath)

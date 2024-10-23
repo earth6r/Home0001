@@ -28,7 +28,11 @@ export const getAvailableSlots = async (
   }
 }
 
-export const bookMeeting = async (data: FieldValues, type = 'phone') => {
+export const bookMeeting = async (
+  data: FieldValues,
+  type = 'phone',
+  queryParams?: Record<string, string>
+) => {
   const endpoint =
     type === 'phone'
       ? `${BASE_URL}/api/bookings/book-phone-call`
@@ -45,8 +49,30 @@ export const bookMeeting = async (data: FieldValues, type = 'phone') => {
 
   if (type === 'phone') {
     endDateTime = startDateTimePlus.add(15, 'minutes')
+
+    await fetch('/api/sendgrid/track-email-referer', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...queryParams,
+        submissionType: 'phoneCall',
+      }),
+    })
   } else {
     endDateTime = startDateTimePlus.add(45, 'minutes')
+
+    await fetch('/api/sendgrid/track-email-referer', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...queryParams,
+        submissionType: 'propertyTour',
+      }),
+    })
   }
 
   const callBookMeeting = async () => {
