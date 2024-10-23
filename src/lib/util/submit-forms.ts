@@ -15,6 +15,31 @@ const postBlockFields = async (
     throw new Error('No actionUrl provided')
   }
 
+  try {
+    const { communication_pref, email, first_name, last_name, phone_number } =
+      data
+
+    await fetch(
+      '/api/messages/send-text-notification-for-direct-communication-form',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          communication_pref,
+          email,
+          first_name,
+          last_name,
+          phone_number,
+        }),
+      }
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'sendTextNotificationForDirectCommunicationForm')
+  }
+
   const formattedData = Object.entries(data).map(([key, value]) => {
     return { name: key, value: value }
   })
