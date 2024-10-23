@@ -26,4 +26,6 @@ export default async function handler(
   } else if (communication_pref === 'sms') {
     await sendMessage(phone_number, message)
   }
+
+  res.status(200).json({ message: 'Message sent' })
 }
