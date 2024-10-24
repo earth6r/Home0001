@@ -33,6 +33,8 @@ export default async function handler(
   initializeAdmin()
   const db = admin.firestore()
 
+  await db.collection('sendgridWebhookEvents').add(body)
+
   for (const event of body) {
     const {
       email,
