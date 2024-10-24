@@ -51,7 +51,7 @@ export default async function handler(
     // filter by sg_event_id
     const emailEventHistory = await db
       .collection('emailsSentHistory')
-      .where('sgMessageId', '==', sg_message_id)
+      .where('sgMessageId', '==', sg_message_id.split('.')[0])
       .get()
 
     if (eventType === 'delivered') {
