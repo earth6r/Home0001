@@ -4,12 +4,12 @@ import classNames from 'classnames'
 import type { FormBlock as FormBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { Block, RichText } from '@components/sanity'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { Form } from '@components/form'
-import type { RichText as RichTextType } from '@studio/gen/sanity-schema'
 import Pane from '@components/form/Pane'
 import { TypedObject } from 'sanity'
 import IconChevron from '@components/icons/IconChevron'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 
 type FormBlockProps = Omit<SanityBlockElement, keyof FormBlockType> &
   FormBlockType
@@ -28,7 +28,8 @@ export const FormBlock: FC<FormBlockProps> = ({
     handleSubmit,
     trigger,
     getValues,
-    formState: { isSubmitting },
+    control,
+    formState: { isSubmitting, errors },
   } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -91,9 +92,39 @@ export const FormBlock: FC<FormBlockProps> = ({
                   >
                     {pane.formFields?.map((field, i) => (
                       <div key={`${field}-${i}`}>
+                        {field.fieldType === 'tel' && (
+                          <div>
+                            <Controller
+                              control={control}
+                              rules={{
+                                validate: (value = '') =>
+                                  isValidPhoneNumber(value),
+                              }}
+                              {...register('phone')}
+                              render={({ field: { onChange, value } }) => (
+                                <PhoneInput
+                                  value={value}
+                                  onChange={onChange}
+                                  defaultCountry="US"
+                                  placeholder="PHONE NUMBER"
+                                  id="phone"
+                                  className="input mb-y"
+                                />
+                              )}
+                            />
+                            <div>
+                              {errors.phone && (
+                                <p className="mb-y text-button text-red-600 leading-loose">
+                                  Invalid Phone Number: Please select the
+                                  country code from the dropdown and do not
+                                  include any spaces.
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        )}
                         {(field.fieldType === 'text' ||
                           field.fieldType === 'email' ||
-                          field.fieldType === 'tel' ||
                           field.fieldType === 'hidden') && (
                           <input
                             type={field.fieldType}
