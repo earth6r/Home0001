@@ -9,10 +9,47 @@ const postBlockFields = async (
   formGuid?: string,
   config?: any,
   hutk?: string,
-  actionUrl?: string
+  actionUrl?: string,
+  queryParams?: Record<string, string>
 ) => {
   if (!actionUrl) {
     throw new Error('No actionUrl provided')
+  }
+
+  try {
+    const { communication_pref, email, first_name, last_name, phone_number } =
+      data
+
+    await fetch(
+      '/api/messages/send-text-notification-for-direct-communication-form',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          communication_pref,
+          email,
+          first_name,
+          last_name,
+          phone_number,
+        }),
+      }
+    )
+
+    await fetch('/api/sendgrid/track-email-referer', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...queryParams,
+        submissionType: 'directCommunication',
+      }),
+    })
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'sendTextNotificationForDirectCommunicationForm')
   }
 
   const formattedData = Object.entries(data).map(([key, value]) => {
@@ -407,7 +444,8 @@ export const submitForm = async (
   audienceId: string,
   formType: string,
   hutk?: string,
-  actionUrl?: string
+  actionUrl?: string,
+  queryParams?: Record<string, string>
 ) => {
   const portalId = HUBSPOT_ID
   const formGuid = audienceId
@@ -451,7 +489,8 @@ export const submitForm = async (
       formGuid,
       config,
       hutk,
-      actionUrl
+      actionUrl,
+      queryParams
     )
   }
 

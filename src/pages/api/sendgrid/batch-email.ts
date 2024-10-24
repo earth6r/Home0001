@@ -97,9 +97,15 @@ export default async function handler(
       if (htmlContent.includes('[[email]]')) {
         htmlContent = htmlContent.replace('[[email]]', `${email}`)
       }
-
       if (textContent.includes('[[email]]')) {
         textContent = textContent.replace('[[email]]', `${email}`)
+      }
+
+      if (htmlContent.includes('[[singleSendId]]')) {
+        htmlContent = htmlContent.replace('[[singleSendId]]', `${templateId}`)
+      }
+      if (textContent.includes('[[singleSendId]]')) {
+        textContent = textContent.replace('[[singleSendId]]', `${templateId}`)
       }
 
       // Step 1: Send the email

@@ -7,34 +7,41 @@ type Data = {
   error?: unknown
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-): Promise<void> {
-  const { recipientPhone, message } = req.body
+export const config = {
+  maxDuration: 300,
+}
 
+export const sendMessage = async (recipientPhone: string, message: string) => {
   const accountSid = process.env.NEXT_PUBLIC_TWILIO_ACCOUNT_SID
   const authToken = process.env.NEXT_PUBLIC_TWILIO_AUTH_TOKEN
 
   // require the Twilio module and create a REST client
   const client = require('twilio')(accountSid, authToken)
 
-  try {
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
+  client.messages
+    .create({
+      to: recipientPhone,
+      from: '+19737915529',
+      body: message,
+    })
+    .then((message: { sid: any }) => console.log(message.sid))
 
-    await axios.post(
-      `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
-      {
-        to: recipientPhone,
-        message: message,
-      }
-    )
+  await axios.post(
+    `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
+    {
+      to: recipientPhone,
+      message: message,
+    }
+  )
+}
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+): Promise<void> {
+  try {
+    const { recipientPhone, message } = req.body
+    await sendMessage(recipientPhone, message)
   } catch (error) {
     console.error(error)
     saveError(error, 'sendMessage')

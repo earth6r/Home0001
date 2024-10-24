@@ -15,6 +15,7 @@ import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import 'react-phone-number-input/style.css'
 import IconChevron from '@components/icons/IconChevron'
+import { useRouter } from 'next/router'
 
 type CalendarBlockProps = Omit<SanityBlockElement, keyof CalendarBlockType> &
   CalendarBlockType
@@ -53,10 +54,12 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
 
+  const { query } = useRouter()
+
   const onSubmit = async (data: FieldValues) => {
     if (!data.email || !data.startTime) return
     setIsSubmitting(true)
-    bookMeeting(data, calendarType)
+    bookMeeting(data, calendarType, query as Record<string, string>)
       .then(() => {
         setFormSubmitted(true)
         setIsSubmitting(false)
