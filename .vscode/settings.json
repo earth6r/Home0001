@@ -13,7 +13,8 @@
     "singlesends",
     "Timelinedec",
     "waitlist",
-    "ydouble"
+    "ydouble",
+    "yhalf"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
