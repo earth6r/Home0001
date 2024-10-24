@@ -66,6 +66,8 @@ export default async function handler(
             useragent:
               useragent || emailEventHistory.docs[0].data()?.useragent || null,
           })
+      } else {
+        throw new Error('emailEventHistory is empty')
       }
     }
 
@@ -83,6 +85,8 @@ export default async function handler(
             useragent:
               useragent || emailEventHistory.docs[0].data()?.useragent || null,
           })
+      } else {
+        throw new Error('emailEventHistory is empty')
       }
     }
 
@@ -101,6 +105,8 @@ export default async function handler(
             useragent:
               useragent || emailEventHistory.docs[0].data()?.useragent || null,
           })
+      } else {
+        throw new Error('emailEventHistory is empty')
       }
     }
   }
