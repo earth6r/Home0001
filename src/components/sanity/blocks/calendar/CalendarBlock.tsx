@@ -185,7 +185,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
               )}
 
               <div className="relative mb-y">
-                <p className="mb-yhalf text-button">{`Communication Preference`}</p>
+                <p className="mb-y text-button">{`Communication Preference`}</p>
                 <select
                   id="preferred-comms"
                   className="input select text-button font-sans"
