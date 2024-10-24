@@ -1,14 +1,19 @@
 {
   "cSpell.words": [
+    "buyingtimelinedec",
     "Firestore",
     "groq",
     "hookform",
     "Hubspot",
     "hutk",
+    "Referers",
     "ROCKETCHAT",
     "SENDGRID",
     "serializers",
-    "singlesends"
+    "singlesends",
+    "Timelinedec",
+    "waitlist",
+    "ydouble"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
