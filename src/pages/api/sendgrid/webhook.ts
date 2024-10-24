@@ -66,8 +66,6 @@ export default async function handler(
             useragent:
               useragent || emailEventHistory.docs[0].data()?.useragent || null,
           })
-      } else {
-        throw new Error('delivered event without existing sent event')
       }
     }
 
@@ -85,8 +83,6 @@ export default async function handler(
             useragent:
               useragent || emailEventHistory.docs[0].data()?.useragent || null,
           })
-      } else {
-        throw new Error('open event without existing delivered event')
       }
     }
 
@@ -105,8 +101,6 @@ export default async function handler(
             useragent:
               useragent || emailEventHistory.docs[0].data()?.useragent || null,
           })
-      } else {
-        throw new Error('click event without existing delivered event')
       }
     }
   }
