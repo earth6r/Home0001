@@ -67,7 +67,6 @@ export default async function handler(
     lastName,
     notes,
     phoneNumber,
-
     disableTextReminder,
     disableCalendarInvite,
   })
