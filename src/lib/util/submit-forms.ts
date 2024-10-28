@@ -17,7 +17,7 @@ const postBlockFields = async (
   }
 
   try {
-    const { communication_pref, email, first_name, last_name, phone_number } =
+    const { communication_pref, email, first_name, last_name, phone } =
       data
 
     await fetch(
@@ -32,7 +32,7 @@ const postBlockFields = async (
           email,
           first_name,
           last_name,
-          phone_number,
+          phone_number: phone,
         }),
       }
     )
