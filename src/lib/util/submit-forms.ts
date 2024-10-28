@@ -17,8 +17,7 @@ const postBlockFields = async (
   }
 
   try {
-    const { communication_pref, email, first_name, last_name, phone } =
-      data
+    const { communication_pref, email, first_name, last_name, phone } = data
 
     await fetch(
       '/api/messages/send-text-notification-for-direct-communication-form',
