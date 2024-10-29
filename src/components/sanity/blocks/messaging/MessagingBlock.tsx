@@ -9,12 +9,16 @@ export const MessagingBlock: React.FC = () => {
   const [method, setMethod] = useState<string>('sms')
   const [confirmed, setConfirmed] = useState<boolean>(false)
   const [submitted, setSubmitted] = useState<boolean>(false)
+  const [name, setName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
 
   async function sendMessage(messageData: {
     recipientPhone: string
     message: string
+    name: string
+    email: string
   }): Promise<string> {
-    const response = await fetch('/api/send-message', {
+    const response = await fetch('/api/send-message-livechat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -67,6 +71,8 @@ export const MessagingBlock: React.FC = () => {
       await sendMessage({
         recipientPhone: phoneNumber,
         message: message,
+        name: name,
+        email: email,
       })
     } catch (error) {
       console.error(error)
@@ -175,6 +181,42 @@ export const MessagingBlock: React.FC = () => {
           <option value="whatsapp">WhatsApp</option>
         </select>
       </div>
+      {method === 'sms' && (
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="name"
+          >
+            Name:
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="name"
+            type="text"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Enter your name"
+          />
+        </div>
+      )}
+      {method === 'sms' && (
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
+            Email:
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Enter your email"
+          />
+        </div>
+      )}
       <div className="text-center">
         <button
           className={cn(
