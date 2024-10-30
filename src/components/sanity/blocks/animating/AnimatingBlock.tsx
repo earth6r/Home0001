@@ -19,8 +19,8 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import { useLenis } from '@studio-freight/react-lenis'
 import { useFunctionalPref } from '@contexts/cookies'
-import { PostHogFeature } from 'posthog-js/react'
 import { useFeatureFlagEnabled } from 'posthog-js/react'
+import { PropertyTypesList } from '@components/property-type'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
   AnimatingBlockType
@@ -149,6 +149,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   textAndImages,
   citiesPosition,
   citiesList,
+  featuredList,
   className,
 }) => {
   const scrollRef = useRef(null)
@@ -161,12 +162,8 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
   const lenis = useLenis()
   const [functionalActive, setFunctionalActive] = useFunctionalPref()
 
-  const flagEnabled = useFeatureFlagEnabled('alt-home')
-
   // account for header ~ JLM
-  const citiesPos = flagEnabled
-    ? 5
-    : header && citiesPosition && citiesPosition - 1
+  const citiesPos = header && citiesPosition && citiesPosition - 1
 
   const headerVariants = {
     initial: {
@@ -228,7 +225,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     <Block
       className={classNames(
         className,
-        'lg:max-w-[1000px] min-h-[100vh] md:mx-auto px-x md:px-fullmenu mt-0 mb-ydouble'
+        'min-h-[100vh] md:mx-auto mt-0 mb-ydouble'
       )}
     >
       {showContent && (
@@ -250,7 +247,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                 setTimeout(() => setHeaderLinksShown(true), 500)
               }}
               variants={headerVariants}
-              className="flex flex-wrap items-center relative text-h2"
+              className="flex flex-wrap items-center relative lg:max-w-[1000px] lg:mx-auto px-x md:px-fullmenu text-h2"
             >
               <div>
                 {header.map((item, index) => (
@@ -282,12 +279,14 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                 ({ _key, aspect, media, text, altCryptoText }, index) => (
                   <div key={_key}>
                     {media && (
-                      <AnimatingImage
-                        media={media}
-                        aspect={aspect}
-                        firstIndex={index === 0}
-                        lastIndex={index === textAndImages.length - 1}
-                      />
+                      <div className="lg:max-w-[1000px] lg:mx-auto px-x md:px-fullmenu">
+                        <AnimatingImage
+                          media={media}
+                          aspect={aspect}
+                          firstIndex={index === 0}
+                          lastIndex={index === textAndImages.length - 1}
+                        />
+                      </div>
                     )}
 
                     {text && (
@@ -297,16 +296,36 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                         }
                         className={classNames(
                           index !== 0 ? 'mt-y' : '',
-                          'relative'
+                          'relative lg:max-w-[1000px] lg:mx-auto px-x md:px-fullmenu'
                         )}
                       />
                     )}
 
                     {index === citiesPos && (
                       <div
-                        className={classNames(citiesPos === 5 ? '' : 'mt-y')}
+                        className={classNames(
+                          citiesPos === 5 ? '' : 'mt-y',
+                          'lg:max-w-[1000px] lg:mx-auto px-x md:px-fullmenu'
+                        )}
                       >
                         <CitiesList citiesList={citiesList} />
+                      </div>
+                    )}
+
+                    {index === 0 && featuredList && featuredList.length > 0 && (
+                      <div className="mt-ydouble overflow-hidden">
+                        {featuredList && (
+                          <>
+                            <h2 className="text-h2 md:text-h1 px-x md:text-center">
+                              Featured Units:
+                            </h2>
+                            <PropertyTypesList
+                              className="animate-in flex flex-col mt-ydouble mx-x"
+                              propertyTypesList={featuredList}
+                              showCity={true}
+                            />
+                          </>
+                        )}
                       </div>
                     )}
                   </div>
