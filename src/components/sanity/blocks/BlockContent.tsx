@@ -25,6 +25,7 @@ import {
   FormBlock,
 } from '.'
 import classNames from 'classnames'
+import { useFeatureFlagEnabled } from 'posthog-js/react'
 
 export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
@@ -32,6 +33,7 @@ export const BlockContent: FC<SanityBlockElement> = ({
   className,
   style,
 }) => {
+  const flagEnabled = useFeatureFlagEnabled('alt-home')
   return blocks ? (
     <div className={className} style={style}>
       <PortableText
@@ -44,9 +46,13 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             animatingBlock: ({ index, value }) => (
               <>
-                {index === 0 && (
-                  <AnimatingBlock index={index} grid={grid} {...value} />
-                )}
+                {flagEnabled
+                  ? index === 1 && (
+                      <AnimatingBlock index={index} grid={grid} {...value} />
+                    )
+                  : index === 0 && (
+                      <AnimatingBlock index={index} grid={grid} {...value} />
+                    )}
               </>
             ),
             calendarBlock: ({ index, value }) => (
