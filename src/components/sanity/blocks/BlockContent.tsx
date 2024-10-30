@@ -43,7 +43,11 @@ export const BlockContent: FC<SanityBlockElement> = ({
               <AccordionBlock index={index} grid={grid} {...value} />
             ),
             animatingBlock: ({ index, value }) => (
-              <AnimatingBlock index={index} grid={grid} {...value} />
+              <>
+                {index === 0 && (
+                  <AnimatingBlock index={index} grid={grid} {...value} />
+                )}
+              </>
             ),
             calendarBlock: ({ index, value }) => (
               <CalendarBlock index={index} grid={grid} {...value} />
