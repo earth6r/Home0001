@@ -19,7 +19,27 @@ export const sendMessage = async (
   template: string | null = null,
   initialMessage: boolean = true
 ) => {
-  const authToken = process.env.WHATSAPP_PERMANENT_TOKEN
+  // const authToken = process.env.WHATSAPP_PERMANENT_TOKEN
+
+  const _template = template || 'primary_test'
+  let _message = message
+
+  // NO FILLER MESSAGE NEEDED: first_direct_communication_notification, chat
+
+  if (_template === 'first_rocket_chat_message_notification') {
+    _message = `NEW ROCKET CHAT MESSAGE: \n\n${message}`
+  } else if (_template === 'phone_call_rescheduled') {
+    _message = `PHONE CALL RESCHEDULED (via online scheduler): \n\n${message}`
+  } else if (_template === 'property_tour_rescheduled') {
+    _message = `PROPERTY TOUR RESCHEDULED (via online scheduler): \n\n${message}`
+  } else if (_template === 'property_tour_booked') {
+    _message = `PROPERTY TOUR BOOKED (via online scheduler): \n\n${message}`
+  } else if (_template === 'property_tour_event_in_1h') {
+    // this will never get called in this function
+    _message = `PROPERTY TOUR HAPPENING IN 1 HOUR: \n\n${message}`
+  } else if (_template === 'primary_test') {
+    _message = `PHONE CALL SCHEDULED (via online scheduler): \n\n${message}`
+  }
 
   const data = {
     messaging_product: 'whatsapp',
@@ -44,18 +64,26 @@ export const sendMessage = async (
     },
   }
 
-  try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    }
+  const accountSid = process.env.NEXT_PUBLIC_TWILIO_ACCOUNT_SID
+  const authToken = process.env.NEXT_PUBLIC_TWILIO_AUTH_TOKEN
 
-    const response = await axios.post(
-      'https://graph.facebook.com/v13.0/307932205726236/messages',
-      data,
-      config
-    )
+  // require the Twilio module and create a REST client
+  const client = require('twilio')(accountSid, authToken)
+
+  try {
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${authToken}`,
+    //   },
+    // }
+
+    client.messages
+      .create({
+        to: recipientPhone,
+        from: '+19737915529',
+        body: _message,
+      })
+      .then((message: { sid: any }) => console.log(message.sid))
 
     if (initialMessage) {
       await axios.post(
