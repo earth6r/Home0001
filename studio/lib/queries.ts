@@ -300,6 +300,26 @@ export const BODY_QUERY = `
         slug,
       },
     },
+    "featuredList": featuredList[]->{
+      _key,
+      _id,
+      slug,
+      typeTitle,
+      available,
+      price,
+      cryptoPrice,
+      area,
+      "property": property->{
+        headerText,
+        slug,
+        "location": location->{
+          title,
+        },
+      },
+      "photographs": photographs[]{
+        ${MEDIA_QUERY}
+      },
+    },
     "propertyTypes": propertyTypes[]->{
       ${PROPERTY_TYPE_QUERY}
     },
