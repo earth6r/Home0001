@@ -138,6 +138,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                   id="first_name"
                   className="input"
                   placeholder="FIRST NAME"
+                  disabled={isSubmitting}
                   required
                   {...register('first_name', { required: 'Name required' })}
                 />
@@ -146,6 +147,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                   id="last_name"
                   className="input"
                   placeholder="LAST NAME"
+                  disabled={isSubmitting}
                   required
                   {...register('last_name', { required: 'Name required' })}
                 />
@@ -156,6 +158,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 type="email"
                 id="email"
                 className="input mb-y"
+                disabled={isSubmitting}
                 required
                 {...register('email')}
               />
@@ -172,6 +175,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                     onChange={onChange}
                     defaultCountry="US"
                     placeholder="PHONE NUMBER"
+                    disabled={isSubmitting}
                     id="phone"
                     className="input mb-y"
                   />
@@ -189,6 +193,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 <select
                   id="preferred-comms"
                   className="input select text-button font-sans"
+                  disabled={isSubmitting}
                   {...register('comms')}
                 >
                   <option
