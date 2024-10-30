@@ -173,6 +173,28 @@ export const DepositForm: FC<DepositFormProps> = ({
         <h2>{`Make deposit`}</h2>
         <p>{`We’ll send you a punch list and confirmation of your offer. In order to receive these documents including the offering plan you need to make a deposit of $${DEPOSIT_AMOUNT}.`}</p>
 
+        <form
+          action="https://bitpay.com/checkout"
+          method="post"
+          className="mb-y"
+        >
+          <input type="hidden" name="action" value="checkout" />
+          <input type="hidden" name="posData" value="" />
+          <input type="hidden" name="notificationType" value="json" />
+          <input
+            type="hidden"
+            name="data"
+            value="r7PkjVyRCk7R9R2NLv4aZT5ftMuhreitRQu1j6+/K9YGAS8dVFgknAS53quiPP7zRpfWKVWMJV7o6qIftctgMs4jSQS/RIW8hMCXbYM5071NGDeKXg5L15v6idZBZowNRXi6JFKXyfSZdAILMOwfwoo4M2fiLSu4meH76JTL6wQk+nHonoYg9qXCdlDkeoF48+H5a7r4JiDuyxKh4iqrAw=="
+          />
+          <input
+            type="image"
+            src="https://bitpay.com/cdn/en_US/bp-btn-pay-currencies.svg"
+            name="submit"
+            style={{ width: '168px' }}
+            alt="BitPay, the easy way to pay with crypto."
+          />
+        </form>
+
         <Elements
           stripe={stripePromise}
           options={{ mode: 'payment', amount: DEPOSIT_AMOUNT, currency: 'usd' }}
