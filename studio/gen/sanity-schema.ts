@@ -1587,6 +1587,13 @@ export type AnimatingBlock = {
    *
    */
   citiesPosition?: number;
+
+  /**
+   * Featured Property Types — `array`
+   *
+   *
+   */
+  featuredList?: Array<SanityKeyedReference<PropertyType>>;
 };
 
 export type CalendarBlock = {
