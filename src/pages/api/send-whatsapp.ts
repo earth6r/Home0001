@@ -1,3 +1,4 @@
+import { DoNotSendMessagesNumbers } from '@lib/util/constants'
 import { saveError } from '@lib/util/save-error'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -82,6 +83,10 @@ export const sendMessage = async (
     //   config
     // )
 
+    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
+      return
+    }
+
     client.messages
       .create({
         to: recipientPhone,
@@ -157,6 +162,10 @@ export const sendWAMessagePropertyTourBooked = async (
     //   config
     // )
 
+    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
+      return
+    }
+
     client.messages
       .create({
         to: recipientPhone,
@@ -230,6 +239,10 @@ export const sendWAMessageReschedulePhoneCall = async (
 
     let _message = `PHONE CALL RESCHEDULED (via online scheduler): \n\n${message}`
 
+    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
+      return
+    }
+
     client.messages
       .create({
         to: recipientPhone,
@@ -290,12 +303,20 @@ export const sendWAMessageReschedulePropertyTour = async (
 
   let _message = `PROPERTY TOUR RESCHEDULED (via online scheduler): \n\n${message}`
 
+  if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
+    return
+  }
+
   try {
     // const config = {
     //   headers: {
     //     Authorization: `Bearer ${authToken}`,
     //   },
     // }
+
+    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
+      return
+    }
 
     client.messages
       .create({
@@ -389,6 +410,10 @@ export const sendPropertyTourBookedIn1HourMessage = async (
     // )
 
     let _message = `PROPERTY TOUR BOOKED IN 1 HOUR: \n\nName: ${name} \nEmail: ${email} \nDate: ${date} \nPhone Number: ${phoneNumber} \n${details}`
+
+    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
+      return
+    }
 
     client.messages
       .create({

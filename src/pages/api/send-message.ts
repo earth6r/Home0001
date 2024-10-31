@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 import { saveError } from '@lib/util/save-error'
+import { DoNotSendMessagesNumbers } from '@lib/util/constants'
 
 type Data = {
   message: string
@@ -17,6 +18,10 @@ export const sendMessage = async (recipientPhone: string, message: string) => {
 
   // require the Twilio module and create a REST client
   const client = require('twilio')(accountSid, authToken)
+
+  if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
+    return
+  }
 
   client.messages
     .create({
