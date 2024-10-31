@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 import { saveError } from '@lib/util/save-error'
 import { createVisitorAndChatRoom } from './rocketchat/livechat'
+import { DoNotSendMessagesNumbers } from '@lib/util/constants'
 
 export const config = {
   maxDuration: 300,
@@ -23,6 +24,10 @@ export default async function handler(
 
   // require the Twilio module and create a REST client
   const client = require('twilio')(accountSid, authToken)
+
+  if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
+    return
+  }
 
   try {
     createVisitorAndChatRoom(name, email, recipientPhone, message)
