@@ -1,6 +1,8 @@
+import { initializeAdmin } from '@lib/firebase/admin'
 import { DoNotSendMessagesNumbers } from '@lib/util/constants'
 import { saveError } from '@lib/util/save-error'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import admin from 'firebase-admin'
 
 const axios = require('axios')
 
@@ -70,6 +72,10 @@ export const sendMessage = async (
   //   },
   // }
 
+  initializeAdmin() // Initialize Firebase Admin SDK
+
+  const db = admin.firestore() // Get a reference to the Firestore database
+
   try {
     // const config = {
     //   headers: {
@@ -94,6 +100,15 @@ export const sendMessage = async (
         body: _message,
       })
       .then((message: { sid: any }) => console.log(message.sid))
+
+    await db.collection('textMessagesHistory').add({
+      recipientPhone,
+      from: '+19737915529',
+      message: _message,
+      createdAt: Math.floor(new Date().getTime() / 1000),
+      method: 'twilio',
+      type: 'sms',
+    })
 
     if (initialMessage) {
       await axios.post(
@@ -166,6 +181,10 @@ export const sendWAMessagePropertyTourBooked = async (
       return
     }
 
+    initializeAdmin() // Initialize Firebase Admin SDK
+
+    const db = admin.firestore() // Get a reference to the Firestore database
+
     client.messages
       .create({
         to: recipientPhone,
@@ -173,6 +192,15 @@ export const sendWAMessagePropertyTourBooked = async (
         body: _message,
       })
       .then((message: { sid: any }) => console.log(message.sid))
+
+    await db.collection('textMessagesHistory').add({
+      recipientPhone,
+      from: '+19737915529',
+      message: _message,
+      createdAt: Math.floor(new Date().getTime() / 1000),
+      method: 'twilio',
+      type: 'sms',
+    })
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -243,6 +271,10 @@ export const sendWAMessageReschedulePhoneCall = async (
       return
     }
 
+    initializeAdmin() // Initialize Firebase Admin SDK
+
+    const db = admin.firestore() // Get a reference to the Firestore database
+
     client.messages
       .create({
         to: recipientPhone,
@@ -250,6 +282,15 @@ export const sendWAMessageReschedulePhoneCall = async (
         body: _message,
       })
       .then((message: { sid: any }) => console.log(message.sid))
+
+    await db.collection('textMessagesHistory').add({
+      recipientPhone,
+      from: '+19737915529',
+      message: _message,
+      createdAt: Math.floor(new Date().getTime() / 1000),
+      method: 'twilio',
+      type: 'sms',
+    })
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -318,6 +359,10 @@ export const sendWAMessageReschedulePropertyTour = async (
       return
     }
 
+    initializeAdmin() // Initialize Firebase Admin SDK
+
+    const db = admin.firestore() // Get a reference to the Firestore database
+
     client.messages
       .create({
         to: recipientPhone,
@@ -325,6 +370,15 @@ export const sendWAMessageReschedulePropertyTour = async (
         body: _message,
       })
       .then((message: { sid: any }) => console.log(message.sid))
+
+    await db.collection('textMessagesHistory').add({
+      recipientPhone,
+      from: '+19737915529',
+      message: _message,
+      createdAt: Math.floor(new Date().getTime() / 1000),
+      method: 'twilio',
+      type: 'sms',
+    })
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -415,6 +469,10 @@ export const sendPropertyTourBookedIn1HourMessage = async (
       return
     }
 
+    initializeAdmin() // Initialize Firebase Admin SDK
+
+    const db = admin.firestore() // Get a reference to the Firestore database
+
     client.messages
       .create({
         to: recipientPhone,
@@ -422,6 +480,15 @@ export const sendPropertyTourBookedIn1HourMessage = async (
         body: _message,
       })
       .then((message: { sid: any }) => console.log(message.sid))
+
+    await db.collection('textMessagesHistory').add({
+      recipientPhone,
+      from: '+19737915529',
+      message: _message,
+      createdAt: Math.floor(new Date().getTime() / 1000),
+      method: 'twilio',
+      type: 'sms',
+    })
 
     // TODO: discuss with @YannyD and fix this
     // await axios.post(
