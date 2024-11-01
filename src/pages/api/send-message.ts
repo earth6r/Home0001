@@ -1,9 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 import { saveError } from '@lib/util/save-error'
-import { DoNotSendMessagesNumbers } from '@lib/util/constants'
-import { initializeAdmin } from '@lib/firebase/admin'
-import admin from 'firebase-admin'
+import { sendTwilioMessage } from './messages/send-twilio-message'
 
 type Data = {
   message: string
@@ -15,36 +13,7 @@ export const config = {
 }
 
 export const sendMessage = async (recipientPhone: string, message: string) => {
-  const accountSid = process.env.NEXT_PUBLIC_TWILIO_ACCOUNT_SID
-  const authToken = process.env.NEXT_PUBLIC_TWILIO_AUTH_TOKEN
-
-  // require the Twilio module and create a REST client
-  const client = require('twilio')(accountSid, authToken)
-
-  if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
-    return
-  }
-
-  initializeAdmin() // Initialize Firebase Admin SDK
-
-  const db = admin.firestore() // Get a reference to the Firestore
-
-  client.messages
-    .create({
-      to: recipientPhone,
-      from: '+19737915529',
-      body: message,
-    })
-    .then((message: { sid: any }) => console.log(message.sid))
-
-  await db.collection('textMessagesHistory').add({
-    recipientPhone,
-    from: '+19737915529',
-    message,
-    createdAt: Math.floor(new Date().getTime() / 1000),
-    method: 'twilio',
-    type: 'sms',
-  })
+  await sendTwilioMessage(recipientPhone, message)
 
   await axios.post(
     `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
