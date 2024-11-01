@@ -2,6 +2,8 @@ import { saveError } from '@lib/util/save-error'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createVisitorAndChatRoom } from './rocketchat/livechat'
 import { DoNotSendMessagesNumbers } from '@lib/util/constants'
+import { initializeAdmin } from '@lib/firebase/admin'
+import admin from 'firebase-admin'
 
 const axios = require('axios')
 
@@ -75,6 +77,10 @@ export const sendMessage = async (
     return
   }
 
+  initializeAdmin() // Initialize Firebase Admin SDK
+
+  const db = admin.firestore() // Get a reference to the Firestore
+
   try {
     // const config = {
     //   headers: {
@@ -89,6 +95,15 @@ export const sendMessage = async (
         body: _message,
       })
       .then((message: { sid: any }) => console.log(message.sid))
+
+    await db.collection('textMessagesHistory').add({
+      recipientPhone,
+      from: '+19737915529',
+      message: _message,
+      createdAt: Math.floor(new Date().getTime() / 1000),
+      method: 'twilio',
+      type: 'sms',
+    })
 
     if (initialMessage) {
       await axios.post(
