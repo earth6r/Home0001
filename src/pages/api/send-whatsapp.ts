@@ -3,6 +3,7 @@ import { DoNotSendMessagesNumbers } from '@lib/util/constants'
 import { saveError } from '@lib/util/save-error'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import admin from 'firebase-admin'
+import { sendTwilioMessage } from './messages/send-twilio-message'
 
 const axios = require('axios')
 
@@ -89,26 +90,7 @@ export const sendMessage = async (
     //   config
     // )
 
-    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
-      return
-    }
-
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
-
-    await db.collection('textMessagesHistory').add({
-      recipientPhone,
-      from: '+19737915529',
-      message: _message,
-      createdAt: Math.floor(new Date().getTime() / 1000),
-      method: 'twilio',
-      type: 'sms',
-    })
+    await sendTwilioMessage(recipientPhone, _message)
 
     if (initialMessage) {
       await axios.post(
@@ -177,30 +159,7 @@ export const sendWAMessagePropertyTourBooked = async (
     //   config
     // )
 
-    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
-      return
-    }
-
-    initializeAdmin() // Initialize Firebase Admin SDK
-
-    const db = admin.firestore() // Get a reference to the Firestore database
-
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
-
-    await db.collection('textMessagesHistory').add({
-      recipientPhone,
-      from: '+19737915529',
-      message: _message,
-      createdAt: Math.floor(new Date().getTime() / 1000),
-      method: 'twilio',
-      type: 'sms',
-    })
+    await sendTwilioMessage(recipientPhone, _message)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -267,30 +226,7 @@ export const sendWAMessageReschedulePhoneCall = async (
 
     let _message = `PHONE CALL RESCHEDULED (via online scheduler): \n\n${message}`
 
-    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
-      return
-    }
-
-    initializeAdmin() // Initialize Firebase Admin SDK
-
-    const db = admin.firestore() // Get a reference to the Firestore database
-
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
-
-    await db.collection('textMessagesHistory').add({
-      recipientPhone,
-      from: '+19737915529',
-      message: _message,
-      createdAt: Math.floor(new Date().getTime() / 1000),
-      method: 'twilio',
-      type: 'sms',
-    })
+    await sendTwilioMessage(recipientPhone, _message)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -355,30 +291,7 @@ export const sendWAMessageReschedulePropertyTour = async (
     //   },
     // }
 
-    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
-      return
-    }
-
-    initializeAdmin() // Initialize Firebase Admin SDK
-
-    const db = admin.firestore() // Get a reference to the Firestore database
-
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
-
-    await db.collection('textMessagesHistory').add({
-      recipientPhone,
-      from: '+19737915529',
-      message: _message,
-      createdAt: Math.floor(new Date().getTime() / 1000),
-      method: 'twilio',
-      type: 'sms',
-    })
+    await sendTwilioMessage(recipientPhone, _message)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -465,30 +378,7 @@ export const sendPropertyTourBookedIn1HourMessage = async (
 
     let _message = `PROPERTY TOUR BOOKED IN 1 HOUR: \n\nName: ${name} \nEmail: ${email} \nDate: ${date} \nPhone Number: ${phoneNumber} \n${details}`
 
-    if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
-      return
-    }
-
-    initializeAdmin() // Initialize Firebase Admin SDK
-
-    const db = admin.firestore() // Get a reference to the Firestore database
-
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
-
-    await db.collection('textMessagesHistory').add({
-      recipientPhone,
-      from: '+19737915529',
-      message: _message,
-      createdAt: Math.floor(new Date().getTime() / 1000),
-      method: 'twilio',
-      type: 'sms',
-    })
+    await sendTwilioMessage(recipientPhone, _message)
 
     // TODO: discuss with @YannyD and fix this
     // await axios.post(
