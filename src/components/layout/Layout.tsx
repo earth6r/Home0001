@@ -86,6 +86,8 @@ export const Layout: FC<LayoutProps> = ({
             copy: siteSettings?.waitlistCopy,
             header: siteSettings?.waitlistHeader,
             success: siteSettings?.waitlistSuccess,
+            consentCopy: siteSettings?.consentCopy,
+            showConsent: siteSettings?.showConsent,
           }}
           inquiry={{
             id: siteSettings?.inquiryId,

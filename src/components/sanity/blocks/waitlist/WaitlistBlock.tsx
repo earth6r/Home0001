@@ -16,6 +16,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   grid,
   audienceId,
   successMessage,
+  showConsent,
+  consentCopy,
   className,
 }) => {
   const {
@@ -45,6 +47,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
             text: text,
             id: audienceId,
             successMessage: successMessage,
+            consentCopy: consentCopy,
+            showConsent: showConsent,
           }}
           formActions={{
             isSubmitting,
