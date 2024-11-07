@@ -107,6 +107,18 @@ export default {
       group: 'forms',
     },
     {
+      name: 'showConsent',
+      type: 'boolean',
+      title: 'Show Waitlist Consent Checkbox',
+      group: 'forms',
+    },
+    {
+      name: 'consentCopy',
+      type: 'richText',
+      title: 'Waitlist Consent Copy',
+      group: 'forms',
+    },
+    {
       name: 'inquiryId',
       title: 'Inquiry Audience ID',
       type: 'string',

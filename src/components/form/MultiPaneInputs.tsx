@@ -8,6 +8,7 @@ import { useBrokerInquiryModal } from '@contexts/modals'
 import { sendGoogleEvent } from '@lib/util'
 import { submitForm } from '@lib/util'
 import { set } from 'sanity'
+import { RichText } from '@components/sanity'
 
 interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
@@ -28,6 +29,8 @@ interface CheckboxPaneProps extends PaneProps {
 interface PaneProps extends HTMLAttributes<HTMLElement> {
   register: UseFormRegister<FieldValues>
   broker?: boolean
+  showConsent?: boolean
+  consentCopy?: RichTextType
 }
 
 interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
@@ -42,6 +45,8 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   broker?: boolean
   formPanes?: string[]
   isSubmitting: boolean
+  consentCopy?: RichTextType
+  showConsent?: boolean
 }
 
 const LOCATIONS = [
@@ -117,7 +122,13 @@ const SIZES = [
   },
 ]
 
-const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
+const NameEmailPane: FC<PaneProps> = ({
+  register,
+  broker,
+  showConsent,
+  consentCopy,
+  className,
+}) => {
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   return (
     <div className={className}>
@@ -157,6 +168,23 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
         >
           Are you a realtor?
         </button>
+      )}
+
+      {showConsent && consentCopy && (
+        <div className="flex w-btnWidth">
+          <input
+            type="checkbox"
+            id="consent"
+            className="flex-grow"
+            {...register('consent', { required: true })}
+          />
+          <label
+            className="w-[calc(var(--btn-width)-1rem)] text-left cursor-pointer font-medium text-md tracking-normal"
+            htmlFor="consent"
+          >
+            <RichText blocks={consentCopy} />
+          </label>
+        </div>
       )}
     </div>
   )
@@ -252,6 +280,8 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   setFullWidth,
   className,
   trigger,
+  showConsent,
+  consentCopy,
   formValues,
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
@@ -295,6 +325,8 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         <NameEmailPane
           broker={true}
           register={register}
+          showConsent={showConsent}
+          consentCopy={consentCopy}
           className={classNames(
             currentStep !== 0 ? 'hidden' : '',
             block ? 'h-[248px]' : '',

@@ -25,6 +25,8 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
     text?: RichTextType | string
     id?: string
     successMessage?: RichTextType
+    consentCopy?: RichTextType
+    showConsent?: boolean
   }
   formActions: {
     isSubmitting: boolean
@@ -57,7 +59,11 @@ export const Waitlist: FC<WaitlistProps> = ({
     <div id={id} className={classNames(className)}>
       <div
         className={classNames(
-          formType === 'unit' ? 'md:h-[659px] pb-y md:pb-ydouble' : 'h-[630px]',
+          formType === 'unit'
+            ? 'md:h-[659px] pb-y md:pb-ydouble'
+            : waitlist.showConsent
+            ? 'h-[720px]'
+            : 'h-[630px]',
           'pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-ydouble md:px-xdouble md:pb-[56px] pt-ydouble bg-yellow'
         )}
       >
@@ -122,6 +128,8 @@ export const Waitlist: FC<WaitlistProps> = ({
               header={waitlist?.header}
               copy={waitlist?.text}
               buttonCopy="Join waitlist"
+              showConsent={waitlist?.showConsent}
+              consentCopy={waitlist?.consentCopy}
               isSubmitting={formActions.isSubmitting}
               register={formActions.register}
               className={classNames(

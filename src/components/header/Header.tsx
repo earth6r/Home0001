@@ -189,6 +189,8 @@ export const Header: FC<HeaderProps> = ({
                 <MultiPaneInputs
                   header={waitlist?.header}
                   copy={waitlist?.copy}
+                  showConsent={waitlist?.showConsent}
+                  consentCopy={waitlist?.consentCopy}
                   buttonCopy="Join waitlist"
                   isSubmitting={isSubmitting}
                   register={register}
