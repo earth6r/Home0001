@@ -19,7 +19,6 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import { useLenis } from '@studio-freight/react-lenis'
 import { useFunctionalPref } from '@contexts/cookies'
-import { useFeatureFlagEnabled } from 'posthog-js/react'
 import { PropertyTypesList } from '@components/property-type'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
@@ -316,7 +315,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                       <div className="mt-ydouble overflow-hidden">
                         {featuredList && (
                           <>
-                            <h2 className="text-h2 md:text-h1 px-x md:text-center">
+                            <h2 className="text-h2 md:text-h2 px-x md:text-center">
                               Featured Units:
                             </h2>
                             <PropertyTypesList
