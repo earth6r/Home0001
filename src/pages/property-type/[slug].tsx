@@ -77,6 +77,8 @@ const PropertyTypePage: NextPage<PageProps> = (
               text: siteSettings?.waitlistCopy,
               id: siteSettings.waitlistId,
               successMessage: siteSettings?.waitlistSuccess,
+              consentCopy: siteSettings?.consentCopy,
+              showConsent: siteSettings?.showConsent,
             }}
             formActions={{
               isSubmitting,
