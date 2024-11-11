@@ -44,7 +44,7 @@ export const AnimatedModal: FC<AnimatedModalProps> = ({
           transition={{ duration: 0.3, ease: 'easeInOut' }}
           className="fixed inset-0 flex h-[100svh] items-center md:items-start justify-center z-modal pointer-events-none"
         >
-          <div className="block w-full h-[100svh] md:h-[630px] overflow-scroll bg-yellow z-modal">
+          <div className="block w-full h-[100svh] md:h-[726px] overflow-scroll bg-yellow z-modal">
             <div
               className="relative w-full h-full pointer-events-auto"
               onClick={e => e.stopPropagation()}
