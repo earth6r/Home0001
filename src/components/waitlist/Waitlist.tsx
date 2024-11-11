@@ -7,6 +7,8 @@ import {
 } from 'react'
 import classNames from 'classnames'
 import {
+  Control,
+  FieldErrors,
   FieldValues,
   UseFormGetValues,
   UseFormHandleSubmit,
@@ -36,6 +38,8 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
     trigger: UseFormTrigger<FieldValues>
     register: UseFormRegister<FieldValues>
     getValues: UseFormGetValues<FieldValues>
+    control?: Control<FieldValues, any>
+    errors?: FieldErrors<FieldValues>
   }
   setFullWidth?: () => void
   fullWidth?: boolean
@@ -62,7 +66,7 @@ export const Waitlist: FC<WaitlistProps> = ({
           formType === 'unit'
             ? 'md:h-[659px] pb-y md:pb-ydouble'
             : waitlist.showConsent
-            ? 'h-[720px]'
+            ? 'h-[864px]'
             : 'h-[630px]',
           'pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-ydouble md:px-xdouble md:pb-[56px] pt-ydouble bg-yellow'
         )}
@@ -132,6 +136,8 @@ export const Waitlist: FC<WaitlistProps> = ({
               consentCopy={waitlist?.consentCopy}
               isSubmitting={formActions.isSubmitting}
               register={formActions.register}
+              control={formActions.control}
+              errors={formActions.errors}
               className={classNames(
                 fullWidth ? '' : 'md:max-w-[1050px] md:pr-menu',
                 'h-full leading-[0.85]'
