@@ -56,7 +56,8 @@ const PropertyTypePage: NextPage<PageProps> = (
     handleSubmit,
     trigger,
     getValues,
-    formState: { isSubmitting },
+    control,
+    formState: { isSubmitting, errors },
   } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -85,6 +86,8 @@ const PropertyTypePage: NextPage<PageProps> = (
               trigger,
               register,
               getValues,
+              errors,
+              control,
             }}
             setFullWidth={() => setFullWidth(true)}
             fullWidth={fullWidth}
