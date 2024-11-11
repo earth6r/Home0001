@@ -67,7 +67,7 @@ export const Waitlist: FC<WaitlistProps> = ({
             ? 'md:h-[659px] pb-y md:pb-ydouble'
             : waitlist.showConsent
             ? 'h-[864px]'
-            : 'h-[630px]',
+            : 'h-[726px]',
           'pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-ydouble md:px-xdouble md:pb-[56px] pt-ydouble bg-yellow'
         )}
       >
