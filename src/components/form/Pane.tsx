@@ -48,7 +48,7 @@ const Pane: FC<PaneProps> = ({
       leaveTo="top-1 opacity-0"
       className={classNames(
         className,
-        'flex flex-wrap items-stretch md:items-start gap-y relative w-full h-full'
+        'flex flex-wrap items-stretch md:items-start gap-y relative w-full h-full pb-ydouble'
       )}
     >
       <>
