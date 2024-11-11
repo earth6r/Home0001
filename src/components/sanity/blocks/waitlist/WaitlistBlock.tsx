@@ -25,7 +25,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
     handleSubmit,
     trigger,
     getValues,
-    formState: { isSubmitting },
+    control,
+    formState: { isSubmitting, errors },
   } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -58,6 +59,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
             trigger,
             register,
             getValues,
+            control,
+            errors,
           }}
           setFullWidth={() => setFullWidth(true)}
           fullWidth={fullWidth}

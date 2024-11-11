@@ -51,7 +51,8 @@ export const Header: FC<HeaderProps> = ({
     reset,
     trigger,
     getValues,
-    formState: { isSubmitting },
+    control,
+    formState: { isSubmitting, errors },
   } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -193,6 +194,8 @@ export const Header: FC<HeaderProps> = ({
                   consentCopy={waitlist?.consentCopy}
                   buttonCopy="Join waitlist"
                   isSubmitting={isSubmitting}
+                  errors={errors}
+                  control={control}
                   register={register}
                   className={classNames('h-full')}
                   trigger={trigger}
