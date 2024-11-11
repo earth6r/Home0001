@@ -2,6 +2,7 @@ import { initializeAdmin } from '@lib/firebase/admin'
 import { DoNotSendMessagesNumbers } from '@lib/util/constants'
 import { saveError } from '@lib/util/save-error'
 import admin from 'firebase-admin'
+import { createVisitorAndChatRoom } from '../rocketchat/livechat'
 
 const accountSid = process.env.NEXT_PUBLIC_TWILIO_ACCOUNT_SID
 const authToken = process.env.NEXT_PUBLIC_TWILIO_AUTH_TOKEN
@@ -19,6 +20,8 @@ export const sendTwilioMessage = async (
   initializeAdmin() // Initialize Firebase Admin SDK
 
   const db = admin.firestore() // Get a reference to the Firestore database
+
+  createVisitorAndChatRoom('', '', recipientPhone, message)
 
   try {
     await client.messages.create({
