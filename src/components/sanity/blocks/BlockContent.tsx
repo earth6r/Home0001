@@ -46,9 +46,13 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             animatingBlock: ({ index, value }) => (
               <>
-                {index === 1 && (
-                  <AnimatingBlock index={index} grid={grid} {...value} />
-                )}
+                {flagEnabled
+                  ? index === 1 && (
+                      <AnimatingBlock index={index} grid={grid} {...value} />
+                    )
+                  : index === 0 && (
+                      <AnimatingBlock index={index} grid={grid} {...value} />
+                    )}
               </>
             ),
             calendarBlock: ({ index, value }) => (
