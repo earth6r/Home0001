@@ -277,7 +277,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
               textAndImages.map(
                 ({ _key, aspect, media, text, altCryptoText }, index) => (
                   <div key={_key}>
-                    {media && (
+                    {media?.image && (
                       <div className="lg:max-w-[1000px] lg:mx-auto px-x md:px-fullmenu">
                         <AnimatingImage
                           media={media}
@@ -312,18 +312,13 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                     )}
 
                     {index === 0 && featuredList && featuredList.length > 0 && (
-                      <div className="mt-ydouble overflow-hidden">
+                      <div className="my-ydouble overflow-hidden">
                         {featuredList && (
-                          <>
-                            <h2 className="text-h2 md:text-h2 px-x md:text-center">
-                              Featured Units:
-                            </h2>
-                            <PropertyTypesList
-                              className="animate-in flex flex-col mt-ydouble mx-x"
-                              propertyTypesList={featuredList}
-                              showCity={true}
-                            />
-                          </>
+                          <PropertyTypesList
+                            className="animate-in flex flex-col mx-x"
+                            propertyTypesList={featuredList}
+                            showCity={true}
+                          />
                         )}
                       </div>
                     )}
