@@ -24,7 +24,7 @@ type RegisterData = {
   lastName: string
   email: string
   phoneNumber: string
-  altHome: string
+  altHome: boolean
   communicationPreference: CommunicationPreference
   locationsOfInterest: Location[]
   buyingTimelinedec2023: BuyingTimeline
@@ -78,4 +78,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       bedroomPreference,
     })
   }
+
+  res.status(200).json({ message: 'success' })
 }
+
+export default handler
