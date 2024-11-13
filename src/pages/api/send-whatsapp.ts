@@ -91,7 +91,7 @@ export const sendMessage = async (
     //   config
     // )
 
-    await sendTwilioMessage(recipientPhone, _message)
+    await sendTwilioMessage(recipientPhone, _message, sendInRocketChat)
 
     if (initialMessage) {
       await axios.post(
