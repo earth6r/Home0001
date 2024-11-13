@@ -20,7 +20,8 @@ export const sendMessage = async (
   recipientPhone: string,
   message: string,
   template: string | null = null,
-  initialMessage: boolean = true
+  initialMessage: boolean = true,
+  sendInRocketChat: boolean = true
 ) => {
   // const authToken = process.env.WHATSAPP_PERMANENT_TOKEN
 
@@ -159,7 +160,7 @@ export const sendWAMessagePropertyTourBooked = async (
     //   config
     // )
 
-    await sendTwilioMessage(recipientPhone, _message)
+    await sendTwilioMessage(recipientPhone, _message, false)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -226,7 +227,7 @@ export const sendWAMessageReschedulePhoneCall = async (
 
     let _message = `PHONE CALL RESCHEDULED (via online scheduler): \n\n${message}`
 
-    await sendTwilioMessage(recipientPhone, _message)
+    await sendTwilioMessage(recipientPhone, _message, false)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -291,7 +292,7 @@ export const sendWAMessageReschedulePropertyTour = async (
     //   },
     // }
 
-    await sendTwilioMessage(recipientPhone, _message)
+    await sendTwilioMessage(recipientPhone, _message, false)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -400,11 +401,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ): Promise<void> {
-  const { template = null } = req.query as { template: string | null }
+  const { template = null, saveInRocketchat = 'true' } = req.query as {
+    template: string | null
+    saveInRocketchat: string
+  }
   const { recipientPhone, message } = req.body
 
   try {
-    await sendMessage(recipientPhone, message, template)
+    await sendMessage(
+      recipientPhone,
+      message,
+      template,
+      true,
+      saveInRocketchat === 'true'
+    )
   } catch (error) {
     saveError(error, 'send-whatsapp')
     return res.status(500).json({ message: "Couldn't send message", error })
