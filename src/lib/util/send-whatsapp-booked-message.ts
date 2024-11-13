@@ -57,7 +57,7 @@ export const sendWhatsappBookedMessage = async (
       if (isPropertyTour) {
         await sendWAMessagePropertyTourBooked(number, message)
       } else {
-        await sendMessage(number, message)
+        await sendMessage(number, message, null, true, false)
       }
     }
   }

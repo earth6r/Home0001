@@ -11,7 +11,8 @@ const client = require('twilio')(accountSid, authToken)
 
 export const sendTwilioMessage = async (
   recipientPhone: string,
-  message: string
+  message: string,
+  saveInRocketchat = true
 ) => {
   if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
     return
@@ -21,7 +22,9 @@ export const sendTwilioMessage = async (
 
   const db = admin.firestore() // Get a reference to the Firestore database
 
-  createVisitorAndChatRoom('', '', recipientPhone, message)
+  if (saveInRocketchat) {
+    createVisitorAndChatRoom('', '', recipientPhone, message)
+  }
 
   try {
     await client.messages.create({
