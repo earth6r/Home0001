@@ -1,5 +1,9 @@
+import { initializeAdmin } from '@lib/firebase/admin'
+import { DoNotSendMessagesNumbers } from '@lib/util/constants'
 import { saveError } from '@lib/util/save-error'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import admin from 'firebase-admin'
+import { sendTwilioMessage } from './messages/send-twilio-message'
 
 const axios = require('axios')
 
@@ -16,7 +20,8 @@ export const sendMessage = async (
   recipientPhone: string,
   message: string,
   template: string | null = null,
-  initialMessage: boolean = true
+  initialMessage: boolean = true,
+  sendInRocketChat: boolean = true
 ) => {
   // const authToken = process.env.WHATSAPP_PERMANENT_TOKEN
 
@@ -69,6 +74,10 @@ export const sendMessage = async (
   //   },
   // }
 
+  initializeAdmin() // Initialize Firebase Admin SDK
+
+  const db = admin.firestore() // Get a reference to the Firestore database
+
   try {
     // const config = {
     //   headers: {
@@ -82,13 +91,7 @@ export const sendMessage = async (
     //   config
     // )
 
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
+    await sendTwilioMessage(recipientPhone, _message, sendInRocketChat)
 
     if (initialMessage) {
       await axios.post(
@@ -157,13 +160,7 @@ export const sendWAMessagePropertyTourBooked = async (
     //   config
     // )
 
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
+    await sendTwilioMessage(recipientPhone, _message, false)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -230,13 +227,7 @@ export const sendWAMessageReschedulePhoneCall = async (
 
     let _message = `PHONE CALL RESCHEDULED (via online scheduler): \n\n${message}`
 
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
+    await sendTwilioMessage(recipientPhone, _message, false)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -290,6 +281,10 @@ export const sendWAMessageReschedulePropertyTour = async (
 
   let _message = `PROPERTY TOUR RESCHEDULED (via online scheduler): \n\n${message}`
 
+  if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
+    return
+  }
+
   try {
     // const config = {
     //   headers: {
@@ -297,13 +292,7 @@ export const sendWAMessageReschedulePropertyTour = async (
     //   },
     // }
 
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
+    await sendTwilioMessage(recipientPhone, _message, false)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -390,13 +379,7 @@ export const sendPropertyTourBookedIn1HourMessage = async (
 
     let _message = `PROPERTY TOUR BOOKED IN 1 HOUR: \n\nName: ${name} \nEmail: ${email} \nDate: ${date} \nPhone Number: ${phoneNumber} \n${details}`
 
-    client.messages
-      .create({
-        to: recipientPhone,
-        from: '+19737915529',
-        body: _message,
-      })
-      .then((message: { sid: any }) => console.log(message.sid))
+    await sendTwilioMessage(recipientPhone, _message)
 
     // TODO: discuss with @YannyD and fix this
     // await axios.post(
@@ -418,11 +401,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ): Promise<void> {
-  const { template = null } = req.query as { template: string | null }
+  const { template = null, saveInRocketchat = 'true' } = req.query as {
+    template: string | null
+    saveInRocketchat: string
+  }
   const { recipientPhone, message } = req.body
 
   try {
-    await sendMessage(recipientPhone, message, template)
+    await sendMessage(
+      recipientPhone,
+      message,
+      template,
+      true,
+      saveInRocketchat === 'true'
+    )
   } catch (error) {
     saveError(error, 'send-whatsapp')
     return res.status(500).json({ message: "Couldn't send message", error })

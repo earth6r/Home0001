@@ -35,15 +35,15 @@ export const sendWhatsappBookedMessage = async (
   const message = `A HOME0001 ${bookingTypeWording} was ${wording} at ${startTimestampEST} EST. Name: ${firstName} ${lastName} Email: ${email} Phone: ${phoneNumber}.`
 
   const numbers = [
-    '+15038676436',
-    '+4915168698913',
+    '+15038676436', // arthur
+    '+4915168698913', // carl
     '+17134103755', // yan
     '+14377703354', // api
     '+33745277973', // marian
     '+19175824100', // anna
-    '+447577459373',
-    '+491634841797',
-    '+17868633711',
+    '+447577459373', // christopher
+    '+491634841797', // annika
+    '+17868633711', // marty
   ]
 
   for (const number of numbers) {
@@ -57,7 +57,7 @@ export const sendWhatsappBookedMessage = async (
       if (isPropertyTour) {
         await sendWAMessagePropertyTourBooked(number, message)
       } else {
-        await sendMessage(number, message)
+        await sendMessage(number, message, null, true, false)
       }
     }
   }

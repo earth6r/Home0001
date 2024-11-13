@@ -12,6 +12,7 @@ export default async function handler(
       recipientPhone,
       message,
       'first_rocket_chat_message_notification',
+      false,
       false
     )
   }
