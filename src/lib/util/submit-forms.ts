@@ -182,6 +182,8 @@ const postModalFields = async (
     { name: 'firstname', value: data.first_name || '' },
     { name: 'lastname', value: data.last_name || '' },
     { name: 'email', value: data.email },
+    { name: 'phone', value: data.phone },
+    { name: 'comms', value: data.comms },
     {
       name: 'bedroom_preference',
       value: data.bedroom_preference ? data.bedroom_preference.join(';') : '',
@@ -210,6 +212,41 @@ const postModalFields = async (
       value: data.current_zip_code ? data.current_zip_code : '',
     },
   ]
+
+  try {
+    const {
+      comms,
+      email,
+      first_name,
+      last_name,
+      phone,
+      altHome,
+      locationsOfInterest,
+      buyingTimelinedec2023,
+      bedroomPreference,
+    } = data
+
+    await fetch('/api/register/save-register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        first_name,
+        last_name,
+        email,
+        phone_number: phone,
+        altHome: altHome === 'true' ? true : false,
+        communicationPreference: comms,
+        locationsOfInterest,
+        buyingTimelinedec2023,
+        bedroomPreference,
+      }),
+    })
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'saveRegisterForm postModalFields API')
+  }
 
   try {
     return await axios.post(
