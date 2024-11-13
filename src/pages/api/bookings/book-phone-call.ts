@@ -156,7 +156,10 @@ export default async function handler(
     saveError(errorData, 'updateHubspotContact')
     sendMessage(
       '+17134103755',
-      `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`
+      `Error updating HubSpot contact: ${email}. Most likely the contact does not exist in HubSpot.`,
+      null,
+      true,
+      false
     )
   }
 

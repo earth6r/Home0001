@@ -21,6 +21,7 @@ export default async function handler(
       phone_number,
       message,
       'first_direct_communication_notification',
+      true,
       true
     )
   } else if (communication_pref === 'sms') {

@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 import { saveError } from '@lib/util/save-error'
+import { sendTwilioMessage } from './messages/send-twilio-message'
 
 type Data = {
   message: string
@@ -11,20 +12,12 @@ export const config = {
   maxDuration: 300,
 }
 
-export const sendMessage = async (recipientPhone: string, message: string) => {
-  const accountSid = process.env.NEXT_PUBLIC_TWILIO_ACCOUNT_SID
-  const authToken = process.env.NEXT_PUBLIC_TWILIO_AUTH_TOKEN
-
-  // require the Twilio module and create a REST client
-  const client = require('twilio')(accountSid, authToken)
-
-  client.messages
-    .create({
-      to: recipientPhone,
-      from: '+19737915529',
-      body: message,
-    })
-    .then((message: { sid: any }) => console.log(message.sid))
+export const sendMessage = async (
+  recipientPhone: string,
+  message: string,
+  saveInRocketchat: boolean = true
+) => {
+  await sendTwilioMessage(recipientPhone, message, saveInRocketchat)
 
   await axios.post(
     `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -40,8 +33,9 @@ export default async function handler(
   res: NextApiResponse<Data>
 ): Promise<void> {
   try {
+    const { saveInRocketchat = 'true' } = req.query
     const { recipientPhone, message } = req.body
-    await sendMessage(recipientPhone, message)
+    await sendMessage(recipientPhone, message, saveInRocketchat === 'true')
   } catch (error) {
     console.error(error)
     saveError(error, 'sendMessage')
