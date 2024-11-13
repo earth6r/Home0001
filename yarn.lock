@@ -4023,6 +4023,13 @@
   resolved "https://registry.npmjs.org/@types/caseless/-/caseless-0.12.5.tgz"
   integrity sha512-hWtVTC2q7hc7xZ/RLbxapMvDMgUnDvKvMOpKal4DrMyfGBUfB1oKaZlIRr6mJL+If3bAP6sV/QneGzF6tJjZDg==
 
+"@types/classnames@^2.3.4":
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.3.4.tgz#1a1fdf5023ef216219f13e702543f9ce9b394560"
+  integrity sha512-dwmfrMMQb9ujX1uYGvB5ERDlOzBNywnZAZBtOe107/hORWP05ESgU4QyaanZMWYYfd2BzrG78y13/Bju8IQcMQ==
+  dependencies:
+    classnames "*"
+
 "@types/connect@*":
   version "3.4.38"
   resolved "https://registry.npmjs.org/@types/connect/-/connect-3.4.38.tgz"
@@ -5291,7 +5298,7 @@ ci-info@^3.2.0:
   resolved "https://registry.npmjs.org/ci-info/-/ci-info-3.8.0.tgz"
   integrity sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==
 
-classnames@^2.2.5, classnames@^2.3.1, classnames@^2.5.1:
+classnames@*, classnames@^2.2.5, classnames@^2.3.1, classnames@^2.5.1:
   version "2.5.1"
   resolved "https://registry.npmjs.org/classnames/-/classnames-2.5.1.tgz"
   integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
