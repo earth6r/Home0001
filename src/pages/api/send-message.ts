@@ -33,7 +33,8 @@ export default async function handler(
   res: NextApiResponse<Data>
 ): Promise<void> {
   try {
-    const { recipientPhone, message, saveInRocketchat = 'true' } = req.body
+    const { saveInRocketchat = 'true' } = req.query
+    const { recipientPhone, message } = req.body
     await sendMessage(recipientPhone, message, saveInRocketchat === 'true')
   } catch (error) {
     console.error(error)
