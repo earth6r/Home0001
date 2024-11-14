@@ -68,6 +68,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await register.ref.update({
       altHome,
     })
+  } else {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
     const ipResponse = await axios.get(`http://ip-api.com/json/${ip}`)
 
