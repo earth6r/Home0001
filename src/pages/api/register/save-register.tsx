@@ -77,7 +77,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await db.collection(databaseName).add({
       firstName,
       lastName,
-      email,
+      email: email.toLowerCase(),
       phoneNumber,
       altHome,
       communicationPreference,
