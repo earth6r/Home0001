@@ -4,6 +4,7 @@ When an existing entry exists, it will update the altHome field. If the entry do
 */
 
 import { initializeAdmin } from '@lib/firebase/admin'
+import axios from 'axios'
 import admin from 'firebase-admin'
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 
@@ -65,7 +66,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await register.ref.update({
       altHome,
     })
-  } else {
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    const ipResponse = await axios.get(`http://ip-api.com/json/${ip}`)
+
     await db.collection('registers').add({
       firstName,
       lastName,
@@ -76,6 +79,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       locationsOfInterest,
       buyingTimelinedec2023,
       bedroomPreference,
+      ipAddress: {
+        ip,
+        ipInfo: ipResponse.data,
+      },
     })
   }
 
