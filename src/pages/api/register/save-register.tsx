@@ -49,7 +49,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const db = admin.firestore() // Get a reference to the Firestore database
 
   const registerResponse = await db
-    .collection('registers')
+    .collection('register')
     .where('email', '==', email)
     .get()
 
