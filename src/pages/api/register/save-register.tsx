@@ -30,6 +30,7 @@ type RegisterData = {
   locationsOfInterest: Location[]
   buyingTimelinedec2023: BuyingTimeline
   bedroomPreference: BedroomPreference
+  userAgent: string | undefined
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -43,6 +44,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     locationsOfInterest,
     buyingTimelinedec2023,
     bedroomPreference,
+    userAgent = null,
   } = req.body as RegisterData
 
   initializeAdmin() // Initialize Firebase Admin SDK
@@ -68,13 +70,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await register.ref.update({
       altHome,
     })
+  } else {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
     const ipResponse = await axios.get(`http://ip-api.com/json/${ip}`)
 
     await db.collection(databaseName).add({
       firstName,
       lastName,
-      email,
+      email: email.toLowerCase(),
       phoneNumber,
       altHome,
       communicationPreference,
@@ -85,6 +88,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         ip,
         ipInfo: ipResponse.data,
       },
+      userAgent,
     })
   }
 
