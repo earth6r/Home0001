@@ -211,6 +211,10 @@ const postModalFields = async (
       name: 'current_zip_code',
       value: data.current_zip_code ? data.current_zip_code : '',
     },
+    {
+      name: 'userAgent',
+      value: typeof window !== 'undefined' && window.navigator.userAgent,
+    },
   ]
 
   try {
@@ -224,6 +228,7 @@ const postModalFields = async (
       locationsOfInterest,
       buyingTimelinedec2023,
       bedroomPreference,
+      userAgent,
     } = data
 
     await fetch('/api/register/save-register', {
@@ -241,6 +246,7 @@ const postModalFields = async (
         locationsOfInterest,
         buyingTimelinedec2023,
         bedroomPreference,
+        userAgent,
       }),
     })
   } catch (error) {
