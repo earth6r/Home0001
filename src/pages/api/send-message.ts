@@ -15,9 +15,15 @@ export const config = {
 export const sendMessage = async (
   recipientPhone: string,
   message: string,
-  saveInRocketchat: boolean = true
+  saveInRocketchat: boolean = true,
+  automatedToUser: boolean = false
 ) => {
-  await sendTwilioMessage(recipientPhone, message, saveInRocketchat)
+  await sendTwilioMessage(
+    recipientPhone,
+    message,
+    saveInRocketchat,
+    automatedToUser
+  )
 
   await axios.post(
     `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,
@@ -33,9 +39,14 @@ export default async function handler(
   res: NextApiResponse<Data>
 ): Promise<void> {
   try {
-    const { saveInRocketchat = 'true' } = req.query
+    const { saveInRocketchat = 'true', automatedToUser = 'false' } = req.query
     const { recipientPhone, message } = req.body
-    await sendMessage(recipientPhone, message, saveInRocketchat === 'true')
+    await sendMessage(
+      recipientPhone,
+      message,
+      saveInRocketchat === 'true',
+      automatedToUser === 'true'
+    )
   } catch (error) {
     console.error(error)
     saveError(error, 'sendMessage')

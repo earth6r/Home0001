@@ -12,7 +12,8 @@ const client = require('twilio')(accountSid, authToken)
 export const sendTwilioMessage = async (
   recipientPhone: string,
   message: string,
-  saveInRocketchat = true
+  saveInRocketchat = true,
+  automatedToUser = false
 ) => {
   if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
     return
@@ -44,5 +45,6 @@ export const sendTwilioMessage = async (
     createdAt: Math.floor(new Date().getTime() / 1000),
     method: 'twilio',
     type: 'sms',
+    automated: automatedToUser,
   })
 }
