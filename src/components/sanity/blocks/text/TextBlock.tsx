@@ -25,8 +25,6 @@ export const TextBlock: FC<TextBlockProps> = ({
   const { asPath } = useRouter()
   const [isMobile, setIsMobile] = useState(false)
 
-  console.log('textBlock accordion: ', accordion)
-
   useEffect(() => {
     if (typeof window === 'undefined') return
 
