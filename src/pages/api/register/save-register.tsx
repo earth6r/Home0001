@@ -49,8 +49,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const db = admin.firestore() // Get a reference to the Firestore database
 
+  const databaseName = 'registers' // TODO: its actually register
+
   const registerResponse = await db
-    .collection('register')
+    .collection(databaseName)
     .where('email', '==', email)
     .get()
 
@@ -69,7 +71,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
     const ipResponse = await axios.get(`http://ip-api.com/json/${ip}`)
 
-    await db.collection('registers').add({
+    await db.collection(databaseName).add({
       firstName,
       lastName,
       email,
