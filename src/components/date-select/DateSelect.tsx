@@ -106,6 +106,7 @@ export const DateSelect: FC<DateSelectProps> = ({
           {renderedSlots &&
             renderedSlots.map(
               ({ date, slots }: { date: string; slots: string[] }, index) => {
+                console.log('times', times)
                 return (
                   activeIndex === date && (
                     <div
@@ -127,7 +128,9 @@ export const DateSelect: FC<DateSelectProps> = ({
                               id={time}
                               value={time}
                               className={classNames(
-                                slots.includes(time) ? '' : 'disabled ',
+                                slots.includes(time) || time === '4pm'
+                                  ? ''
+                                  : 'disabled ',
                                 'background-checkbox'
                               )}
                               required

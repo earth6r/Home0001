@@ -4,6 +4,7 @@ When an existing entry exists, it will update the altHome field. If the entry do
 */
 
 import { initializeAdmin } from '@lib/firebase/admin'
+import axios from 'axios'
 import admin from 'firebase-admin'
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 
@@ -29,6 +30,7 @@ type RegisterData = {
   locationsOfInterest: Location[]
   buyingTimelinedec2023: BuyingTimeline
   bedroomPreference: BedroomPreference
+  userAgent: string | undefined
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -42,14 +44,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     locationsOfInterest,
     buyingTimelinedec2023,
     bedroomPreference,
+    userAgent = null,
   } = req.body as RegisterData
 
   initializeAdmin() // Initialize Firebase Admin SDK
 
   const db = admin.firestore() // Get a reference to the Firestore database
 
+  const databaseName = 'registers' // TODO: its actually register
+
   const registerResponse = await db
-    .collection('registers')
+    .collection(databaseName)
     .where('email', '==', email)
     .get()
 
@@ -66,16 +71,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       altHome,
     })
   } else {
-    await db.collection('registers').add({
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    const ipResponse = await axios.get(`http://ip-api.com/json/${ip}`)
+
+    await db.collection(databaseName).add({
       firstName,
       lastName,
-      email,
+      email: email.toLowerCase(),
       phoneNumber,
       altHome,
       communicationPreference,
       locationsOfInterest,
       buyingTimelinedec2023,
       bedroomPreference,
+      ipAddress: {
+        ip,
+        ipInfo: ipResponse.data,
+      },
+      userAgent,
     })
   }
 

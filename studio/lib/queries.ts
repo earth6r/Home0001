@@ -238,7 +238,22 @@ export const BODY_QUERY = `
     "accordion": accordion{
       ...,
       "text": text[]{
-        ...,
+        _type,
+        style,
+        _key,
+        children[]{
+          ...,
+          "images": images[]{
+            ...,
+            "image": image{
+              ${IMAGE_QUERY}
+            },
+          },
+          markDefs[]{
+            ...,
+            ${LINK_MARKDEFS_QUERY}
+          },
+        },
         markDefs[]{
           ...,
           ${LINK_MARKDEFS_QUERY}
