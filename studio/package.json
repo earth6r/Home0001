@@ -30,7 +30,7 @@
     "sanity-plugin-seo-pane": "^2.0.1",
     "sanity-plugin-vercel-deploy": "^3.3.4",
     "slugify": "^1.6.5",
-    "styled-components": "^5.2.0"
+    "styled-components": "^6.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.20",

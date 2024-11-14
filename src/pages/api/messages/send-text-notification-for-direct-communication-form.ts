@@ -22,6 +22,7 @@ export default async function handler(
       message,
       'first_direct_communication_notification',
       true,
+      false,
       true
     )
   } else if (communication_pref === 'sms') {
