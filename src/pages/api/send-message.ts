@@ -38,6 +38,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ): Promise<void> {
+  console.error('request query', req.query)
   try {
     const { saveInRocketchat = 'true', automatedToUser = 'false' } = req.query
     const { recipientPhone, message } = req.body
