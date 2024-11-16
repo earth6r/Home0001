@@ -51,7 +51,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const db = admin.firestore() // Get a reference to the Firestore database
 
-  const databaseName = 'registers' // TODO: its actually register
+  const databaseName = 'register'
 
   const registerResponse = await db
     .collection(databaseName)
