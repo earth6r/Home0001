@@ -125,7 +125,6 @@ export default async function handler(
       continue
     }
 
-    console.log('email', email)
     await sendTwilioMessage(
       recipientPhone,
       message,
