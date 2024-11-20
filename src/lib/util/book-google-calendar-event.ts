@@ -50,7 +50,7 @@ async function createCalendarEvent({
   ]
 
   if (!zoom) {
-    staffEmails.push('marian@home0001.com')
+    staffEmails.push('arthur@home0001.com')
   }
 
   if (
@@ -181,7 +181,7 @@ async function updateCalendarEvent({
   ]
 
   if (!zoom) {
-    staffEmails.push('marian@home0001.com')
+    staffEmails.push('arthur@home0001.com')
   }
 
   const event = {
