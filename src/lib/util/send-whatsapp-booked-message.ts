@@ -39,7 +39,6 @@ export const sendWhatsappBookedMessage = async (
     '+4915168698913', // carl
     '+17134103755', // yan
     '+14377703354', // api
-    '+33745277973', // marian
     '+19175824100', // anna
     '+447577459373', // christopher
     '+491634841797', // annika
