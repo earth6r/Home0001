@@ -45,7 +45,7 @@ export default async function handler(
     for (const leadDataField of leadData) {
       if (leadDataField.name === 'where_are_you_looking_to_buy?') {
         // lower_east_side, bed-stuy, williamsburg, greenpoint, somewhere_else
-        lookingToBuyArea = leadDataField.value
+        lookingToBuyArea = leadDataField.value[0]
 
         if (lookingToBuyArea === 'lower_east_side') {
           lookingToBuyArea = 'Lower East Side'
@@ -65,7 +65,7 @@ export default async function handler(
         // at_least_1_bedroom: 1bdrm
         // at_least_2_bedrooms: 2bdrm
         // `3_bedrooms_+`: 3+bdrm
-        numberOfBedrooms = leadDataField.value
+        numberOfBedrooms = leadDataField.value[0]
 
         if (numberOfBedrooms === 'studio_') {
           numberOfBedrooms = 'Studio'
@@ -77,16 +77,16 @@ export default async function handler(
           numberOfBedrooms = '3+bdrm'
         }
       } else if (leadDataField.name === 'full_name') {
-        fullName = leadDataField.value
+        fullName = leadDataField.value[0]
       } else if (leadDataField.name === 'email') {
-        email = leadDataField.value
+        email = leadDataField.value[0]
       } else if (leadDataField.name === 'phone_number') {
-        recipientPhone = leadDataField.value
+        recipientPhone = leadDataField.value[0]
       } else if (
         leadDataField.name === 'how_would_you_like_us_to_contact_you?_'
       ) {
         // e-mail, send_me_a_text, send_me_an_email, direct_message, give_me_a_call
-        contactPreference = leadDataField.value
+        contactPreference = leadDataField.value[0]
 
         if (contactPreference === 'e-mail') {
           contactPreference = 'email'
