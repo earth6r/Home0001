@@ -11,6 +11,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', ['POST'])
+    res.status(405).json({ message: `Method ${req.method} Not Allowed` })
+    return
+  }
   const { emails, saveInRocketchat = true, automatedToUser = false } = req.body
 
   if (!Array.isArray(emails) || emails.length === 0) {
@@ -43,7 +48,7 @@ export default async function handler(
     for (const leadDataField of leadData) {
       if (leadDataField.name === 'where_are_you_looking_to_buy?') {
         // lower_east_side, bed-stuy, williamsburg, greenpoint, somewhere_else
-        lookingToBuyArea = leadDataField.value[0]
+        lookingToBuyArea = leadDataField.values[0]
 
         if (lookingToBuyArea === 'lower_east_side') {
           lookingToBuyArea = 'Lower East Side'
@@ -63,7 +68,7 @@ export default async function handler(
         // at_least_1_bedroom: 1bdrm
         // at_least_2_bedrooms: 2bdrm
         // `3_bedrooms_+`: 3+bdrm
-        numberOfBedrooms = leadDataField.value[0]
+        numberOfBedrooms = leadDataField.values[0]
 
         if (numberOfBedrooms === 'studio_') {
           numberOfBedrooms = 'Studio'
@@ -75,16 +80,16 @@ export default async function handler(
           numberOfBedrooms = '3+bdrm'
         }
       } else if (leadDataField.name === 'full_name') {
-        fullName = leadDataField.value[0]
+        fullName = leadDataField.values[0]
       } else if (leadDataField.name === 'email') {
-        email = leadDataField.value[0]
+        email = leadDataField.values[0]
       } else if (leadDataField.name === 'phone_number') {
-        recipientPhone = leadDataField.value[0]
+        recipientPhone = leadDataField.values[0]
       } else if (
         leadDataField.name === 'how_would_you_like_us_to_contact_you?_'
       ) {
         // e-mail, send_me_a_text, send_me_an_email, direct_message, give_me_a_call
-        contactPreference = leadDataField.value[0]
+        contactPreference = leadDataField.values[0]
 
         if (contactPreference === 'e-mail') {
           contactPreference = 'email'
@@ -120,6 +125,7 @@ export default async function handler(
       continue
     }
 
+    console.log('email', email)
     await sendTwilioMessage(
       recipientPhone,
       message,
