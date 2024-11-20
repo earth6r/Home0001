@@ -67,7 +67,7 @@ export default async function handler(
   const { recipientPhone, message, name, email } = req.body
 
   try {
-    createVisitorAndChatRoom(name, email, recipientPhone, message)
+    // createVisitorAndChatRoom(name, email, recipientPhone, message)
 
     await sendMessage(recipientPhone, message, template)
   } catch (error) {
