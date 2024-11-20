@@ -36,28 +36,15 @@ const SanityCookiesToggle: FC<SanityCookiesToggleProps> = ({
 }
 
 const SanityZoomMedia: FC<Media> = media => {
-  return media?.image?.asset && (media?.image?.asset as any).path ? (
-    <ImageZoom media={media as SanityMediaProps}>
-      <SanityMedia
-        imageProps={{
-          alt: media?.alt || 'Media',
-          lqip: (media?.image as any)?.asset?.metadata?.lqip,
-        }}
-        className="w-full h-auto object-cover"
-        {...(media as any)}
-      />
-    </ImageZoom>
-  ) : (
-    <div>
-      <SanityMedia
-        imageProps={{
-          alt: media?.alt || 'Media',
-          lqip: (media?.image as any)?.asset?.metadata?.lqip,
-        }}
-        className="w-full h-auto object-cover"
-        {...(media as any)}
-      />
-    </div>
+  return (
+    <SanityMedia
+      imageProps={{
+        alt: media?.alt || 'Media',
+        lqip: (media?.image as any)?.asset?.metadata?.lqip,
+      }}
+      className="w-full h-auto object-cover"
+      {...(media as any)}
+    />
   )
 }
 
