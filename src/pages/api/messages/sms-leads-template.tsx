@@ -20,8 +20,6 @@ export default async function handler(
     return
   }
 
-  const existingPhoneNumbersSent = new Set()
-
   initializeAdmin() // Initialize Firebase Admin SDK
 
   const db = admin.firestore() // Get a reference to the Firestore database
@@ -112,10 +110,16 @@ export default async function handler(
 
     const message = `Hi, This is Talin from HOME0001. You were interested in a ${numberOfBedrooms} in ${lookingToBuyArea}. We’re about to launch a selection of new homes in that neighborhood, so I’d like to put you on a call with a member of the 0001 collective to talk through our most relevant upcoming releases and the application process. How's next week looking for you?`
 
-    // TODO: change this set logic to check the db instead
-    if (existingPhoneNumbersSent.has(recipientPhone)) {
+    const checkExistingTemplateSent = await db
+      .collection('textMessagesHistory')
+      .where('recipientPhone', '==', recipientPhone)
+      .where('template', '==', 'sms-leads-template')
+      .get()
+
+    if (!checkExistingTemplateSent.empty) {
       continue
     }
+
     await sendTwilioMessage(
       recipientPhone,
       message,
@@ -125,7 +129,6 @@ export default async function handler(
         template: 'sms-leads-template',
       }
     )
-    existingPhoneNumbersSent.add(recipientPhone)
   }
 
   res.status(200).json({ message: 'success' })
