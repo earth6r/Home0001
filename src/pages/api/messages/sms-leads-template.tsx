@@ -112,6 +112,7 @@ export default async function handler(
 
     const message = `Hi, This is Talin from HOME0001. You were interested in a ${numberOfBedrooms} in ${lookingToBuyArea}. We’re about to launch a selection of new homes in that neighborhood, so I’d like to put you on a call with a member of the 0001 collective to talk through our most relevant upcoming releases and the application process. How's next week looking for you?`
 
+    // TODO: change this set logic to check the db instead
     if (existingPhoneNumbersSent.has(recipientPhone)) {
       continue
     }
