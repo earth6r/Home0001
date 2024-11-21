@@ -33,67 +33,8 @@ type RegisterData = {
   userAgent: string | undefined
 }
 
+// TODO: delete this after frontend has deleted this
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    altHome,
-    communicationPreference,
-    locationsOfInterest,
-    buyingTimelinedec2023,
-    bedroomPreference,
-    userAgent = null,
-  } = req.body as RegisterData
-
-  console.log('req.body', req.body)
-
-  initializeAdmin() // Initialize Firebase Admin SDK
-
-  const db = admin.firestore() // Get a reference to the Firestore database
-
-  const databaseName = 'register'
-
-  const registerResponse = await db
-    .collection(databaseName)
-    .where('email', '==', email)
-    .get()
-
-  // existing register
-  if (!registerResponse.empty) {
-    const register = registerResponse.docs[0]
-
-    let existingBedroomPreference = register.get('bedroomPreference')
-    if (!Array.isArray(existingBedroomPreference)) {
-      existingBedroomPreference = []
-    }
-
-    await register.ref.update({
-      altHome,
-    })
-  } else {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-    const ipResponse = await axios.get(`http://ip-api.com/json/${ip}`)
-
-    await db.collection(databaseName).add({
-      firstName,
-      lastName,
-      email: email.toLowerCase(),
-      phoneNumber,
-      altHome,
-      communicationPreference,
-      locationsOfInterest,
-      buyingTimelinedec2023,
-      bedroomPreference,
-      ipAddress: {
-        ip,
-        ipInfo: ipResponse.data,
-      },
-      userAgent,
-    })
-  }
-
   res.status(200).json({ message: 'success' })
 }
 
