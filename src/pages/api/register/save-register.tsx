@@ -47,13 +47,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     userAgent = null,
   } = req.body as RegisterData
 
-  console.error('req.body', req.body)
+  console.log('req.body', req.body)
 
   initializeAdmin() // Initialize Firebase Admin SDK
 
   const db = admin.firestore() // Get a reference to the Firestore database
 
-  const databaseName = 'registers' // TODO: its actually register
+  const databaseName = 'register'
 
   const registerResponse = await db
     .collection(databaseName)
