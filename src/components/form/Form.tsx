@@ -93,7 +93,7 @@ export const Form: FC<FormProps> = ({
         method: 'POST',
         body: errorData,
       })
-
+      console.error('data.altHome', data.altHome, typeof data.altHome)
       await axios.post(
         'https://us-central1-homeearthnet.cloudfunctions.net/register',
         {
