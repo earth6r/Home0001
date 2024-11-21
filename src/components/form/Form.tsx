@@ -111,6 +111,9 @@ export const Form: FC<FormProps> = ({
           buyingTimelinedec2023: data.buyingtimelinedec2023,
           userAgent: navigator?.userAgent || null,
           fullQuery: localQuery || null,
+          phoneNumber: data.phone,
+          altHome: data.altHome,
+          communicationPreference: data.comms,
         }
       )
       setFormSubmitted(true)
