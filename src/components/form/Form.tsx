@@ -113,9 +113,9 @@ export const Form: FC<FormProps> = ({
           fullQuery: localQuery || null,
           phoneNumber: data.phone,
           altHome:
-            typeof data.alt_home === 'string'
-              ? data.alt_home === 'true'
-              : data.alt_home,
+            typeof data.altHome === 'string'
+              ? data.altHome === 'true'
+              : data.altHome,
           communicationPreference: data.comms,
         }
       )
