@@ -185,7 +185,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
     active: (i: number) => ({
       opacity: 1,
       transition: {
-        delay: i * 0.15,
+        delay: 0.2 + i * 0.15,
         duration: 0,
       },
     }),

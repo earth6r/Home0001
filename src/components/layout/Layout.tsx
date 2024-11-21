@@ -106,7 +106,7 @@ export const Layout: FC<LayoutProps> = ({
             smoothWheel: false,
           }}
         >
-          <main className="flex-auto">{children}</main>
+          <main className="flex-auto min-h-[95svh]">{children}</main>
         </ReactLenis>
 
         {(page?._type as string) !== 'rdPage' && (
