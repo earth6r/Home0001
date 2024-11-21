@@ -112,7 +112,7 @@ export const Form: FC<FormProps> = ({
           userAgent: navigator?.userAgent || null,
           fullQuery: localQuery || null,
           phoneNumber: data.phone,
-          altHome: data.altHome,
+          altHome: data.altHome === 'true',
           communicationPreference: data.comms,
         }
       )
