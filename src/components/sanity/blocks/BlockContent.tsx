@@ -34,7 +34,6 @@ export const BlockContent: FC<SanityBlockElement> = ({
   style,
 }) => {
   const flagEnabled = useFeatureFlagEnabled('alt-home')
-  console.log('flagEnabled', flagEnabled)
   return flagEnabled !== undefined && blocks ? (
     <div className={className} style={style}>
       <PortableText
