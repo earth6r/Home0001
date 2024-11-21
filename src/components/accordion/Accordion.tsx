@@ -9,6 +9,7 @@ import { SanityLinkType } from '@studio/lib'
 import { sendGoogleEvent } from '@lib/util'
 import { useLenis } from '@studio-freight/react-lenis'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import { useRouter } from 'next/router'
 
 export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
@@ -36,6 +37,7 @@ export const Accordion: FC<AccordionProps> = ({
   const ref = useRef<HTMLDivElement>(null)
   const [openedOnce, setOpenedOnce] = useState(false)
   const lenis = useLenis()
+  const { asPath } = useRouter()
 
   const beforeEnter = () => {
     if (ref.current) {
@@ -48,8 +50,8 @@ export const Accordion: FC<AccordionProps> = ({
 
     if (!openedOnce) {
       const options = {
-        accordion_header: header,
-        accordion_location: location,
+        accordion_header: header || largeHeader,
+        accordion_location: location || asPath,
       }
       sendGoogleEvent('opened accordion', options)
       setOpenedOnce(true)
