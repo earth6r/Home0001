@@ -14,14 +14,14 @@ import { saveError } from '@lib/util/save-error'
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
   formType?:
-    | 'modal'
-    | 'newsletter'
-    | 'contact'
-    | 'general'
-    | 'unit'
-    | 'broker'
-    | 'preference'
-    | 'block'
+  | 'modal'
+  | 'newsletter'
+  | 'contact'
+  | 'general'
+  | 'unit'
+  | 'broker'
+  | 'preference'
+  | 'block'
   successMessage?: RichTextType | string
   handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
   formSubmitted: boolean
@@ -112,7 +112,10 @@ export const Form: FC<FormProps> = ({
           userAgent: navigator?.userAgent || null,
           fullQuery: localQuery || null,
           phoneNumber: data.phone,
-          altHome: data.altHome === 'true',
+          altHome:
+            typeof data.alt_home === 'string'
+              ? data.alt_home === 'true'
+              : data.alt_home,
           communicationPreference: data.comms,
         }
       )
