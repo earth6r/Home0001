@@ -40,44 +40,47 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
         <Link
           href={`/property/${slug.current}`}
           className="relative text-white md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
-          onClick={() =>
-            sendGoogleEvent('Click home property tile', {
-              tileProperty: slug.current,
-            })
-          }
         >
-          {image && (
-            <div className="block relative w-full h-0 pb-[120%] xl:pb-[115%] 2xl:pb-[110%] z-base overflow-hidden select-none">
-              <SanityMedia
-                imageProps={{
-                  alt: image.alt || 'Building image',
-                  quality: 90,
-                  priority: false,
-                  sizes: '(max-width: 768px) 100vw, 50vw',
-                  lqip: (image?.image as any)?.asset?.metadata?.lqip,
-                }}
-                className="relative w-full h-auto object-contain"
-                {...(image as any)}
-              />
-            </div>
-          )}
-          {longTitle && (
-            <div
-              className={classNames(
-                'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
-              )}
-            >
-              <RichText
-                blocks={longTitle}
-                className="card max-w-[200px] md:max-w-none"
-              />
+          <button
+            onClick={() =>
+              sendGoogleEvent('Click home property tile', {
+                tileProperty: slug.current,
+              })
+            }
+          >
+            {image && (
+              <div className="block relative w-full h-0 pb-[120%] xl:pb-[115%] 2xl:pb-[110%] z-base overflow-hidden select-none">
+                <SanityMedia
+                  imageProps={{
+                    alt: image.alt || 'Building image',
+                    quality: 90,
+                    priority: false,
+                    sizes: '(max-width: 768px) 100vw, 50vw',
+                    lqip: (image?.image as any)?.asset?.metadata?.lqip,
+                  }}
+                  className="relative w-full h-auto object-contain"
+                  {...(image as any)}
+                />
+              </div>
+            )}
+            {longTitle && (
+              <div
+                className={classNames(
+                  'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
+                )}
+              >
+                <RichText
+                  blocks={longTitle}
+                  className="card max-w-[200px] md:max-w-none"
+                />
 
-              <IconRightArrowBold
-                className="relative w-[1em] mt-[0.1em]"
-                fill="white"
-              />
-            </div>
-          )}
+                <IconRightArrowBold
+                  className="relative w-[1em] mt-[0.1em]"
+                  fill="white"
+                />
+              </div>
+            )}
+          </button>
         </Link>
       </motion.div>
     </AnimatePresence>

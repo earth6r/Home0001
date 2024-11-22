@@ -7,6 +7,8 @@ import {
 } from 'react'
 import classNames from 'classnames'
 import {
+  Control,
+  FieldErrors,
   FieldValues,
   UseFormGetValues,
   UseFormHandleSubmit,
@@ -25,6 +27,8 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
     text?: RichTextType | string
     id?: string
     successMessage?: RichTextType
+    consentCopy?: RichTextType
+    showConsent?: boolean
   }
   formActions: {
     isSubmitting: boolean
@@ -34,6 +38,8 @@ interface WaitlistProps extends HTMLAttributes<HTMLDivElement> {
     trigger: UseFormTrigger<FieldValues>
     register: UseFormRegister<FieldValues>
     getValues: UseFormGetValues<FieldValues>
+    control?: Control<FieldValues, any>
+    errors?: FieldErrors<FieldValues>
   }
   setFullWidth?: () => void
   fullWidth?: boolean
@@ -57,7 +63,11 @@ export const Waitlist: FC<WaitlistProps> = ({
     <div id={id} className={classNames(className)}>
       <div
         className={classNames(
-          formType === 'unit' ? 'md:h-[659px] pb-y md:pb-ydouble' : 'h-[630px]',
+          formType === 'unit'
+            ? 'md:h-[659px] pb-y md:pb-ydouble'
+            : waitlist.showConsent
+            ? 'h-[864px]'
+            : 'h-[726px]',
           'pl-x pr-[calc(var(--space-menu)+var(--space-x))] pb-ydouble md:px-xdouble md:pb-[56px] pt-ydouble bg-yellow'
         )}
       >
@@ -122,8 +132,12 @@ export const Waitlist: FC<WaitlistProps> = ({
               header={waitlist?.header}
               copy={waitlist?.text}
               buttonCopy="Join waitlist"
+              showConsent={waitlist?.showConsent}
+              consentCopy={waitlist?.consentCopy}
               isSubmitting={formActions.isSubmitting}
               register={formActions.register}
+              control={formActions.control}
+              errors={formActions.errors}
               className={classNames(
                 fullWidth ? '' : 'md:max-w-[1050px] md:pr-menu',
                 'h-full leading-[0.85]'

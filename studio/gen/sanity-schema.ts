@@ -932,6 +932,20 @@ export interface SiteSettings extends SanityDocument {
   waitlistSuccess?: RichText;
 
   /**
+   * Show Waitlist Consent Checkbox — `boolean`
+   *
+   *
+   */
+  showConsent?: boolean;
+
+  /**
+   * Waitlist Consent Copy — `richText`
+   *
+   *
+   */
+  consentCopy?: RichText;
+
+  /**
    * Inquiry Audience ID — `string`
    *
    *
@@ -1587,6 +1601,13 @@ export type AnimatingBlock = {
    *
    */
   citiesPosition?: number;
+
+  /**
+   * Featured Property Types — `array`
+   *
+   *
+   */
+  featuredList?: Array<SanityKeyedReference<PropertyType>>;
 };
 
 export type CalendarBlock = {
@@ -2090,6 +2111,20 @@ export type WaitlistBlock = {
    *
    */
   successMessage?: RichText;
+
+  /**
+   * Show Consent Checkbox — `boolean`
+   *
+   *
+   */
+  showConsent?: boolean;
+
+  /**
+   * Consent Copy — `richText`
+   *
+   *
+   */
+  consentCopy?: RichText;
 };
 
 export type FlexWaitlistBlock = {

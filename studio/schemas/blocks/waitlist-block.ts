@@ -6,7 +6,19 @@ export default {
   name: 'waitlistBlock',
   icon: LuTextCursorInput,
   type: 'object',
-  fields: [...newsletterFields],
+  fields: [
+    ...newsletterFields,
+    {
+      name: 'showConsent',
+      type: 'boolean',
+      title: 'Show Consent Checkbox',
+    },
+    {
+      name: 'consentCopy',
+      type: 'richText',
+      title: 'Consent Copy',
+    },
+  ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Waitlist block' }),
   },
