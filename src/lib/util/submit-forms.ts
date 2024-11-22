@@ -178,6 +178,9 @@ const postModalFields = async (
   config?: any,
   hutk?: string
 ) => {
+  const userAgent: string | boolean =
+    typeof window !== 'undefined' && window.navigator.userAgent
+
   const dataFields = [
     { name: 'firstname', value: data.first_name || '' },
     { name: 'lastname', value: data.last_name || '' },
@@ -199,6 +202,10 @@ const postModalFields = async (
       value: data.price_range ? data.price_range.join(';') : '',
     },
     {
+      name: 'altHome',
+      value: data.altHome,
+    },
+    {
       name: 'buyingtimelinedec2023',
       value: data.buyingtimelinedec2023 ? data.buyingtimelinedec2023 : '',
     },
@@ -213,7 +220,7 @@ const postModalFields = async (
     },
     {
       name: 'userAgent',
-      value: typeof window !== 'undefined' && window.navigator.userAgent,
+      value: userAgent,
     },
   ]
 
@@ -225,9 +232,9 @@ const postModalFields = async (
       last_name,
       phone,
       altHome,
-      locationsOfInterest,
-      buyingTimelinedec2023,
-      bedroomPreference,
+      locations_of_interest,
+      buyingtimelinedec2023,
+      bedroom_preference,
       userAgent,
     } = data
 
@@ -237,15 +244,15 @@ const postModalFields = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        first_name,
-        last_name,
+        firstName: first_name,
+        lastName: last_name,
         email,
-        phone_number: phone,
+        phoneNumber: phone,
         altHome: altHome === 'true' ? true : false,
         communicationPreference: comms,
-        locationsOfInterest,
-        buyingTimelinedec2023,
-        bedroomPreference,
+        locationsOfInterest: locations_of_interest,
+        buyingTimelinedec2023: buyingtimelinedec2023,
+        bedroomPreference: bedroom_preference,
         userAgent,
       }),
     })
@@ -275,6 +282,7 @@ const postModalFields = async (
     throw new Error('Failed to submit form')
   }
 }
+
 const postContactFields = async (
   data: any,
   portalId?: string,
