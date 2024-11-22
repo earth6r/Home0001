@@ -13,7 +13,8 @@ export const sendTwilioMessage = async (
   recipientPhone: string,
   message: string,
   saveInRocketchat = true,
-  automatedToUser = false
+  automatedToUser = false,
+  additionalFields: Record<string, any> = {}
 ) => {
   if (DoNotSendMessagesNumbers.includes(recipientPhone)) {
     return
@@ -46,5 +47,6 @@ export const sendTwilioMessage = async (
     method: 'twilio',
     type: 'sms',
     automated: automatedToUser,
+    ...additionalFields,
   })
 }

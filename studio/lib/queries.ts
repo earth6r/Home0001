@@ -238,6 +238,7 @@ export const BODY_QUERY = `
     "accordion": accordion{
       ...,
       "text": text[]{
+        ...,
         _type,
         style,
         _key,
