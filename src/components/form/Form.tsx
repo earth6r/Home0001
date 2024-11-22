@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { useLocalCookies } from '@contexts/cookies'
 import axios from 'axios'
 import { saveError } from '@lib/util/save-error'
+import posthog from 'posthog-js'
 
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
@@ -54,6 +55,7 @@ export const Form: FC<FormProps> = ({
       unitInquiry: !!(formType === 'unit'),
     }
     sendGoogleEvent('submit waitlist form', options)
+    posthog.capture('waitlist_form_submitted', options)
 
     if (!audienceId || !formType) {
       return

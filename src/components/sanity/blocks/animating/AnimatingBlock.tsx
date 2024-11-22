@@ -20,6 +20,8 @@ import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import { useLenis } from '@studio-freight/react-lenis'
 import { useFunctionalPref } from '@contexts/cookies'
 import { PropertyTypesList } from '@components/property-type'
+import posthog from 'posthog-js'
+import { useRouter } from 'next/router'
 
 type AnimatingBlockProps = Omit<SanityBlockElement, keyof AnimatingBlockType> &
   AnimatingBlockType
@@ -33,6 +35,7 @@ interface AnimatingImageProps extends HTMLAttributes<HTMLDivElement> {
 
 const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
+  const { asPath } = useRouter()
 
   return (
     <ul>
@@ -43,6 +46,12 @@ const CitiesList: FC<CitiesListProps> = ({ citiesList }) => {
               {propertyLink ? (
                 <SanityLink
                   {...(propertyLink as SanityLinkType)}
+                  onClick={() =>
+                    posthog.capture('property_click', {
+                      slug: propertyLink?.internalLink?.slug?.current,
+                      route: asPath,
+                    })
+                  }
                   className={classNames(
                     'text-h2 underline decoration-[0.1em] underline-offset-2'
                   )}

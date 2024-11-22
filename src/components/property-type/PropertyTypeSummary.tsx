@@ -1,5 +1,4 @@
-import { type FC, useContext, useEffect, useState } from 'react'
-import { HomeContext } from '@contexts/home'
+import { type FC, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { PropertyTypeListProps } from './types'
 import { useRouter } from 'next/router'
@@ -12,6 +11,7 @@ import {
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { Media } from '@studio/gen/sanity-schema'
+import posthog from 'posthog-js'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -22,6 +22,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
 }) => {
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
+  const { asPath } = useRouter()
 
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
@@ -54,6 +55,14 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
         <div className="z-above">
           <Link
             href={`/property-type/${propertyType.slug?.current}`}
+            onClick={() =>
+              posthog.capture('property_type_click', {
+                location: `${propertyType.typeTitle} - ${
+                  (propertyType?.property as any)?.location.title
+                }`,
+                route: asPath,
+              })
+            }
             className="inline-block w-full md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
           >
             <div className="flex flex-col relative overflow-x-hidden">

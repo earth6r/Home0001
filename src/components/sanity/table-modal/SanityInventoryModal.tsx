@@ -6,6 +6,8 @@ import { useLenis } from '@studio-freight/react-lenis'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { SanityImageAsset } from 'sanity-codegen'
 import { SanityImage } from '../media'
+import posthog from 'posthog-js'
+import { useRouter } from 'next/router'
 
 interface SanityInventoryModalProps extends HTMLAttributes<HTMLElement> {
   inventory?: {
@@ -31,11 +33,17 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
   const [isOpen, setIsOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const lenis = useLenis()
+  const { asPath } = useRouter()
 
-  const handleGoogleEvent = () => {
+  const handleEvents = () => {
     if (unit) {
       const options = { location: window.location.pathname }
       sendGoogleEvent('clicked inventory', options)
+
+      posthog.capture('inventory_clicked', {
+        unit: unit,
+        location: asPath,
+      })
     }
   }
   return (
@@ -97,7 +105,7 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
           <button
             onClick={() => {
               setIsOpen(true)
-              handleGoogleEvent()
+              handleEvents()
             }}
             className="uppercase font-medium leading-none"
           >
@@ -108,7 +116,7 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
         <button
           onClick={() => {
             setIsOpen(true)
-            handleGoogleEvent()
+            handleEvents()
           }}
           className="inline underline text-left"
         >
