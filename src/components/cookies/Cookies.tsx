@@ -14,7 +14,7 @@ import {
 } from '@studio/gen/sanity-schema'
 import { RichText } from '@components/sanity'
 import { Accordion, AccordionProps } from '@components/accordion'
-import { disableGoogleEvents } from '@lib/util'
+import { disableGoogleEvents, disablePosthog } from '@lib/util'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface CookieProps extends AccordionProps {
@@ -202,6 +202,7 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
     sessionStorage.setItem('cookieStorage', 'true')
     // turn off gtag and other analytics
     disableGoogleEvents()
+    disablePosthog()
     sessionStorage.setItem('allowAnalytics', 'false')
     closeModal()
     setShowBanner(false)
