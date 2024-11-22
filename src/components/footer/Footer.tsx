@@ -31,11 +31,15 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 
       <div className="xl:flex xl:flex-wrap xl:w-full xl:gap-y">
         <div className="hidden xl:block w-full mb-y"></div>
-        <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full pb-ydouble xl:pb-0 uppercase">
+        <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full pb-ydouble xl:pb-0">
           {footerMenu?.items?.map(({ _key, text, link }) => {
             return text && link ? (
               <li key={_key}>
-                <SanityLink text={text} {...(link as SanityLinkType)} />
+                <SanityLink
+                  className="uppercase"
+                  text={text}
+                  {...(link as SanityLinkType)}
+                />
               </li>
             ) : null
           })}
