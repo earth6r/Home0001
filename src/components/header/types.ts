@@ -28,6 +28,8 @@ export interface HeaderProps
     header?: string
     copy?: RichTextType
     success?: RichTextType
+    consentCopy?: RichTextType
+    showConsent?: boolean
   }
   inquiry?: {
     id?: string

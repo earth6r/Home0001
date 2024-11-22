@@ -33,6 +33,12 @@ export default {
       type: 'number',
       validation: (Rule: Rule): Rule => Rule.required(),
     },
+    {
+      name: 'featuredList',
+      title: 'Featured Property Types',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'propertyType' }] }],
+    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Animating block' }),
