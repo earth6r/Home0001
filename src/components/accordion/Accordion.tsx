@@ -10,6 +10,7 @@ import { sendGoogleEvent } from '@lib/util'
 import { useLenis } from '@studio-freight/react-lenis'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { useRouter } from 'next/router'
+import posthog from 'posthog-js'
 
 export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
@@ -54,6 +55,7 @@ export const Accordion: FC<AccordionProps> = ({
         accordion_location: location || asPath,
       }
       sendGoogleEvent('opened accordion', options)
+      posthog.capture('accordion_opened', options)
       setOpenedOnce(true)
     }
   }
