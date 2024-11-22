@@ -16,6 +16,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
   grid,
   audienceId,
   successMessage,
+  showConsent,
+  consentCopy,
   className,
 }) => {
   const {
@@ -23,7 +25,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
     handleSubmit,
     trigger,
     getValues,
-    formState: { isSubmitting },
+    control,
+    formState: { isSubmitting, errors },
   } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -45,6 +48,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
             text: text,
             id: audienceId,
             successMessage: successMessage,
+            consentCopy: consentCopy,
+            showConsent: showConsent,
           }}
           formActions={{
             isSubmitting,
@@ -54,6 +59,8 @@ export const WaitlistBlock: FC<WaitlistBlockProps> = ({
             trigger,
             register,
             getValues,
+            control,
+            errors,
           }}
           setFullWidth={() => setFullWidth(true)}
           fullWidth={fullWidth}

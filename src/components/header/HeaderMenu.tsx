@@ -90,7 +90,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       </button>
                     </li>
                   )}
-                  <li className={classNames('uppercase')}>
+                  <li>
                     <SanityLink
                       text={text}
                       onClick={() => {
@@ -103,7 +103,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                         isProperty || isPropertyType
                           ? 'py-yhalf md:hidden'
                           : 'py-y md:pt-0 md:pb-ydouble',
-                        'inline-block hover:underline underline-offset-2 decoration-[2px]'
+                        'inline-block hover:underline underline-offset-2 decoration-[2px] uppercase'
                       )}
                     />
                   </li>
@@ -146,7 +146,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 (link?.internalLink?._type as string) === 'property'
               return text && link && (isPropertyType || isProperty) ? (
                 <Fragment key={_key}>
-                  <li className="uppercase">
+                  <li>
                     <SanityLink
                       text={text}
                       onClick={() => {
@@ -157,7 +157,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       className={classNames(
                         isPropertyType ? 'mb-y pl-xdouble' : '',
                         isProperty ? 'pt-y' : '',
-                        'inline-block mb-y hover:underline underline-offset-2 decoration-[2px]'
+                        'inline-block mb-y hover:underline underline-offset-2 decoration-[2px] uppercase'
                       )}
                     />
                   </li>

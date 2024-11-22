@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import type { FC, MouseEventHandler } from 'react'
 import type { SanityLinkType } from '@studio/lib'
 import { getHrefBySanityLink } from '@studio/lib'
 import type { LinkProps } from '@components/links'
@@ -27,14 +27,14 @@ export const SanityLink: FC<SanityLinkProps> = ({
   } as SanityLinkType)
   const external = !!externalLink
   return (
-    <Link
-      href={href}
-      external={external}
-      className={className}
-      onClick={onClick}
-    >
-      {text}
-      {children}
+    <Link href={href} external={external}>
+      <button
+        className={className}
+        onClick={onClick as MouseEventHandler<HTMLButtonElement> | undefined}
+      >
+        {text}
+        {children}
+      </button>
     </Link>
   )
 }

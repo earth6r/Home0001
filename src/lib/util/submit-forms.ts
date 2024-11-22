@@ -178,10 +178,15 @@ const postModalFields = async (
   config?: any,
   hutk?: string
 ) => {
+  const userAgent: string | boolean =
+    typeof window !== 'undefined' && window.navigator.userAgent
+
   const dataFields = [
     { name: 'firstname', value: data.first_name || '' },
     { name: 'lastname', value: data.last_name || '' },
     { name: 'email', value: data.email },
+    { name: 'phone', value: data.phone },
+    { name: 'comms', value: data.comms },
     {
       name: 'bedroom_preference',
       value: data.bedroom_preference ? data.bedroom_preference.join(';') : '',
@@ -197,6 +202,10 @@ const postModalFields = async (
       value: data.price_range ? data.price_range.join(';') : '',
     },
     {
+      name: 'altHome',
+      value: data.altHome,
+    },
+    {
       name: 'buyingtimelinedec2023',
       value: data.buyingtimelinedec2023 ? data.buyingtimelinedec2023 : '',
     },
@@ -208,6 +217,10 @@ const postModalFields = async (
     {
       name: 'current_zip_code',
       value: data.current_zip_code ? data.current_zip_code : '',
+    },
+    {
+      name: 'userAgent',
+      value: userAgent,
     },
   ]
 
@@ -232,6 +245,7 @@ const postModalFields = async (
     throw new Error('Failed to submit form')
   }
 }
+
 const postContactFields = async (
   data: any,
   portalId?: string,

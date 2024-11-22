@@ -86,6 +86,8 @@ export const Layout: FC<LayoutProps> = ({
             copy: siteSettings?.waitlistCopy,
             header: siteSettings?.waitlistHeader,
             success: siteSettings?.waitlistSuccess,
+            consentCopy: siteSettings?.consentCopy,
+            showConsent: siteSettings?.showConsent,
           }}
           inquiry={{
             id: siteSettings?.inquiryId,
@@ -104,7 +106,7 @@ export const Layout: FC<LayoutProps> = ({
             smoothWheel: false,
           }}
         >
-          <main className="flex-auto">{children}</main>
+          <main className="flex-auto min-h-[95svh]">{children}</main>
         </ReactLenis>
 
         {(page?._type as string) !== 'rdPage' && (
