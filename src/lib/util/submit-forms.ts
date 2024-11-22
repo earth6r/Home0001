@@ -225,43 +225,6 @@ const postModalFields = async (
   ]
 
   try {
-    const {
-      comms,
-      email,
-      first_name,
-      last_name,
-      phone,
-      altHome,
-      locations_of_interest,
-      buyingtimelinedec2023,
-      bedroom_preference,
-      userAgent,
-    } = data
-
-    await fetch('/api/register/save-register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        firstName: first_name,
-        lastName: last_name,
-        email,
-        phoneNumber: phone,
-        altHome: altHome === 'true' ? true : false,
-        communicationPreference: comms,
-        locationsOfInterest: locations_of_interest,
-        buyingTimelinedec2023: buyingtimelinedec2023,
-        bedroomPreference: bedroom_preference,
-        userAgent,
-      }),
-    })
-  } catch (error) {
-    console.error(error)
-    saveError(error, 'saveRegisterForm postModalFields API')
-  }
-
-  try {
     return await axios.post(
       `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
       {
