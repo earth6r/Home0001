@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useState } from 'react'
+import React, { HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormHandleSubmit } from 'react-hook-form'
 import { submitForm } from '@lib/util/submit-forms'
@@ -111,6 +111,9 @@ export const Form: FC<FormProps> = ({
           buyingTimelinedec2023: data.buyingtimelinedec2023,
           userAgent: navigator?.userAgent || null,
           fullQuery: localQuery || null,
+          phoneNumber: data.phone,
+          altHome: !!(data.altHome === 'true'),
+          communicationPreference: data.comms,
         }
       )
       setFormSubmitted(true)

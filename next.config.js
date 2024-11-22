@@ -17,7 +17,7 @@ const nextConfig = {
   },
   transpilePackages: ['sanity'],
   experimental: {
-    largePageDataBytes: 136 * 1000,
+    largePageDataBytes: 150 * 1000,
   },
   assetPrefix: process.env.NEXT_PUBLIC_BASE_URL,
   rewrites() {

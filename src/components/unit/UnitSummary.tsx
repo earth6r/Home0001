@@ -85,12 +85,14 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
         <div className="z-above">
           <Link
             href={`/unit/${unit.slug?.current}`}
-            onClick={() => {
-              updateUnit(unit, unit.title)
-            }}
             className="inline-block w-full md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
           >
-            <div className="flex flex-col relative overflow-x-hidden">
+            <button
+              className="flex flex-col relative overflow-x-hidden"
+              onClick={() => {
+                updateUnit(unit, unit.title)
+              }}
+            >
               {unit?.photographs && (
                 <SanityMedia
                   {...(unit.photographs as SanityMediaProps)}
@@ -139,7 +141,7 @@ export const UnitSummary: FC<UnitListProps> = ({ unit, className }) => {
                   />
                 </div>
               </div>
-            </div>
+            </button>
           </Link>
         </div>
       </div>

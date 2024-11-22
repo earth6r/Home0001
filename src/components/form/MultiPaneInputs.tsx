@@ -1,13 +1,21 @@
 import type { FC } from 'react'
 import { HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+} from 'react-hook-form'
 import { RichText as RichTextType, UnitGroup } from '@studio/gen/sanity-schema'
 import Pane from './Pane'
 import { useBrokerInquiryModal } from '@contexts/modals'
-import { sendGoogleEvent } from '@lib/util'
 import { submitForm } from '@lib/util'
-import { set } from 'sanity'
+import { RichText } from '@components/sanity'
+import IconChevron from '@components/icons/IconChevron'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
+import { useFeatureFlagEnabled } from 'posthog-js/react'
 
 interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
@@ -28,6 +36,11 @@ interface CheckboxPaneProps extends PaneProps {
 interface PaneProps extends HTMLAttributes<HTMLElement> {
   register: UseFormRegister<FieldValues>
   broker?: boolean
+  showConsent?: boolean
+  consentCopy?: RichTextType
+  isSubmitting?: boolean
+  control?: Control<FieldValues, any>
+  errors?: FieldErrors<FieldValues>
 }
 
 interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
@@ -42,6 +55,10 @@ interface MultiPaneInputsProps extends HTMLAttributes<HTMLElement> {
   broker?: boolean
   formPanes?: string[]
   isSubmitting: boolean
+  consentCopy?: RichTextType
+  showConsent?: boolean
+  control?: Control<FieldValues, any>
+  errors?: FieldErrors<FieldValues>
 }
 
 const LOCATIONS = [
@@ -117,8 +134,18 @@ const SIZES = [
   },
 ]
 
-const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
+const NameEmailPane: FC<PaneProps> = ({
+  register,
+  broker,
+  showConsent,
+  consentCopy,
+  isSubmitting,
+  control,
+  errors,
+  className,
+}) => {
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
+  const flagEnabled = useFeatureFlagEnabled('alt-home')
   return (
     <div className={className}>
       <input
@@ -150,13 +177,99 @@ const NameEmailPane: FC<PaneProps> = ({ register, broker, className }) => {
         })}
       />
 
+      <Controller
+        control={control}
+        rules={{
+          validate: (value = '') => isValidPhoneNumber(value),
+        }}
+        {...register('phone')}
+        render={({ field: { onChange, value } }) => (
+          <PhoneInput
+            value={value}
+            onChange={onChange}
+            defaultCountry="US"
+            placeholder="PHONE NUMBER"
+            disabled={isSubmitting}
+            id="phone"
+            className="waitlist input"
+          />
+        )}
+      />
+      {errors?.phone && (
+        <p className="mb-y text-button text-red-600 leading-loose">
+          Invalid Phone Number: Please select the country code from the dropdown
+          and do not include any spaces.
+        </p>
+      )}
+
+      <div className="relative md:max-w-[var(--btn-width)]">
+        <p className="mb-y text-button">{`Communication Preference`}</p>
+        <select
+          id="preferred-comms"
+          className="waitlist input select text-button font-sans"
+          disabled={isSubmitting}
+          {...register('comms')}
+        >
+          <option
+            key="option-comms-0"
+            id="preferred-comms"
+            value="whatsapp"
+            className="text-button"
+          >
+            {`WhatsApp`}
+          </option>
+          <option
+            key="option-comms-1"
+            id="preferred-comms"
+            value="whatsapp"
+            className="text-button"
+          >
+            {`SMS`}
+          </option>
+          <option
+            key="option-comms-2"
+            id="preferred-comms"
+            value="telegram"
+            className="text-button"
+          >
+            {`Telegram`}
+          </option>
+        </select>
+        <IconChevron className="absolute w-[12px] right-x top-[55%] transform rotate-90" />
+      </div>
+
+      <input
+        placeholder="YOUR EMAIL"
+        type="hidden"
+        id="altHome"
+        value={flagEnabled ? 'true' : 'false'}
+        {...register('altHome')}
+      />
+
       {broker && (
         <button
-          className="md:max-w-[var(--btn-width)] mt-ydouble md:mt-y pb-[2px] text-left font-bold text-md tracking-normal underline decoration-[2px] underline-offset-2"
+          className="md:max-w-[var(--btn-width)] pb-[2px] text-left font-bold text-md tracking-normal underline decoration-[2px] underline-offset-2"
           onClick={() => setBrokerInquiryOpen(true)}
         >
           Are you a realtor?
         </button>
+      )}
+
+      {showConsent && consentCopy && (
+        <div className="flex w-full md:w-btnWidth">
+          <input
+            type="checkbox"
+            id="consent"
+            className="flex-grow"
+            {...register('consent', { required: true })}
+          />
+          <label
+            className="w-full md:w-[calc(var(--btn-width)-1rem)] text-left cursor-pointer font-medium text-md tracking-normal"
+            htmlFor="consent"
+          >
+            <RichText blocks={consentCopy} />
+          </label>
+        </div>
       )}
     </div>
   )
@@ -252,7 +365,11 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
   setFullWidth,
   className,
   trigger,
+  showConsent,
+  consentCopy,
   formValues,
+  control,
+  errors,
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [initialFieldsError, setInitialFieldsError] = useState(false)
@@ -295,9 +412,14 @@ export const MultiPaneInputs: FC<MultiPaneInputsProps> = ({
         <NameEmailPane
           broker={true}
           register={register}
+          showConsent={showConsent}
+          consentCopy={consentCopy}
+          control={control}
+          errors={errors}
+          isSubmitting={isSubmitting}
           className={classNames(
             currentStep !== 0 ? 'hidden' : '',
-            block ? 'h-[248px]' : '',
+            block ? 'h-[490px]' : '',
             'flex flex-col gap-y md:h-auto'
           )}
         />

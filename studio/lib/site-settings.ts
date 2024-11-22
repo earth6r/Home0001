@@ -60,6 +60,8 @@ export const SITE_SETTINGS_QUERY = groq`
     waitlistCopy,
     waitlistSuccess,
     waitlistId,
+    showConsent,
+    consentCopy,
     inquiryId,
     inquiryCopy,
     inquirySuccess,
