@@ -181,7 +181,7 @@ const NameEmailPane: FC<PaneProps> = ({
         rules={{
           validate: (value = '') => isValidPhoneNumber(value),
         }}
-        {...register('phone')}
+        name="phone"
         render={({ field: { onChange, value } }) => (
           <PhoneInput
             value={value}
