@@ -47,7 +47,7 @@ export const Scripts = () => {
 
   const fetchCountryCode = async (): Promise<string> => {
     try {
-      const response = await fetch('https://ipapi.co/country/')
+      const response = await fetch('/api/get-country-code')
       if (!response.ok) {
         throw new Error('Network response was not ok')
       }
