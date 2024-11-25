@@ -176,7 +176,8 @@ const postModalFields = async (
   portalId?: string,
   formGuid?: string,
   config?: any,
-  hutk?: string
+  hutk?: string,
+  flagEnabled?: boolean
 ) => {
   const userAgent: string | boolean =
     typeof window !== 'undefined' && window.navigator.userAgent
@@ -203,7 +204,7 @@ const postModalFields = async (
     },
     {
       name: 'altHome',
-      value: data.altHome,
+      value: flagEnabled ? 'true' : 'false',
     },
     {
       name: 'buyingtimelinedec2023',
@@ -223,6 +224,8 @@ const postModalFields = async (
       value: userAgent,
     },
   ]
+
+  console.log('dataFields', dataFields)
 
   try {
     return await axios.post(
@@ -458,7 +461,8 @@ export const submitForm = async (
   formType: string,
   hutk?: string,
   actionUrl?: string,
-  queryParams?: Record<string, string>
+  queryParams?: Record<string, string>,
+  flagEnabled?: boolean
 ) => {
   const portalId = HUBSPOT_ID
   const formGuid = audienceId
@@ -478,7 +482,14 @@ export const submitForm = async (
       hutk
     )
   } else if (formType === 'modal') {
-    response = await postModalFields(data, portalId, formGuid, config, hutk)
+    response = await postModalFields(
+      data,
+      portalId,
+      formGuid,
+      config,
+      hutk,
+      flagEnabled
+    )
   } else if (formType === 'contact') {
     response = await postContactFields(data, portalId, formGuid, config, hutk)
   } else if (formType === 'unit') {

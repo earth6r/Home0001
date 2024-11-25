@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import {
   Control,
@@ -15,7 +15,6 @@ import { submitForm } from '@lib/util'
 import { RichText } from '@components/sanity'
 import IconChevron from '@components/icons/IconChevron'
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
-import { useFeatureFlagEnabled } from 'posthog-js/react'
 
 interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
   property?: {
@@ -145,7 +144,7 @@ const NameEmailPane: FC<PaneProps> = ({
   className,
 }) => {
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
-  const flagEnabled = useFeatureFlagEnabled('alt-home')
+
   return (
     <div className={className}>
       <input
@@ -237,14 +236,6 @@ const NameEmailPane: FC<PaneProps> = ({
         </select>
         <IconChevron className="absolute w-[12px] right-x top-[55%] transform rotate-90" />
       </div>
-
-      <input
-        placeholder="YOUR EMAIL"
-        type="hidden"
-        id="altHome"
-        value={flagEnabled ? 'true' : 'false'}
-        {...register('altHome')}
-      />
 
       {broker && (
         <button
