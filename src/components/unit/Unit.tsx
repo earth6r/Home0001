@@ -100,20 +100,17 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
-          <div className="flex flex-col gap-y mb-y">
+          <div className="flex flex-col w-full gap-y mb-y">
             {unit?.ctas &&
               unit?.ctas.map((cta, index) => (
-                <div
-                  key={`${cta.link}-${index}`}
-                  className="flex w-full relative"
-                >
+                <div key={`${cta.link}-${index}`} className="w-full relative">
                   <SanityLink
                     {...(cta.link as SanityLinkType)}
                     className={classNames(
                       cta.color === 'Black'
                         ? 'bg-black text-white'
                         : 'bg-white',
-                      'w-[var(--btn-width)] border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center hover:invert text-button z-above px-4 py-3.5'
+                      'w-btnWidth border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center hover:invert text-button z-above px-4 py-3.5'
                     )}
                   >
                     <span className="text-left uppercase leading-none">
