@@ -20,7 +20,6 @@ import { useLenis } from '@studio-freight/react-lenis'
 
 import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
-import { enableAnalytics, fetchCountryCode } from '@lib/util'
 
 const PS_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
 
@@ -44,22 +43,14 @@ function App({ Component, pageProps }: AppProps<{}>) {
 
   useEffect(() => {
     if (typeof window !== 'undefined' || !PS_KEY) {
-      fetchCountryCode().then(countryCode => {
-        let analyticsEnabled = false
-        analyticsEnabled = enableAnalytics(countryCode)
-
-        if (analyticsEnabled) {
-          posthog.init(PS_KEY as string, {
-            api_host:
-              process.env.NEXT_PUBLIC_POSTHOG_HOST ||
-              'https://us.i.posthog.com',
-            person_profiles: 'identified_only',
-            // Enable debug mode in development
-            loaded: posthog => {
-              if (process.env.NODE_ENV === 'development') posthog.debug()
-            },
-          })
-        }
+      posthog.init(PS_KEY as string, {
+        api_host:
+          process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
+        person_profiles: 'identified_only',
+        // Enable debug mode in development
+        loaded: posthog => {
+          if (process.env.NODE_ENV === 'development') posthog.debug()
+        },
       })
     }
 

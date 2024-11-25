@@ -1,4 +1,4 @@
-import { enableAnalytics, fetchCountryCode } from '@lib/util'
+import { disableGoogleEvents, disablePosthog } from '@lib/util'
 import Script from 'next/script'
 import { useEffect, useState } from 'react'
 
@@ -8,16 +8,73 @@ const HOTJAR_ID = process.env.NEXT_PUBLIC_HOTJAR_ID
 const HOTJAR_SV = process.env.NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION
 const HUBSPOT_ID = process.env.NEXT_PUBLIC_HUBSPOT_ID
 
+const isInUkOrEu = (countryCode: string): boolean => {
+  const ukEuCountries: Set<string> = new Set([
+    'UK',
+    'IE',
+    'DE',
+    'FR',
+    'IT',
+    'ES',
+    'NL',
+    'BE',
+    'LU',
+    'AT',
+    'SE',
+    'DK',
+    'FI',
+    'PT',
+    'GR',
+    'CZ',
+    'HU',
+    'PL',
+    'SK',
+    'SI',
+    'EE',
+    'LV',
+    'LT',
+    'CY',
+    'MT',
+    'RO',
+    'BG',
+    'HR',
+  ])
+  return ukEuCountries.has(countryCode.toUpperCase())
+}
+
 export const Scripts = () => {
   const [analytics, setAnalytics] = useState(false)
 
+  const fetchCountryCode = async (): Promise<string> => {
+    try {
+      const response = await fetch('https://ipapi.co/country/')
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const countryCode = await response.text()
+      return countryCode
+    } catch (error) {
+      console.error('Error fetching country code:', error)
+      return 'US'
+    }
+  }
+
+  const enableAnalytics = (countryCode: string): boolean => {
+    if (!isInUkOrEu(countryCode)) {
+      if (sessionStorage.getItem('allowAnalytics') !== 'false') {
+        return true
+      } else {
+        disableGoogleEvents()
+        disablePosthog()
+        return false
+      }
+    }
+    return false
+  }
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      fetchCountryCode().then(countryCode => {
-        let analyticsEnabled = false
-        analyticsEnabled = enableAnalytics(countryCode)
-        setAnalytics(analyticsEnabled)
-      })
+      fetchCountryCode().then(enableAnalytics)
     }
   }, [])
 
