@@ -12,7 +12,7 @@ export default async function handler(
   const { recipientPhone, message } = req.body
 
   await sendTwilioMessage(recipientPhone, message, false, true, {
-    template: 'sms-leads-template-1',
+    template: 'text-instagram-leads-waitlist',
   })
   res.status(200).json({ message: 'success' })
 }
