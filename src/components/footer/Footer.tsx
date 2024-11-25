@@ -59,14 +59,14 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
           <p>&copy;{` ${year} HOME0001`}</p>
 
           <p>
-            <span className="block">NY DRE #10351211814</span>
-            <span className="block">CA DRE #01427385</span>
+            <span className="block">NY DRE #10991239104</span>
+            <span className="block">CA DRE #02236922</span>
           </p>
         </div>
       </div>
 
       <div className="hidden xl:block">
-        <p className="block mb-y">NY DRE #10351211814</p>
+        <p className="block mb-y">NY DRE #10991239104</p>
         <p className="block mb-y">CA DRE #02236922</p>
       </div>
     </footer>
