@@ -225,8 +225,6 @@ const postModalFields = async (
     },
   ]
 
-  console.log('dataFields', dataFields)
-
   try {
     return await axios.post(
       `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`,
