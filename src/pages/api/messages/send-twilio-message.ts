@@ -29,6 +29,7 @@ export const sendTwilioMessage = async (
   }
 
   try {
+    console.error('Sending Twilio message to', recipientPhone)
     await client.messages.create({
       to: recipientPhone,
       from: '+19737915529',
