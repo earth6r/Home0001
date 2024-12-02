@@ -164,7 +164,7 @@ export default async function handler(
       parsedPhoneNumber
     )
 
-    sendTwilioMessage(parsedPhoneNumber, message, false, true, {
+    await sendTwilioMessage(parsedPhoneNumber, message, false, true, {
       template: 'automated_follow_up_messages',
       followUpCount,
       replied: false,
