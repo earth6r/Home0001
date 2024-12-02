@@ -146,6 +146,7 @@ export default async function handler(
 
     const db = setupFirebase()
 
+    // TODO: check textMessagesHistory and don't send if already sent template + followUpCount
     const replied = await userRepliedInRocketChat(db, parsedPhoneNumber)
 
     if (replied) {
