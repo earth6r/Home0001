@@ -5,6 +5,10 @@ import {
   userRepliedInRocketChat,
 } from '../cron/view-template-replies'
 
+export const config = {
+  maxDuration: 300,
+}
+
 function validateRequestBody(
   phoneNumber: unknown,
   messageId: unknown,
