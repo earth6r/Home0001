@@ -35,6 +35,7 @@ export const sendTwilioMessage = async (
       from: '+19737915529',
       body: message,
     })
+    console.error('Twilio message sent to', recipientPhone)
   } catch (error) {
     console.error(error)
     saveError(error, 'sendTwilioMessage')
