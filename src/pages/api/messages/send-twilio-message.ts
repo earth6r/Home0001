@@ -9,6 +9,10 @@ const authToken = process.env.NEXT_PUBLIC_TWILIO_AUTH_TOKEN
 
 const client = require('twilio')(accountSid, authToken)
 
+export const config = {
+  maxDuration: 300,
+}
+
 export const sendTwilioMessage = async (
   recipientPhone: string,
   message: string,
