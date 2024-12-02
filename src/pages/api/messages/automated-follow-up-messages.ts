@@ -154,6 +154,11 @@ export default async function handler(
       return
     }
 
+    console.error(
+      'User did not reply in Rocket.Chat. Sending follow-up message to',
+      parsedPhoneNumber
+    )
+
     sendTwilioMessage(parsedPhoneNumber, message, false, true, {
       template: 'automated_follow_up_messages',
       followUpCount,
