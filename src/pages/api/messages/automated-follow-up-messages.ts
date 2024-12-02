@@ -86,7 +86,7 @@ function validateRequestBody(
   return {} // No errors
 }
 
-function getMessageById(messageId: string): string {
+function getMessageById(messageId: number): string {
   switch (messageId) {
     case 1:
       return 'Hello! This is a follow-up message. Please reply with "yes" to continue.'
