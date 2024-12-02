@@ -28,8 +28,8 @@ function validateRequestBody(
     return { error: 'Missing message' }
   }
 
-  if (typeof messageId !== 'string') {
-    return { error: 'Message must be a string' }
+  if (typeof messageId !== 'number') {
+    return { error: 'Message must be a number' }
   }
 
   if (followUpCount === undefined || followUpCount === null) {
@@ -88,11 +88,11 @@ function validateRequestBody(
 
 function getMessageById(messageId: string): string {
   switch (messageId) {
-    case '1':
+    case 1:
       return 'Hello! This is a follow-up message. Please reply with "yes" to continue.'
-    case '2':
+    case 2:
       return 'Hello! This is the second follow-up message. Please reply with "yes" to continue.'
-    case '3':
+    case 3:
       return 'Hello! This is the third follow-up message. Please reply with "yes" to continue.'
     default:
       return 'Hello! This is a follow-up message. Please reply with "yes" to continue.'
