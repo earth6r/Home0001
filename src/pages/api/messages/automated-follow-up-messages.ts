@@ -99,6 +99,18 @@ function getMessageById(messageId: number): string {
   }
 }
 
+function parsePhoneNumber(phoneNumber: string): string {
+  // Strip all non-numeric characters except for the leading +
+  const parsed = phoneNumber.replace(/[^\d+]/g, '')
+
+  // Ensure the `+` remains only if it is at the start of the number
+  if (parsed.startsWith('+')) {
+    return parsed
+  }
+
+  return '+' + parsed
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -122,6 +134,8 @@ export default async function handler(
     bedroomPreference
   )
 
+  const parsedPhoneNumber = parsePhoneNumber(recipientPhone)
+
   const message = getMessageById(messageId)
 
   if (validationResult?.error) {
@@ -131,14 +145,14 @@ export default async function handler(
 
   const db = setupFirebase()
 
-  const replied = await userRepliedInRocketChat(db, recipientPhone)
+  const replied = await userRepliedInRocketChat(db, parsedPhoneNumber)
 
   if (replied) {
     res.status(200).json({ success: true })
     return
   }
 
-  sendTwilioMessage(recipientPhone, message, false, true, {
+  sendTwilioMessage(parsedPhoneNumber, message, false, true, {
     template: 'automated_follow_up_messages',
     followUpCount,
     replied: false,
