@@ -115,48 +115,54 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  console.error('req.body', req.body)
-  // followUpCount is the number of follow up messages this endpoint is sending for.
-  // The first message is the initial message, so we start at 0.
-  const {
-    recipientPhone,
-    messageId,
-    followUpCount,
-    locationPreference,
-    bedroomPreference,
-  } = req.body
+  try {
+    console.error('req.body', req.body)
+    // followUpCount is the number of follow up messages this endpoint is sending for.
+    // The first message is the initial message, so we start at 0.
+    const {
+      recipientPhone,
+      messageId,
+      followUpCount,
+      locationPreference,
+      bedroomPreference,
+    } = req.body
 
-  const validationResult = validateRequestBody(
-    recipientPhone,
-    messageId,
-    followUpCount,
-    locationPreference,
-    bedroomPreference
-  )
+    const validationResult = validateRequestBody(
+      recipientPhone,
+      messageId,
+      followUpCount,
+      locationPreference,
+      bedroomPreference
+    )
 
-  const parsedPhoneNumber = parsePhoneNumber(recipientPhone)
+    const parsedPhoneNumber = parsePhoneNumber(recipientPhone)
 
-  const message = getMessageById(messageId)
+    const message = getMessageById(messageId)
 
-  if (validationResult?.error) {
-    res.status(400).json({ error: validationResult.error })
-    return
-  }
+    if (validationResult?.error) {
+      res.status(400).json({ error: validationResult.error })
+      return
+    }
 
-  const db = setupFirebase()
+    const db = setupFirebase()
 
-  const replied = await userRepliedInRocketChat(db, parsedPhoneNumber)
+    const replied = await userRepliedInRocketChat(db, parsedPhoneNumber)
 
-  if (replied) {
+    if (replied) {
+      console.error('User replied in Rocket.Chat')
+      res.status(200).json({ success: true })
+      return
+    }
+
+    sendTwilioMessage(parsedPhoneNumber, message, false, true, {
+      template: 'automated_follow_up_messages',
+      followUpCount,
+      replied: false,
+    })
+
     res.status(200).json({ success: true })
-    return
+  } catch (error) {
+    console.error('Error in automated-follow-up-messages.ts', error)
+    res.status(500).json({ error: 'Internal server error' })
   }
-
-  sendTwilioMessage(parsedPhoneNumber, message, false, true, {
-    template: 'automated_follow_up_messages',
-    followUpCount,
-    replied: false,
-  })
-
-  res.status(200).json({ success: true })
 }
