@@ -122,12 +122,12 @@ function getMessageById(
     case 1:
       if (followUpCount === 0) {
         if (locationPreference === 'somewhere_else') {
-          return `Hi, this is Talin from HOME0001. You just responded to our IG ad for a ${formattedBedroomPreference} in NYC. We’re about to launch a selection of new homes and my colleague Art could quickly talk you through what's becoming available and tell you more about how it all works - and if you like, we can put you on the waitlist. How's tomorrow for an initial call?`
+          return `Hi, this is Talin from HOME0001, following up from Instagram. We’re about to launch some new homes and my colleague Arthur can give you an overview of what’ll be available. He can also answer any questions you may have about how HOME0001 works. If what we have coming up seems like a fit for you, we'd love to have you over for a tour. But in the first instance, would you like me to set up a call for you with Arthur? I know he’s around tomorrow.`
         } else {
-          return `Hi, this is Talin from HOME0001. You just responded to our IG ad for a ${formattedBedroomPreference} in ${formattedLocationPreference}. We’re about to launch a couple of new homes in ${formattedLocationPreference} and my colleague Art could quickly talk you through what's becoming available and tell you more about how it all works - and if you like, we can put you on the waitlist. How's tomorrow for an initial call?`
+          return `Hi, this is Talin from HOME0001, following up from Instagram. We’re about to launch some new homes in ${locationPreference} and my colleague Arthur can give you an overview of what’ll be available. He can also answer any questions you may have about how HOME0001 works. If what we have coming up seems like a fit for you, we'd love to have you over for a tour. But in the first instance, would you like me to set up a call for you with Arthur? I know he’s around tomorrow.`
         }
       } else if (followUpCount === 1) {
-        return 'Hi, just wanted to send a quick follow-up message to coordinate. I can have Art from my team call you in the next few hours. Let me know if that works.'
+        return `Hi, quick follow-up to see whether today would be good for a chat? Let me know what time would work best and I'll have Art from my team give you a call.`
       } else {
         console.error('Invalid follow-up count')
         throw new Error('Invalid follow-up count')
