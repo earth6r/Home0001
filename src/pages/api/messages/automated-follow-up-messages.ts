@@ -90,16 +90,44 @@ function validateRequestBody(
   return {} // No errors
 }
 
-function getMessageById(messageId: number): string {
+function getMessageById(
+  messageId: number,
+  locationPreference: string,
+  bedroomPreference: string
+): string {
+  const locationPreferenceMapping = {
+    lower_east_side: 'the Lower East Side',
+    bed_stuy: 'BedStuy',
+    williamsburg: 'Williamsburg',
+    greenpoint: 'Greenpoint',
+    somewhere_else: 'somewhere else',
+  }
+
+  const bedroomPreferenceMapping = {
+    studio_: 'studio',
+    at_least_1_bedroom: '1br',
+    at_least_2_bedrooms: '2br',
+    '3_bedrooms_+': '3br',
+  }
+
+  const formattedLocationPreference = (locationPreferenceMapping[
+    locationPreference as keyof typeof locationPreferenceMapping
+  ] || locationPreference) as string
+  const formattedBedroomPreference = (bedroomPreferenceMapping[
+    bedroomPreference as keyof typeof bedroomPreferenceMapping
+  ] || bedroomPreference) as string
+
   switch (messageId) {
     case 1:
-      return 'Hello! This is a follow-up message. Please reply with "yes" to continue.'
+      if (locationPreference === 'somewhere_else') {
+        return `Hi, this is Talin from HOME0001. You just responded to our IG ad for a ${formattedBedroomPreference} in NYC. We’re about to launch a selection of new homes and my colleague Art could quickly talk you through what's becoming available and tell you more about how it all works - and if you like, we can put you on the waitlist. How's tomorrow for an initial call?`
+      } else {
+        return `Hi, this is Talin from HOME0001. You just responded to our IG ad for a ${formattedBedroomPreference} in ${formattedLocationPreference}. We’re about to launch a couple of new homes in ${formattedLocationPreference} and my colleague Art could quickly talk you through what's becoming available and tell you more about how it all works - and if you like, we can put you on the waitlist. How's tomorrow for an initial call?`
+      }
     case 2:
-      return 'Hello! This is the second follow-up message. Please reply with "yes" to continue.'
-    case 3:
-      return 'Hello! This is the third follow-up message. Please reply with "yes" to continue.'
+      return 'Hi, just wanted to send a quick follow-up message to coordinate. I can have Art from my team call you in the next few hours. Let me know if that works.'
     default:
-      return 'Hello! This is a follow-up message. Please reply with "yes" to continue.'
+      return 'Hi, just wanted to send a quick follow-up message to coordinate. I can have Art from my team call you in the next few hours. Let me know if that works!'
   }
 }
 
@@ -141,7 +169,11 @@ export default async function handler(
 
     const parsedPhoneNumber = parsePhoneNumber(recipientPhone)
 
-    const message = getMessageById(messageId)
+    const message = getMessageById(
+      messageId,
+      locationPreference,
+      bedroomPreference
+    )
 
     if (validationResult?.error) {
       res.status(400).json({ error: validationResult.error })
