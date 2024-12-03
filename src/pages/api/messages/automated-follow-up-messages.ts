@@ -106,9 +106,9 @@ function getMessageById(
 
   const bedroomPreferenceMapping = {
     studio_: 'studio',
-    at_least_1_bedroom: '1br',
-    at_least_2_bedrooms: '2br',
-    '3_bedrooms_+': '3br',
+    at_least_1_bedroom: '1-bedroom',
+    at_least_2_bedrooms: '2-bedroom',
+    '3_bedrooms_+': '3-bedroom+',
   }
 
   const formattedLocationPreference = (locationPreferenceMapping[
