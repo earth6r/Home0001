@@ -127,7 +127,7 @@ function getMessageById(
           return `Hi, this is Talin from HOME0001, following up from Instagram. We’re about to launch some new homes in ${formattedLocationPreference} and my colleague Arthur can give you an overview of what’ll be available. He can also answer any questions you may have about how HOME0001 works. If what we have coming up seems like a fit for you, we'd love to have you over for a tour. But in the first instance, would you like me to set up a call for you with Arthur? I know he’s around tomorrow.`
         }
       } else if (followUpCount === 1) {
-        return `Hi, quick follow-up to see whether today would be good for a chat? Let me know what time would work best and I'll have Art from my team give you a call.`
+        return `Hi, quick follow-up to see whether today would be good for a chat? Let me know what time would work best and I'll have Arthur from my team give you a call.`
       } else {
         console.error('Invalid follow-up count')
         throw new Error('Invalid follow-up count')
