@@ -92,6 +92,7 @@ function validateRequestBody(
 
 function getMessageById(
   messageId: number,
+  followUpCount: number,
   locationPreference: string,
   bedroomPreference: string
 ): string {
@@ -119,15 +120,21 @@ function getMessageById(
 
   switch (messageId) {
     case 1:
-      if (locationPreference === 'somewhere_else') {
-        return `Hi, this is Talin from HOME0001. You just responded to our IG ad for a ${formattedBedroomPreference} in NYC. We’re about to launch a selection of new homes and my colleague Art could quickly talk you through what's becoming available and tell you more about how it all works - and if you like, we can put you on the waitlist. How's tomorrow for an initial call?`
+      if (followUpCount === 0) {
+        if (locationPreference === 'somewhere_else') {
+          return `Hi, this is Talin from HOME0001. You just responded to our IG ad for a ${formattedBedroomPreference} in NYC. We’re about to launch a selection of new homes and my colleague Art could quickly talk you through what's becoming available and tell you more about how it all works - and if you like, we can put you on the waitlist. How's tomorrow for an initial call?`
+        } else {
+          return `Hi, this is Talin from HOME0001. You just responded to our IG ad for a ${formattedBedroomPreference} in ${formattedLocationPreference}. We’re about to launch a couple of new homes in ${formattedLocationPreference} and my colleague Art could quickly talk you through what's becoming available and tell you more about how it all works - and if you like, we can put you on the waitlist. How's tomorrow for an initial call?`
+        }
+      } else if (followUpCount === 1) {
+        return 'Hi, just wanted to send a quick follow-up message to coordinate. I can have Art from my team call you in the next few hours. Let me know if that works.'
       } else {
-        return `Hi, this is Talin from HOME0001. You just responded to our IG ad for a ${formattedBedroomPreference} in ${formattedLocationPreference}. We’re about to launch a couple of new homes in ${formattedLocationPreference} and my colleague Art could quickly talk you through what's becoming available and tell you more about how it all works - and if you like, we can put you on the waitlist. How's tomorrow for an initial call?`
+        console.error('Invalid follow-up count')
+        throw new Error('Invalid follow-up count')
       }
-    case 2:
-      return 'Hi, just wanted to send a quick follow-up message to coordinate. I can have Art from my team call you in the next few hours. Let me know if that works.'
     default:
-      return 'Hi, just wanted to send a quick follow-up message to coordinate. I can have Art from my team call you in the next few hours. Let me know if that works!'
+      console.error('Invalid message ID')
+      throw new Error('Invalid message ID')
   }
 }
 
@@ -171,6 +178,7 @@ export default async function handler(
 
     const message = getMessageById(
       messageId,
+      followUpCount,
       locationPreference,
       bedroomPreference
     )
