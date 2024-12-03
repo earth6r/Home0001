@@ -9,10 +9,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const { recipientPhone, message } = req.body
+  const { recipientPhone, message, followUpCount = 0 } = req.body
 
   await sendTwilioMessage(recipientPhone, message, false, true, {
     template: 'text-instagram-leads-waitlist',
+    followUpCount,
+    replied: false,
   })
   res.status(200).json({ message: 'success' })
 }
