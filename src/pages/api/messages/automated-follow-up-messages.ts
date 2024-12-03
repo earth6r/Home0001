@@ -98,7 +98,7 @@ function getMessageById(
 ): string {
   const locationPreferenceMapping = {
     lower_east_side: 'the Lower East Side',
-    bed_stuy: 'BedStuy',
+    bed_stuy: 'Bed-Stuy',
     williamsburg: 'Williamsburg',
     greenpoint: 'Greenpoint',
     somewhere_else: 'somewhere else',
