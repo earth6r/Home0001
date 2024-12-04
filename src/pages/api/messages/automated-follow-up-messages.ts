@@ -204,6 +204,20 @@ export default async function handler(
       parsedPhoneNumber
     )
 
+    // check if the user has already received this message
+    const existingMessage = await db
+      .collection('textMessagesHistory')
+      .where('to', '==', parsedPhoneNumber)
+      .where('template', '==', 'automated_follow_up_messages')
+      .where('followUpCount', '==', followUpCount)
+      .get()
+
+    if (!existingMessage.empty) {
+      console.error('Message already sent to', parsedPhoneNumber)
+      res.status(200).json({ success: true })
+      return
+    }
+
     await sendTwilioMessage(parsedPhoneNumber, message, false, true, {
       template: 'automated_follow_up_messages',
       followUpCount,
