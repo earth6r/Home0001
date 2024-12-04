@@ -208,7 +208,7 @@ export default async function handler(
     const parsedPhoneNumber = parsePhoneNumber(recipientPhone)
 
     const message = await getMessageById(
-      messageId,
+      Number(messageId),
       followUpCount,
       locationPreference,
       bedroomPreference,
