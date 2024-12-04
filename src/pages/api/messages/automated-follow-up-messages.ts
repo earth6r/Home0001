@@ -9,6 +9,22 @@ export const config = {
   maxDuration: 300,
 }
 
+function isBetween9amAnd6pmPST(): boolean {
+  const now = new Date()
+
+  // Convert current time to PST
+  const pstTime = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles',
+    hour: 'numeric',
+    hour12: false,
+  }).format(now)
+
+  const currentHourPST = parseInt(pstTime, 10)
+
+  // Check if the current hour in PST is between 9 and 18 (6 PM)
+  return currentHourPST >= 9 && currentHourPST < 18
+}
+
 function validateRequestBody(
   phoneNumber: unknown,
   messageId: unknown,
@@ -90,12 +106,13 @@ function validateRequestBody(
   return {} // No errors
 }
 
-function getMessageById(
+async function getMessageById(
   messageId: number,
   followUpCount: number,
   locationPreference: string,
-  bedroomPreference: string
-): string {
+  bedroomPreference: string,
+  recipientPhone: string
+): Promise<string> {
   const locationPreferenceMapping = {
     lower_east_side: 'the Lower East Side',
     'bed-stuy': 'Bed-Stuy',
@@ -132,6 +149,21 @@ function getMessageById(
         console.error('Invalid follow-up count')
         throw new Error('Invalid follow-up count')
       }
+    case 2:
+      if (followUpCount === 0) {
+        if (!isBetween9amAnd6pmPST()) {
+          await sendTwilioMessage(
+            '+19175824100',
+            `We got a callback request over night for ${recipientPhone}.  Please respond asap.`
+          )
+          // send text to anna
+          return `Hi, thanks for your interest in HOME0001. Our colleague Talin will be in touch in the morning to set up a call with the team. Have a good night!`
+        }
+      } else {
+        if (!isBetween9amAnd6pmPST()) {
+          return `Hi, this is Talin, following up here to set up a call with my colleague Arthur. He can give you an overview of what’ll be available in the coming months and answer any questions you may have about how HOME0001 works. What’s a good time for him to call you?`
+        }
+      }
     default:
       console.error('Invalid message ID')
       throw new Error('Invalid message ID')
@@ -155,15 +187,14 @@ export default async function handler(
   res: NextApiResponse
 ): Promise<void> {
   try {
-    console.error('req.body', req.body)
     // followUpCount is the number of follow up messages this endpoint is sending for.
     // The first message is the initial message, so we start at 0.
     const {
       recipientPhone,
       messageId,
       followUpCount,
-      locationPreference,
-      bedroomPreference,
+      locationPreference = null,
+      bedroomPreference = null,
     } = req.body
 
     const validationResult = validateRequestBody(
@@ -176,11 +207,12 @@ export default async function handler(
 
     const parsedPhoneNumber = parsePhoneNumber(recipientPhone)
 
-    const message = getMessageById(
+    const message = await getMessageById(
       messageId,
       followUpCount,
       locationPreference,
-      bedroomPreference
+      bedroomPreference,
+      parsedPhoneNumber
     )
 
     if (validationResult?.error) {
