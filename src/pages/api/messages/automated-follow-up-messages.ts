@@ -207,7 +207,7 @@ export default async function handler(
     // check if the user has already received this message
     const existingMessage = await db
       .collection('textMessagesHistory')
-      .where('to', '==', parsedPhoneNumber)
+      .where('recipientPhone', '==', parsedPhoneNumber)
       .where('template', '==', 'automated_follow_up_messages')
       .where('followUpCount', '==', followUpCount)
       .get()
