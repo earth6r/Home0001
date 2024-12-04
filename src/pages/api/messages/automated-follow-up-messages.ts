@@ -135,6 +135,7 @@ async function getMessageById(
     bedroomPreference as keyof typeof bedroomPreferenceMapping
   ] || bedroomPreference) as string
 
+  // NOTE: if we do not handle all cases and return, we will need a break statement in our switch
   switch (messageId) {
     case 1:
       if (followUpCount === 0) {
