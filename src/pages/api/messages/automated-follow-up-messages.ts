@@ -158,11 +158,11 @@ async function getMessageById(
           )
           // send text to anna
           return `Hi, thanks for your interest in HOME0001. Our colleague Talin will be in touch in the morning to set up a call with the team. Have a good night!`
+        } else {
+          return `Hi, this is Talin from HOME0001. Following up here from Instagram to set up a call for you with my colleague Arthur. He can give you an overview of what’ll be available in the coming months. He can also answer any questions you may have about how HOME0001 works. If what we have coming up seems like a fit for you, we'd love to have you over for a tour. But in the first instance, when’s a good time for Arthur to call you?`
         }
       } else {
-        if (!isBetween9amAnd6pmPST()) {
-          return `Hi, this is Talin, following up here to set up a call with my colleague Arthur. He can give you an overview of what’ll be available in the coming months and answer any questions you may have about how HOME0001 works. What’s a good time for him to call you?`
-        }
+        return `Hi, quick follow-up to see when would be good for a chat? Let me know what time would work best and I'll have Arthur call you.`
       }
     default:
       console.error('Invalid message ID')
@@ -209,7 +209,7 @@ export default async function handler(
     const parsedPhoneNumber = parsePhoneNumber(recipientPhone)
 
     const message = await getMessageById(
-      Number(messageId),
+      messageId,
       followUpCount,
       locationPreference,
       bedroomPreference,
