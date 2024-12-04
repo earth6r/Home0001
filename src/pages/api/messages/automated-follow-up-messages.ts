@@ -187,6 +187,7 @@ export default async function handler(
   res: NextApiResponse
 ): Promise<void> {
   try {
+    console.error('body', req.body)
     // followUpCount is the number of follow up messages this endpoint is sending for.
     // The first message is the initial message, so we start at 0.
     const {
