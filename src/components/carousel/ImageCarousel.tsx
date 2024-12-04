@@ -63,7 +63,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
         image={image}
         imageProps={{
           alt,
-          quality: 40,
+          quality: 100,
           priority: true,
           sizes: '(max-width: 768px) 100vw, 800px',
           lqip: image?.asset?.metadata?.lqip,
