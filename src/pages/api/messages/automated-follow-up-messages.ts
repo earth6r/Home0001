@@ -155,7 +155,9 @@ async function getMessageById(
         if (!isBetween9amAnd6pmPST()) {
           await sendTwilioMessage(
             '+19175824100',
-            `We got a callback request over night for ${recipientPhone}.  Please respond asap.`
+            `We got a callback request over night for ${recipientPhone}.  Please respond asap.`,
+            false,
+            true
           )
           // send text to anna
           return `Hi, thanks for your interest in HOME0001. Our colleague Talin will be in touch in the morning to set up a call with the team. Have a good night!`
