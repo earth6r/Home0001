@@ -125,15 +125,9 @@ export default async function handler(
       continue
     }
 
-    await sendTwilioMessage(
-      recipientPhone,
-      message,
-      saveInRocketchat,
-      automatedToUser,
-      {
-        template: 'sms-leads-template',
-      }
-    )
+    await sendTwilioMessage(recipientPhone, message, false, true, {
+      template: 'sms-leads-template',
+    })
   }
 
   res.status(200).json({ message: 'success' })
