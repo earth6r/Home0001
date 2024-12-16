@@ -40,7 +40,9 @@ export const sendMessage = async (
   }
 
   try {
-    await sendTwilioMessage(recipientPhone, _message)
+    await sendTwilioMessage(recipientPhone, _message, false, true, {
+      _source: '/chat',
+    })
 
     if (initialMessage) {
       await axios.post(
