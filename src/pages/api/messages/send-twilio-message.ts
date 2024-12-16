@@ -9,6 +9,10 @@ const authToken = process.env.NEXT_PUBLIC_TWILIO_AUTH_TOKEN
 
 const client = require('twilio')(accountSid, authToken)
 
+export const config = {
+  maxDuration: 300,
+}
+
 export const sendTwilioMessage = async (
   recipientPhone: string,
   message: string,
@@ -29,11 +33,13 @@ export const sendTwilioMessage = async (
   }
 
   try {
+    console.error('Sending Twilio message to', recipientPhone)
     await client.messages.create({
       to: recipientPhone,
       from: '+19737915529',
       body: message,
     })
+    console.error('Twilio message sent to', recipientPhone)
   } catch (error) {
     console.error(error)
     saveError(error, 'sendTwilioMessage')

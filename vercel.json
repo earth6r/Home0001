@@ -35,5 +35,11 @@
         }
       ]
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/view-template-replies",
+      "schedule": "0 0 * * *"
+    }
   ]
 }
