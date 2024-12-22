@@ -7,6 +7,10 @@ import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booke
 import { updateHubspotContact } from '../../../lib/util/update-hubspot-contact'
 import { sendMessage } from '../send-whatsapp'
 import { validateBooking } from './validate'
+import {
+  createMeetingEngagement,
+  getHubspotContactIdByEmail,
+} from './book-phone-call'
 
 // Set configuration options for the API route
 export const config = {
@@ -82,6 +86,23 @@ export default async function handler(
     disableTextReminder,
     disableCalendarInvite,
   })
+
+  try {
+    const contactId = await getHubspotContactIdByEmail(email)
+
+    if (contactId) {
+      await createMeetingEngagement(
+        contactId,
+        new Date(startTimestampFormatted as number).toISOString(),
+        new Date(endTimestampFormatted as number).toISOString()
+      )
+    }
+  } catch (error: any) {
+    console.error(
+      'Error creating HubSpot engagement:',
+      error.response?.data || error.message
+    )
+  }
 
   const potentialCustomerResponse = await db
     .collection('potentialCustomers')
