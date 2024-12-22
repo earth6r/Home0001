@@ -7,10 +7,76 @@ import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booke
 import { updateHubspotContact } from '../../../lib/util/update-hubspot-contact'
 import { sendMessage } from '../send-whatsapp'
 import { validateBooking } from './validate'
+import axios from 'axios'
 
 // Set configuration options for the API route
 export const config = {
   maxDuration: 300, // Maximum duration for the API route to respond to a request (5 minutes)
+}
+
+export const getHubspotContactIdByEmail = async (email: string) => {
+  try {
+    const response = await axios.get(
+      `https://api.hubapi.com/crm/v3/objects/contacts?limit=1&properties=email&values=${email}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+
+    console.log('Contact found:', response.data)
+    return response.data.results[0].id
+  } catch (error: any) {
+    console.error(
+      'Error finding contact:',
+      error.response?.data || error.message
+    )
+  }
+}
+
+export const createMeetingEngagement = async (
+  contactId: string,
+  startTime: string,
+  endTime: string
+) => {
+  try {
+    const response = await axios.post(
+      'https://api.hubapi.com/crm/v3/objects/MEETING_EVENT',
+      {
+        properties: {
+          hs_meeting_title: 'Phone Call',
+          hs_meeting_body:
+            'Phone call with a member of the HOME0001 collective',
+          hs_meeting_start_time: startTime, // Example: '2024-12-22T10:00:00.000Z'
+          hs_meeting_end_time: endTime, // Example: '2024-12-22T11:00:00.000Z'
+          hs_timestamp: new Date().toISOString(),
+        },
+        associations: [
+          {
+            to: {
+              id: contactId,
+            },
+            type: 'contacts',
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+
+    console.log('Engagement created successfully:', response.data)
+  } catch (error: any) {
+    console.error(
+      'Error creating engagement:',
+      error.response?.data || error.message
+    )
+  }
 }
 
 // TODO: move to a utils or something (booking-utils.ts)
@@ -70,6 +136,23 @@ export default async function handler(
     disableTextReminder,
     disableCalendarInvite,
   })
+
+  try {
+    const contactId = await getHubspotContactIdByEmail(email)
+
+    if (contactId) {
+      await createMeetingEngagement(
+        contactId,
+        new Date(startTimestampFormatted).toISOString(),
+        new Date(endTimestampFormatted).toISOString()
+      )
+    }
+  } catch (error: any) {
+    console.error(
+      'Error creating HubSpot engagement:',
+      error.response?.data || error.message
+    )
+  }
 
   const potentialCustomerResponse = await db
     .collection('potentialCustomers')
