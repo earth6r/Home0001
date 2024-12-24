@@ -16,51 +16,22 @@ export const config = {
 
 export const getHubspotContactIdByEmail = async (email: string) => {
   try {
-    const response = await axios.get(
-      `https://api.hubapi.com/crm/v3/objects/contacts?limit=1&properties=email&values=${email}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-
-    console.log('Contact found:', response.data)
-    return response.data.results[0].id
-  } catch (error: any) {
-    console.error(
-      'Error finding contact:',
-      error.response?.data || error.message
-    )
-  }
-}
-
-export const createMeetingEngagement = async (
-  contactId: string,
-  startTime: string,
-  endTime: string
-) => {
-  try {
     const response = await axios.post(
-      'https://api.hubapi.com/crm/v3/objects/MEETING_EVENT',
+      'https://api.hubapi.com/crm/v3/objects/contacts/search',
       {
-        properties: {
-          hs_meeting_title: 'Phone Call',
-          hs_meeting_body:
-            'Phone call with a member of the HOME0001 collective',
-          hs_meeting_start_time: startTime, // Example: '2024-12-22T10:00:00.000Z'
-          hs_meeting_end_time: endTime, // Example: '2024-12-22T11:00:00.000Z'
-          hs_timestamp: new Date().toISOString(),
-        },
-        associations: [
+        filterGroups: [
           {
-            to: {
-              id: contactId,
-            },
-            type: 'contacts',
+            filters: [
+              {
+                propertyName: 'email',
+                operator: 'EQ',
+                value: email,
+              },
+            ],
           },
         ],
+        properties: ['email'],
+        limit: 1,
       },
       {
         headers: {
@@ -70,10 +41,65 @@ export const createMeetingEngagement = async (
       }
     )
 
-    console.log('Engagement created successfully:', response.data)
+    if (response.data.results.length === 0) {
+      console.warn('No contact found with the provided email.')
+      return null
+    }
+
+    const contactId = response.data.results[0].id
+    console.log('Contact ID found:', contactId)
+
+    return contactId
   } catch (error: any) {
     console.error(
-      'Error creating engagement:',
+      'Error finding contact:',
+      error.response?.data || error.message
+    )
+    return null
+  }
+}
+
+export const createMeetingEngagement = async (
+  contactId: string,
+  startTime: string,
+  endTime: string
+) => {
+  console.log('Contact ID:', contactId)
+
+  try {
+    const payload = {
+      engagement: {
+        active: true,
+        type: 'MEETING',
+        timestamp: Date.now(),
+      },
+      associations: {
+        contactIds: [contactId],
+      },
+      metadata: {
+        title: 'Phone Call',
+        body: 'Phone call with a member of the HOME0001 collective',
+        startTime: new Date(startTime).getTime(), // milliseconds
+        endTime: new Date(endTime).getTime(), // milliseconds
+      },
+    }
+
+    const response = await axios.post(
+      'https://api.hubapi.com/engagements/v1/engagements',
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+
+    console.log('Meeting engagement created successfully:', response.data)
+    return response.data
+  } catch (error: any) {
+    console.error(
+      'Error creating meeting engagement:',
       error.response?.data || error.message
     )
   }
