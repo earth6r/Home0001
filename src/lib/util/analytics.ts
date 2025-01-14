@@ -1,3 +1,5 @@
+import posthog from 'posthog-js'
+
 declare const window: any
 const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID
 
@@ -23,5 +25,12 @@ export const disableGoogleEvents = () => {
 
     window[`ga-disable-${GOOGLE_ID}`] = true
     window.dataLayer.push('config', GOOGLE_ID)
+  }
+}
+
+export const disablePosthog = () => {
+  if (typeof window !== 'undefined') {
+    window['posthog']?.opt_out_capturing()
+    posthog.opt_out_capturing()
   }
 }

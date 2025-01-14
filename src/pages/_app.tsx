@@ -23,18 +23,6 @@ import { PostHogProvider } from 'posthog-js/react'
 
 const PS_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
 
-if (typeof window !== 'undefined' || !PS_KEY) {
-  posthog.init(PS_KEY as string, {
-    api_host:
-      process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
-    person_profiles: 'identified_only',
-    // Enable debug mode in development
-    loaded: posthog => {
-      if (process.env.NODE_ENV === 'development') posthog.debug()
-    },
-  })
-}
-
 function App({ Component, pageProps }: AppProps<{}>) {
   const { query, events, asPath } = useRouter()
   const lenis = useLenis()
@@ -54,6 +42,18 @@ function App({ Component, pageProps }: AppProps<{}>) {
   }
 
   useEffect(() => {
+    if (typeof window !== 'undefined' || !PS_KEY) {
+      posthog.init(PS_KEY as string, {
+        api_host:
+          process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
+        person_profiles: 'identified_only',
+        // Enable debug mode in development
+        loaded: posthog => {
+          if (process.env.NODE_ENV === 'development') posthog.debug()
+        },
+      })
+    }
+
     if (!query || query.slug) {
       return
     }

@@ -22,7 +22,7 @@ export default async function handler(
   try {
     // createVisitorAndChatRoom(name, email, recipientPhone, message)
 
-    await sendTwilioMessage(recipientPhone, message)
+    await sendTwilioMessage(recipientPhone, message, false)
 
     await axios.post(
       `https://us-central1-homeearthnet.cloudfunctions.net/initialMessage`,

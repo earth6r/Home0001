@@ -1,3 +1,4 @@
+import { disableGoogleEvents, disablePosthog } from '@lib/util'
 import Script from 'next/script'
 import { useEffect, useState } from 'react'
 
@@ -46,7 +47,7 @@ export const Scripts = () => {
 
   const fetchCountryCode = async (): Promise<string> => {
     try {
-      const response = await fetch('https://ipapi.co/country/')
+      const response = await fetch('/api/get-country-code')
       if (!response.ok) {
         throw new Error('Network response was not ok')
       }
@@ -58,12 +59,17 @@ export const Scripts = () => {
     }
   }
 
-  const enableAnalytics = (countryCode: string): void => {
+  const enableAnalytics = (countryCode: string): boolean => {
     if (!isInUkOrEu(countryCode)) {
       if (sessionStorage.getItem('allowAnalytics') !== 'false') {
-        setAnalytics(true)
+        return true
+      } else {
+        disableGoogleEvents()
+        disablePosthog()
+        return false
       }
     }
+    return false
   }
 
   useEffect(() => {
