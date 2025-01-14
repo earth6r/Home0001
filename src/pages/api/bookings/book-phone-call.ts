@@ -7,10 +7,102 @@ import { sendWhatsappBookedMessage } from '../../../lib/util/send-whatsapp-booke
 import { updateHubspotContact } from '../../../lib/util/update-hubspot-contact'
 import { sendMessage } from '../send-whatsapp'
 import { validateBooking } from './validate'
+import axios from 'axios'
 
 // Set configuration options for the API route
 export const config = {
   maxDuration: 300, // Maximum duration for the API route to respond to a request (5 minutes)
+}
+
+export const getHubspotContactIdByEmail = async (email: string) => {
+  try {
+    const response = await axios.post(
+      'https://api.hubapi.com/crm/v3/objects/contacts/search',
+      {
+        filterGroups: [
+          {
+            filters: [
+              {
+                propertyName: 'email',
+                operator: 'EQ',
+                value: email,
+              },
+            ],
+          },
+        ],
+        properties: ['email'],
+        limit: 1,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+
+    if (response.data.results.length === 0) {
+      console.warn('No contact found with the provided email.')
+      return null
+    }
+
+    const contactId = response.data.results[0].id
+    console.log('Contact ID found:', contactId)
+
+    return contactId
+  } catch (error: any) {
+    console.error(
+      'Error finding contact:',
+      error.response?.data || error.message
+    )
+    return null
+  }
+}
+
+export const createMeetingEngagement = async (
+  contactId: string,
+  startTime: string,
+  endTime: string
+) => {
+  console.log('Contact ID:', contactId)
+
+  try {
+    const payload = {
+      engagement: {
+        active: true,
+        type: 'MEETING',
+        timestamp: Date.now(),
+      },
+      associations: {
+        contactIds: [contactId],
+      },
+      metadata: {
+        title: 'Phone Call',
+        body: 'Phone call with a member of the HOME0001 collective',
+        startTime: new Date(startTime).getTime(), // milliseconds
+        endTime: new Date(endTime).getTime(), // milliseconds
+      },
+    }
+
+    const response = await axios.post(
+      'https://api.hubapi.com/engagements/v1/engagements',
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+
+    console.log('Meeting engagement created successfully:', response.data)
+    return response.data
+  } catch (error: any) {
+    console.error(
+      'Error creating meeting engagement:',
+      error.response?.data || error.message
+    )
+  }
 }
 
 // TODO: move to a utils or something (booking-utils.ts)
@@ -70,6 +162,23 @@ export default async function handler(
     disableTextReminder,
     disableCalendarInvite,
   })
+
+  try {
+    const contactId = await getHubspotContactIdByEmail(email)
+
+    if (contactId) {
+      await createMeetingEngagement(
+        contactId,
+        new Date(startTimestampFormatted).toISOString(),
+        new Date(endTimestampFormatted).toISOString()
+      )
+    }
+  } catch (error: any) {
+    console.error(
+      'Error creating HubSpot engagement:',
+      error.response?.data || error.message
+    )
+  }
 
   const potentialCustomerResponse = await db
     .collection('potentialCustomers')

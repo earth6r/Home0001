@@ -3,6 +3,7 @@ import type { SanityLinkType } from '@studio/lib'
 import { getHrefBySanityLink } from '@studio/lib'
 import type { LinkProps } from '@components/links'
 import { Link } from '@components/links'
+import classNames from 'classnames'
 
 type SanityLinkProps = SanityLinkType &
   Omit<LinkProps, 'href'> & {
@@ -27,14 +28,25 @@ export const SanityLink: FC<SanityLinkProps> = ({
   } as SanityLinkType)
   const external = !!externalLink
   return (
-    <Link href={href} external={external}>
-      <button
-        className={className}
-        onClick={onClick as MouseEventHandler<HTMLButtonElement> | undefined}
-      >
-        {text}
-        {children}
-      </button>
+    <Link
+      href={href}
+      external={external}
+      className={classNames(onClick ? '' : className)}
+    >
+      {onClick ? (
+        <button
+          className={className}
+          onClick={onClick as unknown as MouseEventHandler<HTMLButtonElement>}
+        >
+          {text}
+          {children}
+        </button>
+      ) : (
+        <>
+          {text}
+          {children}
+        </>
+      )}
     </Link>
   )
 }

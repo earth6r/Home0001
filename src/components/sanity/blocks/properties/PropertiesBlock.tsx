@@ -14,6 +14,8 @@ import SCREENS from '@globals/screens'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { type SwiperOptions } from 'swiper/types'
 import { Navigation } from 'swiper/modules'
+import posthog from 'posthog-js'
+import { useRouter } from 'next/router'
 
 const PropertySummary: FC<CityBlockPropertyType> = ({
   image,
@@ -21,6 +23,7 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
   slug,
   index,
 }) => {
+  const { asPath } = useRouter()
   const scrollRef = useRef(null)
   const isInView = useInView(scrollRef, { once: true, amount: 0.1 })
 
@@ -39,6 +42,12 @@ const PropertySummary: FC<CityBlockPropertyType> = ({
       >
         <Link
           href={`/property/${slug.current}`}
+          onClick={() =>
+            posthog.capture('property_click', {
+              slug: slug.current,
+              route: asPath,
+            })
+          }
           className="relative text-white md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
         >
           <button

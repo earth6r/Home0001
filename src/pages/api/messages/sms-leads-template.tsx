@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next/types'
-import { sendTwilioMessage } from './send-twilio-message'
 import { initializeAdmin } from '@lib/firebase/admin'
 import admin from 'firebase-admin'
+import type { NextApiRequest, NextApiResponse } from 'next/types'
+import { sendTwilioMessage } from './send-twilio-message'
 
 export const config = {
   maxDuration: 300, // Maximum duration for the API route to respond to a request (5 minutes)
@@ -16,7 +16,7 @@ export default async function handler(
     res.status(405).json({ message: `Method ${req.method} Not Allowed` })
     return
   }
-  const { emails, saveInRocketchat = true, automatedToUser = false } = req.body
+  const { emails, saveInRocketchat = false, automatedToUser = false } = req.body
 
   if (!Array.isArray(emails) || emails.length === 0) {
     res
@@ -125,15 +125,9 @@ export default async function handler(
       continue
     }
 
-    await sendTwilioMessage(
-      recipientPhone,
-      message,
-      saveInRocketchat,
-      automatedToUser,
-      {
-        template: 'sms-leads-template',
-      }
-    )
+    await sendTwilioMessage(recipientPhone, message, false, true, {
+      template: 'sms-leads-template',
+    })
   }
 
   res.status(200).json({ message: 'success' })

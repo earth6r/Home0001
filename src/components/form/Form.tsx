@@ -10,6 +10,8 @@ import { useRouter } from 'next/router'
 import { useLocalCookies } from '@contexts/cookies'
 import axios from 'axios'
 import { saveError } from '@lib/util/save-error'
+import posthog from 'posthog-js'
+import { useFeatureFlagEnabled } from 'posthog-js/react'
 
 interface FormProps extends HTMLAttributes<HTMLFormElement> {
   audienceId?: string
@@ -45,6 +47,7 @@ export const Form: FC<FormProps> = ({
   const [formError, setFormError] = useState<unknown | string | null>(null)
   const [hutk, setHutk] = useLocalCookies()
   const { asPath, query } = useRouter()
+  const flagEnabled = useFeatureFlagEnabled('alt-home')
 
   const onSubmit = async (data: any) => {
     const options = {
@@ -54,6 +57,7 @@ export const Form: FC<FormProps> = ({
       unitInquiry: !!(formType === 'unit'),
     }
     sendGoogleEvent('submit waitlist form', options)
+    posthog.capture('waitlist_form_submitted', options)
 
     if (!audienceId || !formType) {
       return
@@ -75,7 +79,8 @@ export const Form: FC<FormProps> = ({
         formType,
         hutk,
         actionUrl,
-        query as Record<string, string>
+        query as Record<string, string>,
+        flagEnabled
       )
 
       const errorData = new FormData()
