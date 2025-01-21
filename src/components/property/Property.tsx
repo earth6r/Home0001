@@ -23,7 +23,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   }
 
   return (
-    <div className={classNames(className, 'pr-menu')}>
+    <div className={classNames(className, '')}>
       <h2 className="absolute w-[100svh] md:w-auto right-0 transform translate-x-[calc(100%-12px)] rotate-90 origin-top-left text-h2">
         0001 {property?.title}
       </h2>
@@ -39,7 +39,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
                   lqip: (property?.image?.image as any)?.asset?.metadata?.lqip,
                 }}
                 {...(property?.image as any)}
-                className="w-full h-auto object-contain"
+                className="w-full h-auto pr-menu md:pr-0 object-contain"
               />
             </div>
           )}
@@ -70,7 +70,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           </div>
         </div>
 
-        <div className="col-span-1 md:col-span-2 md:overflow-x-hidden">
+        <div className="col-span-1 md:col-span-2 mr-menu md:overflow-x-hidden">
           <div className="px-x md:px-0 mb-ydouble">
             {property?.header && <RichText blocks={property?.header} />}
 
