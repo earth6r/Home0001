@@ -17,6 +17,7 @@ import { Media, Property } from '@studio/gen/sanity-schema'
 import { useWaitlisModal } from '@contexts/modals'
 import { sendGoogleEvent } from '@lib/util'
 import PropertyTypesList from './PropertyTypesList'
+import IconChevron from '@components/icons/IconChevron'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -27,12 +28,21 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const [navOpen, setNavOpen] = useState(false)
 
   const openWaitlist = () => {
     setWaitlistOpen(true)
     const options = { location: window.location.pathname }
     sendGoogleEvent('opened waitlist modal', options)
   }
+
+  useEffect(() => {
+    if (navOpen) {
+      document.body.classList.add('overflow-hidden')
+    } else {
+      document.body.classList.remove('overflow-hidden')
+    }
+  }, [navOpen])
 
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
@@ -53,10 +63,45 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   }, [propertyType])
 
   return (
-    <div className={classNames(className)}>
-      <h2 className="absolute w-[100svh] md:w-auto right-0 transform translate-x-[calc(100%-12px)] rotate-90 origin-top-left text-h2">
-        {propertyType?.typeTitle}
-      </h2>
+    <div
+      className={classNames(
+        className,
+        navOpen ? 'right-[calc(100vw-60px)] md:right-[33.33vw]' : 'right-0',
+        'relative transition-all duration-500'
+      )}
+    >
+      <div
+        className={classNames(
+          'flex flex-col justify-end gap-2 absolute w-[100svh] md:w-auto h-[100vw] right-[calc(-100vw+60px)] md:right-[calc(-100vw+75px)] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left bg-white border-none z-above'
+        )}
+      >
+        {(
+          propertyType?.property as unknown as Property
+        )?.propertyTypesList?.map((type: PropertyTypeElProps | any, index) => {
+          if (type.typeTitle === propertyType?.typeTitle) return
+          return (
+            <Link
+              onClick={() => setNavOpen(!navOpen)}
+              href={`/property-type/${type.slug?.current}`}
+              key={`${index}-${type.typeTitle}`}
+            >
+              <h2 className="text-h2">{type.typeTitle}</h2>
+            </Link>
+          )
+        })}
+
+        <button
+          onClick={() => setNavOpen(!navOpen)}
+          className="flex items-end gap-2"
+        >
+          <h2 className="text-h2">{propertyType?.typeTitle}</h2>
+
+          <div className="flex items-center justify-center relative w-[21px] h-[21px] bottom-1 bg-black">
+            <IconChevron width="12" fill="white" className="rotate-90" />
+          </div>
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-3 md:gap-x pr-x md:px-x md:pr-0">
         <div className="col-span-1 pr-menu md:pr-0 md:mb-y xl:mb-0 md:z-modal">
           {propertyType?.photographs && (

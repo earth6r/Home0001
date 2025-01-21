@@ -10,7 +10,7 @@ export const IconChevronComponent = (props: SVGProps<SVGSVGElement>) => {
       {...props}
     >
       <path
-        fill="#000"
+        fill={props.fill || '#000'}
         fillRule="evenodd"
         d="M4.812 1.505a.88.88 0 0 0-1.273 1.216l4.405 4.61-4.405 4.611a.88.88 0 0 0 1.273 1.216l5.566-5.826-5.566-5.827Z"
         clipRule="evenodd"
