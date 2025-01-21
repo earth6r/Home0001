@@ -13,7 +13,10 @@ import {
 import { SanityInventoryModal } from '@components/sanity/table-modal'
 import Link from 'next/link'
 import { SanityKeyed } from 'sanity-codegen'
-import { Media } from '@studio/gen/sanity-schema'
+import { Media, Property } from '@studio/gen/sanity-schema'
+import { useWaitlisModal } from '@contexts/modals'
+import { sendGoogleEvent } from '@lib/util'
+import PropertyTypesList from './PropertyTypesList'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -23,6 +26,13 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 }) => {
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
+  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+
+  const openWaitlist = () => {
+    setWaitlistOpen(true)
+    const options = { location: window.location.pathname }
+    sendGoogleEvent('opened waitlist modal', options)
+  }
 
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
@@ -44,43 +54,67 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 
   return (
     <div className={classNames(className)}>
-      <h2 className="md:hidden text-h2 mb-ydouble px-x">
+      <h2 className="absolute w-[100svh] md:w-auto right-0 transform translate-x-[calc(100%-12px)] rotate-90 origin-top-left text-h2">
         {propertyType?.typeTitle}
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
-        <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
-          <h2 className="hidden md:inline-block text-h2 mb-y">
-            {propertyType?.typeTitle}
-          </h2>
-
-          <div className="rich-text pl-x md:px-0">
-            <p className="small uppercase m-0">
+      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-3 md:gap-x pr-x md:px-x md:pr-0">
+        <div className="col-span-1 pr-menu md:pr-0 md:mb-y xl:mb-0 md:z-modal">
+          {propertyType?.photographs && (
+            <ImageCarousel
+              pagination={true}
+              perView={1}
+              carousel={true}
+              slides={propertyType?.photographs as SanityKeyed<Media>[]}
+              className="w-full h-auto pl-x md:pl-0 overflow-hidden"
+              placement="unit images"
+            />
+          )}
+          <div className="rich-text pl-x md:px-0 md:mb-y">
+            <p className="m-1">{`${propertyType?.typeTitle}`}</p>
+            <p className="m-1">{`0001 ${
+              (propertyType?.property as unknown as Property).title
+            }`}</p>
+            {propertyType?.area && (
+              <p className="m-1">{`${propertyType?.area}`}</p>
+            )}
+            <p className="m-1">
               {cryptoMode
                 ? `${propertyType?.price?.substring(0)} / ${
                     cryptoPrice[1]
                   } BTC / ${cryptoPrice[0]} ETH`
                 : `${propertyType?.price}`}
             </p>
-            {propertyType?.area && (
-              <p className="small uppercase m-0">{`${propertyType?.area}`}</p>
-            )}
           </div>
 
-          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
-            <Link href="#property-type-waitlist">
+          <div className="hidden md:block relative w-full mb-y cursor-pointer z-above">
+            <button
+              onClick={openWaitlist}
+              className={classNames(
+                'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+              )}
+            >
+              {`Apply`}
+              <IconSmallArrow width="16" height="10" fill="white" />
+            </button>
+          </div>
+
+          <div className="hidden md:block relative w-full cursor-pointer z-above">
+            <Link href="/how-it-works">
               <button
                 className={classNames(
-                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
+                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
                 )}
               >
-                {`Join the Waitlist`}
-                <IconSmallArrow width="16" height="10" fill="black" />
+                {`How it works`}
+                <IconSmallArrow width="16" height="10" fill="white" />
               </button>
             </Link>
           </div>
+        </div>
 
+        <div className="md:col-span-2 mr-menu mt-header md:mt-0 md:z-modal">
           {propertyType?.summary && propertyType?.summary.length > 0 && (
-            <div className="px-x md:px-0 mt-ydouble md:mt-0">
+            <div className="pl-x md:pl-0">
               <p className="text-h4 mb-y md:mb-yhalf">Overview:</p>
               <RichText
                 blocks={propertyType.summary}
@@ -91,7 +125,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 
           {propertyType?.unitDetails && (
             <>
-              <p className="hidden md:block xl:hidden text-h4 px-x md:px-0 mt-ydouble mb-yhalf">
+              <p className="hidden md:block xl:hidden text-h4 pl-x md:pl-0 mt-ydouble mb-yhalf">
                 Details:
               </p>
               <RichText
@@ -110,17 +144,15 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               unit={propertyType.title}
             />
           )}
-        </div>
 
-        <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 mt-ydouble md:mt-0 md:z-modal">
           {propertyType?.unitDetails && (
             <>
-              <p className="md:hidden xl:block text-h4 px-x md:px-0 mb-y md:mb-yhalf">
+              <p className="md:hidden xl:block text-h4 px-x md:px-0 mt-ydouble mb-y md:mb-yhalf">
                 Details:
               </p>
               <RichText
                 blocks={propertyType?.unitDetails}
-                className="md:hidden xl:block pl-x pr-menu md:px-0"
+                className="md:hidden xl:block pl-x md:pl-0"
               />
             </>
           )}
@@ -135,28 +167,17 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             />
           )}
 
-          <div className="md:hidden my-ydouble pl-x pr-menu mr-x">
-            <Link href="#property-type-waitlist">
-              <button
-                className={classNames(
-                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
-                )}
-              >
-                {`Join the Waitlist`}
-                <IconSmallArrow width="16" height="10" fill="black" />
-              </button>
-            </Link>
-          </div>
-
           {propertyType?.layoutImages && (
             <>
-              <p className="text-h4 px-x md:px-0 mb-y xl:mt-ydouble">Plans:</p>
+              <p className="text-h4 px-x md:px-0 mt-ydouble mb-y xl:mt-ydouble">
+                Plans:
+              </p>
               <ImageCarousel
                 pagination={true}
                 perView={1}
                 carousel={true}
                 slides={propertyType?.layoutImages}
-                className="w-full px-x md:px-0 overflow-hidden"
+                className="w-full px-x md:px-0 overflow-visible md:overflow-hidden"
                 placement="unit layouts"
               />
             </>
@@ -178,19 +199,47 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
                 className="px-x md:px-0 mt-y mb-ydouble border-x-0 border-t-0"
               />
             ))}
-        </div>
 
-        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0 md:aspect-[0.797]">
-          {propertyType?.photographs && (
-            <ImageCarousel
-              pagination={true}
-              perView={1}
-              carousel={true}
-              slides={propertyType?.photographs as SanityKeyed<Media>[]}
-              className="w-full h-full px-x md:pl-0 overflow-hidden"
-              placement="unit images"
-            />
-          )}
+          <div className="pl-x md:pl-0 pt-ydouble mt-ydouble overflow-hidden">
+            {(propertyType?.property as unknown as Property)
+              ?.propertyTypesList && (
+              <>
+                <h2 className="text-h2">Apartments</h2>
+                <PropertyTypesList
+                  className="animate-in flex flex-col mt-ydouble"
+                  propertyTypesList={
+                    (propertyType?.property as unknown as Property)
+                      .propertyTypesList
+                  }
+                />
+              </>
+            )}
+          </div>
+
+          <div className="md:hidden relative w-full mt-header mb-y pl-x cursor-pointer z-above">
+            <button
+              onClick={openWaitlist}
+              className={classNames(
+                'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+              )}
+            >
+              {`Apply`}
+              <IconSmallArrow width="16" height="10" fill="white" />
+            </button>
+          </div>
+
+          <div className="md:hidden relative w-full pl-x cursor-pointer z-above">
+            <Link href="/how-it-works">
+              <button
+                className={classNames(
+                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+                )}
+              >
+                {`How it works`}
+                <IconSmallArrow width="16" height="10" fill="white" />
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
