@@ -23,14 +23,14 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   }
 
   return (
-    <div className={classNames(className, '')}>
+    <div className={classNames(className, 'md:pr-menu')}>
       <h2 className="absolute w-[100svh] md:w-auto right-0 transform translate-x-[calc(100%-12px)] rotate-90 origin-top-left text-h2">
         0001 {property?.title}
       </h2>
-      <div className="md:grid md:grid-cols-3 gap-y md:col-start-1 block relative md:pl-x">
-        <div className="flex flex-col md:col-span-1 md:justify-start md:items-start px-x md:px-0">
+      <div className="md:grid md:grid-cols-2 gap-y block relative md:pl-x">
+        <div className="flex flex-col px-x md:px-0">
           {property?.image && (
-            <div className="col-span-2 block relative w-full mb-y z-base">
+            <div className="block relative w-full mb-y z-base">
               <SanityMedia
                 imageProps={{
                   alt: property?.image.alt || 'Building image',
@@ -44,53 +44,30 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             </div>
           )}
 
-          <div className="hidden md:block relative w-full mb-y cursor-pointer z-above">
-            <button
-              onClick={openWaitlist}
-              className={classNames(
-                'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+          <div className="mr-menu md:mr-0 md:overflow-x-hidden">
+            <div className="mb-ydouble">
+              {property?.header && <RichText blocks={property?.header} />}
+
+              {property?.coordinates && (
+                <MapDialog
+                  text="View Map"
+                  coordinates={property?.coordinates}
+                  className="text-xs font-bold mt-y"
+                />
               )}
-            >
-              {`Apply`}
-              <IconSmallArrow width="16" height="10" fill="white" />
-            </button>
-          </div>
+            </div>
 
-          <div className="hidden md:block relative w-full cursor-pointer z-above">
-            <Link href="/how-it-works">
-              <button
-                className={classNames(
-                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
-                )}
-              >
-                {`How it works`}
-                <IconSmallArrow width="16" height="10" fill="white" />
-              </button>
-            </Link>
-          </div>
-        </div>
-
-        <div className="col-span-1 md:col-span-2 mr-menu md:overflow-x-hidden">
-          <div className="px-x md:px-0 mb-ydouble">
-            {property?.header && <RichText blocks={property?.header} />}
-
-            {property?.coordinates && (
-              <MapDialog
-                text="View Map"
-                coordinates={property?.coordinates}
-                className="text-xs font-bold mt-y"
+            {property?.body && (
+              <BlockContent
+                blocks={property?.body}
+                grid={false}
+                className="mt-ydouble md:mt-0 overflow-visible"
               />
             )}
           </div>
+        </div>
 
-          {property?.body && (
-            <BlockContent
-              blocks={property?.body}
-              grid={false}
-              className="mt-ydouble md:mt-0 pl-x md:pl-0 pr-x overflow-visible"
-            />
-          )}
-
+        <div className="col-start-1 md:col-span-2 pr-menu md:pr-0">
           {!block && (
             <div className="px-x md:px-0 pt-ydouble mt-ydouble overflow-hidden">
               {property?.propertyTypesList && (
