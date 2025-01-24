@@ -12,7 +12,7 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
     <ul className={classNames(className, 'relative')}>
       <div
         className={classNames(
-          'grid md:grid-cols-2 gap-xdouble relative w-full max-w-full md:pr-xdouble'
+          'grid md:grid-cols-4 gap-xdouble relative w-full max-w-full'
         )}
       >
         {propertyTypesList &&
