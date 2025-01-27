@@ -1,5 +1,5 @@
 import type { FC, HTMLProps } from 'react'
-import { useRef, Fragment } from 'react'
+import { useRef, Fragment, useState } from 'react'
 import classNames from 'classnames'
 import { Switch } from '@headlessui/react'
 import type { SanityLinkType } from '@studio/lib'
@@ -10,6 +10,8 @@ import { Logo } from '@components/logos'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
 import { useBrokerInquiryModal } from '@contexts/modals'
 import { useLenis } from '@studio-freight/react-lenis'
+import IconChevron from '@components/icons/IconChevron'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   customOpen = false,
@@ -23,6 +25,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
+  const [locationsOpen, setLocationsOpen] = useState(false)
 
   return (
     <div className={className}>
@@ -63,19 +66,67 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
         <nav
           className={classNames(
             customOpen ? 'pointer-events-auto' : '',
-            'md:grid md:grid-cols-2 overflow-auto z-40 pt-[78px] md:pt-[132px] left-0 w-full h-full text-base fade-enter-done'
+            'grid md:grid-cols-3 overflow-auto pt-header left-0 w-full h-full text-base fade-enter-done z-above'
           )}
         >
-          <ul className="container flex flex-col w-full outline-none pb-[192px]">
-            <li className="md:hidden uppercase mb-yhalf md:mb-y">
-              <span className="inline-block">Homes:</span>
+          <ul className="container flex flex-col gap-ydouble w-full outline-none pb-[192px]">
+            <li className="w-full">
+              <button
+                onClick={() => setLocationsOpen(!locationsOpen)}
+                className="flex w-full justify-between items-center uppercase"
+              >
+                <span className="inline-block">Locations</span>
+                <IconChevron
+                  width="12"
+                  className={classNames(
+                    locationsOpen ? 'rotate-[270deg]' : 'rotate-90',
+                    'transform transition-transform duration-300'
+                  )}
+                />
+              </button>
+
+              <AnimatePresence>
+                {locationsOpen && (
+                  <motion.div
+                    initial={{ maxHeight: 0 }}
+                    animate={{ maxHeight: 500 }}
+                    exit={{ maxHeight: 0 }}
+                    className="flex flex-col gap-ydouble pt-ydouble ml-xdouble overflow-hidden"
+                  >
+                    {mainMenu?.items?.map(({ _key, text, link }) => {
+                      const isPropertyType =
+                        (link?.internalLink?._type as string) === 'propertyType'
+                      const isProperty =
+                        (link?.internalLink?._type as string) === 'property'
+                      return text && link && isProperty ? (
+                        <Fragment key={_key}>
+                          <div>
+                            <SanityLink
+                              text={text}
+                              onClick={() => {
+                                setTimeout(() => setCustomOpen(false), 100)
+                                setHeaderLinksShown(true)
+                              }}
+                              {...(link as SanityLinkType)}
+                              className={classNames(
+                                'inline-block hover:underline underline-offset-2 decoration-[2px] uppercase'
+                              )}
+                            />
+                          </div>
+                        </Fragment>
+                      ) : null
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </li>
+
             {mainMenu?.items?.map(({ _key, text, link }, index) => {
               const isPropertyType =
                 (link?.internalLink?._type as string) === 'propertyType'
               const isProperty =
                 (link?.internalLink?._type as string) === 'property'
-              return text && link ? (
+              return text && link && !isProperty && !isPropertyType ? (
                 <Fragment key={_key}>
                   {mainMenu.items && index === mainMenu.items.length && (
                     <li>
@@ -84,7 +135,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                           setTimeout(() => setCustomOpen(false), 100)
                           setBrokerInquiryOpen(true)
                         }}
-                        className="uppercase mb-ydouble"
+                        className="uppercase"
                       >
                         Are you a realtor?
                       </button>
@@ -99,10 +150,6 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                       }}
                       {...(link as SanityLinkType)}
                       className={classNames(
-                        isPropertyType ? 'pl-xdouble' : '',
-                        isProperty || isPropertyType
-                          ? 'py-yhalf md:hidden'
-                          : 'py-y md:pt-0 md:pb-ydouble',
                         'inline-block hover:underline underline-offset-2 decoration-[2px] uppercase'
                       )}
                     />
@@ -133,37 +180,6 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               </Switch>
               <span className="inline-block">Crypto</span>
             </li>
-          </ul>
-
-          <ul className="hidden md:flex flex-col w-full outline-none pb-ydouble">
-            <li className="uppercase">
-              <span className="inline-block">Homes:</span>
-            </li>
-            {mainMenu?.items?.map(({ _key, text, link }) => {
-              const isPropertyType =
-                (link?.internalLink?._type as string) === 'propertyType'
-              const isProperty =
-                (link?.internalLink?._type as string) === 'property'
-              return text && link && (isPropertyType || isProperty) ? (
-                <Fragment key={_key}>
-                  <li>
-                    <SanityLink
-                      text={text}
-                      onClick={() => {
-                        setTimeout(() => setCustomOpen(false), 100)
-                        setHeaderLinksShown(true)
-                      }}
-                      {...(link as SanityLinkType)}
-                      className={classNames(
-                        isPropertyType ? 'mb-y pl-xdouble' : '',
-                        isProperty ? 'pt-y' : '',
-                        'inline-block mb-y hover:underline underline-offset-2 decoration-[2px] uppercase'
-                      )}
-                    />
-                  </li>
-                </Fragment>
-              ) : null
-            })}
           </ul>
         </nav>
       </div>
