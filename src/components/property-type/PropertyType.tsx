@@ -72,7 +72,10 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
     >
       <div
         className={classNames(
-          'flex flex-col justify-end gap-2 absolute w-[100svh] md:w-auto h-[100vw] right-[calc(-100vw+60px)] md:right-[calc(-100vw+75px)] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left bg-white border-none z-above'
+          navOpen
+            ? 'right-0 md:right-[calc(-66.666vw+75px)]'
+            : 'right-[calc(-100vw+60px)] md:right-[calc(-100vw+75px)]',
+          'flex flex-col justify-end gap-2 fixed w-[100svh] md:w-auto h-[100vw] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 bg-white border-none z-above'
         )}
       >
         {(
@@ -92,11 +95,16 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 
         <button
           onClick={() => setNavOpen(!navOpen)}
-          className="flex items-end gap-2"
+          className={classNames('flex items-end gap-2 ')}
         >
           <h2 className="text-h2">{propertyType?.typeTitle}</h2>
 
-          <div className="flex items-center justify-center relative w-[21px] h-[21px] bottom-1 bg-black">
+          <div
+            className={classNames(
+              navOpen ? 'rotate-180' : '',
+              'flex items-center justify-center relative w-[21px] h-[21px] bottom-1 bg-black transition-transform duration-500'
+            )}
+          >
             <IconChevron width="12" fill="white" className="rotate-90" />
           </div>
         </button>
