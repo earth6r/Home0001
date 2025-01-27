@@ -77,8 +77,8 @@ export const createMeetingEngagement = async (
         contactIds: [contactId],
       },
       metadata: {
-        title: 'Phone Call',
-        body: 'Phone call with a member of the HOME0001 collective',
+        title: 'Property Tour',
+        body: 'Property tour with a member of the HOME0001 collective',
         startTime: new Date(startTime).getTime(), // milliseconds
         endTime: new Date(endTime).getTime(), // milliseconds
       },
