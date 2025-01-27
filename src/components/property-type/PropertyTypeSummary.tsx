@@ -63,7 +63,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                 route: asPath,
               })
             }
-            className="inline-block w-full md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
+            className="inline-block w-full"
           >
             <div className="flex flex-col relative overflow-x-hidden">
               {propertyType?.photographs && (
@@ -79,8 +79,8 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                   className="w-full h-auto object-contain"
                 />
               )}
-              <div className="block w-full text-md">
-                <div className="p-x bg-darkergray">
+              <div className="block w-full text-md uppercase">
+                <div className="my-y">
                   {propertyType.typeTitle && (
                     <p className="font-medium mb-yhalf tracking-normal">
                       {propertyType.typeTitle}
@@ -99,15 +99,15 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                 </div>
                 <div
                   className={classNames(
-                    'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
+                    'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-white border-black hover:border-white hover:invert text-button text-left uppercase'
                   )}
                 >
-                  <h4 className="text-card text-white">
-                    {propertyType.typeTitle}
+                  <div>
+                    {`Learn more`}
                     <br />
                     {showCity &&
                       (propertyType?.property as any)?.location.title}
-                  </h4>
+                  </div>
 
                   <IconRightArrowBold
                     className="relative w-[1em] mt-[0.1em]"

@@ -36,11 +36,7 @@ export const getStaticProps: GetStaticProps = context =>
   getPageStaticProps({ ...context, query: PROPERTY_QUERY })
 
 const PropertyPage: NextPage<PageProps> = (
-  {
-    data,
-    siteSettings,
-    preview,
-  }: InferGetStaticPropsType<typeof getStaticProps>,
+  { data, preview }: InferGetStaticPropsType<typeof getStaticProps>,
   ref: PageRefType
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
@@ -48,7 +44,10 @@ const PropertyPage: NextPage<PageProps> = (
   return page?.header && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
-        <Property property={page} className="w-full pt-header" />
+        <Property
+          property={page}
+          className="w-full pt-header overflow-hidden"
+        />
       </article>
     </PageTransition>
   ) : null

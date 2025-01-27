@@ -85,9 +85,23 @@ export const PROPERTY_TYPE_QUERY = `
   },
   "property": property->{
     headerText,
+    title,
     slug,
     "location": location->{
       title,
+    },
+    "propertyTypesList": propertyTypesList[]->{
+      _key,
+      _id,
+      slug,
+      typeTitle,
+      available,
+      price,
+      cryptoPrice,
+      area,
+      "photographs": photographs[]{
+        ${MEDIA_QUERY}
+      },
     },
   },
   seo,
