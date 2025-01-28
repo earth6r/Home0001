@@ -66,16 +66,16 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
     <div
       className={classNames(
         className,
-        navOpen ? 'right-[calc(100vw-60px)] md:right-[33.33vw]' : 'right-0',
+        navOpen ? 'right-[calc(100vw-60px)] lg:right-[33.33vw]' : 'right-0',
         'relative transition-all duration-500'
       )}
     >
       <div
         className={classNames(
           navOpen
-            ? 'right-0 md:right-[calc(-66.666vw+75px)]'
-            : 'right-[calc(-100vw+60px)] md:right-[calc(-100vw+75px)]',
-          'flex flex-col justify-end gap-2 fixed w-[100svh] md:w-auto h-[100vw] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 bg-white border-none z-above'
+            ? 'right-0 lg:right-[calc(-66.666vw+75px)] bg-white'
+            : 'right-[calc(-100vw+60px)] lg:right-[calc(-100vw+75px)]',
+          'flex flex-col justify-end gap-2 fixed w-[100svh] lg:w-auto h-[100vw] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
         {(
@@ -110,19 +110,26 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-3 md:gap-x pr-x md:px-x md:pr-0">
-        <div className="col-span-1 pr-menu md:pr-0 md:mb-y xl:mb-0 md:z-modal">
+      <div
+        className={classNames(
+          navOpen
+            ? 'opacity-0 lg:opacity-100 duration-100 delay-300'
+            : 'opacity-100 duration-100',
+          'grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 lg:gap-x pr-x lg:px-x lg:pr-0 transition-opacity'
+        )}
+      >
+        <div className="col-span-1 lg:mb-y xl:mb-0 lg:z-modal">
           {propertyType?.photographs && (
             <ImageCarousel
               pagination={true}
               perView={1}
               carousel={true}
               slides={propertyType?.photographs as SanityKeyed<Media>[]}
-              className="w-full h-auto pl-x md:pl-0 overflow-hidden"
+              className="w-full h-auto pl-x lg:pl-0 md:pr-menu lg:pr-0 lg:overflow-hidden"
               placement="unit images"
             />
           )}
-          <div className="rich-text pl-x md:px-0 md:mb-y">
+          <div className="rich-text pl-x lg:px-0 lg:mb-y">
             <p className="m-1">{`${propertyType?.typeTitle}`}</p>
             <p className="m-1">{`0001 ${
               (propertyType?.property as unknown as Property).title
@@ -139,7 +146,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             </p>
           </div>
 
-          <div className="hidden md:block relative w-full mb-y cursor-pointer z-above">
+          <div className="hidden lg:block relative w-full mb-y cursor-pointer z-above">
             <button
               onClick={openWaitlist}
               className={classNames(
@@ -151,7 +158,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             </button>
           </div>
 
-          <div className="hidden md:block relative w-full cursor-pointer z-above">
+          <div className="hidden lg:block relative w-full cursor-pointer z-above">
             <Link href="/how-it-works">
               <button
                 className={classNames(
@@ -165,10 +172,10 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           </div>
         </div>
 
-        <div className="md:col-span-2 mr-menu mt-header md:mt-0 md:z-modal">
+        <div className="lg:col-span-2 md:mr-menu mt-header lg:mt-0 lg:z-modal">
           {propertyType?.summary && propertyType?.summary.length > 0 && (
-            <div className="pl-x md:pl-0">
-              <p className="text-h4 mb-y md:mb-yhalf">Overview:</p>
+            <div className="pl-x lg:pl-0 pr-menu md:pr-0">
+              <p className="text-h4 mb-y lg:mb-yhalf">Overview:</p>
               <RichText
                 blocks={propertyType.summary}
                 className="font-medium max-w-[360px]"
@@ -178,12 +185,12 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 
           {propertyType?.unitDetails && (
             <>
-              <p className="hidden md:block xl:hidden text-h4 pl-x md:pl-0 mt-ydouble mb-yhalf">
+              <p className="hidden lg:block xl:hidden text-h4 pl-x lg:pl-0 mt-ydouble mb-yhalf">
                 Details:
               </p>
               <RichText
                 blocks={propertyType?.unitDetails}
-                className="hidden md:block xl:hidden pr-0"
+                className="hidden lg:block xl:hidden pr-menu md:pr-0"
               />
             </>
           )}
@@ -193,19 +200,19 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               title="Inventory"
               inventory={propertyType.inventory}
               buttonLabel="View Inventory"
-              className="hidden md:flex xl:hidden mt-y"
+              className="hidden lg:flex xl:hidden mt-y"
               unit={propertyType.title}
             />
           )}
 
           {propertyType?.unitDetails && (
             <>
-              <p className="md:hidden xl:block text-h4 px-x md:px-0 mt-ydouble mb-y md:mb-yhalf">
+              <p className="lg:hidden xl:block text-h4 px-x lg:px-0 mt-ydouble mb-y lg:mb-yhalf">
                 Details:
               </p>
               <RichText
                 blocks={propertyType?.unitDetails}
-                className="md:hidden xl:block pl-x md:pl-0"
+                className="lg:hidden xl:block pl-x lg:pl-0 pr-menu md:pr-0"
               />
             </>
           )}
@@ -215,14 +222,14 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               title="Inventory"
               inventory={propertyType.inventory}
               buttonLabel="View Inventory"
-              className="inline-block md:hidden xl:flex px-x md:px-0 mt-y"
+              className="inline-block lg:hidden xl:flex px-x lg:px-0 mt-y"
               unit={propertyType.title}
             />
           )}
 
           {propertyType?.layoutImages && (
             <>
-              <p className="text-h4 px-x md:px-0 mt-ydouble mb-y xl:mt-ydouble">
+              <p className="text-h4 px-x lg:px-0 mt-ydouble mb-y xl:mt-ydouble">
                 Plans:
               </p>
               <ImageCarousel
@@ -230,14 +237,14 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
                 perView={1}
                 carousel={true}
                 slides={propertyType?.layoutImages}
-                className="w-full px-x md:px-0 overflow-visible md:overflow-hidden"
+                className="w-full pl-x lg:px-0 overflow-visible lg:overflow-hidden"
                 placement="unit layouts"
               />
             </>
           )}
 
           {propertyType?.moreInfo && (
-            <div className="px-x md:px-0 mt-y">
+            <div className="px-x lg:px-0 mt-y">
               <RichText blocks={propertyType?.moreInfo} />
             </div>
           )}
@@ -249,17 +256,17 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
                 header={header}
                 text={text}
                 location={{ property: 'property', unit: 'unit' }}
-                className="px-x md:px-0 mt-y mb-ydouble border-x-0 border-t-0"
+                className="px-x lg:px-0 mt-y mb-ydouble border-x-0 border-t-0"
               />
             ))}
 
-          <div className="pl-x md:pl-0 pt-ydouble mt-ydouble overflow-hidden">
+          <div className="pl-x lg:pl-0 pt-ydouble pr-menu md:pr-0 mt-ydouble overflow-hidden">
             {(propertyType?.property as unknown as Property)
               ?.propertyTypesList && (
               <>
                 <h2 className="text-h2">Apartments</h2>
                 <PropertyTypesList
-                  className="animate-in flex flex-col mt-ydouble"
+                  className="grid md:grid-cols-2 gap-xdouble animate-in mt-ydouble"
                   propertyTypesList={
                     (propertyType?.property as unknown as Property)
                       .propertyTypesList
@@ -269,7 +276,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             )}
           </div>
 
-          <div className="md:hidden relative w-full mt-header mb-y pl-x cursor-pointer z-above">
+          <div className="lg:hidden relative w-full md:max-w-btnWidth mt-header mb-y pl-x pr-menu md:pr-0 cursor-pointer z-above">
             <button
               onClick={openWaitlist}
               className={classNames(
@@ -281,7 +288,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             </button>
           </div>
 
-          <div className="md:hidden relative w-full pl-x cursor-pointer z-above">
+          <div className="lg:hidden relative w-full md:max-w-btnWidth pl-x pr-menu md:pr-0 cursor-pointer z-above">
             <Link href="/how-it-works">
               <button
                 className={classNames(
