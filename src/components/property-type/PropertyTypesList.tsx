@@ -9,25 +9,19 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
   className,
 }) => {
   return (
-    <ul className={classNames(className, 'relative')}>
-      <div
-        className={classNames(
-          'grid md:grid-cols-4 gap-xdouble relative w-full max-w-full'
-        )}
-      >
-        {propertyTypesList &&
-          propertyTypesList.map((propertyType: KeyedPropertyTypeProps) => {
-            return (
-              <div key={propertyType._id} className="w-full">
-                <PropertyTypeSummary
-                  propertyType={propertyType}
-                  showCity={showCity}
-                  className="w-full"
-                />
-              </div>
-            )
-          })}
-      </div>
+    <ul className={classNames(className, 'relative w-full max-w-full')}>
+      {propertyTypesList &&
+        propertyTypesList.map((propertyType: KeyedPropertyTypeProps) => {
+          return (
+            <div key={propertyType._id} className="w-full">
+              <PropertyTypeSummary
+                propertyType={propertyType}
+                showCity={showCity}
+                className="w-full"
+              />
+            </div>
+          )
+        })}
     </ul>
   )
 }

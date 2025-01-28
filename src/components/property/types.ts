@@ -10,6 +10,7 @@ import type {
   SanityKeyed,
   Media,
   BlockContent,
+  Property,
 } from '@studio/gen/sanity-schema'
 import { City } from 'schema-dts'
 import { KeyedPropertyTypeProps } from '@components/property-type'
@@ -56,6 +57,7 @@ export interface PropertyElProps
   extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref' | 'property'>,
     Omit<HTMLAttributes<HTMLElement>, 'property'> {
   property?: PropertyContentProps
+  allProperties?: Property[]
   block?: boolean
   footerCopy?: string
 }

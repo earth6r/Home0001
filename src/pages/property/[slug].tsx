@@ -20,6 +20,11 @@ const PROPERTY_QUERY = groq`
   *[_type == "property" && slug.current == $slug]{
     _type,
     seo,
+    "properties": *[_type == "property" && !(_id in path("drafts.**")) && defined(slug.current)]{
+      _type,
+      title,
+      slug,
+    },
     ${PROPERTIES_QUERY}
   }
 `
@@ -46,6 +51,7 @@ const PropertyPage: NextPage<PageProps> = (
       <article>
         <Property
           property={page}
+          allProperties={(page as any).properties}
           className="w-full pt-header overflow-hidden"
         />
       </article>
