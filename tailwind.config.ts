@@ -43,6 +43,7 @@ export default {
         bodyLg: ['22px', '1.2'], // large paragraph rich text
         card: ['24px', '0.9'], // property summary card
         header3: ['32px', '0.9'], // h3
+        side: ['58px', '0.75'], // vertical text
         xl: ['clamp(2.5rem, 2.088rem + 1.569vw, 3.5rem)', '0.9'], // h2
         '2xl': ['clamp(2.5rem, 0.956rem + 5.882vw, 6.25rem)', '0.9'], // h1
       },
@@ -173,6 +174,12 @@ export default {
           fontWeight: '500',
           textTransform: 'uppercase',
           lineHeight: '0.8',
+        },
+        '.text-side': {
+          fontSize: theme('fontSize.side'),
+          fontWeight: '700',
+          textTransform: 'uppercase',
+          lineHeight: '0.9',
         },
       })
     },
