@@ -45,9 +45,9 @@ export const PropertyComponent: FC<PropertyElProps> = ({
       <div
         className={classNames(
           navOpen
-            ? 'right-[-32px] lg:right-[calc(-66.666vw+75px)] bg-white overflow-scroll'
-            : 'right-[calc(-100vw+28px)] lg:right-[calc(-100vw+43px)]',
-          'flex flex-col justify-end gap-2 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
+            ? 'right-[-32px] lg:right-[calc(-66.666vw+72px)] bg-white overflow-scroll'
+            : 'right-[calc(-100vw+42px)] lg:right-[calc(-100vw+42px)]',
+          'flex flex-col justify-end gap-4 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
         {allProperties
@@ -72,15 +72,15 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           onClick={() => setNavOpen(!navOpen)}
           className={classNames('flex items-end gap-2 ')}
         >
-          <h2 className="text-h2">{property?.title}</h2>
+          <h2 className="text-side">{property?.title}</h2>
 
           <div
             className={classNames(
               navOpen ? 'rotate-180' : '',
-              'flex items-center justify-center relative w-[21px] h-[21px] bottom-1 bg-black transition-transform duration-500'
+              'flex items-center justify-center relative w-[21px] h-[21px] bottom-0 bg-black transition-transform duration-500'
             )}
           >
-            <IconChevron width="12" fill="white" className="rotate-90" />
+            <IconChevron width="12" fill="white" className="rotate-0" />
           </div>
         </button>
       </div>
@@ -137,7 +137,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             <div className="px-x md:pl-x md:pr-0 lg:pl-0 pt-ydouble mt-ydouble overflow-hidden">
               {property?.propertyTypesList && (
                 <>
-                  <h2 className="text-h2">Apartments</h2>
+                  <h2 className="text-h2">Available Homes:</h2>
                   {property?.availableText && (
                     <div className="mt-ydouble uppercase">
                       {property?.availableText}

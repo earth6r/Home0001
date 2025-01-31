@@ -79,7 +79,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 <IconChevron
                   width="12"
                   className={classNames(
-                    locationsOpen ? 'rotate-[270deg]' : 'rotate-90',
+                    locationsOpen ? 'rotate-[180deg]' : 'rotate-0',
                     'transform transition-transform duration-300'
                   )}
                 />
