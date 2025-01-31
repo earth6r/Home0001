@@ -125,7 +125,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               perView={1}
               carousel={true}
               slides={propertyType?.photographs as SanityKeyed<Media>[]}
-              className="w-full h-auto pl-x lg:pl-0 md:pr-menu lg:pr-0 lg:overflow-hidden"
+              className="w-full h-auto pr-menu lg:pr-0 lg:overflow-hidden leading-none mb-y"
               placement="unit images"
             />
           )}
