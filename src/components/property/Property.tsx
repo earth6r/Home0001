@@ -93,7 +93,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           'lg:grid lg:grid-cols-2 gap-y block relative lg:pl-x transition-opacity'
         )}
       >
-        <div className="flex flex-col px-x md:pl-x md:pr-0 lg:pl-0">
+        <div className="flex flex-col pr-x md:pl-x md:pr-0 lg:pl-0">
           {property?.image && (
             <div className="block relative w-full mb-y z-base">
               <SanityMedia
@@ -109,7 +109,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             </div>
           )}
 
-          <div className="mr-menu lg:mr-0 lg:overflow-x-hidden">
+          <div className="pl-x md:pl-0 mr-menu lg:mr-0 lg:overflow-x-hidden">
             <div className="mb-ydouble">
               {property?.header && <RichText blocks={property?.header} />}
 
