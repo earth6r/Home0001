@@ -6,14 +6,13 @@ export const IconChevronComponent = (props: SVGProps<SVGSVGElement>) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      viewBox="0 0 14 14"
+      viewBox="0 0 11 7"
       {...props}
     >
       <path
         fill={props.fill || '#000'}
         fillRule="evenodd"
-        d="M4.812 1.505a.88.88 0 0 0-1.273 1.216l4.405 4.61-4.405 4.611a.88.88 0 0 0 1.273 1.216l5.566-5.826-5.566-5.827Z"
-        clipRule="evenodd"
+        d="M1.22984 0.00366211L5.24609 4.01991L9.26234 0.00366211L10.4961 1.5L5.24609 7L-0.00390625 1.5L1.22984 0.00366211Z"
       />
     </svg>
   )
