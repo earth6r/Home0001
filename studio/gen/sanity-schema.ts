@@ -346,6 +346,13 @@ export interface Property extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
+   * Available — `boolean`
+   *
+   *
+   */
+  available?: boolean;
+
+  /**
    * Hide Menu Button — `boolean`
    *
    * Hide waitlist or tour button in header
@@ -1829,27 +1836,11 @@ export type PropertiesBlock = {
   header?: string;
 
   /**
-   * Cities — `array`
+   * Properties — `array`
    *
    *
    */
-  cities?: Array<
-    SanityKeyed<{
-      /**
-       * Header — `string`
-       *
-       *
-       */
-      header?: string;
-
-      /**
-       * Properties — `array`
-       *
-       *
-       */
-      properties?: Array<SanityKeyedReference<Property>>;
-    }>
-  >;
+  properties?: Array<SanityKeyedReference<Property>>;
 };
 
 export type NewsletterBlock = {

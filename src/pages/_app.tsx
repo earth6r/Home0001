@@ -78,29 +78,29 @@ function App({ Component, pageProps }: AppProps<{}>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      scroll.scrollToTop()
-    }
+  // useEffect(() => {
+  //   const handleRouteChange = (url: string) => {
+  //     scroll.scrollToTop()
+  //   }
 
-    const handleHashChange = (url: string) => {
-      const el = document.getElementById(url.slice(url.lastIndexOf('#') + 1))
-      const elRectTop = el?.getBoundingClientRect().top
-      const scrollTop = window.pageYOffset || document.body.scrollTop
-      const headerEl = document.getElementById('header')
-      const headerStyle = getComputedStyle(headerEl as HTMLElement)
-      const offset = parseInt(headerStyle.height) + parseInt(headerStyle.top)
-      elRectTop && scroll.scrollTo(Math.floor(elRectTop + scrollTop - offset))
-    }
+  //   const handleHashChange = (url: string) => {
+  //     const el = document.getElementById(url.slice(url.lastIndexOf('#') + 1))
+  //     const elRectTop = el?.getBoundingClientRect().top
+  //     const scrollTop = window.pageYOffset || document.body.scrollTop
+  //     const headerEl = document.getElementById('header')
+  //     const headerStyle = getComputedStyle(headerEl as HTMLElement)
+  //     const offset = parseInt(headerStyle.height) + parseInt(headerStyle.top)
+  //     elRectTop && scroll.scrollTo(Math.floor(elRectTop + scrollTop - offset))
+  //   }
 
-    events.on('routeChangeStart', handleRouteChange)
-    events.on('hashChangeStart', handleHashChange)
+  //   events.on('routeChangeStart', handleRouteChange)
+  //   events.on('hashChangeStart', handleHashChange)
 
-    return () => {
-      events.off('routeChangeStart', handleRouteChange)
-      events.off('hashChangeStart', handleHashChange)
-    }
-  }, [events])
+  //   return () => {
+  //     events.off('routeChangeStart', handleRouteChange)
+  //     events.off('hashChangeStart', handleHashChange)
+  //   }
+  // }, [events])
 
   return (
     <ContextProvider>

@@ -1,4 +1,5 @@
 import type { Rule } from '@sanity/types'
+import { initial } from 'lodash'
 import { string } from 'prop-types'
 import { MdHomeWork } from 'react-icons/md'
 import richText from 'schemas/objects/rich-text'
@@ -35,6 +36,12 @@ export default {
         source: 'title',
         maxLength: 96,
       },
+    },
+    {
+      name: 'available',
+      title: 'Available',
+      type: 'boolean',
+      initialValue: true,
     },
     {
       name: 'hideMenuButton',

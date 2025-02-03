@@ -319,16 +319,10 @@ export const BODY_QUERY = `
     "citiesList": citiesList[]->{
       ${CITY_QUERY},
     },
-    "cities": cities[]{
-      ...,
-      header,
-      "properties": properties[]->{
-        "cardImage": cardImage{
-          ${MEDIA_QUERY}
-        },
-        longTitle,
-        slug,
-      },
+    "properties": properties[]->{
+      longTitle,
+      slug,
+      available,
     },
     "featuredList": featuredList[]->{
       _key,
@@ -368,6 +362,7 @@ export const PROPERTIES_QUERY = `
   title,
   slug,
   longTitle,
+  available,
   headerText,
   header,
   coordinates,
