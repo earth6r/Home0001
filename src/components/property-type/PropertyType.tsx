@@ -115,17 +115,18 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           navOpen
             ? 'opacity-0 lg:opacity-100 duration-100 delay-300'
             : 'opacity-100 duration-100',
-          'grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 lg:gap-x pr-x lg:px-x lg:pr-0 transition-opacity'
+          'grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 lg:gap-x lg:pl-x pr-x md:pr-0 transition-opacity'
         )}
       >
-        <div className="col-span-1 lg:mb-y xl:mb-0 lg:z-modal">
+        <div className="col-span-1 lg:mb-y xl:mb-0 bg-white lg:z-modal">
           {propertyType?.photographs && (
             <ImageCarousel
               pagination={false}
               perView={1}
+              perViewMobile={1}
               carousel={true}
               slides={propertyType?.photographs as SanityKeyed<Media>[]}
-              className="w-full h-auto pr-menu lg:pr-0 lg:overflow-hidden leading-none mb-y"
+              className="w-full h-auto lg:overflow-hidden leading-none pr-menu lg:pr-0 mb-y"
               placement="unit images"
             />
           )}
@@ -239,10 +240,10 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             <>
               <ImageCarousel
                 pagination={false}
-                perView={1}
+                perView={2}
                 carousel={true}
                 slides={propertyType?.layoutImages}
-                className="pt-xdouble px-0 overflow-visible"
+                className="pt-xdouble pr-menu md:px-0 overflow-visible"
                 placement="unit layouts"
               />
             </>

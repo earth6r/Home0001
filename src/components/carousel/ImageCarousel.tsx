@@ -93,9 +93,9 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
     0: {
-      slidesPerView: perViewMobile || 1.185,
+      slidesPerView: perViewMobile || 1,
     },
-    [SCREENS.md]: {
+    [SCREENS.lg]: {
       slidesPerView: perView || 'auto',
     },
   }
@@ -148,6 +148,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               setSwipedImage(true)
             }
           }}
+          resistance={false}
           breakpoints={breakpoints}
           speed={600}
           navigation={{
