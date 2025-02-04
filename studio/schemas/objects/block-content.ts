@@ -49,11 +49,6 @@ export default {
       title: 'Property Block',
     },
     {
-      name: 'propertyTypesBlock',
-      type: 'propertyTypesBlock',
-      title: 'Property Types Block',
-    },
-    {
       name: 'propertiesBlock',
       type: 'propertiesBlock',
       title: 'Properties Block',

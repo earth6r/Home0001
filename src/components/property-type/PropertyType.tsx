@@ -1,6 +1,6 @@
 import { type FC, memo, useEffect, useState } from 'react'
 import { ImageCarousel } from '@components/carousel'
-import { RichText } from '@components/sanity'
+import { BlockContent, RichText } from '@components/sanity'
 import { PropertyTypeElProps } from './types'
 import classNames from 'classnames'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
@@ -224,6 +224,14 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               buttonLabel="View Inventory"
               className="inline-block lg:hidden xl:flex px-x lg:px-0 mt-y"
               unit={propertyType.title}
+            />
+          )}
+
+          {propertyType?.body && (
+            <BlockContent
+              blocks={propertyType.body}
+              grid={false}
+              className="pl-x pr-menu lg:px-0 mt-ydouble overflow-visible"
             />
           )}
 

@@ -53,63 +53,6 @@ export const CITY_QUERY = `
   }
 `
 
-export const PROPERTY_TYPE_QUERY = `
-  _key,
-  _id,
-  slug,
-  typeTitle,
-  headerText,
-  available,
-  price,
-  cryptoPrice,
-  area,
-  summary,
-  "inventory": inventory->{
-    ...,
-    items[]{
-      ...,
-      "image": image{
-        ${IMAGE_QUERY}
-      },
-    }, 
-  },
-  unitDetails,
-  "headlineImage": headlineImage{
-    ${MEDIA_QUERY}
-  },
-  "photographs": photographs[]{
-    ${MEDIA_QUERY}
-  },
-  "layoutImages": layoutImages[]{
-    ${MEDIA_QUERY}
-  },
-  "property": property->{
-    headerText,
-    title,
-    slug,
-    "location": location->{
-      title,
-    },
-    "propertyTypesList": propertyTypesList[]->{
-      _key,
-      _id,
-      slug,
-      typeTitle,
-      available,
-      price,
-      cryptoPrice,
-      area,
-      "photographs": photographs[]{
-        ${MEDIA_QUERY}
-      },
-    },
-  },
-  seo,
-  "previewImage": previewImage{
-    ${MEDIA_QUERY}
-  },
-`
-
 export const PROPERTY_QUERY = `
   _key,
   _id,
@@ -278,53 +221,146 @@ export const BODY_QUERY = `
         ${CTA_QUERY}
       }
     },
-    "accordions": accordions[]{
-      ...,
-      "text": text[]{
-        ...,
-        markDefs[]{
+    "accordions": select(
+      count(^.body[
+          (_type == "accordionBlock") || 
+          (_type == "textAndAccordionsBlock")
+        ]) > 0 =>
+        accordions[]{
           ...,
-          ${LINK_MARKDEFS_QUERY}
-        },
-      },
-      cta{
-        ${CTA_QUERY}
-      }
-    },
-    "textAndImages": textAndImages[]{
-      ...,
-      "media": media{
-        ${MEDIA_QUERY}
-      },
-      "text": text[]{
-        ...,
-        markDefs[]{
-          ...,
-          "inventory": inventory->{
+          "text": text[]{
             ...,
-            items[]{
+            markDefs[]{
               ...,
-              "image": image{
-                ${IMAGE_QUERY}
-              },
-            }, 
+              ${LINK_MARKDEFS_QUERY}
+            },
           },
-          ${LINK_MARKDEFS_QUERY}
+          cta{
+            ${CTA_QUERY}
+          }
         },
-      },
-    },
+      null
+    ),
+    "textAndImages": select(
+      count(^.body[_type == "animatingBlock"]) > 0 => 
+        textAndImages[]{
+          ...,
+          "media": media{
+            ${MEDIA_QUERY}
+          },
+          "text": text[]{
+            ...,
+            markDefs[]{
+              ...,
+              "inventory": inventory->{
+                ...,
+                items[]{
+                  ...,
+                  "image": image{
+                    ${IMAGE_QUERY}
+                  },
+                }, 
+              },
+              ${LINK_MARKDEFS_QUERY}
+            },
+          },
+        },
+      null
+    ),
     "media": media{
       ${MEDIA_QUERY}
     },
-    "citiesList": citiesList[]->{
-      ${CITY_QUERY},
-    },
+    "citiesList": select(
+      count(^.body[_type == "animatingBlock"]) > 0 => 
+        citiesList[]->{
+          ${CITY_QUERY},
+        },
+      null
+    ),
     "properties": properties[]->{
       longTitle,
       slug,
       available,
     },
-    "featuredList": featuredList[]->{
+    "featuredList": select(
+      count(^.body[_type == "animatingBlock"]) > 0 =>
+        featuredList[]->{
+          _key,
+          _id,
+          slug,
+          typeTitle,
+          available,
+          price,
+          cryptoPrice,
+          area,
+          "property": property->{
+            headerText,
+            slug,
+            "location": location->{
+              title,
+            },
+          },
+          "photographs": photographs[]{
+            ${MEDIA_QUERY}
+          },
+        },
+      null
+    ),
+    "propertyRef": select(
+      count(^.body[_type == "propertyBlock"]) > 0 =>
+        propertyRef->{
+          ${PROPERTY_QUERY}
+        },
+      null
+    ),
+    "unitRef": select(
+      count(^.body[_type == "unitBlock"]) > 0 =>
+        unitRef->{
+          ${UNIT_QUERY}
+        },
+      null
+    ),
+  },
+`
+
+export const PROPERTY_TYPE_QUERY = `
+  _key,
+  _id,
+  slug,
+  typeTitle,
+  headerText,
+  available,
+  price,
+  cryptoPrice,
+  area,
+  summary,
+  "inventory": inventory->{
+    ...,
+    items[]{
+      ...,
+      "image": image{
+        ${IMAGE_QUERY}
+      },
+    }, 
+  },
+  unitDetails,
+  "headlineImage": headlineImage{
+    ${MEDIA_QUERY}
+  },
+  "photographs": photographs[]{
+    ${MEDIA_QUERY}
+  },
+  "layoutImages": layoutImages[]{
+    ${MEDIA_QUERY}
+  },
+  "property": property->{
+    headerText,
+    title,
+    slug,
+    "location": location->{
+      title,
+    },
+    "propertyTypesList": propertyTypesList[]->{
       _key,
       _id,
       slug,
@@ -333,27 +369,16 @@ export const BODY_QUERY = `
       price,
       cryptoPrice,
       area,
-      "property": property->{
-        headerText,
-        slug,
-        "location": location->{
-          title,
-        },
-      },
       "photographs": photographs[]{
         ${MEDIA_QUERY}
       },
     },
-    "propertyTypes": propertyTypes[]->{
-      ${PROPERTY_TYPE_QUERY}
-    },
-    "propertyRef": propertyRef->{
-      ${PROPERTY_QUERY}
-    },
-    "unitRef": unitRef->{
-      ${UNIT_QUERY}
-    },
   },
+  seo,
+  "previewImage": previewImage{
+    ${MEDIA_QUERY}
+  },
+  ${BODY_QUERY}
 `
 
 export const PROPERTIES_QUERY = `

@@ -1,6 +1,7 @@
 import { HTMLAttributes } from 'react'
 import type {
   Accordion,
+  BlockContent,
   Inventory,
   Media,
   Property,
@@ -43,6 +44,7 @@ export interface KeyedPropertyTypeProps
   inventory?: any
   unitDetails?: RichText
   secondUnitDetails?: SanityKeyed<Accordion>[]
+  body?: BlockContent
   layoutImages?: SanityKeyed<Media>[]
   layoutImagesOptions?: {
     carousel?: boolean

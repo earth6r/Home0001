@@ -556,6 +556,13 @@ export interface PropertyType extends SanityDocument {
   unitDetails?: RichText;
 
   /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
    * Layout Images — `array`
    *
    *
