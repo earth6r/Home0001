@@ -229,15 +229,12 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 
           {propertyType?.layoutImages && (
             <>
-              <p className="text-h4 px-x lg:px-0 mt-ydouble mb-y xl:mt-ydouble">
-                Plans:
-              </p>
               <ImageCarousel
-                pagination={true}
+                pagination={false}
                 perView={1}
                 carousel={true}
                 slides={propertyType?.layoutImages}
-                className="w-full pl-x lg:px-0 overflow-visible lg:overflow-hidden"
+                className="w-full pt-xdouble px-0 overflow-visible lg:overflow-hidden"
                 placement="unit layouts"
               />
             </>
@@ -266,7 +263,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               <>
                 <h2 className="text-h2">Available Homes:</h2>
                 <PropertyTypesList
-                  className="grid md:grid-cols-2 gap-x animate-in mt-ydouble"
+                  className="grid md:grid-cols-3 gap-x animate-in mt-ydouble"
                   propertyTypesList={
                     (propertyType?.property as unknown as Property)
                       .propertyTypesList
@@ -276,7 +273,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             )}
           </div>
 
-          <div className="lg:hidden relative w-full md:max-w-btnWidth mt-header mb-y pl-x pr-menu md:pr-0 cursor-pointer z-above">
+          <div className="hidden relative w-full md:max-w-btnWidth mt-header mb-y pl-x pr-menu md:pr-0 cursor-pointer z-above">
             <button
               onClick={openWaitlist}
               className={classNames(
@@ -288,7 +285,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             </button>
           </div>
 
-          <div className="lg:hidden relative w-full md:max-w-btnWidth pl-x pr-menu md:pr-0 cursor-pointer z-above">
+          <div className="hidden relative w-full md:max-w-btnWidth pl-x pr-menu md:pr-0 cursor-pointer z-above">
             <Link href="/how-it-works">
               <button
                 className={classNames(
