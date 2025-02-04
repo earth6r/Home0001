@@ -1541,7 +1541,6 @@ export type BlockContent = Array<
   | SanityKeyed<FullbleedBlock>
   | SanityKeyed<ImagesBlock>
   | SanityKeyed<PropertyBlock>
-  | SanityKeyed<PropertyTypesBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
