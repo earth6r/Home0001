@@ -153,7 +153,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
                     </div>
                   )}
                   <PropertyTypesList
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xdouble mt-ydouble"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x mt-ydouble"
                     propertyTypesList={property?.propertyTypesList}
                   />
                 </>
