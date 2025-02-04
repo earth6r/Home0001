@@ -49,7 +49,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
       <div
         className={classNames(
           propertyType.available ? '' : 'bg-white opacity-30',
-          `w-auto flex-col`
+          `w-auto flex-col pb-y border-bottom`
         )}
       >
         <div className="z-above">
@@ -80,39 +80,36 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                 />
               )}
               <div className="block w-full text-md uppercase">
-                <div className="my-y">
+                <div className="my-y font-medium">
                   {propertyType.typeTitle && (
-                    <p className="font-medium mb-yhalf tracking-normal">
+                    <p className="mb-y tracking-normal">
                       {propertyType.typeTitle}
                     </p>
                   )}
 
-                  <p className="font-medium mb-yhalf">
-                    {cryptoMode
-                      ? `${propertyType.price?.substring(0)} / ${
-                          cryptoPrice[1]
-                        } BTC / ${cryptoPrice[0]} ETH`
-                      : propertyType?.price}
-                  </p>
-
-                  <p className="font-medium">{propertyType?.area}</p>
-                </div>
-                <div
-                  className={classNames(
-                    'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-white border-black hover:border-white hover:invert text-button text-left uppercase'
+                  <p>{propertyType?.price}</p>
+                  {cryptoMode && (
+                    <>
+                      <p className="ml-[54px]">{`${cryptoPrice[1]} BTC`}</p>
+                      <p className="ml-[54px]">{`${cryptoPrice[0]} ETH`}</p>
+                    </>
                   )}
-                >
-                  <div>
-                    {`Learn more`}
-                    <br />
-                    {showCity &&
-                      (propertyType?.property as any)?.location.title}
-                  </div>
+                </div>
 
-                  <IconRightArrowBold
-                    className="relative w-[1em] mt-[0.1em]"
-                    fill="white"
-                  />
+                <div className="flex justify-between w-full">
+                  <p className="font-medium">{propertyType?.area}</p>
+
+                  <div
+                    className={classNames(
+                      'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-sm text-left uppercase'
+                    )}
+                  >
+                    <IconRightArrowBold
+                      className="relative w-[1em] mt-[0.1em]"
+                      fill="white"
+                    />
+                    <span className="leading-none">{`Explore`}</span>
+                  </div>
                 </div>
               </div>
             </div>

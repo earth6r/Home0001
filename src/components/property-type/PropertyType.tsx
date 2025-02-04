@@ -121,7 +121,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
         <div className="col-span-1 lg:mb-y xl:mb-0 lg:z-modal">
           {propertyType?.photographs && (
             <ImageCarousel
-              pagination={true}
+              pagination={false}
               perView={1}
               carousel={true}
               slides={propertyType?.photographs as SanityKeyed<Media>[]}

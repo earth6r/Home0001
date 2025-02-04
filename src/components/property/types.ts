@@ -53,6 +53,7 @@ export interface KeyedPropertyProps
   unitsList?: KeyedUnitProps[]
   location?: KeyedLocationProps
 }
+
 export interface PropertyElProps
   extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref' | 'property'>,
     Omit<HTMLAttributes<HTMLElement>, 'property'> {

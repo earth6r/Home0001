@@ -34,12 +34,23 @@ export const PropertyComponent: FC<PropertyElProps> = ({
     sendGoogleEvent('opened waitlist modal', options)
   }
 
+  const matchingCityProperties = allProperties
+    ?.filter(
+      (item: any) =>
+        item?.location?.title === property?.location?.title &&
+        item?.title !== property?.title
+    )
+    .sort(
+      (a: any, b: any) =>
+        b?.title?.localeCompare && b?.title?.localeCompare(a?.title)
+    )
+
   return (
     <div
       className={classNames(
         className,
         navOpen ? 'right-[calc(100vw-60px)] lg:right-[33.33vw]' : 'right-0',
-        'relative lg:pr-menu transition-all duration-500'
+        'relative lg:pr-x transition-all duration-500'
       )}
     >
       <div
@@ -50,23 +61,21 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           'flex flex-col justify-end gap-4 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
-        {allProperties
-          ?.sort(
-            (a: PropertyType | any, b: PropertyType | any) =>
-              b?.title?.localeCompare && b?.title?.localeCompare(a?.title)
+        {property?.location && (
+          <h3 className="text-h3">{`${property.location.title}:`}</h3>
+        )}
+
+        {matchingCityProperties?.map((item: PropertyType | any, index) => {
+          return (
+            <Link
+              onClick={() => setNavOpen(!navOpen)}
+              href={`/property/${item.slug?.current}`}
+              key={`${index}-${item.typeTitle}`}
+            >
+              <h2 className="text-h2">{item.title}</h2>
+            </Link>
           )
-          ?.map((item: PropertyType | any, index) => {
-            if (item.title === property?.title) return
-            return (
-              <Link
-                onClick={() => setNavOpen(!navOpen)}
-                href={`/property/${item.slug?.current}`}
-                key={`${index}-${item.typeTitle}`}
-              >
-                <h2 className="text-h2">{item.title}</h2>
-              </Link>
-            )
-          })}
+        })}
 
         <button
           onClick={() => setNavOpen(!navOpen)}

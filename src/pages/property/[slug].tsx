@@ -24,6 +24,9 @@ const PROPERTY_QUERY = groq`
       _type,
       title,
       slug,
+      "location": location->{
+        title,
+      },
     },
     ${PROPERTIES_QUERY}
   }

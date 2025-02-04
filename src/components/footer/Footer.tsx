@@ -1,17 +1,10 @@
 import classNames from 'classnames'
-import { Fragment, type FC, type HTMLProps } from 'react'
+import { type FC, type HTMLProps } from 'react'
 import type { FooterProps } from './types'
 import { SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
 import { useBrokerInquiryModal, useWaitlisModal } from '@contexts/modals'
 import { useCookiesPrefs } from '@contexts/cookies'
-import Link from 'next/link'
-import { Btn } from '@components/btns'
-import {
-  IconRightArrow,
-  IconRightArrowComponent,
-  IconWaitlist,
-} from '@components/icons'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
@@ -25,7 +18,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        'flex flex-col gap-ylg px-x pt-y pb-ydouble font-medium text-xs uppercase bg-gray'
+        'flex flex-col gap-ylg px-x pt-y pb-ydouble mt-header font-medium text-xs uppercase bg-gray'
       )}
     >
       <div className="flex flex-col justify-start gap-ydouble">
