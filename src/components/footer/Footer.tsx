@@ -34,7 +34,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
           <button
             onClick={setWaitlistOpen}
             className={classNames(
-              'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[4px] pb-[5px] mt-yhalf bg-black text-white font-medium text-left uppercase border-black'
+              'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase border-black'
             )}
           >
             <IconRightArrowBold
@@ -50,7 +50,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
           <a href="mailto:info@home0001.com" target="_blank">
             <button
               className={classNames(
-                'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[4px] pb-[5px] mt-yhalf bg-white font-medium text-left uppercase border-black'
+                'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
               )}
             >
               <IconRightArrowBold
@@ -66,7 +66,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
           <p>{`Are you a broker?`}</p>
           <button
             className={classNames(
-              'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[4px] pb-[5px] mt-yhalf bg-white font-medium text-left uppercase border-black'
+              'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
             )}
             onClick={() => {
               setBrokerInquiryOpen(true)
