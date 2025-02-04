@@ -63,7 +63,7 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                   {available !== false && (
                     <div
                       className={classNames(
-                        'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[5px] pb-[6px] bg-black text-white font-medium text-left uppercase'
+                        'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-left uppercase'
                       )}
                     >
                       <IconRightArrowBold
