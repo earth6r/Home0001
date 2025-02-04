@@ -90,6 +90,11 @@ export default {
       type: 'richText',
     },
     {
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
+    },
+    {
       name: 'layoutImages',
       title: 'Layout Images',
       type: 'array',
