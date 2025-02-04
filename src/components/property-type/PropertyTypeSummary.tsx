@@ -49,7 +49,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
       <div
         className={classNames(
           propertyType.available ? '' : 'bg-white opacity-30',
-          `w-auto flex-col pb-y border-bottom`
+          `w-auto flex-col pb-y border-bottom hover:scale-[0.99] transition-transform`
         )}
       >
         <div className="z-above">
@@ -79,7 +79,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                   className="w-full h-auto object-contain"
                 />
               )}
-              <div className="block w-full text-md uppercase">
+              <div className="block w-full text-sm uppercase">
                 <div className="my-y font-medium">
                   {propertyType.typeTitle && (
                     <p className="mb-y tracking-normal">
@@ -101,7 +101,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
 
                   <div
                     className={classNames(
-                      'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-sm text-left uppercase'
+                      'mt-[-5px] inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-sm text-left uppercase'
                     )}
                   >
                     <IconRightArrowBold
