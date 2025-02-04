@@ -18,7 +18,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        'flex flex-col gap-ylg px-x pt-y pb-ydouble mt-header font-medium text-xs uppercase bg-gray'
+        'flex flex-col gap-ylg pl-x pr-menu md:px-x pt-y pb-ydouble mt-header font-medium text-xs uppercase bg-gray'
       )}
     >
       <div className="flex flex-col justify-start gap-ydouble">
