@@ -172,7 +172,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           </div>
         </div>
 
-        <div className="lg:col-span-2 md:mr-menu mt-header lg:mt-0 lg:z-modal">
+        <div className="lg:col-span-2 md:mr-menu mt-header lg:mt-0">
           {propertyType?.summary && propertyType?.summary.length > 0 && (
             <div className="pl-x lg:pl-0 pr-menu md:pr-0">
               <p className="text-h4 mb-y lg:mb-yhalf">Overview:</p>
@@ -234,7 +234,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
                 perView={1}
                 carousel={true}
                 slides={propertyType?.layoutImages}
-                className="w-full pt-xdouble px-0 overflow-visible lg:overflow-hidden"
+                className="pt-xdouble px-0 overflow-visible"
                 placement="unit layouts"
               />
             </>
@@ -263,7 +263,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               <>
                 <h2 className="text-h2">Available Homes:</h2>
                 <PropertyTypesList
-                  className="grid md:grid-cols-3 gap-x animate-in mt-ydouble"
+                  className="grid md:grid-cols-2 gap-x animate-in mt-ydouble"
                   propertyTypesList={
                     (propertyType?.property as unknown as Property)
                       .propertyTypesList
