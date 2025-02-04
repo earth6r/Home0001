@@ -266,7 +266,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               <>
                 <h2 className="text-h2">Available Homes:</h2>
                 <PropertyTypesList
-                  className="grid md:grid-cols-2 gap-xdouble animate-in mt-ydouble"
+                  className="grid md:grid-cols-2 gap-x animate-in mt-ydouble"
                   propertyTypesList={
                     (propertyType?.property as unknown as Property)
                       .propertyTypesList
