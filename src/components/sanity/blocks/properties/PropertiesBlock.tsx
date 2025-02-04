@@ -1,19 +1,12 @@
-import { useRef, type FC, useState, useEffect } from 'react'
+import { useRef, type FC, useState } from 'react'
 import classNames from 'classnames'
-import type {
-  CityBlockPropertyType,
-  KeyedProperty,
-  PropertiesBlockProps,
-} from './types'
-import { Block, RichText, SanityMedia } from '@components/sanity'
+import type { PropertiesBlockProps } from './types'
+import { Block, RichText } from '@components/sanity'
 import Link from 'next/link'
-import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { sendGoogleEvent } from '@lib/util'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import SCREENS from '@globals/screens'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import { type SwiperOptions } from 'swiper/types'
-import { Navigation } from 'swiper/modules'
 import posthog from 'posthog-js'
 import { useRouter } from 'next/router'
 import { TypedObject } from 'sanity'
@@ -45,7 +38,10 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
             properties.map(({ longTitle, slug, available }, index) => (
               <div
                 key={`property-${slug.current}`}
-                className="border-bottom last-of-type:border-none"
+                className={classNames(
+                  available === false ? 'opacity-40 pointer-events-none' : '',
+                  'border-bottom last-of-type:border-none'
+                )}
               >
                 <Link
                   href={`/property/${slug.current}`}
@@ -64,17 +60,19 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                     blocks={longTitle as TypedObject | TypedObject[]}
                     className="uppercase underline line-clamp-2"
                   />
-                  <div
-                    className={classNames(
-                      'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[5px] pb-[6px] bg-black text-white font-medium text-left uppercase'
-                    )}
-                  >
-                    <IconRightArrowBold
-                      className="relative w-[1em] mt-[0.1em]"
-                      fill="white"
-                    />
-                    <span className="leading-none">{`Explore`}</span>
-                  </div>
+                  {available !== false && (
+                    <div
+                      className={classNames(
+                        'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[5px] pb-[6px] bg-black text-white font-medium text-left uppercase'
+                      )}
+                    >
+                      <IconRightArrowBold
+                        className="relative w-[1em] mt-[0.1em]"
+                        fill="white"
+                      />
+                      <span className="leading-none">{`Explore`}</span>
+                    </div>
+                  )}
                 </Link>
               </div>
             ))}
