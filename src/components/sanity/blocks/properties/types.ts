@@ -1,12 +1,12 @@
 import type {
   PropertiesBlock as PropertiesBlockType,
-  City,
   Media,
   Property,
   RichText,
   SanityImageAsset,
   SanityKeyedReference,
   SanityReference,
+  City,
 } from '@gen/sanity-schema'
 import type { SanityBlockElement } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
@@ -36,6 +36,17 @@ export interface KeyedProperty extends SanityKeyedReference<Property> {
 
 export interface KeyedProperties extends Array<SanityKeyedReference<Property>> {
   property: KeyedProperty
+}
+
+export interface KeyedCity extends SanityKeyedReference<City> {
+  _id?: string
+  title?: string
+  active?: boolean
+  propertyLink?: SanityLinkType
+}
+
+export type CitiesListProps = {
+  citiesList?: KeyedCity[]
 }
 
 export interface PropertiesBlockProps
