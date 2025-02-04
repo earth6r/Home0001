@@ -387,6 +387,9 @@ export const PROPERTIES_QUERY = `
       ${MEDIA_QUERY}
     },
   },
+  "location": location->{
+    title,
+  },
   seo,
   "previewImage": previewImage{
     ${MEDIA_QUERY}
