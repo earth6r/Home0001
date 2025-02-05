@@ -79,6 +79,7 @@ export const TextBlock: FC<TextBlockProps> = ({
             {...accordion}
             readMore={true}
             open={asPath.includes(`#${anchor}`)}
+            openOnDesktop={accordion.openOnDesktop}
           />
         )}
       </div>

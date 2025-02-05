@@ -22,6 +22,7 @@ export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   firstIndex?: boolean
   location?: { property: string; unit: string }
   open?: boolean
+  openOnDesktop?: boolean
 }
 
 export const Accordion: FC<AccordionProps> = ({
@@ -33,6 +34,7 @@ export const Accordion: FC<AccordionProps> = ({
   location,
   readMore,
   open,
+  openOnDesktop = false,
   className,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -79,7 +81,7 @@ export const Accordion: FC<AccordionProps> = ({
 
   return (
     <div className={classNames(className, readMore ? '' : 'border-black')}>
-      <Disclosure defaultOpen={open}>
+      <Disclosure defaultOpen={open || openOnDesktop}>
         {({ open }) => {
           return (
             <>

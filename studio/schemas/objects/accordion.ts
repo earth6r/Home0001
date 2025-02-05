@@ -20,6 +20,11 @@ export default {
       description: 'Sets header to H2 size (Read More accordions only)',
     },
     {
+      name: 'openOnDesktop',
+      title: 'Open on desktop',
+      type: 'boolean',
+    },
+    {
       name: 'initialText',
       title: 'Initial Text',
       type: 'richText',

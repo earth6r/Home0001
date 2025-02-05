@@ -17,6 +17,10 @@ export default {
       title: 'Global Content',
     },
     {
+      name: 'rd',
+      title: 'R + D Settings',
+    },
+    {
       name: 'menus',
       title: 'Menus',
     },
@@ -65,6 +69,18 @@ export default {
       description: 'Phrase that you want your site to rank for.',
       title: 'Keyphrase',
       group: 'global',
+    },
+    {
+      name: 'rdImage',
+      title: 'R+D Header Image',
+      type: 'image',
+      group: 'rd',
+    },
+    {
+      name: 'rdLink',
+      title: 'R+D Header Image Link',
+      type: 'link',
+      group: 'rd',
     },
     {
       name: 'mainMenu',

@@ -1,6 +1,9 @@
 import type {
+  Link,
+  Media,
   Property,
   RichText as RichTextType,
+  SanityImageAsset,
   Menus as SanityMenu,
   SanityReference,
   UnitGroup,
@@ -40,6 +43,13 @@ export interface HeaderProps
     brokerSuccess?: RichTextType
   }
   title?: string
+  rdSettings?: {
+    image?: {
+      _type: 'image'
+      asset: SanityReference<SanityImageAsset>
+    }
+    link?: Link
+  }
 }
 
 export interface HeaderMenuProps extends HeaderProps {
