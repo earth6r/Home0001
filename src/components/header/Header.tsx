@@ -20,9 +20,11 @@ import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
-import { RichText } from '@components/sanity'
+import { RichText, SanityImage, SanityLink } from '@components/sanity'
 import { useLenis } from '@studio-freight/react-lenis'
 import { IconWaitlist } from '@components/icons'
+import { SanityLinkType } from '@studio/lib'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -35,6 +37,7 @@ export const Header: FC<HeaderProps> = ({
   property,
   mainMenu,
   title,
+  rdSettings,
   className,
 }) => {
   const router = useRouter()
@@ -58,8 +61,12 @@ export const Header: FC<HeaderProps> = ({
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const el = useRef<HTMLElement>(null)
-  const [lastScrolled, setLastScrolled] = useState(0)
+  const [showRdImage, setShowRdImage] = useState(false)
   const [hideBreadcrumb, setHideBreadcrumb] = useState(false)
+
+  const { scrollYProgress } = useScroll()
+
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 1080])
 
   const openWaitlist = () => {
     setWaitlistOpen(true)
@@ -90,6 +97,12 @@ export const Header: FC<HeaderProps> = ({
       setHideBreadcrumb(false)
     } else {
       setHideBreadcrumb(true)
+    }
+
+    if (lenis.targetScroll > 250) {
+      setShowRdImage(true)
+    } else {
+      setShowRdImage(false)
     }
   })
 
@@ -332,6 +345,32 @@ export const Header: FC<HeaderProps> = ({
               mainMenu={mainMenu as SanityMenu}
               className="flex flex-col pointer-events-auto"
             />
+          )}
+
+          {hideMenu && rdSettings?.image && (
+            <motion.div
+              style={{ rotate }}
+              transition={{ type: 'spring' }}
+              className={classNames(
+                showRdImage ? 'opacity-100' : 'opacity-0',
+                'flex-inline w-auto origin-center pointer-events-auto transition-opacity duration-200'
+              )}
+            >
+              <SanityLink
+                {...(rdSettings.link as SanityLinkType)}
+                className="block leading-[0]"
+              >
+                <SanityImage
+                  asset={rdSettings.image.asset}
+                  props={{
+                    alt: 'Smiley',
+                    quality: 100,
+                    sizes: '88px',
+                  }}
+                  className="relative w-[24px] h-[24px] object-contain"
+                />
+              </SanityLink>
+            </motion.div>
           )}
         </div>
       </header>

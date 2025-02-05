@@ -98,6 +98,10 @@ export const Layout: FC<LayoutProps> = ({
             brokerSuccess: siteSettings?.brokerInquirySuccess,
           }}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
+          rdSettings={{
+            image: siteSettings?.rdImage,
+            link: siteSettings?.rdLink,
+          }}
         />
 
         <ReactLenis

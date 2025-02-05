@@ -904,6 +904,25 @@ export interface SiteSettings extends SanityDocument {
   siteKeywords?: string;
 
   /**
+   * R+D Header Image — `image`
+   *
+   *
+   */
+  rdImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * R+D Header Image Link — `link`
+   *
+   *
+   */
+  rdLink?: Link;
+
+  /**
    * Main Menu — `reference`
    *
    * Select menu for main navigation
@@ -1056,6 +1075,13 @@ export type Accordion = {
    * Sets header to H2 size (Read More accordions only)
    */
   largeHeader?: boolean;
+
+  /**
+   * Open on desktop — `boolean`
+   *
+   *
+   */
+  openOnDesktop?: boolean;
 
   /**
    * Initial Text — `richText`
@@ -1786,6 +1812,20 @@ export type FullbleedBlock = {
    *
    */
   minWidth?: number;
+
+  /**
+   * Animate — `boolean`
+   *
+   *
+   */
+  animate?: boolean;
+
+  /**
+   * Columns — `number`
+   *
+   * Number of columns to display the fullbleed block in, setting to 2 will split the screen in half on desktop
+   */
+  columns?: number;
 };
 
 export type ImagesBlock = {
