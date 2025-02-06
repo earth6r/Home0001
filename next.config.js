@@ -38,7 +38,7 @@ const nextConfig = {
           has: [
             {
               type: 'host',
-              value: '0001.home0001.com',
+              value: '0001.studio',
             },
           ],
           destination: '/rd/:path*',
