@@ -29,7 +29,7 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                 <div
                   key={`property-${slug?.current}`}
                   className={classNames(
-                    available === false ? 'opacity-40 pointer-events-none' : '',
+                    available === false ? 'pointer-events-none' : '',
                     'border-bottom--gray last-of-type:border-none'
                   )}
                 >
@@ -44,7 +44,11 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                         route: asPath,
                       })
                     }}
-                    className="flex justify-between items-center gap-x relative w-full h-[59px]"
+                    className={classNames(
+                      available === false ? 'opacity-40' : '',
+
+                      'flex justify-between items-center gap-x relative w-full h-[59px]'
+                    )}
                   >
                     <RichText
                       blocks={longTitle as TypedObject | TypedObject[]}
