@@ -136,129 +136,104 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
       onMouseOut={() => setActiveNav(false)}
       className={classNames(className, 'relative')}
     >
-      {slides && slides.length > 1 ? (
-        <Swiper
-          ref={slidesRef}
-          modules={[Navigation, Pagination]}
-          loop={false}
-          spaceBetween={16}
-          onSlideChange={() => {
-            if (!swipedImage) {
-              sendGoogleEvent(`Swiped through ${placement}`)
-              setSwipedImage(true)
-            }
-          }}
-          resistance={false}
-          breakpoints={breakpoints}
-          speed={600}
-          navigation={{
-            nextEl: '.swiper-next',
-            prevEl: '.swiper-prev',
-          }}
-          pagination={
-            pagination
-              ? {
-                  type: 'fraction',
-                }
-              : false
+      <Swiper
+        ref={slidesRef}
+        modules={[Navigation, Pagination]}
+        loop={false}
+        spaceBetween={16}
+        onSlideChange={() => {
+          if (!swipedImage) {
+            sendGoogleEvent(`Swiped through ${placement}`)
+            setSwipedImage(true)
           }
-          className={classNames('ml-0 md:mx-auto overflow-visible cursor-grab')}
-        >
-          {slides.map(({ _key, image, alt }, index) => (
-            <SwiperSlide
-              key={`${_key}-${alt}`}
-              className={classNames(
-                fullWidth ? 'w-full md:w-auto' : 'aspect-[4/5]'
-              )}
-            >
-              {image && alt && (
-                <>
-                  {carousel ? (
-                    <a
-                      href={`https://cdn.sanity.io/${
-                        (image.asset as any).path
-                      }`}
-                      data-pswp-width={1000}
-                      data-pswp-height={1100}
-                      className={classNames('overflow-hidden')}
-                    >
-                      <ImageSlide
-                        zoom={true}
-                        image={image as any}
-                        lastIndex={index === slides.length - 1}
-                        alt={alt}
-                        fullWidth={fullWidth}
-                        className={classNames(
-                          index - 1 === slides.length ? 'relative right-x' : ''
-                        )}
-                      />
-                    </a>
-                  ) : (
-                    <div
-                      className={classNames(
-                        fullWidth ? '' : 'absolute min-w-full aspect-[4/5]'
-                      )}
-                    >
-                      <ImageSlide
-                        image={image as any}
-                        fullWidth={fullWidth}
-                        lastIndex={index === slides.length - 1}
-                        alt={alt}
-                        className={classNames(
-                          'w-full',
-                          index - 1 === slides.length ? 'md:mr-x' : ''
-                        )}
-                      />
-                    </div>
-                  )}
-                </>
-              )}
-            </SwiperSlide>
-          ))}
-          <div
+        }}
+        resistance={false}
+        breakpoints={breakpoints}
+        speed={600}
+        navigation={{
+          nextEl: '.swiper-next',
+          prevEl: '.swiper-prev',
+        }}
+        pagination={
+          pagination
+            ? {
+                type: 'fraction',
+              }
+            : false
+        }
+        className={classNames('ml-0 md:mx-auto overflow-visible cursor-grab')}
+      >
+        {slides?.map(({ _key, image, alt }, index) => (
+          <SwiperSlide
+            key={`${_key}-${alt}`}
             className={classNames(
-              activeNav ? 'opacity-100' : 'opacity-0',
-              'hidden md:flex md:justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+              fullWidth ? 'w-full md:w-auto' : 'aspect-[4/5]'
             )}
           >
-            <IconRightArrowBold
-              width="80"
-              fill="black"
-              className={classNames(
-                'pr-xhalf rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
-              )}
-            />
-            <IconRightArrowBold
-              width="80"
-              fill="black"
-              className={classNames(
-                'pr-xhalf relative swiper-next pointer-events-auto cursor-pointer hover:scale-95'
-              )}
-            />
-          </div>
-        </Swiper>
-      ) : (
-        <div ref={slidesRef}>
-          <div className="flex items-center overflow-hidden swiper-slide">
-            {slides && slides[0].alt && (
-              <a
-                href={`https://cdn.sanity.io/${
-                  (slides[0].image?.asset as any).path
-                }`}
-                data-pswp-width={1000}
-                data-pswp-height={1100}
-                className={classNames('overflow-hidden')}
-              >
-                <ImageSlide
-                  image={slides[0].image as any}
-                  alt={slides[0].alt}
-                  zoom={true}
-                />
-              </a>
+            {image && alt && (
+              <>
+                {carousel ? (
+                  <a
+                    href={`https://cdn.sanity.io/${(image.asset as any).path}`}
+                    data-pswp-width={1000}
+                    data-pswp-height={1100}
+                    className={classNames('overflow-hidden')}
+                  >
+                    <ImageSlide
+                      zoom={true}
+                      image={image as any}
+                      lastIndex={index === slides.length - 1}
+                      alt={alt}
+                      fullWidth={fullWidth}
+                      className={classNames(
+                        index - 1 === slides.length ? 'relative right-x' : ''
+                      )}
+                    />
+                  </a>
+                ) : (
+                  <div
+                    className={classNames(
+                      fullWidth ? '' : 'absolute min-w-full aspect-[4/5]'
+                    )}
+                  >
+                    <ImageSlide
+                      image={image as any}
+                      fullWidth={fullWidth}
+                      lastIndex={index === slides.length - 1}
+                      alt={alt}
+                      className={classNames(
+                        'w-full',
+                        index - 1 === slides.length ? 'md:mr-x' : ''
+                      )}
+                    />
+                  </div>
+                )}
+              </>
             )}
-          </div>
+          </SwiperSlide>
+        ))}
+        <div
+          className={classNames(
+            activeNav ? 'opacity-100' : 'opacity-0',
+            'hidden md:flex md:justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+          )}
+        >
+          <IconRightArrowBold
+            width="80"
+            fill="black"
+            className={classNames(
+              'pr-xhalf rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
+            )}
+          />
+          <IconRightArrowBold
+            width="80"
+            fill="black"
+            className={classNames(
+              'pr-xhalf relative swiper-next pointer-events-auto cursor-pointer hover:scale-95'
+            )}
+          />
         </div>
-      )}
+      </Swiper>
     </div>
   )
 }
