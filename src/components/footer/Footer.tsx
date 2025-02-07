@@ -18,10 +18,10 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        'flex flex-col gap-ylg pl-x pr-menu md:px-x pt-y pb-ydouble mt-header font-medium text-xs uppercase bg-gray'
+        'flex flex-col gap-ylg pb-ydouble mt-header font-medium text-xs uppercase'
       )}
     >
-      <div className="flex flex-col justify-start gap-ydouble">
+      <div className="flex flex-col justify-start gap-ydouble py-y pl-x pr-menu md:px-x bg-gray">
         <div className="w-full">
           <p>{`To join our community submit an application here:`}</p>
           <button
@@ -74,7 +74,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         </div>
       </div>
 
-      <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full xl:w-1/2">
+      <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full xl:w-1/2 pl-x">
         {footerMenu?.items?.map(({ _key, text, link }) => {
           return text && link ? (
             <li key={_key}>
@@ -98,7 +98,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         </li>
       </ul>
 
-      <div className="flex flex-wrap gap-yhalf">
+      <div className="flex flex-wrap gap-yhalf pl-x pr-menu md:px-x">
         <p className="w-full">
           <span className="hidden xl:inline-block">
             &copy;{` ${year}`}&nbsp;

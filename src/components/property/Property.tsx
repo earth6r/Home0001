@@ -57,7 +57,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         className={classNames(
           navOpen
             ? 'right-[-32px] lg:right-[calc(-66.666vw+72px)] bg-white overflow-scroll'
-            : 'right-[calc(-100vw+42px)] lg:right-[calc(-100vw+42px)]',
+            : 'right-[calc(-100vw+39px)] lg:right-[calc(-100vw+39px)]',
           'flex flex-col justify-end gap-4 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
@@ -71,6 +71,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               onClick={() => setNavOpen(!navOpen)}
               href={`/property/${item.slug?.current}`}
               key={`${index}-${item.typeTitle}`}
+              className="underline"
             >
               <h2 className="text-h2">{item.title}</h2>
             </Link>
@@ -121,14 +122,6 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           <div className="pl-x md:pl-0 mr-menu lg:mr-0 lg:overflow-x-hidden">
             <div className="mb-ydouble">
               {property?.header && <RichText blocks={property?.header} />}
-
-              {property?.coordinates && (
-                <MapDialog
-                  text="View Map"
-                  coordinates={property?.coordinates}
-                  className="text-xs font-bold mt-y"
-                />
-              )}
             </div>
 
             {property?.body && (

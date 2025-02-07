@@ -74,7 +74,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
         className={classNames(
           navOpen
             ? 'right-0 lg:right-[calc(-66.666vw+75px)] bg-white'
-            : 'right-[calc(-100vw+72px)] lg:right-[calc(-100vw+72px)]',
+            : 'right-[calc(-100vw+67px)] lg:right-[calc(-100vw+67px)]',
           'flex flex-col justify-end gap-4 fixed w-[100svh] lg:w-auto h-[100vw] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
@@ -87,6 +87,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               onClick={() => setNavOpen(!navOpen)}
               href={`/property-type/${type.slug?.current}`}
               key={`${index}-${type.typeTitle}`}
+              className="underline"
             >
               <h4 className="text-side">{type.typeTitle}</h4>
             </Link>

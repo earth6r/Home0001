@@ -28,7 +28,7 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                 key={`property-${slug.current}`}
                 className={classNames(
                   available === false ? 'opacity-40 pointer-events-none' : '',
-                  'border-bottom last-of-type:border-none'
+                  'border-bottom--gray last-of-type:border-none'
                 )}
               >
                 <Link
@@ -46,7 +46,10 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                 >
                   <RichText
                     blocks={longTitle as TypedObject | TypedObject[]}
-                    className="w-[calc(100%-99px-var(--space-x))] uppercase underline line-clamp-2"
+                    className={classNames(
+                      available === false ? '' : 'underline',
+                      'w-[calc(100%-99px-var(--space-x))] uppercase line-clamp-2'
+                    )}
                   />
                   {available !== false && (
                     <div
