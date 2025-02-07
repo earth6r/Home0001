@@ -161,7 +161,10 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
               }
             : false
         }
-        className={classNames('ml-0 md:mx-auto overflow-visible cursor-grab')}
+        className={classNames(
+          slides && slides.length > 1 ? 'cursor-grab' : '',
+          'ml-0 md:mx-auto overflow-visible'
+        )}
       >
         {slides?.map(({ _key, image, alt }, index) => (
           <SwiperSlide
