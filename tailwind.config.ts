@@ -16,6 +16,7 @@ export default {
       backgroundColor: {
         whitesmoke: '#F3F3F3',
         gray: '#EDEDED',
+        textgray: '#999999',
         lightgray: '#DEDEDE',
         darkgray: '#E9E9E9',
         darkergray: '#C6C6C6',
@@ -139,6 +140,9 @@ export default {
         },
         '.border-bottom': {
           borderBottom: '1.5px solid black',
+        },
+        '.border-bottom--gray': {
+          borderBottom: `1.5px solid ${theme('backgroundColor.textgray')}`,
         },
         '.text-h1': {
           fontSize: theme('fontSize.2xl'),
