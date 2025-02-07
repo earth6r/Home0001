@@ -24,7 +24,6 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
         <div className="flex flex-col pr-x md:pr-0">
           {properties &&
             properties.map(({ longTitle, slug, available }, index) => {
-              console.log('slug', longTitle, slug)
               return (
                 <div
                   key={`property-${slug?.current}`}
