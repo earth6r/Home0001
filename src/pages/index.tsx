@@ -60,10 +60,7 @@ const Page: NextPage<PageProps> = (
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
-        <BlockContent
-          blocks={page?.body}
-          className="flex flex-col w-full pt-page"
-        />
+        <BlockContent blocks={page?.body} className="block w-full pt-page" />
       </article>
     </PageTransition>
   ) : null

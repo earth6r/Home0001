@@ -272,11 +272,14 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               <>
                 <h2 className="text-h2">Available Homes:</h2>
                 <PropertyTypesList
-                  className="grid md:grid-cols-2 gap-x animate-in mt-ydouble"
-                  propertyTypesList={
-                    (propertyType?.property as unknown as Property)
-                      .propertyTypesList
-                  }
+                  className="grid lg:grid-cols-2 md:w-[calc(50%+(var(--space-menu)/2))] lg:w-full gap-x animate-in mt-ydouble"
+                  propertyTypesList={(
+                    propertyType?.property as unknown as Property
+                  ).propertyTypesList?.filter(
+                    type =>
+                      (type as PropertyTypeElProps).typeTitle !==
+                      propertyType?.typeTitle
+                  )}
                 />
               </>
             )}
