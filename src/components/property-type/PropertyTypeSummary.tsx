@@ -45,11 +45,11 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
   if (!propertyType) return null
 
   return (
-    <li className={classNames(className)}>
+    <li className={classNames(className, '')}>
       <div
         className={classNames(
           propertyType.available ? '' : 'bg-white opacity-30',
-          `w-auto flex-col pb-y border-bottom hover:scale-[0.99] transition-transform`
+          `w-auto flex-col hover:scale-[0.99] transition-transform`
         )}
       >
         <div className="z-above">

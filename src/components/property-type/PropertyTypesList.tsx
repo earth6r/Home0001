@@ -13,7 +13,10 @@ export const PropertyTypesList: FC<PropertyTypeListProps> = ({
       {propertyTypesList &&
         propertyTypesList.map((propertyType: KeyedPropertyTypeProps) => {
           return (
-            <div key={propertyType._id} className="w-full">
+            <div
+              key={propertyType._id}
+              className="w-full py-y border-bottom border-top lg:border-t-0 last-of-type:border-b-0 lg:last-of-type:!border-bottom first-of-type:border-t-0"
+            >
               <PropertyTypeSummary
                 propertyType={propertyType}
                 showCity={showCity}

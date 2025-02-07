@@ -141,7 +141,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           </div>
         </div>
 
-        <div className="col-start-1 lg:col-span-2 pr-menu lg:pr-0">
+        <div className="col-start-1 lg:col-span-2 pr-menu md:pr-0">
           {!block && (
             <div className="px-x md:pl-x md:pr-0 lg:pl-0 pt-ydouble mt-ydouble overflow-hidden">
               {property?.propertyTypesList && (
@@ -153,38 +153,13 @@ export const PropertyComponent: FC<PropertyElProps> = ({
                     </div>
                   )}
                   <PropertyTypesList
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x mt-ydouble"
+                    className="grid grid-cols-1 lg:grid-cols-4 md:w-1/2 lg:w-full gap-x mt-ydouble"
                     propertyTypesList={property?.propertyTypesList}
                   />
                 </>
               )}
             </div>
           )}
-
-          <div className="lg:hidden relative w-full mt-header mb-y px-x cursor-pointer z-above">
-            <button
-              onClick={openWaitlist}
-              className={classNames(
-                'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
-              )}
-            >
-              {`Apply`}
-              <IconSmallArrow width="16" height="10" fill="white" />
-            </button>
-          </div>
-
-          <div className="lg:hidden relative w-full px-x cursor-pointer z-above">
-            <Link href="/how-it-works">
-              <button
-                className={classNames(
-                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
-                )}
-              >
-                {`How it works`}
-                <IconSmallArrow width="16" height="10" fill="white" />
-              </button>
-            </Link>
-          </div>
         </div>
       </div>
     </div>

@@ -1,12 +1,10 @@
-import { useRef, type FC, useState } from 'react'
+import { type FC } from 'react'
 import classNames from 'classnames'
 import type { PropertiesBlockProps } from './types'
 import { Block, RichText } from '@components/sanity'
 import Link from 'next/link'
 import { sendGoogleEvent } from '@lib/util'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
-import SCREENS from '@globals/screens'
-import { type SwiperOptions } from 'swiper/types'
 import posthog from 'posthog-js'
 import { useRouter } from 'next/router'
 import { TypedObject } from 'sanity'
@@ -17,19 +15,9 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
   className,
 }) => {
   const { asPath } = useRouter()
-  const slidesRef = useRef(null)
-  const breakpoints: SwiperOptions['breakpoints'] = {
-    0: {
-      slidesPerView: 1.185,
-    },
-    [SCREENS.md]: {
-      slidesPerView: 2,
-    },
-  }
-  const [activeNav, setActiveNav] = useState(false)
 
   return (
-    <Block className={classNames(className, 'mt-ydouble py-ydouble')}>
+    <Block className={classNames(className, '')}>
       <div className="lg:max-w-[1000px] lg:mx-auto pl-x pr-menu md:px-fullmenu">
         <h2 className="mb-ydouble text-h2">{header || `Now available in:`}</h2>
 
