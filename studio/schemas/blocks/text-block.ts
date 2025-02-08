@@ -64,6 +64,11 @@ export default {
       type: 'boolean',
       title: 'Black Top Border',
     },
+    {
+      name: 'rdStyle',
+      type: 'boolean',
+      title: 'R&D Style',
+    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Text block' }),
