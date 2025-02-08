@@ -23,7 +23,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
     >
       <div className="flex flex-col justify-start gap-ydouble py-ydouble pl-x pr-menu bg-gray">
         <div className="mt-[-6px] w-full pr-x">
-          <h2 className="text-h2 pb-yhalf">{`Apply to Join HOME0001:`}</h2>
+          <h2 className="text-h2 pb-y">{`Apply to Join HOME0001:`}</h2>
           <p className="normal-case pb-yhalf">{`The first step to owning a 0001 home is to join the HOME0001 housing collective. Membership is free of charge. 0001 homes are released exclusively to members of the collective.`}</p>
           <p className="normal-case">{`Membership is either by referral from an existing member or by application here. The application process is designed to be relatively hassle-free and will give you a chance to check out some 0001 homes and meet members of the collective to figure out if it’s right for you.`}</p>
           <p className="normal-case">{``}</p>
