@@ -74,8 +74,8 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
         className={classNames(
           navOpen
             ? 'right-0 lg:right-[calc(-66.666vw+75px)] bg-white'
-            : 'right-[calc(-100vw+67px)] lg:right-[calc(-100vw+67px)]',
-          'flex flex-col justify-end gap-4 fixed w-[100svh] lg:w-auto h-[100vw] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
+            : 'right-[calc(-100vw+72px)] lg:right-[calc(-100vw+72px)]',
+          'flex flex-col justify-end gap-8 fixed w-[100svh] lg:w-auto h-[100vw] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
         {(
@@ -271,9 +271,9 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             {(propertyType?.property as unknown as Property)
               ?.propertyTypesList && (
               <>
-                <h2 className="text-h2">Available Homes:</h2>
+                <h2 className="text-h2">Other available homes:</h2>
                 <PropertyTypesList
-                  className="grid lg:grid-cols-2 md:w-[calc(50%+(var(--space-menu)/2))] lg:w-full gap-x animate-in mt-ydouble"
+                  className="grid lg:grid-cols-2 md:w-[calc(50%+(var(--space-menu)/2))] lg:w-full gap-x animate-in mt-y"
                   propertyTypesList={(
                     propertyType?.property as unknown as Property
                   ).propertyTypesList?.filter(
