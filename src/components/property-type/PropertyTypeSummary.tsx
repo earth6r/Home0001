@@ -49,7 +49,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
       <div
         className={classNames(
           propertyType.available ? '' : 'bg-white opacity-30',
-          `w-auto flex-col hover:scale-[0.99] transition-transform`
+          `w-auto flex-col md:hover:scale-[0.99] transition-transform`
         )}
       >
         <div className="z-above">
@@ -76,7 +76,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                     lqip: ((propertyType.photographs[0] as Media).image as any)
                       ?.asset?.metadata?.lqip,
                   }}
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain select-none"
                 />
               )}
               <div className="block w-full text-sm uppercase">
