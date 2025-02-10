@@ -106,7 +106,8 @@
 }
 
 a .rich-text p.small {
-  @apply leading-[1.3];
+  @apply inline leading-[1.5];
+  border-bottom: 2px solid black;
 }
 
 .rich-text p.large {
