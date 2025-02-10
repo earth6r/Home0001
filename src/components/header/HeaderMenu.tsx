@@ -66,7 +66,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
         <nav
           className={classNames(
             customOpen ? 'pointer-events-auto' : '',
-            'grid md:grid-cols-3 overflow-auto pt-header left-0 w-full h-full text-base fade-enter-done z-above'
+            'grid md:grid-cols-2 lg:grid-cols-3 overflow-auto pt-header left-0 w-full h-full text-base fade-enter-done z-above'
           )}
         >
           <ul className="container flex flex-col gap-ydouble w-full outline-none pb-[192px]">
@@ -94,8 +94,6 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                     className="flex flex-col gap-ydouble pt-ydouble ml-xdouble overflow-hidden"
                   >
                     {mainMenu?.items?.map(({ _key, text, link }) => {
-                      const isPropertyType =
-                        (link?.internalLink?._type as string) === 'propertyType'
                       const isProperty =
                         (link?.internalLink?._type as string) === 'property'
                       return text && link && isProperty ? (
@@ -109,7 +107,7 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                               }}
                               {...(link as SanityLinkType)}
                               className={classNames(
-                                'inline-block hover:underline underline-offset-2 decoration-[2px] uppercase'
+                                'inline-block hover:underline underline-offset-2 decoration-[2px] uppercase text-left'
                               )}
                             />
                           </div>
