@@ -72,6 +72,7 @@ export const TextBlock: FC<TextBlockProps> = ({
       <div
         style={{
           gridColumnStart: (columns && columns > 2) || stickyHeader ? 2 : 1,
+          paddingRight: columns === 2 ? 'var(--space-menu)' : '',
         }}
       >
         {text && (

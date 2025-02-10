@@ -23,8 +23,8 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         'flex flex-col gap-ydouble pb-yquad mt-y font-medium text-xs uppercase'
       )}
     >
-      <div className="flex flex-col justify-start gap-ydouble py-ydouble pl-x pr-menu bg-gray">
-        <div className="w-full pr-x">
+      <div className="flex flex-col justify-start gap-ydouble py-ydouble pl-x pr-menu lg:px-x bg-gray">
+        <div className="w-full lg:w-1/2 pr-x">
           <RichText
             blocks={applyCopy as TypedObject | TypedObject[]}
             className="normal-case"
