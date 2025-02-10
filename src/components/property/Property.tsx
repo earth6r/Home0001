@@ -57,8 +57,8 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         className={classNames(
           navOpen
             ? 'right-[-32px] lg:right-[calc(-66.666vw+72px)] bg-white overflow-scroll'
-            : 'right-[calc(-100vw+39px)] lg:right-[calc(-100vw+39px)]',
-          'flex flex-col justify-end gap-4 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
+            : 'right-[calc(-100vw+41px)] lg:right-[calc(-100vw+41px)]',
+          'flex flex-col justify-end gap-8 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
         {property?.location && (
@@ -73,7 +73,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               key={`${index}-${item.typeTitle}`}
               className="underline"
             >
-              <h2 className="text-h2">{item.title}</h2>
+              <h2 className="text-side">{item.title}</h2>
             </Link>
           )
         })}
@@ -105,7 +105,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
       >
         <div className="flex flex-col pr-x md:pl-x md:pr-0 lg:pl-0">
           {property?.image && (
-            <div className="block relative w-full mb-y z-base">
+            <div className="block relative w-full z-base">
               <SanityMedia
                 imageProps={{
                   alt: property?.image.alt || 'Building image',
@@ -120,7 +120,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
           )}
 
           <div className="pl-x md:pl-0 mr-menu lg:mr-0 lg:overflow-x-hidden">
-            <div className="mb-ydouble">
+            <div className="hidden">
               {property?.header && <RichText blocks={property?.header} />}
             </div>
 
@@ -128,7 +128,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               <BlockContent
                 blocks={property?.body}
                 grid={false}
-                className="mt-ydouble lg:mt-0 overflow-visible"
+                className=" lg:mt-0 overflow-visible"
               />
             )}
           </div>
@@ -146,7 +146,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
                     </div>
                   )}
                   <PropertyTypesList
-                    className="grid grid-cols-1 lg:grid-cols-4 md:w-1/2 lg:w-full gap-x mt-ydouble"
+                    className="grid grid-cols-1 lg:grid-cols-4 md:w-1/2 lg:w-full gap-x mt-y"
                     propertyTypesList={property?.propertyTypesList}
                   />
                 </>
