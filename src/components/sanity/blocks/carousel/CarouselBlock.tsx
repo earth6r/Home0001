@@ -17,7 +17,7 @@ export const CarouselBlock: FC<CarouselBlockProps> = ({
     <Block
       className={classNames(
         className,
-        grid ? 'md:grid md:grid-cols-3 pr-menu' : 'ml-[-16px] md:ml-0 w-full'
+        grid ? 'md:grid md:grid-cols-3 pr-menu' : 'md:ml-0 w-full'
       )}
     >
       {images && images.length > 0 && (
