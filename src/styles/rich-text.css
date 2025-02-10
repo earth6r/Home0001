@@ -102,7 +102,7 @@
 }
 
 .rich-text p.small {
-  @apply font-sansText text-xs font-bold;
+  @apply text-xs font-medium;
 }
 
 .rich-text p.large {
