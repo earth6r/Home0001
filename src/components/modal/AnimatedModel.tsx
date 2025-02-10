@@ -52,7 +52,7 @@ export const AnimatedModal: FC<AnimatedModalProps> = ({
               <CloseButton onClose={onClose} />
               {children}
             </div>
-            <div className="absolute w-full h-[40px] left-0 bottom-y bg-gradient-to-t from-[#EDEDED] to-transparent z-above"></div>
+            <div className="md:hidden absolute w-full h-[40px] left-0 bottom-y bg-gradient-to-t from-[#EDEDED] to-transparent z-above"></div>
           </div>
         </motion.div>
       </>
