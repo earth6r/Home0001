@@ -223,17 +223,17 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
           )}
         >
           <IconSmallArrow
-            width="16"
+            width="48"
             fill="black"
             className={classNames(
-              'mt-yhalf rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
+              'p-x -mx-x -mb-x -mt-yhalf rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
             )}
           />
           <IconSmallArrow
-            width="16"
+            width="48"
             fill="black"
             className={classNames(
-              'mt-yhalf swiper-next pointer-events-auto cursor-pointer hover:scale-95'
+              'p-x -mx-x -mb-x -mt-yhalf swiper-next pointer-events-auto cursor-pointer hover:scale-95'
             )}
           />
         </div>
