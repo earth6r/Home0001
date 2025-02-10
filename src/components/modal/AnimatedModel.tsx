@@ -44,7 +44,7 @@ export const AnimatedModal: FC<AnimatedModalProps> = ({
           transition={{ duration: 0.3, ease: 'easeInOut' }}
           className="fixed inset-0 flex h-[100vh] items-center md:items-start justify-center z-modal pointer-events-none"
         >
-          <div className="block w-full h-[100vh] md:h-[726px] overflow-scroll bg-gray z-modal">
+          <div className="block w-full h-[100vh] md:h-[726px] bg-gray z-modal">
             <div
               className="relative w-full h-full pointer-events-auto"
               onClick={e => e.stopPropagation()}
@@ -52,6 +52,7 @@ export const AnimatedModal: FC<AnimatedModalProps> = ({
               <CloseButton onClose={onClose} />
               {children}
             </div>
+            <div className="absolute w-full h-[40px] left-0 bottom-y bg-gradient-to-t from-[#EDEDED] to-transparent z-above"></div>
           </div>
         </motion.div>
       </>
