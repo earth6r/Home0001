@@ -143,7 +143,7 @@ export default {
           borderBottom: '1.5px solid black',
         },
         '.border-bottom--gray': {
-          borderBottom: `1px solid ${theme('backgroundColor.textgray')}`,
+          borderBottom: `2px solid ${theme('backgroundColor.lightgray')}`,
         },
         '.text-h1': {
           fontSize: theme('fontSize.2xl'),

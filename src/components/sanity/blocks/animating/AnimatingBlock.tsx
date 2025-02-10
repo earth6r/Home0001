@@ -137,7 +137,7 @@ const AnimatingImage: FC<AnimatingImageProps> = ({
           <SanityMedia
             imageProps={{
               alt: media?.alt || 'Building image',
-              quality: 60,
+              quality: 40,
               priority: firstIndex ? true : false,
               sizes: '(max-width: 768px) 100vw, 1200px',
               lqip: (media?.image as any)?.asset?.metadata?.lqip,
