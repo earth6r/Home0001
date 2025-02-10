@@ -238,7 +238,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           )}
 
           {propertyType?.layoutImages && (
-            <>
+            <div className="relative">
               <ImageCarousel
                 pagination={false}
                 perView={2}
@@ -247,7 +247,8 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
                 className="pt-xdouble pr-menu md:px-0 overflow-visible"
                 placement="unit layouts"
               />
-            </>
+              <div className="hidden md:block absolute w-xdouble h-full -left-[calc(33vw+var(--space-x-double))] top-0 bg-white z-above"></div>
+            </div>
           )}
 
           {propertyType?.moreInfo && (
