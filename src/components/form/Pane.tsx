@@ -135,7 +135,7 @@ const Pane: FC<PaneProps> = ({
           className={classNames(
             block
               ? 'relative md:w-full bottom-0 xl:bottom-auto'
-              : 'relative md:absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-75px)] md:bottom-0',
+              : 'relative pb-20 md:pb-0 md:absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-75px)] md:bottom-0',
             'flex w-full md:w-[calc(50%-95px)] h-btn'
           )}
         >

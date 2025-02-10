@@ -198,7 +198,7 @@ export const Header: FC<HeaderProps> = ({
 
         <div className={classNames('flex items-center gap-[1rem] md:gap-5')}>
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100svh-var(--space-y))] md:h-full py-20 md:py-ydouble pl-x lg:pl-x pr-menu overflow-scroll">
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100vh-var(--space-y))] md:h-full py-header md:py-ydouble pl-x lg:pl-x pr-menu overflow-scroll">
               <Form
                 formType={'modal'}
                 audienceId={waitlist?.id}
