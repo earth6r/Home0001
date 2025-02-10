@@ -120,7 +120,7 @@ export const Header: FC<HeaderProps> = ({
         className,
         menuOpen || waitlistOpen || inquiryOpen || brokerInquiryOpen
           ? 'z-menu'
-          : 'z-header',
+          : 'z-header transition-z delay-300',
         'fixed w-full pointer-events-none font-medium text-xs'
       )}
     >

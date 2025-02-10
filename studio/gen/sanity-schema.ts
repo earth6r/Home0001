@@ -15,7 +15,7 @@ import type {
   SanityImageDimensions,
   SanityImagePalette,
   SanityImagePaletteSwatch,
-} from 'sanity-codegen'
+} from "sanity-codegen";
 
 export type {
   SanityReference,
@@ -34,7 +34,7 @@ export type {
   SanityImageDimensions,
   SanityImagePalette,
   SanityImagePaletteSwatch,
-}
+};
 
 /**
  * Page
@@ -42,21 +42,21 @@ export type {
  *
  */
 export interface Brand extends SanityDocument {
-  _type: 'brand'
+  _type: "brand";
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: 'slug'; current: string }
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Preview Image — `image`
@@ -64,25 +64,25 @@ export interface Brand extends SanityDocument {
    *
    */
   previewImage?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * Body — `blockContent`
    *
    *
    */
-  body?: BlockContent
+  body?: BlockContent;
 
   /**
    * SEO — `seo`
    *
    *
    */
-  seo?: Seo
+  seo?: Seo;
 }
 
 /**
@@ -91,21 +91,21 @@ export interface Brand extends SanityDocument {
  *
  */
 export interface Buy extends SanityDocument {
-  _type: 'buy'
+  _type: "buy";
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: 'slug'; current: string }
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Preview Image — `image`
@@ -113,25 +113,25 @@ export interface Buy extends SanityDocument {
    *
    */
   previewImage?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * Units List — `array`
    *
    *
    */
-  unitsList?: Array<SanityKeyedReference<Unit>>
+  unitsList?: Array<SanityKeyedReference<Unit>>;
 
   /**
    * SEO — `seo`
    *
    *
    */
-  seo?: Seo
+  seo?: Seo;
 }
 
 /**
@@ -140,28 +140,28 @@ export interface Buy extends SanityDocument {
  *
  */
 export interface City extends SanityDocument {
-  _type: 'city'
+  _type: "city";
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Active — `boolean`
    *
    *
    */
-  active?: boolean
+  active?: boolean;
 
   /**
    * Property Link — `link`
    *
    *
    */
-  propertyLink?: Link
+  propertyLink?: Link;
 }
 
 /**
@@ -170,21 +170,21 @@ export interface City extends SanityDocument {
  *
  */
 export interface Inventory extends SanityDocument {
-  _type: 'inventory'
+  _type: "inventory";
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Unit — `reference`
    *
    *
    */
-  unit?: SanityReference<Unit>
+  unit?: SanityReference<Unit>;
 
   /**
    * Inventory Items — `array`
@@ -193,13 +193,13 @@ export interface Inventory extends SanityDocument {
    */
   items?: Array<
     SanityKeyed<{
-      _type: 'inventoryItem'
+      _type: "inventoryItem";
       /**
        * Title — `string`
        *
        *
        */
-      title?: string
+      title?: string;
 
       /**
        * Image — `image`
@@ -207,13 +207,13 @@ export interface Inventory extends SanityDocument {
        *
        */
       image?: {
-        _type: 'image'
-        asset: SanityReference<SanityImageAsset>
-        crop?: SanityImageCrop
-        hotspot?: SanityImageHotspot
-      }
+        _type: "image";
+        asset: SanityReference<SanityImageAsset>;
+        crop?: SanityImageCrop;
+        hotspot?: SanityImageHotspot;
+      };
     }>
-  >
+  >;
 }
 
 /**
@@ -222,28 +222,28 @@ export interface Inventory extends SanityDocument {
  *
  */
 export interface Menus extends SanityDocument {
-  _type: 'menus'
+  _type: "menus";
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: 'slug'; current: string }
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Menu Items — `array`
    *
    *
    */
-  items?: Array<SanityKeyed<MenuItem>>
+  items?: Array<SanityKeyed<MenuItem>>;
 }
 
 /**
@@ -252,42 +252,42 @@ export interface Menus extends SanityDocument {
  *
  */
 export interface Page extends SanityDocument {
-  _type: 'page'
+  _type: "page";
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: 'slug'; current: string }
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Password — `string`
    *
    * Password protect this page
    */
-  password?: string
+  password?: string;
 
   /**
    * Hide Menu Button — `boolean`
    *
    * Hide waitlist or tour button in header
    */
-  hideMenuButton?: boolean
+  hideMenuButton?: boolean;
 
   /**
    * Show Tour Link — `boolean`
    *
    * Show the tour link in the header instead of waitlist
    */
-  showTourLink?: boolean
+  showTourLink?: boolean;
 
   /**
    * Preview Image — `image`
@@ -295,25 +295,25 @@ export interface Page extends SanityDocument {
    *
    */
   previewImage?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * Body — `blockContent`
    *
    *
    */
-  body?: BlockContent
+  body?: BlockContent;
 
   /**
    * SEO — `seo`
    *
    *
    */
-  seo?: Seo
+  seo?: Seo;
 }
 
 /**
@@ -322,119 +322,119 @@ export interface Page extends SanityDocument {
  *
  */
 export interface Property extends SanityDocument {
-  _type: 'property'
+  _type: "property";
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Long Title — `richText`
    *
    * Used on the Properties Block property link
    */
-  longTitle?: RichText
+  longTitle?: RichText;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: 'slug'; current: string }
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Available — `boolean`
    *
    *
    */
-  available?: boolean
+  available?: boolean;
 
   /**
    * Hide Menu Button — `boolean`
    *
    * Hide waitlist or tour button in header
    */
-  hideMenuButton?: boolean
+  hideMenuButton?: boolean;
 
   /**
    * Show Tour Link — `boolean`
    *
    * Show the tour link in the header instead of waitlist
    */
-  showTourLink?: boolean
+  showTourLink?: boolean;
 
   /**
    * Card Image — `media`
    *
    * Used for the Properties Block image
    */
-  cardImage?: Media
+  cardImage?: Media;
 
   /**
    * Header Text — `string`
    *
    * Used for page breadcrumb
    */
-  headerText?: string
+  headerText?: string;
 
   /**
    * Header — `richText`
    *
    *
    */
-  header?: RichText
+  header?: RichText;
 
   /**
    * Property Image — `media`
    *
    * Used for the Property Block image
    */
-  image?: Media
+  image?: Media;
 
   /**
    * coordinates — `coordinates`
    *
    *
    */
-  coordinates?: Coordinates
+  coordinates?: Coordinates;
 
   /**
    * Body — `blockContent`
    *
    *
    */
-  body?: BlockContent
+  body?: BlockContent;
 
   /**
    * Waitlist Link Text — `string`
    *
    *
    */
-  waitlistLinkText?: string
+  waitlistLinkText?: string;
 
   /**
    * Location — `reference`
    *
    *
    */
-  location?: SanityReference<City>
+  location?: SanityReference<City>;
 
   /**
    * Available Text — `string`
    *
    *
    */
-  availableText?: string
+  availableText?: string;
 
   /**
    * Property Types — `array`
    *
    *
    */
-  propertyTypesList?: Array<SanityKeyedReference<PropertyType>>
+  propertyTypesList?: Array<SanityKeyedReference<PropertyType>>;
 
   /**
    * Preview Image — `image`
@@ -442,18 +442,18 @@ export interface Property extends SanityDocument {
    *
    */
   previewImage?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * SEO — `seo`
    *
    *
    */
-  seo?: Seo
+  seo?: Seo;
 }
 
 /**
@@ -462,119 +462,119 @@ export interface Property extends SanityDocument {
  *
  */
 export interface PropertyType extends SanityDocument {
-  _type: 'propertyType'
+  _type: "propertyType";
 
   /**
    * Type Title — `string`
    *
    *
    */
-  typeTitle?: string
+  typeTitle?: string;
 
   /**
    * Header Text — `string`
    *
    *
    */
-  headerText?: string
+  headerText?: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: 'slug'; current: string }
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Available — `boolean`
    *
    *
    */
-  available?: boolean
+  available?: boolean;
 
   /**
    * Property — `reference`
    *
    *
    */
-  property?: SanityReference<Property>
+  property?: SanityReference<Property>;
 
   /**
    * Price — `string`
    *
    *
    */
-  price?: string
+  price?: string;
 
   /**
    * Crypto Price — `string`
    *
    *
    */
-  cryptoPrice?: string
+  cryptoPrice?: string;
 
   /**
    * Area — `string`
    *
    *
    */
-  area?: string
+  area?: string;
 
   /**
    * Headline Image — `media`
    *
    *
    */
-  headlineImage?: Media
+  headlineImage?: Media;
 
   /**
    * Photographs — `array`
    *
    *
    */
-  photographs?: Array<SanityKeyed<Media>>
+  photographs?: Array<SanityKeyed<Media>>;
 
   /**
    * Summary — `richText`
    *
    *
    */
-  summary?: RichText
+  summary?: RichText;
 
   /**
    * Inventory — `reference`
    *
    *
    */
-  inventory?: SanityReference<Inventory>
+  inventory?: SanityReference<Inventory>;
 
   /**
    * Unit Details — `richText`
    *
    *
    */
-  unitDetails?: RichText
+  unitDetails?: RichText;
 
   /**
    * Body — `blockContent`
    *
    *
    */
-  body?: BlockContent
+  body?: BlockContent;
 
   /**
    * Layout Images — `array`
    *
    *
    */
-  layoutImages?: Array<SanityKeyed<Media>>
+  layoutImages?: Array<SanityKeyed<Media>>;
 
   /**
    * More Info — `richText`
    *
    *
    */
-  moreInfo?: RichText
+  moreInfo?: RichText;
 
   /**
    * Preview Image — `image`
@@ -582,18 +582,18 @@ export interface PropertyType extends SanityDocument {
    *
    */
   previewImage?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * SEO — `seo`
    *
    *
    */
-  seo?: Seo
+  seo?: Seo;
 }
 
 /**
@@ -602,21 +602,21 @@ export interface PropertyType extends SanityDocument {
  *
  */
 export interface RdPage extends SanityDocument {
-  _type: 'rdPage'
+  _type: "rdPage";
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: 'slug'; current: string }
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Preview Image — `image`
@@ -624,25 +624,25 @@ export interface RdPage extends SanityDocument {
    *
    */
   previewImage?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * Body — `blockContent`
    *
    *
    */
-  body?: BlockContent
+  body?: BlockContent;
 
   /**
    * SEO — `seo`
    *
    *
    */
-  seo?: Seo
+  seo?: Seo;
 }
 
 /**
@@ -651,182 +651,182 @@ export interface RdPage extends SanityDocument {
  *
  */
 export interface Unit extends SanityDocument {
-  _type: 'unit'
+  _type: "unit";
 
   /**
    * Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Header Text — `string`
    *
    *
    */
-  headerText?: string
+  headerText?: string;
 
   /**
    * Slug — `slug`
    *
    *
    */
-  slug?: { _type: 'slug'; current: string }
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Hide Menu Button — `boolean`
    *
    * Hide waitlist or tour button in header
    */
-  hideMenuButton?: boolean
+  hideMenuButton?: boolean;
 
   /**
    * Show Tour Link — `boolean`
    *
    * Show the tour link in the header instead of waitlist
    */
-  showTourLink?: boolean
+  showTourLink?: boolean;
 
   /**
    * Available — `boolean`
    *
    *
    */
-  available?: boolean
+  available?: boolean;
 
   /**
    * Property — `reference`
    *
    *
    */
-  property?: SanityReference<Property>
+  property?: SanityReference<Property>;
 
   /**
    * Property Type — `reference`
    *
    *
    */
-  propertyType?: SanityReference<PropertyType>
+  propertyType?: SanityReference<PropertyType>;
 
   /**
    * Address — `richText`
    *
    *
    */
-  address?: RichText
+  address?: RichText;
 
   /**
    * coordinates — `coordinates`
    *
    *
    */
-  coordinates?: Coordinates
+  coordinates?: Coordinates;
 
   /**
    * Price — `string`
    *
    *
    */
-  price?: string
+  price?: string;
 
   /**
    * Hide Price — `boolean`
    *
    * Hide the price except on dossier page
    */
-  hidePrice?: boolean
+  hidePrice?: boolean;
 
   /**
    * Crypto Price — `string`
    *
    *
    */
-  cryptoPrice?: string
+  cryptoPrice?: string;
 
   /**
    * Area — `string`
    *
    *
    */
-  area?: string
+  area?: string;
 
   /**
    * Bedrooms — `number`
    *
    *
    */
-  bedrooms?: number
+  bedrooms?: number;
 
   /**
    * Bathrooms — `number`
    *
    *
    */
-  bathrooms?: number
+  bathrooms?: number;
 
   /**
    * Fact Sheet — `table`
    *
    *
    */
-  factSheet?: Table
+  factSheet?: Table;
 
   /**
    * CTAs — `array`
    *
    *
    */
-  ctas?: Array<SanityKeyed<Cta>>
+  ctas?: Array<SanityKeyed<Cta>>;
 
   /**
    * Photographs — `array`
    *
    *
    */
-  photographs?: Array<SanityKeyed<Media>>
+  photographs?: Array<SanityKeyed<Media>>;
 
   /**
    * Unit List Photo Limit — `number`
    *
    * Limit the number of photos shown on the property
    */
-  photoLimit?: number
+  photoLimit?: number;
 
   /**
    * First Content Block — `richText`
    *
    *
    */
-  summary?: RichText
+  summary?: RichText;
 
   /**
    * Inventory — `reference`
    *
    *
    */
-  inventory?: SanityReference<Inventory>
+  inventory?: SanityReference<Inventory>;
 
   /**
    * Second Content Block — `richText`
    *
    *
    */
-  unitDetails?: RichText
+  unitDetails?: RichText;
 
   /**
    * Layout Images — `array`
    *
    *
    */
-  layoutImages?: Array<SanityKeyed<Media>>
+  layoutImages?: Array<SanityKeyed<Media>>;
 
   /**
    * Closing Documents — `file`
    *
    * Upload closing documents zip file here
    */
-  closingDocuments?: { _type: 'file'; asset: SanityReference<any> }
+  closingDocuments?: { _type: "file"; asset: SanityReference<any> };
 
   /**
    * Preview Image — `image`
@@ -834,18 +834,18 @@ export interface Unit extends SanityDocument {
    *
    */
   previewImage?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * SEO — `seo`
    *
    *
    */
-  seo?: Seo
+  seo?: Seo;
 }
 
 /**
@@ -854,35 +854,35 @@ export interface Unit extends SanityDocument {
  *
  */
 export interface SiteSettings extends SanityDocument {
-  _type: 'siteSettings'
+  _type: "siteSettings";
 
   /**
    * Site Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Site Description — `text`
    *
    *
    */
-  description?: string
+  description?: string;
 
   /**
    * Cookies Pane Copy — `richText`
    *
    *
    */
-  cookiesPaneCopy?: RichText
+  cookiesPaneCopy?: RichText;
 
   /**
    * Cookies Accordions — `array`
    *
    *
    */
-  cookiesAccordions?: Array<SanityKeyed<Accordion>>
+  cookiesAccordions?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Site Image — `image`
@@ -890,18 +890,18 @@ export interface SiteSettings extends SanityDocument {
    *
    */
   image?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * Keyphrase — `string`
    *
    * Phrase that you want your site to rank for.
    */
-  siteKeywords?: string
+  siteKeywords?: string;
 
   /**
    * R+D Header Image — `image`
@@ -909,367 +909,374 @@ export interface SiteSettings extends SanityDocument {
    *
    */
   rdImage?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * R+D Header Image Link — `link`
    *
    *
    */
-  rdLink?: Link
+  rdLink?: Link;
 
   /**
    * Main Menu — `reference`
    *
    * Select menu for main navigation
    */
-  mainMenu?: SanityReference<Menus>
+  mainMenu?: SanityReference<Menus>;
 
   /**
    * Footer Menu — `reference`
    *
    * Select menu for footer navigation
    */
-  footerMenu?: SanityReference<Menus>
+  footerMenu?: SanityReference<Menus>;
+
+  /**
+   * Footer Apply Copy — `richText`
+   *
+   *
+   */
+  applyCopy?: RichText;
 
   /**
    * Waitlist Audience ID — `string`
    *
    *
    */
-  waitlistId?: string
+  waitlistId?: string;
 
   /**
    * Waitlist Header — `string`
    *
    *
    */
-  waitlistHeader?: string
+  waitlistHeader?: string;
 
   /**
    * Waitlist Copy — `richText`
    *
    *
    */
-  waitlistCopy?: RichText
+  waitlistCopy?: RichText;
 
   /**
    * Waitlist Success — `richText`
    *
    *
    */
-  waitlistSuccess?: RichText
+  waitlistSuccess?: RichText;
 
   /**
    * Show Waitlist Consent Checkbox — `boolean`
    *
    *
    */
-  showConsent?: boolean
+  showConsent?: boolean;
 
   /**
    * Waitlist Consent Copy — `richText`
    *
    *
    */
-  consentCopy?: RichText
+  consentCopy?: RichText;
 
   /**
    * Inquiry Audience ID — `string`
    *
    *
    */
-  inquiryId?: string
+  inquiryId?: string;
 
   /**
    * Inquiry Copy — `string`
    *
    *
    */
-  inquiryCopy?: string
+  inquiryCopy?: string;
 
   /**
    * Inquiry Success — `string`
    *
    *
    */
-  inquirySuccess?: string
+  inquirySuccess?: string;
 
   /**
    * Broker Inquiry Audience ID — `string`
    *
    *
    */
-  brokerInquiryId?: string
+  brokerInquiryId?: string;
 
   /**
    * Broker Inquiry Copy — `richText`
    *
    *
    */
-  brokerInquiryCopy?: RichText
+  brokerInquiryCopy?: RichText;
 
   /**
    * Broker Inquiry Success — `richText`
    *
    *
    */
-  brokerInquirySuccess?: RichText
+  brokerInquirySuccess?: RichText;
 
   /**
    * How It Works Accordions — `array`
    *
    * Currently shows in how to modal on unit
    */
-  howItWorksContent?: Array<SanityKeyed<Accordion>>
+  howItWorksContent?: Array<SanityKeyed<Accordion>>;
 }
 
 export type Link = {
-  _type: 'link'
+  _type: "link";
   /**
    * Internal link — `object`
    *
    *
    */
   internalLink?: {
-    _type: 'internalLink'
+    _type: "internalLink";
     /**
      * reference — `reference`
      *
      *
      */
-    reference?: SanityReference<Page | Property | PropertyType | Unit>
+    reference?: SanityReference<Page | Property | PropertyType | Unit>;
 
     /**
      * Anchor Slug — `slug`
      *
      *
      */
-    anchor?: { _type: 'anchor'; current: string }
-  }
+    anchor?: { _type: "anchor"; current: string };
+  };
 
   /**
    * External Link — `url`
    *
    *
    */
-  externalLink?: string
-}
+  externalLink?: string;
+};
 
 export type Accordion = {
-  _type: 'accordion'
+  _type: "accordion";
   /**
    * Accordion Header — `string`
    *
    *
    */
-  header?: string
+  header?: string;
 
   /**
    * Large Header — `boolean`
    *
    * Sets header to H2 size (Read More accordions only)
    */
-  largeHeader?: boolean
+  largeHeader?: boolean;
 
   /**
    * Open on desktop — `boolean`
    *
    *
    */
-  openOnDesktop?: boolean
+  openOnDesktop?: boolean;
 
   /**
    * Initial Text — `richText`
    *
    * Copy shown before accordion is expanded (Read More accordions only)
    */
-  initialText?: RichText
+  initialText?: RichText;
 
   /**
    * Accordion Text — `richText`
    *
    *
    */
-  text?: RichText
+  text?: RichText;
 
   /**
    * CTA — `cta`
    *
    *
    */
-  cta?: Cta
-}
+  cta?: Cta;
+};
 
 export type Carousel = {
-  _type: 'carousel'
+  _type: "carousel";
   /**
    * Images — `array`
    *
    *
    */
-  images?: Array<SanityKeyed<Media>>
-}
+  images?: Array<SanityKeyed<Media>>;
+};
 
-export type Color = 'black' | 'white'
+export type Color = "black" | "white";
 
 export type ContentRow = {
-  _type: 'contentRow'
+  _type: "contentRow";
   /**
    * Cells — `object`
    *
    *
    */
   cells?: {
-    _type: 'cells'
+    _type: "cells";
     /**
      * Header — `string`
      *
      *
      */
-    header?: string
+    header?: string;
 
     /**
      * Content — `richText`
      *
      *
      */
-    content?: RichText
-  }
-}
+    content?: RichText;
+  };
+};
 
 export type CookiesToggle = {
-  _type: 'cookiesToggle'
+  _type: "cookiesToggle";
   /**
    * Linked Copy — `string`
    *
    *
    */
-  linkedCopy?: string
+  linkedCopy?: string;
 
   /**
    * Cookies Toggle — `boolean`
    *
    *
    */
-  cookiesToggle?: boolean
-}
+  cookiesToggle?: boolean;
+};
 
 export type Coordinates = {
-  _type: 'coordinates'
+  _type: "coordinates";
   /**
    * Latitude — `string`
    *
    *
    */
-  lat?: string
+  lat?: string;
 
   /**
    * Longitude — `string`
    *
    *
    */
-  long?: string
-}
+  long?: string;
+};
 
 export type Cta = {
-  _type: 'cta'
+  _type: "cta";
   /**
    * Text — `string`
    *
    *
    */
-  text?: string
+  text?: string;
 
   /**
    * Link — `link`
    *
    *
    */
-  link?: Link
+  link?: Link;
 
   /**
    * Color — `string`
    *
    *
    */
-  color?: 'Black' | 'White'
-}
+  color?: "Black" | "White";
+};
 
 export type Divider = {
-  _type: 'divider'
+  _type: "divider";
   /**
    * Divider — `boolean`
    *
    *
    */
-  divider?: boolean
-}
+  divider?: boolean;
+};
 
 export type Embed = {
-  _type: 'embed'
+  _type: "embed";
   /**
    * embed — `text`
    *
    * Paste the embed code here, will be wrapped with <script> tags
    */
-  embed?: string
-}
+  embed?: string;
+};
 
 export type FormField = {
-  _type: 'formField'
+  _type: "formField";
   /**
    * Field ID — `string`
    *
    * A unique identifier for this field from Hubspot etc. (first_name, last_name, email, etc.)
    */
-  fieldId?: string
+  fieldId?: string;
 
   /**
    * Is required — `boolean`
    *
    * Is this field required for form submission?
    */
-  isRequired?: boolean
+  isRequired?: boolean;
 
   /**
    * Field Type — `string`
    *
    *
    */
-  fieldType?: 'text' | 'textArea' | 'email' | 'tel' | 'select' | 'hidden'
+  fieldType?: "text" | "textArea" | "email" | "tel" | "select" | "hidden";
 
   /**
    * Text Area Rows — `number`
    *
    *
    */
-  rows?: number
+  rows?: number;
 
   /**
    * Input Placeholder — `string`
    *
    *
    */
-  placeholder?: string
+  placeholder?: string;
 
   /**
    * Options Label — `string`
    *
    *
    */
-  optionsLabel?: string
+  optionsLabel?: string;
 
   /**
    * Select Type — `string`
    *
    *
    */
-  selectType?: 'radio' | 'checkbox'
+  selectType?: "radio" | "checkbox";
 
   /**
    * Options — `array`
@@ -1278,233 +1285,233 @@ export type FormField = {
    */
   options?: Array<
     SanityKeyed<{
-      _type: 'optionItem'
+      _type: "optionItem";
       /**
        * id — `string`
        *
        *
        */
-      id?: string
+      id?: string;
 
       /**
        * value — `string`
        *
        *
        */
-      value?: string
+      value?: string;
 
       /**
        * label — `string`
        *
        *
        */
-      label?: string
+      label?: string;
     }>
-  >
-}
+  >;
+};
 
 export type Figure = {
-  _type: 'figure'
+  _type: "figure";
   /**
    * Media — `media`
    *
    *
    */
-  media?: Media
-}
+  media?: Media;
+};
 
 export type InventoryToggle = {
-  _type: 'inventoryToggle'
+  _type: "inventoryToggle";
   /**
    * Linked Copy — `string`
    *
    *
    */
-  linkedCopy?: string
+  linkedCopy?: string;
 
   /**
    * Inventory — `reference`
    *
    *
    */
-  inventory?: SanityReference<Inventory>
-}
+  inventory?: SanityReference<Inventory>;
+};
 
 export type Media = {
-  _type: 'media'
+  _type: "media";
   /**
    * image — `image`
    *
    *
    */
   image?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * File — `file`
    *
    *
    */
-  file?: { _type: 'file'; asset: SanityReference<any> }
+  file?: { _type: "file"; asset: SanityReference<any> };
 
   /**
    * Video — `video`
    *
    *
    */
-  video?: Video
+  video?: Video;
 
   /**
    * Alternative text — `string`
    *
    * Important for SEO and accessiblity.
    */
-  alt?: string
+  alt?: string;
 
   /**
    * caption — `richText`
    *
    *
    */
-  caption?: RichText
-}
+  caption?: RichText;
+};
 
 export type MenuItem = {
-  _type: 'menuItem'
+  _type: "menuItem";
   /**
    * Menu Item Text — `string`
    *
    *
    */
-  text?: string
+  text?: string;
 
   /**
    * Menu Item URL — `link`
    *
    *
    */
-  link?: Link
-}
+  link?: Link;
+};
 
 export type Seo = {
-  _type: 'seo'
+  _type: "seo";
   /**
    * SEO Title — `string`
    *
    *
    */
-  title?: string
+  title?: string;
 
   /**
    * Meta Description — `string`
    *
    *
    */
-  description?: string
+  description?: string;
 
   /**
    * Keyphrase — `string`
    *
    * A phrase that you want your post or page to rank for.
    */
-  keywords?: string
+  keywords?: string;
 
   /**
    * Keyword/Keyphrase Synonyms — `string`
    *
    *
    */
-  synonyms?: string
-}
+  synonyms?: string;
+};
 
-export type RichText = Array<SanityKeyed<SanityBlock> | SanityKeyed<Media>>
+export type RichText = Array<SanityKeyed<SanityBlock> | SanityKeyed<Media>>;
 
-export type PlainText = Array<SanityKeyed<SanityBlock>>
+export type PlainText = Array<SanityKeyed<SanityBlock>>;
 
 export type TextAndImage = {
-  _type: 'textAndImage'
+  _type: "textAndImage";
   /**
    * Aspect — `string`
    *
    *
    */
-  aspect?: 'short' | 'square' | 'tall'
+  aspect?: "short" | "square" | "tall";
 
   /**
    * Media — `media`
    *
    *
    */
-  media?: Media
+  media?: Media;
 
   /**
    * Text — `richText`
    *
    *
    */
-  text?: RichText
+  text?: RichText;
 
   /**
    * Alt Crypto Text — `richText`
    *
    * Replaces text in crypto mode
    */
-  altCryptoText?: RichText
-}
+  altCryptoText?: RichText;
+};
 
 export type Tooltip = {
-  _type: 'tooltip'
+  _type: "tooltip";
   /**
    * Linked Copy — `string`
    *
    *
    */
-  linkedCopy?: string
+  linkedCopy?: string;
 
   /**
    * Tooltip Content — `plainText`
    *
    *
    */
-  tooltipContent?: PlainText
-}
+  tooltipContent?: PlainText;
+};
 
 export type UnitGroup = {
-  _type: 'unitGroup'
+  _type: "unitGroup";
   /**
    * Header — `string`
    *
    *
    */
-  header?: string
+  header?: string;
 
   /**
    * Property — `reference`
    *
    *
    */
-  property?: SanityReference<Property>
+  property?: SanityReference<Property>;
 
   /**
    * Units — `array`
    *
    *
    */
-  units?: Array<SanityKeyedReference<Unit>>
-}
+  units?: Array<SanityKeyedReference<Unit>>;
+};
 
 export type Video = {
-  _type: 'video'
+  _type: "video";
   /**
    * files — `array`
    *
    * Video files (webm, m4v, mp4) beginning with webm
    */
-  files?: Array<SanityKeyed<{ _type: 'file'; asset: SanityReference<any> }>>
+  files?: Array<SanityKeyed<{ _type: "file"; asset: SanityReference<any> }>>;
 
   /**
    * poster — `image`
@@ -1512,50 +1519,50 @@ export type Video = {
    * Image that displays before the video is loaded
    */
   poster?: {
-    _type: 'image'
-    asset: SanityReference<SanityImageAsset>
-    crop?: SanityImageCrop
-    hotspot?: SanityImageHotspot
-  }
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * Caption — `string`
    *
    *
    */
-  caption?: string
+  caption?: string;
 
   /**
    * loop — `boolean`
    *
    *
    */
-  loop?: boolean
+  loop?: boolean;
 
   /**
    * autoplay — `boolean`
    *
    * Video will be muted if autoplay is enabled
    */
-  autoplay?: boolean
-}
+  autoplay?: boolean;
+};
 
 export type InventoryModule = {
-  _type: 'inventoryModule'
+  _type: "inventoryModule";
   /**
    * Headers — `array`
    *
    *
    */
-  headers?: Array<SanityKeyed<string>>
+  headers?: Array<SanityKeyed<string>>;
 
   /**
    * Rows — `table`
    *
    *
    */
-  rows?: Table
-}
+  rows?: Table;
+};
 
 export type BlockContent = Array<
   | SanityKeyed<AccordionBlock>
@@ -1578,185 +1585,185 @@ export type BlockContent = Array<
   | SanityKeyed<MessagingBlock>
   | SanityKeyed<WaitlistBlock>
   | SanityKeyed<FlexWaitlistBlock>
->
+>;
 
 export type AccordionBlock = {
-  _type: 'accordionBlock'
+  _type: "accordionBlock";
   /**
    * Columns — `number`
    *
    * Number of columns to display on larger screens. Defaults to 3 if blank
    */
-  columns?: number
+  columns?: number;
 
   /**
    * Accordions — `array`
    *
    *
    */
-  accordions?: Array<SanityKeyed<Accordion>>
+  accordions?: Array<SanityKeyed<Accordion>>;
 
   /**
    * Read More — `boolean`
    *
    * Set to true to hide plus and minus and show read more copy
    */
-  readMore?: boolean
+  readMore?: boolean;
 
   /**
    * Black Bottom Border — `boolean`
    *
    *
    */
-  bottomBorder?: boolean
-}
+  bottomBorder?: boolean;
+};
 
 export type AnimatingBlock = {
-  _type: 'animatingBlock'
+  _type: "animatingBlock";
   /**
    * Header — `array`
    *
    *
    */
-  header?: Array<SanityKeyed<string>>
+  header?: Array<SanityKeyed<string>>;
 
   /**
    * Text and Images — `array`
    *
    *
    */
-  textAndImages?: Array<SanityKeyed<TextAndImage>>
+  textAndImages?: Array<SanityKeyed<TextAndImage>>;
 
   /**
    * Cities — `array`
    *
    *
    */
-  citiesList?: Array<SanityKeyedReference<City>>
+  citiesList?: Array<SanityKeyedReference<City>>;
 
   /**
    * Cities Position — `number`
    *
    *
    */
-  citiesPosition?: number
+  citiesPosition?: number;
 
   /**
    * Featured Property Types — `array`
    *
    *
    */
-  featuredList?: Array<SanityKeyedReference<PropertyType>>
-}
+  featuredList?: Array<SanityKeyedReference<PropertyType>>;
+};
 
 export type CalendarBlock = {
-  _type: 'calendarBlock'
+  _type: "calendarBlock";
   /**
    * Header — `richText`
    *
    *
    */
-  header?: RichText
+  header?: RichText;
 
   /**
    * Calendar Type — `string`
    *
    * Add the type of calendar
    */
-  calendarType?: 'phone' | 'tour'
+  calendarType?: "phone" | "tour";
 
   /**
    * email — `string`
    *
    *
    */
-  email?: string
+  email?: string;
 
   /**
    * Booking Notice — `string`
    *
    * Add the number of days to book out from today
    */
-  notice?: '1' | '2' | '3' | '4' | '5' | '6' | '7'
+  notice?: "1" | "2" | "3" | "4" | "5" | "6" | "7";
 
   /**
    * Start of week — `string`
    *
    * Add the day of the week to start
    */
-  start?: '1' | '2' | '3' | '4' | '5' | '6'
+  start?: "1" | "2" | "3" | "4" | "5" | "6";
 
   /**
    * End of week — `string`
    *
    * Add the day of the week to end
    */
-  end?: '2' | '3' | '4' | '5' | '6' | '7'
+  end?: "2" | "3" | "4" | "5" | "6" | "7";
 
   /**
    * Times — `array`
    *
    * Add the times to show are possibly available to meet
    */
-  times?: Array<SanityKeyed<string>>
+  times?: Array<SanityKeyed<string>>;
 
   /**
    * Success Message — `richText`
    *
    *
    */
-  successMessage?: RichText
-}
+  successMessage?: RichText;
+};
 
 export type CarouselBlock = {
-  _type: 'carouselBlock'
+  _type: "carouselBlock";
   /**
    * Images — `array`
    *
    *
    */
-  images?: Array<SanityKeyed<Media>>
-}
+  images?: Array<SanityKeyed<Media>>;
+};
 
 export type DividerBlock = {
-  _type: 'dividerBlock'
+  _type: "dividerBlock";
   /**
    * Divider — `boolean`
    *
    *
    */
-  divider?: boolean
-}
+  divider?: boolean;
+};
 
 export type FormBlock = {
-  _type: 'formBlock'
+  _type: "formBlock";
   /**
    * Header — `richText`
    *
    *
    */
-  header?: RichText
+  header?: RichText;
 
   /**
    * URL Submit — `string`
    *
    *
    */
-  urlSubmit?: string
+  urlSubmit?: string;
 
   /**
    * Audience ID/Form GUID — `string`
    *
    *
    */
-  audienceId?: string
+  audienceId?: string;
 
   /**
    * Success Message — `richText`
    *
    *
    */
-  successMessage?: RichText
+  successMessage?: RichText;
 
   /**
    * Panes — `array`
@@ -1765,304 +1772,304 @@ export type FormBlock = {
    */
   panes?: Array<
     SanityKeyed<{
-      _type: 'pane'
+      _type: "pane";
       /**
        * Header — `string`
        *
        *
        */
-      header?: string
+      header?: string;
 
       /**
        * Copy — `string`
        *
        *
        */
-      copy?: string
+      copy?: string;
 
       /**
        * Form Fields — `array`
        *
        *
        */
-      formFields?: Array<SanityKeyed<FormField>>
+      formFields?: Array<SanityKeyed<FormField>>;
     }>
-  >
+  >;
 
   /**
    * Background Color — `string`
    *
    * Background color for the form
    */
-  backgroundColor?: 'white' | 'yellow'
-}
+  backgroundColor?: "white" | "yellow";
+};
 
 export type FullbleedBlock = {
-  _type: 'fullbleedBlock'
+  _type: "fullbleedBlock";
   /**
    * Image — `media`
    *
    *
    */
-  image?: Media
+  image?: Media;
 
   /**
    * Minimum Width — `number`
    *
    *
    */
-  minWidth?: number
+  minWidth?: number;
 
   /**
    * Animate — `boolean`
    *
    *
    */
-  animate?: boolean
+  animate?: boolean;
 
   /**
    * Columns — `number`
    *
    * Number of columns to display the fullbleed block in, setting to 2 will split the screen in half on desktop
    */
-  columns?: number
-}
+  columns?: number;
+};
 
 export type ImagesBlock = {
-  _type: 'imagesBlock'
+  _type: "imagesBlock";
   /**
    * Images — `array`
    *
    * Shows images in a row on desktop and as a vertical list on mobile
    */
-  images?: Array<SanityKeyed<Media>>
-}
+  images?: Array<SanityKeyed<Media>>;
+};
 
 export type PropertyBlock = {
-  _type: 'propertyBlock'
+  _type: "propertyBlock";
   /**
    * Property Reference — `reference`
    *
    *
    */
-  propertyRef?: SanityReference<Property>
+  propertyRef?: SanityReference<Property>;
 
   /**
    * Footer Copy — `string`
    *
    *
    */
-  footerCopy?: string
-}
+  footerCopy?: string;
+};
 
 export type PropertyTypesBlock = {
-  _type: 'propertyTypesBlock'
+  _type: "propertyTypesBlock";
   /**
    * Header — `string`
    *
    *
    */
-  header?: string
+  header?: string;
 
   /**
    * Property Types — `array`
    *
    *
    */
-  propertyTypes?: Array<SanityKeyedReference<PropertyType>>
-}
+  propertyTypes?: Array<SanityKeyedReference<PropertyType>>;
+};
 
 export type PropertiesBlock = {
-  _type: 'propertiesBlock'
+  _type: "propertiesBlock";
   /**
    * Header — `string`
    *
    *
    */
-  header?: string
+  header?: string;
 
   /**
    * Properties — `array`
    *
    *
    */
-  properties?: Array<SanityKeyedReference<Property>>
-}
+  properties?: Array<SanityKeyedReference<Property>>;
+};
 
 export type NewsletterBlock = {
-  _type: 'newsletterBlock'
+  _type: "newsletterBlock";
   /**
    * Header — `string`
    *
    *
    */
-  header?: string
+  header?: string;
 
   /**
    * Text — `richText`
    *
    *
    */
-  text?: RichText
+  text?: RichText;
 
   /**
    * URL Submit — `string`
    *
    *
    */
-  urlSubmit?: string
+  urlSubmit?: string;
 
   /**
    * Audience ID/Form GUID — `string`
    *
    *
    */
-  audienceId?: string
+  audienceId?: string;
 
   /**
    * Success Message — `richText`
    *
    *
    */
-  successMessage?: RichText
+  successMessage?: RichText;
 
   /**
    * Hide Name — `boolean`
    *
    *
    */
-  hideName?: boolean
+  hideName?: boolean;
 
   /**
    * Brand Input Style — `boolean`
    *
    *
    */
-  brandStyle?: boolean
-}
+  brandStyle?: boolean;
+};
 
 export type ContactBlock = {
-  _type: 'contactBlock'
+  _type: "contactBlock";
   /**
    * Header — `string`
    *
    *
    */
-  header?: string
+  header?: string;
 
   /**
    * Text — `richText`
    *
    *
    */
-  text?: RichText
+  text?: RichText;
 
   /**
    * Audience ID/Form GUID — `string`
    *
    *
    */
-  audienceId?: string
-}
+  audienceId?: string;
+};
 
 export type TableBlock = {
-  _type: 'tableBlock'
+  _type: "tableBlock";
   /**
    * Table — `array`
    *
    *
    */
-  table?: Array<SanityKeyed<ContentRow>>
-}
+  table?: Array<SanityKeyed<ContentRow>>;
+};
 
 export type TextBlock = {
-  _type: 'textBlock'
+  _type: "textBlock";
   /**
    * Anchor — `string`
    *
    * Add an anchor tag to this text block (ie ab-fab)
    */
-  anchor?: string
+  anchor?: string;
 
   /**
    * Columns — `number`
    *
    * Number of columns to display on larger screens. Defaults to 3 if blank
    */
-  columns?: number
+  columns?: number;
 
   /**
    * Sticky Header — `boolean`
    *
    * This will make the header sticky on scroll, note requires a header to be set and number of columns set to 2
    */
-  stickyHeader?: boolean
+  stickyHeader?: boolean;
 
   /**
    * Sticky Header Content — `richText`
    *
    * Content for the sticky header
    */
-  header?: RichText
+  header?: RichText;
 
   /**
    * Text — `richText`
    *
    *
    */
-  text?: RichText
+  text?: RichText;
 
   /**
    * Accordion — `accordion`
    *
    *
    */
-  accordion?: Accordion
+  accordion?: Accordion;
 
   /**
    * Yellow Background — `boolean`
    *
    * This will give the text block a full-width yellow background
    */
-  yellowBackground?: boolean
+  yellowBackground?: boolean;
 
   /**
    * Black Bottom Border — `boolean`
    *
    *
    */
-  bottomBorder?: boolean
+  bottomBorder?: boolean;
 
   /**
    * Black Top Border — `boolean`
    *
    *
    */
-  topBorder?: boolean
+  topBorder?: boolean;
 
   /**
    * R&D Style — `boolean`
    *
    *
    */
-  rdStyle?: boolean
-}
+  rdStyle?: boolean;
+};
 
 export type TextAndAccordionBlock = {
-  _type: 'textAndAccordionBlock'
+  _type: "textAndAccordionBlock";
   /**
    * Scroll Header — `richText`
    *
    *
    */
-  scrollHeader?: RichText
+  scrollHeader?: RichText;
 
   /**
    * Header — `richText`
    *
    *
    */
-  header?: RichText
+  header?: RichText;
 
   /**
    * Items — `array`
@@ -2071,150 +2078,150 @@ export type TextAndAccordionBlock = {
    */
   items?: Array<
     SanityKeyed<{
-      _type: 'item'
+      _type: "item";
       /**
        * Copy — `richText`
        *
        *
        */
-      copy?: RichText
+      copy?: RichText;
 
       /**
        * Accordions — `array`
        *
        *
        */
-      accordions?: Array<SanityKeyed<Accordion>>
+      accordions?: Array<SanityKeyed<Accordion>>;
     }>
-  >
-}
+  >;
+};
 
 export type UnitBlock = {
-  _type: 'unitBlock'
+  _type: "unitBlock";
   /**
    * Unit Reference — `reference`
    *
    *
    */
-  unitRef?: SanityReference<Unit>
-}
+  unitRef?: SanityReference<Unit>;
+};
 
 export type VideosBlock = {
-  _type: 'videosBlock'
+  _type: "videosBlock";
   /**
    * Videos — `array`
    *
    *
    */
-  videos?: Array<SanityKeyed<Video>>
-}
+  videos?: Array<SanityKeyed<Video>>;
+};
 
 export type MessagingBlock = {
-  _type: 'messagingBlock'
+  _type: "messagingBlock";
   /**
    * Messaging Name — `text`
    *
    *
    */
-  messaginBlock?: string
-}
+  messaginBlock?: string;
+};
 
 export type WaitlistBlock = {
-  _type: 'waitlistBlock'
+  _type: "waitlistBlock";
   /**
    * Header — `string`
    *
    *
    */
-  header?: string
+  header?: string;
 
   /**
    * Text — `richText`
    *
    *
    */
-  text?: RichText
+  text?: RichText;
 
   /**
    * URL Submit — `string`
    *
    *
    */
-  urlSubmit?: string
+  urlSubmit?: string;
 
   /**
    * Audience ID/Form GUID — `string`
    *
    *
    */
-  audienceId?: string
+  audienceId?: string;
 
   /**
    * Success Message — `richText`
    *
    *
    */
-  successMessage?: RichText
+  successMessage?: RichText;
 
   /**
    * Show Consent Checkbox — `boolean`
    *
    *
    */
-  showConsent?: boolean
+  showConsent?: boolean;
 
   /**
    * Consent Copy — `richText`
    *
    *
    */
-  consentCopy?: RichText
-}
+  consentCopy?: RichText;
+};
 
 export type FlexWaitlistBlock = {
-  _type: 'flexWaitlistBlock'
+  _type: "flexWaitlistBlock";
   /**
    * Header — `string`
    *
    *
    */
-  header?: string
+  header?: string;
 
   /**
    * Text — `richText`
    *
    *
    */
-  text?: RichText
+  text?: RichText;
 
   /**
    * URL Submit — `string`
    *
    *
    */
-  urlSubmit?: string
+  urlSubmit?: string;
 
   /**
    * Audience ID/Form GUID — `string`
    *
    *
    */
-  audienceId?: string
+  audienceId?: string;
 
   /**
    * Success Message — `richText`
    *
    *
    */
-  successMessage?: RichText
+  successMessage?: RichText;
 
   /**
    * Form Panes — `array`
    *
    *
    */
-  formPanes?: Array<SanityKeyed<string>>
-}
+  formPanes?: Array<SanityKeyed<string>>;
+};
 
 export type Documents =
   | Brand
@@ -2227,11 +2234,11 @@ export type Documents =
   | PropertyType
   | RdPage
   | Unit
-  | SiteSettings
+  | SiteSettings;
 
 /**
  * This interface is a stub. It was referenced in your sanity schema but
  * the definition was not actually found. Future versions of
  * sanity-codegen will let you type this explicity.
  */
-type Table = any
+type Table = any;

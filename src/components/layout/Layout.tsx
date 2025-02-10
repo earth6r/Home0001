@@ -118,6 +118,7 @@ export const Layout: FC<LayoutProps> = ({
             path={asPath}
             query={query}
             footerMenu={siteSettings?.footerMenu as Menus | undefined}
+            applyCopy={siteSettings?.applyCopy}
           />
         )}
 
