@@ -105,6 +105,10 @@
   @apply text-xs font-medium;
 }
 
+a .rich-text p.small {
+  @apply leading-[1.3];
+}
+
 .rich-text p.large {
   @apply font-sansText text-bodyLg font-bold;
 }
