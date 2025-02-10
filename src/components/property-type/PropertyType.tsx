@@ -62,6 +62,8 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
     }
   }, [propertyType])
 
+  console.log('propertyType', propertyType?.body)
+
   return (
     <div
       className={classNames(

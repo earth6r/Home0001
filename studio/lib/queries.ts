@@ -175,7 +175,7 @@ export const BODY_QUERY = `
     ...,
     "text": text[]{
       ...,
-      markDefs[]{
+      "markDefs": coalesce(text[].markDefs, [])[]{
         ...,
         "inventory": inventory->{
           ...,
