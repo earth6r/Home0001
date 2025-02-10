@@ -9,7 +9,7 @@ import {
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Media } from '@studio/gen/sanity-schema'
 import posthog from 'posthog-js'
 
@@ -104,7 +104,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                       'mt-[-5px] inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-sm text-left uppercase'
                     )}
                   >
-                    <IconRightArrowBold
+                    <IconSmallArrow
                       className="relative w-[1em] mt-[0.1em]"
                       fill="white"
                     />

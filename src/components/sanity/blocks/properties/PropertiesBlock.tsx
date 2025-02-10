@@ -4,10 +4,10 @@ import type { PropertiesBlockProps } from './types'
 import { Block, RichText } from '@components/sanity'
 import Link from 'next/link'
 import { sendGoogleEvent } from '@lib/util'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import posthog from 'posthog-js'
 import { useRouter } from 'next/router'
 import { TypedObject } from 'sanity'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 export const PropertiesBlock: FC<PropertiesBlockProps> = ({
   header,
@@ -64,7 +64,7 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                           'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-left uppercase'
                         )}
                       >
-                        <IconRightArrowBold
+                        <IconSmallArrow
                           className="relative w-[1em] mt-[0.1em]"
                           fill="white"
                         />

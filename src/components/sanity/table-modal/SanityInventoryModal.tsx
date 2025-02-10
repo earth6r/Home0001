@@ -88,7 +88,7 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
                       activeIndex === index
                         ? 'top-xhalf duration-700'
                         : 'top-1/2 -translate-y-1/2 duration-700',
-                      'p-xhalf absolute text-sm uppercase font-sansText transform transition-all'
+                      'p-xhalf absolute text-sm uppercase font-medium transform transition-all'
                     )}
                   >
                     {item.title}

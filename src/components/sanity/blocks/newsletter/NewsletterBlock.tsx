@@ -42,11 +42,14 @@ export const NewsletterBlock: FC<NewsletterBlockProps> = ({
         'relative'
       )}
     >
-      <div className="md:col-start-2 md:col-span-1 pb-12">
+      <div className="md:col-start-1 md:col-span-1 pb-12">
         {header && <h2 className="pb-ydouble uppercase">{header}</h2>}
 
         {text && (
-          <RichText blocks={text} className={classNames('mb-4 clear-both')} />
+          <RichText
+            blocks={text}
+            className={classNames('mb-ydouble clear-both')}
+          />
         )}
 
         {brandStyle && (
