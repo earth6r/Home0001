@@ -9,6 +9,7 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import 'photoswipe/style.css'
 import { sendGoogleEvent } from '@lib/util'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { useLenis } from '@studio-freight/react-lenis'
 import { type SwiperOptions } from 'swiper/types'
 import { Navigation, Pagination } from 'swiper/modules'
@@ -88,7 +89,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
   pagination,
   className,
 }) => {
-  const [activeNav, setActiveNav] = useState(false)
+  const [activeNav, setActiveNav] = useState(true)
   const [swipedImage, setSwipedImage] = useState(false)
   const slidesRef = useRef(null)
   const breakpoints: SwiperOptions['breakpoints'] = {
@@ -217,22 +218,22 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         ))}
         <div
           className={classNames(
-            activeNav ? 'opacity-100' : 'opacity-0',
-            'hidden md:flex md:justify-between absolute w-full top-1/2 transform -translate-y-1/2 transition-opacity duration-200 pointer-events-none z-above'
+            activeNav ? 'opacity-100' : 'opacity-100',
+            'flex gap-xhalf lg:justify-between ml-x md:ml-0  w-full transform transition-opacity duration-200 z-above'
           )}
         >
-          <IconRightArrowBold
-            width="80"
+          <IconSmallArrow
+            width="16"
             fill="black"
             className={classNames(
-              'pr-xhalf rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
+              'mt-yhalf rotate-180 swiper-prev pointer-events-auto cursor-pointer hover:scale-95'
             )}
           />
-          <IconRightArrowBold
-            width="80"
+          <IconSmallArrow
+            width="16"
             fill="black"
             className={classNames(
-              'pr-xhalf relative swiper-next pointer-events-auto cursor-pointer hover:scale-95'
+              'mt-yhalf swiper-next pointer-events-auto cursor-pointer hover:scale-95'
             )}
           />
         </div>
