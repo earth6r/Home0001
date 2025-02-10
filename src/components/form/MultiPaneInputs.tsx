@@ -234,7 +234,7 @@ const NameEmailPane: FC<PaneProps> = ({
             {`Telegram`}
           </option>
         </select>
-        <IconChevron className="absolute w-[12px] right-x top-[70%] transform rotate-0" />
+        <IconChevron className="absolute w-[12px] right-x top-[65%] transform rotate-0" />
       </div>
 
       {broker && (

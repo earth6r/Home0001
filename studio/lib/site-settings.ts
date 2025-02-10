@@ -62,6 +62,7 @@ export const SITE_SETTINGS_QUERY = groq`
         }
       }
     },
+    applyCopy,
     waitlistHeader,
     waitlistCopy,
     waitlistSuccess,

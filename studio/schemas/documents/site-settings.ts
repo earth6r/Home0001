@@ -99,6 +99,12 @@ export default {
       group: 'menus',
     },
     {
+      name: 'applyCopy',
+      title: 'Footer Apply Copy',
+      type: 'richText',
+      group: 'forms',
+    },
+    {
       name: 'waitlistId',
       title: 'Waitlist Audience ID',
       type: 'string',
