@@ -62,8 +62,6 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
     }
   }, [propertyType])
 
-  console.log('propertyType', propertyType?.body)
-
   return (
     <div
       className={classNames(
@@ -75,9 +73,9 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
       <div
         className={classNames(
           navOpen
-            ? 'right-0 lg:right-[calc(-66.666vw+75px)] bg-white'
-            : 'right-[calc(-100vw+72px)] lg:right-[calc(-100vw+72px)]',
-          'flex flex-col justify-end gap-8 fixed w-[100svh] lg:w-auto h-[100vw] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
+            ? 'right-[-16px] lg:right-[calc(-66.666vw+72px)] pb-x bg-white overflow-scroll'
+            : 'right-[calc(-100vw+41px)] lg:right-[calc(-100vw+41px)]',
+          'flex flex-col justify-end gap-8 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] top-0 pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
         {(
@@ -89,9 +87,10 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               onClick={() => setNavOpen(!navOpen)}
               href={`/property-type/${type.slug?.current}`}
               key={`${index}-${type.typeTitle}`}
-              className="underline"
             >
-              <h4 className="text-side">{type.typeTitle}</h4>
+              <h4 className="inline border-bottom border-2 text-side">
+                {type.typeTitle}
+              </h4>
             </Link>
           )
         })}

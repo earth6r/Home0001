@@ -1,10 +1,8 @@
 import { type FC, memo, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { BlockContent, RichText, SanityMedia } from '@components/sanity'
-import MapDialog from '@components/map/MapDialog'
 import { PropertyElProps } from './types'
 import { PropertyTypesList } from '@components/property-type'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { useWaitlisModal } from '@contexts/modals'
 import { sendGoogleEvent } from '@lib/util'
 import Link from 'next/link'
@@ -56,9 +54,9 @@ export const PropertyComponent: FC<PropertyElProps> = ({
       <div
         className={classNames(
           navOpen
-            ? 'right-[-32px] lg:right-[calc(-66.666vw+72px)] bg-white overflow-scroll'
+            ? 'right-[-16px] lg:right-[calc(-66.666vw+72px)] pb-x bg-white overflow-scroll'
             : 'right-[calc(-100vw+41px)] lg:right-[calc(-100vw+41px)]',
-          'flex flex-col justify-end gap-8 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
+          'flex flex-col justify-end gap-8 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] top-0 pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
         {property?.location && (
@@ -71,9 +69,10 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               onClick={() => setNavOpen(!navOpen)}
               href={`/property/${item.slug?.current}`}
               key={`${index}-${item.typeTitle}`}
-              className="underline"
             >
-              <h2 className="text-side">{item.title}</h2>
+              <h2 className="inline border-bottom border-2 text-side">
+                {item.title}
+              </h2>
             </Link>
           )
         })}
