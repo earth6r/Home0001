@@ -9,7 +9,7 @@ import {
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Media } from '@studio/gen/sanity-schema'
 import posthog from 'posthog-js'
 
@@ -49,7 +49,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
       <div
         className={classNames(
           propertyType.available ? '' : 'bg-white opacity-30',
-          `w-auto flex-col hover:scale-[0.99] transition-transform`
+          `w-auto flex-col md:hover:scale-[0.99] transition-transform`
         )}
       >
         <div className="z-above">
@@ -76,7 +76,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                     lqip: ((propertyType.photographs[0] as Media).image as any)
                       ?.asset?.metadata?.lqip,
                   }}
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain select-none"
                 />
               )}
               <div className="block w-full text-sm uppercase">
@@ -104,7 +104,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                       'mt-[-5px] inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-sm text-left uppercase'
                     )}
                   >
-                    <IconRightArrowBold
+                    <IconSmallArrow
                       className="relative w-[1em] mt-[0.1em]"
                       fill="white"
                     />

@@ -18,12 +18,14 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   return (
     <footer
       className={classNames(
-        'flex flex-col gap-ylg pb-ydouble mt-header font-medium text-xs uppercase'
+        'flex flex-col gap-ydouble pb-yquad mt-y font-medium text-xs uppercase'
       )}
     >
-      <div className="flex flex-col justify-start gap-ydouble py-y pl-x pr-menu md:px-x bg-gray">
-        <div className="w-full">
-          <p>{`To join our community submit an application here:`}</p>
+      <div className="flex flex-col justify-start gap-ydouble py-ydouble pl-x pr-menu bg-gray">
+        <div className="mt-[-6px] w-full pr-x">
+          <h2 className="text-h3 pb-y">{`JOIN THE HOME0001 HOUSING COLLECTIVE:`}</h2>
+          <p className="normal-case pb-yhalf">{`The first step to owning a 0001 home is to join the HOME0001 housing collective, a community with collective access to shared resources, including (1) places to stay around the world, (2) design expertise, and (3) community events. Membership is free of charge and 0001 homes are released exclusively to members of the collective.`}</p>
+          <p className="normal-case">{`Membership is either by referral from an existing member or by application here. The application process is designed to be relatively hassle-free and will give you a chance to check out some 0001 homes and meet members of the collective to figure out if it’s right for you.`}</p>
           <button
             onClick={setWaitlistOpen}
             className={classNames(
@@ -39,7 +41,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         </div>
 
         <div className="w-full">
-          <p>{`For any other questions, please reach out here:`}</p>
+          <p>{`If you have questions:`}</p>
           <a href="mailto:info@home0001.com" target="_blank">
             <button
               className={classNames(
@@ -69,7 +71,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
               className="relative w-[14px] mt-[0.1em]"
               fill="black"
             />
-            <span className="leading-none">{`Send us a message`}</span>
+            <span className="leading-none">{`Talk to us`}</span>
           </button>
         </div>
       </div>
@@ -103,10 +105,8 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
           <span className="hidden xl:inline-block">
             &copy;{` ${year}`}&nbsp;
           </span>
-          {`HOME0001`}
+          {`HOME0001 International Inc.`}
         </p>
-        <p className="w-full">{`New york · los angeles · berlin · london · paris · mexico city`}</p>
-
         <p className="block w-full">NY DRE #10991239104</p>
         <p className="block w-full">CA DRE #02236922</p>
       </div>

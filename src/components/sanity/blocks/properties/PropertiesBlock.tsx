@@ -4,10 +4,10 @@ import type { PropertiesBlockProps } from './types'
 import { Block, RichText } from '@components/sanity'
 import Link from 'next/link'
 import { sendGoogleEvent } from '@lib/util'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import posthog from 'posthog-js'
 import { useRouter } from 'next/router'
 import { TypedObject } from 'sanity'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 export const PropertiesBlock: FC<PropertiesBlockProps> = ({
   header,
@@ -19,7 +19,9 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
   return (
     <Block className={classNames(className, '')}>
       <div className="lg:max-w-[1000px] lg:mx-auto pl-x pr-menu md:px-fullmenu">
-        <h2 className="mb-ydouble text-h2">{header || `Now available in:`}</h2>
+        <h2 className="mt-[-16px] text-h2">
+          {header || `0001 homes now available in:`}
+        </h2>
 
         <div className="flex flex-col pr-x md:pr-0">
           {properties &&
@@ -52,7 +54,7 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                     <RichText
                       blocks={longTitle as TypedObject | TypedObject[]}
                       className={classNames(
-                        available === false ? '' : 'underline',
+                        available === false ? '' : 'underline decoration-2',
                         'w-[calc(100%-99px-var(--space-x))] uppercase line-clamp-2'
                       )}
                     />
@@ -62,7 +64,7 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                           'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-left uppercase'
                         )}
                       >
-                        <IconRightArrowBold
+                        <IconSmallArrow
                           className="relative w-[1em] mt-[0.1em]"
                           fill="white"
                         />
