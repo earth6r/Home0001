@@ -19,7 +19,7 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
   return (
     <Block className={classNames(className, '')}>
       <div className="lg:max-w-[1000px] lg:mx-auto pl-x pr-menu md:px-fullmenu">
-        <h2 className="mt-[-16px] text-h2">
+        <h2 className="mt-[-16px] text-h2 mb-y">
           {header || `0001 homes now available in:`}
         </h2>
 
