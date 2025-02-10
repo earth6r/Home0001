@@ -8,14 +8,14 @@ export const SanityMedia: FC<SanityMediaProps> = ({
   imageProps,
   video,
   className,
-  onLoadingComplete,
+  onLoad,
 }) => {
   if (image?.asset && imageProps)
     return (
       <SanityImage
         {...image}
         props={imageProps}
-        onLoadingComplete={onLoadingComplete}
+        onLoad={onLoad}
         className={className}
       />
     )

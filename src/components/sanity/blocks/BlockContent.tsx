@@ -106,9 +106,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             tableBlock: ({ index, value }) => (
               <TableBlock index={index} grid={grid} {...value} />
             ),
-            textBlock: ({ index, value }) => (
-              <TextBlock index={index} grid={grid} {...value} />
-            ),
+            textBlock: ({ index, value }) => {
+              return <TextBlock index={index} grid={grid} {...value} />
+            },
             textAndAccordionBlock: ({ index, value }) => (
               <TextAndAccordionBlock index={index} {...value} />
             ),
