@@ -88,7 +88,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               href={`/property-type/${type.slug?.current}`}
               key={`${index}-${type.typeTitle}`}
             >
-              <h4 className="inline border-bottom border-2 text-side">
+              <h4 className="inline border-bottom border-[6px] text-side">
                 {type.typeTitle}
               </h4>
             </Link>
