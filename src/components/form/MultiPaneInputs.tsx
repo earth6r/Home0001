@@ -201,7 +201,7 @@ const NameEmailPane: FC<PaneProps> = ({
         </p>
       )}
 
-      <div className="relative md:max-w-[var(--btn-width)] pt-y">
+      <div className="relative md:max-w-[var(--btn-width)] mt-y">
         <p className="mb-y text-button">{`Communication Preference`}</p>
         <select
           id="preferred-comms"
