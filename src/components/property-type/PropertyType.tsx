@@ -116,10 +116,10 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           navOpen
             ? 'opacity-0 lg:opacity-100 duration-100 delay-300'
             : 'opacity-100 duration-100',
-          'grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 lg:gap-x lg:pl-x pr-x md:pr-0 transition-opacity'
+          'grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 pr-x md:pr-0 transition-opacity'
         )}
       >
-        <div className="col-span-1 lg:mb-y xl:mb-0 bg-white lg:z-modal">
+        <div className="col-span-1 pl-0 lg:px-x lg:mb-y xl:mb-0 bg-white lg:z-modal">
           {propertyType?.photographs && (
             <ImageCarousel
               pagination={false}
@@ -229,14 +229,6 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             />
           )}
 
-          {propertyType?.body && (
-            <BlockContent
-              blocks={propertyType.body}
-              grid={false}
-              className="pl-x pr-menu lg:px-0 mt-ydouble overflow-visible"
-            />
-          )}
-
           {propertyType?.layoutImages && (
             <>
               <ImageCarousel
@@ -248,6 +240,14 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
                 placement="unit layouts"
               />
             </>
+          )}
+
+          {propertyType?.body && (
+            <BlockContent
+              blocks={propertyType.body}
+              grid={false}
+              className="pl-x pr-menu lg:px-0 mt-ydouble overflow-visible"
+            />
           )}
 
           {propertyType?.moreInfo && (
