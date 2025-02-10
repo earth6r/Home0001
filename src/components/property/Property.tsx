@@ -70,7 +70,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               href={`/property/${item.slug?.current}`}
               key={`${index}-${item.typeTitle}`}
             >
-              <h2 className="inline border-bottom border-2 text-side">
+              <h2 className="inline border-bottom border-[6px] text-side">
                 {item.title}
               </h2>
             </Link>
