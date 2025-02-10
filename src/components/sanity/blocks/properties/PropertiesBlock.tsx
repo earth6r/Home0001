@@ -54,7 +54,7 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                     <RichText
                       blocks={longTitle as TypedObject | TypedObject[]}
                       className={classNames(
-                        available === false ? '' : 'underline',
+                        available === false ? '' : 'underline decoration-2',
                         'w-[calc(100%-99px-var(--space-x))] uppercase line-clamp-2'
                       )}
                     />
