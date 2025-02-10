@@ -72,12 +72,20 @@ export const Header: FC<HeaderProps> = ({
     setWaitlistOpen(true)
     const options = { location: window.location.pathname }
     sendGoogleEvent('opened waitlist modal', options)
+
+    if (typeof window !== undefined) {
+      document.body.style.overflow = 'hidden'
+    }
   }
 
   const onClose = () => {
     setWaitlistOpen(false)
     setFormSubmitted(false)
     reset({})
+
+    if (typeof window !== undefined) {
+      document.body.style.overflow = 'scroll'
+    }
   }
 
   const onInquiryClose = () => {
@@ -190,7 +198,7 @@ export const Header: FC<HeaderProps> = ({
 
         <div className={classNames('flex items-center gap-[1rem] md:gap-5')}>
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-full pt-20 md:py-ydouble pl-x lg:pl-x pr-menu">
+            <div className="flex flex-col max-w-md md:max-w-none h-[95svh] md:h-full py-20 md:py-ydouble pl-x lg:pl-x pr-menu overflow-scroll">
               <Form
                 formType={'modal'}
                 audienceId={waitlist?.id}
