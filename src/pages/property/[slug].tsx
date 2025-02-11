@@ -20,6 +20,14 @@ const PROPERTY_QUERY = groq`
   *[_type == "property" && slug.current == $slug]{
     _type,
     seo,
+    "properties": *[_type == "property" && !(_id in path("drafts.**")) && defined(slug.current)]{
+      _type,
+      title,
+      slug,
+      "location": location->{
+        title,
+      },
+    },
     ${PROPERTIES_QUERY}
   }
 `
@@ -36,19 +44,19 @@ export const getStaticProps: GetStaticProps = context =>
   getPageStaticProps({ ...context, query: PROPERTY_QUERY })
 
 const PropertyPage: NextPage<PageProps> = (
-  {
-    data,
-    siteSettings,
-    preview,
-  }: InferGetStaticPropsType<typeof getStaticProps>,
+  { data, preview }: InferGetStaticPropsType<typeof getStaticProps>,
   ref: PageRefType
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
 
-  return page?.header && (!page?._id.includes('drafts.') || preview) ? (
+  return page && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
-        <Property property={page} className="w-full pt-header" />
+        <Property
+          property={page}
+          allProperties={(page as any).properties}
+          className="w-full pt-header overflow-hidden"
+        />
       </article>
     </PageTransition>
   ) : null

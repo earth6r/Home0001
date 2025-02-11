@@ -1,81 +1,126 @@
-import { type FC, memo } from 'react'
+import { type FC, memo, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { BlockContent, RichText, SanityMedia } from '@components/sanity'
-import MapDialog from '@components/map/MapDialog'
+import { BlockContent } from '@components/sanity'
 import { PropertyElProps } from './types'
 import { PropertyTypesList } from '@components/property-type'
+import Link from 'next/link'
+import IconChevron from '@components/icons/IconChevron'
+import { Property as PropertyType } from '@studio/gen/sanity-schema'
 
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,
+  allProperties,
   block,
   className,
 }) => {
+  const [navOpen, setNavOpen] = useState(false)
+
+  useEffect(() => {
+    if (navOpen) {
+      document.body.classList.add('overflow-hidden')
+    } else {
+      document.body.classList.remove('overflow-hidden')
+    }
+  }, [navOpen])
+
+  const matchingCityProperties = allProperties
+    ?.filter(
+      (item: any) =>
+        item?.location?.title === property?.location?.title &&
+        item?.title !== property?.title
+    )
+    .sort(
+      (a: any, b: any) =>
+        b?.title?.localeCompare && b?.title?.localeCompare(a?.title)
+    )
+
   return (
-    <div className={classNames(className)}>
-      <h2 className="mb-ydouble pl-x text-h1 md:text-center pr-menu md:px-x">
-        Home0001: {property?.title}
-      </h2>
-      <div className="md:grid md:grid-cols-2 gap-y md:col-start-1 block relative md:pl-x">
-        <div className="flex flex-col md:col-span-1 md:justify-start md:items-start md:sticky top-[64px] left-0 md:h-[64vw] px-x md:px-0">
-          {property?.image && (
-            <div className="col-span-2 block relative w-full mb-ydouble md:mb-y z-base">
-              <SanityMedia
-                imageProps={{
-                  alt: property?.image.alt || 'Building image',
-                  quality: 80,
-                  priority: true,
-                  lqip: (property?.image?.image as any)?.asset?.metadata?.lqip,
-                }}
-                {...(property?.image as any)}
-                className="w-full h-auto object-contain"
-              />
-            </div>
-          )}
-        </div>
+    <div
+      className={classNames(
+        className,
+        navOpen ? 'right-[calc(100vw-60px)] lg:right-[33.33vw]' : 'right-0',
+        'relative lg:pr-x transition-all duration-500'
+      )}
+    >
+      <div
+        className={classNames(
+          navOpen
+            ? 'right-[-16px] lg:right-[calc(-66.666vw+72px)] pb-x bg-white overflow-scroll'
+            : 'right-[calc(-100vw+41px)] lg:right-[calc(-100vw+41px)]',
+          'flex flex-col justify-end gap-8 fixed w-[100svh] lg:w-auto h-[calc(100vw+32px)] top-0 pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
+        )}
+      >
+        {property?.location && (
+          <h3 className="text-h3">{`${property.location.title}:`}</h3>
+        )}
 
-        <div className="col-span-1 overflow-x-hidden">
-          <div className="px-x md:px-0 mb-ydouble">
-            {property?.header && <RichText blocks={property?.header} />}
+        {matchingCityProperties?.map((item: PropertyType | any, index) => {
+          return (
+            <Link
+              onClick={() => setNavOpen(!navOpen)}
+              href={`/property/${item.slug?.current}`}
+              key={`${index}-${item.typeTitle}`}
+            >
+              <h2 className="inline border-bottom border-[6px] text-side">
+                {item.title}
+              </h2>
+            </Link>
+          )
+        })}
 
-            {property?.coordinates && (
-              <MapDialog
-                text="View Map"
-                coordinates={property?.coordinates}
-                className="text-xs font-bold mt-y"
+        <button
+          onClick={() => setNavOpen(!navOpen)}
+          className={classNames('flex items-end gap-2 ')}
+        >
+          <h2 className="text-side">{property?.title}</h2>
+
+          <div
+            className={classNames(
+              navOpen ? 'rotate-180' : '',
+              'flex items-center justify-center relative w-[21px] h-[21px] bottom-0 bg-black transition-transform duration-500'
+            )}
+          >
+            <IconChevron width="12" fill="white" className="rotate-0" />
+          </div>
+        </button>
+      </div>
+
+      <div
+        className={classNames(
+          navOpen
+            ? 'opacity-0 lg:opacity-100 duration-100 delay-300'
+            : 'opacity-100 duration-100',
+          'lg:grid lg:grid-cols-2 gap-y block relative lg:pl-x transition-opacity'
+        )}
+      >
+        <div className="flex flex-col pr-x md:pl-x md:pr-0 lg:pl-0">
+          <div className="pl-x md:pl-0 mr-menu lg:mr-0 lg:overflow-x-hidden">
+            {property?.body && (
+              <BlockContent
+                blocks={property?.body}
+                grid={false}
+                className=" lg:mt-0 overflow-visible"
               />
             )}
           </div>
+        </div>
 
-          {property?.body && (
-            <BlockContent
-              blocks={property?.body}
-              grid={false}
-              className="mt-ydouble md:mt-0 pl-x pr-menu md:pl-0 md:pr-x overflow-hidden"
-            />
+        <div className="col-start-1 lg:col-span-2 pr-menu md:pr-0">
+          {!block && (
+            <div className="px-x md:pl-x md:pr-0 lg:pl-0 pt-ydouble mt-ydouble overflow-hidden">
+              {property?.propertyTypesList && (
+                <>
+                  <h2 className="text-h2">Available Homes:</h2>
+                  <PropertyTypesList
+                    className="grid grid-cols-1 lg:grid-cols-4 md:w-1/2 lg:w-full gap-x mt-y"
+                    propertyTypesList={property?.propertyTypesList}
+                  />
+                </>
+              )}
+            </div>
           )}
         </div>
       </div>
-
-      {!block && (
-        <div className="pt-ydouble mt-ydouble overflow-hidden">
-          {property?.propertyTypesList && (
-            <>
-              <h2 className="text-h2 md:text-h1 px-x md:text-center">
-                Our Next Releases:
-              </h2>
-              {property?.availableText && (
-                <div className="mt-9 md:px-x uppercase">
-                  {property?.availableText}
-                </div>
-              )}
-              <PropertyTypesList
-                className="animate-in flex flex-col mt-ydouble mx-x"
-                propertyTypesList={property?.propertyTypesList}
-              />
-            </>
-          )}
-        </div>
-      )}
     </div>
   )
 }

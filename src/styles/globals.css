@@ -9,6 +9,7 @@
   --space-y-half: calc(var(--space-y) * 0.5);
   --space-y-double: calc(var(--space-y) * 2);
   --space-y-lg: 2.5rem;
+  --space-y-quad: calc(var(--space-y) * 4);
 
   --space-menu: 3.625rem;
   --space-page: 88px;
@@ -51,7 +52,7 @@
     --header-height: 80px;
     --gradient-height: 90px;
 
-    --space-menu: 5.625rem;
+    --space-menu: 171px;
     --space-full-menu: 12rem;
     --space-page: var(--header-height);
   }
@@ -218,7 +219,7 @@ footer {
 }
 
 .swiper-button-disabled {
-  opacity: 0;
+  opacity: 0.4;
 }
 
 .swiper-pagination {

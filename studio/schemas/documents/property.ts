@@ -1,4 +1,5 @@
 import type { Rule } from '@sanity/types'
+import { initial } from 'lodash'
 import { string } from 'prop-types'
 import { MdHomeWork } from 'react-icons/md'
 import richText from 'schemas/objects/rich-text'
@@ -37,22 +38,10 @@ export default {
       },
     },
     {
-      name: 'hideMenuButton',
-      title: 'Hide Menu Button',
-      description: 'Hide waitlist or tour button in header',
+      name: 'available',
+      title: 'Available',
       type: 'boolean',
-    },
-    {
-      name: 'showTourLink',
-      title: 'Show Tour Link',
-      description: 'Show the tour link in the header instead of waitlist',
-      type: 'boolean',
-    },
-    {
-      name: 'cardImage',
-      title: 'Card Image',
-      type: 'media',
-      description: 'Used for the Properties Block image',
+      initialValue: true,
     },
     {
       name: 'headerText',
@@ -61,30 +50,9 @@ export default {
       description: 'Used for page breadcrumb',
     },
     {
-      name: 'header',
-      type: 'richText',
-      title: 'Header',
-      validation: (Rule: Rule): Rule => Rule.required(),
-    },
-    {
-      name: 'image',
-      type: 'media',
-      title: 'Property Image',
-      description: 'Used for the Property Block image',
-    },
-    {
-      type: 'coordinates',
-      name: 'coordinates',
-    },
-    {
       name: 'body',
       title: 'Body',
       type: 'blockContent',
-    },
-    {
-      name: 'waitlistLinkText',
-      title: 'Waitlist Link Text',
-      type: 'string',
     },
     {
       title: 'Location',
@@ -97,9 +65,10 @@ export default {
       },
     },
     {
-      name: 'availableText',
-      title: 'Available Text',
-      type: 'string',
+      name: 'propertyImages',
+      title: 'Property Images',
+      type: 'array',
+      of: [{ type: 'media' }],
     },
     {
       name: 'propertyTypesList',

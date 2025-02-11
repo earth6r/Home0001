@@ -20,9 +20,11 @@ import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
 import { useRouter } from 'next/router'
 import { HomeContext } from '@contexts/home'
-import { RichText } from '@components/sanity'
+import { RichText, SanityImage, SanityLink } from '@components/sanity'
 import { useLenis } from '@studio-freight/react-lenis'
 import { IconWaitlist } from '@components/icons'
+import { SanityLinkType } from '@studio/lib'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -35,6 +37,7 @@ export const Header: FC<HeaderProps> = ({
   property,
   mainMenu,
   title,
+  rdSettings,
   className,
 }) => {
   const router = useRouter()
@@ -58,19 +61,31 @@ export const Header: FC<HeaderProps> = ({
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const el = useRef<HTMLElement>(null)
-  const [lastScrolled, setLastScrolled] = useState(0)
+  const [showRdImage, setShowRdImage] = useState(false)
   const [hideBreadcrumb, setHideBreadcrumb] = useState(false)
+
+  const { scrollYProgress } = useScroll()
+
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 1080])
 
   const openWaitlist = () => {
     setWaitlistOpen(true)
     const options = { location: window.location.pathname }
     sendGoogleEvent('opened waitlist modal', options)
+
+    if (typeof window !== undefined) {
+      document.body.style.overflow = 'hidden'
+    }
   }
 
   const onClose = () => {
     setWaitlistOpen(false)
     setFormSubmitted(false)
     reset({})
+
+    if (typeof window !== undefined) {
+      document.body.style.overflow = 'scroll'
+    }
   }
 
   const onInquiryClose = () => {
@@ -91,6 +106,12 @@ export const Header: FC<HeaderProps> = ({
     } else {
       setHideBreadcrumb(true)
     }
+
+    if (lenis.targetScroll > 250) {
+      setShowRdImage(true)
+    } else {
+      setShowRdImage(false)
+    }
   })
 
   useEffect(() => {
@@ -107,7 +128,7 @@ export const Header: FC<HeaderProps> = ({
         className,
         menuOpen || waitlistOpen || inquiryOpen || brokerInquiryOpen
           ? 'z-menu'
-          : 'z-header',
+          : 'z-header transition-z delay-300',
         'fixed w-full pointer-events-none font-medium text-xs'
       )}
     >
@@ -177,7 +198,7 @@ export const Header: FC<HeaderProps> = ({
 
         <div className={classNames('flex items-center gap-[1rem] md:gap-5')}>
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-full pt-20 md:py-ydouble pl-x md:pl-10 pr-menu">
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100svh-var(--space-y))] md:h-full py-y  pl-x lg:pl-x pr-menu overflow-scroll">
               <Form
                 formType={'modal'}
                 audienceId={waitlist?.id}
@@ -185,14 +206,14 @@ export const Header: FC<HeaderProps> = ({
                 formSubmitted={formSubmitted}
                 handleSubmit={handleSubmit}
                 setFormSubmitted={setFormSubmitted}
-                className="w-full h-full"
+                className="w-full h-full pr-x"
               >
                 <MultiPaneInputs
                   header={waitlist?.header}
                   copy={waitlist?.copy}
                   showConsent={waitlist?.showConsent}
                   consentCopy={waitlist?.consentCopy}
-                  buttonCopy="Join waitlist"
+                  buttonCopy="Apply"
                   isSubmitting={isSubmitting}
                   errors={errors}
                   control={control}
@@ -206,7 +227,7 @@ export const Header: FC<HeaderProps> = ({
           </AnimatedModal>
 
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-y md:py-ydouble pl-x md:pl-10">
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-y md:py-ydouble pl-x">
               <h2 className="text-h3 pt-page md:pt-0 md:mb-y">
                 {formSubmitted ? inquiry?.success || `Thanks!` : `Inquire`}
               </h2>
@@ -318,7 +339,7 @@ export const Header: FC<HeaderProps> = ({
                     'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
                   )}
                 >
-                  <IconWaitlist className="w-[96.85px] md:w-[93px] mt-[3px] md:mt-[4px]" />
+                  <IconWaitlist className="w-[77px] mt-[3px] md:mt-[4px]" />
                 </Btn>
               )}
             </>
@@ -332,6 +353,32 @@ export const Header: FC<HeaderProps> = ({
               mainMenu={mainMenu as SanityMenu}
               className="flex flex-col pointer-events-auto"
             />
+          )}
+
+          {hideMenu && rdSettings?.image && (
+            <motion.div
+              style={{ rotate }}
+              transition={{ type: 'spring' }}
+              className={classNames(
+                showRdImage ? 'opacity-100' : 'opacity-0',
+                'flex-inline w-auto origin-center pointer-events-auto transition-opacity duration-200'
+              )}
+            >
+              <SanityLink
+                {...(rdSettings.link as SanityLinkType)}
+                className="block leading-[0]"
+              >
+                <SanityImage
+                  asset={rdSettings.image.asset}
+                  props={{
+                    alt: 'Smiley',
+                    quality: 100,
+                    sizes: '88px',
+                  }}
+                  className="relative w-[24px] h-[24px] object-contain"
+                />
+              </SanityLink>
+            </motion.div>
           )}
         </div>
       </header>

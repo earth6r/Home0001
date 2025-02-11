@@ -102,7 +102,12 @@
 }
 
 .rich-text p.small {
-  @apply font-sansText text-xs font-bold;
+  @apply text-xs font-medium;
+}
+
+a .rich-text.underlined p.small {
+  @apply inline p-0 leading-[1.5];
+  border-bottom: 2px solid black;
 }
 
 .rich-text p.large {

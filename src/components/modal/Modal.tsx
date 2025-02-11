@@ -49,7 +49,7 @@ export const Modal: FC<ModalProps> = ({
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute w-full h-full white-gradient z-behind"
+                  className="absolute w-full h-full bg-white z-behind"
                 ></motion.div>
               )}
             </AnimatePresence>

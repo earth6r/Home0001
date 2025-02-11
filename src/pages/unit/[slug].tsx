@@ -60,18 +60,8 @@ const UnitPage: NextPage<PageProps> = (
 
   return page?.title && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
-      <article>
-        <div className="pt-header">
-          <Unit unit={page} />
-          {page.property && (
-            <div className="mt-header">
-              <Property
-                property={page.property as PropertyContentProps}
-                block={true}
-              />
-            </div>
-          )}
-        </div>
+      <article className="pt-header mb-ydouble">
+        <Unit unit={page} />
       </article>
     </PageTransition>
   ) : null

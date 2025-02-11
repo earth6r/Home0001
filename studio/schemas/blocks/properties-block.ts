@@ -12,28 +12,10 @@ export default {
       title: 'Header',
     },
     {
-      name: 'cities',
+      name: 'properties',
       type: 'array',
-      title: 'Cities',
-      of: [
-        {
-          type: 'object',
-          title: 'City',
-          fields: [
-            {
-              type: 'string',
-              name: 'header',
-              title: 'Header',
-            },
-            {
-              name: 'properties',
-              type: 'array',
-              title: 'Properties',
-              of: [{ type: 'reference', to: [{ type: 'property' }] }],
-            },
-          ],
-        },
-      ],
+      title: 'Properties',
+      of: [{ type: 'reference', to: [{ type: 'property' }] }],
     },
   ],
   preview: {

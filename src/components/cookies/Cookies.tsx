@@ -233,52 +233,50 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
 
   return (
     <AnimatePresence>
-      <motion.div
-        style={{
-          opacity: showBanner ? 1 : 0,
-          transition: `opacity 100ms ease-in-out`,
-        }}
-        className={classNames(
-          'flex justify-between items-center fixed w-full bottom-0 px-x py-y font-medium xs:text-base bg-white border-top z-modal'
-        )}
-      >
-        {!dialogOpen && (
-          <>
-            <span>{`WE USE COOKIES.`}</span>
-            <div className="flex items-center gap-xhalf">
-              <button
-                className="uppercase"
-                onClick={() => acceptCookies()}
-              >{`Accept`}</button>
-              <span>{`/`}</span>
-              <button
-                className="uppercase"
-                onClick={() => {
-                  declineCookies()
-                  declineFunctional()
-                }}
-              >
-                {`Reject`}
-              </button>
-              <span>{`/`}</span>
-              <button
-                className="uppercase"
-                onClick={() => setDialogOpen(true)}
-              >{`Settings`}</button>
-            </div>
-          </>
-        )}
+      {!dialogOpen && showBanner && (
+        <motion.div
+          initial={{ y: 50 }}
+          animate={{ y: 0 }}
+          exit={{ y: 50 }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          className={classNames(
+            'flex justify-between items-center fixed w-full bottom-0 px-x py-y font-medium xs:text-base bg-white border-top z-modal'
+          )}
+        >
+          <span>{`WE USE COOKIES.`}</span>
+          <div className="flex items-center gap-xhalf">
+            <button
+              className="uppercase"
+              onClick={() => acceptCookies()}
+            >{`Accept`}</button>
+            <span>{`/`}</span>
+            <button
+              className="uppercase"
+              onClick={() => {
+                declineCookies()
+                declineFunctional()
+              }}
+            >
+              {`Reject`}
+            </button>
+            <span>{`/`}</span>
+            <button
+              className="uppercase"
+              onClick={() => setDialogOpen(true)}
+            >{`Settings`}</button>
+          </div>
+        </motion.div>
+      )}
 
-        <CookiesDialog
-          copy={copy}
-          accordions={accordions}
-          open={dialogOpen}
-          acceptAnalytics={acceptCookies}
-          declineAnalytics={declineCookies}
-          declineFunctional={declineFunctional}
-          close={closeModal}
-        />
-      </motion.div>
+      <CookiesDialog
+        copy={copy}
+        accordions={accordions}
+        open={dialogOpen}
+        acceptAnalytics={acceptCookies}
+        declineAnalytics={declineCookies}
+        declineFunctional={declineFunctional}
+        close={closeModal}
+      />
     </AnimatePresence>
   )
 }

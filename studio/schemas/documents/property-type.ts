@@ -53,19 +53,9 @@ export default {
       type: 'string',
     },
     {
-      name: 'cryptoPrice',
-      title: 'Crypto Price',
-      type: 'string',
-    },
-    {
       name: 'area',
       title: 'Area',
       type: 'string',
-    },
-    {
-      name: 'headlineImage',
-      title: 'Headline Image',
-      type: 'media',
     },
     {
       name: 'photographs',
@@ -98,6 +88,11 @@ export default {
           type: 'media',
         },
       ],
+    },
+    {
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
     },
     {
       name: 'moreInfo',

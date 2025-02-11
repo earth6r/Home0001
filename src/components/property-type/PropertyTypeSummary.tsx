@@ -9,7 +9,7 @@ import {
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Media } from '@studio/gen/sanity-schema'
 import posthog from 'posthog-js'
 
@@ -45,11 +45,11 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
   if (!propertyType) return null
 
   return (
-    <li className={classNames(className)}>
+    <li className={classNames(className, '')}>
       <div
         className={classNames(
           propertyType.available ? '' : 'bg-white opacity-30',
-          `w-auto flex-col`
+          `w-auto flex-col md:hover:scale-[0.99] transition-transform`
         )}
       >
         <div className="z-above">
@@ -63,7 +63,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                 route: asPath,
               })
             }
-            className="inline-block w-full md:scale-100 md:hover:scale-[0.96] transition-transform duration-500"
+            className="inline-block w-full"
           >
             <div className="flex flex-col relative overflow-x-hidden">
               {propertyType?.photographs && (
@@ -76,43 +76,40 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                     lqip: ((propertyType.photographs[0] as Media).image as any)
                       ?.asset?.metadata?.lqip,
                   }}
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain select-none"
                 />
               )}
-              <div className="block w-full text-md">
-                <div className="p-x bg-darkergray">
+              <div className="block w-full text-sm uppercase">
+                <div className="my-y font-medium">
                   {propertyType.typeTitle && (
-                    <p className="font-medium mb-yhalf tracking-normal">
+                    <p className="mb-y tracking-normal">
                       {propertyType.typeTitle}
                     </p>
                   )}
 
-                  <p className="font-medium mb-yhalf">
-                    {cryptoMode
-                      ? `${propertyType.price?.substring(0)} / ${
-                          cryptoPrice[1]
-                        } BTC / ${cryptoPrice[0]} ETH`
-                      : propertyType?.price}
-                  </p>
-
-                  <p className="font-medium">{propertyType?.area}</p>
-                </div>
-                <div
-                  className={classNames(
-                    'inline-flex justify-between items-start gap-[32px] w-full relative p-[16px] bg-black text-card font-bold text-left uppercase'
+                  <p>{propertyType?.price}</p>
+                  {cryptoMode && (
+                    <>
+                      <p className="ml-[54px]">{`${cryptoPrice[1]} BTC`}</p>
+                      <p className="ml-[54px]">{`${cryptoPrice[0]} ETH`}</p>
+                    </>
                   )}
-                >
-                  <h4 className="text-card text-white">
-                    {propertyType.typeTitle}
-                    <br />
-                    {showCity &&
-                      (propertyType?.property as any)?.location.title}
-                  </h4>
+                </div>
 
-                  <IconRightArrowBold
-                    className="relative w-[1em] mt-[0.1em]"
-                    fill="white"
-                  />
+                <div className="flex justify-between w-full">
+                  <p className="font-medium">{propertyType?.area}</p>
+
+                  <div
+                    className={classNames(
+                      'mt-[-5px] inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-sm text-left uppercase'
+                    )}
+                  >
+                    <IconSmallArrow
+                      className="relative w-[1em] mt-[0.1em]"
+                      fill="white"
+                    />
+                    <span className="leading-none">{`Explore`}</span>
+                  </div>
                 </div>
               </div>
             </div>
