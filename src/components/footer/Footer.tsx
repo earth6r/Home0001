@@ -1,73 +1,117 @@
 import classNames from 'classnames'
-import { Fragment, type FC, type HTMLProps } from 'react'
+import { type FC, type HTMLProps } from 'react'
 import type { FooterProps } from './types'
-import { SanityLink } from '@components/sanity'
+import { RichText, SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
-import { useBrokerInquiryModal } from '@contexts/modals'
+import { useBrokerInquiryModal, useWaitlisModal } from '@contexts/modals'
 import { useCookiesPrefs } from '@contexts/cookies'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { TypedObject } from 'sanity'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   footerMenu,
+  applyCopy,
 }) => {
   const year = new Date().getFullYear()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
+  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [showPrefs, setShowPrefs] = useCookiesPrefs()
 
   return (
     <footer
       className={classNames(
-        'xl:grid xl:grid-cols-2 xl:gap-x px-x my-ydouble font-medium text-xs uppercase'
+        'flex flex-col gap-ydouble pb-yquad mt-y font-medium text-xs uppercase'
       )}
     >
-      <div className="hidden xl:flex xl:flex-wrap gap-y">
+      <div className="flex flex-col justify-start gap-ydouble py-ydouble pl-x pr-menu lg:px-x bg-gray">
+        <div className="w-full lg:w-1/2 pr-x">
+          <RichText
+            blocks={applyCopy as TypedObject | TypedObject[]}
+            className="normal-case"
+          />
+          <button
+            onClick={setWaitlistOpen}
+            className={classNames(
+              'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase border-black'
+            )}
+          >
+            <IconRightArrowBold
+              className="relative w-[14px] mt-[0.1em]"
+              fill="white"
+            />
+            <span className="leading-none">{`Apply`}</span>
+          </button>
+        </div>
+
+        <div className="w-full">
+          <p>{`If you have questions:`}</p>
+          <a href="mailto:info@home0001.com" target="_blank">
+            <button
+              className={classNames(
+                'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
+              )}
+            >
+              <IconRightArrowBold
+                className="relative w-[14px] mt-[0.1em]"
+                fill="black"
+              />
+              <span className="leading-none">{`Get in touch`}</span>
+            </button>
+          </a>
+        </div>
+
+        <div className="w-full">
+          <p>{`Are you a broker?`}</p>
+          <button
+            className={classNames(
+              'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
+            )}
+            onClick={() => {
+              setBrokerInquiryOpen(true)
+            }}
+          >
+            <IconRightArrowBold
+              className="relative w-[14px] mt-[0.1em]"
+              fill="black"
+            />
+            <span className="leading-none">{`Talk to us`}</span>
+          </button>
+        </div>
+      </div>
+
+      <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full xl:w-1/2 pl-x">
+        {footerMenu?.items?.map(({ _key, text, link }) => {
+          return text && link ? (
+            <li key={_key}>
+              <SanityLink
+                className="uppercase"
+                text={text}
+                {...(link as SanityLinkType)}
+              />
+            </li>
+          ) : null
+        })}
+        <li>
+          <button
+            className="text-button"
+            onClick={() => {
+              setShowPrefs(true)
+            }}
+          >
+            {`Cookies Settings`}
+          </button>
+        </li>
+      </ul>
+
+      <div className="flex flex-wrap gap-yhalf pl-x pr-menu md:px-x">
         <p className="w-full">
           <span className="hidden xl:inline-block">
             &copy;{` ${year}`}&nbsp;
           </span>
-          {`HOME0001`}
+          {`HOME0001 International Inc.`}
         </p>
-        <p className="w-full">{`New york · los angeles · berlin · london · paris · mexico city`}</p>
-      </div>
-
-      <div className="xl:flex xl:flex-wrap xl:w-full xl:gap-y">
-        <div className="hidden xl:block w-full mb-y"></div>
-        <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full pb-ydouble xl:pb-0">
-          {footerMenu?.items?.map(({ _key, text, link }) => {
-            return text && link ? (
-              <li key={_key}>
-                <SanityLink
-                  className="uppercase"
-                  text={text}
-                  {...(link as SanityLinkType)}
-                />
-              </li>
-            ) : null
-          })}
-          <li>
-            <button
-              className="text-button"
-              onClick={() => {
-                setShowPrefs(true)
-              }}
-            >
-              {`Cookies Settings`}
-            </button>
-          </li>
-        </ul>
-
-        <div className="xl:hidden xl:justify-between xl:items-start w-full leading-[1.3] xl:leading-none">
-          <p>&copy;{` ${year} HOME0001`}</p>
-
-          <p>
-            <span className="block">NY DRE #10991239104</span>
-            <span className="block">CA DRE #02236922</span>
-          </p>
-        </div>
-      </div>
-
-      <div className="hidden xl:block">
-        <p className="block mb-y">NY DRE #10991239104</p>
-        <p className="block mb-y">CA DRE #02236922</p>
+        <p className="block w-full">NY DRE #10991239104</p>
+        <p className="block w-full">CA DRE #02236922</p>
       </div>
     </footer>
   )

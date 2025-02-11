@@ -16,6 +16,7 @@ export const TextBlock: FC<TextBlockProps> = ({
   columns = 3,
   bottomBorder,
   topBorder,
+  rdStyle,
   yellowBackground,
   stickyHeader,
   header,
@@ -47,6 +48,7 @@ export const TextBlock: FC<TextBlockProps> = ({
           ? `repeat(${columns}, minmax(0, 1fr))`
           : 'repeat(3, minmax(0, 1fr))',
         paddingRight: columns === 2 && isMobile ? 'var(--space-menu)' : '',
+        gap: columns === 2 ? `var(--space-x)` : '',
       }}
       className={classNames(
         className,
@@ -55,20 +57,22 @@ export const TextBlock: FC<TextBlockProps> = ({
           : '',
         !yellowBackground && grid ? `md:grid` : '',
         bottomBorder ? 'pb-ydouble border-bottom' : '',
-        topBorder ? 'pt-ydouble border-top mt-40' : ''
+        topBorder ? 'pt-ydouble border-top mt-yquad' : '',
+        rdStyle ? 'pr-0!important mr-yquad md:mr-yquad' : ''
       )}
     >
       {stickyHeader && header && (
         <RichText
           blocks={header}
           className={classNames(
-            'md:block md:sticky h-[max-content] md:top-[var(--header-height)] col-start-1 clear-both md:pr-x mb-ydouble'
+            'md:block md:sticky h-[max-content] md:top-y col-start-1 clear-both md:pr-x mb-ydouble'
           )}
         />
       )}
       <div
         style={{
           gridColumnStart: (columns && columns > 2) || stickyHeader ? 2 : 1,
+          paddingRight: columns === 2 && header ? 'var(--space-menu)' : '',
         }}
       >
         {text && (
@@ -79,6 +83,7 @@ export const TextBlock: FC<TextBlockProps> = ({
             {...accordion}
             readMore={true}
             open={asPath.includes(`#${anchor}`)}
+            openOnDesktop={accordion.openOnDesktop}
           />
         )}
       </div>

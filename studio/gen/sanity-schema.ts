@@ -346,25 +346,11 @@ export interface Property extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
-   * Hide Menu Button — `boolean`
+   * Available — `boolean`
    *
-   * Hide waitlist or tour button in header
-   */
-  hideMenuButton?: boolean;
-
-  /**
-   * Show Tour Link — `boolean`
    *
-   * Show the tour link in the header instead of waitlist
    */
-  showTourLink?: boolean;
-
-  /**
-   * Card Image — `media`
-   *
-   * Used for the Properties Block image
-   */
-  cardImage?: Media;
+  available?: boolean;
 
   /**
    * Header Text — `string`
@@ -374,39 +360,11 @@ export interface Property extends SanityDocument {
   headerText?: string;
 
   /**
-   * Header — `richText`
-   *
-   *
-   */
-  header?: RichText;
-
-  /**
-   * Property Image — `media`
-   *
-   * Used for the Property Block image
-   */
-  image?: Media;
-
-  /**
-   * coordinates — `coordinates`
-   *
-   *
-   */
-  coordinates?: Coordinates;
-
-  /**
    * Body — `blockContent`
    *
    *
    */
   body?: BlockContent;
-
-  /**
-   * Waitlist Link Text — `string`
-   *
-   *
-   */
-  waitlistLinkText?: string;
 
   /**
    * Location — `reference`
@@ -416,11 +374,11 @@ export interface Property extends SanityDocument {
   location?: SanityReference<City>;
 
   /**
-   * Available Text — `string`
+   * Property Images — `array`
    *
    *
    */
-  availableText?: string;
+  propertyImages?: Array<SanityKeyed<Media>>;
 
   /**
    * Property Types — `array`
@@ -500,25 +458,11 @@ export interface PropertyType extends SanityDocument {
   price?: string;
 
   /**
-   * Crypto Price — `string`
-   *
-   *
-   */
-  cryptoPrice?: string;
-
-  /**
    * Area — `string`
    *
    *
    */
   area?: string;
-
-  /**
-   * Headline Image — `media`
-   *
-   *
-   */
-  headlineImage?: Media;
 
   /**
    * Photographs — `array`
@@ -554,6 +498,13 @@ export interface PropertyType extends SanityDocument {
    *
    */
   layoutImages?: Array<SanityKeyed<Media>>;
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
 
   /**
    * More Info — `richText`
@@ -890,6 +841,25 @@ export interface SiteSettings extends SanityDocument {
   siteKeywords?: string;
 
   /**
+   * R+D Header Image — `image`
+   *
+   *
+   */
+  rdImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * R+D Header Image Link — `link`
+   *
+   *
+   */
+  rdLink?: Link;
+
+  /**
    * Main Menu — `reference`
    *
    * Select menu for main navigation
@@ -902,6 +872,13 @@ export interface SiteSettings extends SanityDocument {
    * Select menu for footer navigation
    */
   footerMenu?: SanityReference<Menus>;
+
+  /**
+   * Footer Apply Copy — `richText`
+   *
+   *
+   */
+  applyCopy?: RichText;
 
   /**
    * Waitlist Audience ID — `string`
@@ -1042,6 +1019,13 @@ export type Accordion = {
    * Sets header to H2 size (Read More accordions only)
    */
   largeHeader?: boolean;
+
+  /**
+   * Open on desktop — `boolean`
+   *
+   *
+   */
+  openOnDesktop?: boolean;
 
   /**
    * Initial Text — `richText`
@@ -1527,7 +1511,6 @@ export type BlockContent = Array<
   | SanityKeyed<FullbleedBlock>
   | SanityKeyed<ImagesBlock>
   | SanityKeyed<PropertyBlock>
-  | SanityKeyed<PropertyTypesBlock>
   | SanityKeyed<PropertiesBlock>
   | SanityKeyed<NewsletterBlock>
   | SanityKeyed<ContactBlock>
@@ -1773,6 +1756,20 @@ export type FullbleedBlock = {
    *
    */
   minWidth?: number;
+
+  /**
+   * Animate — `boolean`
+   *
+   *
+   */
+  animate?: boolean;
+
+  /**
+   * Columns — `number`
+   *
+   * Number of columns to display the fullbleed block in, setting to 2 will split the screen in half on desktop
+   */
+  columns?: number;
 };
 
 export type ImagesBlock = {
@@ -1829,27 +1826,11 @@ export type PropertiesBlock = {
   header?: string;
 
   /**
-   * Cities — `array`
+   * Properties — `array`
    *
    *
    */
-  cities?: Array<
-    SanityKeyed<{
-      /**
-       * Header — `string`
-       *
-       *
-       */
-      header?: string;
-
-      /**
-       * Properties — `array`
-       *
-       *
-       */
-      properties?: Array<SanityKeyedReference<Property>>;
-    }>
-  >;
+  properties?: Array<SanityKeyedReference<Property>>;
 };
 
 export type NewsletterBlock = {
@@ -2002,6 +1983,13 @@ export type TextBlock = {
    *
    */
   topBorder?: boolean;
+
+  /**
+   * R&D Style — `boolean`
+   *
+   *
+   */
+  rdStyle?: boolean;
 };
 
 export type TextAndAccordionBlock = {

@@ -1,10 +1,9 @@
 import { type FC, memo, useEffect, useState } from 'react'
 import { ImageCarousel } from '@components/carousel'
-import { RichText } from '@components/sanity'
+import { BlockContent, RichText } from '@components/sanity'
 import { PropertyTypeElProps } from './types'
 import classNames from 'classnames'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
-import { Accordion } from '@components/accordion'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
@@ -13,7 +12,12 @@ import {
 import { SanityInventoryModal } from '@components/sanity/table-modal'
 import Link from 'next/link'
 import { SanityKeyed } from 'sanity-codegen'
-import { Media } from '@studio/gen/sanity-schema'
+import { Media, Property } from '@studio/gen/sanity-schema'
+import { useWaitlisModal } from '@contexts/modals'
+import { sendGoogleEvent } from '@lib/util'
+import PropertyTypesList from './PropertyTypesList'
+import IconChevron from '@components/icons/IconChevron'
+import { PropertyContentProps } from '@components/property/types'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -23,6 +27,22 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 }) => {
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
+  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const [navOpen, setNavOpen] = useState(false)
+
+  const openWaitlist = () => {
+    setWaitlistOpen(true)
+    const options = { location: window.location.pathname }
+    sendGoogleEvent('opened waitlist modal', options)
+  }
+
+  useEffect(() => {
+    if (navOpen) {
+      document.body.classList.add('overflow-hidden')
+    } else {
+      document.body.classList.remove('overflow-hidden')
+    }
+  }, [navOpen])
 
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
@@ -43,60 +63,134 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   }, [propertyType])
 
   return (
-    <div className={classNames(className)}>
-      <h2 className="md:hidden text-h2 mb-ydouble px-x">
-        {propertyType?.typeTitle}
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
-        <div className="col-span-1 order-2 md:order-1 xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pr-menu md:pr-0 mt-y md:mt-0 md:mb-y xl:mb-0 md:z-modal">
-          <h2 className="hidden md:inline-block text-h2 mb-y">
-            {propertyType?.typeTitle}
-          </h2>
+    <div
+      className={classNames(
+        className,
+        navOpen ? 'right-[calc(100vw-60px)] lg:right-[33.33vw]' : 'right-0',
+        'relative transition-all duration-500'
+      )}
+    >
+      <div
+        className={classNames(
+          navOpen
+            ? 'right-[-16px] lg:right-[calc(-66.666vw+72px)] pb-x bg-white overflow-scroll'
+            : 'right-[calc(-100vw+41px)] lg:right-[calc(-100vw+41px)]',
+          'flex flex-col justify-end gap-8 fixed w-[100svh] h-[calc(100vw+32px)] top-0 pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
+        )}
+      >
+        {(
+          propertyType?.property as unknown as Property
+        )?.propertyTypesList?.map((type: PropertyTypeElProps | any, index) => {
+          if (type.typeTitle === propertyType?.typeTitle) return
+          return (
+            <Link
+              onClick={() => setNavOpen(!navOpen)}
+              href={`/property-type/${type.slug?.current}`}
+              key={`${index}-${type.typeTitle}`}
+            >
+              <h4 className="inline border-bottom border-[6px] text-side">
+                {type.typeTitle}
+              </h4>
+            </Link>
+          )
+        })}
 
-          <div className="rich-text pl-x md:px-0">
-            <p className="small uppercase m-0">
+        <button
+          onClick={() => setNavOpen(!navOpen)}
+          className={classNames('flex items-end gap-2 ')}
+        >
+          <h2 className="text-side">{propertyType?.typeTitle}</h2>
+
+          <div
+            className={classNames(
+              navOpen ? 'rotate-180' : '',
+              'flex items-center justify-center relative w-[21px] h-[21px] bottom-0 bg-black transition-transform duration-500'
+            )}
+          >
+            <IconChevron width="12" fill="white" className="rotate-270" />
+          </div>
+        </button>
+      </div>
+
+      <div
+        className={classNames(
+          navOpen
+            ? 'opacity-0 lg:opacity-100 duration-100 delay-300'
+            : 'opacity-100 duration-100',
+          'grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 pr-x md:pr-0 transition-opacity'
+        )}
+      >
+        <div className="col-span-1 pl-0 lg:px-x lg:mb-y xl:mb-0 bg-white lg:z-modal">
+          {propertyType?.photographs && (
+            <ImageCarousel
+              pagination={false}
+              perView={1}
+              perViewMobile={1}
+              carousel={true}
+              slides={propertyType?.photographs as SanityKeyed<Media>[]}
+              className="w-full h-auto lg:overflow-hidden leading-none pr-menu lg:pr-0 mb-y"
+              placement="unit images"
+            />
+          )}
+          <div className="rich-text pl-x lg:px-0 lg:mb-y">
+            <p className="m-1">{`${propertyType?.typeTitle}`}</p>
+            <p className="m-1">{`0001 ${
+              (propertyType?.property as unknown as Property).title
+            }`}</p>
+            {propertyType?.area && (
+              <p className="m-1">{`${propertyType?.area}`}</p>
+            )}
+            <p className="m-1">
               {cryptoMode
                 ? `${propertyType?.price?.substring(0)} / ${
                     cryptoPrice[1]
                   } BTC / ${cryptoPrice[0]} ETH`
                 : `${propertyType?.price}`}
             </p>
-            {propertyType?.area && (
-              <p className="small uppercase m-0">{`${propertyType?.area}`}</p>
-            )}
           </div>
 
-          <div className="hidden max-w-[calc(var(--space-menu)+var(--btn-width))] md:block md:pr-menu mt-y mb-ydouble">
-            <Link href="#property-type-waitlist">
+          <div className="hidden lg:block relative w-full mb-y cursor-pointer z-above">
+            <button
+              onClick={openWaitlist}
+              className={classNames(
+                'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+              )}
+            >
+              {`Apply`}
+              <IconSmallArrow width="16" height="10" fill="white" />
+            </button>
+          </div>
+
+          <div className="hidden lg:block relative w-full cursor-pointer z-above">
+            <Link href="/how-it-works">
               <button
                 className={classNames(
-                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
+                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
                 )}
               >
-                {`Join the Waitlist`}
-                <IconSmallArrow width="16" height="10" fill="black" />
+                {`How it works`}
+                <IconSmallArrow width="16" height="10" fill="white" />
               </button>
             </Link>
           </div>
+        </div>
 
+        <div className="lg:col-span-2 md:mr-menu mt-header lg:mt-0">
           {propertyType?.summary && propertyType?.summary.length > 0 && (
-            <div className="px-x md:px-0 mt-ydouble md:mt-0">
-              <p className="text-h4 mb-y md:mb-yhalf">Overview:</p>
-              <RichText
-                blocks={propertyType.summary}
-                className="font-medium max-w-[360px]"
-              />
+            <div className="pl-x lg:pl-0 pr-menu md:pr-0">
+              <p className="text-h4 mb-y lg:mb-yhalf">Overview:</p>
+              <RichText blocks={propertyType.summary} className="font-medium" />
             </div>
           )}
 
           {propertyType?.unitDetails && (
             <>
-              <p className="hidden md:block xl:hidden text-h4 px-x md:px-0 mt-ydouble mb-yhalf">
+              <p className="hidden lg:block xl:hidden text-h4 pl-x lg:pl-0 mt-ydouble mb-yhalf">
                 Details:
               </p>
               <RichText
                 blocks={propertyType?.unitDetails}
-                className="hidden md:block xl:hidden pr-0"
+                className="hidden lg:block xl:hidden pr-menu md:pr-0"
               />
             </>
           )}
@@ -106,21 +200,19 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               title="Inventory"
               inventory={propertyType.inventory}
               buttonLabel="View Inventory"
-              className="hidden md:flex xl:hidden mt-y"
+              className="hidden lg:flex xl:hidden mt-y"
               unit={propertyType.title}
             />
           )}
-        </div>
 
-        <div className="order-3 md:order-2 md:col-start-1 xl:col-start-2 mt-ydouble md:mt-0 md:z-modal">
           {propertyType?.unitDetails && (
             <>
-              <p className="md:hidden xl:block text-h4 px-x md:px-0 mb-y md:mb-yhalf">
+              <p className="lg:hidden xl:block text-h4 px-x lg:px-0 mt-ydouble mb-y lg:mb-yhalf">
                 Details:
               </p>
               <RichText
                 blocks={propertyType?.unitDetails}
-                className="md:hidden xl:block pl-x pr-menu md:px-0"
+                className="lg:hidden xl:block pl-x lg:pl-0 pr-menu md:pr-0"
               />
             </>
           )}
@@ -130,67 +222,99 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               title="Inventory"
               inventory={propertyType.inventory}
               buttonLabel="View Inventory"
-              className="inline-block md:hidden xl:flex px-x md:px-0 mt-y"
+              className="inline-block lg:hidden xl:flex px-x lg:px-0 mt-y"
               unit={propertyType.title}
             />
           )}
 
-          <div className="md:hidden my-ydouble pl-x pr-menu mr-x">
-            <Link href="#property-type-waitlist">
-              <button
-                className={classNames(
-                  'w-full relative border-1 border-black hover:border-white border-solid flex flex-row justify-between items-center h-12 max-h-12 bg-white text-black hover:invert transition-all duration-200 text-button z-above p-x'
-                )}
-              >
-                {`Join the Waitlist`}
-                <IconSmallArrow width="16" height="10" fill="black" />
-              </button>
-            </Link>
-          </div>
-
           {propertyType?.layoutImages && (
-            <>
-              <p className="text-h4 px-x md:px-0 mb-y xl:mt-ydouble">Plans:</p>
+            <div className="relative">
               <ImageCarousel
-                pagination={true}
-                perView={1}
+                pagination={false}
+                perView={2}
                 carousel={true}
                 slides={propertyType?.layoutImages}
-                className="w-full px-x md:px-0 overflow-hidden"
+                className="pt-xdouble pr-menu md:px-0 overflow-visible"
                 placement="unit layouts"
               />
-            </>
+              <div className="hidden md:block absolute w-xdouble h-full -left-[calc(33vw+var(--space-x-double))] top-0 bg-white z-above"></div>
+            </div>
           )}
 
+          {propertyType?.body && (
+            <BlockContent
+              blocks={propertyType.body}
+              grid={false}
+              className="pl-x pr-menu lg:px-0 mt-ydouble overflow-visible"
+            />
+          )}
+
+          {propertyType &&
+            (propertyType.property as PropertyContentProps)?.propertyImages && (
+              <div className="relative">
+                <ImageCarousel
+                  pagination={false}
+                  perView={2}
+                  carousel={true}
+                  slides={
+                    (propertyType.property as PropertyContentProps)
+                      .propertyImages
+                  }
+                  className="pt-ydouble pr-menu md:px-0 overflow-visible"
+                  placement="unit layouts"
+                />
+              </div>
+            )}
+
           {propertyType?.moreInfo && (
-            <div className="px-x md:px-0 mt-y">
+            <div className="px-x lg:px-0 mt-y">
               <RichText blocks={propertyType?.moreInfo} />
             </div>
           )}
 
-          {propertyType?.secondUnitDetails &&
-            propertyType.secondUnitDetails.map(({ _key, header, text }) => (
-              <Accordion
-                key={_key}
-                header={header}
-                text={text}
-                location={{ property: 'property', unit: 'unit' }}
-                className="px-x md:px-0 mt-y mb-ydouble border-x-0 border-t-0"
-              />
-            ))}
-        </div>
+          <div className="pl-x lg:pl-0 pt-ydouble pr-menu md:pr-0 mt-ydouble overflow-hidden">
+            {(propertyType?.property as unknown as Property)
+              ?.propertyTypesList && (
+              <>
+                <h2 className="text-h2">Other available homes:</h2>
+                <PropertyTypesList
+                  className="grid lg:grid-cols-2 md:w-[calc(50%+(var(--space-menu)/2))] lg:w-full gap-x animate-in mt-y"
+                  propertyTypesList={(
+                    propertyType?.property as unknown as Property
+                  ).propertyTypesList?.filter(
+                    type =>
+                      (type as PropertyTypeElProps).typeTitle !==
+                      propertyType?.typeTitle
+                  )}
+                />
+              </>
+            )}
+          </div>
 
-        <div className="order-1 xl:order-3 xl:col-start-3 md:sticky md:top-[var(--header-height)] md:right-0 xl:left-0 md:aspect-[0.797]">
-          {propertyType?.photographs && (
-            <ImageCarousel
-              pagination={true}
-              perView={1}
-              carousel={true}
-              slides={propertyType?.photographs as SanityKeyed<Media>[]}
-              className="w-full h-full px-x md:pl-0 overflow-hidden"
-              placement="unit images"
-            />
-          )}
+          <div className="hidden relative w-full md:max-w-btnWidth mt-header mb-y pl-x pr-menu md:pr-0 cursor-pointer z-above">
+            <button
+              onClick={openWaitlist}
+              className={classNames(
+                'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+              )}
+            >
+              {`Apply`}
+              <IconSmallArrow width="16" height="10" fill="white" />
+            </button>
+          </div>
+
+          <div className="hidden relative w-full md:max-w-btnWidth pl-x pr-menu md:pr-0 cursor-pointer z-above">
+            <Link href="/how-it-works">
+              <button
+                className={classNames(
+                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+                )}
+              >
+                {`How it works`}
+                <IconSmallArrow width="16" height="10" fill="white" />
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

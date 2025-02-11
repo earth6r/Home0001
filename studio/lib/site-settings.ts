@@ -38,6 +38,12 @@ export const SITE_SETTINGS_QUERY = groq`
     },
     siteDescription,
     siteKeywords,
+    "rdImage": rdImage{
+      ${IMAGE_QUERY}
+    },
+    "rdLink": rdLink{
+      ${LINK_QUERY}
+    },
     mainMenu->{
       items[]{
         _key,
@@ -56,6 +62,7 @@ export const SITE_SETTINGS_QUERY = groq`
         }
       }
     },
+    applyCopy,
     waitlistHeader,
     waitlistCopy,
     waitlistSuccess,

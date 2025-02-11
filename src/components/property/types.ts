@@ -10,6 +10,7 @@ import type {
   SanityKeyed,
   Media,
   BlockContent,
+  Property,
 } from '@studio/gen/sanity-schema'
 import { City } from 'schema-dts'
 import { KeyedPropertyTypeProps } from '@components/property-type'
@@ -27,6 +28,7 @@ export interface PropertyContentProps
   availableText?: string
   headerText?: string
   slug?: { _type: 'slug'; current: string }
+  propertyImages?: (Media & { _key: string })[]
   body?: BlockContent
 }
 
@@ -35,27 +37,16 @@ export interface KeyedPropertyProps
     HTMLAttributes<HTMLElement> {
   _id?: string
   cityId?: string
-  header?: RichTextProps
-  image?:
-    | {
-        _type: 'image'
-        asset: SanityReference<SanityImageAsset>
-        alt: string
-        image?: {
-          _type: 'image'
-          asset: SanityImageAsset
-        }
-      }
-    | Media
-  coordinates?: { lat?: string; long?: string }
   description?: RichTextProps
   unitsList?: KeyedUnitProps[]
   location?: KeyedLocationProps
 }
+
 export interface PropertyElProps
   extends Omit<KeyedPropertyProps, '_type' | '_key' | '_ref' | 'property'>,
     Omit<HTMLAttributes<HTMLElement>, 'property'> {
   property?: PropertyContentProps
+  allProperties?: Property[]
   block?: boolean
   footerCopy?: string
 }

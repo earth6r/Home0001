@@ -9,14 +9,14 @@ import { useLenis } from '@studio-freight/react-lenis'
 interface SanityImageProps extends SanityImageObject {
   props: SanityImagePropsType
   className?: string
-  onLoadingComplete?: () => void
+  onLoad?: () => void
 }
 
 export const SanityImage: FC<SanityImageProps> = ({
   asset,
   className,
   props,
-  onLoadingComplete,
+  onLoad,
 }) => {
   const image = useNextSanityImage(client, asset)
   const placeholder = props?.lqip ? 'blur' : 'empty'
@@ -25,7 +25,7 @@ export const SanityImage: FC<SanityImageProps> = ({
     <NextImage
       placeholder={placeholder}
       blurDataURL={props?.lqip}
-      onLoadingComplete={onLoadingComplete}
+      onLoad={onLoad}
       {...{ ...image, ...props, className }}
     />
   ) : null

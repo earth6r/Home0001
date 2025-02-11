@@ -4,14 +4,13 @@ import type {
   PortableTextBlockComponent,
 } from '@portabletext/react'
 import { reactNodeToString } from '@lib/util'
-import { SanityLink, SanityMedia, SanityMediaProps } from '.'
+import { SanityLink, SanityMedia } from '.'
 import { SanityTooltip } from './tooltip'
 import { useCookiesPrefs } from '@contexts/cookies'
 import { type FC, type HTMLAttributes } from 'react'
 import { ImageCarousel } from '@components/carousel'
 import { SanityInventoryModal } from './table-modal'
 import { Media } from '@studio/gen/sanity-schema'
-import ImageZoom from '@components/image-zoom/ImageZoom'
 
 interface SanityCookiesToggleProps extends HTMLAttributes<HTMLElement> {
   linkedCopy?: string

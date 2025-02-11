@@ -11,6 +11,7 @@ import { useLenis } from '@studio-freight/react-lenis'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { useRouter } from 'next/router'
 import posthog from 'posthog-js'
+import { isDesktop } from 'react-device-detect'
 
 export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
@@ -22,6 +23,7 @@ export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   firstIndex?: boolean
   location?: { property: string; unit: string }
   open?: boolean
+  openOnDesktop?: boolean
 }
 
 export const Accordion: FC<AccordionProps> = ({
@@ -33,6 +35,7 @@ export const Accordion: FC<AccordionProps> = ({
   location,
   readMore,
   open,
+  openOnDesktop = false,
   className,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -79,7 +82,7 @@ export const Accordion: FC<AccordionProps> = ({
 
   return (
     <div className={classNames(className, readMore ? '' : 'border-black')}>
-      <Disclosure defaultOpen={open}>
+      <Disclosure defaultOpen={open || (isDesktop && openOnDesktop)}>
         {({ open }) => {
           return (
             <>
