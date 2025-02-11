@@ -68,7 +68,7 @@ export const Layout: FC<LayoutProps> = ({
               : 'HOME0001'
           }
           hideMenuButton={
-            page?.hideMenuButton ||
+            (page?._type !== 'property' && page?.hideMenuButton) ||
             (page?._type && (page._type as string) === 'buy') ||
             (page?._type && (page._type as string) === 'rdPage')
           }
@@ -76,7 +76,7 @@ export const Layout: FC<LayoutProps> = ({
             (page?._type && (page._type as string) === 'buy') ||
             (page?._type && (page._type as string) === 'rdPage')
           }
-          showTourLink={page?.showTourLink}
+          showTourLink={page?._type !== 'property' && page?.showTourLink}
           property={(page as Unit)?.property}
           currentTitle={
             ((page as Property) || (page as Unit))?.headerText || page?.title
