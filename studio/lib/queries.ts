@@ -155,9 +155,6 @@ export const UNIT_QUERY = `
   "layoutImages": layoutImages[]{
     ${MEDIA_QUERY}
   },
-  "property": property->{
-    ${PROPERTY_QUERY}
-  },
   seo,
   "previewImage": previewImage{
     ${MEDIA_QUERY}
