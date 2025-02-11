@@ -27,12 +27,9 @@ type TextAndAccordionBlockProps = Omit<
 const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
   const [showAccordions, setShowAccordions] = useState(false)
   return (
-    <div>
+    <div className="w-full">
       {copy && (
-        <RichText
-          blocks={copy}
-          className={classNames('clear-both capital mb-y')}
-        />
+        <RichText blocks={copy} className={classNames('w-full capital mb-y')} />
       )}
 
       {accordions && !showAccordions && (
@@ -60,7 +57,7 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({ copy, accordions }) => {
             text={text}
             cta={cta}
             readMore={false}
-            className="w-[306px] mt-y first-of-type:mt-0"
+            className="w-full md:w-[306px] mt-y first-of-type:mt-0"
           />
         ))}
 
@@ -141,7 +138,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
         )}
         <div className="md:col-start-2 flex flex-wrap gap-[calc(var(--space-y)*4)] pr-menu">
           {items?.map(({ _key, copy, accordions }) => (
-            <div key={_key}>
+            <div key={_key} className="w-full">
               <TextAndAccordion copy={copy} accordions={accordions} />
             </div>
           ))}
