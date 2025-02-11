@@ -59,12 +59,6 @@ export const PROPERTY_QUERY = `
   title,
   slug,
   headerText,
-  header,
-  coordinates,
-  "image": image{
-    ${MEDIA_QUERY}
-  },
-  availableText,
   seo,
   "previewImage": previewImage{
     ${MEDIA_QUERY}
@@ -291,7 +285,6 @@ export const BODY_QUERY = `
           typeTitle,
           available,
           price,
-          cryptoPrice,
           area,
           "property": property->{
             headerText,
@@ -331,7 +324,6 @@ export const PROPERTY_TYPE_QUERY = `
   headerText,
   available,
   price,
-  cryptoPrice,
   area,
   summary,
   "inventory": inventory->{
@@ -344,9 +336,6 @@ export const PROPERTY_TYPE_QUERY = `
     }, 
   },
   unitDetails,
-  "headlineImage": headlineImage{
-    ${MEDIA_QUERY}
-  },
   "photographs": photographs[]{
     ${MEDIA_QUERY}
   },
@@ -360,6 +349,9 @@ export const PROPERTY_TYPE_QUERY = `
     "location": location->{
       title,
     },
+    "propertyImages": propertyImages[]{
+      ${MEDIA_QUERY}
+    },
     "propertyTypesList": propertyTypesList[]->{
       _key,
       _id,
@@ -367,7 +359,6 @@ export const PROPERTY_TYPE_QUERY = `
       typeTitle,
       available,
       price,
-      cryptoPrice,
       area,
       "photographs": photographs[]{
         ${MEDIA_QUERY}
@@ -390,15 +381,6 @@ export const PROPERTIES_QUERY = `
   available,
   headerText,
   header,
-  coordinates,
-  "cardImage": cardImage{
-    ${MEDIA_QUERY}
-  },
-  "image": image{
-    ${MEDIA_QUERY}
-  },
-  waitlistLinkText,
-  availableText,
   "propertyTypesList": propertyTypesList[]->{
     _key,
     _id,
@@ -406,7 +388,6 @@ export const PROPERTIES_QUERY = `
     typeTitle,
     available,
     price,
-    cryptoPrice,
     area,
     "photographs": photographs[]{
       ${MEDIA_QUERY}

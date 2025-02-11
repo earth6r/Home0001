@@ -130,7 +130,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
         </div>
       )}
 
-      <div className="grid md:grid-cols-2 mb-[96px]">
+      <div className="grid md:grid-cols-2 gap-x mb-[96px]">
         {header && (
           <RichText
             blocks={header}

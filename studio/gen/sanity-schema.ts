@@ -353,53 +353,11 @@ export interface Property extends SanityDocument {
   available?: boolean;
 
   /**
-   * Hide Menu Button — `boolean`
-   *
-   * Hide waitlist or tour button in header
-   */
-  hideMenuButton?: boolean;
-
-  /**
-   * Show Tour Link — `boolean`
-   *
-   * Show the tour link in the header instead of waitlist
-   */
-  showTourLink?: boolean;
-
-  /**
-   * Card Image — `media`
-   *
-   * Used for the Properties Block image
-   */
-  cardImage?: Media;
-
-  /**
    * Header Text — `string`
    *
    * Used for page breadcrumb
    */
   headerText?: string;
-
-  /**
-   * Header — `richText`
-   *
-   *
-   */
-  header?: RichText;
-
-  /**
-   * Property Image — `media`
-   *
-   * Used for the Property Block image
-   */
-  image?: Media;
-
-  /**
-   * coordinates — `coordinates`
-   *
-   *
-   */
-  coordinates?: Coordinates;
 
   /**
    * Body — `blockContent`
@@ -409,13 +367,6 @@ export interface Property extends SanityDocument {
   body?: BlockContent;
 
   /**
-   * Waitlist Link Text — `string`
-   *
-   *
-   */
-  waitlistLinkText?: string;
-
-  /**
    * Location — `reference`
    *
    *
@@ -423,11 +374,11 @@ export interface Property extends SanityDocument {
   location?: SanityReference<City>;
 
   /**
-   * Available Text — `string`
+   * Property Images — `array`
    *
    *
    */
-  availableText?: string;
+  propertyImages?: Array<SanityKeyed<Media>>;
 
   /**
    * Property Types — `array`
@@ -507,25 +458,11 @@ export interface PropertyType extends SanityDocument {
   price?: string;
 
   /**
-   * Crypto Price — `string`
-   *
-   *
-   */
-  cryptoPrice?: string;
-
-  /**
    * Area — `string`
    *
    *
    */
   area?: string;
-
-  /**
-   * Headline Image — `media`
-   *
-   *
-   */
-  headlineImage?: Media;
 
   /**
    * Photographs — `array`
@@ -556,18 +493,18 @@ export interface PropertyType extends SanityDocument {
   unitDetails?: RichText;
 
   /**
-   * Body — `blockContent`
-   *
-   *
-   */
-  body?: BlockContent;
-
-  /**
    * Layout Images — `array`
    *
    *
    */
   layoutImages?: Array<SanityKeyed<Media>>;
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
 
   /**
    * More Info — `richText`

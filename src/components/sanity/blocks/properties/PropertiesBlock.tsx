@@ -47,13 +47,13 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
                     }}
                     className={classNames(
                       available === false ? 'opacity-40' : '',
-
                       'flex justify-between items-center gap-x relative w-full h-[59px]'
                     )}
                   >
                     <RichText
                       blocks={longTitle as TypedObject | TypedObject[]}
                       className={classNames(
+                        available === false ? '' : 'underlined',
                         'w-[calc(100%-99px-var(--space-x))] uppercase line-clamp-2'
                       )}
                     />

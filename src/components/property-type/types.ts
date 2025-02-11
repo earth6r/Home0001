@@ -1,12 +1,9 @@
 import { HTMLAttributes } from 'react'
 import type {
-  Accordion,
   BlockContent,
-  Inventory,
   Media,
   Property,
   RichText,
-  SanityImageAsset,
   SanityKeyed,
   SanityKeyedReference,
   SanityReference,
@@ -27,23 +24,10 @@ export interface KeyedPropertyTypeProps
   price?: string
   cryptoPrice?: string
   area?: string
-  amenities?: RichText
-  headlineImage?:
-    | {
-        _type: 'image'
-        asset: SanityReference<SanityImageAsset>
-        alt: string
-        image?: {
-          _type: 'image'
-          asset: SanityImageAsset
-        }
-      }
-    | Media
   photographs?: SanityKeyed<Media>[]
   summary?: RichText
   inventory?: any
   unitDetails?: RichText
-  secondUnitDetails?: SanityKeyed<Accordion>[]
   body?: BlockContent
   layoutImages?: SanityKeyed<Media>[]
   layoutImagesOptions?: {
