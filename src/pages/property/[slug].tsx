@@ -49,7 +49,7 @@ const PropertyPage: NextPage<PageProps> = (
 ) => {
   const page: SanityPage = filterDataToSingleItem(data)
 
-  return page?.header && (!page?._id.includes('drafts.') || preview) ? (
+  return page && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article>
         <Property
