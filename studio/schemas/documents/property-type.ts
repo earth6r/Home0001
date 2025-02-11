@@ -1,5 +1,5 @@
 import { IoBedSharp } from 'react-icons/io5'
-import { PreviewProps, PreviewValue } from 'sanity'
+import { Rule } from 'sanity'
 
 export default {
   name: 'propertyType',
@@ -46,6 +46,7 @@ export default {
       options: {
         getOptionLabel: (reference: any) => `${reference.title}`,
       },
+      validation: (Rule: Rule): Rule => Rule.required(),
     },
     {
       name: 'price',
