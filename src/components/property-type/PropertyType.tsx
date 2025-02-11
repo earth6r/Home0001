@@ -4,7 +4,6 @@ import { BlockContent, RichText } from '@components/sanity'
 import { PropertyTypeElProps } from './types'
 import classNames from 'classnames'
 import { IconSmallArrow } from '@components/icons/IconSmallArrow'
-import { Accordion } from '@components/accordion'
 import { useCryptoMode } from '@contexts/header'
 import {
   convertUsdToEthPrice,
@@ -18,6 +17,7 @@ import { useWaitlisModal } from '@contexts/modals'
 import { sendGoogleEvent } from '@lib/util'
 import PropertyTypesList from './PropertyTypesList'
 import IconChevron from '@components/icons/IconChevron'
+import { PropertyContentProps } from '@components/property/types'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -179,10 +179,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           {propertyType?.summary && propertyType?.summary.length > 0 && (
             <div className="pl-x lg:pl-0 pr-menu md:pr-0">
               <p className="text-h4 mb-y lg:mb-yhalf">Overview:</p>
-              <RichText
-                blocks={propertyType.summary}
-                className="font-medium max-w-[360px]"
-              />
+              <RichText blocks={propertyType.summary} className="font-medium" />
             </div>
           )}
 
@@ -252,22 +249,28 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             />
           )}
 
+          {propertyType &&
+            (propertyType.property as PropertyContentProps)?.propertyImages && (
+              <div className="relative">
+                <ImageCarousel
+                  pagination={false}
+                  perView={2}
+                  carousel={true}
+                  slides={
+                    (propertyType.property as PropertyContentProps)
+                      .propertyImages
+                  }
+                  className="pt-ydouble pr-menu md:px-0 overflow-visible"
+                  placement="unit layouts"
+                />
+              </div>
+            )}
+
           {propertyType?.moreInfo && (
             <div className="px-x lg:px-0 mt-y">
               <RichText blocks={propertyType?.moreInfo} />
             </div>
           )}
-
-          {propertyType?.secondUnitDetails &&
-            propertyType.secondUnitDetails.map(({ _key, header, text }) => (
-              <Accordion
-                key={_key}
-                header={header}
-                text={text}
-                location={{ property: 'property', unit: 'unit' }}
-                className="px-x lg:px-0 mt-y mb-ydouble border-x-0 border-t-0"
-              />
-            ))}
 
           <div className="pl-x lg:pl-0 pt-ydouble pr-menu md:pr-0 mt-ydouble overflow-hidden">
             {(propertyType?.property as unknown as Property)

@@ -1,10 +1,8 @@
 import { type FC, memo, useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { BlockContent, RichText, SanityMedia } from '@components/sanity'
+import { BlockContent } from '@components/sanity'
 import { PropertyElProps } from './types'
 import { PropertyTypesList } from '@components/property-type'
-import { useWaitlisModal } from '@contexts/modals'
-import { sendGoogleEvent } from '@lib/util'
 import Link from 'next/link'
 import IconChevron from '@components/icons/IconChevron'
 import { Property as PropertyType } from '@studio/gen/sanity-schema'
@@ -15,7 +13,6 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   block,
   className,
 }) => {
-  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [navOpen, setNavOpen] = useState(false)
 
   useEffect(() => {
@@ -25,12 +22,6 @@ export const PropertyComponent: FC<PropertyElProps> = ({
       document.body.classList.remove('overflow-hidden')
     }
   }, [navOpen])
-
-  const openWaitlist = () => {
-    setWaitlistOpen(true)
-    const options = { location: window.location.pathname }
-    sendGoogleEvent('opened waitlist modal', options)
-  }
 
   const matchingCityProperties = allProperties
     ?.filter(
@@ -103,26 +94,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         )}
       >
         <div className="flex flex-col pr-x md:pl-x md:pr-0 lg:pl-0">
-          {property?.image && (
-            <div className="block relative w-full z-base">
-              <SanityMedia
-                imageProps={{
-                  alt: property?.image.alt || 'Building image',
-                  quality: 80,
-                  priority: true,
-                  lqip: (property?.image?.image as any)?.asset?.metadata?.lqip,
-                }}
-                {...(property?.image as any)}
-                className="w-full h-auto pr-menu lg:pr-0 object-contain"
-              />
-            </div>
-          )}
-
           <div className="pl-x md:pl-0 mr-menu lg:mr-0 lg:overflow-x-hidden">
-            <div className="hidden">
-              {property?.header && <RichText blocks={property?.header} />}
-            </div>
-
             {property?.body && (
               <BlockContent
                 blocks={property?.body}
@@ -139,11 +111,6 @@ export const PropertyComponent: FC<PropertyElProps> = ({
               {property?.propertyTypesList && (
                 <>
                   <h2 className="text-h2">Available Homes:</h2>
-                  {property?.availableText && (
-                    <div className="mt-ydouble uppercase">
-                      {property?.availableText}
-                    </div>
-                  )}
                   <PropertyTypesList
                     className="grid grid-cols-1 lg:grid-cols-4 md:w-1/2 lg:w-full gap-x mt-y"
                     propertyTypesList={property?.propertyTypesList}

@@ -105,8 +105,8 @@
   @apply text-xs font-medium;
 }
 
-a .rich-text p.small {
-  @apply inline leading-[1.5];
+a .rich-text.underlined p.small {
+  @apply inline p-0 leading-[1.5];
   border-bottom: 2px solid black;
 }
 
