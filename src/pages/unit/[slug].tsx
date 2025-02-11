@@ -60,10 +60,8 @@ const UnitPage: NextPage<PageProps> = (
 
   return page?.title && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
-      <article>
-        <div className="pt-header">
-          <Unit unit={page} />
-        </div>
+      <article className="pt-header mb-ydouble">
+        <Unit unit={page} />
       </article>
     </PageTransition>
   ) : null
