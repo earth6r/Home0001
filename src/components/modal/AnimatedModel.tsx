@@ -31,7 +31,7 @@ export const AnimatedModal: FC<AnimatedModalProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
           className="fixed inset-0 flex items-center justify-center h-[100vh] md:h-auto bg-gray md:bg-transparent md:backdrop-blur-sm pointer-events-auto z-base"
           onClick={onClose}
         ></motion.div>
@@ -41,7 +41,7 @@ export const AnimatedModal: FC<AnimatedModalProps> = ({
           initial={{ top: '-100%' }}
           animate={{ top: 0 }}
           exit={{ top: '-100%' }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
           className="fixed inset-0 flex h-[100vh] items-center md:items-start justify-center z-modal pointer-events-none"
         >
           <div className="block w-full h-[100vh] md:h-[726px] bg-gray z-modal">
