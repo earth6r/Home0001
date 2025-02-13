@@ -30,6 +30,12 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [navOpen, setNavOpen] = useState(false)
 
+  const propertyTypesList = (
+    propertyType?.property as unknown as Property
+  ).propertyTypesList?.filter(
+    type => (type as PropertyTypeElProps).typeTitle !== propertyType?.typeTitle
+  )
+
   const openWaitlist = () => {
     setWaitlistOpen(true)
     const options = { location: window.location.pathname }
@@ -273,19 +279,12 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           )}
 
           <div className="pl-x lg:pl-0 pt-ydouble pr-menu md:pr-0 mt-ydouble overflow-hidden">
-            {(propertyType?.property as unknown as Property)
-              ?.propertyTypesList && (
+            {propertyTypesList && propertyTypesList.length > 0 && (
               <>
                 <h2 className="text-h2">Other available homes:</h2>
                 <PropertyTypesList
                   className="grid lg:grid-cols-2 md:w-[calc(50%+(var(--space-menu)/2))] lg:w-full gap-x animate-in mt-y"
-                  propertyTypesList={(
-                    propertyType?.property as unknown as Property
-                  ).propertyTypesList?.filter(
-                    type =>
-                      (type as PropertyTypeElProps).typeTitle !==
-                      propertyType?.typeTitle
-                  )}
+                  propertyTypesList={propertyTypesList}
                 />
               </>
             )}
