@@ -27,7 +27,7 @@ export const AccordionBlock: FC<AccordionBlockProps> = ({
         className,
         grid ? 'grid pr-menu' : '',
         bottomBorder ? 'pb-y -mb-y border-bottom' : '',
-        columns && columns < 3 ? 'md:pr-0' : ''
+        'pr-menu md:pr-0'
       )}
     >
       <div
