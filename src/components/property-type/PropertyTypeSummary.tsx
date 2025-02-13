@@ -90,8 +90,8 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                   <p>{propertyType?.price}</p>
                   {cryptoMode && (
                     <>
-                      <p className="ml-[54px]">{`${cryptoPrice[1]} BTC`}</p>
-                      <p className="ml-[54px]">{`${cryptoPrice[0]} ETH`}</p>
+                      <p className="my-yhalf ml-[48px]">{`${cryptoPrice[1]} BTC`}</p>
+                      <p className="ml-[48px]">{`${cryptoPrice[0]} ETH`}</p>
                     </>
                   )}
                 </div>
