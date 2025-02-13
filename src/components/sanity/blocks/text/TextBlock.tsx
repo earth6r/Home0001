@@ -47,7 +47,6 @@ export const TextBlock: FC<TextBlockProps> = ({
         gridTemplateColumns: columns
           ? `repeat(${columns}, minmax(0, 1fr))`
           : 'repeat(3, minmax(0, 1fr))',
-        paddingRight: columns === 2 && isMobile ? 'var(--space-menu)' : '',
         gap: columns === 2 ? `var(--space-x)` : '',
       }}
       className={classNames(
