@@ -20,6 +20,7 @@ import { useLenis } from '@studio-freight/react-lenis'
 
 import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
+import { useCookiesPrefs } from '@contexts/cookies'
 
 const PS_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
 
@@ -79,9 +80,9 @@ function App({ Component, pageProps }: AppProps<{}>) {
   }, [])
 
   useEffect(() => {
-    // const handleRouteChange = (url: string) => {
-    //   scroll.scrollToTop()
-    // }
+    const handleRouteChange = (url: string) => {
+      scroll.scrollToTop()
+    }
 
     const handleHashChange = (url: string) => {
       const el = document.getElementById(url.slice(url.lastIndexOf('#') + 1))
