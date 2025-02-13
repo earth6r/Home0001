@@ -57,7 +57,8 @@ export const TextBlock: FC<TextBlockProps> = ({
         !yellowBackground && grid ? `md:grid` : '',
         bottomBorder ? 'pb-ydouble border-bottom' : '',
         topBorder ? 'pt-ydouble border-top mt-yquad' : '',
-        rdStyle ? 'pr-0!important mr-yquad md:mr-yquad' : ''
+        rdStyle ? 'pr-0!important mr-yquad md:mr-yquad' : '',
+        columns === 2 && header ? '' : 'pr-menu md:pr-0'
       )}
     >
       {stickyHeader && header && (

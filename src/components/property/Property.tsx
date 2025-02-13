@@ -94,7 +94,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         )}
       >
         <div className="flex flex-col pr-x md:pl-x md:pr-0 lg:pl-0">
-          <div className="pl-x md:pl-0 mr-menu lg:mr-0 lg:overflow-hidden">
+          <div className="pl-x md:pl-0 lg:overflow-hidden">
             {property?.body && (
               <BlockContent
                 blocks={property?.body}

@@ -245,7 +245,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             <BlockContent
               blocks={propertyType.body}
               grid={false}
-              className="pl-x pr-menu lg:px-0 mt-ydouble overflow-visible"
+              className="pl-x lg:pl-0 mt-ydouble overflow-visible"
             />
           )}
 
