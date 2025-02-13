@@ -180,7 +180,7 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
   const [hutk, setHutk] = useLocalCookies()
   const [showPrefs, setShowPrefs] = useCookiesPrefs()
   const [showBanner, setShowBanner] = useState(false)
-  let [dialogOpen, setDialogOpen] = useState(showPrefs)
+  let [dialogOpen, setDialogOpen] = useState(false)
 
   const closeModal = () => {
     // layout updates
@@ -219,7 +219,7 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
 
   useEffect(() => {
     setDialogOpen(showPrefs)
-  }, [showPrefs])
+  }, [showPrefs, dialogOpen])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -262,7 +262,10 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
             <span>{`/`}</span>
             <button
               className="uppercase"
-              onClick={() => setDialogOpen(true)}
+              onClick={() => {
+                setDialogOpen(true)
+                setShowPrefs(true)
+              }}
             >{`Settings`}</button>
           </div>
         </motion.div>

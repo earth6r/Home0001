@@ -4,6 +4,7 @@ import { getHrefBySanityLink } from '@studio/lib'
 import type { LinkProps } from '@components/links'
 import { Link } from '@components/links'
 import classNames from 'classnames'
+import { useCookiesPrefs } from '@contexts/cookies'
 
 type SanityLinkProps = SanityLinkType &
   Omit<LinkProps, 'href'> & {
@@ -20,6 +21,7 @@ export const SanityLink: FC<SanityLinkProps> = ({
   className,
   children,
 }) => {
+  const [showPrefs, setShowPrefs] = useCookiesPrefs()
   const href = getHrefBySanityLink({
     internalLink,
     externalLink,
@@ -31,6 +33,7 @@ export const SanityLink: FC<SanityLinkProps> = ({
     <Link
       href={href}
       external={external}
+      onClick={() => setShowPrefs(false)}
       className={classNames(onClick ? '' : className)}
     >
       {onClick ? (
