@@ -10,7 +10,7 @@ import {
 } from 'react-hook-form'
 import { RichText as RichTextType, UnitGroup } from '@studio/gen/sanity-schema'
 import Pane from './Pane'
-import { useBrokerInquiryModal } from '@contexts/modals'
+import { useBrokerInquiryModal, useWaitlisModal } from '@contexts/modals'
 import { submitForm } from '@lib/util'
 import { RichText } from '@components/sanity'
 import IconChevron from '@components/icons/IconChevron'
@@ -144,6 +144,7 @@ const NameEmailPane: FC<PaneProps> = ({
   className,
 }) => {
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
+  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
 
   return (
     <div className={className}>
@@ -240,7 +241,11 @@ const NameEmailPane: FC<PaneProps> = ({
       {broker && (
         <button
           className="md:max-w-[var(--btn-width)] pb-[2px] text-left font-bold text-md tracking-normal underline decoration-[2px] underline-offset-2"
-          onClick={() => setBrokerInquiryOpen(true)}
+          onClick={e => {
+            e.preventDefault()
+            setBrokerInquiryOpen(true)
+            setWaitlistOpen(false)
+          }}
         >
           Are you a realtor?
         </button>
