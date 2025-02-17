@@ -822,6 +822,20 @@ export interface SiteSettings extends SanityDocument {
   cookiesAccordions?: Array<SanityKeyed<Accordion>>;
 
   /**
+   * Properties — `array`
+   *
+   *
+   */
+  properties?: Array<SanityKeyedReference<Property>>;
+
+  /**
+   * Inventory — `reference`
+   *
+   *
+   */
+  inventory?: SanityReference<Inventory>;
+
+  /**
    * Site Image — `image`
    *
    *
@@ -2029,6 +2043,13 @@ export type TextAndAccordionBlock = {
        *
        */
       accordions?: Array<SanityKeyed<Accordion>>;
+
+      /**
+       * CTA — `string`
+       *
+       *
+       */
+      cta?: "waitlist" | "properties" | "inventory";
     }>
   >;
 };

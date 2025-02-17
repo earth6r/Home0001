@@ -15,6 +15,8 @@ import {
   useInquiryModal,
   useWaitlisModal,
   useBrokerInquiryModal,
+  useAvailableModal,
+  useInventoryModal,
 } from '@contexts/modals'
 import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
@@ -25,6 +27,9 @@ import { useLenis } from '@studio-freight/react-lenis'
 import { IconWaitlist } from '@components/icons'
 import { SanityLinkType } from '@studio/lib'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { Modal } from '@components/modal'
+import posthog from 'posthog-js'
+import { TypedObject } from 'sanity'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -38,13 +43,20 @@ export const Header: FC<HeaderProps> = ({
   mainMenu,
   title,
   rdSettings,
+  inventory,
+  properties,
   className,
 }) => {
   const router = useRouter()
   const { state, dispatch } = useContext(HomeContext)
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
+
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const [availableOpen, setAvailableOpen] = useAvailableModal()
+  const [inventoryOpen, setInventoryOpen] = useInventoryModal()
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+
   const [inquiryOpen, setInquiryOpen] = useInquiryModal()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
@@ -197,6 +209,78 @@ export const Header: FC<HeaderProps> = ({
         </div>
 
         <div className={classNames('flex items-center gap-[1rem] md:gap-5')}>
+          {!hideMenuButton && (
+            <>
+              {showTourLink ? (
+                <Btn
+                  type="button"
+                  className={classNames(
+                    headerLinksShown ? 'opacity-100' : 'opacity-0',
+                    'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-200'
+                  )}
+                  onClick={() => {
+                    window.open(
+                      'https://www.home0001.com/schedule-call',
+                      '_blank'
+                    )
+                  }}
+                >
+                  <div className="px-[6px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+                    <IconSmallArrow width="16" className="mr-[5px]" />
+                    {`Schedule a call`}
+                  </div>
+                </Btn>
+              ) : (
+                <Btn
+                  type="button"
+                  onClick={openWaitlist}
+                  className={classNames(
+                    headerLinksShown ? 'opacity-100' : 'opacity-0',
+                    'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
+                  )}
+                >
+                  <IconWaitlist className="w-[77px] mt-[3px] md:mt-[4px]" />
+                </Btn>
+              )}
+            </>
+          )}
+
+          {!hideMenu && (
+            <HeaderMenu
+              customOpen={menuOpen}
+              setCustomOpen={setMenuOpen}
+              onOpen={onOpen}
+              mainMenu={mainMenu as SanityMenu}
+              className="flex flex-col pointer-events-auto"
+            />
+          )}
+
+          {hideMenu && rdSettings?.image && (
+            <motion.div
+              style={{ rotate }}
+              transition={{ type: 'spring' }}
+              className={classNames(
+                showRdImage ? 'opacity-100' : 'opacity-0',
+                'flex-inline w-auto origin-center pointer-events-auto transition-opacity duration-200'
+              )}
+            >
+              <SanityLink
+                {...(rdSettings.link as SanityLinkType)}
+                className="block leading-[0]"
+              >
+                <SanityImage
+                  asset={rdSettings.image.asset}
+                  props={{
+                    alt: 'Smiley',
+                    quality: 100,
+                    sizes: '88px',
+                  }}
+                  className="relative w-[24px] h-[24px] object-contain"
+                />
+              </SanityLink>
+            </motion.div>
+          )}
+
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100svh-var(--space-y))] md:h-full py-y  pl-x lg:pl-x pr-menu overflow-scroll">
               <Form
@@ -309,76 +393,120 @@ export const Header: FC<HeaderProps> = ({
             </div>
           </AnimatedModal>
 
-          {!hideMenuButton && (
-            <>
-              {showTourLink ? (
-                <Btn
-                  type="button"
-                  className={classNames(
-                    headerLinksShown ? 'opacity-100' : 'opacity-0',
-                    'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-200'
-                  )}
-                  onClick={() => {
-                    window.open(
-                      'https://www.home0001.com/schedule-call',
-                      '_blank'
-                    )
-                  }}
-                >
-                  <div className="px-[6px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
-                    <IconSmallArrow width="16" className="mr-[5px]" />
-                    {`Schedule a call`}
-                  </div>
-                </Btn>
-              ) : (
-                <Btn
-                  type="button"
-                  onClick={openWaitlist}
-                  className={classNames(
-                    headerLinksShown ? 'opacity-100' : 'opacity-0',
-                    'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
-                  )}
-                >
-                  <IconWaitlist className="w-[77px] mt-[3px] md:mt-[4px]" />
-                </Btn>
-              )}
-            </>
-          )}
-
-          {!hideMenu && (
-            <HeaderMenu
-              customOpen={menuOpen}
-              setCustomOpen={setMenuOpen}
-              onOpen={onOpen}
-              mainMenu={mainMenu as SanityMenu}
-              className="flex flex-col pointer-events-auto"
-            />
-          )}
-
-          {hideMenu && rdSettings?.image && (
-            <motion.div
-              style={{ rotate }}
-              transition={{ type: 'spring' }}
-              className={classNames(
-                showRdImage ? 'opacity-100' : 'opacity-0',
-                'flex-inline w-auto origin-center pointer-events-auto transition-opacity duration-200'
-              )}
+          {inventory && (
+            <Modal
+              title="Inventory"
+              isOpen={inventoryOpen}
+              onClose={() => {
+                setInventoryOpen(false)
+              }}
             >
-              <SanityLink
-                {...(rdSettings.link as SanityLinkType)}
-                className="block leading-[0]"
-              >
-                <SanityImage
-                  asset={rdSettings.image.asset}
-                  props={{
-                    alt: 'Smiley',
-                    quality: 100,
-                    sizes: '88px',
-                  }}
-                  className="relative w-[24px] h-[24px] object-contain"
-                />
-              </SanityLink>
-            </motion.div>
+              <div className="pt-header pb-[6rem] md:pb-ydouble px-x h-full flex flex-col text-sm overflow-y-scroll pointer-events-auto">
+                <div className="flex flex-wrap gap-xhalf">
+                  {inventory &&
+                    inventory.items.map((item: any, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          activeIndex === index
+                            ? setActiveIndex(null)
+                            : setActiveIndex(index)
+                        }}
+                        className={classNames(
+                          activeIndex === index
+                            ? 'w-full text-black bg-gray duration-500'
+                            : 'w-[calc(34.08%-var(--space-x-half))] xl:w-[calc(33.9%-var(--space-x-half))] text-white bg-black duration-500',
+                          'flex items-center justify-center relative p-x aspect-square transition-[width]'
+                        )}
+                      >
+                        <SanityImage
+                          asset={item.image}
+                          props={{ alt: 'Inventory Image', sizes: '400px' }}
+                          className={classNames(
+                            activeIndex === index ? 'opacity-100' : 'opacity-0',
+                            'absolute w-full h-full aspect-square top-0 left-0 duration-500'
+                          )}
+                        />
+                        <span
+                          className={classNames(
+                            activeIndex === index
+                              ? 'top-xhalf duration-700'
+                              : 'top-1/2 -translate-y-1/2 duration-700',
+                            'p-xhalf absolute text-sm uppercase font-medium transform transition-all'
+                          )}
+                        >
+                          {item.title}
+                        </span>
+                      </button>
+                    ))}
+                </div>
+              </div>
+            </Modal>
+          )}
+
+          {properties && (
+            <Modal
+              title="Available Homes"
+              isOpen={availableOpen}
+              onClose={() => {
+                setAvailableOpen(false)
+              }}
+            >
+              <div className="w-full pt-header pb-[6rem] md:pb-ydouble px-x h-full flex flex-col text-sm overflow-y-scroll pointer-events-auto">
+                <div className="flex flex-wrap gap-xhalf">
+                  {properties &&
+                    properties.map(({ longTitle, slug, available }) => {
+                      return (
+                        <div
+                          key={`property-${slug?.current}`}
+                          className={classNames(
+                            available === false ? 'pointer-events-none' : '',
+                            'w-full border-bottom--gray last-of-type:border-none'
+                          )}
+                        >
+                          <Link
+                            href={`/property/${slug?.current}`}
+                            onClick={() => {
+                              sendGoogleEvent('Click home property tile', {
+                                tileProperty: slug.current,
+                              })
+                              posthog.capture('property_click', {
+                                slug: slug.current,
+                                route: router.asPath,
+                              })
+                            }}
+                            className={classNames(
+                              available === false ? 'opacity-40' : '',
+                              'flex justify-between items-center gap-x relative w-full h-[59px]'
+                            )}
+                          >
+                            <RichText
+                              blocks={longTitle as TypedObject | TypedObject[]}
+                              className={classNames(
+                                available === false ? '' : 'underlined',
+                                'w-[calc(100%-99px-var(--space-x))] uppercase line-clamp-2'
+                              )}
+                            />
+                            {available !== false && (
+                              <div
+                                className={classNames(
+                                  'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-left uppercase'
+                                )}
+                              >
+                                <IconSmallArrow
+                                  className="relative w-[1em] mt-[0.1em]"
+                                  fill="white"
+                                />
+                                <span className="leading-none">{`Explore`}</span>
+                              </div>
+                            )}
+                          </Link>
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+            </Modal>
           )}
         </div>
       </header>
