@@ -177,6 +177,20 @@ export default {
       group: 'forms',
     },
     {
+      name: 'properties',
+      type: 'array',
+      title: 'Properties',
+      of: [{ type: 'reference', to: [{ type: 'property' }] }],
+      group: 'content',
+    },
+    {
+      name: 'inventory',
+      title: 'Inventory',
+      type: 'reference',
+      to: [{ type: 'inventory' }],
+      group: 'content',
+    },
+    {
       name: 'howItWorksContent',
       title: 'How It Works Accordions',
       description: 'Currently shows in how to modal on unit',

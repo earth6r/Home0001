@@ -36,6 +36,20 @@ export const SITE_SETTINGS_QUERY = groq`
         ${CTA_QUERY}
       }
     },
+    "properties": properties[]->{
+      longTitle,
+      slug,
+      available,
+    },
+    "inventory": inventory->{
+      ...,
+      items[]{
+        ...,
+        "image": image{
+          ${IMAGE_QUERY}
+        },
+      }, 
+    },
     siteDescription,
     siteKeywords,
     "rdImage": rdImage{

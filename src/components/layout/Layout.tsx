@@ -15,6 +15,7 @@ import { filterDataToSingleItem } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
 import { Cookies } from '@components/cookies'
 import { triggerToastPreview } from '@components/toast'
+import { KeyedProperty } from '@components/sanity/blocks/properties/types'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -102,6 +103,8 @@ export const Layout: FC<LayoutProps> = ({
             image: siteSettings?.rdImage,
             link: siteSettings?.rdLink,
           }}
+          inventory={siteSettings?.inventory}
+          properties={siteSettings?.properties as KeyedProperty[] | undefined}
         />
 
         <ReactLenis
