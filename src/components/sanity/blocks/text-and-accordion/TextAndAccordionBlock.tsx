@@ -100,7 +100,7 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({
                 ? `Apply`
                 : cta === 'properties'
                 ? `Available Homes`
-                : `Inventory`}
+                : `View Inventory`}
             </span>
           </button>
         </div>
