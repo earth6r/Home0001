@@ -25,7 +25,7 @@ export const PropertyList: FC<PropertyListProps> = ({
     <div className={className}>
       <h2 className="mt-[-16px] text-h2 mb-y">{header}</h2>
 
-      <div className="flex flex-col pr-x md:pr-0">
+      <div className="flex flex-col">
         {properties &&
           properties.map(({ longTitle, slug, available }, index) => {
             return (

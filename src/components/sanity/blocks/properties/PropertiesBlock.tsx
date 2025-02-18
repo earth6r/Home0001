@@ -13,7 +13,7 @@ export const PropertiesBlock: FC<PropertiesBlockProps> = ({
       <PropertyList
         header={header}
         properties={properties}
-        className="lg:max-w-[1000px] lg:mx-auto pl-x pr-menu md:px-fullmenu"
+        className="lg:max-w-[1000px] lg:mx-auto pl-x pr-[calc(var(--space-menu)+var(--space-x))] md:px-fullmenu"
       />
     </Block>
   )
