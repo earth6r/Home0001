@@ -822,20 +822,6 @@ export interface SiteSettings extends SanityDocument {
   cookiesAccordions?: Array<SanityKeyed<Accordion>>;
 
   /**
-   * Properties — `array`
-   *
-   *
-   */
-  properties?: Array<SanityKeyedReference<Property>>;
-
-  /**
-   * Inventory — `reference`
-   *
-   *
-   */
-  inventory?: SanityReference<Inventory>;
-
-  /**
    * Site Image — `image`
    *
    *
@@ -977,6 +963,20 @@ export interface SiteSettings extends SanityDocument {
    *
    */
   brokerInquirySuccess?: RichText;
+
+  /**
+   * Properties — `array`
+   *
+   *
+   */
+  properties?: Array<SanityKeyedReference<Property>>;
+
+  /**
+   * Inventory — `reference`
+   *
+   *
+   */
+  inventory?: SanityReference<Inventory>;
 
   /**
    * How It Works Accordions — `array`
@@ -1952,7 +1952,7 @@ export type TextBlock = {
   /**
    * Sticky Header — `boolean`
    *
-   * This will make the header sticky on scroll, note requires a header to be set and number of columns set to 2
+   * This will make the header sticky on scroll
    */
   stickyHeader?: boolean;
 
@@ -1962,6 +1962,13 @@ export type TextBlock = {
    * Content for the sticky header
    */
   header?: RichText;
+
+  /**
+   * Sticky Media — `media`
+   *
+   * Shows under header on scroll and in accordion on mobile
+   */
+  stickyMedia?: Media;
 
   /**
    * Text — `richText`
@@ -1990,20 +1997,6 @@ export type TextBlock = {
    *
    */
   bottomBorder?: boolean;
-
-  /**
-   * Black Top Border — `boolean`
-   *
-   *
-   */
-  topBorder?: boolean;
-
-  /**
-   * R&D Style — `boolean`
-   *
-   *
-   */
-  rdStyle?: boolean;
 };
 
 export type TextAndAccordionBlock = {
