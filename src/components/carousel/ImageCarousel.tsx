@@ -31,10 +31,10 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   slides?: (Media & { _key: string })[]
   pagination?: boolean
   placement?:
-    | 'property details'
     | 'unit summary images'
     | 'unit images'
     | 'unit layouts'
+    | 'richText'
 }
 
 const ICON_LEFT = `<svg width="80" style="transform: rotate(180deg); position: relative; left: 15px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 45 29" > <path fill='#fff' fillRule="evenodd" d="M30.452 0 45 14.5 30.452 29l-3.943-3.93 7.818-7.791H0V11.72h34.327l-7.818-7.79L30.452 0Z" clipRule="evenodd" /> </svg>`
@@ -219,7 +219,8 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         <div
           className={classNames(
             activeNav ? 'opacity-100' : 'opacity-100',
-            'flex gap-xhalf lg:justify-between ml-x md:ml-0  w-full transform transition-opacity duration-200 z-above'
+            placement === 'richText' ? '' : 'ml-x md:ml-0',
+            'flex gap-xhalf lg:justify-between w-full transform transition-opacity duration-200 z-above'
           )}
         >
           <IconSmallArrow
