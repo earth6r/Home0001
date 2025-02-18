@@ -31,6 +31,7 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
   slides?: (Media & { _key: string })[]
   pagination?: boolean
   placement?:
+    | 'property details'
     | 'unit summary images'
     | 'unit images'
     | 'unit layouts'
