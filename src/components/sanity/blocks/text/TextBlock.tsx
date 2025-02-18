@@ -1,8 +1,8 @@
 import { useEffect, useState, type FC } from 'react'
 import classNames from 'classnames'
 import type { TextBlock as TextBlockType } from '@gen/sanity-schema'
-import type { SanityBlockElement } from '@components/sanity'
-import { Block, RichText } from '@components/sanity'
+import type { SanityBlockElement, SanityMediaProps } from '@components/sanity'
+import { Block, RichText, SanityMedia } from '@components/sanity'
 import { Accordion } from '@components/accordion'
 import { useRouter } from 'next/router'
 
@@ -11,15 +11,14 @@ type TextBlockProps = Omit<SanityBlockElement, keyof TextBlockType> &
 
 export const TextBlock: FC<TextBlockProps> = ({
   anchor,
+  columns = 3,
   text,
   accordion,
-  columns = 3,
   bottomBorder,
-  topBorder,
-  rdStyle,
   yellowBackground,
   stickyHeader,
   header,
+  stickyMedia,
   grid,
   className,
 }) => {
@@ -56,18 +55,27 @@ export const TextBlock: FC<TextBlockProps> = ({
           : '',
         !yellowBackground && grid ? `md:grid` : '',
         bottomBorder ? 'pb-ydouble border-bottom' : '',
-        topBorder ? 'pt-ydouble border-top mt-yquad' : '',
-        rdStyle ? 'pr-0!important mr-yquad md:mr-yquad' : '',
         columns === 2 && header ? '' : 'pr-menu md:pr-0'
       )}
     >
       {stickyHeader && header && (
-        <RichText
-          blocks={header}
+        <div
           className={classNames(
             'md:block md:sticky h-[max-content] md:top-y col-start-1 clear-both md:pr-x mb-ydouble'
           )}
-        />
+        >
+          <RichText blocks={header} />
+
+          {stickyMedia && (
+            <SanityMedia
+              {...(stickyMedia as SanityMediaProps)}
+              imageProps={{
+                alt: stickyMedia.alt || 'Media',
+              }}
+              className="hidden md:block w-full h-auto object-contain select-none"
+            />
+          )}
+        </div>
       )}
       <div
         style={{
@@ -78,9 +86,11 @@ export const TextBlock: FC<TextBlockProps> = ({
         {text && (
           <RichText blocks={text} className={classNames('clear-both')} />
         )}
+
         {accordion && (
           <Accordion
             {...accordion}
+            media={stickyMedia as SanityMediaProps}
             readMore={true}
             open={asPath.includes(`#${anchor}`)}
             openOnDesktop={accordion.openOnDesktop}
