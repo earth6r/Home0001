@@ -7,10 +7,10 @@ export default {
   type: 'object',
   fields: [
     {
-      name: 'divider',
-      title: 'Divider',
+      name: 'borderEnabled',
+      title: 'Border Enabled',
       type: 'boolean',
-      initialValue: true,
+      initialValue: false,
     },
   ],
   preview: {
