@@ -1679,11 +1679,11 @@ export type CarouselBlock = {
 export type DividerBlock = {
   _type: "dividerBlock";
   /**
-   * Divider — `boolean`
+   * Border Enabled — `boolean`
    *
    *
    */
-  divider?: boolean;
+  borderEnabled?: boolean;
 };
 
 export type FormBlock = {

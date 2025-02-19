@@ -61,7 +61,16 @@ export const BlockContent: FC<SanityBlockElement> = ({
             carouselBlock: ({ index, value }) => (
               <CarouselBlock index={index} grid={grid} {...value} />
             ),
-            dividerBlock: () => <div className="mt-block"></div>,
+            dividerBlock: ({ value }) => (
+              <div
+                className={classNames(
+                  value.borderEnabled
+                    ? 'my-ydouble border-bottom'
+                    : 'pb-ydouble',
+                  ''
+                )}
+              ></div>
+            ),
             fullbleedBlock: ({ index, value }) => (
               <FullbleedBlock
                 index={index}

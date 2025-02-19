@@ -61,11 +61,6 @@ export default {
       description:
         'This will give the text block a full-width yellow background',
     },
-    {
-      name: 'bottomBorder',
-      type: 'boolean',
-      title: 'Black Bottom Border',
-    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Text block' }),
