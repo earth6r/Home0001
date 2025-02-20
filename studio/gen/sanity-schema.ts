@@ -1990,13 +1990,6 @@ export type TextBlock = {
    * This will give the text block a full-width yellow background
    */
   yellowBackground?: boolean;
-
-  /**
-   * Black Bottom Border — `boolean`
-   *
-   *
-   */
-  bottomBorder?: boolean;
 };
 
 export type TextAndAccordionBlock = {

@@ -43,33 +43,15 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
   return (
     <div className={classNames(className)}>
-      <h2 className="md:hidden text-h2 px-x mb-ydouble md:max-w-[50%] xl:max-w-[35%]">
+      <h2 className="text-h2 px-x mb-ydouble md:max-w-[50%] xl:max-w-[35%]">
         {unit?.title}
       </h2>
+
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-x md:px-x md:pr-0">
         <div className="col-span-1 order-2 md:order-1 flex flex-col gap-y xl:sticky xl:top-[var(--header-height)] xl:left-0 xl:aspect-[0.797] pl-x md:pl-0 pr-x md:pr-0 mt-y md:mt-0 xl:mb-0 md:z-modal">
-          <h2 className="hidden md:block text-h2">{unit?.title}</h2>
-          <div className="text-xs font-sansText">
-            {unit?.bedrooms && (
-              <p className="uppercase m-0">{`${unit?.bedrooms} Bedrooms`}</p>
-            )}
-            {unit?.bathrooms && (
-              <p className="font-sansText uppercase m-0">{`${unit?.bathrooms} Bathrooms`}</p>
-            )}
-            {unit?.area && (
-              <p className="font-sansText uppercase mt-y">{`Size: ${unit?.area}`}</p>
-            )}
-            <p className="font-sansText uppercase">
-              {unit?.hidePrice
-                ? 'Price upon request'
-                : cryptoMode
-                ? `${unit?.price?.substring(1)} / ${cryptoPrice[1]} BTC / ${
-                    cryptoPrice[0]
-                  } ETH`
-                : `Price: ${unit?.price}`}
-            </p>
-          </div>
-          {unit?.address && <RichText blocks={unit?.address} />}
+          {unit?.address && (
+            <RichText blocks={unit?.address} className="font-sansText" />
+          )}
 
           {unit?.coordinates && (
             <MapDialog
@@ -79,13 +61,30 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             />
           )}
 
+          <div className="flex flex-col gap-0 text-xs font-sansText uppercase">
+            {unit?.bedrooms && (
+              <p className="">{`${unit?.bedrooms} Bedrooms`}</p>
+            )}
+            {unit?.bathrooms && <p>{`${unit?.bathrooms} Bathrooms`}</p>}
+            {unit?.area && <p>{`Size: ${unit?.area}`}</p>}
+            <p>
+              {unit?.hidePrice
+                ? 'Price upon request'
+                : cryptoMode
+                ? `${unit?.price?.substring(1)} / ${cryptoPrice[1]} BTC / ${
+                    cryptoPrice[0]
+                  } ETH`
+                : `Price: ${unit?.price}`}
+            </p>
+          </div>
+
           {unit?.factSheet?.rows && (
             <SanityTableModal
               title="Fact Sheet"
               table={unit.factSheet}
               modalType="fact sheet"
               buttonLabel="View Fact Sheet"
-              className="flex mt-yhalf"
+              className="flex mt-y"
               unit={unit.title}
             />
           )}
@@ -127,9 +126,9 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
           </div>
         </div>
 
-        <div className="pr-x md:pr-0 order-3 md:order-2 flex flex-col gap-y mt-yhalf md:mt-0 md:z-modal">
+        <div className="order-3 md:order-2 flex flex-col gap-y mt-yhalf md:mt-0 md:z-modal">
           {unit?.summary && unit?.summary.length > 0 && (
-            <div className="pl-x pr-menu md:px-0">
+            <div className="pl-x pr-fullmenu md:px-0">
               <RichText blocks={unit.summary} className="font-medium" />
             </div>
           )}
@@ -143,11 +142,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
 
           {unit?.layoutImages && (
             <ImageCarousel
-              pagination={true}
               perView={1}
               carousel={true}
               slides={unit?.layoutImages}
-              className="w-full px-x md:px-0 overflow-hidden"
+              className="w-full pr-[calc(var(--space-menu)+var(--space-x))] md:px-0 overflow-hidden"
               placement="unit layouts"
             />
           )}
@@ -156,11 +154,10 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
         <div className="order-1 xl:order-3 xl:col-start-3 md:h-0 xl:h-auto xl:sticky self-start md:top-[var(--header-height)] md:right-0 xl:left-0">
           {unit?.photographs && (
             <ImageCarousel
-              pagination={true}
               perView={1}
               carousel={true}
               slides={unit?.photographs as SanityKeyed<Media>[]}
-              className="w-full h-auto px-x md:pl-0 overflow-hidden"
+              className="w-full h-auto pr-fullmenu md:pr-x overflow-hidden"
               placement="unit images"
             />
           )}
