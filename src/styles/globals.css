@@ -12,6 +12,7 @@
   --space-y-quad: calc(var(--space-y) * 4);
 
   --space-menu: 3.625rem;
+  --space-full-menu: calc(var(--space-menu) + var(--space-x));
   --space-page: 88px;
 
   --space-block: 56px;
