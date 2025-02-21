@@ -17,7 +17,6 @@ export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
   alt: string
   lastIndex?: boolean
-  fullWidth?: boolean
   zoom?: boolean
 }
 
@@ -44,7 +43,6 @@ const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox=
 const ImageSlide: FC<ImageSlideProps> = ({
   image,
   alt,
-  fullWidth,
   lastIndex,
   zoom = false,
   className,
@@ -55,7 +53,6 @@ const ImageSlide: FC<ImageSlideProps> = ({
     <div
       className={classNames(
         className,
-        fullWidth ? 'md:h-[431px] md:w-auto' : '',
         zoom ? 'cursor-zoom-in active:cursor-grabbing' : '',
         'block relative w-full h-auto overflow-hidden select-none'
       )}
@@ -69,10 +66,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
           sizes: '(max-width: 768px) 100vw, 800px',
           lqip: image?.asset?.metadata?.lqip,
         }}
-        className={classNames(
-          fullWidth ? 'md:h-[431px] md:w-auto' : '',
-          'w-full h-auto object-cover'
-        )}
+        className="w-full h-auto object-cover"
         onLoad={() => lastIndex && lenis.resize()}
       />
     </div>
@@ -168,12 +162,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         )}
       >
         {slides?.map(({ _key, image, alt }, index) => (
-          <SwiperSlide
-            key={`${_key}-${alt}`}
-            className={classNames(
-              fullWidth ? 'w-full md:w-auto' : 'aspect-[4/5]'
-            )}
-          >
+          <SwiperSlide key={`${_key}-${alt}`}>
             {image && alt && (
               <>
                 {carousel ? (
@@ -188,7 +177,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       image={image as any}
                       lastIndex={index === slides.length - 1}
                       alt={alt}
-                      fullWidth={fullWidth}
                       className={classNames(
                         index - 1 === slides.length ? 'relative right-x' : ''
                       )}
@@ -202,7 +190,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                   >
                     <ImageSlide
                       image={image as any}
-                      fullWidth={fullWidth}
                       lastIndex={index === slides.length - 1}
                       alt={alt}
                       className={classNames(
