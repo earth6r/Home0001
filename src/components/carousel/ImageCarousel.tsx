@@ -158,7 +158,8 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         }
         className={classNames(
           slides && slides.length > 1 ? 'cursor-grab' : '',
-          'ml-0 md:mx-auto overflow-visible'
+          placement === 'richText' ? '-ml-x md:mx-auto' : '',
+          'md:mx-auto overflow-visible'
         )}
       >
         {slides?.map(({ _key, image, alt }, index) => (
@@ -206,8 +207,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         <div
           className={classNames(
             activeNav ? 'opacity-100' : 'opacity-100',
-            placement === 'richText' ? '' : 'ml-x md:ml-0',
-            'flex gap-xhalf lg:justify-between w-full transform transition-opacity duration-200 z-above'
+            'flex gap-xhalf lg:justify-between w-full ml-x md:ml-0 transform transition-opacity duration-200 z-above'
           )}
         >
           <IconSmallArrow

@@ -64,6 +64,7 @@ export default {
         ydouble: 'var(--space-y-double)',
         ylg: 'var(--space-y-lg)',
         yquad: 'var(--space-y-quad)',
+        menusm: 'var(--space-menu-sm)',
         menu: 'var(--space-menu)',
         fullmenu: 'var(--space-full-menu)',
         input: 'var(--input-size)',

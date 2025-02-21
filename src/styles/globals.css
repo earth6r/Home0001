@@ -11,6 +11,7 @@
   --space-y-lg: 2.5rem;
   --space-y-quad: calc(var(--space-y) * 4);
 
+  --space-menu-sm: 52px;
   --space-menu: 3.625rem;
   --space-full-menu: calc(var(--space-menu) + var(--space-x));
   --space-page: 88px;
@@ -53,6 +54,7 @@
     --header-height: 80px;
     --gradient-height: 90px;
 
+    --space-menu-sm: 59px;
     --space-menu: 171px;
     --space-full-menu: 12rem;
     --space-page: var(--header-height);

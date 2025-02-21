@@ -150,7 +150,12 @@ export const Accordion: FC<AccordionProps> = ({
               <Transition
                 show={open}
                 ref={ref}
-                className="overflow-hidden will-change-[maxHeight]"
+                className={classNames(
+                  open
+                    ? 'overflow-visible md:overflow-hidden'
+                    : 'overflow-hidden',
+                  'will-change-[maxHeight]'
+                )}
                 enter="maxHeight duration-200 ease-in-out"
                 enterFrom="max-h-0"
                 beforeEnter={beforeEnter}

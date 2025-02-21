@@ -64,7 +64,8 @@ export const Layout: FC<LayoutProps> = ({
           className="flex-initial"
           path={asPath}
           title={
-            page?._type && (page._type as string) === 'rdPage'
+            (page?._type && (page._type as string) === 'rdPage') ||
+            page?.slug?.current === 'about'
               ? '0001'
               : 'HOME0001'
           }
