@@ -27,6 +27,7 @@ const PAGE_QUERY = groq`
   *[_type == "page" && slug.current == $slug]{
     _id,
     _type,
+    slug,
     seo,
     password,
     hideMenuButton,
@@ -88,7 +89,7 @@ const Page: NextPage<PageProps> = (
             blocks={page?.body}
             className={classNames(
               filteredBlocks && filteredBlocks?.length > 0 ? '' : 'container',
-              'flex flex-col w-full pt-page'
+              'flex flex-col w-full pt-page overflow-hidden'
             )}
           />
         )}

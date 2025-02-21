@@ -21,21 +21,13 @@ export const TextBlock: FC<TextBlockProps> = ({
   grid,
   className,
 }) => {
-  const { asPath } = useRouter()
-  const [isMobile, setIsMobile] = useState(false)
+  const router = useRouter()
+  const [domain, setDomain] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-
-    window.addEventListener('resize', checkMobile)
-
-    return () => {
-      window.removeEventListener('resize', checkMobile)
-    }
+    setDomain(window.location.host)
   }, [])
 
   return (
@@ -59,6 +51,11 @@ export const TextBlock: FC<TextBlockProps> = ({
       {stickyHeader && header && (
         <div
           className={classNames(
+            domain?.includes('0001.studio') ||
+              router.asPath === '/rd' ||
+              router.asPath === '/about'
+              ? 'pr-menusm md:pr-0'
+              : '',
             'md:block md:sticky h-[max-content] md:top-y col-start-1 clear-both md:pr-x mb-ydouble'
           )}
         >
@@ -78,7 +75,14 @@ export const TextBlock: FC<TextBlockProps> = ({
       <div
         style={{
           gridColumnStart: (columns && columns > 2) || stickyHeader ? 2 : 1,
-          paddingRight: columns === 2 && header ? 'var(--space-menu)' : '',
+          paddingRight:
+            columns === 2 && header
+              ? router.asPath === '/about' ||
+                router.asPath === '/rd' ||
+                domain?.includes('0001.studio')
+                ? 'calc(var(--space-menu-sm)'
+                : 'var(--space-menu)'
+              : '',
         }}
       >
         {text && (
@@ -90,7 +94,7 @@ export const TextBlock: FC<TextBlockProps> = ({
             {...accordion}
             media={stickyMedia as SanityMediaProps}
             readMore={true}
-            open={asPath.includes(`#${anchor}`)}
+            open={router.asPath.includes(`#${anchor}`)}
             openOnDesktop={accordion.openOnDesktop}
           />
         )}
