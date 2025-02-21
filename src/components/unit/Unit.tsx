@@ -156,7 +156,6 @@ export const UnitComponent: FC<UnitElProps> = ({ unit, className }) => {
             <ImageCarousel
               perView={1}
               carousel={true}
-              fullWidth={true}
               slides={unit?.photographs as SanityKeyed<Media>[]}
               className="w-full h-auto pr-fullmenu md:pr-x overflow-hidden"
               placement="unit images"

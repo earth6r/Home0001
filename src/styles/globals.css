@@ -195,10 +195,6 @@ footer {
   height: 100%;
 }
 
-.swiper-wrapper {
-  align-items: center;
-}
-
 .calendar .swiper-wrapper {
   align-items: flex-start;
 }
