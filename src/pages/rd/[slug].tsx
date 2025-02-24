@@ -49,7 +49,7 @@ const RDPage: NextPage<PageProps> = (
         <BlockContent
           grid={true}
           blocks={page?.body}
-          className="px-x overflow-hidden"
+          className="px-x overflow-hidden md:overflow-visible"
         />
       </article>
     </PageTransition>

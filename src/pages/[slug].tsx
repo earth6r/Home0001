@@ -89,7 +89,7 @@ const Page: NextPage<PageProps> = (
             blocks={page?.body}
             className={classNames(
               filteredBlocks && filteredBlocks?.length > 0 ? '' : 'container',
-              'w-full overflow-hidden'
+              'w-full overflow-hidden md:overflow-visible'
             )}
           />
         )}
