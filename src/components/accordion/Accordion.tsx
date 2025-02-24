@@ -179,7 +179,7 @@ export const Accordion: FC<AccordionProps> = ({
                         imageProps={{
                           alt: media.alt || 'Media',
                         }}
-                        className="md:hidden w-full h-auto object-contain select-none"
+                        className="md:hidden w-full h-auto mb-y object-contain select-none"
                       />
                     )}
 

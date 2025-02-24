@@ -207,7 +207,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         <div
           className={classNames(
             activeNav ? 'opacity-100' : 'opacity-100',
-            placement === 'richText' ? 'ml-x md:ml-0' : 'ml-x',
+            placement === 'richText' ? 'ml-x md:ml-0' : 'ml-x lg:ml-0',
             'flex gap-xhalf lg:justify-between w-full transform transition-opacity duration-200 z-above'
           )}
         >
