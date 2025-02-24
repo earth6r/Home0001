@@ -181,7 +181,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           </div>
         </div>
 
-        <div className="lg:col-span-2 md:mr-menu mt-header lg:mt-0">
+        <div className="lg:col-span-2 md:mr-menu lg:mr-menu mt-header lg:mt-0">
           {propertyType?.summary && propertyType?.summary.length > 0 && (
             <div className="pl-x lg:pl-0 pr-menu md:pr-0">
               <p className="text-h4 mb-y lg:mb-yhalf">Overview:</p>

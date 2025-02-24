@@ -90,7 +90,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
     0: {
       slidesPerView: perViewMobile || 1,
     },
-    [SCREENS.lg]: {
+    [SCREENS.md]: {
       slidesPerView: perView || 'auto',
     },
   }
