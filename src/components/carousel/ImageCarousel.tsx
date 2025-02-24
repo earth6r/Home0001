@@ -207,7 +207,8 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         <div
           className={classNames(
             activeNav ? 'opacity-100' : 'opacity-100',
-            'flex gap-xhalf lg:justify-between w-full ml-x md:ml-0 transform transition-opacity duration-200 z-above'
+            placement === 'richText' ? 'ml-x md:ml-0' : 'ml-x',
+            'flex gap-xhalf lg:justify-between w-full transform transition-opacity duration-200 z-above'
           )}
         >
           <IconSmallArrow
