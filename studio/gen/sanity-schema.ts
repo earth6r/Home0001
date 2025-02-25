@@ -965,6 +965,20 @@ export interface SiteSettings extends SanityDocument {
   brokerInquirySuccess?: RichText;
 
   /**
+   * Properties — `array`
+   *
+   *
+   */
+  properties?: Array<SanityKeyedReference<Property>>;
+
+  /**
+   * Inventory — `reference`
+   *
+   *
+   */
+  inventory?: SanityReference<Inventory>;
+
+  /**
    * How It Works Accordions — `array`
    *
    * Currently shows in how to modal on unit
@@ -1665,11 +1679,11 @@ export type CarouselBlock = {
 export type DividerBlock = {
   _type: "dividerBlock";
   /**
-   * Divider — `boolean`
+   * Border Enabled — `boolean`
    *
    *
    */
-  divider?: boolean;
+  borderEnabled?: boolean;
 };
 
 export type FormBlock = {
@@ -1938,7 +1952,7 @@ export type TextBlock = {
   /**
    * Sticky Header — `boolean`
    *
-   * This will make the header sticky on scroll, note requires a header to be set and number of columns set to 2
+   * This will make the header sticky on scroll
    */
   stickyHeader?: boolean;
 
@@ -1948,6 +1962,13 @@ export type TextBlock = {
    * Content for the sticky header
    */
   header?: RichText;
+
+  /**
+   * Sticky Media — `media`
+   *
+   * Shows under header on scroll and in accordion on mobile
+   */
+  stickyMedia?: Media;
 
   /**
    * Text — `richText`
@@ -1969,27 +1990,6 @@ export type TextBlock = {
    * This will give the text block a full-width yellow background
    */
   yellowBackground?: boolean;
-
-  /**
-   * Black Bottom Border — `boolean`
-   *
-   *
-   */
-  bottomBorder?: boolean;
-
-  /**
-   * Black Top Border — `boolean`
-   *
-   *
-   */
-  topBorder?: boolean;
-
-  /**
-   * R&D Style — `boolean`
-   *
-   *
-   */
-  rdStyle?: boolean;
 };
 
 export type TextAndAccordionBlock = {
@@ -2029,6 +2029,13 @@ export type TextAndAccordionBlock = {
        *
        */
       accordions?: Array<SanityKeyed<Accordion>>;
+
+      /**
+       * CTA — `string`
+       *
+       *
+       */
+      cta?: "waitlist" | "properties" | "inventory";
     }>
   >;
 };

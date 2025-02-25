@@ -212,6 +212,15 @@ export const BODY_QUERY = `
         ${CTA_QUERY}
       }
     },
+    "inventory": inventory->{
+      ...,
+      items[]{
+        ...,
+        "image": image{
+          ${IMAGE_QUERY}
+        },
+      }, 
+    },
     "accordions": select(
       count(^.body[
           (_type == "accordionBlock") || 

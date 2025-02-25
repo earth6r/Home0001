@@ -8,7 +8,6 @@ import { SCREENS } from '@/globals'
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import 'photoswipe/style.css'
 import { sendGoogleEvent } from '@lib/util'
-import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { useLenis } from '@studio-freight/react-lenis'
 import { type SwiperOptions } from 'swiper/types'
@@ -18,7 +17,6 @@ export interface ImageSlideProps extends SanityMediaProps {
   _key?: string
   alt: string
   lastIndex?: boolean
-  fullWidth?: boolean
   zoom?: boolean
 }
 
@@ -35,6 +33,7 @@ export interface ImageCarouselProps extends HTMLAttributes<HTMLElement> {
     | 'unit summary images'
     | 'unit images'
     | 'unit layouts'
+    | 'richText'
 }
 
 const ICON_LEFT = `<svg width="80" style="transform: rotate(180deg); position: relative; left: 15px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 45 29" > <path fill='#fff' fillRule="evenodd" d="M30.452 0 45 14.5 30.452 29l-3.943-3.93 7.818-7.791H0V11.72h34.327l-7.818-7.79L30.452 0Z" clipRule="evenodd" /> </svg>`
@@ -44,7 +43,6 @@ const ICON_CLOSE = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox=
 const ImageSlide: FC<ImageSlideProps> = ({
   image,
   alt,
-  fullWidth,
   lastIndex,
   zoom = false,
   className,
@@ -55,7 +53,6 @@ const ImageSlide: FC<ImageSlideProps> = ({
     <div
       className={classNames(
         className,
-        fullWidth ? 'md:h-[431px] md:w-auto' : '',
         zoom ? 'cursor-zoom-in active:cursor-grabbing' : '',
         'block relative w-full h-auto overflow-hidden select-none'
       )}
@@ -69,10 +66,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
           sizes: '(max-width: 768px) 100vw, 800px',
           lqip: image?.asset?.metadata?.lqip,
         }}
-        className={classNames(
-          fullWidth ? 'md:h-[431px] md:w-auto' : '',
-          'w-full h-auto object-cover'
-        )}
+        className="w-full h-auto object-cover"
         onLoad={() => lastIndex && lenis.resize()}
       />
     </div>
@@ -96,7 +90,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
     0: {
       slidesPerView: perViewMobile || 1,
     },
-    [SCREENS.lg]: {
+    [SCREENS.md]: {
       slidesPerView: perView || 'auto',
     },
   }
@@ -164,16 +158,12 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         }
         className={classNames(
           slides && slides.length > 1 ? 'cursor-grab' : '',
-          'ml-0 md:mx-auto overflow-visible'
+          placement === 'richText' ? '-ml-x md:mx-auto' : '',
+          'md:mx-auto overflow-visible'
         )}
       >
         {slides?.map(({ _key, image, alt }, index) => (
-          <SwiperSlide
-            key={`${_key}-${alt}`}
-            className={classNames(
-              fullWidth ? 'w-full md:w-auto' : 'aspect-[4/5]'
-            )}
-          >
+          <SwiperSlide key={`${_key}-${alt}`}>
             {image && alt && (
               <>
                 {carousel ? (
@@ -188,7 +178,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                       image={image as any}
                       lastIndex={index === slides.length - 1}
                       alt={alt}
-                      fullWidth={fullWidth}
                       className={classNames(
                         index - 1 === slides.length ? 'relative right-x' : ''
                       )}
@@ -202,7 +191,6 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                   >
                     <ImageSlide
                       image={image as any}
-                      fullWidth={fullWidth}
                       lastIndex={index === slides.length - 1}
                       alt={alt}
                       className={classNames(
@@ -219,7 +207,8 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         <div
           className={classNames(
             activeNav ? 'opacity-100' : 'opacity-100',
-            'flex gap-xhalf lg:justify-between ml-x md:ml-0  w-full transform transition-opacity duration-200 z-above'
+            placement === 'richText' ? 'ml-x md:ml-0' : 'ml-x lg:ml-0',
+            'flex gap-xhalf lg:justify-between w-full transform transition-opacity duration-200 z-above'
           )}
         >
           <IconSmallArrow

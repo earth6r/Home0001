@@ -1,3 +1,4 @@
+import { KeyedProperty } from '@components/sanity/blocks/properties/types'
 import type {
   Link,
   Media,
@@ -50,6 +51,8 @@ export interface HeaderProps
     }
     link?: Link
   }
+  inventory?: any
+  properties?: KeyedProperty[]
 }
 
 export interface HeaderMenuProps extends HeaderProps {

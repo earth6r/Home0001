@@ -1,9 +1,10 @@
-import { type FC } from 'react'
+import { useEffect, useState, type FC } from 'react'
 import classNames from 'classnames'
 import type { FullbleedBlock as FullbleedBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement, SanityMediaProps } from '@components/sanity'
 import { Block, SanityMedia } from '@components/sanity'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 type FullbleedBlockProps = Omit<SanityBlockElement, keyof FullbleedBlockType> &
   FullbleedBlockType
@@ -16,6 +17,14 @@ export const FullbleedBlock: FC<FullbleedBlockProps> = ({
   className,
 }) => {
   const { scrollYProgress } = useScroll()
+  const router = useRouter()
+  const [domain, setDomain] = useState<string | undefined>(undefined)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    setDomain(window.location.host)
+  }, [])
 
   // Transform scrollYProgress (0 to 1) to rotation (0 to 360 degrees)
   const rotate = useTransform(
@@ -29,6 +38,11 @@ export const FullbleedBlock: FC<FullbleedBlockProps> = ({
       className={classNames(
         className,
         columns === 1 ? '' : 'grid md:grid-cols-2',
+        domain?.includes('0001.studio') ||
+          router.asPath === '/rd' ||
+          router.asPath === '/about'
+          ? 'pr-menusm md:pr-0'
+          : '',
         'overflow-scroll'
       )}
     >

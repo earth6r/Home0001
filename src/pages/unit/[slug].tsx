@@ -18,7 +18,6 @@ import { UNIT_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { Unit } from '@components/unit'
 import PageTransition from '@components/transition/PageTransition'
 import { HomeContext } from '@contexts/home'
-import { Property, PropertyContentProps } from '@components/property'
 
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 

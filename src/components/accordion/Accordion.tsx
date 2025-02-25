@@ -2,7 +2,12 @@ import { useRef, type FC, HTMLAttributes, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import type { Cta, RichText as RichTextType } from '@studio/gen/sanity-schema'
 import { Disclosure, Transition } from '@headlessui/react'
-import { RichText, SanityLink } from '@components/sanity'
+import {
+  RichText,
+  SanityLink,
+  SanityMedia,
+  SanityMediaProps,
+} from '@components/sanity'
 import IconPlus from '@components/icons/IconPlus'
 import IconMinus from '@components/icons/IconMinus'
 import { SanityLinkType } from '@studio/lib'
@@ -17,6 +22,7 @@ export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   header?: string
   largeHeader?: boolean
   initialText?: RichTextType
+  media?: SanityMediaProps
   text?: RichTextType
   cta?: Cta
   readMore?: boolean
@@ -30,6 +36,7 @@ export const Accordion: FC<AccordionProps> = ({
   header,
   largeHeader,
   initialText,
+  media,
   text,
   cta,
   location,
@@ -143,7 +150,12 @@ export const Accordion: FC<AccordionProps> = ({
               <Transition
                 show={open}
                 ref={ref}
-                className="overflow-hidden will-change-[maxHeight]"
+                className={classNames(
+                  open
+                    ? 'overflow-visible md:overflow-hidden'
+                    : 'overflow-hidden',
+                  'will-change-[maxHeight]'
+                )}
                 enter="maxHeight duration-200 ease-in-out"
                 enterFrom="max-h-0"
                 beforeEnter={beforeEnter}
@@ -161,6 +173,16 @@ export const Accordion: FC<AccordionProps> = ({
                       ''
                     )}
                   >
+                    {media && (
+                      <SanityMedia
+                        {...media}
+                        imageProps={{
+                          alt: media.alt || 'Media',
+                        }}
+                        className="md:hidden w-full h-auto mb-y object-contain select-none"
+                      />
+                    )}
+
                     {text && (
                       <RichText
                         blocks={text}

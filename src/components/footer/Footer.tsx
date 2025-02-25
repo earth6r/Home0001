@@ -3,7 +3,11 @@ import { type FC, type HTMLProps } from 'react'
 import type { FooterProps } from './types'
 import { RichText, SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
-import { useBrokerInquiryModal, useWaitlisModal } from '@contexts/modals'
+import {
+  useAvailableModal,
+  useBrokerInquiryModal,
+  useWaitlisModal,
+} from '@contexts/modals'
 import { useCookiesPrefs } from '@contexts/cookies'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { TypedObject } from 'sanity'
@@ -15,6 +19,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   const year = new Date().getFullYear()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const [availableOpen, setAvailableOpen] = useAvailableModal()
   const [showPrefs, setShowPrefs] = useCookiesPrefs()
 
   return (
@@ -79,7 +84,12 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         </div>
       </div>
 
-      <ul className="flex flex-col xl:flex-row xl:justify-between gap-y w-full xl:w-1/2 pl-x">
+      <ul className="flex flex-col xl:flex-row xl:justify-start gap-y xl:gap-xdouble w-full pl-x">
+        <li>
+          <button onClick={setAvailableOpen} className="uppercase">
+            <span className="leading-none">{`Available Homes`}</span>
+          </button>
+        </li>
         {footerMenu?.items?.map(({ _key, text, link }) => {
           return text && link ? (
             <li key={_key}>

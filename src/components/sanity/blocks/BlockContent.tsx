@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import { useEffect, useState, type FC } from 'react'
 import { PortableText } from '@portabletext/react'
 import type { SanityBlockElement } from '@components/sanity'
 import { blockTypes, blockMarks, blockBlock } from '@components/sanity'
@@ -26,6 +26,7 @@ import {
 } from '.'
 import classNames from 'classnames'
 import { useFeatureFlagEnabled } from 'posthog-js/react'
+import { useRouter } from 'next/router'
 
 export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
@@ -34,6 +35,15 @@ export const BlockContent: FC<SanityBlockElement> = ({
   style,
 }) => {
   const flagEnabled = useFeatureFlagEnabled('alt-home')
+  const router = useRouter()
+  const [domain, setDomain] = useState<string | undefined>(undefined)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setDomain(window.location.host)
+    }
+  }, [])
+
   return flagEnabled !== undefined && blocks ? (
     <div className={className} style={style}>
       <PortableText
@@ -61,7 +71,21 @@ export const BlockContent: FC<SanityBlockElement> = ({
             carouselBlock: ({ index, value }) => (
               <CarouselBlock index={index} grid={grid} {...value} />
             ),
-            dividerBlock: () => <div className="mt-block"></div>,
+            dividerBlock: ({ value }) => (
+              <div
+                className={classNames(
+                  domain?.includes('0001.studio') ||
+                    router.asPath === '/rd' ||
+                    router.asPath === '/about'
+                    ? 'w-[calc(100%-var(--space-menu-sm))]'
+                    : '',
+                  value.borderEnabled
+                    ? 'my-ydouble border-bottom'
+                    : 'pb-ydouble',
+                  ''
+                )}
+              ></div>
+            ),
             fullbleedBlock: ({ index, value }) => (
               <FullbleedBlock
                 index={index}

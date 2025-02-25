@@ -36,6 +36,18 @@ export default {
               type: 'array',
               of: [{ type: 'accordion', title: 'Accordion' }],
             },
+            {
+              name: 'cta',
+              title: 'CTA',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Waitlist', value: 'waitlist' },
+                  { title: 'Properties', value: 'properties' },
+                  { title: 'Inventory', value: 'inventory' },
+                ],
+              },
+            },
           ],
           preview: {
             prepare: () => ({
