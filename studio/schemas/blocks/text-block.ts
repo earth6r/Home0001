@@ -32,14 +32,21 @@ export default {
       name: 'stickyHeader',
       type: 'boolean',
       title: 'Sticky Header',
-      description:
-        'This will make the header sticky on scroll, note requires a header to be set and number of columns set to 2',
+      description: 'This will make the header sticky on scroll',
     },
     {
       name: 'header',
       type: 'richText',
       title: 'Sticky Header Content',
       description: 'Content for the sticky header',
+      hidden: ({ parent }: any) => parent?.stickyHeader !== true,
+    },
+    {
+      name: 'stickyMedia',
+      type: 'media',
+      title: 'Sticky Media',
+      hidden: ({ parent }: any) => parent?.stickyHeader !== true,
+      description: 'Shows under header on scroll and in accordion on mobile',
     },
     textField,
     {
@@ -53,21 +60,6 @@ export default {
       title: 'Yellow Background',
       description:
         'This will give the text block a full-width yellow background',
-    },
-    {
-      name: 'bottomBorder',
-      type: 'boolean',
-      title: 'Black Bottom Border',
-    },
-    {
-      name: 'topBorder',
-      type: 'boolean',
-      title: 'Black Top Border',
-    },
-    {
-      name: 'rdStyle',
-      type: 'boolean',
-      title: 'R&D Style',
     },
   ],
   preview: {

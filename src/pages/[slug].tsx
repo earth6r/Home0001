@@ -27,6 +27,7 @@ const PAGE_QUERY = groq`
   *[_type == "page" && slug.current == $slug]{
     _id,
     _type,
+    slug,
     seo,
     password,
     hideMenuButton,
@@ -70,7 +71,7 @@ const Page: NextPage<PageProps> = (
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
-      <article>
+      <article className="pt-page">
         {page?.password && showLogin ? (
           <div className="flex items-center justify-center w-full h-[60vh]">
             <form className="form">
@@ -88,7 +89,7 @@ const Page: NextPage<PageProps> = (
             blocks={page?.body}
             className={classNames(
               filteredBlocks && filteredBlocks?.length > 0 ? '' : 'container',
-              'flex flex-col w-full pt-page'
+              'w-full overflow-hidden md:overflow-visible'
             )}
           />
         )}

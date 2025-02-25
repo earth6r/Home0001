@@ -15,6 +15,8 @@ import {
   useInquiryModal,
   useWaitlisModal,
   useBrokerInquiryModal,
+  useAvailableModal,
+  useInventoryModal,
 } from '@contexts/modals'
 import Link from 'next/link'
 import { useHeaderLinks } from '@contexts/header'
@@ -25,6 +27,11 @@ import { useLenis } from '@studio-freight/react-lenis'
 import { IconWaitlist } from '@components/icons'
 import { SanityLinkType } from '@studio/lib'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { Modal } from '@components/modal'
+import posthog from 'posthog-js'
+import { TypedObject } from 'sanity'
+import { PropertyList } from '@components/property'
+import { Inventory } from '@components/inventory'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -38,13 +45,20 @@ export const Header: FC<HeaderProps> = ({
   mainMenu,
   title,
   rdSettings,
+  inventory,
+  properties,
   className,
 }) => {
   const router = useRouter()
   const { state, dispatch } = useContext(HomeContext)
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
+
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
+  const [availableOpen, setAvailableOpen] = useAvailableModal()
+  const [inventoryOpen, setInventoryOpen] = useInventoryModal()
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+
   const [inquiryOpen, setInquiryOpen] = useInquiryModal()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
@@ -197,6 +211,78 @@ export const Header: FC<HeaderProps> = ({
         </div>
 
         <div className={classNames('flex items-center gap-[1rem] md:gap-5')}>
+          {!hideMenuButton && (
+            <>
+              {showTourLink ? (
+                <Btn
+                  type="button"
+                  className={classNames(
+                    headerLinksShown ? 'opacity-100' : 'opacity-0',
+                    'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-200'
+                  )}
+                  onClick={() => {
+                    window.open(
+                      'https://www.home0001.com/schedule-call',
+                      '_blank'
+                    )
+                  }}
+                >
+                  <div className="px-[6px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
+                    <IconSmallArrow width="16" className="mr-[5px]" />
+                    {`Schedule a call`}
+                  </div>
+                </Btn>
+              ) : (
+                <Btn
+                  type="button"
+                  onClick={openWaitlist}
+                  className={classNames(
+                    headerLinksShown ? 'opacity-100' : 'opacity-0',
+                    'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
+                  )}
+                >
+                  <IconWaitlist className="w-[77px] mt-[3px] md:mt-[4px]" />
+                </Btn>
+              )}
+            </>
+          )}
+
+          {!hideMenu && (
+            <HeaderMenu
+              customOpen={menuOpen}
+              setCustomOpen={setMenuOpen}
+              onOpen={onOpen}
+              mainMenu={mainMenu as SanityMenu}
+              className="flex flex-col pointer-events-auto"
+            />
+          )}
+
+          {hideMenu && rdSettings?.image && (
+            <motion.div
+              style={{ rotate }}
+              transition={{ type: 'spring' }}
+              className={classNames(
+                showRdImage ? 'opacity-100' : 'opacity-0',
+                'flex-inline w-auto origin-center pointer-events-auto transition-opacity duration-200'
+              )}
+            >
+              <SanityLink
+                {...(rdSettings.link as SanityLinkType)}
+                className="block leading-[0]"
+              >
+                <SanityImage
+                  asset={rdSettings.image.asset}
+                  props={{
+                    alt: 'Smiley',
+                    quality: 100,
+                    sizes: '88px',
+                  }}
+                  className="relative w-[24px] h-[24px] object-contain"
+                />
+              </SanityLink>
+            </motion.div>
+          )}
+
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100svh-var(--space-y))] md:h-full py-y  pl-x lg:pl-x pr-menu overflow-scroll">
               <Form
@@ -309,76 +395,35 @@ export const Header: FC<HeaderProps> = ({
             </div>
           </AnimatedModal>
 
-          {!hideMenuButton && (
-            <>
-              {showTourLink ? (
-                <Btn
-                  type="button"
-                  className={classNames(
-                    headerLinksShown ? 'opacity-100' : 'opacity-0',
-                    'flex p-3 -m-3 pointer-events-auto z-header transition-opacity duration-200'
-                  )}
-                  onClick={() => {
-                    window.open(
-                      'https://www.home0001.com/schedule-call',
-                      '_blank'
-                    )
-                  }}
-                >
-                  <div className="px-[6px] h-[26px] flex justify-center items-center bg-black text-white leading-none font-medium uppercase">
-                    <IconSmallArrow width="16" className="mr-[5px]" />
-                    {`Schedule a call`}
-                  </div>
-                </Btn>
-              ) : (
-                <Btn
-                  type="button"
-                  onClick={openWaitlist}
-                  className={classNames(
-                    headerLinksShown ? 'opacity-100' : 'opacity-0',
-                    'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
-                  )}
-                >
-                  <IconWaitlist className="w-[77px] mt-[3px] md:mt-[4px]" />
-                </Btn>
-              )}
-            </>
-          )}
-
-          {!hideMenu && (
-            <HeaderMenu
-              customOpen={menuOpen}
-              setCustomOpen={setMenuOpen}
-              onOpen={onOpen}
-              mainMenu={mainMenu as SanityMenu}
-              className="flex flex-col pointer-events-auto"
-            />
-          )}
-
-          {hideMenu && rdSettings?.image && (
-            <motion.div
-              style={{ rotate }}
-              transition={{ type: 'spring' }}
-              className={classNames(
-                showRdImage ? 'opacity-100' : 'opacity-0',
-                'flex-inline w-auto origin-center pointer-events-auto transition-opacity duration-200'
-              )}
+          {inventory && (
+            <Modal
+              title="Inventory"
+              isOpen={inventoryOpen}
+              onClose={() => {
+                setInventoryOpen(false)
+              }}
             >
-              <SanityLink
-                {...(rdSettings.link as SanityLinkType)}
-                className="block leading-[0]"
-              >
-                <SanityImage
-                  asset={rdSettings.image.asset}
-                  props={{
-                    alt: 'Smiley',
-                    quality: 100,
-                    sizes: '88px',
-                  }}
-                  className="relative w-[24px] h-[24px] object-contain"
-                />
-              </SanityLink>
-            </motion.div>
+              <Inventory
+                inventory={inventory}
+                className="pt-header pb-[6rem] md:pb-ydouble px-x h-full flex flex-col text-sm overflow-y-scroll pointer-events-auto"
+              />
+            </Modal>
+          )}
+
+          {properties && (
+            <Modal
+              title="Available Homes"
+              isOpen={availableOpen}
+              onClose={() => {
+                setAvailableOpen(false)
+              }}
+            >
+              <PropertyList
+                header=""
+                properties={properties}
+                className="w-full pt-header pb-[6rem] md:pb-ydouble px-x h-full flex flex-col text-sm overflow-y-scroll pointer-events-auto"
+              />
+            </Modal>
           )}
         </div>
       </header>
