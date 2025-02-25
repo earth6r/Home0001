@@ -1,10 +1,11 @@
-import { useEffect, useState, type FC } from 'react'
+import { useEffect, useRef, useState, type FC } from 'react'
 import classNames from 'classnames'
 import type { TextBlock as TextBlockType } from '@gen/sanity-schema'
 import type { SanityBlockElement, SanityMediaProps } from '@components/sanity'
 import { Block, RichText, SanityMedia } from '@components/sanity'
 import { Accordion } from '@components/accordion'
 import { useRouter } from 'next/router'
+import { Disclosure, Transition } from '@headlessui/react'
 
 type TextBlockProps = Omit<SanityBlockElement, keyof TextBlockType> &
   TextBlockType
@@ -21,8 +22,13 @@ export const TextBlock: FC<TextBlockProps> = ({
   grid,
   className,
 }) => {
+  const ref = useRef<HTMLDivElement>(null)
   const router = useRouter()
+
   const [domain, setDomain] = useState<string | undefined>(undefined)
+  const [isOpen, setIsOpen] = useState(
+    router.asPath.includes(`#${anchor}`) || accordion?.openOnDesktop
+  )
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -62,13 +68,30 @@ export const TextBlock: FC<TextBlockProps> = ({
           <RichText blocks={header} />
 
           {stickyMedia && (
-            <SanityMedia
-              {...(stickyMedia as SanityMediaProps)}
-              imageProps={{
-                alt: stickyMedia.alt || 'Media',
-              }}
-              className="hidden md:block w-full h-auto object-contain select-none"
-            />
+            <Disclosure defaultOpen={isOpen}>
+              <Transition
+                show={isOpen}
+                ref={ref}
+                className={classNames(
+                  isOpen
+                    ? 'overflow-visible md:overflow-hidden'
+                    : 'overflow-hidden',
+                  'will-change-[maxHeight]'
+                )}
+                enter="maxHeight duration-200 ease-in-out"
+                enterFrom="max-h-0"
+              >
+                <Disclosure.Panel>
+                  <SanityMedia
+                    {...(stickyMedia as SanityMediaProps)}
+                    imageProps={{
+                      alt: stickyMedia.alt || 'Media',
+                    }}
+                    className="hidden md:block w-full h-auto object-contain select-none"
+                  />
+                </Disclosure.Panel>
+              </Transition>
+            </Disclosure>
           )}
         </div>
       )}
@@ -96,6 +119,8 @@ export const TextBlock: FC<TextBlockProps> = ({
             readMore={true}
             open={router.asPath.includes(`#${anchor}`)}
             openOnDesktop={accordion.openOnDesktop}
+            onOpen={() => setIsOpen(true)}
+            onClose={() => setIsOpen(false)}
           />
         )}
       </div>

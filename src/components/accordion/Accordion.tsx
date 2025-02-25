@@ -30,6 +30,8 @@ export interface AccordionProps extends HTMLAttributes<HTMLElement> {
   location?: { property: string; unit: string }
   open?: boolean
   openOnDesktop?: boolean
+  onOpen?: () => void
+  onClose?: () => void
 }
 
 export const Accordion: FC<AccordionProps> = ({
@@ -44,6 +46,8 @@ export const Accordion: FC<AccordionProps> = ({
   open,
   openOnDesktop = false,
   className,
+  onOpen,
+  onClose,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [openedOnce, setOpenedOnce] = useState(false)
@@ -51,6 +55,7 @@ export const Accordion: FC<AccordionProps> = ({
   const { asPath } = useRouter()
 
   const beforeEnter = () => {
+    if (onOpen) onOpen()
     if (ref.current) {
       ref.current.style.maxHeight = ref.current.scrollHeight + 'px'
       setTimeout(() => {
@@ -164,6 +169,7 @@ export const Accordion: FC<AccordionProps> = ({
                 afterLeave={() => lenis.resize()}
                 beforeLeave={() => {
                   if (ref.current) ref.current.style.maxHeight = '0px'
+                  if (onClose) onClose()
                 }}
               >
                 <Disclosure.Panel>
