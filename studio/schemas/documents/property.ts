@@ -20,7 +20,9 @@ export default {
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (Rule: Rule): Rule => Rule.required(),
+      validation: (Rule: Rule): Rule => Rule.required().max(18),
+      desciption:
+        'Used for the Property Block verticle text, max 18 characters',
     },
     {
       name: 'longTitle',
