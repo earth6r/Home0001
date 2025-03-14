@@ -51,7 +51,11 @@ export const TextBlock: FC<TextBlockProps> = ({
           ? 'bg-yellow w-[calc(100%+(var(--space-x)*2))] -left-x px-x py-ydouble'
           : '',
         !yellowBackground && grid ? `md:grid` : '',
-        columns === 2 && header ? '' : 'pr-menu md:pr-0'
+        columns === 2 && header
+          ? ''
+          : accordion
+          ? 'pr-menu md:pr-0'
+          : 'pr-menu lg:pr-0'
       )}
     >
       {stickyHeader && header && (
