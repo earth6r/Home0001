@@ -84,9 +84,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           'flex flex-col justify-end gap-8 fixed w-[100svh] h-[calc(100vw+32px)] top-0 pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
-        {(
-          propertyType?.property as unknown as Property
-        )?.propertyTypesList?.map((type: PropertyTypeElProps | any, index) => {
+        {propertyTypesList?.map((type: PropertyTypeElProps | any, index) => {
           if (type.typeTitle === propertyType?.typeTitle) return
           return (
             <Link
@@ -101,21 +99,27 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           )
         })}
 
-        <button
-          onClick={() => setNavOpen(!navOpen)}
-          className={classNames('flex items-end gap-2 ')}
-        >
-          <h2 className="text-side">{propertyType?.typeTitle}</h2>
-
-          <div
-            className={classNames(
-              navOpen ? 'rotate-180' : '',
-              'flex items-center justify-center relative w-[21px] h-[21px] bottom-0 bg-black transition-transform duration-500'
-            )}
+        {propertyTypesList && propertyTypesList.length > 1 ? (
+          <button
+            onClick={() => setNavOpen(!navOpen)}
+            className={classNames('flex items-end gap-2 ')}
           >
-            <IconChevron width="12" fill="white" className="rotate-270" />
+            <h2 className="text-side">{propertyType?.typeTitle}</h2>
+
+            <div
+              className={classNames(
+                navOpen ? 'rotate-180' : '',
+                'flex items-center justify-center relative w-[21px] h-[21px] bottom-0 bg-black transition-transform duration-500'
+              )}
+            >
+              <IconChevron width="12" fill="white" className="rotate-270" />
+            </div>
+          </button>
+        ) : (
+          <div className={classNames('flex items-end gap-2 ')}>
+            <h2 className="text-side">{propertyType?.typeTitle}</h2>
           </div>
-        </button>
+        )}
       </div>
 
       <div
