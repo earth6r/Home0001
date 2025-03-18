@@ -15,7 +15,6 @@ import {
 import { RichText } from '@components/sanity'
 import { Accordion, AccordionProps } from '@components/accordion'
 import { disableGoogleEvents, disablePosthog } from '@lib/util'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 interface CookieProps extends AccordionProps {
   setSetting: (type: string, active: boolean) => void
@@ -223,11 +222,22 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      sessionStorage.getItem('cookieStorage') === 'true'
-        ? setShowBanner(false)
-        : sessionStorage.getItem('firstTime') === 'false'
-        ? setShowBanner(true)
-        : setTimeout(() => setShowBanner(true), 2400)
+      if (sessionStorage.getItem('cookieStorage') === 'true') {
+        setShowBanner(false)
+        return
+      }
+
+      // Function to handle scroll events
+      const handleScroll = () => {
+        setShowBanner(true)
+        window.removeEventListener('scroll', handleScroll)
+      }
+
+      window.addEventListener('scroll', handleScroll)
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll)
+      }
     }
   }, [])
 
