@@ -99,7 +99,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           )
         })}
 
-        {propertyTypesList && propertyTypesList.length > 1 ? (
+        {propertyTypesList && propertyTypesList.length > 0 ? (
           <button
             onClick={() => setNavOpen(!navOpen)}
             className={classNames('flex items-end gap-2 ')}
