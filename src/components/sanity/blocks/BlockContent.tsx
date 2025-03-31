@@ -23,6 +23,7 @@ import {
   ImagesBlock,
   PropertyTypesBlock,
   FormBlock,
+  Web3Block,
 } from '.'
 import classNames from 'classnames'
 import { useFeatureFlagEnabled } from 'posthog-js/react'
@@ -153,6 +154,9 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             messagingBlock: ({ index, value }) => (
               <MessagingBlock index={index} {...value} />
+            ),
+            web3Block: ({ index, value }) => (
+              <Web3Block index={index} {...value} />
             ),
           },
           marks: blockMarks,

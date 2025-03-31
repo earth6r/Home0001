@@ -1,4 +1,4 @@
-import { BiMessage, BiWorld } from 'react-icons/bi'
+import { BiWorld } from 'react-icons/bi'
 
 export default {
   name: 'web3Block',
