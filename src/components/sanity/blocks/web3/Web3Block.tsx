@@ -14,8 +14,6 @@ export const Web3Block: FC<Web3BlockProps> = ({ className, header }) => {
   return (
     <Block className={classNames(className)}>
       {header && <RichText blocks={header} />}
-
-      <div>{`Web 3 block`}</div>
     </Block>
   )
 }
