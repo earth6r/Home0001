@@ -1536,6 +1536,7 @@ export type BlockContent = Array<
   | SanityKeyed<MessagingBlock>
   | SanityKeyed<WaitlistBlock>
   | SanityKeyed<FlexWaitlistBlock>
+  | SanityKeyed<Web3Block>
 >;
 
 export type AccordionBlock = {
@@ -2165,6 +2166,16 @@ export type FlexWaitlistBlock = {
    *
    */
   formPanes?: Array<SanityKeyed<string>>;
+};
+
+export type Web3Block = {
+  _type: "web3Block";
+  /**
+   * Header — `richText`
+   *
+   *
+   */
+  header?: RichText;
 };
 
 export type Documents =

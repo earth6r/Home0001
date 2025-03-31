@@ -103,5 +103,10 @@ export default {
       type: 'flexWaitlistBlock',
       title: 'Flex Waitlist Block',
     },
+    {
+      name: 'web3Block',
+      type: 'web3Block',
+      title: 'Web3 Block',
+    },
   ],
 }

@@ -9,7 +9,7 @@ import React, {
   useEffect,
 } from 'react'
 
-// Yan to change context for web3
+// Yan web3: update header context here
 
 const HeaderContext = createContext<
   [
