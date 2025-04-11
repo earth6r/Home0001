@@ -17,7 +17,7 @@ declare global {
 }
 
 //need to move to library
-const CONTRACT_ADDRESS = '0x1EaB3e149FD36Fb2bDAd41f694fF4b09bb2055e1'
+const CONTRACT_ADDRESS = '0xa37D0EbC70A41b51c5f6cbdD4D6E646dB3D690d3'
 
 //move to library
 const ABI = [
