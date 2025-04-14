@@ -2183,6 +2183,13 @@ export type Web3Block = {
    *
    */
   loggedInHeader?: RichText;
+
+  /**
+   * Dashboard Copy — `richText`
+   *
+   *
+   */
+  dashboardCopy?: RichText;
 };
 
 export type Documents =

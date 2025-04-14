@@ -12,6 +12,7 @@ import { sepolia } from 'viem/chains'
 import { token } from '@studio/lib/sanity.fetch'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
+import { TypedObject } from 'sanity'
 
 declare global {
   interface Window {
@@ -77,7 +78,12 @@ async function fetchImageUrl(uri: string): Promise<string> {
 }
 
 //toDO: fix this type error
-export const Web3Block: FC<Web3BlockProps> = ({ className, header }) => {
+export const Web3Block: FC<Web3BlockProps> = ({
+  className,
+  header,
+  loggedInHeader,
+  dashboardCopy,
+}) => {
   const [address, setAddress] = useState<string | null>(null)
   const [client, setClient] = useState<any>(null)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
@@ -178,13 +184,78 @@ export const Web3Block: FC<Web3BlockProps> = ({ className, header }) => {
       console.error('Failed to connect wallet:', err)
     }
   }
+
   return (
     <Block className={classNames(className, 'grid md:grid-cols-2')}>
       <div>
-        {header && <RichText blocks={header} />}
+        {header && (
+          <RichText
+            blocks={
+              address ? (loggedInHeader as TypedObject | TypedObject[]) : header
+            }
+          />
+        )}
 
-        {isConnected ? (
-          'Connected'
+        {/* Use isConnected once address found to show full dashboard */}
+
+        {address ? (
+          <div>
+            <div className="grid grid-cols-2 gap-x p-x mt-ydouble bg-gray">
+              {/* <h2 className="text-3xl font-bold">Wallet Address</h2>
+            <p className="text-lg">{address}</p> */}
+              {imageUrl && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={imageUrl}
+                  alt="NFT"
+                  className="w-full h-auto object-cover"
+                />
+              )}
+
+              <div className="w-full rich-text">
+                <p className="mb-y">TokenIDs: </p>
+
+                {tokenIds.length > 0 ? (
+                  <ul className="list-disc list-inside">
+                    {tokenIds.map((tokenId, index) => (
+                      <li key={index} className="text-lg">
+                        {tokenId.toString()}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <span>No tokens found for this address.</span>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-y">
+              {dashboardCopy && (
+                <RichText
+                  blocks={dashboardCopy as TypedObject | TypedObject[]}
+                />
+              )}
+
+              <div className="mt-y rich-text">
+                <p>1. Connect with our liason, Talin.</p>
+                <Link
+                  href={`mailto:talin@home0001.com`}
+                  target="_blank"
+                  className="inline-block mt-y font-bold"
+                >
+                  <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
+                    <IconSmallArrow fill="black" width="15" height="11" />
+
+                    <button className="uppercase font-medium leading-none">
+                      {`Get in touch`}
+                    </button>
+                  </button>
+                </Link>
+
+                <p>2. We’ll invite you to events, house viewings etc.</p>
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="inline-flex flex-col mt-y rich-text">
             <span className="text-left">To join:</span>
@@ -208,38 +279,11 @@ export const Web3Block: FC<Web3BlockProps> = ({ className, header }) => {
               <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
                 <IconSmallArrow fill="black" width="15" height="11" />
 
-                <button className="p-0 border-none outline-none appearance-none uppercase font-medium leading-none">
+                <button className="uppercase font-medium leading-none">
                   {`Create a wallet`}
                 </button>
               </button>
             </Link>
-          </div>
-        )}
-
-        {address && (
-          <div className="text-center">
-            <h2 className="text-3xl font-bold">Wallet Address</h2>
-            <p className="text-lg">{address}</p>
-            {imageUrl && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={imageUrl}
-                alt="NFT"
-                className="mx-auto mt-4 w-64 h-64 object-cover"
-              />
-            )}
-            TokenIDs:{' '}
-            {tokenIds.length > 0 ? (
-              <ul className="list-disc list-inside">
-                {tokenIds.map((tokenId, index) => (
-                  <li key={index} className="text-lg">
-                    {tokenId.toString()}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className="text-lg">No tokens found for this address.</div>
-            )}
           </div>
         )}
       </div>

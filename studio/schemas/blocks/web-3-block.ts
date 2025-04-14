@@ -16,6 +16,11 @@ export default {
       type: 'richText',
       title: 'Logged In Header',
     },
+    {
+      name: 'dashboardCopy',
+      type: 'richText',
+      title: 'Dashboard Copy',
+    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Web3 block' }),
