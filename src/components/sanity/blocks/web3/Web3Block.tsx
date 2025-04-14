@@ -16,6 +16,9 @@ declare global {
   }
 }
 
+type Web3BlockProps = Omit<SanityBlockElement, keyof Web3BlockType> &
+  Web3BlockType
+
 //need to move to library
 const CONTRACT_ADDRESS = '0x1EaB3e149FD36Fb2bDAd41f694fF4b09bb2055e1'
 
@@ -97,7 +100,7 @@ export const Web3Block: FC<Web3BlockProps> = ({ className, header }) => {
 
           try {
             const uri = await fetchTokenURI(1) // assuming token ID 1
-            const img = await fetchImageUrl(uri)
+            const img = await fetchImageUrl(uri as unknown as string)
             setImageUrl(img)
           } catch (error) {
             console.error('Error fetching NFT image:', error)
