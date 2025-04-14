@@ -2176,6 +2176,13 @@ export type Web3Block = {
    *
    */
   header?: RichText;
+
+  /**
+   * Logged In Header — `richText`
+   *
+   *
+   */
+  loggedInHeader?: RichText;
 };
 
 export type Documents =
