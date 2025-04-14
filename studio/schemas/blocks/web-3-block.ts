@@ -11,6 +11,11 @@ export default {
       type: 'richText',
       title: 'Header',
     },
+    {
+      name: 'loggedInHeader',
+      type: 'richText',
+      title: 'Logged In Header',
+    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Web3 block' }),

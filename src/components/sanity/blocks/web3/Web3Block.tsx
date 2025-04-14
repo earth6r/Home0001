@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /// <reference types="vite/client" />
 //ts-nocheck
 import React, { FC, useEffect, useState } from 'react'
@@ -9,6 +10,8 @@ import { RichText } from '@components/sanity/rich-text'
 import { createWalletClient, custom, createPublicClient, http } from 'viem'
 import { sepolia } from 'viem/chains'
 import { token } from '@studio/lib/sanity.fetch'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
+import Link from 'next/link'
 
 declare global {
   interface Window {
@@ -131,6 +134,7 @@ export const Web3Block: FC<Web3BlockProps> = ({ className, header }) => {
     getAddress().catch(err => {
       console.error('Error in getAddress:', err)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, isConnected])
 
   const getTokensOwnedByAddress = async (ownerAddress: any) => {
@@ -174,52 +178,70 @@ export const Web3Block: FC<Web3BlockProps> = ({ className, header }) => {
       console.error('Failed to connect wallet:', err)
     }
   }
-  return client && window.ethereum ? (
-    <Block className={classNames(className)}>
-      {header && <RichText blocks={header} />}
-      {isConnected ? (
-        'Connected'
-      ) : (
-        <button
-          className="flex justify-center items-center h-btn px-x text-button bg-black text-white"
-          onClick={() => connectWallet()}
-        >
-          Press to Connect
-        </button>
-      )}
-      {address && (
-        <div className="text-center">
-          <h2 className="text-3xl font-bold">Wallet Address</h2>
-          <p className="text-lg">{address}</p>
-          {imageUrl && (
-            <img
-              src={imageUrl}
-              alt="NFT"
-              className="mx-auto mt-4 w-64 h-64 object-cover"
-            />
-          )}
-          TokenIDs:{' '}
-          {tokenIds.length > 0 ? (
-            <ul className="list-disc list-inside">
-              {tokenIds.map((tokenId, index) => (
-                <li key={index} className="text-lg">
-                  {tokenId.toString()}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="text-lg">No tokens found for this address.</div>
-          )}
-        </div>
-      )}
-    </Block>
-  ) : (
-    <Block className={classNames(className)}>
-      <div className="text-center">
-        <h2 className="text-3xl font-bold">No wallet detected</h2>
-        <p className="text-lg">
-          Please install a web3 wallet like MetaMask to use this feature.
-        </p>
+  return (
+    <Block className={classNames(className, 'grid md:grid-cols-2')}>
+      <div>
+        {header && <RichText blocks={header} />}
+
+        {isConnected ? (
+          'Connected'
+        ) : (
+          <div className="inline-flex flex-col mt-y rich-text">
+            <span className="text-left">To join:</span>
+            <button
+              onClick={() => connectWallet()}
+              className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black"
+            >
+              <IconSmallArrow fill="black" width="15" height="11" />
+              <div className="uppercase font-medium leading-none">
+                {`Connect your wallet`}
+              </div>
+            </button>
+
+            <span className="text-left">Or if you don’t have one already:</span>
+
+            <Link
+              href={`https://metamask.io/download/`}
+              target="_blank"
+              className="font-bold"
+            >
+              <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
+                <IconSmallArrow fill="black" width="15" height="11" />
+
+                <button className="p-0 border-none outline-none appearance-none uppercase font-medium leading-none">
+                  {`Create a wallet`}
+                </button>
+              </button>
+            </Link>
+          </div>
+        )}
+
+        {address && (
+          <div className="text-center">
+            <h2 className="text-3xl font-bold">Wallet Address</h2>
+            <p className="text-lg">{address}</p>
+            {imageUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={imageUrl}
+                alt="NFT"
+                className="mx-auto mt-4 w-64 h-64 object-cover"
+              />
+            )}
+            TokenIDs:{' '}
+            {tokenIds.length > 0 ? (
+              <ul className="list-disc list-inside">
+                {tokenIds.map((tokenId, index) => (
+                  <li key={index} className="text-lg">
+                    {tokenId.toString()}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="text-lg">No tokens found for this address.</div>
+            )}
+          </div>
+        )}
       </div>
     </Block>
   )
