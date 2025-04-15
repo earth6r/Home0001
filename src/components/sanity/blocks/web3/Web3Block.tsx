@@ -185,6 +185,8 @@ export const Web3Block: FC<Web3BlockProps> = ({
     }
   }
 
+  console.log(address)
+
   return (
     <Block className={classNames(className, 'grid md:grid-cols-2')}>
       <div>
@@ -213,16 +215,10 @@ export const Web3Block: FC<Web3BlockProps> = ({
               )}
 
               <div className="w-full rich-text">
-                <p className="mb-y">TokenIDs: </p>
+                <p className="mb-y">TokenID: </p>
 
                 {tokenIds.length > 0 ? (
-                  <ul className="list-disc list-inside">
-                    {tokenIds.map((tokenId, index) => (
-                      <li key={index} className="text-lg">
-                        {tokenId.toString()}
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="text-lg">{tokenIds[0].toString()}</p>
                 ) : (
                   <span>No tokens found for this address.</span>
                 )}
