@@ -52,6 +52,19 @@ const ABI = [
     ],
     outputs: [{ name: 'tokenId', type: 'uint256' }],
   },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'to',
+        type: 'address',
+      },
+    ],
+    name: 'mint',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
 ]
 
 //move to web3 utility -  we might want a utils specifically for the NFT
@@ -143,11 +156,32 @@ export const Web3Block: FC<Web3BlockProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, isConnected])
 
+  const getToken = async (ownerAddress: string) => {
+    const client = createPublicClient({
+      chain: sepolia,
+      transport: http(),
+    })
+
+    try {
+      const uri = await client.readContract({
+        address: CONTRACT_ADDRESS,
+        abi: ABI,
+        functionName: 'mint',
+        args: [ownerAddress],
+      })
+      console.log('Token URI:', uri)
+      return uri
+    } catch (error) {
+      console.error('Error fetching token URI:', error)
+    }
+  }
+
   const getTokensOwnedByAddress = async (ownerAddress: any) => {
     const client = createPublicClient({
       chain: sepolia,
       transport: http(),
     })
+
     try {
       const totalSupply = (await client.readContract({
         address: CONTRACT_ADDRESS,
@@ -203,24 +237,38 @@ export const Web3Block: FC<Web3BlockProps> = ({
             <div className="grid grid-cols-2 gap-x p-x mt-ydouble bg-gray">
               {/* <h2 className="text-3xl font-bold">Wallet Address</h2>
             <p className="text-lg">{address}</p> */}
-              {imageUrl && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={imageUrl}
-                  alt="NFT"
-                  className="w-full h-auto object-cover"
-                />
+              {tokenIds.length > 0 ? (
+                <>
+                  {imageUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={imageUrl}
+                      alt="NFT"
+                      className="w-full h-auto object-cover"
+                    />
+                  )}
+
+                  <div className="w-full rich-text">
+                    <p className="mb-y">TokenID: </p>
+                    <p className="text-lg">{tokenIds[0].toString()}</p>
+                  </div>
+                </>
+              ) : (
+                <div className="rich-text">
+                  <p>No tokens found for this address.</p>
+
+                  <button
+                    onClick={() => getToken(address)}
+                    className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black bg-white"
+                  >
+                    <IconSmallArrow fill="black" width="15" height="11" />
+
+                    <button className="uppercase font-medium leading-none">
+                      {`Get a token`}
+                    </button>
+                  </button>
+                </div>
               )}
-
-              <div className="w-full rich-text">
-                <p className="mb-y">TokenID: </p>
-
-                {tokenIds.length > 0 ? (
-                  <p className="text-lg">{tokenIds[0].toString()}</p>
-                ) : (
-                  <span>No tokens found for this address.</span>
-                )}
-              </div>
             </div>
 
             <div className="mt-y">
