@@ -129,7 +129,7 @@ const CookiesDialog: FC<CookiesDialogProps> = ({
             accordions.length > 0 &&
             accordions.map((accordion, index) => (
               <CookieSetting
-                key={accordion._key}
+                key={`accordion-${index}-key`}
                 firstIndex={index === 0}
                 setSetting={updateCookiesSetting}
                 {...accordion}
