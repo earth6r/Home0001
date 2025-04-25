@@ -185,8 +185,6 @@ export const Web3Block: FC<Web3BlockProps> = ({
     }
   }
 
-  console.log(address)
-
   return (
     <Block className={classNames(className, 'grid md:grid-cols-2')}>
       <div>
