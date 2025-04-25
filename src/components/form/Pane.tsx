@@ -54,7 +54,7 @@ const Pane: FC<PaneProps> = ({
       <>
         <div
           className={classNames(
-            block ? 'md:h-auto' : 'md:h-full',
+            block ? 'md:h-auto' : 'lg:h-full',
             'w-full h-[calc(100%-var(--btn-height)-[6rem])] overflow-visible'
           )}
         >
@@ -66,9 +66,9 @@ const Pane: FC<PaneProps> = ({
 
           <div
             className={classNames(
-              block ? '' : 'md:grid md:grid-cols-2 gap-y h-auto',
+              block ? '' : 'lg:grid lg:grid-cols-2 gap-y h-auto',
               largeHeader ? '' : 'md:mt-y md:-mb-y pt-0',
-              padding ? 'md:w-full md:pr-menu' : ''
+              padding ? 'lg:w-full lg:pr-menu' : ''
             )}
           >
             <div>
@@ -91,7 +91,7 @@ const Pane: FC<PaneProps> = ({
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'lg:w-btnWidth mb-ydouble clear-both bold'
+                          'md:w-btnWidth lg:w-full mb-ydouble clear-both bold'
                         )}
                       />
                     )
@@ -110,7 +110,7 @@ const Pane: FC<PaneProps> = ({
                       <RichText
                         blocks={copy}
                         className={classNames(
-                          'lg:w-btnWidth mb-ydouble clear-both bold'
+                          'md:w-btnWidth lg:w-full mb-ydouble clear-both bold'
                         )}
                       />
                     )
@@ -120,7 +120,7 @@ const Pane: FC<PaneProps> = ({
 
               <div
                 className={classNames(
-                  block ? '' : 'md:min-h-[310px]',
+                  block ? '' : 'lg:min-h-[310px]',
                   currentStep !== 0 ? 'mt-ydouble' : '',
                   'relative flex flex-col gap-y'
                 )}
@@ -135,8 +135,8 @@ const Pane: FC<PaneProps> = ({
           className={classNames(
             block
               ? 'relative md:w-full bottom-0 xl:bottom-auto'
-              : 'relative pb-20 md:pb-0 md:absolute md:w-[calc(50%+4px)] md:ml-auto md:left-[calc(50%-75px)] md:bottom-0',
-            'flex w-full md:w-[calc(50%-95px)] h-btn'
+              : 'relative pb-20 lg:pb-0 lg:absolute lg:w-[calc(50%+4px)] lg:ml-auto lg:left-[calc(50%-75px)] lg:bottom-0',
+            'flex w-full lg:w-[calc(50%-95px)] h-btn'
           )}
         >
           {currentStep && currentStep > 0 ? (

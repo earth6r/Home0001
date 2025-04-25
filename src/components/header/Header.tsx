@@ -284,7 +284,7 @@ export const Header: FC<HeaderProps> = ({
           )}
 
           <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100svh-var(--space-y))] md:h-full py-y  pl-x lg:pl-x pr-menu overflow-scroll">
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100svh-var(--space-y))] lg:h-full py-y  pl-x lg:pl-x pr-menu overflow-scroll">
               <Form
                 formType={'modal'}
                 audienceId={waitlist?.id}
@@ -313,7 +313,7 @@ export const Header: FC<HeaderProps> = ({
           </AnimatedModal>
 
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-y md:py-ydouble pl-x">
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] lg:h-full py-y md:py-ydouble pl-x">
               <h2 className="text-h3 pt-page md:pt-0 md:mb-y">
                 {formSubmitted ? inquiry?.success || `Thanks!` : `Inquire`}
               </h2>
@@ -352,7 +352,7 @@ export const Header: FC<HeaderProps> = ({
             isOpen={brokerInquiryOpen}
             onClose={onBrokerInquiryClose}
           >
-            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] md:h-full py-y md:py-ydouble pl-x md:pl-10">
+            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] lg:h-full py-y md:py-ydouble pl-x md:pl-10">
               <div className="pt-page mb-ydouble md:pr-menu lg:pr-fullmenu">
                 {formSubmitted ? (
                   <>
