@@ -1,6 +1,14 @@
+/// <reference types="vite/client" />
+
 /* eslint-disable no-console */
 import { createWalletClient, custom, createPublicClient, http } from 'viem'
 import { sepolia } from 'viem/chains'
+
+declare global {
+  interface Window {
+    ethereum?: any
+  }
+}
 
 //need to move to library
 const CONTRACT_ADDRESS = '0xa37D0EbC70A41b51c5f6cbdD4D6E646dB3D690d3'
@@ -46,6 +54,48 @@ const ABI = [
   },
 ]
 
+export const getWeb3Client = async () => {
+  if (window.ethereum) {
+    const newClient = createWalletClient({
+      chain: sepolia,
+      transport: custom(window.ethereum!),
+    })
+    return newClient
+  } else {
+    const walletClient = createWalletClient({
+      chain: sepolia,
+      transport: custom((window as any).ethereum),
+    })
+    return walletClient
+  }
+}
+
+export const getAddress = async (client: any) => {
+  if (window.ethereum) {
+    console.log('getAddress client:', client)
+    const accounts = await client.getAddresses()
+
+    if (accounts.length > 0) {
+      return accounts[0]
+    }
+  }
+}
+
+//this button should likely be in a header menu
+export const connectWallet = async () => {
+  if (!window.ethereum) return
+
+  const client = await getWeb3Client()
+  if (!client) return
+
+  try {
+    const [address] = await client.requestAddresses()
+    return { client, address }
+  } catch (err) {
+    console.error('Failed to connect wallet:', err)
+  }
+}
+
 export const fetchTokenURI = async (tokenId: number) => {
   const client = createPublicClient({
     chain: sepolia,
@@ -65,6 +115,29 @@ export const fetchImageUrl = async (uri: string): Promise<string> => {
   const response = await fetch(ipfsUrl)
   const metadata = await response.json()
   return metadata.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
+}
+
+export const fetchImage = async () => {
+  try {
+    const uri = await fetchTokenURI(1) // assuming token ID 1
+    const img = await fetchImageUrl(uri as unknown as string)
+    return img
+  } catch (error) {
+    console.error('Error fetching NFT image:', error)
+  }
+}
+
+export const fetchTokenIds = async (address: string) => {
+  try {
+    getTokensOwnedByAddress(address)
+      .then(tokenIds => {
+        console.log('Token IDs owned by the address:', tokenIds)
+        return tokenIds ? tokenIds : null
+      })
+      .catch(err => console.log('Error:', err))
+  } catch (error) {
+    console.error('Error fetching tokens:', error)
+  }
 }
 
 export const mintToken = async (ownerAddress: string) => {
