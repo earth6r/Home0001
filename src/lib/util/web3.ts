@@ -4,12 +4,6 @@
 import { createWalletClient, custom, createPublicClient, http } from 'viem'
 import { sepolia } from 'viem/chains'
 
-declare global {
-  interface Window {
-    ethereum?: any
-  }
-}
-
 //need to move to library
 const CONTRACT_ADDRESS = '0xa37D0EbC70A41b51c5f6cbdD4D6E646dB3D690d3'
 
