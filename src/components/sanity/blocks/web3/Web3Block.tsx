@@ -11,11 +11,13 @@ import Link from 'next/link'
 import { TypedObject } from 'sanity'
 import { mintToken } from '@lib/util/web3'
 import {
-  useWalletAddress,
+  useWalletUser,
   useWeb3ImageUrl,
   useWeb3IsConnected,
+  Web3UserProps,
 } from '@contexts/web3'
 import { WalletButton } from '@components/web3-wallet'
+import { token } from '@studio/lib/sanity.fetch'
 
 declare global {
   interface Window {
@@ -23,8 +25,140 @@ declare global {
   }
 }
 
+type TokenDashboardProps = {
+  dashboardCopy?: TypedObject | TypedObject[]
+  className?: string
+}
+
 type Web3BlockProps = Omit<SanityBlockElement, keyof Web3BlockType> &
   Web3BlockType
+
+const Web3PaymentForm: FC<{
+  className?: string
+  user: Web3UserProps
+  setUser: (arg0: any) => void
+}> = ({ className, user, setUser }) => {
+  const [payType, setPayType] = React.useState<string>('')
+
+  return (
+    <form
+      id="payment-form"
+      className={className}
+      onSubmit={e => {
+        e.preventDefault()
+        setUser({
+          ...user,
+          paymentType: payType,
+        })
+      }}
+    >
+      <label htmlFor="paymentType">{`Please enter an option:`}</label>
+
+      <div
+        onClick={() => setPayType('payment')}
+        className="relative pointer-events-auto"
+      >
+        <input type="radio" id="payment" name="paymentType" className="input" />
+        <label htmlFor="payment" className="cursor-pointer">
+          Payment
+        </label>
+      </div>
+
+      <div
+        onClick={() => setPayType('referral')}
+        className="relative pointer-events-auto"
+      >
+        <input
+          type="radio"
+          id="referral"
+          name="paymentType"
+          className="input"
+        />
+        <label htmlFor="referral" className="cursor-pointer">
+          Referral code
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        form="payment-form"
+        className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black"
+      >
+        <IconSmallArrow fill="black" width="15" height="11" />
+        <span className="uppercase font-medium leading-none !text-xs">
+          {`Submit`}
+        </span>
+      </button>
+    </form>
+  )
+}
+
+const Web3Prompt: FC<{ className?: string }> = ({ className }) => (
+  <div className={className}>
+    <div className="rich-text mb-y">
+      <span className="text-left">To join:</span>
+    </div>
+
+    <WalletButton className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
+      <IconSmallArrow fill="black" width="15" height="11" />
+      <span className="uppercase font-medium leading-none text-xs">
+        {`Connect your wallet`}
+      </span>
+    </WalletButton>
+
+    <div className="rich-text my-y">
+      <span className="text-left">Or if you don’t have one already:</span>
+    </div>
+
+    <Link
+      href={`https://metamask.io/download/`}
+      target="_blank"
+      className="font-bold"
+    >
+      <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
+        <IconSmallArrow fill="black" width="15" height="11" />
+
+        <span className="uppercase font-medium leading-none text-xs">
+          {`Create a wallet`}
+        </span>
+      </button>
+    </Link>
+  </div>
+)
+
+const TokenDashboard: FC<TokenDashboardProps> = ({
+  dashboardCopy,
+  className,
+}) => (
+  <div className={className}>
+    {dashboardCopy && (
+      <RichText blocks={dashboardCopy as TypedObject | TypedObject[]} />
+    )}
+
+    <div>
+      <div className="mt-y rich-text">
+        <p>1. Connect with our liason, Talin.</p>
+      </div>
+      <Link
+        href={`mailto:talin@home0001.com`}
+        target="_blank"
+        className="inline-block mt-y font-bold"
+      >
+        <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
+          <IconSmallArrow fill="black" width="15" height="11" />
+
+          <span className="uppercase font-medium leading-none text-xs">
+            {`Get in touch`}
+          </span>
+        </button>
+      </Link>
+
+      <div className="mt-y rich-text">
+        <p>2. We’ll invite you to events, house viewings etc.</p>
+      </div>
+    </div>
+  </div>
+)
 
 export const Web3Block: FC<Web3BlockProps> = ({
   className,
@@ -32,9 +166,9 @@ export const Web3Block: FC<Web3BlockProps> = ({
   loggedInHeader,
   dashboardCopy,
 }) => {
-  const [address, setAddress] = useWalletAddress() as [
-    string | null,
-    React.Dispatch<React.SetStateAction<string | null>>
+  const [user, setUser] = useWalletUser() as [
+    Web3UserProps,
+    React.Dispatch<React.SetStateAction<Web3UserProps>>
   ]
   const [imageUrl, setImageUrl] = useWeb3ImageUrl() as [
     string | null,
@@ -51,13 +185,39 @@ export const Web3Block: FC<Web3BlockProps> = ({
         {header && (
           <RichText
             blocks={
-              address ? (loggedInHeader as TypedObject | TypedObject[]) : header
+              user?.hasProfile
+                ? (loggedInHeader as TypedObject | TypedObject[])
+                : header
             }
           />
         )}
 
-        {/* Use isConnected once address found to show full dashboard */}
-        {address ? (
+        {/* 1: show prompt to connect wallet */}
+        {user === null && <Web3Prompt className="inline-flex flex-col mt-y" />}
+
+        {/* 2: check for payment preference */}
+        {user?.address && !user.paymentType && !user?.hasProfile && (
+          <div className="rich-text mt-y">
+            <p className="mb-y">
+              {`You have connected your wallet, but you don't have a profile yet.`}
+            </p>
+
+            <Web3PaymentForm
+              className="flex flex-col gap-y font-medium text-md"
+              user={user}
+              setUser={setUser}
+            />
+          </div>
+        )}
+
+        {/* 3: add payment flow */}
+        {user?.address && user.paymentType && !user?.hasProfile && (
+          <p className="text-h3 mt-y">todo: add payment flow</p>
+        )}
+        {/* 4: mint token flow */}
+
+        {/* 5: show tokens owned by user */}
+        {user?.hasProfile && (
           <div>
             <div className="grid grid-cols-2 gap-x p-x mt-ydouble bg-gray">
               {/* <h2 className="text-3xl font-bold">Wallet Address</h2>
@@ -85,7 +245,7 @@ export const Web3Block: FC<Web3BlockProps> = ({
                   </div>
 
                   <button
-                    onClick={() => mintToken(address)}
+                    // onClick={() => mintToken(user.address)}
                     className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black bg-white"
                   >
                     <IconSmallArrow fill="black" width="15" height="11" />
@@ -97,71 +257,13 @@ export const Web3Block: FC<Web3BlockProps> = ({
                 </div>
               )}
             </div>
-
-            <div className="mt-y">
-              {dashboardCopy && (
-                <RichText
-                  blocks={dashboardCopy as TypedObject | TypedObject[]}
-                />
-              )}
-
-              <div>
-                <div className="mt-y rich-text">
-                  <p>1. Connect with our liason, Talin.</p>
-                </div>
-                <Link
-                  href={`mailto:talin@home0001.com`}
-                  target="_blank"
-                  className="inline-block mt-y font-bold"
-                >
-                  <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
-                    <IconSmallArrow fill="black" width="15" height="11" />
-
-                    <span className="uppercase font-medium leading-none text-xs">
-                      {`Get in touch`}
-                    </span>
-                  </button>
-                </Link>
-
-                <div className="mt-y rich-text">
-                  <p>2. We’ll invite you to events, house viewings etc.</p>
-                </div>
-              </div>
-            </div>
           </div>
-        ) : (
-          <div className="inline-flex flex-col mt-y">
-            <div className="rich-text mb-y">
-              <span className="text-left">To join:</span>
-            </div>
+        )}
 
-            <WalletButton className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
-              <IconSmallArrow fill="black" width="15" height="11" />
-              <span className="uppercase font-medium leading-none text-xs">
-                {`Connect your wallet`}
-              </span>
-            </WalletButton>
-
-            <div className="rich-text my-y">
-              <span className="text-left">
-                Or if you don’t have one already:
-              </span>
-            </div>
-
-            <Link
-              href={`https://metamask.io/download/`}
-              target="_blank"
-              className="font-bold"
-            >
-              <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
-                <IconSmallArrow fill="black" width="15" height="11" />
-
-                <span className="uppercase font-medium leading-none text-xs">
-                  {`Create a wallet`}
-                </span>
-              </button>
-            </Link>
-          </div>
+        {/* 6. show full dash with tokens if user has minted */}
+        {/* Use isConnected once address found to show full dashboard */}
+        {user?.address && tokenIds && tokenIds.length > 0 && (
+          <TokenDashboard dashboardCopy={dashboardCopy} className="mt-y" />
         )}
       </div>
     </Block>
