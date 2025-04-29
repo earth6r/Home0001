@@ -59,6 +59,10 @@ const nextConfig = {
           },
           { key: 'Access-Control-Allow-Origin', value: 'https://home0001.com' },
           {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://hometrics0001.vercel.app',
+          },
+          {
             key: 'Access-Control-Allow-Methods',
             value: 'GET,DELETE,PATCH,POST,PUT',
           },

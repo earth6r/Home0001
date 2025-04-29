@@ -8,21 +8,26 @@ import React, {
   useState,
 } from 'react'
 
+export type Web3UserProps = {
+  address?: string
+  hasProfile?: boolean
+  tokenIds?: string[]
+  paymentType?: string
+} | null
+
 const Web3Context = createContext<
   [
     {
-      address: string | null
+      user: Web3UserProps
       client: any
       imageUrl: string | null
       isWeb3Connected: boolean
-      web3TokenIds: string[] | null
     },
     {
-      setAddress: Dispatch<SetStateAction<any>>
+      updateUser: Dispatch<SetStateAction<any>>
       setClient: Dispatch<SetStateAction<any>>
       setImageUrl: Dispatch<SetStateAction<any>>
       setIsWeb3Connected: Dispatch<SetStateAction<any>>
-      setWeb3TokenIds: Dispatch<SetStateAction<any>>
     }
   ]
 >([{}, {}] as any)
@@ -32,26 +37,25 @@ function useWeb3Context() {
 }
 
 export function Web3Provider({ children }: { children: ReactNode }) {
-  const [address, setAddress] = useState<string | null>(null)
+  const [user, updateUser] = useState<Web3UserProps>(null)
+  const [isWeb3Connected, setIsWeb3Connected] = useState(false)
+
   const [client, setClient] = useState(false)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
-  const [isWeb3Connected, setIsWeb3Connected] = useState(false)
-  const [web3TokenIds, setWeb3TokenIds] = useState(null)
 
   return (
     <Web3Context.Provider
       value={useMemo(
         () => [
-          { address, client, imageUrl, isWeb3Connected, web3TokenIds },
+          { user, client, imageUrl, isWeb3Connected },
           {
-            setAddress,
+            updateUser,
             setClient,
             setImageUrl,
             setIsWeb3Connected,
-            setWeb3TokenIds,
           },
         ],
-        [address, client, imageUrl, isWeb3Connected, web3TokenIds]
+        [user, client, imageUrl, isWeb3Connected]
       )}
     >
       {children}
@@ -59,9 +63,9 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   )
 }
 
-export function useWalletAddress() {
-  const [{ address }, { setAddress }] = useWeb3Context()
-  return [address, setAddress]
+export function useWalletUser() {
+  const [{ user }, { updateUser }] = useWeb3Context()
+  return [user, updateUser]
 }
 
 export function useWeb3Client() {
@@ -77,9 +81,4 @@ export function useWeb3ImageUrl() {
 export function useWeb3IsConnected() {
   const [{ isWeb3Connected }, { setIsWeb3Connected }] = useWeb3Context()
   return [isWeb3Connected, setIsWeb3Connected]
-}
-
-export function useWeb3TokenIds() {
-  const [{ web3TokenIds }, { setWeb3TokenIds }] = useWeb3Context()
-  return [web3TokenIds, setWeb3TokenIds]
 }
