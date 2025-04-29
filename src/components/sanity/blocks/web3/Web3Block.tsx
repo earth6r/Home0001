@@ -198,7 +198,7 @@ export const Web3Block: FC<Web3BlockProps> = ({
         {/* 2: check for payment preference */}
         {user?.address && !user.paymentType && !user?.hasProfile && (
           <div className="rich-text mt-y">
-            <p className="mb-y">
+            <p className="text-h4 mb-y">
               {`You have connected your wallet, but you don't have a profile yet.`}
             </p>
 
@@ -212,12 +212,15 @@ export const Web3Block: FC<Web3BlockProps> = ({
 
         {/* 3: add payment flow */}
         {user?.address && user.paymentType && !user?.hasProfile && (
-          <p className="text-h3 mt-y">todo: add payment flow</p>
+          <p className="text-h4 mt-y">todo: add payment and user login flow</p>
         )}
         {/* 4: mint token flow */}
+        {user?.hasProfile && !user.tokenIds && (
+          <p className="text-h34mt-y">todo: add mint flow</p>
+        )}
 
         {/* 5: show tokens owned by user */}
-        {user?.hasProfile && (
+        {user?.hasProfile && user.tokenIds && (
           <div>
             <div className="grid grid-cols-2 gap-x p-x mt-ydouble bg-gray">
               {/* <h2 className="text-3xl font-bold">Wallet Address</h2>
