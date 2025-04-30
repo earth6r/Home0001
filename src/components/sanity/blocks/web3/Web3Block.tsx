@@ -16,8 +16,9 @@ import {
   useWeb3IsConnected,
   Web3UserProps,
 } from '@contexts/web3'
-import { WalletButton } from '@components/web3-wallet'
+import { WalletButton, WalletPayment } from '@components/web3-wallet'
 import { token } from '@studio/lib/sanity.fetch'
+import { DepositForm } from '@components/buy'
 
 declare global {
   interface Window {
@@ -211,8 +212,16 @@ export const Web3Block: FC<Web3BlockProps> = ({
         )}
 
         {/* 3: add payment flow */}
+        {/* TODO: add user name and email capture BEFORE either payment flow */}
         {user?.address && user.paymentType && !user?.hasProfile && (
-          <p className="text-h4 mt-y">todo: add payment and user login flow</p>
+          <div className="flex flex-col gap-y mt-y">
+            <p className="text-h4">Set Up profile</p>
+            {user.paymentType === 'payment' ? (
+              <WalletPayment />
+            ) : (
+              <p className="text-h4 mt-y">todo: add referral code flow</p>
+            )}
+          </div>
         )}
         {/* 4: mint token flow */}
         {user?.hasProfile && !user.tokenIds && (
