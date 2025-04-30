@@ -9,11 +9,11 @@ const CONFIG = {
 }
 
 // stripe
-export const setPaymentIntent = async (email: string) => {
+export const setPaymentIntent = async (email: string, amount: number) => {
   try {
     return await axios.post(
       `${BASE_URL}/api/create-stripe-payment`,
-      { propertyType: null, email: email },
+      { propertyType: null, email: email, amount: amount },
       CONFIG
     )
   } catch (error) {
