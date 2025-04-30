@@ -24,7 +24,7 @@ interface WalletPaymentProps extends HTMLAttributes<HTMLFormElement> {
   onStripeSuccess?: () => void
 }
 
-const DEPOSIT_AMOUNT = 1000
+const DEPOSIT_AMOUNT = 100
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY || 'pk_test_'
@@ -97,7 +97,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       return
     }
 
-    setPaymentIntent(email)
+    setPaymentIntent(email, DEPOSIT_AMOUNT)
       .then(res => {
         setClientSecret(res?.data.clientSecret)
       })
