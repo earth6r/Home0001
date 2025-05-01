@@ -13,6 +13,13 @@ export type Web3UserProps = {
   hasProfile?: boolean
   tokenIds?: string[]
   paymentType?: string
+  first_name?: string
+  last_name?: string
+  email?: string
+  phone_number?: string
+  comms?: 'WhatsApp' | 'Telegram'
+  signup_source?: 'purchased' | 'referred'
+  referred_token?: string
 } | null
 
 const Web3Context = createContext<

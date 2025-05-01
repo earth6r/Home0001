@@ -17,8 +17,7 @@ import {
   Web3UserProps,
 } from '@contexts/web3'
 import { WalletButton, WalletPayment } from '@components/web3-wallet'
-import { token } from '@studio/lib/sanity.fetch'
-import { DepositForm } from '@components/buy'
+import { createUserProfile } from '@components/web3-wallet/actions'
 
 declare global {
   interface Window {
@@ -180,6 +179,32 @@ export const Web3Block: FC<Web3BlockProps> = ({
     React.Dispatch<React.SetStateAction<string[] | null>>
   ]
 
+  const initCreateUser = async () => {
+    console.log('Creating user profile for address:', user?.address)
+    if (!user?.address) return console.error('No user address found')
+
+    createUserProfile(user.address, {
+      first_name: user.first_name as string,
+      last_name: user.last_name as string,
+      email: user.email as string,
+      phone_number: user.phone_number as string,
+      comms: user.comms as 'WhatsApp' | 'Telegram',
+      signup_source: user.signup_source as 'purchased' | 'referred',
+      wallet_address: user?.address,
+      referred_token: user?.referred_token,
+    })
+      .then(res => {
+        console.log('User profile created:', res)
+        setUser({
+          ...user,
+          hasProfile: true,
+        })
+      })
+      .catch(err => {
+        console.error('Error creating user profile:', err)
+      })
+  }
+
   return (
     <Block className={classNames(className, 'grid md:grid-cols-2')}>
       <div>
@@ -215,26 +240,48 @@ export const Web3Block: FC<Web3BlockProps> = ({
         {/* TODO: add user name and email capture BEFORE either payment flow */}
         {user?.address && user.paymentType && !user?.hasProfile && (
           <div className="flex flex-col gap-y mt-y">
-            <p className="text-h4">Set Up profile</p>
-            {user.paymentType === 'payment' ? (
-              <WalletPayment />
-            ) : (
-              <p className="text-h4 mt-y">todo: add referral code flow</p>
-            )}
+            <div>
+              <p className="text-h3">
+                {`Create profile with ${user.paymentType}`}
+              </p>
+
+              <WalletPayment
+                user={user}
+                setUser={setUser}
+                className="mt-y"
+                onStripeSuccess={initCreateUser}
+              />
+            </div>
           </div>
         )}
+
         {/* 4: mint token flow */}
-        {user?.hasProfile && !user.tokenIds && (
-          <p className="text-h34mt-y">todo: add mint flow</p>
+        {user?.hasProfile && (!user.tokenIds || user.tokenIds.length === 0) && (
+          <div className="flex flex-col gap-y mt-y">
+            <div className="rich-text">
+              <p>No tokens found matching wallet address.</p>
+            </div>
+
+            <button
+              onClick={() => mintToken(user.address as string)}
+              className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black bg-white"
+            >
+              <IconSmallArrow fill="black" width="15" height="11" />
+
+              <span className="uppercase font-medium leading-none text-xs">
+                {`Get a token`}
+              </span>
+            </button>
+          </div>
         )}
 
         {/* 5: show tokens owned by user */}
-        {user?.hasProfile && user.tokenIds && (
+        {user?.hasProfile && user.tokenIds && user.tokenIds.length > 0 && (
           <div>
             <div className="grid grid-cols-2 gap-x p-x mt-ydouble bg-gray">
               {/* <h2 className="text-3xl font-bold">Wallet Address</h2>
             <p className="text-lg">{address}</p> */}
-              {tokenIds && tokenIds.length > 0 ? (
+              {tokenIds && tokenIds.length > 0 && (
                 <>
                   {imageUrl && (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -250,23 +297,6 @@ export const Web3Block: FC<Web3BlockProps> = ({
                     <p className="text-lg">{tokenIds[0].toString()}</p>
                   </div>
                 </>
-              ) : (
-                <div>
-                  <div className="rich-text mb-y">
-                    <p>No tokens found for this address.</p>
-                  </div>
-
-                  <button
-                    // onClick={() => mintToken(user.address)}
-                    className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black bg-white"
-                  >
-                    <IconSmallArrow fill="black" width="15" height="11" />
-
-                    <span className="uppercase font-medium leading-none text-xs">
-                      {`Get a token`}
-                    </span>
-                  </button>
-                </div>
               )}
             </div>
           </div>

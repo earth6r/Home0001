@@ -1,51 +1,59 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useRef, useState } from 'react'
+import React, { HTMLAttributes, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import { setPaymentIntent } from './actions'
+import { useWalletUser, Web3UserProps } from '@contexts/web3'
+import { loadStripe } from '@stripe/stripe-js'
 import {
   useStripe,
   useElements,
   Elements,
   PaymentElement,
 } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-import { setPaymentIntent } from './actions'
+import IconChevron from '@components/icons/IconChevron'
+
+// Initialize Stripe with your publishable key
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY || 'pk_test_'
+)
 
 type PaymentContainerProps = {
+  user?: Web3UserProps
+  setUser: (arg0: any) => void
   email?: string
   onStripeSuccess?: () => void
 }
 
 interface WalletPaymentProps extends HTMLAttributes<HTMLFormElement> {
+  user?: Web3UserProps
+  setUser: (arg0: any) => void
   email?: string
   onStripeSuccess?: () => void
 }
 
-const DEPOSIT_AMOUNT = 100
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY || 'pk_test_'
-)
-
+const STRIPE_PRODUCT_ID = 'prod_SEPtONnJGxLspP'
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+const PRODUCT_AMOUNT = 5000
 
 const PaymentContainer: FC<PaymentContainerProps> = ({
-  email,
+  user,
+  setUser,
   onStripeSuccess,
 }) => {
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formError, setFormError] = useState({ error: false, message: '' })
+  const [clientSecret, setClientSecret] = useState<string | null>(null)
   const [formSubmitted, setFormSubmitted] = useState({
     submitted: false,
     success: false,
   })
-  const [formError, setFormError] = useState({ error: false, message: '' })
-  const [clientSecret, setClientSecret] = useState(null)
 
   const stripe = useStripe()
   const elements = useElements()
@@ -82,8 +90,8 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
     setIsSubmitting(false)
   }
 
-  const onSubmit = async () => {
-    if (!email || !elements) {
+  const onSubmit = async (data: any) => {
+    if (!data.email || !elements) {
       console.error('Missing required fields')
       return
     }
@@ -97,8 +105,18 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       return
     }
 
-    setPaymentIntent(email, DEPOSIT_AMOUNT)
-      .then(res => {
+    setPaymentIntent(data.email, PRODUCT_AMOUNT, STRIPE_PRODUCT_ID)
+      .then(async res => {
+        await setUser({
+          ...user,
+          paymentType: 'purchased',
+          email: data.email,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          phone_number: data.phone_number,
+          comms: data.comms,
+          signup_source: 'purchased',
+        })
         setClientSecret(res?.data.clientSecret)
       })
       .catch(err => {
@@ -115,51 +133,107 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
 
   return (
     <>
-      {!formSubmitted.success && (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
-          <div className={classNames('relative flex flex-col gap-y')}>
-            <div className="relative flex flex-col gap-y">
-              <div className="grid items-center w-full">
-                <PaymentElement />
-              </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
+        <div className={classNames('relative flex flex-col gap-y')}>
+          <div className="relative flex flex-col gap-y">
+            <div className="flex gap-x">
+              <input
+                type="text"
+                placeholder="First name"
+                className="input"
+                {...register('first_name', { required: 'First name required' })}
+              />
+              <input
+                type="text"
+                placeholder="Last name"
+                className="input"
+                {...register('last_name', { required: 'Last name required' })}
+              />
+            </div>
 
-              <div
-                className={classNames('relative flex flex-col gap-2 md:gap-y')}
+            <div className="flex gap-x">
+              <input
+                type="email"
+                placeholder="Email"
+                className="input"
+                {...register('email', { required: 'Email required' })}
+              />
+              <input
+                type="tel"
+                placeholder="Phone number"
+                className="input"
+                {...register('phone_number', { required: 'Phone required' })}
+              />
+            </div>
+
+            <div className="relative md:max-w-[var(--btn-width)] mt-y">
+              <p className="mb-y text-button">{`Communication Preference`}</p>
+              <select
+                id="preferred-comms"
+                className="waitlist input select text-button font-sans"
+                disabled={isSubmitting}
+                {...register('comms')}
               >
-                <button
-                  className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-                  type={'submit'}
-                  disabled={isSubmitting || !stripe}
+                <option
+                  key="option-comms-0"
+                  id="preferred-comms"
+                  value="WhatsApp"
+                  className="text-button"
                 >
-                  {isSubmitting ? 'Submitting...' : 'Make payment'}
-                  <IconSmallArrow
-                    className="w-[15px] md:w-[17px]"
-                    height="10"
-                  />
-                </button>
-              </div>
+                  {`WhatsApp`}
+                </option>
+                <option
+                  key="option-comms-2"
+                  id="preferred-comms"
+                  value="Telegram"
+                  className="text-button"
+                >
+                  {`Telegram`}
+                </option>
+              </select>
+              <IconChevron className="absolute w-[12px] right-x top-[65%] transform rotate-0" />
+            </div>
+
+            {user?.paymentType === 'referred' && (
+              <input
+                type="text"
+                placeholder="Referral code"
+                {...register('referral_code')}
+              />
+            )}
+
+            <div className="grid items-center w-full">
+              <PaymentElement />
+            </div>
+
+            <div
+              className={classNames('relative flex flex-col gap-2 md:gap-y')}
+            >
+              <button
+                className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+                type={'submit'}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Preparing checkout...' : 'Continue to payment'}
+                <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+              </button>
             </div>
           </div>
-
-          {formError.error && (
-            <p className="text-red mt-y font-medium uppercase">
-              {formError.message || `Payment error`}
-            </p>
-          )}
-        </form>
-      )}
-
-      {formSubmitted.submitted && formSubmitted.success && (
-        <div className="relative mt-ydouble mb-2">
-          <p className="font-medium uppercase">{`Payment successful. You will be redirected shortly, please don't refresh the page.`}</p>
         </div>
-      )}
+
+        {formError.error && (
+          <p className="text-red mt-y font-medium uppercase">
+            {formError.message || `Payment error`}
+          </p>
+        )}
+      </form>
     </>
   )
 }
 
 export const WalletPayment: FC<WalletPaymentProps> = ({
-  email,
+  user,
+  setUser,
   onStripeSuccess,
   className,
 }) => {
@@ -168,9 +242,13 @@ export const WalletPayment: FC<WalletPaymentProps> = ({
       <div className="w-full md:max-w-[526px] rich-text">
         <Elements
           stripe={stripePromise}
-          options={{ mode: 'payment', amount: DEPOSIT_AMOUNT, currency: 'usd' }}
+          options={{ mode: 'payment', amount: PRODUCT_AMOUNT, currency: 'usd' }}
         >
-          <PaymentContainer email={email} onStripeSuccess={onStripeSuccess} />
+          <PaymentContainer
+            user={user}
+            setUser={setUser}
+            onStripeSuccess={onStripeSuccess}
+          />
         </Elements>
       </div>
     </div>

@@ -134,18 +134,18 @@ export const fetchTokenIds = async (address: string) => {
   }
 }
 
-export const mintToken = async (ownerAddress: string) => {
+export const mintToken = async (address: string) => {
   const client = createPublicClient({
     chain: sepolia,
     transport: http(),
   })
 
   try {
-    const uri = await client.readContract({
-      address: CONTRACT_ADDRESS,
+    const uri = await client.simulateContract({
+      address: address as `0x${string}`,
       abi: ABI,
       functionName: 'mint',
-      args: [ownerAddress],
+      account: client.account,
     })
     console.log('Token URI:', uri)
     return uri
