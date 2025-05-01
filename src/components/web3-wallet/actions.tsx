@@ -41,7 +41,7 @@ export const createUserProfile = async (
   }
 ) => {
   try {
-    return await axios.post(
+    await axios.post(
       `${BASE_URL}/api/web3/create-user-profile`,
       {
         walletAddress: address,
@@ -55,9 +55,17 @@ export const createUserProfile = async (
       },
       CONFIG
     )
+    return {
+      success: true,
+      message: 'User profile created successfully',
+    }
   } catch (error) {
     console.error(error)
     saveError(error, 'createUserProfile')
+    return {
+      success: false,
+      message: `Failed to create user profile, ${(error as any).message}`,
+    }
   }
 }
 

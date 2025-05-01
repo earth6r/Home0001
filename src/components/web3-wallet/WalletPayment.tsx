@@ -5,7 +5,7 @@ import React, { HTMLAttributes, useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
-import { setPaymentIntent } from './actions'
+import { createUserProfile, setPaymentIntent } from './actions'
 import { useWalletUser, Web3UserProps } from '@contexts/web3'
 import { loadStripe } from '@stripe/stripe-js'
 import {
@@ -91,38 +91,76 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   }
 
   const onSubmit = async (data: any) => {
-    if (!data.email || !elements) {
+    if (!data.email || !user?.address) {
       console.error('Missing required fields')
       return
     }
     setIsSubmitting(true)
 
-    // Trigger form validation and wallet collection
-    const { error: submitError } = await elements.submit()
-    if (submitError) {
-      console.log(submitError)
-      setIsSubmitting(false)
-      return
-    }
+    if (user?.paymentType === 'referral') {
+      createUserProfile(user.address, {
+        first_name: data.first_name as string,
+        last_name: data.last_name as string,
+        email: data.email as string,
+        phone_number: data.phone_number as string,
+        comms: data.comms as 'WhatsApp' | 'Telegram',
+        signup_source: 'referred',
+        wallet_address: user.address,
+        referred_token: data.referral_code,
+      }).then(res => {
+        console.log('User profile created:', res)
+        if (!res?.success) {
+          console.error('Error creating user profile:', res?.message)
+          setFormError({ error: true, message: 'Profile creation failed' })
+          setFormSubmitted({ submitted: true, success: false })
+          setIsSubmitting(false)
+        } else {
+          setUser({
+            ...user,
+            email: data.email,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            phone_number: data.phone_number,
+            comms: data.comms,
+            signup_source: 'referred',
+            referred_token: data.referral_code,
+            hasProfile: true,
+          })
 
-    setPaymentIntent(data.email, PRODUCT_AMOUNT, STRIPE_PRODUCT_ID)
-      .then(async res => {
-        await setUser({
-          ...user,
-          paymentType: 'purchased',
-          email: data.email,
-          first_name: data.first_name,
-          last_name: data.last_name,
-          phone_number: data.phone_number,
-          comms: data.comms,
-          signup_source: 'purchased',
-        })
-        setClientSecret(res?.data.clientSecret)
+          setFormSubmitted({ submitted: true, success: true })
+        }
       })
-      .catch(err => {
-        console.log(err)
+    } else {
+      if (!stripe || !elements) {
+        console.error('Missing required stripe fields')
         setIsSubmitting(false)
-      })
+        return
+      }
+      // Trigger form validation and wallet collection
+      const { error: submitError } = await elements.submit()
+      if (submitError) {
+        console.log(submitError)
+        setIsSubmitting(false)
+        return
+      }
+      setPaymentIntent(data.email, PRODUCT_AMOUNT, STRIPE_PRODUCT_ID)
+        .then(async res => {
+          setUser({
+            ...user,
+            email: data.email,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            phone_number: data.phone_number,
+            comms: data.comms,
+            signup_source: 'purchased',
+          })
+          setClientSecret(res?.data.clientSecret)
+        })
+        .catch(err => {
+          console.log(err)
+          setIsSubmitting(false)
+        })
+    }
   }
 
   useEffect(() => {
@@ -139,13 +177,13 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
             <div className="flex gap-x">
               <input
                 type="text"
-                placeholder="First name"
+                placeholder="First name*"
                 className="input"
                 {...register('first_name', { required: 'First name required' })}
               />
               <input
                 type="text"
-                placeholder="Last name"
+                placeholder="Last name*"
                 className="input"
                 {...register('last_name', { required: 'Last name required' })}
               />
@@ -154,13 +192,13 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
             <div className="flex gap-x">
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Email*"
                 className="input"
                 {...register('email', { required: 'Email required' })}
               />
               <input
                 type="tel"
-                placeholder="Phone number"
+                placeholder="Phone number*"
                 className="input"
                 {...register('phone_number', { required: 'Phone required' })}
               />
@@ -194,17 +232,18 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
               <IconChevron className="absolute w-[12px] right-x top-[65%] transform rotate-0" />
             </div>
 
-            {user?.paymentType === 'referred' && (
+            {user?.paymentType === 'referral' ? (
               <input
                 type="text"
-                placeholder="Referral code"
-                {...register('referral_code')}
+                placeholder="Referral code*"
+                className="input max-w-btnWidth"
+                {...register('referral_code', { required: 'Code required' })}
               />
+            ) : (
+              <div className="grid items-center w-full">
+                <PaymentElement />
+              </div>
             )}
-
-            <div className="grid items-center w-full">
-              <PaymentElement />
-            </div>
 
             <div
               className={classNames('relative flex flex-col gap-2 md:gap-y')}
@@ -214,7 +253,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
                 type={'submit'}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Preparing checkout...' : 'Continue to payment'}
+                {isSubmitting ? 'Submitting...' : 'Submit'}
                 <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
               </button>
             </div>
