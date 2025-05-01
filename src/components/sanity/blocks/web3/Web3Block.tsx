@@ -248,8 +248,8 @@ export const Web3Block: FC<Web3BlockProps> = ({
               <WalletPayment
                 user={user}
                 setUser={setUser}
-                className="mt-y"
                 onStripeSuccess={initCreateUser}
+                className="mt-y"
               />
             </div>
           </div>
@@ -269,7 +269,7 @@ export const Web3Block: FC<Web3BlockProps> = ({
               <IconSmallArrow fill="black" width="15" height="11" />
 
               <span className="uppercase font-medium leading-none text-xs">
-                {`Get a token`}
+                {`Mint a token`}
               </span>
             </button>
           </div>
