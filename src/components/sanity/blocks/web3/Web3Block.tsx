@@ -174,10 +174,24 @@ export const Web3Block: FC<Web3BlockProps> = ({
     string | null,
     React.Dispatch<React.SetStateAction<string | null>>
   ]
-  const [tokenIds, setTokenIds] = useWeb3IsConnected() as [
-    string[] | null,
-    React.Dispatch<React.SetStateAction<string[] | null>>
-  ]
+
+  const initMint = async () => {
+    console.log('Minting token for address:', user?.address)
+    mintToken(user?.address as string)
+      .then(res => {
+        console.log('Minted token:', res?.result)
+        if (!res?.result) {
+          return console.error('No token ID returned from minting')
+        }
+        setUser({
+          ...user,
+          tokenIds: [res?.toString() as string],
+        })
+      })
+      .catch(err => {
+        console.error('Error minting token:', err)
+      })
+  }
 
   const initCreateUser = async () => {
     console.log('Creating user profile for address:', user?.address)
@@ -263,7 +277,7 @@ export const Web3Block: FC<Web3BlockProps> = ({
             </div>
 
             <button
-              onClick={() => mintToken(user.address as string)}
+              onClick={initMint}
               className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black bg-white"
             >
               <IconSmallArrow fill="black" width="15" height="11" />
@@ -281,7 +295,7 @@ export const Web3Block: FC<Web3BlockProps> = ({
             <div className="grid grid-cols-2 gap-x p-x mt-ydouble bg-gray">
               {/* <h2 className="text-3xl font-bold">Wallet Address</h2>
             <p className="text-lg">{address}</p> */}
-              {tokenIds && tokenIds.length > 0 && (
+              {user.tokenIds && user.tokenIds.length > 0 && (
                 <>
                   {imageUrl && (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -294,7 +308,7 @@ export const Web3Block: FC<Web3BlockProps> = ({
 
                   <div className="w-full rich-text">
                     <p className="mb-y">TokenID: </p>
-                    <p className="text-lg">{tokenIds[0].toString()}</p>
+                    <p className="text-lg">{user.tokenIds[0].toString()}</p>
                   </div>
                 </>
               )}
@@ -304,7 +318,7 @@ export const Web3Block: FC<Web3BlockProps> = ({
 
         {/* 6. show full dash with tokens if user has minted */}
         {/* Use isConnected once address found to show full dashboard */}
-        {user?.address && tokenIds && tokenIds.length > 0 && (
+        {user?.address && user.tokenIds && user.tokenIds.length > 0 && (
           <TokenDashboard dashboardCopy={dashboardCopy} className="mt-y" />
         )}
       </div>

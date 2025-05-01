@@ -142,10 +142,11 @@ export const mintToken = async (address: string) => {
 
   try {
     const uri = await client.simulateContract({
-      address: address as `0x${string}`,
+      address: CONTRACT_ADDRESS,
       abi: ABI,
       functionName: 'mint',
-      account: client.account,
+      args: [address],
+      account: address as `0x${string}`,
     })
     console.log('Token URI:', uri)
     return uri
