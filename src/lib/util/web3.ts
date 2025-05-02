@@ -139,17 +139,27 @@ export const mintToken = async (address: string) => {
     chain: sepolia,
     transport: http(),
   })
+  const walletClient = await getWeb3Client()
 
   try {
-    const uri = await client.simulateContract({
+    const { request } = await client.simulateContract({
       address: CONTRACT_ADDRESS,
       abi: ABI,
       functionName: 'mint',
       args: [address],
       account: address as `0x${string}`,
     })
-    console.log('Token URI:', uri)
-    return uri
+    const result = await walletClient.writeContract(request)
+    console.log('result:', result)
+    if (result) {
+      const transaction = await client.waitForTransactionReceipt({
+        hash: result,
+      })
+      console.log('Transaction receipt:', transaction)
+    } else {
+      console.error('Transaction failed')
+    }
+    console.log('Token minted successfully')
   } catch (error) {
     console.error('Error fetching token URI:', error)
   }
