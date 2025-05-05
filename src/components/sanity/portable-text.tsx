@@ -120,3 +120,10 @@ export const blockBlock: Record<
   small: ({ children }) => <p className="small">{children}</p>,
   large: ({ children }) => <p className="large">{children}</p>,
 }
+
+/**
+ * PortableText blocks used globally
+ */
+export const blockLists: Partial<PortableTextReactComponents['list']> = {
+  dash: ({ children }) => <ul className="dash">{children}</ul>,
+}
