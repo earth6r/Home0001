@@ -179,14 +179,14 @@ export const Web3Block: FC<Web3BlockProps> = ({
     console.log('Minting token for address:', user?.address)
     mintToken(user?.address as string)
       .then(res => {
-        console.log('Minted token:', res?.result)
-        if (!res?.result) {
-          return console.error('No token ID returned from minting')
-        }
-        setUser({
-          ...user,
-          tokenIds: [res?.toString() as string],
-        })
+        console.log('Minted token:', res)
+        // if (!res?.result) {
+        //   return console.error('No token ID returned from minting')
+        // }
+        // setUser({
+        //   ...user,
+        //   tokenIds: [res?.toString() as string],
+        // })
       })
       .catch(err => {
         console.error('Error minting token:', err)
