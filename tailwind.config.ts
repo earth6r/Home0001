@@ -183,7 +183,7 @@ export default {
         },
         '.text-side': {
           fontSize: theme('fontSize.side'),
-          fontWeight: '700',
+          fontWeight: '500',
           textTransform: 'uppercase',
           lineHeight: '0.9',
         },
