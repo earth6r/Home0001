@@ -94,6 +94,14 @@
 }
 
 @font-face {
+  font-family: 'Haas Grot Display';
+  font-weight: 500;
+  src: url('../../public/fonts/haas-grot/HaasGrotDisp-65Medium.woff2')
+    format('woff2');
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Haas Grot';
   font-weight: bold;
   src: url('../../public/fonts/haas-grot/NeueHaasGrotDisp-75Bold.woff2')
