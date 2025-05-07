@@ -18,6 +18,7 @@ import { sendGoogleEvent } from '@lib/util'
 import PropertyTypesList from './PropertyTypesList'
 import IconChevron from '@components/icons/IconChevron'
 import { PropertyContentProps } from '@components/property/types'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -29,6 +30,9 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [navOpen, setNavOpen] = useState(false)
+
+  const { scrollYProgress } = useScroll()
+  const fade = useTransform(scrollYProgress, [0.64, 0.66], [1, 0])
 
   const propertyTypesList = (
     propertyType?.property as unknown as Property
@@ -76,7 +80,8 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
         'relative transition-all duration-500'
       )}
     >
-      <div
+      <motion.div
+        style={{ opacity: fade }}
         className={classNames(
           navOpen
             ? 'right-[-16px] lg:right-[calc(-66.666vw+72px)] pb-x bg-white overflow-scroll'
@@ -120,7 +125,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             <h2 className="text-side">{propertyType?.typeTitle}</h2>
           </div>
         )}
-      </div>
+      </motion.div>
 
       <div
         className={classNames(
