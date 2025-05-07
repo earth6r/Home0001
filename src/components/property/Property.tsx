@@ -6,6 +6,7 @@ import { PropertyTypesList } from '@components/property-type'
 import Link from 'next/link'
 import IconChevron from '@components/icons/IconChevron'
 import { Property as PropertyType } from '@studio/gen/sanity-schema'
+import { useScroll, useTransform, motion } from 'framer-motion'
 
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,
@@ -14,6 +15,9 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   const [navOpen, setNavOpen] = useState(false)
+
+  const { scrollYProgress } = useScroll()
+  const fade = useTransform(scrollYProgress, [0.66, 0.67], [1, 0])
 
   useEffect(() => {
     if (navOpen) {
@@ -42,7 +46,8 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         'relative lg:pr-x transition-all duration-500'
       )}
     >
-      <div
+      <motion.div
+        style={{ opacity: fade }}
         className={classNames(
           navOpen
             ? 'right-[-16px] lg:right-[calc(-66.666vw+72px)] pb-x bg-white overflow-scroll'
@@ -89,7 +94,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             <h2 className="text-side">{property?.title}</h2>
           </div>
         )}
-      </div>
+      </motion.div>
 
       <div
         className={classNames(
