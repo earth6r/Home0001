@@ -54,6 +54,7 @@ import inventory from './documents/inventory'
 import inventoryToggle from './objects/inventory-toggle'
 import formBlock from './blocks/form-block'
 import formField from './objects/form-field'
+import web3Block from './blocks/web-3-block'
 
 export const schemaTypes = [
   // objects
@@ -106,6 +107,7 @@ export const schemaTypes = [
   messagingBlock,
   waitlistBlock,
   flexWaitlistBlock,
+  web3Block,
 
   // documents
   brand,

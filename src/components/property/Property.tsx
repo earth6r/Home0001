@@ -6,6 +6,7 @@ import { PropertyTypesList } from '@components/property-type'
 import Link from 'next/link'
 import IconChevron from '@components/icons/IconChevron'
 import { Property as PropertyType } from '@studio/gen/sanity-schema'
+import { useScroll, useTransform, motion } from 'framer-motion'
 
 export const PropertyComponent: FC<PropertyElProps> = ({
   property,
@@ -14,6 +15,9 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   className,
 }) => {
   const [navOpen, setNavOpen] = useState(false)
+
+  const { scrollYProgress } = useScroll()
+  const fade = useTransform(scrollYProgress, [0.45, 0.46], [1, 0])
 
   useEffect(() => {
     if (navOpen) {
@@ -42,11 +46,12 @@ export const PropertyComponent: FC<PropertyElProps> = ({
         'relative lg:pr-x transition-all duration-500'
       )}
     >
-      <div
+      <motion.div
+        style={{ opacity: fade }}
         className={classNames(
           navOpen
             ? 'right-[-16px] lg:right-[calc(-66.666vw+72px)] pb-x bg-white overflow-scroll'
-            : 'right-[calc(-100vw+41px)] lg:right-[calc(-100vw+41px)]',
+            : 'right-[calc(-100vw+44px)] lg:right-[calc(-100vw+44px)]',
           'flex flex-col justify-end gap-8 fixed w-[100svh] h-[calc(100vw+32px)] top-0 pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
@@ -78,7 +83,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             <div
               className={classNames(
                 navOpen ? 'rotate-180' : '',
-                'flex items-center justify-center relative w-[21px] h-[21px] bottom-0 bg-black transition-transform duration-500'
+                'flex items-center justify-center relative w-[21px] h-[21px] bottom-[3px] bg-black transition-transform duration-500'
               )}
             >
               <IconChevron width="12" fill="white" className="rotate-0" />
@@ -89,7 +94,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
             <h2 className="text-side">{property?.title}</h2>
           </div>
         )}
-      </div>
+      </motion.div>
 
       <div
         className={classNames(

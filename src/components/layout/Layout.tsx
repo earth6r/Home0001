@@ -123,6 +123,7 @@ export const Layout: FC<LayoutProps> = ({
             query={query}
             footerMenu={siteSettings?.footerMenu as Menus | undefined}
             applyCopy={siteSettings?.applyCopy}
+            propertiesList={siteSettings?.properties as KeyedProperty[]}
           />
         )}
 

@@ -30,6 +30,12 @@ export default {
         sans: ['"Haas Grot"', 'Arial', 'sans-serif', 'arial-unicode'],
         sansArial: ['Arial', 'sans-serif', 'arial-unicode'],
         sansText: ['"Haas Grot Text"', 'Arial', 'sans-serif', 'arial-unicode'],
+        sansDisp: [
+          '"Haas Grot Display"',
+          'Arial',
+          'sans-serif',
+          'arial-unicode',
+        ],
         serif: ['ui-serif', 'serif'],
         mono: ['ui-monospace', 'SFMono-Regular'],
       },
@@ -182,10 +188,13 @@ export default {
           lineHeight: '0.8',
         },
         '.text-side': {
+          fontFamily: theme('fontFamily.sansDisp'),
           fontSize: theme('fontSize.side'),
           fontWeight: '700',
           textTransform: 'uppercase',
           lineHeight: '0.9',
+          letterSpacing: '-1.16px',
+          fontFeatureSettings: `'case' on`,
         },
       })
     },

@@ -100,7 +100,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       return
     }
 
-    setPaymentIntent(email, unit)
+    setPaymentIntent(email, unit, DEPOSIT_AMOUNT)
       .then(res => {
         setClientSecret(res?.data.clientSecret)
       })
