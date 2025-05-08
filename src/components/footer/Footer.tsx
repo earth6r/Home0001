@@ -115,11 +115,6 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         </div>
 
         <ul className="flex flex-col xl:flex-row xl:justify-start gap-y xl:gap-xdouble w-full pl-x">
-          <li>
-            <button onClick={setAvailableOpen} className="uppercase">
-              <span className="leading-none">{`Available Homes`}</span>
-            </button>
-          </li>
           {footerMenu?.items?.map(({ _key, text, link }) => {
             return text && link ? (
               <li key={_key}>
