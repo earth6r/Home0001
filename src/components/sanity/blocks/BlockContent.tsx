@@ -1,7 +1,12 @@
 import { useEffect, useState, type FC } from 'react'
 import { PortableText } from '@portabletext/react'
 import type { SanityBlockElement } from '@components/sanity'
-import { blockTypes, blockMarks, blockBlock } from '@components/sanity'
+import {
+  blockTypes,
+  blockMarks,
+  blockBlock,
+  blockLists,
+} from '@components/sanity'
 import {
   TextBlock,
   AccordionBlock,
@@ -23,6 +28,7 @@ import {
   ImagesBlock,
   PropertyTypesBlock,
   FormBlock,
+  Web3Block,
 } from '.'
 import classNames from 'classnames'
 import { useFeatureFlagEnabled } from 'posthog-js/react'
@@ -154,9 +160,13 @@ export const BlockContent: FC<SanityBlockElement> = ({
             messagingBlock: ({ index, value }) => (
               <MessagingBlock index={index} {...value} />
             ),
+            web3Block: ({ index, value }) => (
+              <Web3Block index={index} {...value} />
+            ),
           },
           marks: blockMarks,
           block: blockBlock,
+          list: blockLists as any,
         }}
       />
     </div>

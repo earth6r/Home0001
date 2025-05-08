@@ -9,16 +9,20 @@ const stripe = new Stripe(process.env.STRIPE_API_KEY as string, {
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, propertyType } = req.body
+  const { email, propertyType, amount, product_id } = req.body
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       currency: 'usd',
-      amount: 1000,
+      amount: amount || 10000,
       automatic_payment_methods: { enabled: true },
-      description: 'Deposit charge from HOME0001',
+      description: 'Charge from HOME0001',
       statement_descriptor: 'Charge from HOME0001',
-      metadata: { propertyType: propertyType, email: email },
+      metadata: {
+        propertyType: propertyType,
+        email: email,
+        product_id: product_id,
+      },
     })
     return res.status(200).json({
       clientSecret: paymentIntent.client_secret,

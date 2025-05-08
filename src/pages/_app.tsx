@@ -42,7 +42,7 @@ function App({ Component, pageProps }: AppProps<{}>) {
   }
 
   useEffect(() => {
-    if (typeof window !== 'undefined' || !PS_KEY) {
+    if (typeof window !== 'undefined' && PS_KEY) {
       posthog.init(PS_KEY as string, {
         api_host:
           process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',

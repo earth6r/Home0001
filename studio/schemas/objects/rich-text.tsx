@@ -1,6 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { BiCarousel } from 'react-icons/bi'
 import { BiCode, BiText } from 'react-icons/bi'
+import { BsList } from 'react-icons/bs'
 import { GrImage } from 'react-icons/gr'
 import { MdInventory } from 'react-icons/md'
 import { RxDividerHorizontal, RxSwitch } from 'react-icons/rx'
@@ -26,7 +27,10 @@ export default {
         { title: 'H3', value: 'h3' },
         { title: 'H4', value: 'h4' },
       ],
-      lists: [{ title: 'Bullet', value: 'bullet' }],
+      lists: [
+        { title: 'Bullet', value: 'bullet' },
+        { title: 'Dash', value: 'dash', icon: BsList },
+      ],
       marks: {
         decorators: [
           { title: 'Strong', value: 'strong' },

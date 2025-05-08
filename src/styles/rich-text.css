@@ -136,6 +136,10 @@ a .rich-text.underlined p.small {
   @apply pl-x;
 }
 
+.rich-text ul.dash {
+  @apply pl-0;
+}
+
 .rich-text li:has(> .indented) {
   @apply ml-xdouble;
 }
@@ -152,6 +156,10 @@ a .rich-text.underlined p.small {
   margin-top: calc(-1 * var(--border-size));
   padding-left: calc(1em + var(--space-x));
   padding-bottom: 16px;
+}
+
+.rich-text ul.dash li {
+  padding-left: calc(77px + var(--space-x));
 }
 
 .rich-text.inventory ul li {
@@ -176,6 +184,16 @@ a .rich-text.underlined p.small {
   content: '—';
   position: absolute;
   left: 0;
+}
+
+.rich-text ul.dash li::before {
+  content: '';
+  position: absolute;
+  top: calc(1.2em / 2);
+  left: 0;
+  width: 77px;
+  height: 1px;
+  background: theme('colors.black');
 }
 
 .rich-text li:first-child {

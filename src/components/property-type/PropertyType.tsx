@@ -18,6 +18,7 @@ import { sendGoogleEvent } from '@lib/util'
 import PropertyTypesList from './PropertyTypesList'
 import IconChevron from '@components/icons/IconChevron'
 import { PropertyContentProps } from '@components/property/types'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -29,6 +30,9 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
   const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [navOpen, setNavOpen] = useState(false)
+
+  const { scrollYProgress } = useScroll()
+  const fade = useTransform(scrollYProgress, [0.58, 0.6], [1, 0])
 
   const propertyTypesList = (
     propertyType?.property as unknown as Property
@@ -76,11 +80,12 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
         'relative transition-all duration-500'
       )}
     >
-      <div
+      <motion.div
+        style={{ opacity: fade }}
         className={classNames(
           navOpen
             ? 'right-[-16px] lg:right-[calc(-66.666vw+72px)] pb-x bg-white overflow-scroll'
-            : 'right-[calc(-100vw+41px)] lg:right-[calc(-100vw+41px)]',
+            : 'right-[calc(-100vw+44px)] lg:right-[calc(-100vw+44px)]',
           'flex flex-col justify-end gap-8 fixed w-[100svh] h-[calc(100vw+32px)] top-0 pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
         )}
       >
@@ -109,7 +114,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             <div
               className={classNames(
                 navOpen ? 'rotate-180' : '',
-                'flex items-center justify-center relative w-[21px] h-[21px] bottom-0 bg-black transition-transform duration-500'
+                'flex items-center justify-center relative w-[21px] h-[21px] bottom-[3px] bg-black transition-transform duration-500'
               )}
             >
               <IconChevron width="12" fill="white" className="rotate-270" />
@@ -120,7 +125,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             <h2 className="text-side">{propertyType?.typeTitle}</h2>
           </div>
         )}
-      </div>
+      </motion.div>
 
       <div
         className={classNames(
