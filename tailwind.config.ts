@@ -190,7 +190,7 @@ export default {
         '.text-side': {
           fontFamily: theme('fontFamily.sansDisp'),
           fontSize: theme('fontSize.side'),
-          fontWeight: '500',
+          fontWeight: '700',
           textTransform: 'uppercase',
           lineHeight: '0.9',
           letterSpacing: '-1.16px',
