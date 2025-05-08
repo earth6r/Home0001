@@ -193,8 +193,8 @@ export default {
           fontWeight: '700',
           textTransform: 'uppercase',
           lineHeight: '0.9',
-          letterSpacing: '-1.16px',
-          fontFeatureSettings: `'case' on`,
+          // letterSpacing: '-1.16px',
+          // fontFeatureSettings: `'case' on`,
         },
       })
     },
