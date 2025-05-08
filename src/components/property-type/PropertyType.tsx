@@ -32,7 +32,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   const [navOpen, setNavOpen] = useState(false)
 
   const { scrollYProgress } = useScroll()
-  const fade = useTransform(scrollYProgress, [0.64, 0.66], [1, 0])
+  const fade = useTransform(scrollYProgress, [0.6, 0.62], [1, 0])
 
   const propertyTypesList = (
     propertyType?.property as unknown as Property

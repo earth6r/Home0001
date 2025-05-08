@@ -965,6 +965,13 @@ export interface SiteSettings extends SanityDocument {
   brokerInquirySuccess?: RichText;
 
   /**
+   * Cities — `array`
+   *
+   *
+   */
+  citiesList?: Array<SanityKeyedReference<City>>;
+
+  /**
    * Properties — `array`
    *
    *
