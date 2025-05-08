@@ -17,7 +17,7 @@ export const PropertyComponent: FC<PropertyElProps> = ({
   const [navOpen, setNavOpen] = useState(false)
 
   const { scrollYProgress } = useScroll()
-  const fade = useTransform(scrollYProgress, [0.66, 0.67], [1, 0])
+  const fade = useTransform(scrollYProgress, [0.45, 0.46], [1, 0])
 
   useEffect(() => {
     if (navOpen) {
