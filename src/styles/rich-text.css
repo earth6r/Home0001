@@ -94,7 +94,7 @@
 .rich-text p,
 .rich-text span,
 .rich-text li {
-  @apply text-md font-medium;
+  @apply text-xs font-medium;
 }
 
 .rich-text p.caption {
