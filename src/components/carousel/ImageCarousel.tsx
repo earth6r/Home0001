@@ -163,7 +163,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         )}
       >
         {slides?.map(({ _key, image, alt }, index) => (
-          <SwiperSlide key={`${_key}-${alt}`}>
+          <SwiperSlide key={`${_key}-${alt}`} className="min-w-full">
             {image && alt && (
               <>
                 {carousel ? (
@@ -171,7 +171,7 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                     href={`https://cdn.sanity.io/${(image.asset as any).path}`}
                     data-pswp-width={1000}
                     data-pswp-height={1100}
-                    className={classNames('overflow-hidden')}
+                    className={classNames('min-w-full overflow-hidden')}
                   >
                     <ImageSlide
                       zoom={true}
