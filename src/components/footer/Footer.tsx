@@ -55,7 +55,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 
       <footer
         className={classNames(
-          'flex flex-col gap-ydouble pb-yquad font-medium text-xs uppercase'
+          'flex flex-col gap-ydouble pb-20 font-medium text-xs uppercase'
         )}
       >
         <div className="flex flex-col justify-start gap-ydouble py-ydouble pl-x pr-menu lg:px-x bg-gray">

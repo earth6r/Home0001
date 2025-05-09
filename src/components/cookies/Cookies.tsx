@@ -250,7 +250,7 @@ export const Cookies: FC<CookiesProps & HTMLProps<HTMLDivElement>> = ({
           exit={{ y: 50 }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
           className={classNames(
-            'flex justify-between items-center fixed w-full bottom-0 px-x py-y font-medium xs:text-base bg-white border-top z-modal'
+            'flex justify-between items-center fixed w-full bottom-0 px-x py-y font-medium xs:text-base bg-black text-white z-modal'
           )}
         >
           <span>{`WE USE COOKIES.`}</span>
