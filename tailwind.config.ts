@@ -174,7 +174,7 @@ export default {
           textTransform: 'uppercase',
         },
         '.text-h4': {
-          fontSize: theme('fontSize.lg'),
+          fontSize: theme('fontSize.xs'),
           fontWeight: '700',
           fontFamily: theme('fontFamily.sansText'),
           lineHeight: '0.9',
