@@ -3,7 +3,7 @@
 import type { FC } from 'react'
 import React, { HTMLAttributes, useState, useEffect } from 'react'
 import classNames from 'classnames'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { createUserProfile, setPaymentIntent } from './actions'
 import { useWalletUser, Web3UserProps } from '@contexts/web3'
@@ -15,6 +15,7 @@ import {
   PaymentElement,
 } from '@stripe/react-stripe-js'
 import IconChevron from '@components/icons/IconChevron'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 
 // Initialize Stripe with your publishable key
 const stripePromise = loadStripe(
@@ -44,9 +45,15 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   setUser,
   onStripeSuccess,
 }) => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     shouldUseNativeValidation: true,
   })
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState({ error: false, message: '' })
   const [clientSecret, setClientSecret] = useState<string | null>(null)
@@ -196,13 +203,31 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
                 className="input"
                 {...register('email', { required: 'Email required' })}
               />
-              <input
-                type="tel"
-                placeholder="Phone number*"
-                className="input"
-                {...register('phone_number', { required: 'Phone required' })}
+              <Controller
+                control={control}
+                rules={{
+                  validate: (value = '') => isValidPhoneNumber(value),
+                }}
+                name="phone"
+                render={({ field: { onChange, value } }) => (
+                  <PhoneInput
+                    value={value}
+                    onChange={onChange}
+                    defaultCountry="US"
+                    placeholder="PHONE NUMBER"
+                    disabled={isSubmitting}
+                    id="phone"
+                    className="waitlist input"
+                  />
+                )}
               />
             </div>
+            {errors?.phone && (
+              <p className="flex-1 mb-y text-button text-red-600 leading-loose">
+                Invalid Phone Number: Please select the country code from the
+                dropdown and do not include any spaces.
+              </p>
+            )}
 
             <div className="relative md:max-w-[var(--btn-width)] mt-y">
               <p className="mb-y text-button">{`Communication Preference`}</p>
