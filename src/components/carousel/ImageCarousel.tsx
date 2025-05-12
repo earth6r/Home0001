@@ -54,7 +54,7 @@ const ImageSlide: FC<ImageSlideProps> = ({
       className={classNames(
         className,
         zoom ? 'cursor-zoom-in active:cursor-grabbing' : '',
-        'block relative w-full h-auto overflow-hidden select-none'
+        'block relative w-full overflow-hidden select-none'
       )}
     >
       <SanityMedia
@@ -163,7 +163,10 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
         )}
       >
         {slides?.map(({ _key, image, alt }, index) => (
-          <SwiperSlide key={`${_key}-${alt}`}>
+          <SwiperSlide
+            key={`${_key}-${alt}`}
+            className="aspect-[4/5] object-cover"
+          >
             {image && alt && (
               <>
                 {carousel ? (
@@ -171,7 +174,9 @@ export const ImageCarousel: FC<ImageCarouselProps> = ({
                     href={`https://cdn.sanity.io/${(image.asset as any).path}`}
                     data-pswp-width={1000}
                     data-pswp-height={1100}
-                    className={classNames('overflow-hidden')}
+                    className={classNames(
+                      'aspect-[4/5] object-cover overflow-visible'
+                    )}
                   >
                     <ImageSlide
                       zoom={true}
