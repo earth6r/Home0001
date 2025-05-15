@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useEffect, useState } from 'react'
+import { HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 import {
   Control,
