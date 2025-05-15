@@ -177,7 +177,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
           <RichText
             blocks={header}
             className={classNames(
-              'lg:inline lg:sticky lg:h-1/5 lg:top-[var(--header-height)] col-start-1 pr-menu lg:pr-x mb-[64px]'
+              'lg:inline lg:sticky lg:h-1/5 lg:top-[var(--header-height)] col-start-1 pr-menu lg:pr-x mb-ydouble'
             )}
           />
         )}
