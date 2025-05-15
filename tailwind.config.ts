@@ -149,6 +149,9 @@ export default {
         '.border-bottom': {
           borderBottom: '1.5px solid black',
         },
+        '.border-bottom--black': {
+          borderBottom: '1px solid black',
+        },
         '.border-bottom--gray': {
           borderBottom: `2px solid ${theme('backgroundColor.lightgray')}`,
         },
