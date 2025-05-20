@@ -479,6 +479,13 @@ export interface PropertyType extends SanityDocument {
   summary?: RichText;
 
   /**
+   * More Info — `richText`
+   *
+   *
+   */
+  moreInfo?: RichText;
+
+  /**
    * Inventory — `reference`
    *
    *
@@ -505,13 +512,6 @@ export interface PropertyType extends SanityDocument {
    *
    */
   body?: BlockContent;
-
-  /**
-   * More Info — `richText`
-   *
-   *
-   */
-  moreInfo?: RichText;
 
   /**
    * Preview Image — `image`

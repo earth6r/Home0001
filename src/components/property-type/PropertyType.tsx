@@ -132,7 +132,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           navOpen
             ? 'opacity-0 lg:opacity-100 duration-100 delay-300'
             : 'opacity-100 duration-100',
-          'grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 pr-x md:pr-0 transition-opacity'
+          'grid grid-cols-1 lg:grid-cols-3 pr-x md:pr-0 transition-opacity'
         )}
       >
         <div className="col-span-1 pl-0 lg:px-x lg:mb-y xl:mb-0 bg-white lg:z-modal">
@@ -148,20 +148,20 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             />
           )}
           <div className="rich-text pl-x lg:px-0 lg:mb-y">
-            <p className="m-1">{`${propertyType?.typeTitle}`}</p>
-            <p className="m-1">{`0001 ${
-              (propertyType?.property as unknown as Property).title
-            }`}</p>
-            {propertyType?.area && (
-              <p className="m-1">{`${propertyType?.area}`}</p>
-            )}
-            <p className="m-1">
-              {cryptoMode
-                ? `${propertyType?.price?.substring(0)} / ${
-                    cryptoPrice[1]
-                  } BTC / ${cryptoPrice[0]} ETH`
-                : `${propertyType?.price}`}
-            </p>
+            <ul className="dash">
+              <li>{`${propertyType?.typeTitle}`}</li>
+              <li>{`0001 ${
+                (propertyType?.property as unknown as Property).title
+              }`}</li>
+              {propertyType?.area && <li>{`${propertyType?.area}`}</li>}
+              <li>
+                {cryptoMode
+                  ? `${propertyType?.price?.substring(0)} / ${
+                      cryptoPrice[1]
+                    } BTC / ${cryptoPrice[0]} ETH`
+                  : `${propertyType?.price}`}
+              </li>
+            </ul>
           </div>
 
           <div className="hidden lg:block relative w-full mb-y cursor-pointer z-above">
@@ -190,7 +190,13 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           </div>
         </div>
 
-        <div className="lg:col-span-2 md:mr-menu lg:mr-menu mt-header lg:mt-0">
+        <div className="lg:col-span-2 md:mr-menu lg:mr-menu mt-y lg:mt-0">
+          {propertyType?.moreInfo && (
+            <div className="pl-x lg:pl-0 pr-menu md:pr-0 mb-ytrio">
+              <RichText blocks={propertyType?.moreInfo} />
+            </div>
+          )}
+
           {propertyType?.summary && propertyType?.summary.length > 0 && (
             <div className="pl-x lg:pl-0 pr-menu md:pr-0">
               <p className="text-h4 mb-y lg:mb-yhalf">Overview:</p>
@@ -222,7 +228,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 
           {propertyType?.unitDetails && (
             <>
-              <p className="lg:hidden xl:block text-h4 px-x lg:px-0 mt-ydouble mb-y lg:mb-yhalf">
+              <p className="lg:hidden xl:block text-h4 px-x lg:px-0 mt-ytrio mb-y lg:mb-yhalf">
                 Details:
               </p>
               <RichText
@@ -280,49 +286,18 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
                 />
               </div>
             )}
+        </div>
 
-          {propertyType?.moreInfo && (
-            <div className="px-x lg:px-0 mt-y">
-              <RichText blocks={propertyType?.moreInfo} />
-            </div>
+        <div className="md:col-span-1 lg:col-span-3 pl-x pr-menu md:pr-0 lg:pr-x mt-yquad overflow-hidden">
+          {propertyTypesList && propertyTypesList.length > 0 && (
+            <>
+              <h2 className="text-h2">Other available homes:</h2>
+              <PropertyTypesList
+                className="grid lg:grid-cols-4 md:w-1/2 lg:w-full gap-x animate-in mt-y"
+                propertyTypesList={propertyTypesList}
+              />
+            </>
           )}
-
-          <div className="pl-x lg:pl-0 pt-ydouble pr-menu md:pr-0 mt-ydouble overflow-hidden">
-            {propertyTypesList && propertyTypesList.length > 0 && (
-              <>
-                <h2 className="text-h2">Other available homes:</h2>
-                <PropertyTypesList
-                  className="grid lg:grid-cols-2 md:w-[calc(50%+(var(--space-menu)/2))] lg:w-full gap-x animate-in mt-y"
-                  propertyTypesList={propertyTypesList}
-                />
-              </>
-            )}
-          </div>
-
-          <div className="hidden relative w-full md:max-w-btnWidth mt-header mb-y pl-x pr-menu md:pr-0 cursor-pointer z-above">
-            <button
-              onClick={openWaitlist}
-              className={classNames(
-                'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
-              )}
-            >
-              {`Apply`}
-              <IconSmallArrow width="16" height="10" fill="white" />
-            </button>
-          </div>
-
-          <div className="hidden relative w-full md:max-w-btnWidth pl-x pr-menu md:pr-0 cursor-pointer z-above">
-            <Link href="/how-it-works">
-              <button
-                className={classNames(
-                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
-                )}
-              >
-                {`How it works`}
-                <IconSmallArrow width="16" height="10" fill="white" />
-              </button>
-            </Link>
-          </div>
         </div>
       </div>
     </div>

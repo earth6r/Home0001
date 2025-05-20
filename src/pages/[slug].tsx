@@ -69,6 +69,8 @@ const Page: NextPage<PageProps> = (
     setShowLogin(sessionStorage.getItem('loggedIn') !== 'true')
   }, [])
 
+  console.log('page', page)
+
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
       <article className="pt-page">

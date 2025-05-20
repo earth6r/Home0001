@@ -2,6 +2,7 @@
 import { BiCarousel } from 'react-icons/bi'
 import { BiCode, BiText } from 'react-icons/bi'
 import { BsList } from 'react-icons/bs'
+import { GiButtonFinger } from 'react-icons/gi'
 import { GrImage } from 'react-icons/gr'
 import { MdInventory } from 'react-icons/md'
 import { RxDividerHorizontal, RxSwitch } from 'react-icons/rx'
@@ -99,6 +100,12 @@ export default {
           name: 'cookiesToggle',
           type: 'cookiesToggle',
           icon: RxSwitch,
+        },
+        {
+          title: 'CTA',
+          name: 'cta',
+          type: 'cta',
+          icon: GiButtonFinger,
         },
       ],
     },

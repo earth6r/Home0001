@@ -221,6 +221,19 @@ export const BODY_QUERY = `
         },
       }, 
     },
+    "items": items[]{
+
+      ...,
+      copy[]{
+        ...,
+        children[]{
+          ...,
+          link{
+            ${LINK_QUERY}
+          }
+        }
+      }
+    },
     "accordions": select(
       count(^.body[
           (_type == "accordionBlock") || 
@@ -332,6 +345,7 @@ export const PROPERTY_TYPE_QUERY = `
   price,
   area,
   summary,
+  moreInfo,
   "inventory": inventory->{
     ...,
     items[]{
