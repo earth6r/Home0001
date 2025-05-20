@@ -51,7 +51,7 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({
       {accordions && !showAccordions && (
         <button
           onClick={() => setShowAccordions(true)}
-          className={classNames('pr-x')}
+          className={classNames('p-4 -m-4')}
         >
           <span
             className={classNames(

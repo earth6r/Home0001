@@ -41,13 +41,13 @@ export default {
       },
       // clamps set between 420px and 1440px
       fontSize: {
-        base: '14px',
+        base: '15px',
         caption: ['10px', '1.1'],
-        xs: ['14px', '1.2'], // small
+        xs: ['15px', '1.2'], // small
         sm: ['14px', '1'], // read more
         md: ['16px', '1.2'], // body
         lg: ['16px', '0.9'], // h4
-        bodyLg: ['22px', '1'], // large paragraph rich text
+        bodyLg: ['21px', '1'], // large paragraph rich text
         card: ['24px', '0.9'], // property summary card
         header3: ['32px', '0.9'], // h3
         side: ['58px', '0.75'], // vertical text
@@ -69,6 +69,7 @@ export default {
         yquarter: 'var(--space-y-quarter)',
         ydouble: 'var(--space-y-double)',
         ylg: 'var(--space-y-lg)',
+        ytrio: 'var(--space-y-trio)',
         yquad: 'var(--space-y-quad)',
         menusm: 'var(--space-menu-sm)',
         menu: 'var(--space-menu)',

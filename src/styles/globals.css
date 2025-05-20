@@ -9,6 +9,7 @@
   --space-y-half: calc(var(--space-y) * 0.5);
   --space-y-double: calc(var(--space-y) * 2);
   --space-y-lg: 2.5rem;
+  --space-y-trio: calc(var(--space-y) * 3);
   --space-y-quad: calc(var(--space-y) * 4);
 
   --space-menu-sm: 52px;

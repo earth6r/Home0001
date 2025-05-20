@@ -70,6 +70,11 @@ export default {
       type: 'richText',
     },
     {
+      name: 'moreInfo',
+      title: 'More Info',
+      type: 'richText',
+    },
+    {
       name: 'inventory',
       title: 'Inventory',
       type: 'reference',
@@ -94,11 +99,6 @@ export default {
       name: 'body',
       title: 'Body',
       type: 'blockContent',
-    },
-    {
-      name: 'moreInfo',
-      title: 'More Info',
-      type: 'richText',
     },
     {
       name: 'previewImage',
