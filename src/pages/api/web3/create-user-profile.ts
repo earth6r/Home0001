@@ -12,8 +12,6 @@ export default async function handler(
 
   const userData = req.body
 
-  console.log('Received user data:', userData)
-
   if (!userData || !userData.walletAddress) {
     return res.status(400).json({ error: 'Valid user data is required' })
   }

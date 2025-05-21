@@ -41,9 +41,9 @@ export default {
       },
       // clamps set between 420px and 1440px
       fontSize: {
-        base: '15px',
+        base: '14px',
         caption: ['10px', '1.1'],
-        xs: ['15px', '1.2'], // small
+        xs: ['14px', '1.2'], // small
         sm: ['14px', '1'], // read more
         md: ['16px', '1.2'], // body
         lg: ['16px', '0.9'], // h4
