@@ -208,7 +208,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
                 rules={{
                   validate: (value = '') => isValidPhoneNumber(value),
                 }}
-                name="phone_number"
+                name="phone"
                 render={({ field: { onChange, value } }) => (
                   <PhoneInput
                     value={value}
