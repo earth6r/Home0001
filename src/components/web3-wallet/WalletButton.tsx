@@ -74,6 +74,7 @@ export const WalletButton: FC<WalletButtonProps> = ({
           // Assuming you have a function to set user profile in context or state
           fetchTokenIds(address as string)
           fetchImage()
+          console.log(res.data.user)
         } else {
           updateUser({ ...user, hasProfile: false, address: address as string })
           console.log('No user profile found for this address, user:', user)
