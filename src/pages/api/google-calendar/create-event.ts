@@ -59,7 +59,8 @@ export default async function handler(
     console.error('Error creating calendar event:', error)
     return res.status(500).json({
       error: 'Failed to create calendar event',
-      details: error.message,
+      details:
+        error instanceof Error ? error.message : 'Unknown error occurred',
     })
   }
 }
