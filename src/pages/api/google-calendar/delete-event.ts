@@ -30,7 +30,8 @@ export default async function handler(
     console.error('Error deleting calendar event:', error)
     return res.status(500).json({
       error: 'Failed to delete calendar event',
-      details: error.message,
+      details:
+        error instanceof Error ? error.message : 'Unknown error occurred',
     })
   }
 }
