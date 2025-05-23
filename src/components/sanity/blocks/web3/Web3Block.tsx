@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Block from '../Block'
 import { SanityBlockElement } from '@components/sanity/types'
 import type { Web3Block as Web3BlockType } from '@gen/sanity-schema'
@@ -18,6 +18,12 @@ import {
 } from '@contexts/web3'
 import { WalletButton, WalletPayment } from '@components/web3-wallet'
 import { createUserProfile } from '@components/web3-wallet/actions'
+import {
+  convertUsdToEthPrice,
+  convertUsdToBtcPrice,
+} from '@lib/util/crypto-pricing'
+
+const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
 declare global {
   interface Window {
@@ -94,12 +100,21 @@ const Web3PaymentForm: FC<{
 }
 
 const Web3Prompt: FC<{ className?: string }> = ({ className }) => (
-  <div className={className}>
-    <div className="rich-text mb-y">
-      <span className="text-left">To join:</span>
+  <div
+    className={classNames(
+      className,
+      'inline-flex flex-col gap-y py-ydouble bg-yellow'
+    )}
+  >
+    <div className="md:max-w-[50%] rich-text mb-y">
+      <h3 className="text-left">To join:</h3>
+      <p>
+        We need you to connect your wallet so we can issue you with a soulbound
+        token if your application is successful.
+      </p>
     </div>
 
-    <WalletButton className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
+    <WalletButton className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black">
       <IconSmallArrow fill="black" width="15" height="11" />
       <span className="uppercase font-medium leading-none text-xs">
         {`Connect your wallet`}
@@ -115,7 +130,7 @@ const Web3Prompt: FC<{ className?: string }> = ({ className }) => (
       target="_blank"
       className="font-bold"
     >
-      <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
+      <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black">
         <IconSmallArrow fill="black" width="15" height="11" />
 
         <span className="uppercase font-medium leading-none text-xs">
@@ -165,6 +180,7 @@ export const Web3Block: FC<Web3BlockProps> = ({
   header,
   loggedInHeader,
   dashboardCopy,
+  joiningFee,
 }) => {
   const [user, setUser] = useWalletUser() as [
     Web3UserProps,
@@ -174,6 +190,8 @@ export const Web3Block: FC<Web3BlockProps> = ({
     string | null,
     React.Dispatch<React.SetStateAction<string | null>>
   ]
+
+  const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
 
   const initMint = async () => {
     console.log('Minting token for address:', user?.address)
@@ -219,7 +237,23 @@ export const Web3Block: FC<Web3BlockProps> = ({
       })
   }
 
-  console.log('Web3Block user:', user)
+  useEffect(() => {
+    const fetchCryptoPrice = async (usdPrice: any) => {
+      const currentEthPrice = await convertUsdToEthPrice(usdPrice)
+      const roundedEthPrice = Number(currentEthPrice.toFixed(1))
+      const currentBtcPrice = await convertUsdToBtcPrice(usdPrice)
+      const roundedBtcPrice = Number(currentBtcPrice.toFixed(2))
+      return [roundedEthPrice, roundedBtcPrice]
+    }
+
+    if (joiningFee && ENV === 'production') {
+      const usdPrice = joiningFee
+
+      fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
+        setCryptoPrice(cryptoPrices)
+      })
+    }
+  }, [])
 
   return (
     <Block className={classNames(className, 'grid md:grid-cols-2')}>
@@ -231,11 +265,25 @@ export const Web3Block: FC<Web3BlockProps> = ({
                 ? (loggedInHeader as TypedObject | TypedObject[])
                 : header
             }
+            className="pr-menu md:pr-0"
           />
         )}
 
+        <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu md:pr-0 bg-lightgray">
+          <div className="flex flex-col flex-start gap-y rich-text text-left">
+            <h3 className="">{`Current Joining fee:`}</h3>
+            <p className="!mx-0">{`${joiningFee} USD / ${
+              (cryptoPrice && cryptoPrice.length > 0) ||
+              '(Crypto only enabled in prod)'
+            } BIC`}</p>
+            <p className="!mx-0">{`If you were referred by an existing member, your joining fee will be waived.`}</p>
+          </div>
+        </div>
+
         {/* 1: show prompt to connect wallet */}
-        {user === null && <Web3Prompt className="inline-flex flex-col mt-y" />}
+        {user === null && (
+          <Web3Prompt className="w-[100vw] px-x -ml-x py-ydouble pr-menu md:pr-0" />
+        )}
 
         {/* 2: check for payment preference */}
         {user?.address && !user.paymentType && !user?.hasProfile && (
