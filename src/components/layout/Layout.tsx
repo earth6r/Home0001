@@ -11,7 +11,7 @@ import type {
 import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
-import { filterDataToSingleItem } from '@studio/lib'
+import { filterDataToSingleItem, SanityLinkType } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
 import { Cookies } from '@components/cookies'
 import { triggerToastPreview } from '@components/toast'
@@ -99,6 +99,7 @@ export const Layout: FC<LayoutProps> = ({
             brokerCopy: siteSettings?.brokerInquiryCopy,
             brokerSuccess: siteSettings?.brokerInquirySuccess,
           }}
+          applyLink={siteSettings?.applyLink as SanityLinkType}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
           rdSettings={{
             image: siteSettings?.rdImage,

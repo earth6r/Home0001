@@ -83,6 +83,13 @@ export default {
       group: 'rd',
     },
     {
+      name: 'applyLink',
+      title: 'Apply Link',
+      type: 'link',
+      description: 'Link to apply page',
+      group: 'menus',
+    },
+    {
       name: 'mainMenu',
       title: 'Main Menu',
       type: 'reference',

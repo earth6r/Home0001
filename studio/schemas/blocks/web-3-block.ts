@@ -12,6 +12,12 @@ export default {
       title: 'Header',
     },
     {
+      name: 'joiningFee',
+      type: 'number',
+      title: 'Joining Fee',
+      description: 'Fee to join the community in $USD',
+    },
+    {
       name: 'loggedInHeader',
       type: 'richText',
       title: 'Logged In Header',

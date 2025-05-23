@@ -860,6 +860,13 @@ export interface SiteSettings extends SanityDocument {
   rdLink?: Link;
 
   /**
+   * Apply Link — `link`
+   *
+   * Link to apply page
+   */
+  applyLink?: Link;
+
+  /**
    * Main Menu — `reference`
    *
    * Select menu for main navigation
@@ -2176,6 +2183,13 @@ export type Web3Block = {
    *
    */
   header?: RichText;
+
+  /**
+   * Joining Fee — `number`
+   *
+   * Fee to join the community in $USD
+   */
+  joiningFee?: number;
 
   /**
    * Logged In Header — `richText`

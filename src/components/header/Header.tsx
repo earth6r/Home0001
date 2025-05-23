@@ -32,6 +32,7 @@ import posthog from 'posthog-js'
 import { TypedObject } from 'sanity'
 import { PropertyList } from '@components/property'
 import { Inventory } from '@components/inventory'
+import { app } from 'firebase-admin'
 
 export const Header: FC<HeaderProps> = ({
   waitlist,
@@ -42,6 +43,7 @@ export const Header: FC<HeaderProps> = ({
   showTourLink,
   currentTitle,
   property,
+  applyLink,
   mainMenu,
   title,
   rdSettings,
@@ -233,16 +235,15 @@ export const Header: FC<HeaderProps> = ({
                   </div>
                 </Btn>
               ) : (
-                <Btn
-                  type="button"
-                  onClick={openWaitlist}
+                <SanityLink
+                  {...(applyLink as SanityLinkType)}
                   className={classNames(
                     headerLinksShown ? 'opacity-100' : 'opacity-0',
                     'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
                   )}
                 >
                   <IconWaitlist className="w-[77px] mt-[3px] md:mt-[4px]" />
-                </Btn>
+                </SanityLink>
               )}
             </>
           )}

@@ -58,6 +58,9 @@ export const SITE_SETTINGS_QUERY = groq`
     "rdLink": rdLink{
       ${LINK_QUERY}
     },
+    "applyLink": applyLink{
+      ${LINK_QUERY}
+    },
     mainMenu->{
       items[]{
         _key,
