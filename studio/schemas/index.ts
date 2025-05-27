@@ -14,7 +14,6 @@ import menus from './documents/menus'
 import siteSettings from './documents/site-settings'
 import accordionBlock from './blocks/accordion-block'
 import accordion from './objects/accordion'
-import waitlistBlock from './blocks/waitlist-block'
 import coordinates from './objects/coordinates'
 import city from './documents/city'
 import propertiesBlock from './blocks/properties-block'
@@ -31,7 +30,6 @@ import animatingBlock from './blocks/animating-block'
 import textAndImage from './objects/text-and-image'
 import unitBlock from './blocks/unit-block'
 import propertyBlock from './blocks/property-block'
-import flexWaitlistBlock from './blocks/flex-waitlist-block'
 import calendarBlock from './blocks/calendar-block'
 import video from './objects/video'
 import videosBlock from './blocks/videos-block'
@@ -105,8 +103,6 @@ export const schemaTypes = [
   unitBlock,
   videosBlock,
   messagingBlock,
-  waitlistBlock,
-  flexWaitlistBlock,
   web3Block,
 
   // documents

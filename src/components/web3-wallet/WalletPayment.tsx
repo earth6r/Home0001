@@ -3,10 +3,10 @@
 import type { FC } from 'react'
 import React, { HTMLAttributes, useState, useEffect } from 'react'
 import classNames from 'classnames'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
-import { createUserProfile, setPaymentIntent } from './actions'
-import { useWalletUser, Web3UserProps } from '@contexts/web3'
+import { setPaymentIntent } from './actions'
+import { Web3UserProps } from '@contexts/web3'
 import { loadStripe } from '@stripe/stripe-js'
 import {
   useStripe,
@@ -14,8 +14,6 @@ import {
   Elements,
   PaymentElement,
 } from '@stripe/react-stripe-js'
-import IconChevron from '@components/icons/IconChevron'
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 
 // Initialize Stripe with your publishable key
 const stripePromise = loadStripe(
@@ -48,7 +46,6 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm({
     shouldUseNativeValidation: true,
@@ -104,70 +101,37 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
     }
     setIsSubmitting(true)
 
-    if (user?.paymentType === 'referral') {
-      createUserProfile(user.address, {
-        first_name: data.first_name as string,
-        last_name: data.last_name as string,
-        email: data.email as string,
-        phone_number: data.phone as string,
-        comms: data.comms as 'WhatsApp' | 'Telegram',
-        signup_source: 'referred',
-        wallet_address: user.address,
-        referred_token: data.referral_code,
-      }).then(res => {
-        console.log('User profile created:', res)
-        if (!res?.success) {
-          console.error('Error creating user profile:', res?.message)
-          setFormError({ error: true, message: 'Profile creation failed' })
-          setFormSubmitted({ submitted: true, success: false })
-          setIsSubmitting(false)
-        } else {
-          setUser({
-            ...user,
-            email: data.email,
-            first_name: data.first_name,
-            last_name: data.last_name,
-            phone_number: data.phone,
-            comms: data.comms,
-            signup_source: 'referred',
-            referred_token: data.referral_code,
-            hasProfile: true,
-          })
-
-          setFormSubmitted({ submitted: true, success: true })
-        }
-      })
-    } else {
-      if (!stripe || !elements) {
-        console.error('Missing required stripe fields')
-        setIsSubmitting(false)
-        return
-      }
-      // Trigger form validation and wallet collection
-      const { error: submitError } = await elements.submit()
-      if (submitError) {
-        console.log(submitError)
-        setIsSubmitting(false)
-        return
-      }
-      setPaymentIntent(data.email, PRODUCT_AMOUNT, STRIPE_PRODUCT_ID)
-        .then(async res => {
-          setUser({
-            ...user,
-            email: data.email,
-            first_name: data.first_name,
-            last_name: data.last_name,
-            phone_number: data.phone,
-            comms: data.comms,
-            signup_source: 'purchased',
-          })
-          setClientSecret(res?.data.clientSecret)
-        })
-        .catch(err => {
-          console.log(err)
-          setIsSubmitting(false)
-        })
+    if (!stripe || !elements) {
+      console.error('Missing required stripe fields')
+      setIsSubmitting(false)
+      return
     }
+
+    // Trigger form validation and wallet collection
+    const { error: submitError } = await elements.submit()
+    if (submitError) {
+      console.log(submitError)
+      setIsSubmitting(false)
+      return
+    }
+
+    setPaymentIntent(data.email, PRODUCT_AMOUNT, STRIPE_PRODUCT_ID)
+      .then(async res => {
+        setUser({
+          ...user,
+          email: data.email,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          phone_number: data.phone,
+          comms: data.comms,
+          signup_source: 'purchased',
+        })
+        setClientSecret(res?.data.clientSecret)
+      })
+      .catch(err => {
+        console.log(err)
+        setIsSubmitting(false)
+      })
   }
 
   useEffect(() => {
@@ -181,94 +145,9 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
         <div className={classNames('relative flex flex-col gap-y')}>
           <div className="relative flex flex-col gap-y">
-            <div className="flex gap-x">
-              <input
-                type="text"
-                placeholder="First name*"
-                className="input"
-                {...register('first_name', { required: 'First name required' })}
-              />
-              <input
-                type="text"
-                placeholder="Last name*"
-                className="input"
-                {...register('last_name', { required: 'Last name required' })}
-              />
+            <div className="grid items-center w-full">
+              <PaymentElement />
             </div>
-
-            <div className="flex gap-x">
-              <input
-                type="email"
-                placeholder="Email*"
-                className="input"
-                {...register('email', { required: 'Email required' })}
-              />
-              <Controller
-                control={control}
-                rules={{
-                  validate: (value = '') => isValidPhoneNumber(value),
-                }}
-                name="phone"
-                render={({ field: { onChange, value } }) => (
-                  <PhoneInput
-                    value={value}
-                    onChange={onChange}
-                    defaultCountry="US"
-                    placeholder="PHONE NUMBER"
-                    disabled={isSubmitting}
-                    id="phone"
-                    className="waitlist input"
-                  />
-                )}
-              />
-            </div>
-            {errors?.phone && (
-              <p className="flex-1 mb-y text-button text-red-600 leading-loose">
-                Invalid Phone Number: Please select the country code from the
-                dropdown and do not include any spaces.
-              </p>
-            )}
-
-            <div className="relative md:max-w-[var(--btn-width)] mt-y">
-              <p className="mb-y text-button">{`Communication Preference`}</p>
-              <select
-                id="preferred-comms"
-                className="waitlist input select text-button font-sans"
-                disabled={isSubmitting}
-                {...register('comms')}
-              >
-                <option
-                  key="option-comms-0"
-                  id="preferred-comms"
-                  value="WhatsApp"
-                  className="text-button"
-                >
-                  {`WhatsApp`}
-                </option>
-                <option
-                  key="option-comms-2"
-                  id="preferred-comms"
-                  value="Telegram"
-                  className="text-button"
-                >
-                  {`Telegram`}
-                </option>
-              </select>
-              <IconChevron className="absolute w-[12px] right-x top-[65%] transform rotate-0" />
-            </div>
-
-            {user?.paymentType === 'referral' ? (
-              <input
-                type="text"
-                placeholder="Referral code*"
-                className="input max-w-btnWidth"
-                {...register('referral_code', { required: 'Code required' })}
-              />
-            ) : (
-              <div className="grid items-center w-full">
-                <PaymentElement />
-              </div>
-            )}
 
             <div
               className={classNames('relative flex flex-col gap-2 md:gap-y')}

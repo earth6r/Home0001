@@ -55,7 +55,7 @@ export const WalletButton: FC<WalletButtonProps> = ({
         .then(tokenIds => {
           updateUser({
             ...user,
-            hasProfile: true,
+            hasFinishedProfile: true,
             address: address as string,
             tokenIds: tokenIds as string[],
           })
@@ -76,7 +76,12 @@ export const WalletButton: FC<WalletButtonProps> = ({
           fetchImage()
           console.log(res.data.user)
         } else {
-          updateUser({ ...user, hasProfile: false, address: address as string })
+          updateUser({
+            ...user,
+            step: 'info',
+            hasFinishedProfile: false,
+            address: address as string,
+          })
           console.log('No user profile found for this address, user:', user)
         }
       })

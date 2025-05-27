@@ -80,12 +80,6 @@ export const SITE_SETTINGS_QUERY = groq`
       }
     },
     applyCopy,
-    waitlistHeader,
-    waitlistCopy,
-    waitlistSuccess,
-    waitlistId,
-    showConsent,
-    consentCopy,
     inquiryId,
     inquiryCopy,
     inquirySuccess,

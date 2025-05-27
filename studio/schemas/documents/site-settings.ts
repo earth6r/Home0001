@@ -112,42 +112,6 @@ export default {
       group: 'forms',
     },
     {
-      name: 'waitlistId',
-      title: 'Waitlist Audience ID',
-      type: 'string',
-      group: 'forms',
-    },
-    {
-      name: 'waitlistHeader',
-      title: 'Waitlist Header',
-      type: 'string',
-      group: 'forms',
-    },
-    {
-      name: 'waitlistCopy',
-      title: 'Waitlist Copy',
-      type: 'richText',
-      group: 'forms',
-    },
-    {
-      name: 'waitlistSuccess',
-      title: 'Waitlist Success',
-      type: 'richText',
-      group: 'forms',
-    },
-    {
-      name: 'showConsent',
-      type: 'boolean',
-      title: 'Show Waitlist Consent Checkbox',
-      group: 'forms',
-    },
-    {
-      name: 'consentCopy',
-      type: 'richText',
-      title: 'Waitlist Consent Copy',
-      group: 'forms',
-    },
-    {
       name: 'inquiryId',
       title: 'Inquiry Audience ID',
       type: 'string',

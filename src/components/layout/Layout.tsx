@@ -83,14 +83,6 @@ export const Layout: FC<LayoutProps> = ({
           currentTitle={
             ((page as Property) || (page as Unit))?.headerText || page?.title
           }
-          waitlist={{
-            id: siteSettings?.waitlistId,
-            copy: siteSettings?.waitlistCopy,
-            header: siteSettings?.waitlistHeader,
-            success: siteSettings?.waitlistSuccess,
-            consentCopy: siteSettings?.consentCopy,
-            showConsent: siteSettings?.showConsent,
-          }}
           inquiry={{
             id: siteSettings?.inquiryId,
             copy: siteSettings?.inquiryCopy,
@@ -124,6 +116,7 @@ export const Layout: FC<LayoutProps> = ({
             query={query}
             footerMenu={siteSettings?.footerMenu as Menus | undefined}
             applyCopy={siteSettings?.applyCopy}
+            applyLink={siteSettings?.applyLink as SanityLinkType}
             propertiesList={siteSettings?.properties as KeyedProperty[]}
           />
         )}

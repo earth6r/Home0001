@@ -94,16 +94,6 @@ export default {
       title: 'Messaging Block',
     },
     {
-      name: 'waitlistBlock',
-      type: 'waitlistBlock',
-      title: 'Waitlist Block',
-    },
-    {
-      name: 'flexWaitlistBlock',
-      type: 'flexWaitlistBlock',
-      title: 'Flex Waitlist Block',
-    },
-    {
       name: 'web3Block',
       type: 'web3Block',
       title: 'Web3 Block',

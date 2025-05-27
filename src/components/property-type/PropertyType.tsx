@@ -13,7 +13,6 @@ import { SanityInventoryModal } from '@components/sanity/table-modal'
 import Link from 'next/link'
 import { SanityKeyed } from 'sanity-codegen'
 import { Media, Property } from '@studio/gen/sanity-schema'
-import { useWaitlisModal } from '@contexts/modals'
 import { sendGoogleEvent } from '@lib/util'
 import PropertyTypesList from './PropertyTypesList'
 import IconChevron from '@components/icons/IconChevron'
@@ -28,7 +27,6 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 }) => {
   const [cryptoMode, setCryptoMode] = useCryptoMode()
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
-  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [navOpen, setNavOpen] = useState(false)
 
   const { scrollYProgress } = useScroll()
@@ -39,12 +37,6 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
   ).propertyTypesList?.filter(
     type => (type as PropertyTypeElProps).typeTitle !== propertyType?.typeTitle
   )
-
-  const openWaitlist = () => {
-    setWaitlistOpen(true)
-    const options = { location: window.location.pathname }
-    sendGoogleEvent('opened waitlist modal', options)
-  }
 
   useEffect(() => {
     if (navOpen) {
@@ -165,15 +157,16 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           </div>
 
           <div className="hidden lg:block relative w-full mb-y cursor-pointer z-above">
-            <button
-              onClick={openWaitlist}
-              className={classNames(
-                'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
-              )}
-            >
-              {`Apply`}
-              <IconSmallArrow width="16" height="10" fill="white" />
-            </button>
+            <Link href="/apply">
+              <button
+                className={classNames(
+                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+                )}
+              >
+                {`Apply`}
+                <IconSmallArrow width="16" height="10" fill="white" />
+              </button>
+            </Link>
           </div>
 
           <div className="hidden lg:block relative w-full cursor-pointer z-above">
