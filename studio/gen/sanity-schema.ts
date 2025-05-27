@@ -278,14 +278,14 @@ export interface Page extends SanityDocument {
   /**
    * Hide Menu Button — `boolean`
    *
-   * Hide waitlist or tour button in header
+   * Hide apply or tour button in header
    */
   hideMenuButton?: boolean;
 
   /**
    * Show Tour Link — `boolean`
    *
-   * Show the tour link in the header instead of waitlist
+   * Show the tour link in the header instead of apply
    */
   showTourLink?: boolean;
 
@@ -614,14 +614,14 @@ export interface Unit extends SanityDocument {
   /**
    * Hide Menu Button — `boolean`
    *
-   * Hide waitlist or tour button in header
+   * Hide apply or tour button in header
    */
   hideMenuButton?: boolean;
 
   /**
    * Show Tour Link — `boolean`
    *
-   * Show the tour link in the header instead of waitlist
+   * Show the tour link in the header instead of apply
    */
   showTourLink?: boolean;
 
@@ -886,48 +886,6 @@ export interface SiteSettings extends SanityDocument {
    *
    */
   applyCopy?: RichText;
-
-  /**
-   * Waitlist Audience ID — `string`
-   *
-   *
-   */
-  waitlistId?: string;
-
-  /**
-   * Waitlist Header — `string`
-   *
-   *
-   */
-  waitlistHeader?: string;
-
-  /**
-   * Waitlist Copy — `richText`
-   *
-   *
-   */
-  waitlistCopy?: RichText;
-
-  /**
-   * Waitlist Success — `richText`
-   *
-   *
-   */
-  waitlistSuccess?: RichText;
-
-  /**
-   * Show Waitlist Consent Checkbox — `boolean`
-   *
-   *
-   */
-  showConsent?: boolean;
-
-  /**
-   * Waitlist Consent Copy — `richText`
-   *
-   *
-   */
-  consentCopy?: RichText;
 
   /**
    * Inquiry Audience ID — `string`
@@ -1541,8 +1499,6 @@ export type BlockContent = Array<
   | SanityKeyed<UnitBlock>
   | SanityKeyed<VideosBlock>
   | SanityKeyed<MessagingBlock>
-  | SanityKeyed<WaitlistBlock>
-  | SanityKeyed<FlexWaitlistBlock>
   | SanityKeyed<Web3Block>
 >;
 
@@ -2076,103 +2032,6 @@ export type MessagingBlock = {
    *
    */
   messaginBlock?: string;
-};
-
-export type WaitlistBlock = {
-  _type: "waitlistBlock";
-  /**
-   * Header — `string`
-   *
-   *
-   */
-  header?: string;
-
-  /**
-   * Text — `richText`
-   *
-   *
-   */
-  text?: RichText;
-
-  /**
-   * URL Submit — `string`
-   *
-   *
-   */
-  urlSubmit?: string;
-
-  /**
-   * Audience ID/Form GUID — `string`
-   *
-   *
-   */
-  audienceId?: string;
-
-  /**
-   * Success Message — `richText`
-   *
-   *
-   */
-  successMessage?: RichText;
-
-  /**
-   * Show Consent Checkbox — `boolean`
-   *
-   *
-   */
-  showConsent?: boolean;
-
-  /**
-   * Consent Copy — `richText`
-   *
-   *
-   */
-  consentCopy?: RichText;
-};
-
-export type FlexWaitlistBlock = {
-  _type: "flexWaitlistBlock";
-  /**
-   * Header — `string`
-   *
-   *
-   */
-  header?: string;
-
-  /**
-   * Text — `richText`
-   *
-   *
-   */
-  text?: RichText;
-
-  /**
-   * URL Submit — `string`
-   *
-   *
-   */
-  urlSubmit?: string;
-
-  /**
-   * Audience ID/Form GUID — `string`
-   *
-   *
-   */
-  audienceId?: string;
-
-  /**
-   * Success Message — `richText`
-   *
-   *
-   */
-  successMessage?: RichText;
-
-  /**
-   * Form Panes — `array`
-   *
-   *
-   */
-  formPanes?: Array<SanityKeyed<string>>;
 };
 
 export type Web3Block = {
