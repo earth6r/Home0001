@@ -10,7 +10,6 @@ import {
 import {
   TextBlock,
   AccordionBlock,
-  WaitlistBlock,
   PropertiesBlock,
   NewsletterBlock,
   ContactBlock,
@@ -18,7 +17,6 @@ import {
   AnimatingBlock,
   UnitBlock,
   PropertyBlock,
-  FlexWaitlistBlock,
   CalendarBlock,
   TextAndAccordionBlock,
   VideosBlock,
@@ -144,12 +142,6 @@ export const BlockContent: FC<SanityBlockElement> = ({
             ),
             unitBlock: ({ index, value }) => (
               <UnitBlock index={index} grid={grid} {...value} />
-            ),
-            waitlistBlock: ({ index, value }) => (
-              <WaitlistBlock index={index} grid={grid} {...value} />
-            ),
-            flexWaitlistBlock: ({ index, value }) => (
-              <FlexWaitlistBlock index={index} {...value} />
             ),
             contactBlock: ({ index, value }) => (
               <ContactBlock index={index} grid={grid} {...value} />

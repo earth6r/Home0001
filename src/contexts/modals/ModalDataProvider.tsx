@@ -11,12 +11,10 @@ import React, {
 const ModalContext = createContext<
   [
     {
-      waitlistOpen: any
       availableOpen: any
       inventoryOpen: any
     },
     {
-      setWaitlistOpen: Dispatch<SetStateAction<any>>
       setAvailableOpen: Dispatch<SetStateAction<any>>
       setInventoryOpen: Dispatch<SetStateAction<any>>
     }
@@ -28,7 +26,6 @@ function useModalContext() {
 }
 
 export function ModalDataProvider({ children }: { children: ReactNode }) {
-  const [waitlistOpen, setWaitlistOpen] = useState(false)
   const [availableOpen, setAvailableOpen] = useState(false)
   const [inventoryOpen, setInventoryOpen] = useState(false)
 
@@ -36,10 +33,10 @@ export function ModalDataProvider({ children }: { children: ReactNode }) {
     <ModalContext.Provider
       value={useMemo(
         () => [
-          { waitlistOpen, availableOpen, inventoryOpen },
-          { setWaitlistOpen, setAvailableOpen, setInventoryOpen },
+          { availableOpen, inventoryOpen },
+          { setAvailableOpen, setInventoryOpen },
         ],
-        [waitlistOpen, availableOpen, inventoryOpen]
+        [availableOpen, inventoryOpen]
       )}
     >
       {children}
@@ -55,9 +52,4 @@ export function useAvailableModal() {
 export function useInventoryModal() {
   const [{ inventoryOpen }, { setInventoryOpen }] = useModalContext()
   return [inventoryOpen, setInventoryOpen]
-}
-
-export function useWaitlisModal() {
-  const [{ waitlistOpen }, { setWaitlistOpen }] = useModalContext()
-  return [waitlistOpen, setWaitlistOpen]
 }

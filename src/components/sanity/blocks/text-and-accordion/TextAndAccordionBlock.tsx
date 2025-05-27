@@ -12,11 +12,8 @@ import { Accordion } from '@components/accordion'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import IconCirclePlus from '@components/icons/IconCirclePlus'
 import IconCircleMinus from '@components/icons/IconCircleMinus'
-import {
-  useWaitlisModal,
-  useAvailableModal,
-  useInventoryModal,
-} from '@contexts/modals'
+import { useAvailableModal, useInventoryModal } from '@contexts/modals'
+import Link from 'next/link'
 
 type TextAndAccordionProps = {
   copy?: RichTextType
@@ -37,7 +34,6 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({
   cta,
   inventory,
 }) => {
-  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [availableOpen, setAvailableOpen] = useAvailableModal()
   const [inventoryOpen, setInventoryOpen] = useInventoryModal()
 
@@ -79,30 +75,44 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({
 
       {showAccordions && cta && (
         <div className="mt-y">
-          <button
-            onClick={
-              cta === 'waitlist'
-                ? setWaitlistOpen
-                : cta === 'properties'
-                ? setAvailableOpen
-                : setInventoryOpen
-            }
-            className={classNames(
-              'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] bg-black text-white font-medium text-left uppercase border-black'
-            )}
-          >
-            <IconRightArrowBold
-              className="relative w-[14px] mt-[0.1em]"
-              fill="white"
-            />
-            <span className="leading-none">
-              {cta === 'waitlist'
-                ? `Apply`
-                : cta === 'properties'
-                ? `Available Homes`
-                : `View Inventory`}
-            </span>
-          </button>
+          {cta === 'waitlist' ? (
+            <Link href="/web3" passHref>
+              <button
+                className={classNames(
+                  'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] bg-black text-white font-medium text-left uppercase border-black'
+                )}
+              >
+                <IconRightArrowBold
+                  className="relative w-[14px] mt-[0.1em]"
+                  fill="white"
+                />
+                <span className="leading-none">
+                  {cta === 'waitlist'
+                    ? `Apply`
+                    : cta === 'properties'
+                    ? `Available Homes`
+                    : `View Inventory`}
+                </span>
+              </button>
+            </Link>
+          ) : (
+            <button
+              onClick={
+                cta === 'properties' ? setAvailableOpen : setInventoryOpen
+              }
+              className={classNames(
+                'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] bg-black text-white font-medium text-left uppercase border-black'
+              )}
+            >
+              <IconRightArrowBold
+                className="relative w-[14px] mt-[0.1em]"
+                fill="white"
+              />
+              <span className="leading-none">
+                {cta === 'properties' ? `Available Homes` : `View Inventory`}
+              </span>
+            </button>
+          )}
         </div>
       )}
 

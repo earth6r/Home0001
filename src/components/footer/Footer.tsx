@@ -3,11 +3,7 @@ import { type FC, type HTMLProps } from 'react'
 import type { FooterProps } from './types'
 import { RichText, SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
-import {
-  useAvailableModal,
-  useBrokerInquiryModal,
-  useWaitlisModal,
-} from '@contexts/modals'
+import { useBrokerInquiryModal } from '@contexts/modals'
 import { useCookiesPrefs } from '@contexts/cookies'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import { TypedObject } from 'sanity'
@@ -18,12 +14,11 @@ import Link from 'next/link'
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   footerMenu,
   applyCopy,
+  applyLink,
   propertiesList,
 }) => {
   const year = new Date().getFullYear()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
-  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
-  const [availableOpen, setAvailableOpen] = useAvailableModal()
   const [showPrefs, setShowPrefs] = useCookiesPrefs()
   const { asPath } = useRouter()
 
@@ -64,18 +59,21 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
               blocks={applyCopy as TypedObject | TypedObject[]}
               className="normal-case"
             />
-            <button
-              onClick={setWaitlistOpen}
-              className={classNames(
-                'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase border-black'
-              )}
-            >
-              <IconRightArrowBold
-                className="relative w-[14px] mt-[0.1em]"
-                fill="white"
-              />
-              <span className="leading-none">{`Apply`}</span>
-            </button>
+            {applyLink && (
+              <SanityLink {...applyLink}>
+                <button
+                  className={classNames(
+                    'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase border-black'
+                  )}
+                >
+                  <IconRightArrowBold
+                    className="relative w-[14px] mt-[0.1em]"
+                    fill="white"
+                  />
+                  <span className="leading-none">{`Apply`}</span>
+                </button>
+              </SanityLink>
+            )}
           </div>
 
           <div className="w-full">
