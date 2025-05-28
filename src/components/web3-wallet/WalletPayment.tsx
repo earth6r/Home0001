@@ -20,28 +20,25 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_API_KEY || 'pk_test_'
 )
 
-type PaymentContainerProps = {
-  user?: Web3UserProps
-  setUser: (arg0: any) => void
-  email?: string
-  onStripeSuccess?: () => void
-}
-
 interface WalletPaymentProps extends HTMLAttributes<HTMLFormElement> {
   user?: Web3UserProps
   setUser: (arg0: any) => void
   email?: string
   onStripeSuccess?: () => void
+  joiningFee?: number
+  cryptoPrice?: number[]
 }
 
 const STRIPE_PRODUCT_ID = 'prod_SEPtONnJGxLspP'
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 const PRODUCT_AMOUNT = 5000
 
-const PaymentContainer: FC<PaymentContainerProps> = ({
+const PaymentContainer: FC<WalletPaymentProps> = ({
   user,
   setUser,
   onStripeSuccess,
+  joiningFee,
+  cryptoPrice,
 }) => {
   const {
     register,
@@ -94,8 +91,8 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
     setIsSubmitting(false)
   }
 
-  const onSubmit = async (data: any) => {
-    if (!data.email || !user?.address) {
+  const onSubmit = async () => {
+    if (!user?.address || !user.email) {
       console.error('Missing required fields')
       return
     }
@@ -115,17 +112,8 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
       return
     }
 
-    setPaymentIntent(data.email, PRODUCT_AMOUNT, STRIPE_PRODUCT_ID)
+    setPaymentIntent(user.email, joiningFee as number, STRIPE_PRODUCT_ID)
       .then(async res => {
-        setUser({
-          ...user,
-          email: data.email,
-          first_name: data.first_name,
-          last_name: data.last_name,
-          phone_number: data.phone,
-          comms: data.comms,
-          signup_source: 'purchased',
-        })
         setClientSecret(res?.data.clientSecret)
       })
       .catch(err => {
@@ -142,26 +130,42 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
-        <div className={classNames('relative flex flex-col gap-y')}>
-          <div className="relative flex flex-col gap-y">
-            <div className="grid items-center w-full">
-              <PaymentElement />
-            </div>
-
-            <div
-              className={classNames('relative flex flex-col gap-2 md:gap-y')}
-            >
-              <button
-                className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-                type={'submit'}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
-                <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
-              </button>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-y justify-between min-h-[calc(95svh-var(--header-height))]"
+      >
+        <div className="flex flex-col gap-ydouble">
+          <div>
+            <div>
+              <h3>{`Review & Pay`}</h3>
+              <p className="!mx-0 my-y">Current joining fee:</p>
+              <p>
+                {`${joiningFee} USD / ${
+                  (cryptoPrice && cryptoPrice.length > 0) ||
+                  '(Crypto only enabled in prod)'
+                } BIC`}
+              </p>
             </div>
           </div>
+
+          <div className={classNames('relative flex flex-col gap-y h-full')}>
+            <div className="relative flex flex-col gap-y justify-between">
+              <div className="grid items-center w-full md:max-w-[526px]">
+                <PaymentElement />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={classNames('relative flex flex-col gap-2 md:gap-y')}>
+          <button
+            className="relative flex justify-between items-center w-full max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            type={'submit'}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+          </button>
         </div>
 
         {formError.error && (
@@ -178,18 +182,26 @@ export const WalletPayment: FC<WalletPaymentProps> = ({
   user,
   setUser,
   onStripeSuccess,
+  joiningFee,
+  cryptoPrice,
   className,
 }) => {
   return (
     <div className={classNames(className)}>
-      <div className="w-full md:max-w-[526px] rich-text">
+      <div className="w-full h-full rich-text">
         <Elements
           stripe={stripePromise}
-          options={{ mode: 'payment', amount: PRODUCT_AMOUNT, currency: 'usd' }}
+          options={{
+            mode: 'payment',
+            amount: (joiningFee as number) * 100 || PRODUCT_AMOUNT,
+            currency: 'usd',
+          }}
         >
           <PaymentContainer
             user={user}
             setUser={setUser}
+            joiningFee={joiningFee}
+            cryptoPrice={cryptoPrice}
             onStripeSuccess={onStripeSuccess}
           />
         </Elements>

@@ -9,7 +9,15 @@ import React, {
 } from 'react'
 
 export type Web3UserProps = {
-  step?: 'info' | 'paymentOption' | 'payment' | 'token'
+  step?:
+    | 'info'
+    | 'paymentOption'
+    | 'payment'
+    | 'location'
+    | 'priceRange'
+    | 'when'
+    | 'bedrooms'
+    | 'token'
   address?: string
   hasFinishedProfile?: boolean
   tokenIds?: string[]

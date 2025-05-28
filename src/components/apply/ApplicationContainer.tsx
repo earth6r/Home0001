@@ -116,9 +116,11 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       {/* 2: create user and set preferences */}
       {user?.address && !user.paymentType && !user?.hasFinishedProfile && (
         <ApplicationForm
-          className="w-[100vw] min-h-[100svh] px-x -ml-x -mt-header pt-header pb-ydouble pr-menu md:pr-0 rich-text text-base font-medium bg-gray"
+          className="w-[100vw] min-h-[100svh] px-x -ml-x -mt-header pt-header pb-ydouble pr-menu bg-gray"
           user={user}
           setUser={setUser}
+          joiningFee={content.joiningFee}
+          cryptoPrice={cryptoPrice}
         />
       )}
 

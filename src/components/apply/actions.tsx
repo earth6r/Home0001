@@ -78,3 +78,63 @@ export const getUserProfile = async (address: string) => {
     saveError(error, 'getUserProfile')
   }
 }
+
+export const updateUserLocation = async (
+  email: string,
+  location: string,
+  other?: string
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/update-user-location`,
+      {
+        email: email,
+        whereDoYouWantToBuy: location,
+        elseValue: other,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'User location updated successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'updateUserLocation')
+    return {
+      success: false,
+      message: `Failed to update user location, ${(error as any).message}`,
+    }
+  }
+}
+
+export const initUserPayment = async (
+  email: string,
+  profileData: {
+    signup_source: 'referred' | 'purchased'
+    referred_token?: string
+  }
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/make-payment`,
+      {
+        email: email,
+        signupSource: profileData.signup_source,
+        referredToken: profileData.referred_token || null,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'Payment or referral initiated successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'initUserPayment')
+    return {
+      success: false,
+      message: `Failed to init payment, ${(error as any).message}`,
+    }
+  }
+}
