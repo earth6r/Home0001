@@ -15,6 +15,7 @@ import {
 } from '@contexts/web3'
 import { saveError } from '@lib/util/save-error'
 import { getUserProfile } from './actions'
+import { animateScroll as scroll } from 'react-scroll'
 
 type WalletButtonProps = {
   className?: string
@@ -84,6 +85,7 @@ export const WalletButton: FC<WalletButtonProps> = ({
           })
           console.log('No user profile found for this address, user:', user)
         }
+        scroll.scrollToTop({ behavior: 'smooth' })
       })
       .catch(err => {
         console.error(err)
