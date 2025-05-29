@@ -65,7 +65,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       return [roundedEthPrice, roundedBtcPrice]
     }
 
-    if (content.joiningFee && ENV === 'dev') {
+    if (content.joiningFee && ENV === 'production') {
       const usdPrice = content.joiningFee
 
       fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
