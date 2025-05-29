@@ -106,7 +106,6 @@ export const DateSelect: FC<DateSelectProps> = ({
           {renderedSlots &&
             renderedSlots.map(
               ({ date, slots }: { date: string; slots: string[] }, index) => {
-                console.log('times', times)
                 return (
                   activeIndex === date && (
                     <div

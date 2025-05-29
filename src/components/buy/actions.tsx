@@ -98,10 +98,6 @@ export const createGoogleCalendarMeeting = async (
   unit: string
   // additionalEmails?: string[]
 ) => {
-  console.log('data', data)
-  console.log('email', email)
-  console.log('unit', unit)
-
   try {
     return await axios.post(
       `${BASE_URL}/api/google/create-google-calendar_meeting`,

@@ -15,7 +15,7 @@ export type Web3UserProps = {
     | 'payment'
     | 'location'
     | 'priceRange'
-    | 'when'
+    | 'whenToBuy'
     | 'bedrooms'
     | 'token'
   address?: string

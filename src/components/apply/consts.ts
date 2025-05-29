@@ -25,6 +25,29 @@ export const LOCATIONS = [
   },
 ]
 
+export const PRICES = [
+  {
+    label: '<$500,000',
+    name: 'lessThan500k',
+  },
+  {
+    label: '$500,000 – $750,000',
+    name: '$500kTo750k',
+  },
+  {
+    label: '$750,000 – $1,000,000',
+    name: '$750kTo1M',
+  },
+  {
+    label: '$1,000,000 – $1,500,000',
+    name: '$1MTo1.5M',
+  },
+  {
+    label: '$1,500,000+',
+    name: 'moreThan1.5M',
+  },
+]
+
 export const TIMELINE = [
   {
     label: 'Immediately',

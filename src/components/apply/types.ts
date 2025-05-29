@@ -1,5 +1,22 @@
 import { Web3UserProps } from '@contexts/web3'
 import { FormEvent, ReactNode } from 'react'
+import { TypedObject } from 'sanity'
+
+declare global {
+  interface Window {
+    ethereum?: any
+  }
+}
+
+export type ApplicationContainerProps = {
+  content: {
+    header?: TypedObject | TypedObject[]
+    loggedInHeader?: TypedObject | TypedObject[]
+    dashboardCopy?: TypedObject | TypedObject[]
+    joiningFee?: number
+  }
+  className?: string
+}
 
 export type PaneProps = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void

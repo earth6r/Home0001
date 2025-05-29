@@ -80,7 +80,7 @@ export const UserPaymentOptionForm: FC<FormProps> = ({
           id="referral"
           placeholder="Enter code"
           className="input"
-          {...register('referredToken')}
+          {...register('referredToken', { required: 'Code required' })}
         />
 
         <button
