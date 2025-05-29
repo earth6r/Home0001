@@ -75,12 +75,15 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
   }, [])
 
   return (
-    <div className={className}>
+    <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}
       {user === null && (
         <>
           {content.header && (
-            <RichText blocks={content.header} className="pr-menu md:pr-0" />
+            <RichText
+              blocks={content.header}
+              className="pt-page pr-menu md:pr-0"
+            />
           )}
 
           <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu md:pr-0 bg-lightgray">
@@ -100,7 +103,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       {/* 2: create user and set preferences */}
       {user?.address && !user.paymentType && !user?.hasFinishedProfile && (
         <ApplicationForm
-          className="w-[100vw] min-h-[100svh] px-x -ml-x -mt-header pt-header pb-ydouble pr-menu bg-gray"
+          className="w-[100vw] px-x -ml-x pt-header pb-ydouble pr-menu bg-gray"
           user={user}
           setUser={setUser}
           joiningFee={content.joiningFee}
@@ -111,7 +114,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       {user?.hasFinishedProfile && content?.loggedInHeader && (
         <RichText
           blocks={content.loggedInHeader as TypedObject | TypedObject[]}
-          className="pr-menu md:pr-0"
+          className="pt-page pr-menu md:pr-0"
         />
       )}
 

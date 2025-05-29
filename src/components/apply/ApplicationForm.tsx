@@ -66,7 +66,7 @@ const ApplicationForm: FC<FormProps> = ({
               )}
             </div>
           ) : (
-            <div className="flex flex-col justify-between h-[calc(95svh-var(--header-height))]">
+            <div className="flex flex-col justify-between min-h-[calc(80svh-var(--header-height))] md:h-[calc(95svh-var(--header-height))]">
               <p>{`The next step is for you to tell us a little about yourself, pay the application fee (if needed) and fill out the questionnaire.`}</p>
 
               <button
