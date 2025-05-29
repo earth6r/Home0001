@@ -19,30 +19,14 @@ import {
 import TokenDashboard from './TokenDashboard'
 import ApplicationPrompt from './ApplicationPrompt'
 import ApplicationForm from './ApplicationForm'
+import { ApplicationContainerProps } from './types'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
-
-declare global {
-  interface Window {
-    ethereum?: any
-  }
-}
-
-type ApplicationContainerProps = {
-  content: {
-    header?: TypedObject | TypedObject[]
-    loggedInHeader?: TypedObject | TypedObject[]
-    dashboardCopy?: TypedObject | TypedObject[]
-    joiningFee?: number
-  }
-  className?: string
-}
 
 export const ApplicationContainer: FC<ApplicationContainerProps> = ({
   content,
   className,
 }) => {
-  const [applicationOpen, setApplicationOpen] = useState<boolean>(false)
   const [user, setUser] = useWalletUser() as [
     Web3UserProps,
     React.Dispatch<React.SetStateAction<Web3UserProps>>
@@ -124,6 +108,13 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
         />
       )}
 
+      {user?.hasFinishedProfile && content?.loggedInHeader && (
+        <RichText
+          blocks={content.loggedInHeader as TypedObject | TypedObject[]}
+          className="pr-menu md:pr-0"
+        />
+      )}
+
       {/* 3: mint token flow */}
       {user?.hasFinishedProfile &&
         (!user.tokenIds || user.tokenIds.length === 0) && (
@@ -149,32 +140,24 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       {user?.hasFinishedProfile &&
         user.tokenIds &&
         user.tokenIds.length > 0 && (
-          <div>
-            {content.header && (
-              <RichText
-                blocks={content.loggedInHeader as TypedObject | TypedObject[]}
-                className="pr-menu md:pr-0"
-              />
-            )}
-            <div className="grid grid-cols-2 gap-x p-x mt-ydouble bg-gray">
-              {user.tokenIds && user.tokenIds.length > 0 && (
-                <>
-                  {imageUrl && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={imageUrl}
-                      alt="NFT"
-                      className="w-full h-auto object-cover"
-                    />
-                  )}
+          <div className="grid grid-cols-2 gap-x p-x mt-ydouble bg-gray">
+            {user.tokenIds && user.tokenIds.length > 0 && (
+              <>
+                {imageUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={imageUrl}
+                    alt="NFT"
+                    className="w-full h-auto object-cover"
+                  />
+                )}
 
-                  <div className="w-full rich-text">
-                    <p className="mb-y">TokenID: </p>
-                    <p className="text-lg">{user.tokenIds[0].toString()}</p>
-                  </div>
-                </>
-              )}
-            </div>
+                <div className="w-full rich-text">
+                  <p className="mb-y">TokenID: </p>
+                  <p className="text-lg">{user.tokenIds[0].toString()}</p>
+                </div>
+              </>
+            )}
           </div>
         )}
 

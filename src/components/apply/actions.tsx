@@ -108,6 +108,98 @@ export const updateUserLocation = async (
   }
 }
 
+export const updateUserPriceRange = async (
+  email: string,
+  minPrice: number | null,
+  maxPrice: number | null
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/update-user-price-range`,
+      {
+        email: email,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'User price range updated successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'updateUserPriceRange')
+    return {
+      success: false,
+      message: `Failed to update user price range, ${(error as any).message}`,
+    }
+  }
+}
+
+export const updateUserTimeline = async (
+  email: string,
+  timeline:
+    | 'IMMEDIATELY'
+    | 'IN_1_3_MONTHS'
+    | 'IN_3_6_MONTHS'
+    | 'IN_6_12_MONTHS'
+    | 'NOT_SURE_YET'
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/update-user-timeline`,
+      {
+        email: email,
+        whenToBuy: timeline,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'User timeline updated successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'updateUserTimeline')
+    return {
+      success: false,
+      message: `Failed to update user timeline, ${(error as any).message}`,
+    }
+  }
+}
+
+export const updateUserRooms = async (
+  email: string,
+  minBedrooms: number | null,
+  maxBedrooms: number | null,
+  depends: boolean = false
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/update-user-rooms`,
+      {
+        email: email,
+        minBedrooms: minBedrooms,
+        maxBedrooms: maxBedrooms,
+        depends: depends,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'User rooms updated successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'updateUserRooms')
+    return {
+      success: false,
+      message: `Failed to update user rooms, ${(error as any).message}`,
+    }
+  }
+}
+
 export const initUserPayment = async (
   email: string,
   profileData: {

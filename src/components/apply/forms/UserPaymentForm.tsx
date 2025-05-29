@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import React, { FC, useState } from 'react'
-import { WalletPayment } from '@components/web3-wallet'
 import { initUserPayment } from '../actions'
 import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from '../types'
+import WalletPayment from '../WalletPayment'
 
 export const UserPaymentForm: FC<FormProps> = ({
   user,

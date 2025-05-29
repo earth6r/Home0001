@@ -43,7 +43,6 @@ export const UserInfoForm: FC<FormProps> = ({ user, setUser, className }) => {
         ? data.public_profiles.split(',').map((p: string) => p.trim())
         : [],
     }).then(res => {
-      console.log('User profile created:', res)
       if (!res?.success) {
         console.error('Error creating user profile:', res?.message)
         setFormError({ error: true, message: 'Profile creation failed' })

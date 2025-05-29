@@ -12,13 +12,13 @@ export default async function handler(
 
   const userData = req.body
 
-  if (!userData || !userData.email) {
+  if (!userData || !userData.email || !userData.whenToBuy) {
     return res.status(400).json({ error: 'Valid user data is required' })
   }
 
   try {
     const response = await axios.post(
-      'https://hometrics0001.vercel.app/api/users/where-do-you-want-to-buy',
+      'https://hometrics0001.vercel.app/api/users/when-to-buy',
       userData,
       {
         headers: {
@@ -31,10 +31,10 @@ export default async function handler(
     return res.status(200).json(response.data)
   } catch (error: any) {
     console.error('Error updating user profile:', error.message)
-    saveError(error, 'proxyUserLocationUpdate')
+    saveError(error, 'proxyUpdateUserTimeline')
 
     return res.status(error.response?.status || 500).json({
-      error: error.response?.data || 'Error updating user profile',
+      error: error.response?.data || 'Error updating user timeline',
     })
   }
 }

@@ -18,7 +18,7 @@ export default async function handler(
 
   try {
     const response = await axios.post(
-      'https://hometrics0001.vercel.app/api/users/where-do-you-want-to-buy',
+      'https://hometrics0001.vercel.app/api/users/bedrooms',
       userData,
       {
         headers: {
@@ -31,10 +31,10 @@ export default async function handler(
     return res.status(200).json(response.data)
   } catch (error: any) {
     console.error('Error updating user profile:', error.message)
-    saveError(error, 'proxyUserLocationUpdate')
+    saveError(error, 'proxyUpdateUserBedrooms')
 
     return res.status(error.response?.status || 500).json({
-      error: error.response?.data || 'Error updating user profile',
+      error: error.response?.data || 'Error updating user bedrooms',
     })
   }
 }

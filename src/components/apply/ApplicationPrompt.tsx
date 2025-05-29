@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import classNames from 'classnames'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
-import { WalletButton } from '@components/web3-wallet'
+import WalletButton from './WalletButton'
 
 const ApplicationPrompt: FC<{ className?: string }> = ({ className }) => (
   <div

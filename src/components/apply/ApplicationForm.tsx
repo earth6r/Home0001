@@ -1,116 +1,18 @@
 /* eslint-disable no-console */
 import React, { FC, useState } from 'react'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
-import { updateUserLocation } from './actions'
 import classNames from 'classnames'
-import { useForm } from 'react-hook-form'
 import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from './types'
-import { LOCATIONS } from './consts'
-import FormPane from './FormPane'
-import { UserInfoForm, UserPaymentOptionForm, UserPaymentForm } from './forms'
-
-const LocationForm: FC<FormProps> = ({ user, setUser, className }) => {
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    shouldUseNativeValidation: true,
-  })
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [formError, setFormError] = useState({ error: false, message: '' })
-  const [formSubmitted, setFormSubmitted] = useState({
-    submitted: false,
-    success: false,
-  })
-  const [hiddenInputShown, setHiddenInputShown] = useState(false)
-
-  const onSubmit = async (data: any) => {
-    if (!user?.email || !data?.locations_of_interest) {
-      console.error('Missing required form fields')
-      return
-    }
-    setIsSubmitting(true)
-
-    updateUserLocation(user.email, data.locations_of_interest, data.City).then(
-      res => {
-        console.log('User location submitted:', res)
-        if (!res?.success) {
-          console.error('Error updating user location:', res?.message)
-          setFormError({ error: true, message: 'User location update failed' })
-          setFormSubmitted({ submitted: true, success: false })
-          setIsSubmitting(false)
-        } else {
-          setUser({
-            ...user,
-            step: 'priceRange',
-          })
-
-          setFormSubmitted({ submitted: true, success: true })
-          scroll.scrollToTop({ behavior: 'smooth' })
-        }
-      }
-    )
-  }
-  return (
-    <FormPane
-      id="location-form"
-      className={className}
-      isSubmitting={isSubmitting}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div className="flex flex-col gap-y">
-        <h3>{`Where do you want to buy?`}</h3>
-        <p>{`Select up to 3 locations.`}</p>
-
-        {LOCATIONS.map(({ label, name }) => (
-          <div key={name}>
-            <input
-              type="checkbox"
-              value={name}
-              id={name}
-              {...register('locations_of_interest', { required: false })}
-            />
-            <label
-              className="text-left cursor-pointer font-medium text-md tracking-normal"
-              htmlFor={name}
-            >
-              {label}
-            </label>
-          </div>
-        ))}
-        <div key={'Else'}>
-          <input
-            type="checkbox"
-            id={'Else'}
-            {...register('Else', {
-              required: false,
-              onChange: () => setHiddenInputShown(!hiddenInputShown),
-            })}
-          />
-          <label
-            className="text-left cursor-pointer font-medium text-md tracking-normal"
-            htmlFor={'Else'}
-          >
-            {`Somewhere else`}
-          </label>
-        </div>
-        <input
-          type="text"
-          placeholder="WHERE?"
-          {...register('City', { required: false })}
-          className={classNames(
-            hiddenInputShown ? '' : 'opacity-0',
-            'input my-y md:my-yhalf'
-          )}
-        />
-      </div>
-    </FormPane>
-  )
-}
+import {
+  UserInfoForm,
+  UserPaymentOptionForm,
+  UserPaymentForm,
+  LocationForm,
+  PriceRangeForm,
+  TimelineForm,
+  RoomsForm,
+} from './forms'
 
 const ApplicationForm: FC<FormProps> = ({
   className,
@@ -151,7 +53,17 @@ const ApplicationForm: FC<FormProps> = ({
                 <LocationForm user={user} setUser={setUser} />
               )}
 
-              {user?.step === 'priceRange' && <p>{`price range form`}</p>}
+              {user?.step === 'priceRange' && (
+                <PriceRangeForm user={user} setUser={setUser} />
+              )}
+
+              {user?.step === 'whenToBuy' && (
+                <TimelineForm user={user} setUser={setUser} />
+              )}
+
+              {user?.step === 'bedrooms' && (
+                <RoomsForm user={user} setUser={setUser} />
+              )}
             </div>
           ) : (
             <div className="flex flex-col justify-between h-[calc(95svh-var(--header-height))]">
