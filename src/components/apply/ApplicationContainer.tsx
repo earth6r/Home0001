@@ -39,7 +39,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
 
   const initMint = async () => {
-    console.log('Minting token for address:', user?.address)
+    // console.log('Minting token for address:', user?.address)
     mintToken(user?.address as string)
       .then(res => {
         console.log('Minted token:', res)
