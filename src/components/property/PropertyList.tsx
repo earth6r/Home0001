@@ -62,11 +62,11 @@ export const PropertyList: FC<PropertyListProps> = ({
                   {available !== false && (
                     <div
                       className={classNames(
-                        'inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-left uppercase'
+                        'inline-flex justify-between items-center w-[101px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-left uppercase'
                       )}
                     >
                       <IconSmallArrow
-                        className="relative w-[1em] mt-[0.1em]"
+                        className="relative w-[1.1em] mt-[0.05em]"
                         fill="white"
                       />
                       <span className="leading-none">{`Explore`}</span>

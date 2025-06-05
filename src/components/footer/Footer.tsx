@@ -10,6 +10,7 @@ import { TypedObject } from 'sanity'
 import { PropertyList } from '@components/property'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   footerMenu,
@@ -66,8 +67,8 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
                     'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase border-black'
                   )}
                 >
-                  <IconRightArrowBold
-                    className="relative w-[14px] mt-[0.1em]"
+                  <IconSmallArrow
+                    className="relative w-[1.1em] mt-[0.05em]"
                     fill="white"
                   />
                   <span className="leading-none">{`Apply`}</span>
@@ -84,8 +85,8 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
                   'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
                 )}
               >
-                <IconRightArrowBold
-                  className="relative w-[14px] mt-[0.1em]"
+                <IconSmallArrow
+                  className="relative w-[1.1em] mt-[0.05em]"
                   fill="black"
                 />
                 <span className="leading-none">{`Get in touch`}</span>
@@ -103,8 +104,8 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
                 setBrokerInquiryOpen(true)
               }}
             >
-              <IconRightArrowBold
-                className="relative w-[14px] mt-[0.1em]"
+              <IconSmallArrow
+                className="relative w-[1.1em] mt-[0.05em]"
                 fill="black"
               />
               <span className="leading-none">{`Talk to us`}</span>
