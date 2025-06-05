@@ -84,7 +84,7 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
       </Modal>
 
       <div className="flex items-center gap-[5px] py-[4px] px-[6px] border-black">
-        <IconSmallArrow fill="black" width="15" height="11" />
+        <IconSmallArrow fill="black" width="16" height="10" />
         <button
           onClick={() => {
             setIsOpen(true)
