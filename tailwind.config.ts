@@ -158,12 +158,26 @@ export default {
         },
         '.text-h1': {
           fontSize: theme('fontSize.2xl'),
+          fontWeight: '500',
+          lineHeight: '0.9',
+          letterSpacing: theme('letterSpacing.header'),
+          textTransform: 'uppercase',
+        },
+        '.text-h1--bold': {
+          fontSize: theme('fontSize.2xl'),
           fontWeight: '700',
           lineHeight: '0.9',
           letterSpacing: theme('letterSpacing.header'),
           textTransform: 'uppercase',
         },
         '.text-h2': {
+          fontSize: theme('fontSize.xl'),
+          fontWeight: '500',
+          lineHeight: '0.9',
+          letterSpacing: theme('letterSpacing.header'),
+          textTransform: 'uppercase',
+        },
+        '.text-h2--bold': {
           fontSize: theme('fontSize.xl'),
           fontWeight: '700',
           lineHeight: '0.9',
@@ -172,14 +186,14 @@ export default {
         },
         '.text-h3': {
           fontSize: theme('fontSize.header3'),
-          fontWeight: '700',
+          fontWeight: '500',
           lineHeight: '0.9',
           letterSpacing: '-0.025em',
           textTransform: 'uppercase',
         },
         '.text-h4': {
           fontSize: theme('fontSize.xs'),
-          fontWeight: '700',
+          fontWeight: '500',
           fontFamily: theme('fontFamily.sansText'),
           lineHeight: '0.9',
           letterSpacing: theme('letterSpacing.details'),
@@ -194,7 +208,7 @@ export default {
         '.text-side': {
           fontFamily: theme('fontFamily.sansDisp'),
           fontSize: theme('fontSize.side'),
-          fontWeight: '700',
+          fontWeight: '500',
           textTransform: 'uppercase',
           lineHeight: '0.9',
           // letterSpacing: '-1.16px',

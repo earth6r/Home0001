@@ -195,7 +195,7 @@ export const AnimatingBlock: FC<AnimatingBlockProps> = ({
                 setTimeout(() => setHeaderLinksShown(true), 500)
               }}
               variants={headerVariants}
-              className="flex flex-wrap items-center relative lg:max-w-[1000px] lg:mx-auto px-x md:px-fullmenu text-h2"
+              className="flex flex-wrap items-center relative lg:max-w-[1000px] lg:mx-auto px-x md:px-fullmenu text-h2--bold"
             >
               <div>
                 {header.map((item, index) => (
