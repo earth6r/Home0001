@@ -50,7 +50,7 @@ export default {
         bodyLg: ['21px', '1'], // large paragraph rich text
         card: ['24px', '0.9'], // property summary card
         header3: ['32px', '0.9'], // h3
-        side: ['58px', '0.75'], // vertical text
+        side: ['56px', '0.75'], // vertical text
         xl: ['clamp(2.5rem, 2.088rem + 1.569vw, 3.5rem)', '0.9'], // h2
         '2xl': ['clamp(2.5rem, 0.956rem + 5.882vw, 6.25rem)', '0.9'], // h1
       },
@@ -157,29 +157,51 @@ export default {
           borderBottom: `2px solid ${theme('backgroundColor.lightgray')}`,
         },
         '.text-h1': {
+          fontFamily: theme('fontFamily.sansDisp'),
+          fontSize: theme('fontSize.2xl'),
+          fontWeight: '500',
+          lineHeight: '0.9',
+          letterSpacing: theme('letterSpacing.header'),
+          textTransform: 'uppercase',
+          fontFeatureSettings: `'case' on, 'cpsp' on`,
+        },
+        '.text-h1--bold': {
           fontSize: theme('fontSize.2xl'),
           fontWeight: '700',
           lineHeight: '0.9',
           letterSpacing: theme('letterSpacing.header'),
           textTransform: 'uppercase',
+          fontFeatureSettings: `'case' on`,
         },
         '.text-h2': {
+          fontFamily: theme('fontFamily.sansDisp'),
+          fontSize: theme('fontSize.xl'),
+          fontWeight: '500',
+          lineHeight: '0.9',
+          letterSpacing: theme('letterSpacing.header'),
+          textTransform: 'uppercase',
+          fontFeatureSettings: `'case' on, 'cpsp' on`,
+        },
+        '.text-h2--bold': {
+          fontFamily: theme('fontFamily.sansDisp'),
           fontSize: theme('fontSize.xl'),
           fontWeight: '700',
           lineHeight: '0.9',
           letterSpacing: theme('letterSpacing.header'),
           textTransform: 'uppercase',
+          fontFeatureSettings: `'case' on`,
         },
         '.text-h3': {
           fontSize: theme('fontSize.header3'),
-          fontWeight: '700',
+          fontWeight: '500',
           lineHeight: '0.9',
           letterSpacing: '-0.025em',
           textTransform: 'uppercase',
+          fontFeatureSettings: `'case' on`,
         },
         '.text-h4': {
           fontSize: theme('fontSize.xs'),
-          fontWeight: '700',
+          fontWeight: '500',
           fontFamily: theme('fontFamily.sansText'),
           lineHeight: '0.9',
           letterSpacing: theme('letterSpacing.details'),
@@ -194,11 +216,12 @@ export default {
         '.text-side': {
           fontFamily: theme('fontFamily.sansDisp'),
           fontSize: theme('fontSize.side'),
-          fontWeight: '700',
+          fontWeight: '500',
           textTransform: 'uppercase',
+          letterSpacing: theme('letterSpacing.header'),
           lineHeight: '0.9',
           // letterSpacing: '-1.16px',
-          // fontFeatureSettings: `'case' on`,
+          fontFeatureSettings: `'case' on, 'cpsp' on`,
         },
       })
     },
