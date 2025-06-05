@@ -1,9 +1,9 @@
 import { BiWorld } from 'react-icons/bi'
 
 export default {
-  name: 'web3Block',
+  name: 'applyBlock',
   type: 'object',
-  title: 'Web3 Block',
+  title: 'Apply Block',
   icon: BiWorld,
   fields: [
     {
@@ -17,18 +17,8 @@ export default {
       title: 'Joining Fee',
       description: 'Fee to join the community in $USD',
     },
-    {
-      name: 'loggedInHeader',
-      type: 'richText',
-      title: 'Logged In Header',
-    },
-    {
-      name: 'dashboardCopy',
-      type: 'richText',
-      title: 'Dashboard Copy',
-    },
   ],
   preview: {
-    prepare: (): { title: string } => ({ title: 'Web3 block' }),
+    prepare: (): { title: string } => ({ title: 'Apply block' }),
   },
 }

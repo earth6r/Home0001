@@ -94,9 +94,14 @@ export default {
       title: 'Messaging Block',
     },
     {
-      name: 'web3Block',
-      type: 'web3Block',
-      title: 'Web3 Block',
+      name: 'applyBlock',
+      type: 'applyBlock',
+      title: 'Apply Block',
+    },
+    {
+      name: 'dashboardBlock',
+      type: 'dashboardBlock',
+      title: 'Dashboard Block',
     },
   ],
 }

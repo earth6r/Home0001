@@ -35,6 +35,9 @@ export const Layout: FC<LayoutProps> = ({
 }) => {
   const { asPath, query } = useRouter()
   const page: PageData = filterDataToSingleItem(data)
+  const hideUi =
+    (page?._type && (page._type as string) === 'rdPage') ||
+    (page?._type && (page._type as string) === 'dashboard')
 
   useEffect(() => {
     if (preview)
@@ -64,20 +67,12 @@ export const Layout: FC<LayoutProps> = ({
           className="flex-initial"
           path={asPath}
           title={
-            (page?._type && (page._type as string) === 'rdPage') ||
-            page?.slug?.current === 'about'
-              ? '0001'
-              : 'HOME0001'
+            hideUi || page?.slug?.current === 'about' ? '0001' : 'HOME0001'
           }
           hideMenuButton={
-            (page?._type !== 'property' && page?.hideMenuButton) ||
-            (page?._type && (page._type as string) === 'buy') ||
-            (page?._type && (page._type as string) === 'rdPage')
+            (page?._type !== 'property' && page?.hideMenuButton) || hideUi
           }
-          hideMenu={
-            (page?._type && (page._type as string) === 'buy') ||
-            (page?._type && (page._type as string) === 'rdPage')
-          }
+          hideMenu={hideUi}
           showTourLink={page?._type !== 'property' && page?.showTourLink}
           property={(page as Unit)?.property}
           currentTitle={
@@ -110,7 +105,7 @@ export const Layout: FC<LayoutProps> = ({
           <main className="flex-auto min-h-[95svh]">{children}</main>
         </ReactLenis>
 
-        {(page?._type as string) !== 'rdPage' && (
+        {!hideUi && (
           <Footer
             path={asPath}
             query={query}

@@ -52,7 +52,9 @@ import inventory from './documents/inventory'
 import inventoryToggle from './objects/inventory-toggle'
 import formBlock from './blocks/form-block'
 import formField from './objects/form-field'
-import web3Block from './blocks/web-3-block'
+import applyBlock from './blocks/apply-block'
+import dashboardBlock from './blocks/dashboard-block'
+import dashboard from './documents/dashboard'
 
 export const schemaTypes = [
   // objects
@@ -103,7 +105,8 @@ export const schemaTypes = [
   unitBlock,
   videosBlock,
   messagingBlock,
-  web3Block,
+  applyBlock,
+  dashboardBlock,
 
   // documents
   brand,
@@ -116,6 +119,7 @@ export const schemaTypes = [
   propertyType,
   rdPage,
   unit,
+  dashboard,
   siteSettings,
 ]
 
