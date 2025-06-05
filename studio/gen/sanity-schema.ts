@@ -786,6 +786,62 @@ export interface Unit extends SanityDocument {
 }
 
 /**
+ * Dashboard Page
+ *
+ *
+ */
+export interface Dashboard extends SanityDocument {
+  _type: "dashboard";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Password — `string`
+   *
+   * Password protect this page
+   */
+  password?: string;
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * Site Settings
  *
  *
@@ -1499,7 +1555,8 @@ export type BlockContent = Array<
   | SanityKeyed<UnitBlock>
   | SanityKeyed<VideosBlock>
   | SanityKeyed<MessagingBlock>
-  | SanityKeyed<Web3Block>
+  | SanityKeyed<ApplyBlock>
+  | SanityKeyed<DashboardBlock>
 >;
 
 export type AccordionBlock = {
@@ -2034,8 +2091,8 @@ export type MessagingBlock = {
   messaginBlock?: string;
 };
 
-export type Web3Block = {
-  _type: "web3Block";
+export type ApplyBlock = {
+  _type: "applyBlock";
   /**
    * Header — `richText`
    *
@@ -2049,7 +2106,10 @@ export type Web3Block = {
    * Fee to join the community in $USD
    */
   joiningFee?: number;
+};
 
+export type DashboardBlock = {
+  _type: "dashboardBlock";
   /**
    * Logged In Header — `richText`
    *
@@ -2076,6 +2136,7 @@ export type Documents =
   | PropertyType
   | RdPage
   | Unit
+  | Dashboard
   | SiteSettings;
 
 /**

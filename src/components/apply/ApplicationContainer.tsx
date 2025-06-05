@@ -3,23 +3,15 @@
 import React, { FC, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { RichText } from '@components/sanity/rich-text'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
-import { TypedObject } from 'sanity'
-import { mintToken } from '@lib/util/web3'
-import {
-  useWalletUser,
-  useWeb3ImageUrl,
-  useWeb3IsConnected,
-  Web3UserProps,
-} from '@contexts/web3'
+import { useWalletUser, Web3UserProps } from '@contexts/web3'
 import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
-import TokenDashboard from './TokenDashboard'
 import ApplicationPrompt from './ApplicationPrompt'
 import ApplicationForm from './ApplicationForm'
 import { ApplicationContainerProps } from './types'
+import { motion } from 'framer-motion'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -31,30 +23,16 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
     Web3UserProps,
     React.Dispatch<React.SetStateAction<Web3UserProps>>
   ]
-  const [imageUrl, setImageUrl] = useWeb3ImageUrl() as [
-    string | null,
-    React.Dispatch<React.SetStateAction<string | null>>
-  ]
 
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
 
-  const initMint = async () => {
-    // console.log('Minting token for address:', user?.address)
-    mintToken(user?.address as string)
-      .then(res => {
-        console.log('Minted token:', res)
-        // if (!res?.result) {
-        //   return console.error('No token ID returned from minting')
-        // }
-        // setUser({
-        //   ...user,
-        //   tokenIds: [res?.toString() as string],
-        // })
-      })
-      .catch(err => {
-        console.error('Error minting token:', err)
-      })
-  }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (user?.hasFinishedProfile) {
+        setTimeout(() => (window.location.href = '/dashboard'), 6000)
+      }
+    }
+  }, [user?.hasFinishedProfile])
 
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
@@ -111,66 +89,24 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
         />
       )}
 
-      {user?.hasFinishedProfile && content?.loggedInHeader && (
-        <RichText
-          blocks={content.loggedInHeader as TypedObject | TypedObject[]}
-          className="pt-page pr-menu md:pr-0"
-        />
-      )}
-
-      {/* 3: mint token flow */}
-      {user?.hasFinishedProfile &&
-        (!user.tokenIds || user.tokenIds.length === 0) && (
-          <div className="flex flex-col gap-y mt-y">
-            <div className="rich-text">
-              <p>No tokens found matching wallet address.</p>
-            </div>
-
-            <button
-              onClick={initMint}
-              className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black bg-white"
-            >
-              <IconSmallArrow fill="black" width="15" height="11" />
-
-              <span className="uppercase font-medium leading-none text-xs">
-                {`Mint a token`}
-              </span>
-            </button>
-          </div>
-        )}
-
-      {/* 4: show tokens owned by user */}
-      {user?.hasFinishedProfile &&
-        user.tokenIds &&
-        user.tokenIds.length > 0 && (
-          <div className="grid grid-cols-2 gap-x p-x mt-ydouble bg-gray">
-            {user.tokenIds && user.tokenIds.length > 0 && (
-              <>
-                {imageUrl && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={imageUrl}
-                    alt="NFT"
-                    className="w-full h-auto object-cover"
-                  />
-                )}
-
-                <div className="w-full rich-text">
-                  <p className="mb-y">TokenID: </p>
-                  <p className="text-lg">{user.tokenIds[0].toString()}</p>
-                </div>
-              </>
-            )}
-          </div>
-        )}
-
-      {/* 5. show full dash with tokens if user has minted */}
-      {/* Use isConnected once address found to show full dashboard */}
-      {user?.address && user.tokenIds && user.tokenIds.length > 0 && (
-        <TokenDashboard
-          dashboardCopy={content.dashboardCopy}
-          className="mt-y"
-        />
+      {user?.hasFinishedProfile && (
+        <div className="pt-page">
+          <h3 className="text-h3">
+            <span>
+              {`Thank you for your application, you will be redirected to the dashboard shortly`}
+            </span>
+            <motion.span
+              initial={{ maxWidth: 0 }}
+              animate={{ maxWidth: 30 }}
+              transition={{
+                duration: 1,
+                ease: 'linear',
+                repeat: Infinity,
+              }}
+              className="inline-block absolute overflow-hidden"
+            >{`...`}</motion.span>
+          </h3>
+        </div>
       )}
     </div>
   )

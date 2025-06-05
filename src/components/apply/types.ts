@@ -11,8 +11,6 @@ declare global {
 export type ApplicationContainerProps = {
   content: {
     header?: TypedObject | TypedObject[]
-    loggedInHeader?: TypedObject | TypedObject[]
-    dashboardCopy?: TypedObject | TypedObject[]
     joiningFee?: number
   }
   className?: string
