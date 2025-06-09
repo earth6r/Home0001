@@ -332,6 +332,15 @@ export const BODY_QUERY = `
         },
       null
     ),
+    dashboardMenu->{
+      items[]{
+        _key,
+        text,
+        link{
+          ${LINK_QUERY}
+        }
+      }
+    },
   },
 `
 

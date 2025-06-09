@@ -16,6 +16,13 @@ export default {
       type: 'richText',
       title: 'Dashboard Copy',
     },
+    {
+      name: 'dashboardMenu',
+      title: 'Dashboard Menu',
+      type: 'reference',
+      description: 'Select menu for sidebar navigation',
+      to: { type: 'menus' },
+    },
   ],
   preview: {
     prepare: (): { title: string } => ({ title: 'Dashboard block' }),

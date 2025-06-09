@@ -79,6 +79,18 @@ export const getUserProfile = async (address: string) => {
   }
 }
 
+export const getUserCurrentStep = async (email: string) => {
+  try {
+    return await axios.get(
+      `${BASE_URL}/api/web3/get-user-current-step?email=${email}`,
+      CONFIG
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'getUserCurrentStep')
+  }
+}
+
 export const updateUserLocation = async (
   email: string,
   location: string,

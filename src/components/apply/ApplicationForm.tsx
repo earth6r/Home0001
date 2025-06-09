@@ -68,7 +68,7 @@ const ApplicationForm: FC<FormProps> = ({
           ) : (
             <div className="mt-0 flex flex-col justify-between min-h-[calc(80svh-var(--header-height))] md:h-[calc(88svh-var(--header-height))]">
               <div>
-                <p className="large mb-y">{`Your wallet has been successfully connected and your membership profile has been created.`}</p>
+                <p className="large mb-y">{`Your wallet has been successfully connected.`}</p>
                 <p className="large">{`The next step is for you to tell us a little about yourself, pay the application fee (if needed) and fill out the questionnaire.`}</p>
               </div>
               <button

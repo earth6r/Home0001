@@ -19,6 +19,7 @@ export type Web3UserProps = {
     | 'bedrooms'
     | 'token'
   address?: string
+  hasMadePayment?: boolean
   hasFinishedProfile?: boolean
   tokenIds?: string[]
   paymentType?: string
