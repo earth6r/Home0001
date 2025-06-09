@@ -14,7 +14,7 @@ import {
   Web3UserProps,
 } from '@contexts/web3'
 import { saveError } from '@lib/util/save-error'
-import { getUserProfile } from './actions'
+import { getUserProfile, getUserCurrentStep } from './actions'
 import { animateScroll as scroll } from 'react-scroll'
 
 type WalletButtonProps = {
@@ -50,21 +50,34 @@ export const WalletButton: FC<WalletButtonProps> = ({
     }
   }
 
-  const fetchTokenIds = async (address: string) => {
+  const initGetUserStep = (email: string, address: string, name: string) => {
     try {
-      getTokensOwnedByAddress(address)
-        .then(tokenIds => {
+      getUserCurrentStep(email)
+        .then(res => {
+          const { data } = res || {}
           updateUser({
             ...user,
-            hasFinishedProfile: true,
-            address: address as string,
-            tokenIds: tokenIds as string[],
+            first_name: name,
+            address: address,
+            email: email,
+            step: data.tokenMinted
+              ? 'token'
+              : data.referralPaymentMade
+              ? 'location'
+              : data.walletConnectedProfileCreated
+              ? 'paymentOption'
+              : 'info',
+            hasMadePayment: data.referralPaymentMade,
+            hasFinishedProfile: data.questionnaireFinished,
           })
-          console.log('Token IDs owned by the address:', user)
         })
-        .catch(err => console.log('Error:', err))
+        .catch(err => {
+          console.error('Error fetching user step:', err)
+          saveError(err, 'initGetUserStep')
+        })
     } catch (error) {
-      console.error('Error fetching tokens:', error)
+      console.error('Error initializing user step:', error)
+      saveError(error, 'initGetUserStep')
     }
   }
 
@@ -73,9 +86,8 @@ export const WalletButton: FC<WalletButtonProps> = ({
       .then(res => {
         if (res?.data.user) {
           // Assuming you have a function to set user profile in context or state
-          fetchTokenIds(address as string)
+          initGetUserStep(res.data.user.email, address, res.data.user.firstName)
           fetchImage()
-          console.log(res.data.user)
         } else {
           updateUser({
             ...user,

@@ -52,6 +52,8 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
     }
   }, [])
 
+  console.log('ApplicationContainer user:', user)
+
   return (
     <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}
@@ -79,7 +81,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       )}
 
       {/* 2: create user and set preferences */}
-      {user?.address && !user.paymentType && !user?.hasFinishedProfile && (
+      {user?.address && !user.hasMadePayment && !user?.hasFinishedProfile && (
         <ApplicationForm
           className="w-[100vw] px-x -ml-x pt-header pb-ydouble pr-menu lg:pr-0 bg-gray"
           user={user}

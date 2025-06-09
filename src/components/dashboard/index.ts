@@ -1,3 +1,3 @@
 export * from './DashboardContainer'
-export * from './TokenDashboard'
+export * from './DashboardSteps'
 export * from './types'

@@ -2123,6 +2123,13 @@ export type DashboardBlock = {
    *
    */
   dashboardCopy?: RichText;
+
+  /**
+   * Dashboard Menu — `reference`
+   *
+   * Select menu for sidebar navigation
+   */
+  dashboardMenu?: SanityReference<Menus>;
 };
 
 export type Documents =
