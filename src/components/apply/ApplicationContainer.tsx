@@ -60,11 +60,11 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
           {content.header && (
             <RichText
               blocks={content.header}
-              className="pt-page pr-menu md:pr-0"
+              className="pt-page pr-menu md:pr-0 mb-ydouble"
             />
           )}
 
-          <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu md:pr-0 bg-lightgray">
+          <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-gray">
             <div className="flex flex-col flex-start gap-y rich-text text-left">
               <h3 className="">{`Current Joining fee:`}</h3>
               <p className="!mx-0">{`${content.joiningFee} USD / ${
@@ -74,14 +74,14 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
               <p className="!mx-0">{`If you were referred by an existing member, your joining fee will be waived.`}</p>
             </div>
           </div>
-          <ApplicationPrompt className="w-[100vw] px-x -ml-x py-ydouble pr-menu md:pr-0" />
+          <ApplicationPrompt className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0" />
         </>
       )}
 
       {/* 2: create user and set preferences */}
       {user?.address && !user.paymentType && !user?.hasFinishedProfile && (
         <ApplicationForm
-          className="w-[100vw] px-x -ml-x pt-header pb-ydouble pr-menu bg-gray"
+          className="w-[100vw] px-x -ml-x pt-header pb-ydouble pr-menu lg:pr-0 bg-gray"
           user={user}
           setUser={setUser}
           joiningFee={content.joiningFee}
@@ -91,7 +91,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
 
       {user?.hasFinishedProfile && (
         <div className="pt-page">
-          <h3 className="text-h3">
+          <h3 className="text-h2">
             <span>
               {`Thank you for your application, you will be redirected to the dashboard shortly`}
             </span>

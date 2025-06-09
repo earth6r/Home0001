@@ -26,8 +26,8 @@ const ApplicationForm: FC<FormProps> = ({
   return (
     <div className={classNames(className)}>
       <div className="h-full">
-        <div className="grid md:grid-cols-2 gap-x pr-x rich-text">
-          <h2>{`HOME0001: APPLICATION`}</h2>
+        <div className="gap-x pr-x md:mx-auto lg:max-w-[480px] rich-text">
+          {/* <h2>{`YOUR HOME0001 APPLICATION:`}</h2> */}
 
           {formStarted ? (
             <div>
@@ -66,9 +66,11 @@ const ApplicationForm: FC<FormProps> = ({
               )}
             </div>
           ) : (
-            <div className="flex flex-col justify-between min-h-[calc(80svh-var(--header-height))] md:h-[calc(95svh-var(--header-height))]">
-              <p>{`The next step is for you to tell us a little about yourself, pay the application fee (if needed) and fill out the questionnaire.`}</p>
-
+            <div className="mt-0 flex flex-col justify-between min-h-[calc(80svh-var(--header-height))] md:h-[calc(88svh-var(--header-height))]">
+              <div>
+                <p className="large mb-y">{`Your wallet has been successfully connected and your membership profile has been created.`}</p>
+                <p className="large">{`The next step is for you to tell us a little about yourself, pay the application fee (if needed) and fill out the questionnaire.`}</p>
+              </div>
               <button
                 onClick={() => {
                   setFormStarted(true)
@@ -78,8 +80,8 @@ const ApplicationForm: FC<FormProps> = ({
                   'relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above'
                 )}
               >
-                {'Submit'}
-                <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+                {'Continue'}
+                <IconSmallArrow className="w-[1.1em]" height="10" />
               </button>
             </div>
           )}
