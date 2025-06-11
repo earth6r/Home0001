@@ -937,6 +937,13 @@ export interface SiteSettings extends SanityDocument {
   footerMenu?: SanityReference<Menus>;
 
   /**
+   * Dashboard Menu — `reference`
+   *
+   * Select menu for dashboard navigation
+   */
+  dashboardMenu?: SanityReference<Menus>;
+
+  /**
    * Footer Apply Copy — `richText`
    *
    *
@@ -2126,13 +2133,6 @@ export type DashboardBlock = {
    *
    */
   dashboardCopy?: RichText;
-
-  /**
-   * Dashboard Menu — `reference`
-   *
-   * Select menu for sidebar navigation
-   */
-  dashboardMenu?: SanityReference<Menus>;
 };
 
 export type AccountBlock = {
