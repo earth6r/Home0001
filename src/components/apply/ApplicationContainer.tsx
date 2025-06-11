@@ -29,7 +29,10 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (user?.hasFinishedProfile) {
-        setTimeout(() => (window.location.href = '/dashboard'), 6000)
+        setTimeout(
+          () => (window.location.href = `/dashboard?wallet=${user.address}`),
+          6000
+        )
       }
     }
   }, [user?.hasFinishedProfile])
@@ -81,7 +84,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       )}
 
       {/* 2: create user and set preferences */}
-      {user?.address && !user.hasMadePayment && !user?.hasFinishedProfile && (
+      {user?.address && !user?.hasFinishedProfile && (
         <ApplicationForm
           className="w-[100vw] px-x -ml-x pt-header pb-ydouble pr-menu lg:pr-0 bg-gray"
           user={user}

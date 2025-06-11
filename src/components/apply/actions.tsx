@@ -79,6 +79,34 @@ export const getUserProfile = async (address: string) => {
   }
 }
 
+// BitPay crypto payment actions
+export const createBitPayInvoice = async (invoiceData: any) => {
+  try {
+    return await axios.post(
+      `${BASE_URL}/api/web3/create-invoice`,
+      invoiceData,
+      CONFIG
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'createBitPayInvoice')
+    throw error
+  }
+}
+
+export const checkBitPayInvoiceStatus = async (invoiceId: string) => {
+  try {
+    return await axios.get(
+      `${BASE_URL}/api/web3/invoice-status?invoiceId=${invoiceId}`,
+      CONFIG
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'checkBitPayInvoiceStatus')
+    throw error
+  }
+}
+
 export const getUserCurrentStep = async (email: string) => {
   try {
     return await axios.get(
