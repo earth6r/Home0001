@@ -1021,7 +1021,9 @@ export type Link = {
      *
      *
      */
-    reference?: SanityReference<Page | Property | PropertyType | Unit>;
+    reference?: SanityReference<
+      Page | Property | PropertyType | Unit | Dashboard
+    >;
 
     /**
      * Anchor Slug — `slug`
@@ -1557,6 +1559,7 @@ export type BlockContent = Array<
   | SanityKeyed<MessagingBlock>
   | SanityKeyed<ApplyBlock>
   | SanityKeyed<DashboardBlock>
+  | SanityKeyed<AccountBlock>
 >;
 
 export type AccordionBlock = {
@@ -2130,6 +2133,16 @@ export type DashboardBlock = {
    * Select menu for sidebar navigation
    */
   dashboardMenu?: SanityReference<Menus>;
+};
+
+export type AccountBlock = {
+  _type: "accountBlock";
+  /**
+   * Content — `richText`
+   *
+   *
+   */
+  content?: RichText;
 };
 
 export type Documents =

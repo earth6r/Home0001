@@ -3,6 +3,7 @@ import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { TypedObject } from 'sanity'
 import { Web3UserProps } from '@contexts/web3'
 import Link from 'next/link'
+import { mintToken } from '@lib/util/web3'
 
 type TokenDashboardProps = {
   dashboardCopy?: TypedObject | TypedObject[]
@@ -10,72 +11,94 @@ type TokenDashboardProps = {
   className?: string
 }
 
-const DashboardSteps: FC<TokenDashboardProps> = ({ user, className }) => (
-  <div className={className}>
-    <ul className="flex flex-col gap-y">
-      <li className="relative pb-y rich-text border-bottom--gray">
-        <span className="text-base !font-bold uppercase">Step 1</span>
-        <p>
-          Submit your application. A member of the collective will reach out to
-          you. Speak with them.
-        </p>
+const DashboardSteps: FC<TokenDashboardProps> = ({ user, className }) => {
+  const initMint = async () => {
+    // console.log('Minting token for address:', user?.address)
+    mintToken(user?.address as string)
+      .then(res => {
+        console.log('Minted token:', res)
+        // if (!res?.result) {
+        //   return console.error('No token ID returned from minting')
+        // }
+        // setUser({
+        //   ...user,
+        //   tokenIds: [res?.toString() as string],
+        // })
+      })
+      .catch(err => {
+        console.error('Error minting token:', err)
+      })
+  }
 
-        {!user?.hasFinishedProfile && (
-          <Link
-            href={`/apply`}
-            target="_blank"
-            className="inline-block mt-y font-medium"
-          >
+  return (
+    <div className={className}>
+      <ul className="flex flex-col gap-y">
+        <li className="relative pb-y rich-text border-bottom--gray">
+          <span className="text-base !font-bold uppercase">Step 1</span>
+          <p>
+            Submit your application. A member of the collective will reach out
+            to you. Speak with them.
+          </p>
+
+          {!user?.hasFinishedProfile && (
+            <Link
+              href={`/apply`}
+              target="_blank"
+              className="inline-block mt-y font-medium"
+            >
+              <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white">
+                <IconSmallArrow fill="white" width="15" height="11" />
+
+                <span className="uppercase font-medium !leading-none">
+                  {`Finish Application`}
+                </span>
+              </button>
+            </Link>
+          )}
+
+          {user?.hasFinishedProfile && (
+            <span className="absolute right-0 top-0 text-base font-medium">
+              Completed
+            </span>
+          )}
+        </li>
+
+        <li className="pb-y rich-text border-bottom--gray">
+          <span className="text-base !font-bold uppercase">Step 2</span>
+          <p>
+            Come hang at a 0001 home or meet us on a call if you’re far away.
+          </p>
+          <div className="inline-block mt-y font-bold">
             <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white">
               <IconSmallArrow fill="white" width="15" height="11" />
 
-              <span className="uppercase font-medium !leading-none">
-                {`Finish Application`}
+              <span className="uppercase !leading-none">
+                {`View Appointment`}
               </span>
             </button>
-          </Link>
-        )}
+          </div>
+        </li>
 
-        {user?.hasFinishedProfile && (
-          <span className="absolute right-0 top-0 text-base font-medium">
-            Completed
-          </span>
-        )}
-      </li>
+        <li className="pb-y rich-text border-bottom--gray">
+          <span className="text-base !font-bold uppercase">Step 3</span>
+          <p>
+            If your application is approved, you can mint your token here. If
+            it’s not, your joining fee will be refunded.
+          </p>
+        </li>
 
-      <li className="pb-y rich-text border-bottom--gray">
-        <span className="text-base !font-bold uppercase">Step 2</span>
-        <p>Come hang at a 0001 home or meet us on a call if you’re far away.</p>
-        <div className="inline-block mt-y font-bold">
-          <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white">
-            <IconSmallArrow fill="white" width="15" height="11" />
+        <li className="pb-y rich-text border-bottom--gray">
+          <span className="text-base !font-bold uppercase">Step 4</span>
+          <p>Choose your new home, get financing if required, and buy it.</p>
+        </li>
 
-            <span className="uppercase !leading-none">
-              {`View Appointment`}
-            </span>
-          </button>
-        </div>
-      </li>
-
-      <li className="pb-y rich-text border-bottom--gray">
-        <span className="text-base !font-bold uppercase">Step 3</span>
-        <p>
-          If your application is approved, you can mint your token here. If it’s
-          not, your joining fee will be refunded.
-        </p>
-      </li>
-
-      <li className="pb-y rich-text border-bottom--gray">
-        <span className="text-base !font-bold uppercase">Step 4</span>
-        <p>Choose your new home, get financing if required, and buy it.</p>
-      </li>
-
-      <li className="pb-y rich-text md:border-bottom--gray">
-        <span className="text-base !font-bold uppercase">Step 5</span>
-        <p>Move in and get to know your neighbors.</p>
-      </li>
-    </ul>
-  </div>
-)
+        <li className="pb-y rich-text md:border-bottom--gray">
+          <span className="text-base !font-bold uppercase">Step 5</span>
+          <p>Move in and get to know your neighbors.</p>
+        </li>
+      </ul>
+    </div>
+  )
+}
 
 export default DashboardSteps

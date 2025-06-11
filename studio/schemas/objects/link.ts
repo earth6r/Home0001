@@ -22,6 +22,7 @@ export default {
             { type: 'property' },
             { type: 'propertyType' },
             { type: 'unit' },
+            { type: 'dashboard' },
           ],
           weak: true,
         },

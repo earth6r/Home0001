@@ -28,6 +28,7 @@ import {
   FormBlock,
   ApplyBlock,
   DashboardBlock,
+  AccountBlock,
 } from '.'
 import classNames from 'classnames'
 import { useFeatureFlagEnabled } from 'posthog-js/react'
@@ -36,6 +37,7 @@ import { useRouter } from 'next/router'
 export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
   grid,
+  user,
   className,
   style,
 }) => {
@@ -157,7 +159,10 @@ export const BlockContent: FC<SanityBlockElement> = ({
               <ApplyBlock index={index} {...value} />
             ),
             dashboardBlock: ({ index, value }) => (
-              <DashboardBlock index={index} {...value} />
+              <DashboardBlock index={index} user={user} {...value} />
+            ),
+            accountBlock: ({ index, value }) => (
+              <AccountBlock index={index} user={user} {...value} />
             ),
           },
           marks: blockMarks,
