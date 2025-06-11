@@ -103,5 +103,10 @@ export default {
       type: 'dashboardBlock',
       title: 'Dashboard Block',
     },
+    {
+      name: 'accountBlock',
+      type: 'accountBlock',
+      title: 'Dashboard: Account Block',
+    },
   ],
 }

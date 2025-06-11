@@ -79,6 +79,15 @@ export const SITE_SETTINGS_QUERY = groq`
         }
       }
     },
+    dashboardMenu->{
+      items[]{
+        _key,
+        text,
+        link{
+          ${LINK_QUERY}
+        }
+      }
+    },
     applyCopy,
     inquiryId,
     inquiryCopy,

@@ -106,6 +106,14 @@ export default {
       group: 'menus',
     },
     {
+      name: 'dashboardMenu',
+      title: 'Dashboard Menu',
+      type: 'reference',
+      description: 'Select menu for dashboard navigation',
+      to: { type: 'menus' },
+      group: 'menus',
+    },
+    {
       name: 'applyCopy',
       title: 'Footer Apply Copy',
       type: 'richText',

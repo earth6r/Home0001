@@ -13,6 +13,7 @@ type DashboardBlockProps = Omit<SanityBlockElement, keyof DashboardBlockType> &
 
 export const DashboardBlock: FC<DashboardBlockProps> = ({
   className,
+  user,
   loggedInHeader,
   dashboardCopy,
   dashboardMenu,
@@ -20,6 +21,7 @@ export const DashboardBlock: FC<DashboardBlockProps> = ({
   return (
     <Block className={classNames(className, 'md:pr-menu')}>
       <DashboardContainer
+        user={user}
         content={{
           loggedInHeader,
           dashboardCopy,

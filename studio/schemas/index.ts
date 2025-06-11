@@ -55,6 +55,7 @@ import formField from './objects/form-field'
 import applyBlock from './blocks/apply-block'
 import dashboardBlock from './blocks/dashboard-block'
 import dashboard from './documents/dashboard'
+import accountBlock from './blocks/account-block'
 
 export const schemaTypes = [
   // objects
@@ -107,6 +108,7 @@ export const schemaTypes = [
   messagingBlock,
   applyBlock,
   dashboardBlock,
+  accountBlock,
 
   // documents
   brand,
