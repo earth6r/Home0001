@@ -67,7 +67,10 @@ export const Layout: FC<LayoutProps> = ({
           className="flex-initial"
           path={asPath}
           title={
-            hideUi || page?.slug?.current === 'about' ? '0001' : 'HOME0001'
+            (page?._type && (page._type as string) === 'rdPage') ||
+            page?.slug?.current === 'about'
+              ? '0001'
+              : 'HOME0001'
           }
           hideMenuButton={
             (page?._type !== 'property' && page?.hideMenuButton) || hideUi

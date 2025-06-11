@@ -31,24 +31,10 @@ export const WalletButton: FC<WalletButtonProps> = ({
     React.Dispatch<React.SetStateAction<Web3UserProps>>
   ]
   const [client, setClient] = useWeb3Client()
-  const [imageUrl, setImageUrl] = useWeb3ImageUrl() as [
-    string | null,
-    React.Dispatch<React.SetStateAction<string | null>>
-  ]
   const [isWeb3Connected, setIsWeb3Connected] = useWeb3IsConnected() as [
     boolean,
     React.Dispatch<React.SetStateAction<boolean>>
   ]
-
-  const fetchImage = async () => {
-    try {
-      const uri = await fetchTokenURI(1) // assuming token ID 1
-      const img = await fetchImageUrl(uri as unknown as string)
-      setImageUrl(img)
-    } catch (error) {
-      console.error('Error fetching NFT image:', error)
-    }
-  }
 
   const initGetUserStep = (email: string, address: string, name: string) => {
     try {
@@ -87,7 +73,6 @@ export const WalletButton: FC<WalletButtonProps> = ({
         if (res?.data.user) {
           // Assuming you have a function to set user profile in context or state
           initGetUserStep(res.data.user.email, address, res.data.user.firstName)
-          fetchImage()
         } else {
           updateUser({
             ...user,
