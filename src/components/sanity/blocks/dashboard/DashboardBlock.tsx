@@ -16,7 +16,6 @@ export const DashboardBlock: FC<DashboardBlockProps> = ({
   user,
   loggedInHeader,
   dashboardCopy,
-  dashboardMenu,
 }) => {
   return (
     <Block className={classNames(className, 'md:pr-menu')}>
@@ -25,7 +24,6 @@ export const DashboardBlock: FC<DashboardBlockProps> = ({
         content={{
           loggedInHeader,
           dashboardCopy,
-          dashboardMenu: dashboardMenu as unknown as SanityMenu,
         }}
       />
     </Block>
