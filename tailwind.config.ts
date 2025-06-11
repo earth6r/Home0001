@@ -56,8 +56,8 @@ export default {
       },
       letterSpacing: {
         details: '-0.02em',
-        body: '-0.021em',
-        header: '-0.02em',
+        body: '-0.02em',
+        header: '-0.03em',
       },
       spacing: {
         x: 'var(--space-x)',
@@ -154,7 +154,10 @@ export default {
           borderBottom: '1px solid black',
         },
         '.border-bottom--gray': {
-          borderBottom: `2px solid ${theme('backgroundColor.lightgray')}`,
+          borderBottom: `2px solid ${theme('backgroundColor.gray')}`,
+        },
+        '.border-bottom--textgray': {
+          borderBottom: `2px solid ${theme('backgroundColor.textgray')}`,
         },
         '.text-h1': {
           fontFamily: theme('fontFamily.sansDisp'),
@@ -171,7 +174,7 @@ export default {
           lineHeight: '0.9',
           letterSpacing: theme('letterSpacing.header'),
           textTransform: 'uppercase',
-          fontFeatureSettings: `'case' on`,
+          fontFeatureSettings: `'case' on, 'cpsp' on`,
         },
         '.text-h2': {
           fontFamily: theme('fontFamily.sansDisp'),
