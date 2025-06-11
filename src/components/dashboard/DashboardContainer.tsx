@@ -113,7 +113,7 @@ export const DashboardContainer: FC<DashboardContainerProps> = ({
           <div className="flex flex-col gap-y rich-text">
             <h3>{`Hello, ${user.first_name}.`}</h3>
 
-            <div className="w-full aspect-square bg-gray"></div>
+            <div className="max-w-[290px] aspect-square bg-gray"></div>
             {/* {(!user?.tokenIds || user.tokenIds.length === 0) && (
             <div className="flex flex-col gap-y mt-y">
               <div className="rich-text">
@@ -155,8 +155,8 @@ export const DashboardContainer: FC<DashboardContainerProps> = ({
               </div>
             )}
 
-            <p className="!m-0 pb-y uppercase border-bottom">{`Membership status: Awaiting judgement`}</p>
-            <p className="!m-0 pb-y uppercase border-bottom">{`Connected wallet ...${user.address?.slice(
+            <p className="!m-0 pb-y uppercase border-bottom--gray">{`Membership status: Awaiting judgement`}</p>
+            <p className="!m-0 pb-y uppercase border-bottom--gray">{`Connected wallet ...${user.address?.slice(
               user.address.length - 4,
               user.address.length
             )}`}</p>
