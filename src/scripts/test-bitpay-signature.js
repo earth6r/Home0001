@@ -10,7 +10,7 @@ const crypto = require('crypto')
 const privateKey = process.env.BITPAY_PRIVATE_KEY
 const publicKey = process.env.BITPAY_PUBLIC_KEY
 const merchantToken =
-  process.env.BITPAY_MERCHANT_TOKEN || process.env.BITPAY_API_TOKEN
+  process.env.NEXT_PUBLIC_BITPAY_MERCHANT_TOKEN || process.env.BITPAY_API_TOKEN
 
 console.log('===== BitPay Signature Test =====')
 console.log(`Private key exists: ${!!privateKey}`)

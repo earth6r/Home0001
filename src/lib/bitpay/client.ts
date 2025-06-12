@@ -27,7 +27,8 @@ export class BitPayClient {
     this.privateKey = process.env.BITPAY_PRIVATE_KEY
     this.publicKey = process.env.BITPAY_PUBLIC_KEY
     this.merchantToken =
-      process.env.BITPAY_MERCHANT_TOKEN || process.env.BITPAY_API_TOKEN // Fallback to API token
+      process.env.NEXT_PUBLIC_BITPAY_MERCHANT_TOKEN ||
+      process.env.BITPAY_API_TOKEN // Fallback to API token
     this.payoutToken = process.env.BITPAY_PAYOUT_TOKEN
     this.sin = process.env.BITPAY_SIN
 
