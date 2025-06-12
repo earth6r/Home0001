@@ -1,4 +1,4 @@
-import { KeyUtils } from 'bitpay-sdk'
+// import { KeyUtils } from 'bitpay-sdk'
 import { BitPayKeyUtils } from './keyUtils'
 import type {
   BitPayKeys,
