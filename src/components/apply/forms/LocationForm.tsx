@@ -73,7 +73,7 @@ export const LocationForm: FC<FormProps> = ({ user, setUser, className }) => {
               {...register('interested_cities', { required: false })}
             />
             <label
-              className="text-left cursor-pointer font-medium text-md tracking-normal"
+              className="text-left cursor-pointer font-medium text-xs tracking-normal"
               htmlFor={name}
             >
               {label}
@@ -90,7 +90,7 @@ export const LocationForm: FC<FormProps> = ({ user, setUser, className }) => {
             })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-md tracking-normal"
+            className="text-left cursor-pointer font-medium text-xs tracking-normal"
             htmlFor={'Else'}
           >
             {`Somewhere else`}
