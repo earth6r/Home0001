@@ -53,7 +53,7 @@ async function createBitPayRequest() {
 
       try {
         // Try alternative ECKey creation method
-        const { ECKey } = require('bitpay-sdk/dist/Key')
+        const { ECKey } = require('bitpay-sdk')
         ecPrivateKey = ECKey.fromHex(privateKeyHex)
         console.log('✓ Successfully created ECKey using ECKey.fromHex()')
       } catch (hexError) {
@@ -70,7 +70,7 @@ async function createBitPayRequest() {
                 extractedHex.length
               )
 
-              const { ECKey } = require('bitpay-sdk/dist/Key')
+              const { ECKey } = require('bitpay-sdk')
               ecPrivateKey = ECKey.fromHex(extractedHex)
               console.log('✓ Successfully created ECKey from extracted hex')
             } else {

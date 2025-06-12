@@ -32,7 +32,7 @@ console.log('\n===== Signing Test =====')
 // Method 1: Try ECKey from BitPay SDK
 try {
   console.log('\nTrying BitPay SDK ECKey method...')
-  const { ECKey } = require('bitpay-sdk/dist/Key')
+  const { ECKey } = require('bitpay-sdk')
   const key = ECKey.fromHex(privateKey)
   const sdkSignature = key.sign(testMessage).toString('hex')
   console.log('✅ SUCCESS! SDK ECKey signing worked')
