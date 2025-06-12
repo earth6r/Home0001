@@ -222,7 +222,6 @@ export const BODY_QUERY = `
       }, 
     },
     "items": items[]{
-
       ...,
       copy[]{
         ...,
@@ -233,6 +232,29 @@ export const BODY_QUERY = `
           }
         }
       }
+    },
+    "header": header[]{
+      ...,
+      _type,
+      style,
+      _key,
+      children[]{
+        ...,
+        "images": images[]{
+          ...,
+          "image": image{
+            ${IMAGE_QUERY}
+          },
+        },
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      },
+      markDefs[]{
+        ...,
+        ${LINK_MARKDEFS_QUERY}
+      },
     },
     "accordions": select(
       count(^.body[
