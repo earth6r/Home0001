@@ -126,7 +126,7 @@ export const RoomsForm: FC<FormProps> = ({ user, setUser, className }) => {
               })}
             />
             <label
-              className="text-left cursor-pointer font-medium text-md tracking-normal"
+              className="text-left cursor-pointer font-medium text-xs tracking-normal"
               htmlFor={name}
             >
               {label}

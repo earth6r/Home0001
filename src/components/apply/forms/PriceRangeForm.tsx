@@ -96,7 +96,7 @@ export const PriceRangeForm: FC<FormProps> = ({ user, setUser, className }) => {
               {...register('price_range', { required: false })}
             />
             <label
-              className="text-left cursor-pointer font-medium text-md tracking-normal"
+              className="text-left cursor-pointer font-medium text-xs tracking-normal"
               htmlFor={name}
             >
               {label}
