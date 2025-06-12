@@ -37,6 +37,7 @@
     "./studio/lib/**/*",
     "./studio/gen/**/*",
     "./src/lib/**/*",
+    "./src/scripts/**/*",
     "./src/pages/**/*",
     "./src/components/**/*",
     "./src/styles/**/*",
