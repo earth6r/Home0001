@@ -104,8 +104,10 @@ const PaymentContainer: FC<BitPaymentProps> = ({
 
     try {
       const invoiceData = {
-        amount: joiningFee || 50, // USD amount
+        price: joiningFee || 50, // USD amount
         currency: 'USD', // Always USD, BitPay handles crypto conversion
+        bitpayIdRequired: false,
+        merchantName: 'Home0001',
         buyerEmail: user.email,
         buyerName: `${user.first_name || ''} ${user.last_name || ''}`.trim(),
         orderId: `HOME0001-${user.address}-${Date.now()}`,

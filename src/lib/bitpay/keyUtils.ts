@@ -8,7 +8,7 @@ export class BitPayKeyUtils {
     try {
       // Try to use BitPay SDK first if available
       try {
-        const { ECKey } = require('bitpay-sdk/dist/Key')
+        const { ECKey } = require('bitpay-sdk')
         const key = new ECKey()
         return key.getPrivate('hex')
       } catch (sdkError) {
@@ -31,7 +31,7 @@ export class BitPayKeyUtils {
     try {
       // Try to use BitPay SDK first if available
       try {
-        const { ECKey } = require('bitpay-sdk/dist/Key')
+        const { ECKey } = require('bitpay-sdk')
         const key = ECKey.fromHex(privateKeyHex)
         return key.getPublic('hex')
       } catch (sdkError) {

@@ -126,6 +126,8 @@ export class BitPayClient {
       token: this.merchantToken,
     })
 
+    console.log('BitPay createInvoice body:', body)
+
     if (!this.publicKey || !this.privateKey) {
       throw new Error('Public and private keys must be set')
     }
