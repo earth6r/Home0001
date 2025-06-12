@@ -22,6 +22,7 @@ export default async function handler(
       process.env.NODE_ENV === 'production' ? 'prod' : 'test'
     )
 
+    // TODO: MAKE SURE INVOICE DATA IS VALID AGAINST EXAMPLE https://developer.bitpay.com/reference/create-an-invoice
     const invoiceData = {
       // Set webhook URL for this invoice
       notificationURL: `${

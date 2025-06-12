@@ -55,8 +55,6 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
     }
   }, [])
 
-  console.log('ApplicationContainer user:', user)
-
   return (
     <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}

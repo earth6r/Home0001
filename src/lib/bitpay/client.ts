@@ -1,3 +1,4 @@
+import { KeyUtils } from 'bitpay-sdk'
 import { BitPayKeyUtils } from './keyUtils'
 import type {
   BitPayKeys,
@@ -15,16 +16,25 @@ export class BitPayClient {
   private publicKey?: string
   private merchantToken?: string
   private payoutToken?: string
+  private sin?: string
 
   constructor(environment: BitPayEnvironment = 'test') {
     this.environment = environment
     this.baseUrl =
       environment === 'prod' ? 'https://bitpay.com' : 'https://test.bitpay.com'
 
+    // Get keys from environment variables
     this.privateKey = process.env.BITPAY_PRIVATE_KEY
     this.publicKey = process.env.BITPAY_PUBLIC_KEY
-    this.merchantToken = process.env.BITPAY_MERCHANT_TOKEN
+    this.merchantToken =
+      process.env.BITPAY_MERCHANT_TOKEN || process.env.BITPAY_API_TOKEN // Fallback to API token
     this.payoutToken = process.env.BITPAY_PAYOUT_TOKEN
+    this.sin = process.env.BITPAY_SIN
+
+    // Validate that we have a proper private key
+    if (!this.privateKey || this.privateKey === this.merchantToken) {
+      console.warn('BitPay: Private key is missing or appears to be invalid')
+    }
   }
 
   /**
@@ -52,12 +62,10 @@ export class BitPayClient {
     if (!this.privateKey || !this.publicKey) {
       throw new Error('Private and public keys must be set')
     }
-
-    const sin = BitPayKeyUtils.getSinFromPublicKey(this.publicKey)
     const url = `${this.baseUrl}/tokens`
 
     const body = JSON.stringify({
-      id: sin,
+      id: this.sin,
       label: label,
       facade: facade,
     })
@@ -103,6 +111,15 @@ export class BitPayClient {
       throw new Error('Merchant token is required')
     }
 
+    // Validate private key format first
+    if (!this.privateKey || this.privateKey.length < 30) {
+      console.error(
+        'Invalid private key format:',
+        this.privateKey?.substring(0, 10) + '...'
+      )
+      throw new Error('Failed to read private key - Invalid format')
+    }
+
     const url = `${this.baseUrl}/invoices`
     const body = JSON.stringify({
       ...invoiceData,
@@ -113,15 +130,17 @@ export class BitPayClient {
       throw new Error('Public and private keys must be set')
     }
 
+    // Use our custom BitPayKeyUtils instead of direct SDK call
+    // This handles the proper conversion of the private key format
+    // const xsig = BitPayKeyUtils.generateXSignature(this.privateKey, url, body)
+    // const xsig = new KeyUtils().sign(this.privateKey, url + body)
+
     const headers = {
       'x-accept-version': '2.0.0',
       'Content-Type': 'application/json',
-      'x-identity': BitPayKeyUtils.generateXIdentity(this.publicKey),
-      'x-signature': BitPayKeyUtils.generateXSignature(
-        this.privateKey,
-        url,
-        body
-      ),
+      accept: 'application/json',
+      // 'x-identity': BitPayKeyUtils.generateXIdentity(this.publicKey),
+      // 'x-signature': xsig,
     }
 
     const response = await fetch(url, {

@@ -9,39 +9,34 @@ async function setupBitPaySimple() {
 
     // Step 1: Generate private key using BitPay SDK
     console.log('🔑 Generating private key...')
-    const privateKey = KeyUtils.generateNewKeypair()
-    console.log('Private Key:', privateKey.toString())
+    const ecPrivateKey = new KeyUtils().generate_keypair()
+    // Convert to hex format for storage in .env file
+    const privateKeyHex = ecPrivateKey.getPrivate('hex')
+    console.log('Private Key (hex):', privateKeyHex)
 
     // Step 2: Generate public key from private key
     console.log('🔑 Generating public key...')
-    const publicKey = KeyUtils.getPublicKeyFromPrivateKey(privateKey)
+    const publicKey = new KeyUtils().getPublicKeyFromPrivateKey(ecPrivateKey)
     console.log('Public Key:', publicKey.toString())
 
     // Step 3: Generate SIN from private key
     console.log('🔑 Generating SIN...')
-    const sin = KeyUtils.getSinFromKey(privateKey)
+    const sin = new KeyUtils().get_sin_from_key(ecPrivateKey)
     console.log('SIN:', sin)
 
     // Step 4: Generate x-identity header
     console.log('🔑 Generating x-identity header...')
-    const xIdentity = KeyUtils.generatePubKeyHexFromPrivateKey(privateKey)
+    const xIdentity = publicKey.toString()
     console.log('X-Identity:', xIdentity)
 
-    // Step 4: Prepare token request
+    // Step 5: Prepare token request
     const tokenData = {
       id: sin,
       label: 'Home0001 Application',
       facade: 'merchant',
     }
 
-    const url = 'https://test.bitpay.com/tokens'
-    const body = JSON.stringify(tokenData)
-
-    // Step 5: Generate signature
-    console.log('🔑 Generating signature...')
-    const fullUrl = url + body
-    const xSignature = KeyUtils.sign(fullUrl, privateKey)
-    console.log('X-Signature:', xSignature)
+    const url = 'https://bitpay.com/tokens'
 
     // Step 6: Make API request
     console.log('🌐 Requesting token from BitPay API...')
@@ -51,8 +46,6 @@ async function setupBitPaySimple() {
         headers: {
           'x-accept-version': '2.0.0',
           'Content-Type': 'application/json',
-          'x-identity': xIdentity,
-          'x-signature': xSignature,
         },
         timeout: 30000,
       })
@@ -61,19 +54,17 @@ async function setupBitPaySimple() {
       console.log('Response:', JSON.stringify(response.data, null, 2))
 
       const tokenResponse = response.data.data || response.data
-      const token = tokenResponse.token
+      const token = tokenResponse[0].token
 
       if (token) {
-        // Save configuration
+        // Save configuration to JSON file
         const configData = {
           BitPayConfiguration: {
-            Environment: 'Test',
+            Environment: 'Prod',
             EnvConfig: {
               Test: {
-                PrivateKey: privateKey.toString(),
+                PrivateKey: privateKeyHex, // Store as hex string instead of JSON object
                 PublicKey: publicKey.toString(),
-                SIN: sin,
-                XIdentity: xIdentity,
                 ApiTokens: {
                   merchant: token,
                 },
@@ -90,12 +81,54 @@ async function setupBitPaySimple() {
           'bitpay-config.json'
         )
         fs.writeFileSync(configPath, JSON.stringify(configData, null, 2))
-
-        console.log('\n📝 Add this to your .env file:')
-        console.log(`BITPAY_API_TOKEN=${token}`)
-
         console.log(`\n💾 Configuration saved to: ${configPath}`)
+
+        // Update .env file with the token and keys
+        const envPath = path.join(__dirname, '..', '..', '.env')
+        if (fs.existsSync(envPath)) {
+          console.log('\n🔄 Updating .env file with BitPay configuration...')
+          let envContent = fs.readFileSync(envPath, 'utf8')
+          
+          // Update or add BITPAY_API_TOKEN
+          if (envContent.includes('BITPAY_API_TOKEN=')) {
+            envContent = envContent.replace(/BITPAY_API_TOKEN=.*/g, `BITPAY_API_TOKEN=${token}`)
+          } else {
+            envContent += `\nBITPAY_API_TOKEN=${token}`
+          }
+          
+          // Update or add BITPAY_PRIVATE_KEY
+          if (envContent.includes('BITPAY_PRIVATE_KEY=')) {
+            envContent = envContent.replace(/BITPAY_PRIVATE_KEY=.*/g, `BITPAY_PRIVATE_KEY=${privateKeyHex}`)
+          } else {
+            envContent += `\nBITPAY_PRIVATE_KEY=${privateKeyHex}`
+          }
+          
+          // Update or add BITPAY_PUBLIC_KEY
+          if (envContent.includes('BITPAY_PUBLIC_KEY=')) {
+            envContent = envContent.replace(/BITPAY_PUBLIC_KEY=.*/g, `BITPAY_PUBLIC_KEY=${publicKey.toString()}`)
+          } else {
+            envContent += `\nBITPAY_PUBLIC_KEY=${publicKey.toString()}`
+          }
+          
+          // Update or add BITPAY_SIN
+          if (envContent.includes('BITPAY_SIN=')) {
+            envContent = envContent.replace(/BITPAY_SIN=.*/g, `BITPAY_SIN=${sin}`)
+          } else {
+            envContent += `\nBITPAY_SIN=${sin}`
+          }
+          
+          fs.writeFileSync(envPath, envContent)
+          console.log('✅ .env file updated successfully!')
+        } else {
+          console.log('❌ .env file not found, creating new one...')
+          const envContent = `BITPAY_API_TOKEN=${token}\nBITPAY_PRIVATE_KEY=${privateKeyHex}\nBITPAY_PUBLIC_KEY=${publicKey.toString()}\nBITPAY_SIN=${sin}`
+          fs.writeFileSync(envPath, envContent)
+          console.log('✅ New .env file created with BitPay configuration')
+        }
+
         console.log('\n✅ BitPay setup complete!')
+        console.log('\n📝 IMPORTANT: You need to go to BitPay dashboard to approve this token')
+        console.log('Visit: https://bitpay.com/dashboard/merchant/api-tokens')
       } else {
         console.log('❌ No token found in response')
       }
@@ -107,15 +140,6 @@ async function setupBitPaySimple() {
       if (apiError.response?.data) {
         console.log('Data:', JSON.stringify(apiError.response.data, null, 2))
       }
-
-      console.log(
-        '\n💡 This is normal - BitPay may require manual token approval.'
-      )
-      console.log('📋 Manual setup options:')
-      console.log('1. Go to https://test.bitpay.com/dashboard')
-      console.log('2. Navigate to Settings > API Tokens')
-      console.log('3. Generate a token manually')
-      console.log('4. Add it to your .env as BITPAY_API_TOKEN=your_token')
     }
   } catch (error) {
     console.error('❌ Error setting up BitPay:', error.message)
@@ -131,24 +155,51 @@ function verifyBitPaySetup() {
     if (fs.existsSync(envPath)) {
       const envContent = fs.readFileSync(envPath, 'utf8')
 
+      console.log('\n--- BitPay Configuration Check ---')
+      
+      // Check API Token
       if (envContent.includes('BITPAY_API_TOKEN')) {
-        console.log('✅ BITPAY_API_TOKEN found in .env file')
-
-        const tokenMatch = envContent.match(/BITPAY_API_TOKEN=(.+)/)
+        const tokenMatch = envContent.match(/BITPAY_API_TOKEN=([^\n]+)/)
         if (tokenMatch && tokenMatch[1]) {
           const token = tokenMatch[1].trim()
-          console.log(`📊 Token length: ${token.length} characters`)
-          console.log(`🔑 Token preview: ${token.substring(0, 10)}...`)
-
-          if (token.length > 20) {
-            console.log('✅ Token appears to be valid format')
-          } else {
-            console.log('⚠️  Token might be too short')
-          }
+          console.log(`✅ API Token: ${token.substring(0, 10)}... (${token.length} characters)`)
+        } else {
+          console.log('❌ BITPAY_API_TOKEN found but empty')
         }
       } else {
         console.log('❌ BITPAY_API_TOKEN not found in .env file')
       }
+      
+      // Check Private Key
+      if (envContent.includes('BITPAY_PRIVATE_KEY')) {
+        const keyMatch = envContent.match(/BITPAY_PRIVATE_KEY=([^\n]+)/)
+        if (keyMatch && keyMatch[1]) {
+          const key = keyMatch[1].trim()
+          
+          // If the key is a JSON object, it's in the wrong format
+          if (key.startsWith('{') && key.includes('ec')) {
+            console.log('❌ BITPAY_PRIVATE_KEY is in JSON format. Should be a hex string.')
+            console.log('   Run this script again to fix it.')
+          } else {
+            console.log(`✅ Private Key: ${key.substring(0, 10)}... (${key.length} characters)`)
+            if (key.length >= 64) {
+              console.log('   Appears to be in correct hex format')
+            } else {
+              console.log('⚠️  Private Key might be too short for hex format')
+            }
+          }
+        } else {
+          console.log('❌ BITPAY_PRIVATE_KEY found but empty')
+        }
+      } else {
+        console.log('❌ BITPAY_PRIVATE_KEY not found in .env file')
+      }
+      
+      // Check Public Key and SIN
+      console.log(envContent.includes('BITPAY_PUBLIC_KEY') ? '✅ BITPAY_PUBLIC_KEY found' : '❌ BITPAY_PUBLIC_KEY not found')
+      console.log(envContent.includes('BITPAY_SIN') ? '✅ BITPAY_SIN found' : '❌ BITPAY_SIN not found')
+      
+      console.log('\nℹ️  If any component is missing or in the wrong format, run the script again without parameters')
     } else {
       console.log('❌ .env file not found')
     }

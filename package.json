@@ -16,7 +16,8 @@
     "ngrok": "ngrok http 3000",
     "setup-bitpay": "node ./src/scripts/setup-bitpay.js",
     "verify-bitpay": "node ./src/scripts/setup-bitpay.js verify",
-    "test-bitpay": "curl -X POST http://localhost:3000/api/web3/test-bitpay",
+    "fix-bitpay": "node ./src/scripts/fix-bitpay-keys.js",
+    "test-bitpay": "node ./src/scripts/test-bitpay-signature.js",
     "test-bitpay-invoice": "tsx ./src/scripts/test-bitpay.ts"
   },
   "dependencies": {
