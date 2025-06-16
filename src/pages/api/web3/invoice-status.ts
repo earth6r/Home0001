@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const prod = BASE_URL !== 'http://localhost:3000'
+  const prod = BASE_URL == 'https://home0001.com'
   const { invoiceId } = req.query
 
   if (!invoiceId) {
