@@ -12,12 +12,12 @@ type ApplyBlockProps = Omit<SanityBlockElement, keyof ApplyBlockType> &
 
 export const ApplyBlock: FC<ApplyBlockProps> = ({
   className,
-  header,
+  applyHeader,
   joiningFee,
 }) => {
   return (
     <Block className={classNames(className, 'grid md:grid-cols-2')}>
-      <ApplicationContainer content={{ header, joiningFee }} />
+      <ApplicationContainer content={{ header: applyHeader, joiningFee }} />
     </Block>
   )
 }

@@ -2108,7 +2108,7 @@ export type ApplyBlock = {
    *
    *
    */
-  header?: RichText;
+  applyHeader?: RichText;
 
   /**
    * Joining Fee — `number`

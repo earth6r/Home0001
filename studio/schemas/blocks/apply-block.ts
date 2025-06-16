@@ -7,7 +7,7 @@ export default {
   icon: BiWorld,
   fields: [
     {
-      name: 'header',
+      name: 'applyHeader',
       type: 'richText',
       title: 'Header',
     },
