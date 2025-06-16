@@ -36,7 +36,6 @@ const PaymentContainer: FC<BitPaymentProps> = ({
   const [formError, setFormError] = useState({ error: false, message: '' })
   const [invoiceUrl, setInvoiceUrl] = useState<string | null>(null)
   const [invoiceId, setInvoiceId] = useState<string | null>(null)
-  const [selectedCrypto, setSelectedCrypto] = useState<'ETH' | 'BTC'>('ETH')
   const [paymentStatus, setPaymentStatus] = useState<
     'pending' | 'paid' | 'expired' | null
   >(null)
@@ -79,15 +78,14 @@ const PaymentContainer: FC<BitPaymentProps> = ({
       } catch (error) {
         console.error('Error checking payment status:', error)
       }
-    }, 1000) // Check every 5 seconds
+    }, 5000) // Check every 5 seconds
 
-    // Clean up interval after 30 minutes
     const timeout = setTimeout(() => {
       clearInterval(pollInterval)
       if (paymentStatus === 'pending') {
         setPaymentStatus('expired')
       }
-    }, 30 * 60 * 1000)
+    }, 5 * 60 * 1000)
 
     return () => {
       clearInterval(pollInterval)
@@ -153,70 +151,31 @@ const PaymentContainer: FC<BitPaymentProps> = ({
       >
         <div className="flex flex-col gap-y">
           <div>
-            <h3>{`Pay with Crypto`}</h3>
-            <p className="!mx-0 my-y">Current joining fee:</p>
-            <p>
-              {`${joiningFee} USD`}
-              {cryptoPrice && cryptoPrice.length > 0 && (
-                <span>{` / ${cryptoPrice[0]} ETH / ${cryptoPrice[1]} BTC`}</span>
-              )}
-            </p>
-          </div>
+            <h3>{`Pay Application Fee`}</h3>
 
-          <div className="flex flex-col gap-y">
-            <p className="font-medium !m-0">
-              Select your preferred cryptocurrency:
-            </p>
-
-            <div className="flex gap-yhalf">
-              <label className="flex items-center cursor-pointer">
-                <input
-                  type="radio"
-                  name="crypto"
-                  value="ETH"
-                  checked={selectedCrypto === 'ETH'}
-                  onChange={() => setSelectedCrypto('ETH')}
-                  className="mr-2"
-                />
-                <span className="font-medium">Ethereum (ETH)</span>
-                {cryptoPrice && cryptoPrice[0] && (
-                  <span className="ml-2 text-sm opacity-75">
-                    (~{cryptoPrice[0]} ETH)
-                  </span>
+            <div className="flex justify-start items-center gap-y mt-y">
+              <p className="!mx-0">Current joining fee:</p>
+              <p className="!mx-0">
+                {`${joiningFee} USD`}
+                {cryptoPrice && cryptoPrice.length > 0 && (
+                  <span>{` / ${cryptoPrice[0]} ETH / ${cryptoPrice[1]} BTC`}</span>
                 )}
-              </label>
-
-              <label className="flex items-center cursor-pointer">
-                <input
-                  type="radio"
-                  name="crypto"
-                  value="BTC"
-                  checked={selectedCrypto === 'BTC'}
-                  onChange={() => setSelectedCrypto('BTC')}
-                  className="mr-2"
-                />
-                <span className="font-medium">Bitcoin (BTC)</span>
-                {cryptoPrice && cryptoPrice[1] && (
-                  <span className="ml-2 text-sm opacity-75">
-                    (~{cryptoPrice[1]} BTC)
-                  </span>
-                )}
-              </label>
+              </p>
             </div>
           </div>
 
           {paymentStatus === 'pending' && (
-            <div className="p-4 bg-yellow-100 border border-yellow-300 rounded">
-              <p className="font-medium">Payment window opened!</p>
+            <div>
+              <p className="font-medium">Payment window opened</p>
               <p className="text-sm mt-1">
-                Complete your {selectedCrypto} payment in the new window. This
-                page will automatically update when payment is confirmed.
+                Complete your payment in the new window. This page will
+                automatically update when payment is confirmed.
               </p>
               {invoiceUrl && (
                 <button
                   type="button"
                   onClick={() => window.open(invoiceUrl, '_blank')}
-                  className="text-blue-600 underline text-sm mt-2"
+                  className="text-base font-medium underline mt-y"
                 >
                   Reopen payment window
                 </button>
@@ -225,7 +184,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
           )}
 
           {paymentStatus === 'paid' && (
-            <div className="p-xhalf">
+            <div>
               <p className="font-medium">Payment confirmed!</p>
               <p className="text-sm mt-1">
                 Your crypto payment has been received and confirmed.
@@ -234,7 +193,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
           )}
 
           {paymentStatus === 'expired' && (
-            <div className="p-xhalf">
+            <div>
               <p className="font-medium">Payment expired</p>
               <p className="text-sm mt-1">
                 The payment window has expired. Please create a new payment.
@@ -264,7 +223,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
               ? 'Waiting for payment...'
               : isSubmitting
               ? 'Creating invoice...'
-              : `Pay with ${selectedCrypto}`}
+              : `Pay with wallet`}
             <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
         </div>
