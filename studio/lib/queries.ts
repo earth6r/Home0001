@@ -233,7 +233,7 @@ export const BODY_QUERY = `
         }
       }
     },
-    "header": header[]{
+    "applyHeader": applyHeader[]{
       ...,
       _type,
       style,
