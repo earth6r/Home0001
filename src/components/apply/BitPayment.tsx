@@ -79,7 +79,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
       } catch (error) {
         console.error('Error checking payment status:', error)
       }
-    }, 5000) // Check every 5 seconds
+    }, 1000) // Check every 5 seconds
 
     // Clean up interval after 30 minutes
     const timeout = setTimeout(() => {
@@ -107,12 +107,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
         price: joiningFee || 50, // USD amount
         currency: 'USD', // Always USD, BitPay handles crypto conversion
         bitpayIdRequired: false,
-        merchantName: 'Home0001',
-        buyerEmail: user.email,
-        buyerName: `${user.first_name || ''} ${user.last_name || ''}`.trim(),
-        orderId: `HOME0001-${user.address}-${Date.now()}`,
         itemDesc: 'HOME0001 Application Fee',
-        notificationURL: `${process.env.NEXT_PUBLIC_BASE_URL}/api/web3/webhook`,
         acceptanceWindow: 900000, // 15 minutes
         buyer: {
           name: `${user.first_name || ''} ${user.last_name || ''}`.trim(),
@@ -124,15 +119,13 @@ const PaymentContainer: FC<BitPaymentProps> = ({
       const response = await createBitPayInvoice(invoiceData)
 
       // Handle the updated API response structure
-      if (response?.data?.success && response?.data?.invoice?.url) {
-        const invoice = response.data.invoice
-
-        setInvoiceUrl(invoice.url)
-        setInvoiceId(invoice.id)
+      if (response?.data?.data?.url) {
+        setInvoiceUrl(response?.data.data.url)
+        setInvoiceId(response?.data.data.id)
         setPaymentStatus('pending')
 
         // Open BitPay invoice in new window
-        window.open(invoice.url, '_blank', 'width=800,height=600')
+        window.open(response.data.data.url, '_blank', 'width=800,height=600')
       } else {
         throw new Error(
           response?.data?.error || 'Failed to create BitPay invoice'

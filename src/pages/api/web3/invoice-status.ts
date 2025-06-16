@@ -4,14 +4,16 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { saveError } from '@lib/util/save-error'
 import axios from 'axios'
 
-const BITPAY_API_URL = 'https://bitpay.com/api'
-const BITPAY_TOKEN = process.env.BITPAY_API_TOKEN
+const BITPAY_API_TEST_URL = 'https://test.bitpay.com'
+const BITPAY_API_URL = 'https://bitpay.com'
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  const prod = BASE_URL !== 'http://localhost:3000'
   const { invoiceId } = req.query
 
   if (!invoiceId) {
@@ -22,13 +24,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const response = await axios.get(
-      `${BITPAY_API_URL}/invoices/${invoiceId}`,
+      `${prod ? BITPAY_API_URL : BITPAY_API_TEST_URL}/invoices/${invoiceId}`,
       {
         headers: {
           'Content-Type': 'application/json',
           'X-Accept-Version': '2.0.0',
-          Authorization: `Bearer ${BITPAY_TOKEN}`,
-          'X-Identity': BITPAY_TOKEN,
+          accept: 'application/json',
         },
         timeout: 10000,
       }
