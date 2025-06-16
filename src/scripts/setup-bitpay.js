@@ -36,7 +36,7 @@ async function setupBitPaySimple() {
       facade: 'merchant',
     }
 
-    const url = 'https://bitpay.com/tokens'
+    const url = 'https://test.bitpay.com/tokens'
 
     // Step 6: Make API request
     console.log('🌐 Requesting token from BitPay API...')
@@ -88,46 +88,60 @@ async function setupBitPaySimple() {
         if (fs.existsSync(envPath)) {
           console.log('\n🔄 Updating .env file with BitPay configuration...')
           let envContent = fs.readFileSync(envPath, 'utf8')
-          
+
           // Update or add BITPAY_API_TOKEN
-          if (envContent.includes('BITPAY_API_TOKEN=')) {
-            envContent = envContent.replace(/BITPAY_API_TOKEN=.*/g, `BITPAY_API_TOKEN=${token}`)
+          if (envContent.includes('GENERATED_BITPAY_API_TOKEN=')) {
+            envContent = envContent.replace(
+              /GENERATED_BITPAY_API_TOKEN=.*/g,
+              `GENERATED_BITPAY_API_TOKEN=${token}`
+            )
           } else {
-            envContent += `\nBITPAY_API_TOKEN=${token}`
+            envContent += `\nGENERATED_BITPAY_API_TOKEN=${token}`
           }
-          
+
           // Update or add BITPAY_PRIVATE_KEY
           if (envContent.includes('BITPAY_PRIVATE_KEY=')) {
-            envContent = envContent.replace(/BITPAY_PRIVATE_KEY=.*/g, `BITPAY_PRIVATE_KEY=${privateKeyHex}`)
+            envContent = envContent.replace(
+              /BITPAY_PRIVATE_KEY=.*/g,
+              `BITPAY_PRIVATE_KEY=${privateKeyHex}`
+            )
           } else {
             envContent += `\nBITPAY_PRIVATE_KEY=${privateKeyHex}`
           }
-          
+
           // Update or add BITPAY_PUBLIC_KEY
           if (envContent.includes('BITPAY_PUBLIC_KEY=')) {
-            envContent = envContent.replace(/BITPAY_PUBLIC_KEY=.*/g, `BITPAY_PUBLIC_KEY=${publicKey.toString()}`)
+            envContent = envContent.replace(
+              /BITPAY_PUBLIC_KEY=.*/g,
+              `BITPAY_PUBLIC_KEY=${publicKey.toString()}`
+            )
           } else {
             envContent += `\nBITPAY_PUBLIC_KEY=${publicKey.toString()}`
           }
-          
+
           // Update or add BITPAY_SIN
           if (envContent.includes('BITPAY_SIN=')) {
-            envContent = envContent.replace(/BITPAY_SIN=.*/g, `BITPAY_SIN=${sin}`)
+            envContent = envContent.replace(
+              /BITPAY_SIN=.*/g,
+              `BITPAY_SIN=${sin}`
+            )
           } else {
             envContent += `\nBITPAY_SIN=${sin}`
           }
-          
+
           fs.writeFileSync(envPath, envContent)
           console.log('✅ .env file updated successfully!')
         } else {
           console.log('❌ .env file not found, creating new one...')
-          const envContent = `BITPAY_API_TOKEN=${token}\nBITPAY_PRIVATE_KEY=${privateKeyHex}\nBITPAY_PUBLIC_KEY=${publicKey.toString()}\nBITPAY_SIN=${sin}`
+          const envContent = `GENERATED_BITPAY_API_TOKEN=${token}\nBITPAY_PRIVATE_KEY=${privateKeyHex}\nBITPAY_PUBLIC_KEY=${publicKey.toString()}\nBITPAY_SIN=${sin}`
           fs.writeFileSync(envPath, envContent)
           console.log('✅ New .env file created with BitPay configuration')
         }
 
         console.log('\n✅ BitPay setup complete!')
-        console.log('\n📝 IMPORTANT: You need to go to BitPay dashboard to approve this token')
+        console.log(
+          '\n📝 IMPORTANT: You need to go to BitPay dashboard to approve this token'
+        )
         console.log('Visit: https://bitpay.com/dashboard/merchant/api-tokens')
       } else {
         console.log('❌ No token found in response')
@@ -156,32 +170,42 @@ function verifyBitPaySetup() {
       const envContent = fs.readFileSync(envPath, 'utf8')
 
       console.log('\n--- BitPay Configuration Check ---')
-      
+
       // Check API Token
       if (envContent.includes('BITPAY_API_TOKEN')) {
         const tokenMatch = envContent.match(/BITPAY_API_TOKEN=([^\n]+)/)
         if (tokenMatch && tokenMatch[1]) {
           const token = tokenMatch[1].trim()
-          console.log(`✅ API Token: ${token.substring(0, 10)}... (${token.length} characters)`)
+          console.log(
+            `✅ API Token: ${token.substring(0, 10)}... (${
+              token.length
+            } characters)`
+          )
         } else {
           console.log('❌ BITPAY_API_TOKEN found but empty')
         }
       } else {
         console.log('❌ BITPAY_API_TOKEN not found in .env file')
       }
-      
+
       // Check Private Key
       if (envContent.includes('BITPAY_PRIVATE_KEY')) {
         const keyMatch = envContent.match(/BITPAY_PRIVATE_KEY=([^\n]+)/)
         if (keyMatch && keyMatch[1]) {
           const key = keyMatch[1].trim()
-          
+
           // If the key is a JSON object, it's in the wrong format
           if (key.startsWith('{') && key.includes('ec')) {
-            console.log('❌ BITPAY_PRIVATE_KEY is in JSON format. Should be a hex string.')
+            console.log(
+              '❌ BITPAY_PRIVATE_KEY is in JSON format. Should be a hex string.'
+            )
             console.log('   Run this script again to fix it.')
           } else {
-            console.log(`✅ Private Key: ${key.substring(0, 10)}... (${key.length} characters)`)
+            console.log(
+              `✅ Private Key: ${key.substring(0, 10)}... (${
+                key.length
+              } characters)`
+            )
             if (key.length >= 64) {
               console.log('   Appears to be in correct hex format')
             } else {
@@ -194,12 +218,22 @@ function verifyBitPaySetup() {
       } else {
         console.log('❌ BITPAY_PRIVATE_KEY not found in .env file')
       }
-      
+
       // Check Public Key and SIN
-      console.log(envContent.includes('BITPAY_PUBLIC_KEY') ? '✅ BITPAY_PUBLIC_KEY found' : '❌ BITPAY_PUBLIC_KEY not found')
-      console.log(envContent.includes('BITPAY_SIN') ? '✅ BITPAY_SIN found' : '❌ BITPAY_SIN not found')
-      
-      console.log('\nℹ️  If any component is missing or in the wrong format, run the script again without parameters')
+      console.log(
+        envContent.includes('BITPAY_PUBLIC_KEY')
+          ? '✅ BITPAY_PUBLIC_KEY found'
+          : '❌ BITPAY_PUBLIC_KEY not found'
+      )
+      console.log(
+        envContent.includes('BITPAY_SIN')
+          ? '✅ BITPAY_SIN found'
+          : '❌ BITPAY_SIN not found'
+      )
+
+      console.log(
+        '\nℹ️  If any component is missing or in the wrong format, run the script again without parameters'
+      )
     } else {
       console.log('❌ .env file not found')
     }

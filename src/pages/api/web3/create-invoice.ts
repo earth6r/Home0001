@@ -18,13 +18,11 @@ export default async function handler(
   }
 
   try {
-    const client = new BitPayClient(
-      process.env.NODE_ENV === 'production' ? 'prod' : 'test'
-    )
+    const client = new BitPayClient()
 
     // TODO: MAKE SURE INVOICE DATA IS VALID AGAINST EXAMPLE https://developer.bitpay.com/reference/create-an-invoice
+    console.log('Creating BitPay invoice with data:', req.body)
     const invoiceData = {
-      // Set webhook URL for this invoice
       notificationURL: `${
         process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
       }/api/web3/webhook`,
@@ -33,6 +31,9 @@ export default async function handler(
       //   `${
       //     process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
       //   }/payment/success`,
+      itemizedDetails: {
+        isFee: true,
+      },
       ...req.body,
     }
 

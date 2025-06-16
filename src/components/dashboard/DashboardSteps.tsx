@@ -57,7 +57,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({ user, className }) => {
           )}
 
           {user?.hasFinishedProfile && (
-            <span className="absolute right-0 top-0 text-base font-medium">
+            <span className="absolute right-0 top-0 text-base font-medium m-0">
               Completed
             </span>
           )}
