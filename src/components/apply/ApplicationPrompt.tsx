@@ -4,19 +4,14 @@ import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
 import WalletButton from './WalletButton'
 
-const ApplicationPrompt: FC<{ className?: string }> = ({ className }) => (
-  <div
-    className={classNames(
-      className,
-      'inline-flex flex-col gap-y py-ydouble bg-yellow'
-    )}
-  >
+const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
+  header,
+  className,
+}) => (
+  <div className={classNames(className, 'inline-flex flex-col gap-y')}>
     <div className="md:max-w-[50%] rich-text mb-y">
-      <h3 className="text-left">To join:</h3>
-      <p>
-        We need you to connect your wallet so we can issue you with a soulbound
-        token if your application is successful.
-      </p>
+      <h3 className="text-left mb-ydouble">{header}</h3>
+      <p>To connect your wallet:</p>
     </div>
 
     <WalletButton className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black">

@@ -20,6 +20,9 @@ export const UserPaymentForm: FC<FormProps> = ({
     submitted: false,
     success: false,
   })
+  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'bitpay'>(
+    'stripe'
+  )
 
   const initPayment = async () => {
     if (!user?.email) {
@@ -43,7 +46,7 @@ export const UserPaymentForm: FC<FormProps> = ({
             ...user,
             step: 'location',
             hasMadePayment: true,
-            paymentType: 'bitpay',
+            paymentType: paymentMethod,
           })
 
           setFormSubmitted({ submitted: true, success: true })
@@ -60,15 +63,60 @@ export const UserPaymentForm: FC<FormProps> = ({
 
   return (
     <div className={className}>
-      <div className="flex flex-col gap-ydouble">
-        <BitPayment
-          user={user}
-          setUser={setUser}
-          joiningFee={joiningFee}
-          cryptoPrice={cryptoPrice}
-          onPaymentSuccess={initPayment}
-          className="flex flex-col h-full"
-        />
+      <div className="flex flex-col gap-ydouble min-h-[calc(95svh-var(--header-height))]">
+        {/* Payment method selector */}
+        <div className="flex flex-col gap-y">
+          <h3>Choose your payment method:</h3>
+
+          <div className="flex gap-4">
+            <label className="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="stripe"
+                checked={paymentMethod === 'stripe'}
+                onChange={() => setPaymentMethod('stripe')}
+                className="mr-2"
+              />
+              <span className="font-medium">Credit Card (Stripe)</span>
+            </label>
+
+            <label className="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="bitpay"
+                checked={paymentMethod === 'bitpay'}
+                onChange={() => setPaymentMethod('bitpay')}
+                className="mr-2"
+              />
+              <span className="font-medium">Cryptocurrency (BitPay)</span>
+            </label>
+          </div>
+        </div>
+
+        {/* Payment form based on selected method */}
+        <div>
+          {paymentMethod === 'stripe' ? (
+            <WalletPayment
+              user={user}
+              setUser={setUser}
+              joiningFee={joiningFee}
+              cryptoPrice={cryptoPrice}
+              onStripeSuccess={initPayment}
+              className="flex flex-col h-full"
+            />
+          ) : (
+            <BitPayment
+              user={user}
+              setUser={setUser}
+              joiningFee={joiningFee}
+              cryptoPrice={cryptoPrice}
+              onPaymentSuccess={initPayment}
+              className="flex flex-col h-full"
+            />
+          )}
+        </div>
       </div>
 
       {formError.error && (
