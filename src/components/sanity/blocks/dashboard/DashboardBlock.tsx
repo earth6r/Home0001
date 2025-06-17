@@ -7,6 +7,7 @@ import type { DashboardBlock as DashboardBlockType } from '@gen/sanity-schema'
 import classNames from 'classnames'
 import { DashboardContainer } from '@components/dashboard'
 import { Menus as SanityMenu } from '@gen/sanity-schema'
+import { ApplicationContainer } from '@components/apply'
 
 type DashboardBlockProps = Omit<SanityBlockElement, keyof DashboardBlockType> &
   DashboardBlockType
@@ -14,18 +15,25 @@ type DashboardBlockProps = Omit<SanityBlockElement, keyof DashboardBlockType> &
 export const DashboardBlock: FC<DashboardBlockProps> = ({
   className,
   user,
+  applyHeader,
+  joiningFee,
   loggedInHeader,
   dashboardCopy,
 }) => {
   return (
-    <Block className={classNames(className, 'md:pr-menu')}>
-      <DashboardContainer
-        user={user}
-        content={{
-          loggedInHeader,
-          dashboardCopy,
-        }}
-      />
+    <Block className={classNames(className)}>
+      {user && user.hasFinishedProfile ? (
+        <DashboardContainer
+          className="md:pr-menu"
+          user={user}
+          content={{
+            loggedInHeader,
+            dashboardCopy,
+          }}
+        />
+      ) : (
+        <ApplicationContainer content={{ header: applyHeader, joiningFee }} />
+      )}
     </Block>
   )
 }

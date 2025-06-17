@@ -11,7 +11,6 @@ import {
 import ApplicationPrompt from './ApplicationPrompt'
 import ApplicationForm from './ApplicationForm'
 import { ApplicationContainerProps } from './types'
-import { motion } from 'framer-motion'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -25,17 +24,6 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
   ]
 
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (user?.hasFinishedProfile) {
-        setTimeout(
-          () => (window.location.href = `/dashboard?wallet=${user.address}`),
-          6000
-        )
-      }
-    }
-  }, [user?.hasFinishedProfile])
 
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
@@ -59,7 +47,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
     <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}
       {user === null && (
-        <>
+        <div className="container">
           {content.header && (
             <RichText
               blocks={content.header}
@@ -77,39 +65,22 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
               <p className="!mx-0">{`If you were referred by an existing member, your joining fee will be waived.`}</p>
             </div>
           </div>
-          <ApplicationPrompt className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0" />
-        </>
+          <ApplicationPrompt
+            header={`To join:`}
+            className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-yellow"
+          />
+        </div>
       )}
 
       {/* 2: create user and set preferences */}
       {user?.address && !user?.hasFinishedProfile && (
         <ApplicationForm
-          className="w-[100vw] px-x -ml-x pt-header pb-ydouble pr-menu lg:pr-0 bg-gray"
+          className="px-x py-ydouble bg-gray"
           user={user}
           setUser={setUser}
           joiningFee={content.joiningFee}
           cryptoPrice={cryptoPrice}
         />
-      )}
-
-      {user?.hasFinishedProfile && (
-        <div className="pt-page">
-          <h3 className="text-h2">
-            <span>
-              {`Thank you for your application, you will be redirected to the dashboard shortly`}
-            </span>
-            <motion.span
-              initial={{ maxWidth: 0 }}
-              animate={{ maxWidth: 30 }}
-              transition={{
-                duration: 1,
-                ease: 'linear',
-                repeat: Infinity,
-              }}
-              className="inline-block absolute overflow-hidden"
-            >{`...`}</motion.span>
-          </h3>
-        </div>
       )}
     </div>
   )

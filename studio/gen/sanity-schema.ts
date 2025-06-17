@@ -2121,6 +2121,20 @@ export type ApplyBlock = {
 export type DashboardBlock = {
   _type: "dashboardBlock";
   /**
+   * Header — `richText`
+   *
+   *
+   */
+  applyHeader?: RichText;
+
+  /**
+   * Joining Fee — `number`
+   *
+   * Fee to join the community in $USD
+   */
+  joiningFee?: number;
+
+  /**
    * Logged In Header — `richText`
    *
    *

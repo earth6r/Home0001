@@ -17,6 +17,7 @@ export enum SANITY_DOCUMENT_TYPES {
   PROPERTY = 'property',
   UNIT = 'unit',
   PROPERTY_TYPE = 'propertyType',
+  DASHBOARD = 'dashboard',
 }
 
 export interface SanityInternalLink {

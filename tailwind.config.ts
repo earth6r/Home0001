@@ -52,7 +52,7 @@ export default {
         header3: ['32px', '0.9'], // h3
         side: ['56px', '0.75'], // vertical text
         xl: ['clamp(2.5rem, 2.088rem + 1.569vw, 3.5rem)', '0.9'], // h2
-        '2xl': ['clamp(2.5rem, 0.956rem + 5.882vw, 6.25rem)', '0.9'], // h1
+        '2xl': ['clamp(3rem, 1.816rem + 4.51vw, 5.875rem)', '0.9'], // h1
       },
       letterSpacing: {
         details: '-0.02em',

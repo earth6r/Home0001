@@ -21,70 +21,47 @@ const ApplicationForm: FC<FormProps> = ({
   joiningFee,
   cryptoPrice,
 }) => {
-  const [formStarted, setFormStarted] = useState(false)
-
   return (
     <div className={classNames(className)}>
       <div className="h-full">
-        <div className="gap-x pr-x md:mx-auto lg:max-w-[480px] rich-text">
-          {/* <h2>{`YOUR HOME0001 APPLICATION:`}</h2> */}
+        <div className="grid md:grid-cols-2 gap-x rich-text">
+          <h1 className="hidden md:block">{`HOME0001 APPLICATION:`}</h1>
 
-          {formStarted ? (
-            <div>
-              {user?.step === 'info' && (
-                <UserInfoForm user={user} setUser={setUser} />
-              )}
+          <div className="pr-menu">
+            {user?.step === 'info' && (
+              <UserInfoForm user={user} setUser={setUser} />
+            )}
 
-              {user?.step === 'paymentOption' && (
-                <UserPaymentOptionForm user={user} setUser={setUser} />
-              )}
+            {user?.step === 'paymentOption' && (
+              <UserPaymentOptionForm user={user} setUser={setUser} />
+            )}
 
-              {user?.step === 'payment' && (
-                <UserPaymentForm
-                  user={user}
-                  setUser={setUser}
-                  joiningFee={joiningFee}
-                  cryptoPrice={cryptoPrice}
-                  className="flex flex-col h-full"
-                />
-              )}
+            {user?.step === 'payment' && (
+              <UserPaymentForm
+                user={user}
+                setUser={setUser}
+                joiningFee={joiningFee}
+                cryptoPrice={cryptoPrice}
+                className="flex flex-col h-full"
+              />
+            )}
 
-              {user?.step === 'location' && (
-                <LocationForm user={user} setUser={setUser} />
-              )}
+            {user?.step === 'location' && (
+              <LocationForm user={user} setUser={setUser} />
+            )}
 
-              {user?.step === 'priceRange' && (
-                <PriceRangeForm user={user} setUser={setUser} />
-              )}
+            {user?.step === 'priceRange' && (
+              <PriceRangeForm user={user} setUser={setUser} />
+            )}
 
-              {user?.step === 'whenToBuy' && (
-                <TimelineForm user={user} setUser={setUser} />
-              )}
+            {user?.step === 'whenToBuy' && (
+              <TimelineForm user={user} setUser={setUser} />
+            )}
 
-              {user?.step === 'bedrooms' && (
-                <RoomsForm user={user} setUser={setUser} />
-              )}
-            </div>
-          ) : (
-            <div className="mt-0 flex flex-col justify-between min-h-[calc(80svh-var(--header-height))] md:h-[calc(88svh-var(--header-height))]">
-              <div>
-                <p className="large mb-y">{`Your wallet has been successfully connected.`}</p>
-                <p className="large">{`The next step is for you to tell us a little about yourself, pay the application fee (if needed) and fill out the questionnaire.`}</p>
-              </div>
-              <button
-                onClick={() => {
-                  setFormStarted(true)
-                  scroll.scrollToTop({ behavior: 'smooth' })
-                }}
-                className={classNames(
-                  'relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above'
-                )}
-              >
-                {'Continue'}
-                <IconSmallArrow className="w-[1.1em]" height="10" />
-              </button>
-            </div>
-          )}
+            {user?.step === 'bedrooms' && (
+              <RoomsForm user={user} setUser={setUser} />
+            )}
+          </div>
         </div>
       </div>
     </div>

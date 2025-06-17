@@ -29,6 +29,8 @@ import DashboardPopup from '@components/dashboard/DashboardPopup'
 import { IconWaitlist } from '@components/icons'
 import Link from 'next/link'
 import { DashboardSidebar } from '@components/dashboard'
+import { ApplicationContainer } from '@components/apply'
+import ApplicationPrompt from '@components/apply/ApplicationPrompt'
 
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 
@@ -181,12 +183,15 @@ const Page: NextPage<PageProps> = (
 
     if (query.wallet) {
       initUserProfile(query.wallet as string)
+    } else {
+      setLoading(false)
+      console.warn('No wallet address provided in query parameters.')
     }
   }, [query])
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
-      <article className="pt-page">
+      <article className="py-page">
         {page?.password && showLogin ? (
           <div className="flex items-center justify-center w-full h-[60vh]">
             <form className="form">
@@ -199,45 +204,45 @@ const Page: NextPage<PageProps> = (
             </form>
           </div>
         ) : (
-          <div className="container">
+          <div>
+            {loading && <h2 className="container text-h3">Loading...</h2>}
+
             {showPopup && <DashboardPopup setShowPopup={setShowPopup} />}
 
-            <motion.div
-              className={classNames(
-                'hidden md:flex flex-col justify-end gap-8 fixed w-[100svh] h-[calc(100vw+32px)] top-0 right-[calc(-100vw+44px)] md:right-[calc(-100vw+44px)] pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
-              )}
-            >
-              <div className={classNames('flex items-end gap-2 ')}>
-                <h2 className="min-w-[635px] text-side">{`Home0001 Dashboard`}</h2>
-              </div>
-            </motion.div>
-
-            {loading && <h2 className="text-h3">Loading...</h2>}
-
-            {(user?.step === 'info' || !user?.hasMadePayment) && !loading && (
-              <div className="flex flex-col gap-y rich-text">
-                <h3>no account found.</h3>
-                <p className="!mx-0">
-                  {`You need to apply before you can access your HOME0001 dashboard. To do so please click here.`}
-                </p>
-                <Link
-                  href={`/apply`}
-                  className={classNames(
-                    'flex p-3 -m-3 pointer-events-auto z-header'
-                  )}
-                >
-                  <IconWaitlist className="w-[77px]" />
-                </Link>
+            {!user && !loading && (
+              <div className="container flex flex-col gap-y rich-text">
+                <ApplicationPrompt header={`Login`} />
               </div>
             )}
 
-            {user && user?.hasMadePayment && (
-              <div className="flex flex-col md:grid md:grid-cols-3 gap-x">
-                <DashboardSidebar
-                  menu={siteSettings?.dashboardMenu}
-                  user={user}
-                  imageUrl={imageUrl}
-                />
+            {user && user.hasFinishedProfile && (
+              <div
+                className={classNames(
+                  'hidden md:flex flex-col justify-end gap-8 fixed w-[100svh] h-[calc(100vw+32px)] top-0 right-[calc(-100vw+44px)] md:right-[calc(-100vw+44px)] pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
+                )}
+              >
+                <div className={classNames('flex items-end gap-2 ')}>
+                  <h2 className="min-w-[635px] text-side">{`Your Dashboard`}</h2>
+                </div>
+              </div>
+            )}
+
+            {user && !loading && (
+              <div
+                className={classNames(
+                  user.hasFinishedProfile
+                    ? 'md:grid md:grid-cols-3 md:pl-x'
+                    : '',
+                  'flex flex-col gap-x'
+                )}
+              >
+                {user.hasFinishedProfile && (
+                  <DashboardSidebar
+                    menu={siteSettings?.dashboardMenu}
+                    user={user}
+                    imageUrl={imageUrl}
+                  />
+                )}
 
                 <div className="md:col-span-2 mt-ydouble md:mt-0">
                   <BlockContent

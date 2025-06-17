@@ -147,7 +147,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-y justify-between min-h-[calc(95svh-var(--header-height))]"
+        className="flex flex-col gap-y justify-between"
       >
         <div className="flex flex-col gap-y">
           <div>
