@@ -259,6 +259,7 @@ const Page: NextPage<PageProps> = (
                   <BlockContent
                     grid={true}
                     user={user}
+                    updateUser={updateUser}
                     blocks={page?.body}
                     className={classNames(
                       'w-full overflow-hidden md:overflow-visible'

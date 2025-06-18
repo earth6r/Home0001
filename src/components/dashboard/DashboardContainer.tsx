@@ -10,6 +10,7 @@ import { Web3UserProps } from '@contexts/web3'
 
 export const DashboardContainer: FC<DashboardContainerProps> = ({
   user,
+  updateUser,
   content,
   className,
 }) => {
@@ -21,7 +22,8 @@ export const DashboardContainer: FC<DashboardContainerProps> = ({
       />
 
       <DashboardSteps
-        user={user as Web3UserProps}
+        user={user}
+        updateUser={updateUser}
         dashboardCopy={content.dashboardCopy}
         className="mt-y"
       />

@@ -5,6 +5,7 @@ import { SanityImageObject } from '@sanity/image-url/lib/types/types'
 
 export type DashboardContainerProps = {
   user?: Web3UserProps
+  updateUser?: (user: Web3UserProps) => void
   content: {
     loggedInHeader?: TypedObject | TypedObject[]
     dashboardCopy?: TypedObject | TypedObject[]
