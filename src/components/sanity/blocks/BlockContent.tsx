@@ -38,6 +38,7 @@ export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
   grid,
   user,
+  updateUser,
   className,
   style,
 }) => {

@@ -8,13 +8,18 @@ import classNames from 'classnames'
 import { DashboardContainer } from '@components/dashboard'
 import { Menus as SanityMenu } from '@gen/sanity-schema'
 import { ApplicationContainer } from '@components/apply'
+import { Web3UserProps } from '@contexts/web3'
 
 type DashboardBlockProps = Omit<SanityBlockElement, keyof DashboardBlockType> &
-  DashboardBlockType
+  DashboardBlockType & {
+    user?: Web3UserProps
+    updateUser?: (user: Web3UserProps) => void
+  }
 
 export const DashboardBlock: FC<DashboardBlockProps> = ({
   className,
   user,
+  updateUser,
   applyHeader,
   joiningFee,
   loggedInHeader,
@@ -26,6 +31,7 @@ export const DashboardBlock: FC<DashboardBlockProps> = ({
         <DashboardContainer
           className="md:pr-menu"
           user={user}
+          updateUser={updateUser}
           content={{
             loggedInHeader,
             dashboardCopy,

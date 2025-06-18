@@ -52,7 +52,7 @@ export const DateSelect: FC<DateSelectProps> = ({
 
   return (
     <div className={className}>
-      <div className="flex flex-col justify-start gap-y h-[224px]">
+      <div className="flex flex-col justify-start gap-y min-h-[224px] lg:min-h-[167px]">
         {loading && <p className="!mx-0 mt-y text-button">{`Loading...`}</p>}
 
         {!loading && (
@@ -94,7 +94,7 @@ export const DateSelect: FC<DateSelectProps> = ({
                     }
                   )}
                 </select>
-                <IconChevron className="absolute w-[12px] right-x top-1/2 transform rotate-90 -translate-y-1/2" />
+                <IconChevron className="absolute w-[12px] right-x top-1/2 transform -translate-y-1/2" />
               </div>
             ) : (
               <p className="!mx-0 mt-y text-button">{`No available times`}</p>
@@ -112,7 +112,7 @@ export const DateSelect: FC<DateSelectProps> = ({
                       key={`slots-${index}`}
                       className={classNames('h-full')}
                     >
-                      <div className="grid grid-cols-3 gap-xhalf">
+                      <div className="grid grid-cols-2 lg:grid-cols-3 gap-xhalf">
                         {times?.map((time: string, index: number) => (
                           <div
                             key={index}

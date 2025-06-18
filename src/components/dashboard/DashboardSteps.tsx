@@ -1,17 +1,23 @@
-import React, { FC } from 'react'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
+import React, { FC, useEffect } from 'react'
 import { TypedObject } from 'sanity'
-import { Web3UserProps } from '@contexts/web3'
-import Link from 'next/link'
+import { useWeb3Client, Web3UserProps } from '@contexts/web3'
 import { mintToken } from '@lib/util/web3'
+import IconChevron from '@components/icons/IconChevron'
+import { BuyCalendar } from '@components/buy'
+import { getBookedCalendarDate } from './actions'
 
 type TokenDashboardProps = {
   dashboardCopy?: TypedObject | TypedObject[]
-  user: Web3UserProps
+  user?: Web3UserProps
+  updateUser?: (user: Web3UserProps) => void
   className?: string
 }
 
-const DashboardSteps: FC<TokenDashboardProps> = ({ user, className }) => {
+const DashboardSteps: FC<TokenDashboardProps> = ({
+  user,
+  updateUser,
+  className,
+}) => {
   const initMint = async () => {
     // console.log('Minting token for address:', user?.address)
     mintToken(user?.address as string)
@@ -30,6 +36,24 @@ const DashboardSteps: FC<TokenDashboardProps> = ({ user, className }) => {
       })
   }
 
+  const initGetCalendarDate = () => {
+    getBookedCalendarDate(user?.email as string)
+      .then(res => {
+        if (updateUser)
+          updateUser({
+            ...user,
+            calendar_date: res?.data.date,
+          })
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  useEffect(() => {
+    if (user?.hasMadePayment) initGetCalendarDate()
+  }, [user])
+
   return (
     <div className={className}>
       <ul className="flex flex-col gap-y">
@@ -40,7 +64,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({ user, className }) => {
             to you. Speak with them.
           </p>
 
-          {!user?.hasFinishedProfile && (
+          {/* {!user?.hasFinishedProfile && (
             <Link
               href={`/apply`}
               target="_blank"
@@ -54,7 +78,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({ user, className }) => {
                 </span>
               </button>
             </Link>
-          )}
+          )} */}
 
           {user?.hasFinishedProfile && (
             <span className="absolute right-0 top-0 text-base font-medium m-0">
@@ -63,12 +87,16 @@ const DashboardSteps: FC<TokenDashboardProps> = ({ user, className }) => {
           )}
         </li>
 
-        <li className="pb-y rich-text border-bottom--gray">
+        <li className="w-full pb-y rich-text border-bottom--gray">
           <span className="text-base !font-bold uppercase">Step 2</span>
           <p>
             Come hang at a 0001 home or meet us on a call if you’re far away.
           </p>
-          <div className="inline-block mt-y font-bold">
+          {user?.calendar_date ? (
+            <p>{`Appointment date: ${user.calendar_date}`}</p>
+          ) : (
+            <div className="flex flex-col gap-y w-full max-w-[420px]">
+              {/* <div className="inline-block mt-y font-bold">
             <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white">
               <IconSmallArrow fill="white" width="15" height="11" />
 
@@ -76,7 +104,25 @@ const DashboardSteps: FC<TokenDashboardProps> = ({ user, className }) => {
                 {`View Appointment`}
               </span>
             </button>
-          </div>
+          </div> */}
+
+              <div className="relative w-full">
+                <select className="input select text-button font-sans">
+                  <option>{`New York`}</option>
+                </select>
+                <IconChevron className="absolute w-[12px] right-x top-1/2 transform rotate-0 -translate-y-1/2" />
+              </div>
+
+              <BuyCalendar
+                email={user?.email as string}
+                unit={user?.unit as string}
+                calendarDate={user?.calendar_date}
+                // onMeetingSet={() => {
+                //   initUpdateProcess('scheduleClosing')
+                // }}
+              />
+            </div>
+          )}
         </li>
 
         <li className="pb-y rich-text border-bottom--gray">

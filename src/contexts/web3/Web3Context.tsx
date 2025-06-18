@@ -31,6 +31,8 @@ export type Web3UserProps = {
   comms?: 'WhatsApp' | 'Telegram'
   signup_source?: 'purchased' | 'referred'
   referred_token?: string
+  calendar_date?: string
+  unit?: string | null
 } | null
 
 const Web3Context = createContext<

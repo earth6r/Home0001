@@ -7,4 +7,5 @@ export interface SanityBlockElement extends HTMLAttributes<HTMLElement> {
   grid?: boolean
   blocks: TypedObject | TypedObject[]
   user?: Web3UserProps
+  updateUser?: (user: Web3UserProps) => void
 }
