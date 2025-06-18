@@ -174,7 +174,6 @@ const Page: NextPage<PageProps> = (
   }
 
   useEffect(() => {
-    console.log(user)
     if (user && user.hasFinishedProfile) {
       if (localStorage.getItem('hasVisited') !== 'true') {
         setShowPopup(true)

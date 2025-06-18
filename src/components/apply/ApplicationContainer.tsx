@@ -8,10 +8,11 @@ import {
   convertUsdToEthPrice,
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
-import ApplicationPrompt from './ApplicationPrompt'
 import ApplicationForm from './ApplicationForm'
 import { ApplicationContainerProps } from './types'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import { getDynamicPrice } from './actions'
+import { saveError } from '@lib/util/save-error'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -25,6 +26,19 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
   ]
 
   const [cryptoPrice, setCryptoPrice] = useState<number[]>([])
+  const [dynamicPrice, setDynamicPrice] = useState<number | null>(null)
+
+  const fetchDynamicPrice = async () => {
+    getDynamicPrice()
+      .then((res: any) => {
+        console.log('Dynamic price fetched:', res)
+        setDynamicPrice(res?.data?.tokenPrice)
+      })
+      .catch(err => {
+        console.error(err)
+        saveError(err, 'initUserProfile')
+      })
+  }
 
   useEffect(() => {
     const fetchCryptoPrice = async (usdPrice: any) => {
@@ -35,8 +49,15 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       return [roundedEthPrice, roundedBtcPrice]
     }
 
-    if (content.joiningFee && ENV === 'production') {
-      const usdPrice = content.joiningFee
+    const joiningFee = getDynamicPrice()
+    console.log('Joining fee:', joiningFee)
+
+    if (!dynamicPrice) {
+      fetchDynamicPrice()
+    }
+
+    if (joiningFee && ENV === 'production') {
+      const usdPrice = joiningFee
 
       fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
         setCryptoPrice(cryptoPrices)
@@ -58,11 +79,16 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
 
           <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-gray">
             <div className="flex flex-col flex-start gap-y rich-text text-left">
-              <h4 className="">{`Current Joining fee:`}</h4>
-              <p className="!mx-0">{`${content.joiningFee} USD / ${
-                (cryptoPrice && cryptoPrice.length > 0) ||
-                '(Crypto only enabled in prod)'
-              } BIC`}</p>
+              <h4>{`Current Joining fee:`}</h4>
+              <p className="!mx-0">
+                {dynamicPrice
+                  ? `${dynamicPrice} USD / ${
+                      (cryptoPrice && cryptoPrice.length > 0) ||
+                      '(Crypto only enabled in prod)'
+                    } BIC`
+                  : `Loading...`}
+              </p>
+
               {/* <p className="!mx-0">{`If you were referred by an existing member, your joining fee will be waived.`}</p> */}
             </div>
           </div>

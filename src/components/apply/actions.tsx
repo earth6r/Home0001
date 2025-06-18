@@ -270,3 +270,16 @@ export const initUserPayment = async (
     }
   }
 }
+
+export const getDynamicPrice = async () => {
+  try {
+    return await axios.get(`${BASE_URL}/api/web3/get-dynamic-price`, CONFIG)
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'getDynamicPrice')
+    return {
+      success: false,
+      message: `Failed to get dynamic price, ${(error as any).message}`,
+    }
+  }
+}
