@@ -156,11 +156,6 @@ const Page: NextPage<PageProps> = (
       .then(res => {
         if (res?.data.user) {
           initGetUserStep(res.data.user.email, address, res.data.user.firstName)
-
-          if (localStorage.getItem('hasVisited') !== 'true') {
-            setShowPopup(true)
-            localStorage.setItem('hasVisited', 'true')
-          }
         } else {
           updateUser({
             ...user,
@@ -177,6 +172,16 @@ const Page: NextPage<PageProps> = (
         setLoading(false)
       })
   }
+
+  useEffect(() => {
+    console.log(user)
+    if (user && user.hasFinishedProfile) {
+      if (localStorage.getItem('hasVisited') !== 'true') {
+        setShowPopup(true)
+        localStorage.setItem('hasVisited', 'true')
+      }
+    }
+  }, [user])
 
   useEffect(() => {
     setShowLogin(sessionStorage.getItem('loggedIn') !== 'true')
@@ -237,13 +242,14 @@ const Page: NextPage<PageProps> = (
               <div
                 className={classNames(
                   user.hasFinishedProfile
-                    ? 'md:grid md:grid-cols-3 md:pl-x'
+                    ? 'md:grid md:grid-cols-3 pl-x pr-fullmenu md:pr-0'
                     : '',
-                  'flex flex-col gap-x'
+                  'flex flex-col gap-block md:gap-x'
                 )}
               >
                 {user.hasFinishedProfile && (
                   <DashboardSidebar
+                    image={siteSettings?.dashImage}
                     menu={siteSettings?.dashboardMenu}
                     user={user}
                     imageUrl={imageUrl}

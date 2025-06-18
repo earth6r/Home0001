@@ -4,12 +4,13 @@ import React, { FC } from 'react'
 import classNames from 'classnames'
 import { mintToken } from '@lib/util/web3'
 import { DashboardSidebarProps } from './types'
-import { SanityLink } from '@components/sanity'
+import { SanityImage, SanityLink } from '@components/sanity'
 import { SanityLinkType } from '@studio/lib'
 import { useRouter } from 'next/router'
 
 export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   user,
+  image,
   menu,
   imageUrl,
   className,
@@ -34,11 +35,21 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
       })
   }
 
+  console.log('DashboardSidebar image:', image)
+
   return user ? (
     <div className="flex flex-col gap-y rich-text">
       <h3>{`Hello, ${user.first_name}.`}</h3>
 
-      <div className="max-w-[290px] aspect-square bg-gray"></div>
+      <div className="max-w-[290px] aspect-square">
+        {image && (
+          <SanityImage
+            asset={image.asset}
+            props={{ alt: 'Token image', sizes: '580px', quality: 80 }}
+            className="w-full h-full object-cover"
+          />
+        )}
+      </div>
       {/* {(!user?.tokenIds || user.tokenIds.length === 0) && (
             <div className="flex flex-col gap-y mt-y">
               <div className="rich-text">

@@ -34,6 +34,7 @@ export const Header: FC<HeaderProps> = ({
   path,
   hideMenu,
   hideMenuButton,
+  hidePageLinks,
   showTourLink,
   currentTitle,
   property,
@@ -232,6 +233,7 @@ export const Header: FC<HeaderProps> = ({
               setCustomOpen={setMenuOpen}
               onOpen={onOpen}
               mainMenu={mainMenu as SanityMenu}
+              hidePageLinks={hidePageLinks}
               className="flex flex-col pointer-events-auto"
             />
           )}
