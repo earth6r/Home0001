@@ -51,7 +51,7 @@ export const WalletButton: FC<WalletButtonProps> = ({
               : data.referralPaymentMade
               ? 'location'
               : data.walletConnectedProfileCreated
-              ? 'paymentOption'
+              ? 'payment'
               : 'info',
             hasMadePayment: data.referralPaymentMade,
             hasFinishedProfile: data.questionnaireFinished,
@@ -76,7 +76,7 @@ export const WalletButton: FC<WalletButtonProps> = ({
         } else {
           updateUser({
             ...user,
-            step: 'info',
+            step: 'prompt',
             hasFinishedProfile: false,
             address: address as string,
           })

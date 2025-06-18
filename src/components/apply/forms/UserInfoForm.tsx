@@ -51,7 +51,8 @@ export const UserInfoForm: FC<FormProps> = ({ user, setUser, className }) => {
       } else {
         setUser({
           ...user,
-          step: 'paymentOption',
+          step: 'payment',
+          signup_source: 'payment',
           email: data.email,
           first_name: data.first_name,
           last_name: data.last_name,

@@ -21,13 +21,12 @@ const ApplicationForm: FC<FormProps> = ({
   joiningFee,
   cryptoPrice,
 }) => {
+  console.log(user)
   return (
     <div className={classNames(className)}>
       <div className="h-full">
-        <div className="grid md:grid-cols-2 gap-x rich-text">
-          <h1 className="hidden md:block">{`HOME0001 APPLICATION:`}</h1>
-
-          <div className="pr-menu">
+        <div className="grid lg:grid-cols-3 gap-x rich-text">
+          <div className="lg:col-start-2 pr-menu lg:pr-0">
             {user?.step === 'info' && (
               <UserInfoForm user={user} setUser={setUser} />
             )}

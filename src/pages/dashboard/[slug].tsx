@@ -31,6 +31,7 @@ import Link from 'next/link'
 import { DashboardSidebar } from '@components/dashboard'
 import { ApplicationContainer } from '@components/apply'
 import ApplicationPrompt from '@components/apply/ApplicationPrompt'
+import WalletPopup from '@components/dashboard/WalletPopup'
 
 type PageRefType = React.ForwardedRef<HTMLDivElement>
 
@@ -80,6 +81,7 @@ const Page: NextPage<PageProps> = (
 
   const [showLogin, setShowLogin] = useState(true)
   const [showPopup, setShowPopup] = useState(false)
+  const [showWalletPopup, setShowWalletPopup] = useState(true)
 
   const validatePassword = (e: FormEvent<HTMLInputElement>) => {
     if ((e.target as HTMLTextAreaElement).value === page.password) {
@@ -116,8 +118,6 @@ const Page: NextPage<PageProps> = (
     }
   }
 
-  // TODO: MAYBE MOVE IMAGE FETCHING TO DASHBOARD PAGE SLUG, HAFEEZ TO REPORT BACK ON SIDEBAR PERSISTENCE
-
   const initGetUserStep = (email: string, address: string, name: string) => {
     try {
       getUserCurrentStep(email)
@@ -133,7 +133,7 @@ const Page: NextPage<PageProps> = (
               : data.referralPaymentMade
               ? 'location'
               : data.walletConnectedProfileCreated
-              ? 'paymentOption'
+              ? 'payment'
               : 'info',
             hasMadePayment: data.referralPaymentMade,
             hasFinishedProfile: data.questionnaireFinished,
@@ -164,7 +164,7 @@ const Page: NextPage<PageProps> = (
         } else {
           updateUser({
             ...user,
-            step: 'info',
+            step: 'prompt',
             hasFinishedProfile: false,
             address: address as string,
           })
@@ -191,7 +191,7 @@ const Page: NextPage<PageProps> = (
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
-      <article className="py-page">
+      <article className="pt-header pb-page md:py-page">
         {page?.password && showLogin ? (
           <div className="flex items-center justify-center w-full h-[60vh]">
             <form className="form">
@@ -207,9 +207,15 @@ const Page: NextPage<PageProps> = (
           <div>
             {loading && <h2 className="container text-h3">Loading...</h2>}
 
+            {user && user.step === 'prompt' && showWalletPopup && (
+              <WalletPopup
+                user={user}
+                setShowPopup={() => setShowWalletPopup(false)}
+              />
+            )}
             {showPopup && <DashboardPopup setShowPopup={setShowPopup} />}
 
-            {!user && !loading && (
+            {!user && (
               <div className="container flex flex-col gap-y rich-text">
                 <ApplicationPrompt header={`Login`} />
               </div>
@@ -244,7 +250,7 @@ const Page: NextPage<PageProps> = (
                   />
                 )}
 
-                <div className="md:col-span-2 mt-ydouble md:mt-0">
+                <div className="md:col-span-2">
                   <BlockContent
                     grid={true}
                     user={user}

@@ -11,6 +11,7 @@ import {
 import ApplicationPrompt from './ApplicationPrompt'
 import ApplicationForm from './ApplicationForm'
 import { ApplicationContainerProps } from './types'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -46,42 +47,57 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
   return (
     <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}
-      {user === null && (
-        <div className="container">
+      {user?.step === 'prompt' && (
+        <div className="container flex flex-col">
           {content.header && (
             <RichText
               blocks={content.header}
-              className="pt-page pr-menu md:pr-0 mb-ydouble"
+              className="pr-menu md:pr-0 mb-ydouble"
             />
           )}
 
           <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-gray">
             <div className="flex flex-col flex-start gap-y rich-text text-left">
-              <h3 className="">{`Current Joining fee:`}</h3>
+              <h4 className="">{`Current Joining fee:`}</h4>
               <p className="!mx-0">{`${content.joiningFee} USD / ${
                 (cryptoPrice && cryptoPrice.length > 0) ||
                 '(Crypto only enabled in prod)'
               } BIC`}</p>
-              <p className="!mx-0">{`If you were referred by an existing member, your joining fee will be waived.`}</p>
+              {/* <p className="!mx-0">{`If you were referred by an existing member, your joining fee will be waived.`}</p> */}
             </div>
           </div>
-          <ApplicationPrompt
-            header={`To join:`}
-            className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-yellow"
-          />
+
+          <div className="inline-flex flex-col w-[100vw] py-ydouble px-x -ml-x bg-yellow">
+            <div className="md:max-w-[50%] rich-text">
+              <h4 className="text-left mb-ydouble">{`Join:`}</h4>
+            </div>
+
+            <button
+              onClick={() => setUser({ ...user, step: 'info' })}
+              className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white border-black"
+            >
+              <IconSmallArrow fill="white" width="15" height="11" />
+
+              <span className="uppercase font-medium leading-none text-xs">
+                {`Apply`}
+              </span>
+            </button>
+          </div>
         </div>
       )}
 
       {/* 2: create user and set preferences */}
-      {user?.address && !user?.hasFinishedProfile && (
-        <ApplicationForm
-          className="px-x py-ydouble bg-gray"
-          user={user}
-          setUser={setUser}
-          joiningFee={content.joiningFee}
-          cryptoPrice={cryptoPrice}
-        />
-      )}
+      {user?.step !== 'prompt' &&
+        user?.address &&
+        !user?.hasFinishedProfile && (
+          <ApplicationForm
+            className="px-x py-ydouble bg-gray"
+            user={user}
+            setUser={setUser}
+            joiningFee={content.joiningFee}
+            cryptoPrice={cryptoPrice}
+          />
+        )}
     </div>
   )
 }
