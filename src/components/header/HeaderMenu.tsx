@@ -161,28 +161,30 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               ) : null
             })}
 
-            <li className="flex items-center gap-y uppercase pt-y">
-              <span className="inline-block">Prices:</span>
+            {!hidePageLinks && (
+              <li className="flex items-center gap-y uppercase pt-y">
+                <span className="inline-block">Prices:</span>
 
-              <span className="inline-block">Fiat</span>
-              <Switch
-                checked={cryptoMode}
-                onChange={setCryptoMode}
-                className={classNames(
-                  cryptoMode ? 'bg-black' : 'bg-gray',
-                  `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto -mx-[10px]`
-                )}
-              >
-                {' '}
-                <span
+                <span className="inline-block">Fiat</span>
+                <Switch
+                  checked={cryptoMode}
+                  onChange={setCryptoMode}
                   className={classNames(
-                    cryptoMode ? 'translate-x-6' : 'translate-x-1',
-                    `block h-4 w-4 transform rounded-full bg-white transition`
+                    cryptoMode ? 'bg-black' : 'bg-gray',
+                    `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto -mx-[10px]`
                   )}
-                />
-              </Switch>
-              <span className="inline-block">Crypto</span>
-            </li>
+                >
+                  {' '}
+                  <span
+                    className={classNames(
+                      cryptoMode ? 'translate-x-6' : 'translate-x-1',
+                      `block h-4 w-4 transform rounded-full bg-white transition`
+                    )}
+                  />
+                </Switch>
+                <span className="inline-block">Crypto</span>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
