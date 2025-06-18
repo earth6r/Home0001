@@ -35,7 +35,7 @@ export const PriceRangeForm: FC<FormProps> = ({ user, setUser, className }) => {
 
     switch (data.price_range) {
       case 'lessThan500k':
-        minPrice = 0
+        minPrice = null
         maxPrice = 500000
         break
       case '$500kTo750k':

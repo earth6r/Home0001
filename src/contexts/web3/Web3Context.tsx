@@ -10,6 +10,7 @@ import React, {
 
 export type Web3UserProps = {
   step?:
+    | 'prompt'
     | 'info'
     | 'paymentOption'
     | 'payment'

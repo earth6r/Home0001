@@ -70,7 +70,9 @@ export const LocationForm: FC<FormProps> = ({ user, setUser, className }) => {
               type="checkbox"
               value={name}
               id={name}
-              {...register('interested_cities', { required: false })}
+              {...register('interested_cities', {
+                required: 'Choose at least one location',
+              })}
             />
             <label
               className="text-left cursor-pointer font-medium text-xs tracking-normal"

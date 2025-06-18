@@ -12,12 +12,7 @@ export default async function handler(
 
   const userData = req.body
 
-  if (
-    !userData ||
-    !userData.email ||
-    !userData.minPrice ||
-    !userData.maxPrice
-  ) {
+  if (!userData || !userData.email) {
     return res.status(400).json({ error: 'Valid user data is required' })
   }
 
