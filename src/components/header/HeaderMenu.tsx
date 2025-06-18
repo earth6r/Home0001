@@ -15,6 +15,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   customOpen = false,
+  hidePageLinks,
   setCustomOpen,
   onOpen,
   mainMenu,
@@ -124,6 +125,10 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 (link?.internalLink?._type as string) === 'propertyType'
               const isProperty =
                 (link?.internalLink?._type as string) === 'property'
+
+              if (hidePageLinks && text !== 'About' && text !== 'Instagram')
+                return null
+
               return text && link && !isProperty && !isPropertyType ? (
                 <Fragment key={_key}>
                   {mainMenu.items && index === mainMenu.items.length && (

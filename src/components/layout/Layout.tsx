@@ -75,7 +75,8 @@ export const Layout: FC<LayoutProps> = ({
           hideMenuButton={
             (page?._type !== 'property' && page?.hideMenuButton) || hideUi
           }
-          hideMenu={hideUi}
+          hideMenu={page?._type && (page._type as string) === 'rdPage'}
+          hidePageLinks={hideUi}
           showTourLink={page?._type !== 'property' && page?.showTourLink}
           property={(page as Unit)?.property}
           currentTitle={

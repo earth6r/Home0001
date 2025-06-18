@@ -52,6 +52,9 @@ export const SITE_SETTINGS_QUERY = groq`
     },
     siteDescription,
     siteKeywords,
+    "dashImage": dashImage{
+      ${IMAGE_QUERY}
+    },
     "rdImage": rdImage{
       ${IMAGE_QUERY}
     },

@@ -18,37 +18,30 @@ const DashboardPopup: FC<{ setShowPopup: (arg0: boolean) => void }> = ({
         onClick={() => setShowPopup(false)}
       >
         <motion.div
-          className="relative w-full max-w-[358px] p-x bg-white border-black"
+          className="rich-text aspect-square flex flex-col gap-ydouble relative w-full max-w-[358px] py-y p-x bg-white border-black"
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           exit={{ scale: 0.8 }}
           onClick={e => e.stopPropagation()} // Prevent click from closing the popup
         >
-          <h2 className="mb-ydouble mt-[42px] text-h3">
+          <p className="large !m-0">
             {`Thank you, we've received your submission.`}
-          </h2>
-          <h3 className="text-h3">{`Welcome to the home0001 dashboard.`}</h3>
+          </p>
+          <p className="!m-0">{`Welcome to your dashboard. You can manage your account and application here.`}</p>
 
           <div
             className={classNames(
-              'relative flex flex-col mt-ydouble gap-2 md:gap-y'
+              'absolute flex flex-col gap-2 md:gap-y w-[calc(100%-var(--space-x-double))] bottom-y'
             )}
           >
             <button
+              onClick={() => setShowPopup(false)}
               className="relative flex justify-between items-center w-full max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
-              type={'submit'}
             >
               {'Continue'}
               <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
             </button>
           </div>
-
-          <button
-            className="absolute top-x right-x text-black uppercase font-medium text-sm"
-            onClick={() => setShowPopup(false)}
-          >
-            Close
-          </button>
         </motion.div>
       </motion.div>
     </AnimatePresence>

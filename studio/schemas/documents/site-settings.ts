@@ -156,6 +156,12 @@ export default {
       group: 'forms',
     },
     {
+      name: 'dashImage',
+      title: 'Dashboard Image',
+      type: 'image',
+      group: 'content',
+    },
+    {
       name: 'properties',
       type: 'array',
       title: 'Properties',

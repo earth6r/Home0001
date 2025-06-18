@@ -28,6 +28,7 @@ export interface HeaderProps
   mainMenu?: SanityMenu
   hideMenu?: boolean
   hideMenuButton?: boolean
+  hidePageLinks?: boolean
   showTourLink?: boolean
   waitlist?: {
     id?: string
