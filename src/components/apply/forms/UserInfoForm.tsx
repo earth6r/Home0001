@@ -8,7 +8,11 @@ import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from '../types'
 import FormPane from '../FormPane'
 
-export const UserInfoForm: FC<FormProps> = ({ user, setUser, className }) => {
+export const UserInfoForm: FC<FormProps> = ({
+  user,
+  updateUser,
+  className,
+}) => {
   const {
     register,
     control,
@@ -49,7 +53,7 @@ export const UserInfoForm: FC<FormProps> = ({ user, setUser, className }) => {
         setFormSubmitted({ submitted: true, success: false })
         setIsSubmitting(false)
       } else {
-        setUser({
+        updateUser({
           ...user,
           step: 'payment',
           signup_source: 'payment',

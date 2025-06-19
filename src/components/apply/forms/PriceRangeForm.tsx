@@ -7,7 +7,11 @@ import { FormProps } from '../types'
 import FormPane from '../FormPane'
 import { PRICES } from '../consts'
 
-export const PriceRangeForm: FC<FormProps> = ({ user, setUser, className }) => {
+export const PriceRangeForm: FC<FormProps> = ({
+  user,
+  updateUser,
+  className,
+}) => {
   const {
     register,
     handleSubmit,
@@ -67,7 +71,7 @@ export const PriceRangeForm: FC<FormProps> = ({ user, setUser, className }) => {
         setFormSubmitted({ submitted: true, success: false })
         setIsSubmitting(false)
       } else {
-        setUser({
+        updateUser({
           ...user,
           step: 'whenToBuy',
         })

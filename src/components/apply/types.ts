@@ -27,7 +27,7 @@ export type PaneProps = {
 export type FormProps = {
   className?: string
   user: Web3UserProps
-  setUser: (arg0: any) => void
+  updateUser: (arg0: any) => void
   joiningFee?: number | null
   cryptoPrice?: number[]
 }

@@ -10,7 +10,7 @@ import { Web3UserProps } from '@contexts/web3'
 
 interface BitPaymentProps extends HTMLAttributes<HTMLFormElement> {
   user?: Web3UserProps
-  setUser: (arg0: any) => void
+  updateUser: (arg0: any) => void
   email?: string
   onPaymentSuccess?: () => void
   joiningFee?: number | null
@@ -19,7 +19,7 @@ interface BitPaymentProps extends HTMLAttributes<HTMLFormElement> {
 
 const PaymentContainer: FC<BitPaymentProps> = ({
   user,
-  setUser,
+  updateUser,
   onPaymentSuccess,
   joiningFee,
   cryptoPrice,
@@ -60,7 +60,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
             clearInterval(pollInterval)
 
             // Update user context
-            setUser({
+            updateUser({
               ...user,
               hasMadePayment: true,
               paymentType: 'crypto',
@@ -234,7 +234,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
 
 export const BitPayment: FC<BitPaymentProps> = ({
   user,
-  setUser,
+  updateUser,
   onPaymentSuccess,
   joiningFee,
   cryptoPrice,
@@ -245,7 +245,7 @@ export const BitPayment: FC<BitPaymentProps> = ({
       <div className="w-full h-full rich-text">
         <PaymentContainer
           user={user}
-          setUser={setUser}
+          updateUser={updateUser}
           joiningFee={joiningFee}
           cryptoPrice={cryptoPrice}
           onPaymentSuccess={onPaymentSuccess}

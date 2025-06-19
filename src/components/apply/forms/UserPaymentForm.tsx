@@ -8,7 +8,7 @@ import BitPayment from '../BitPayment'
 
 export const UserPaymentForm: FC<FormProps> = ({
   user,
-  setUser,
+  updateUser,
   joiningFee,
   cryptoPrice,
   className,
@@ -34,14 +34,13 @@ export const UserPaymentForm: FC<FormProps> = ({
       signup_source: 'purchased',
     })
       .then(res => {
-        console.log('Payment submitted:', res)
         if (!res?.success) {
           console.error('Error making payment:', res?.message)
           setFormError({ error: true, message: 'Payment failed' })
           setFormSubmitted({ submitted: true, success: false })
           setIsSubmitting(false)
         } else {
-          setUser({
+          updateUser({
             ...user,
             step: 'location',
             hasMadePayment: true,
@@ -99,7 +98,7 @@ export const UserPaymentForm: FC<FormProps> = ({
           {paymentMethod === 'stripe' ? (
             <WalletPayment
               user={user}
-              setUser={setUser}
+              updateUser={updateUser}
               joiningFee={joiningFee}
               cryptoPrice={cryptoPrice}
               onStripeSuccess={initPayment}
@@ -108,7 +107,7 @@ export const UserPaymentForm: FC<FormProps> = ({
           ) : (
             <BitPayment
               user={user}
-              setUser={setUser}
+              updateUser={updateUser}
               joiningFee={joiningFee}
               cryptoPrice={cryptoPrice}
               onPaymentSuccess={initPayment}

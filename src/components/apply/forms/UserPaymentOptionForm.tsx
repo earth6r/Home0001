@@ -9,7 +9,7 @@ import FormPane from '../FormPane'
 
 export const UserPaymentOptionForm: FC<FormProps> = ({
   user,
-  setUser,
+  updateUser,
   className,
 }) => {
   const {
@@ -45,7 +45,7 @@ export const UserPaymentOptionForm: FC<FormProps> = ({
         setFormSubmitted({ submitted: true, success: false })
         setIsSubmitting(false)
       } else {
-        setUser({
+        updateUser({
           ...user,
           step: 'location',
           referred_token: data.referredToken,
@@ -85,7 +85,7 @@ export const UserPaymentOptionForm: FC<FormProps> = ({
 
         <button
           onClick={() =>
-            setUser({ ...user, step: 'payment', signup_source: 'payment' })
+            updateUser({ ...user, step: 'payment', signup_source: 'payment' })
           }
           className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black"
         >
