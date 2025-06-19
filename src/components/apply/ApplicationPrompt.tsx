@@ -13,14 +13,14 @@ const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
 
   return (
     <div className={classNames(className, 'inline-flex flex-col gap-y')}>
+      <h3 className="test-h3 text-left mb-y">{header}</h3>
       {(!isMobile || isMetamask) && (
         <>
           <div className="md:max-w-[50%] rich-text mb-y">
-            <h3 className="text-left mb-ydouble">{header}</h3>
             <p>To connect your wallet:</p>
           </div>
 
-          <WalletButton className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black">
+          <WalletButton className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] mb-y bg-white border-black">
             <IconSmallArrow fill="black" width="15" height="11" />
             <span className="uppercase font-medium leading-none text-xs">
               {`Connect your wallet`}
@@ -31,7 +31,7 @@ const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
 
       {!isMetamask && (
         <>
-          <div className="rich-text my-y">
+          <div className="rich-text mb-y">
             <span className="text-left">
               {!isMobile
                 ? `Or if you don’t have one already`
