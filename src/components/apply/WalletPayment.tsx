@@ -25,7 +25,7 @@ interface WalletPaymentProps extends HTMLAttributes<HTMLFormElement> {
   setUser: (arg0: any) => void
   email?: string
   onStripeSuccess?: () => void
-  joiningFee?: number
+  joiningFee?: number | null
   cryptoPrice?: number[]
 }
 

@@ -38,7 +38,7 @@ export const DashboardBlock: FC<DashboardBlockProps> = ({
           }}
         />
       ) : (
-        <ApplicationContainer content={{ header: applyHeader, joiningFee }} />
+        <ApplicationContainer content={{ header: applyHeader }} />
       )}
     </Block>
   )
