@@ -890,18 +890,6 @@ export interface SiteSettings extends SanityDocument {
   };
 
   /**
-   * Dashboard Image — `image`
-   *
-   *
-   */
-  dashImage?: {
-    _type: "image";
-    asset: SanityReference<SanityImageAsset>;
-    crop?: SanityImageCrop;
-    hotspot?: SanityImageHotspot;
-  };
-
-  /**
    * Keyphrase — `string`
    *
    * Phrase that you want your site to rank for.
@@ -1003,6 +991,18 @@ export interface SiteSettings extends SanityDocument {
    *
    */
   brokerInquirySuccess?: RichText;
+
+  /**
+   * Dashboard Image — `image`
+   *
+   *
+   */
+  dashImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
 
   /**
    * Properties — `array`
@@ -1576,7 +1576,6 @@ export type BlockContent = Array<
   | SanityKeyed<UnitBlock>
   | SanityKeyed<VideosBlock>
   | SanityKeyed<MessagingBlock>
-  | SanityKeyed<ApplyBlock>
   | SanityKeyed<DashboardBlock>
   | SanityKeyed<AccountBlock>
 >;
@@ -2111,23 +2110,6 @@ export type MessagingBlock = {
    *
    */
   messaginBlock?: string;
-};
-
-export type ApplyBlock = {
-  _type: "applyBlock";
-  /**
-   * Header — `richText`
-   *
-   *
-   */
-  applyHeader?: RichText;
-
-  /**
-   * Joining Fee — `number`
-   *
-   * Fee to join the community in $USD
-   */
-  joiningFee?: number;
 };
 
 export type DashboardBlock = {

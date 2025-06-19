@@ -52,7 +52,6 @@ import inventory from './documents/inventory'
 import inventoryToggle from './objects/inventory-toggle'
 import formBlock from './blocks/form-block'
 import formField from './objects/form-field'
-import applyBlock from './blocks/apply-block'
 import dashboardBlock from './blocks/dashboard-block'
 import dashboard from './documents/dashboard'
 import accountBlock from './blocks/account-block'
@@ -106,7 +105,6 @@ export const schemaTypes = [
   unitBlock,
   videosBlock,
   messagingBlock,
-  applyBlock,
   dashboardBlock,
   accountBlock,
 

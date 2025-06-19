@@ -9,17 +9,21 @@ import AccountSettings from '@components/dashboard/AccountSettings'
 import { TypedObject } from 'sanity'
 
 type AccountBlockProps = Omit<SanityBlockElement, keyof AccountBlockType> &
-  AccountBlockType
+  AccountBlockType & {
+    updateUser?: (user: any) => void
+  }
 
 export const AccountBlock: FC<AccountBlockProps> = ({
   className,
   user,
+  updateUser,
   content,
 }) => {
   return (
     <Block className={classNames(className, 'md:pr-menu')}>
       <AccountSettings
         user={user}
+        updateUser={updateUser}
         content={content as TypedObject | TypedObject[]}
       />
     </Block>

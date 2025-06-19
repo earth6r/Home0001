@@ -36,16 +36,20 @@ export const WalletButton: FC<WalletButtonProps> = ({
     React.Dispatch<React.SetStateAction<boolean>>
   ]
 
-  const initGetUserStep = (email: string, address: string, name: string) => {
+  const initGetUserStep = (user: any) => {
     try {
-      getUserCurrentStep(email)
+      getUserCurrentStep(user.email)
         .then(res => {
           const { data } = res || {}
+          console.log('User step data:', user, data)
           updateUser({
             ...user,
-            first_name: name,
-            address: address,
-            email: email,
+            id: user.id,
+            address: user.address,
+            email: user.email,
+            first_name: user.firstName,
+            last_name: user.lastName,
+            phone_number: user.phoneNumber,
             step: data.tokenMinted
               ? 'token'
               : data.referralPaymentMade
@@ -71,8 +75,7 @@ export const WalletButton: FC<WalletButtonProps> = ({
     getUserProfile(address)
       .then(res => {
         if (res?.data.user) {
-          // Assuming you have a function to set user profile in context or state
-          initGetUserStep(res.data.user.email, address, res.data.user.firstName)
+          initGetUserStep(res.data.user)
         } else {
           updateUser({
             ...user,

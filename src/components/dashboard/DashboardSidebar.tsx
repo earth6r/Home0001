@@ -35,8 +35,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
       })
   }
 
-  console.log('DashboardSidebar image:', image)
-
   return user ? (
     <div className="flex flex-col gap-y rich-text">
       <h3>{`Hello, ${user.first_name}.`}</h3>
