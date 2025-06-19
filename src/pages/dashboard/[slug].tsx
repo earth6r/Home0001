@@ -18,7 +18,7 @@ import { BODY_QUERY, client, filterDataToSingleItem } from '@studio/lib'
 import { BlockContent } from '@components/sanity'
 import PageTransition from '@components/transition/PageTransition'
 import classNames from 'classnames'
-import type { FormEvent } from 'react'
+import type { Dispatch, FormEvent, SetStateAction } from 'react'
 import { useRouter } from 'next/router'
 import { getUserProfile, getUserCurrentStep } from '@components/apply/actions'
 import { saveError } from '@lib/util/save-error'
@@ -67,11 +67,11 @@ const Page: NextPage<PageProps> = (
   const { query } = useRouter()
   const [user, updateUser] = useWalletUser() as [
     Web3UserProps,
-    React.Dispatch<React.SetStateAction<Web3UserProps>>
+    Dispatch<SetStateAction<Web3UserProps>>
   ]
   const [imageUrl, setImageUrl] = useWeb3ImageUrl() as [
     string | null,
-    React.Dispatch<React.SetStateAction<string | null>>
+    Dispatch<SetStateAction<string | null>>
   ]
   const [loading, setLoading] = useState(true)
 
@@ -120,9 +120,8 @@ const Page: NextPage<PageProps> = (
         .then(res => {
           const { data } = res || {}
           updateUser({
-            ...user,
             id: user.id,
-            address: user.address,
+            address: user.walletAddress,
             email: user.email,
             first_name: user.firstName,
             last_name: user.lastName,
@@ -162,8 +161,10 @@ const Page: NextPage<PageProps> = (
             hasFinishedProfile: false,
             address: address as string,
           })
-          console.log('No user profile found for this address, user:', user)
+          setLoading(false)
         }
+        if (sessionStorage.getItem('allowAnalytics') !== 'false')
+          localStorage.setItem('walletAddress', address)
       })
       .catch(err => {
         console.error(err)
@@ -184,8 +185,17 @@ const Page: NextPage<PageProps> = (
   useEffect(() => {
     setShowLogin(sessionStorage.getItem('loggedIn') !== 'true')
 
-    if (query.wallet) {
-      initUserProfile(query.wallet as string)
+    console.log(localStorage.getItem('walletAddress'))
+
+    if (
+      query.wallet ||
+      (localStorage.getItem('walletAddress') &&
+        (localStorage.getItem('walletAddress') as string).length > 4)
+    ) {
+      initUserProfile(
+        (query.wallet as string) ||
+          (localStorage.getItem('walletAddress') as string)
+      )
     } else {
       setLoading(false)
       console.warn('No wallet address provided in query parameters.')
@@ -218,7 +228,7 @@ const Page: NextPage<PageProps> = (
             )}
             {showPopup && <DashboardPopup setShowPopup={setShowPopup} />}
 
-            {!user && (
+            {!loading && !user && (
               <div className="container flex flex-col gap-y rich-text">
                 <ApplicationPrompt header={`Login`} />
               </div>

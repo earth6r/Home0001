@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState, type FC } from 'react'
+import { Dispatch, SetStateAction, type FC } from 'react'
 import {
   fetchImageUrl,
   fetchTokenURI,
@@ -28,12 +28,12 @@ export const WalletButton: FC<WalletButtonProps> = ({
 }) => {
   const [user, updateUser] = useWalletUser() as [
     Web3UserProps,
-    React.Dispatch<React.SetStateAction<Web3UserProps>>
+    Dispatch<SetStateAction<Web3UserProps>>
   ]
   const [client, setClient] = useWeb3Client()
   const [isWeb3Connected, setIsWeb3Connected] = useWeb3IsConnected() as [
     boolean,
-    React.Dispatch<React.SetStateAction<boolean>>
+    Dispatch<SetStateAction<boolean>>
   ]
 
   const initGetUserStep = (user: any) => {
@@ -83,8 +83,9 @@ export const WalletButton: FC<WalletButtonProps> = ({
             hasFinishedProfile: false,
             address: address as string,
           })
-          console.log('No user profile found for this address, user:', user)
         }
+        if (sessionStorage.getItem('allowAnalytics') !== 'false')
+          localStorage.setItem('walletAddress', address)
         scroll.scrollToTop({ behavior: 'smooth' })
       })
       .catch(err => {

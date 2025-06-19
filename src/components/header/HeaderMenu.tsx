@@ -1,4 +1,4 @@
-import type { FC, HTMLProps } from 'react'
+import type { Dispatch, FC, HTMLProps, SetStateAction } from 'react'
 import { useRef, Fragment, useState } from 'react'
 import classNames from 'classnames'
 import { Switch } from '@headlessui/react'
@@ -12,6 +12,8 @@ import { useBrokerInquiryModal } from '@contexts/modals'
 import { useLenis } from '@studio-freight/react-lenis'
 import IconChevron from '@components/icons/IconChevron'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useWalletUser, Web3UserProps } from '@contexts/web3'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   customOpen = false,
@@ -21,6 +23,11 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   mainMenu,
   className,
 }) => {
+  const [user, updateUser] = useWalletUser() as [
+    Web3UserProps,
+    Dispatch<SetStateAction<Web3UserProps>>
+  ]
+
   const lenis = useLenis()
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
@@ -184,6 +191,29 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 </Switch>
                 <span className="inline-block">Crypto</span>
               </li>
+            )}
+
+            {user?.address && (
+              <>
+                <li>{user.address}</li>
+                <li>
+                  <button
+                    onClick={() => {
+                      updateUser(null)
+                      localStorage.setItem('walletAddress', '')
+                      setHeaderLinksShown(true)
+                      setTimeout(() => setCustomOpen(false), 100)
+                    }}
+                    className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black"
+                  >
+                    <IconSmallArrow fill="black" width="15" height="11" />
+
+                    <span className="uppercase font-medium !leading-none">
+                      {`Disconnect Wallet`}
+                    </span>
+                  </button>
+                </li>
+              </>
             )}
           </ul>
         </nav>

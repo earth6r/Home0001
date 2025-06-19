@@ -25,8 +25,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     )
 
-    // Return the response from your API
-    console.log('Price fetched successfully:', response.data)
     return res.status(200).json(response.data)
   } catch (error: any) {
     console.error('Error fetching dynamic price:', error.message)
