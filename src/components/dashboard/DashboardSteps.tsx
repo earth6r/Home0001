@@ -39,7 +39,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
   const initGetCalendarDate = () => {
     getBookedCalendarDate(user?.email as string)
       .then(res => {
-        if (updateUser)
+        if (updateUser && res?.data.date)
           updateUser({
             ...user,
             calendar_date: res?.data.date,
@@ -52,7 +52,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
 
   useEffect(() => {
     if (user?.hasMadePayment) initGetCalendarDate()
-  }, [user])
+  }, [])
 
   return (
     <div className={className}>
