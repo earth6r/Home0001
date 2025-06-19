@@ -22,7 +22,7 @@ const stripePromise = loadStripe(
 
 interface WalletPaymentProps extends HTMLAttributes<HTMLFormElement> {
   user?: Web3UserProps
-  setUser: (arg0: any) => void
+  updateUser: (arg0: any) => void
   email?: string
   onStripeSuccess?: () => void
   joiningFee?: number | null
@@ -35,7 +35,7 @@ const PRODUCT_AMOUNT = 5000
 
 const PaymentContainer: FC<WalletPaymentProps> = ({
   user,
-  setUser,
+  updateUser,
   onStripeSuccess,
   joiningFee,
   cryptoPrice,
@@ -180,7 +180,7 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
 
 export const WalletPayment: FC<WalletPaymentProps> = ({
   user,
-  setUser,
+  updateUser,
   onStripeSuccess,
   joiningFee,
   cryptoPrice,
@@ -199,7 +199,7 @@ export const WalletPayment: FC<WalletPaymentProps> = ({
         >
           <PaymentContainer
             user={user}
-            setUser={setUser}
+            updateUser={updateUser}
             joiningFee={joiningFee}
             cryptoPrice={cryptoPrice}
             onStripeSuccess={onStripeSuccess}

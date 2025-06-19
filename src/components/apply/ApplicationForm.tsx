@@ -15,7 +15,7 @@ import {
 const ApplicationForm: FC<FormProps> = ({
   className,
   user,
-  setUser,
+  updateUser,
   joiningFee,
   cryptoPrice,
 }) => {
@@ -26,17 +26,17 @@ const ApplicationForm: FC<FormProps> = ({
         <div className="grid lg:grid-cols-3 gap-x rich-text">
           <div className="lg:col-start-2 pr-menu lg:pr-0">
             {user?.step === 'info' && (
-              <UserInfoForm user={user} setUser={setUser} />
+              <UserInfoForm user={user} updateUser={updateUser} />
             )}
 
             {user?.step === 'paymentOption' && (
-              <UserPaymentOptionForm user={user} setUser={setUser} />
+              <UserPaymentOptionForm user={user} updateUser={updateUser} />
             )}
 
             {user?.step === 'payment' && (
               <UserPaymentForm
                 user={user}
-                setUser={setUser}
+                updateUser={updateUser}
                 joiningFee={joiningFee}
                 cryptoPrice={cryptoPrice}
                 className="flex flex-col h-full"
@@ -44,19 +44,19 @@ const ApplicationForm: FC<FormProps> = ({
             )}
 
             {user?.step === 'location' && (
-              <LocationForm user={user} setUser={setUser} />
+              <LocationForm user={user} updateUser={updateUser} />
             )}
 
             {user?.step === 'priceRange' && (
-              <PriceRangeForm user={user} setUser={setUser} />
+              <PriceRangeForm user={user} updateUser={updateUser} />
             )}
 
             {user?.step === 'whenToBuy' && (
-              <TimelineForm user={user} setUser={setUser} />
+              <TimelineForm user={user} updateUser={updateUser} />
             )}
 
             {user?.step === 'bedrooms' && (
-              <RoomsForm user={user} setUser={setUser} />
+              <RoomsForm user={user} updateUser={updateUser} />
             )}
           </div>
         </div>

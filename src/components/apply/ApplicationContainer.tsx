@@ -20,7 +20,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
   content,
   className,
 }) => {
-  const [user, setUser] = useWalletUser() as [
+  const [user, updateUser] = useWalletUser() as [
     Web3UserProps,
     React.Dispatch<React.SetStateAction<Web3UserProps>>
   ]
@@ -95,7 +95,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
             </div>
 
             <button
-              onClick={() => setUser({ ...user, step: 'info' })}
+              onClick={() => updateUser({ ...user, step: 'info' })}
               className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white border-black"
             >
               <IconSmallArrow fill="white" width="15" height="11" />
@@ -115,7 +115,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
           <ApplicationForm
             className="px-x py-ydouble bg-gray"
             user={user}
-            setUser={setUser}
+            updateUser={updateUser}
             joiningFee={dynamicPrice}
             cryptoPrice={cryptoPrice}
           />

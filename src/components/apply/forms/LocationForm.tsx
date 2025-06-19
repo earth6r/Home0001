@@ -8,7 +8,11 @@ import { FormProps } from '../types'
 import { LOCATIONS } from '../consts'
 import FormPane from '../FormPane'
 
-export const LocationForm: FC<FormProps> = ({ user, setUser, className }) => {
+export const LocationForm: FC<FormProps> = ({
+  user,
+  updateUser,
+  className,
+}) => {
   const {
     register,
     handleSubmit,
@@ -43,7 +47,7 @@ export const LocationForm: FC<FormProps> = ({ user, setUser, className }) => {
         setFormSubmitted({ submitted: true, success: false })
         setIsSubmitting(false)
       } else {
-        setUser({
+        updateUser({
           ...user,
           step: 'priceRange',
         })

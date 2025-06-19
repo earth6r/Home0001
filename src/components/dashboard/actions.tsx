@@ -10,7 +10,7 @@ const CONFIG = {
 
 export const getBookedCalendarDate = async (email: string) => {
   try {
-    return await axios.post(
+    return await axios.get(
       `${BASE_URL}/api/google/get-booked-calendar-date?email=${email}`,
       CONFIG
     )
