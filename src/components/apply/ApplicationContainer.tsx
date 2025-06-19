@@ -31,7 +31,6 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
   const fetchDynamicPrice = async () => {
     getDynamicPrice()
       .then((res: any) => {
-        console.log('Dynamic price fetched:', res)
         setDynamicPrice(res?.data?.tokenPrice)
       })
       .catch(err => {
@@ -49,21 +48,20 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       return [roundedEthPrice, roundedBtcPrice]
     }
 
-    const joiningFee = getDynamicPrice()
-    console.log('Joining fee:', joiningFee)
-
     if (!dynamicPrice) {
       fetchDynamicPrice()
     }
 
-    if (joiningFee && ENV === 'production') {
-      const usdPrice = joiningFee
+    if (dynamicPrice && ENV === 'production') {
+      const usdPrice = dynamicPrice
 
       fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
         setCryptoPrice(cryptoPrices)
       })
     }
   }, [])
+
+  console.log('user: ', user)
 
   return (
     <div className={classNames(className)}>

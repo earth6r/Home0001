@@ -11,7 +11,7 @@ const DashboardPopup: FC<{ setShowPopup: (arg0: boolean) => void }> = ({
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-above"
+        className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-header"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
