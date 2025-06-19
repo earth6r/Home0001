@@ -24,5 +24,6 @@ export type DashboardSidebarProps = {
 export type AccountSettingsProps = {
   content: TypedObject | TypedObject[]
   user?: Web3UserProps
+  updateUser?: (user: Web3UserProps) => void
   className?: string
 }

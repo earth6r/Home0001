@@ -26,7 +26,6 @@ import {
   ImagesBlock,
   PropertyTypesBlock,
   FormBlock,
-  ApplyBlock,
   DashboardBlock,
   AccountBlock,
 } from '.'
@@ -156,14 +155,21 @@ export const BlockContent: FC<SanityBlockElement> = ({
             messagingBlock: ({ index, value }) => (
               <MessagingBlock index={index} {...value} />
             ),
-            applyBlock: ({ index, value }) => (
-              <ApplyBlock index={index} {...value} />
-            ),
             dashboardBlock: ({ index, value }) => (
-              <DashboardBlock index={index} user={user} {...value} />
+              <DashboardBlock
+                index={index}
+                user={user}
+                updateUser={updateUser}
+                {...value}
+              />
             ),
             accountBlock: ({ index, value }) => (
-              <AccountBlock index={index} user={user} {...value} />
+              <AccountBlock
+                index={index}
+                user={user}
+                updateUser={updateUser}
+                {...value}
+              />
             ),
           },
           marks: blockMarks,

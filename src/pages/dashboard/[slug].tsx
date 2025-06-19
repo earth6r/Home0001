@@ -22,14 +22,10 @@ import type { FormEvent } from 'react'
 import { useRouter } from 'next/router'
 import { getUserProfile, getUserCurrentStep } from '@components/apply/actions'
 import { saveError } from '@lib/util/save-error'
-import { motion } from 'framer-motion'
 import { fetchImageUrl, fetchTokenURI } from '@lib/util/web3'
 import { useWalletUser, useWeb3ImageUrl, Web3UserProps } from '@contexts/web3'
 import DashboardPopup from '@components/dashboard/DashboardPopup'
-import { IconWaitlist } from '@components/icons'
-import Link from 'next/link'
 import { DashboardSidebar } from '@components/dashboard'
-import { ApplicationContainer } from '@components/apply'
 import ApplicationPrompt from '@components/apply/ApplicationPrompt'
 import WalletPopup from '@components/dashboard/WalletPopup'
 
@@ -118,16 +114,19 @@ const Page: NextPage<PageProps> = (
     }
   }
 
-  const initGetUserStep = (email: string, address: string, name: string) => {
+  const initGetUserStep = (user: any) => {
     try {
-      getUserCurrentStep(email)
+      getUserCurrentStep(user.email)
         .then(res => {
           const { data } = res || {}
           updateUser({
             ...user,
-            first_name: name,
-            address: address,
-            email: email,
+            id: user.id,
+            address: user.address,
+            email: user.email,
+            first_name: user.firstName,
+            last_name: user.lastName,
+            phone_number: user.phoneNumber,
             step: data.tokenMinted
               ? 'token'
               : data.referralPaymentMade
@@ -155,7 +154,7 @@ const Page: NextPage<PageProps> = (
     getUserProfile(address)
       .then(res => {
         if (res?.data.user) {
-          initGetUserStep(res.data.user.email, address, res.data.user.firstName)
+          initGetUserStep(res.data.user)
         } else {
           updateUser({
             ...user,

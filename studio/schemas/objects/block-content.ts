@@ -94,11 +94,6 @@ export default {
       title: 'Messaging Block',
     },
     {
-      name: 'applyBlock',
-      type: 'applyBlock',
-      title: 'Apply Block',
-    },
-    {
       name: 'dashboardBlock',
       type: 'dashboardBlock',
       title: 'Dashboard Block',
