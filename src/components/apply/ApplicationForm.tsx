@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
-import React, { FC, useState } from 'react'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
+import React, { FC } from 'react'
 import classNames from 'classnames'
-import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from './types'
 import {
   UserInfoForm,

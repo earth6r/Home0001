@@ -61,8 +61,6 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
     }
   }, [])
 
-  console.log('user: ', user)
-
   return (
     <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}
@@ -118,7 +116,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
             className="px-x py-ydouble bg-gray"
             user={user}
             setUser={setUser}
-            joiningFee={content.joiningFee}
+            joiningFee={dynamicPrice}
             cryptoPrice={cryptoPrice}
           />
         )}

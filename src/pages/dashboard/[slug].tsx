@@ -185,8 +185,6 @@ const Page: NextPage<PageProps> = (
   useEffect(() => {
     setShowLogin(sessionStorage.getItem('loggedIn') !== 'true')
 
-    console.log(localStorage.getItem('walletAddress'))
-
     if (
       query.wallet ||
       (localStorage.getItem('walletAddress') &&

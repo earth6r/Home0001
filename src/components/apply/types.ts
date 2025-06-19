@@ -11,7 +11,7 @@ declare global {
 export type ApplicationContainerProps = {
   content: {
     header?: TypedObject | TypedObject[]
-    joiningFee?: number
+    joiningFee?: number | null
   }
   className?: string
 }
@@ -28,6 +28,6 @@ export type FormProps = {
   className?: string
   user: Web3UserProps
   setUser: (arg0: any) => void
-  joiningFee?: number
+  joiningFee?: number | null
   cryptoPrice?: number[]
 }

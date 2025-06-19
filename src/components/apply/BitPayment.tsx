@@ -13,7 +13,7 @@ interface BitPaymentProps extends HTMLAttributes<HTMLFormElement> {
   setUser: (arg0: any) => void
   email?: string
   onPaymentSuccess?: () => void
-  joiningFee?: number
+  joiningFee?: number | null
   cryptoPrice?: number[]
 }
 

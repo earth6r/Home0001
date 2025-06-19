@@ -5,7 +5,6 @@ import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from '../types'
 import WalletPayment from '../WalletPayment'
 import BitPayment from '../BitPayment'
-import classNames from 'classnames'
 
 export const UserPaymentForm: FC<FormProps> = ({
   user,
