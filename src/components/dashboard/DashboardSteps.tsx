@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react'
 import { TypedObject } from 'sanity'
-import { useWeb3Client, Web3UserProps } from '@contexts/web3'
+import { Web3UserProps } from '@contexts/web3'
 import { mintToken } from '@lib/util/web3'
-import IconChevron from '@components/icons/IconChevron'
 import { BuyCalendar } from '@components/buy'
-import { getBookedCalendarDate } from './actions'
+import { getBookedCalendarDates } from './actions'
+import moment from 'moment-timezone'
 
 type TokenDashboardProps = {
   dashboardCopy?: TypedObject | TypedObject[]
@@ -37,12 +37,13 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
   }
 
   const initGetCalendarDate = () => {
-    getBookedCalendarDate(user?.email as string)
+    getBookedCalendarDates(user?.email as string)
       .then(res => {
-        if (updateUser && res?.data.date)
+        console.log('Booked calendar dates:', res)
+        if (updateUser && res?.data.events)
           updateUser({
             ...user,
-            calendar_date: res?.data.date,
+            calendar_dates: res?.data.events,
           })
       })
       .catch(err => {
@@ -51,7 +52,8 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
   }
 
   useEffect(() => {
-    if (user?.hasMadePayment) initGetCalendarDate()
+    console.log('User in DashboardSteps:', user)
+    // if (user?.hasMadePayment && !user.calendar_dates) initGetCalendarDate()
   }, [])
 
   return (
@@ -64,27 +66,9 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
             to you. Speak with them.
           </p>
 
-          {/* {!user?.hasFinishedProfile && (
-            <Link
-              href={`/apply`}
-              target="_blank"
-              className="inline-block mt-y font-medium"
-            >
-              <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white">
-                <IconSmallArrow fill="white" width="15" height="11" />
-
-                <span className="uppercase font-medium !leading-none">
-                  {`Finish Application`}
-                </span>
-              </button>
-            </Link>
-          )} */}
-
           {user?.hasFinishedProfile && (
             <span className="absolute right-0 top-0 !mt-0 h-auto w-[14px] lg:w-[20px]">
               <svg
-                width=""
-                height=""
                 viewBox="0 0 20 18"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -103,37 +87,29 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
           <p className="lg:pr-fullmenu">
             Come hang at a 0001 home or meet us on a call if you’re far away.
           </p>
-          {user?.calendar_date ? (
-            <p>{`Appointment date: ${user.calendar_date}`}</p>
+          {user?.calendar_dates ? (
+            <p>{`You have a meeting at: ${moment(
+              user.calendar_dates[0].start_time,
+              'America/New_York'
+            ).format('DD-HH-YY HH:MM')} EST`}</p>
           ) : (
             <div className="flex flex-col gap-y w-full max-w-[420px]">
-              {/* <div className="inline-block mt-y font-bold">
-            <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white">
-              <IconSmallArrow fill="white" width="15" height="11" />
-
-              <span className="uppercase !leading-none">
-                {`View Appointment`}
-              </span>
-            </button>
-          </div> */}
-
               <div className="relative w-full">
-                <p className="my-y">Where would you like to meet?</p>
-                <select className="input select text-button font-sans">
+                <p className="my-y">
+                  Book a tour of our homes in the Lower East Side
+                </p>
+                {/* <select className="input select text-button font-sans">
                   <option>{`New York`}</option>
                   <option>{`Los Angeles`}</option>
                   <option>{`on a Call`}</option>
                 </select>
-                <IconChevron className="absolute w-[12px] right-x top-3/4 transform rotate-0 -translate-y-1/2" />
+                <IconChevron className="absolute w-[12px] right-x top-3/4 transform rotate-0 -translate-y-1/2" /> */}
               </div>
 
               <BuyCalendar
                 email={user?.email as string}
                 unit={user?.unit as string}
-                calendarDate={user?.calendar_date}
-                // onMeetingSet={() => {
-                //   initUpdateProcess('scheduleClosing')
-                // }}
+                calendarDate={user?.calendar_dates}
               />
             </div>
           )}

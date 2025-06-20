@@ -112,7 +112,11 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
       return
     }
 
-    setPaymentIntent(user.email, joiningFee as number, STRIPE_PRODUCT_ID)
+    setPaymentIntent(
+      user.email,
+      (joiningFee as number) * 100,
+      STRIPE_PRODUCT_ID
+    )
       .then(async res => {
         setClientSecret(res?.data.clientSecret)
       })

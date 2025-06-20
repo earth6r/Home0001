@@ -1,5 +1,6 @@
 import { saveError } from '@lib/util/save-error'
 import axios from 'axios'
+import moment from 'moment-timezone'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 const CONFIG = {
@@ -93,34 +94,20 @@ export const getAvailableSlots = async () => {
 }
 
 export const createGoogleCalendarMeeting = async (
-  data: any,
-  email: string,
-  unit: string
-  // additionalEmails?: string[]
+  startTime: string,
+  endTime: string,
+  email: string
 ) => {
   try {
     return await axios.post(
-      `${BASE_URL}/api/google/create-google-calendar_meeting`,
+      `${BASE_URL}/api/google-calendar/create-event`,
       {
-        date: data.date,
-        startTime: data.startTime,
-        eventName: 'HOME0001 Closing',
+        startTime: startTime,
+        endTime: endTime,
         inviteeEmail: email,
-        staffEmails: [
-          email,
-          // 'dzelefsky@braverlaw.net',
-          // 'scott@choicefamily.com',
-          // 'Matthew@omnititle.com',
-          // 'gio@choicefamily.com',
-          // 'andres@hoggholdings.com',
-          // 'annika@home0001.com',
-          // 'yan@home0001.com',
-          // 'm@choicefamily.com',
-          'collective@home0001.com',
-        ],
-        location: 'Link will be emailed',
-        eventDescription: `Home0001 closing for ${unit}`,
-        // additionalEmails: additionalEmails,
+        eventName: 'HOME0001 Meeting',
+        eventDescription: `Home0001 meeting re: membership`,
+        calendarEmail: 'talin@home0001.com',
       },
       CONFIG
     )

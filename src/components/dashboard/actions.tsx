@@ -8,15 +8,15 @@ const CONFIG = {
   },
 }
 
-export const getBookedCalendarDate = async (email: string) => {
+export const getBookedCalendarDates = async (email: string) => {
   try {
     return await axios.get(
-      `${BASE_URL}/api/google/get-booked-calendar-date?email=${email}`,
+      `${BASE_URL}/api/web3/get-events?email=${email}`,
       CONFIG
     )
   } catch (error) {
     console.error(error)
-    saveError(error, 'getBookedCalendarDate')
+    saveError(error, 'getBookedCalendarDates')
   }
 }
 
