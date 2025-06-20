@@ -35,7 +35,7 @@ const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
             <span className="text-left">
               {!isMobile
                 ? `Or if you don’t have one already`
-                : `Mobile users please visit our site inside of the metamask mobile app:`}
+                : `Mobile users please visit our site inside of the MetaMask mobile app:`}
             </span>
           </div>
 
@@ -48,7 +48,7 @@ const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
               <IconSmallArrow fill="black" width="15" height="11" />
 
               <span className="uppercase font-medium leading-none text-xs">
-                {isMobile ? `Get Metamask` : `Create a wallet`}
+                {isMobile ? `Get MetaMask` : `Create a wallet`}
               </span>
             </button>
           </Link>
