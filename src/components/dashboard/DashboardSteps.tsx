@@ -82,7 +82,18 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
 
           {user?.hasFinishedProfile && (
             <span className="absolute right-0 top-0 !mt-0 text-base font-medium">
-              Completed
+              <svg
+                width="38"
+                height="38"
+                viewBox="0 0 38 38"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M25.7279 11.3999L17.0221 23.2058L11.875 17.9155L9.5 20.3583L17.4154 28.4999L28.5 13.8428L25.7279 11.3999Z"
+                  fill="black"
+                />
+              </svg>
             </span>
           )}
         </li>
@@ -113,7 +124,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
                   <option>{`Los Angeles`}</option>
                   <option>{`on a Call`}</option>
                 </select>
-                <IconChevron className="absolute w-[12px] right-x top-1/2 transform rotate-0 -translate-y-1/2" />
+                <IconChevron className="absolute w-[12px] right-x top-3/4 transform rotate-0 -translate-y-1/2" />
               </div>
 
               <BuyCalendar

@@ -65,7 +65,7 @@ export const LocationForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <p className="!mx-0 !text-bodyLg">{`Where do you want to buy?`}</p>
+        <p className="!mx-0 !text-bodyLg !font-bold">{`Where do you want to buy?`}</p>
         <p className="!mx-0">{`Select up to 3 locations.`}</p>
 
         {LOCATIONS.map(({ label, name }) => (

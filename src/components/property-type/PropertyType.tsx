@@ -18,6 +18,7 @@ import PropertyTypesList from './PropertyTypesList'
 import IconChevron from '@components/icons/IconChevron'
 import { PropertyContentProps } from '@components/property/types'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { IconWaitlist } from '@components/icons'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -127,7 +128,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
           'grid grid-cols-1 lg:grid-cols-3 pr-x md:pr-0 transition-opacity'
         )}
       >
-        <div className="col-span-1 pl-0 lg:px-x lg:mb-y xl:mb-0 bg-white lg:z-modal">
+        <div className="col-span-1 pl-0 lg:px-x lg:mb-yd xl:mb-0 bg-white lg:z-modal">
           {propertyType?.photographs && (
             <ImageCarousel
               pagination={false}
@@ -135,12 +136,12 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
               perViewMobile={1}
               carousel={true}
               slides={propertyType?.photographs as SanityKeyed<Media>[]}
-              className="w-full h-auto lg:overflow-hidden leading-none pr-menu lg:pr-0 mb-y"
+              className="w-full h-auto lg:overflow-hidden leading-none pr-menu lg:pr-0 mb-ydouble lg:mb-y"
               placement="unit images"
             />
           )}
-          <div className="rich-text pl-x lg:px-0 lg:mb-y">
-            <ul className="dash">
+          <div className="rich-text pl-x lg:px-0">
+            <ul className="!mb-y dash">
               <li>{`${propertyType?.typeTitle}`}</li>
               <li>{`0001 ${
                 (propertyType?.property as unknown as Property).title
@@ -158,14 +159,7 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 
           <div className="hidden lg:block relative w-full mb-y cursor-pointer z-above">
             <Link href="/apply">
-              <button
-                className={classNames(
-                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
-                )}
-              >
-                {`Apply`}
-                <IconSmallArrow width="16" height="10" fill="white" />
-              </button>
+              <IconWaitlist className="w-[77px]" />
             </Link>
           </div>
 

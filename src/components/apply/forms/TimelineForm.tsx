@@ -88,7 +88,7 @@ export const TimelineForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <p className="!mx-0 !text-bodyLg">{`When are you looking to buy?`}</p>
+        <p className="!mx-0 !text-bodyLg !font-bold">{`When are you looking to buy?`}</p>
 
         {TIMELINE.map(({ label, name }) => (
           <div key={name}>

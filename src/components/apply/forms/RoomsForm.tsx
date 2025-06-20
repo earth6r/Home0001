@@ -106,15 +106,16 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-col gap-y">
-        <p className="!mx-0 !text-bodyLg">
-          {`Last question:`}
-          <br />
-          {`How many bedrooms are you looking for?`}
-          <br />
-        </p>
-        <p className="!mx-0">{`Select all that apply.`}</p>
-
+      <div className="flex flex-col justify-between">
+        <div>
+          <p className="!mx-0 !text-bodyLg !font-bold">
+            {`Last question:`}
+            <br />
+            {`How many bedrooms are you looking for?`}
+            <br />
+          </p>
+          <p className="!mx-0">{`Select all that apply.`}</p>
+        </div>
         {SIZES.map(({ label, name }) => (
           <div key={name}>
             <input
