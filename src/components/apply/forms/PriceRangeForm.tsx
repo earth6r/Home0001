@@ -89,7 +89,7 @@ export const PriceRangeForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <h3>{`What’s your price range?`}</h3>
+        <p className="text-bodyLg">{`What’s your price range?`}</p>
 
         {PRICES.map(({ label, name }) => (
           <div key={name}>
@@ -100,7 +100,7 @@ export const PriceRangeForm: FC<FormProps> = ({
               {...register('price_range', { required: false })}
             />
             <label
-              className="text-left cursor-pointer font-medium text-xs tracking-normal"
+              className="text-left cursor-pointer font-medium text-xs tracking-normal uppercase"
               htmlFor={name}
             >
               {label}

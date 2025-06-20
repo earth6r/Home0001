@@ -59,7 +59,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
       <ul className="flex flex-col gap-y">
         <li className="relative pb-y rich-text border-bottom--gray">
           <span className="text-base !font-bold uppercase">Step 1</span>
-          <p>
+          <p className="lg:pr-fullmenu">
             Submit your application. A member of the collective will reach out
             to you. Speak with them.
           </p>
@@ -81,7 +81,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
           )} */}
 
           {user?.hasFinishedProfile && (
-            <span className="absolute right-0 top-0 text-base font-medium m-0">
+            <span className="absolute right-0 top-0 !mt-0 text-base font-medium">
               Completed
             </span>
           )}
@@ -89,7 +89,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
 
         <li className="w-full pb-y rich-text border-bottom--gray">
           <span className="text-base !font-bold uppercase">Step 2</span>
-          <p>
+          <p className="lg:pr-fullmenu">
             Come hang at a 0001 home or meet us on a call if you’re far away.
           </p>
           {user?.calendar_date ? (
@@ -107,8 +107,11 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
           </div> */}
 
               <div className="relative w-full">
+                <p className="my-y">Where would you like to meet?</p>
                 <select className="input select text-button font-sans">
                   <option>{`New York`}</option>
+                  <option>{`Los Angeles`}</option>
+                  <option>{`on a Call`}</option>
                 </select>
                 <IconChevron className="absolute w-[12px] right-x top-1/2 transform rotate-0 -translate-y-1/2" />
               </div>
@@ -127,9 +130,13 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
 
         <li className="pb-y rich-text border-bottom--gray">
           <span className="text-base !font-bold uppercase">Step 3</span>
+          <p className="pr-fullmenu">
+            Once the selection committee approves your application you can mint
+            your token here.
+          </p>
           <p>
-            If your application is approved, you can mint your token here. If
-            it’s not, your joining fee will be refunded.
+            (If your application is not successful your joining fee will be
+            refunded).
           </p>
         </li>
 

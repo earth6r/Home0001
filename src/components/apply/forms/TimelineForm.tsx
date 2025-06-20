@@ -99,7 +99,7 @@ export const TimelineForm: FC<FormProps> = ({
               {...register('buyingtimelinedec2023', { required: false })}
             />
             <label
-              className="text-left cursor-pointer font-medium text-xs tracking-normal"
+              className="text-left cursor-pointer font-medium text-xs tracking-normal uppercase"
               htmlFor={name}
             >
               {label}
