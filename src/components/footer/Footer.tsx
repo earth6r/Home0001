@@ -41,7 +41,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         <div className="w-full h-[173px] bg-black mt-y px-x text-white">
           <Link
             href="/how-it-works"
-            className="flex items-center justify-start gap-xdouble text-h3 h-full"
+            className="flex items-center justify-start gap-x text-h3 h-full"
           >
             {`How it works`}
             <IconRightArrowBold className="w-[35px] h-auto" fill="white" />
