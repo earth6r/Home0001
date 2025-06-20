@@ -19,7 +19,6 @@ const ApplicationForm: FC<FormProps> = ({
   joiningFee,
   cryptoPrice,
 }) => {
-  console.log(user)
   return (
     <div className={classNames(className)}>
       <div className="h-full">
