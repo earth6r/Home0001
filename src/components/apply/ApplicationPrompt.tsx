@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
 import WalletButton from './WalletButton'
-import { isMobile, isIOS, isAndroid, browserName } from 'react-device-detect'
+import { isMobile, isIOS, isAndroid } from 'react-device-detect'
 
 const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
   header,
