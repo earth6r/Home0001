@@ -100,7 +100,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
     setLoading(true)
     updateBuyingProgress(userData.email, step)
       .then(res => {
-        console.log('initUpdateProcess res:', res)
         initGetBuyingProgress()
       })
       .catch(err => {
@@ -149,7 +148,6 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
 
     accountSignIn(email, password)
       .then(res => {
-        console.log('res:', res)
         if (res?.data.user.user) {
           if (res?.data.userMetadata && res?.data.userMetadata[0]) {
             setLoginSuccess(

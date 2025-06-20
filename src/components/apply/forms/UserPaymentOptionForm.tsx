@@ -38,7 +38,6 @@ export const UserPaymentOptionForm: FC<FormProps> = ({
       referred_token: data.referredToken,
       signup_source: 'referred',
     }).then(res => {
-      console.log('Referral code submitted:', res)
       if (!res?.success) {
         console.error('Error making referral payment:', res?.message)
         setFormError({ error: true, message: 'Referral code failed' })

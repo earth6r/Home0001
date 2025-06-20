@@ -65,7 +65,6 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
 
     createGoogleCalendarMeeting(start, end, email)
       .then(res => {
-        console.log(res)
         if (onMeetingSet) onMeetingSet()
         setFormSubmitted(true)
       })
