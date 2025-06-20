@@ -54,6 +54,39 @@ export default async function handler(
       customizedNotifications,
     })
 
+    try {
+      const response = await fetch(
+        'https://hometrics0001.vercel.app/api/save-calendar-to-database',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            eventId,
+            startTime,
+            endTime,
+            eventName,
+            inviteeEmail,
+            eventDescription,
+            calendarEmail,
+          }),
+        }
+      )
+
+      if (!response.ok) {
+        console.error(
+          'Failed to save calendar event to database:',
+          await response.text()
+        )
+      }
+    } catch (dbError) {
+      console.error(
+        'Error calling API to save calendar event to database:',
+        dbError
+      )
+    }
+
     return res.status(200).json({ success: true, eventId })
   } catch (error) {
     console.error('Error creating calendar event:', error)
