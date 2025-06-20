@@ -28,6 +28,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Modal } from '@components/modal'
 import { PropertyList } from '@components/property'
 import { Inventory } from '@components/inventory'
+import IconConnect from '@components/icons/IconConnect'
 
 export const Header: FC<HeaderProps> = ({
   inquiry,
@@ -221,7 +222,7 @@ export const Header: FC<HeaderProps> = ({
                     'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
                   )}
                 >
-                  <IconWaitlist className="w-[77px]" />
+                  <IconConnect className="w-[118px]" />
                 </SanityLink>
               )}
             </>
