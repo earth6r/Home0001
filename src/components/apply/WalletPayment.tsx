@@ -29,7 +29,7 @@ interface WalletPaymentProps extends HTMLAttributes<HTMLFormElement> {
   cryptoPrice?: number[]
 }
 
-const STRIPE_PRODUCT_ID = 'prod_SEPtONnJGxLspP'
+const STRIPE_PRODUCT_ID = process.env.NEXT_PUBLIC_STRIPE_PRODUCT_ID
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 const PRODUCT_AMOUNT = 5000
 
@@ -98,7 +98,7 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
     }
     setIsSubmitting(true)
 
-    if (!stripe || !elements) {
+    if (!stripe || !elements || !STRIPE_PRODUCT_ID) {
       console.error('Missing required stripe fields')
       setIsSubmitting(false)
       return
@@ -115,7 +115,7 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
     setPaymentIntent(
       user.email,
       (joiningFee as number) * 100,
-      STRIPE_PRODUCT_ID
+      STRIPE_PRODUCT_ID as string
     )
       .then(async res => {
         setClientSecret(res?.data.clientSecret)
