@@ -104,15 +104,15 @@ const Page: NextPage<PageProps> = (
   //   }
   // }
 
-  const fetchImage = async () => {
-    try {
-      const uri = await fetchTokenURI(1) // assuming token ID 1
-      const img = await fetchImageUrl(uri as unknown as string)
-      setImageUrl(img)
-    } catch (error) {
-      console.error('Error fetching NFT image:', error)
-    }
-  }
+  // const fetchImage = async () => {
+  //   try {
+  //     const uri = await fetchTokenURI(1) // assuming token ID 1
+  //     const img = await fetchImageUrl(uri as unknown as string)
+  //     setImageUrl(img)
+  //   } catch (error) {
+  //     console.error('Error fetching NFT image:', error)
+  //   }
+  // }
 
   const initGetUserStep = (user: any) => {
     try {
@@ -136,7 +136,7 @@ const Page: NextPage<PageProps> = (
             hasMadePayment: data.referralPaymentMade,
             hasFinishedProfile: data.questionnaireFinished,
           })
-          if (data.tokenMinted) fetchImage()
+          // if (data.tokenMinted) fetchImage()
         })
         .catch(err => {
           console.error('Error fetching user step:', err)
