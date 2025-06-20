@@ -9,11 +9,29 @@ import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
 
 import { saveError } from '@lib/util/save-error'
 import { DateSelect } from '@components/date-select'
+import moment from 'moment-timezone'
+
+const createEasternTimeDate = (
+  dateStr: string,
+  timeStr: string
+): { start: string; end: string } => {
+  const dateTimeString = `${dateStr} ${timeStr}`
+  const easternTime = moment.tz(
+    dateTimeString,
+    'YYYY-MM-DD HH:mm',
+    'America/New_York'
+  )
+
+  return {
+    start: easternTime.toISOString(),
+    end: easternTime.clone().add(1, 'hour').toISOString(),
+  }
+}
 
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
   unit?: string
-  calendarDate?: string
+  calendarDate?: { start_time: string }[]
   onMeetingSet?: () => void
 }
 
@@ -41,8 +59,11 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   const [loading, setLoading] = useState(true)
 
   const onSubmit = async (data: any) => {
-    if (!email || !unit) return
-    createGoogleCalendarMeeting(data, email, unit)
+    if (!email || !data) return
+
+    const { start, end } = createEasternTimeDate(data.date, data.startTime)
+
+    createGoogleCalendarMeeting(start, end, email)
       .then(res => {
         console.log(res)
         if (onMeetingSet) onMeetingSet()

@@ -9,6 +9,8 @@ export default async function handler(
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  console.log('Creating Google Calendar event with data:', req.body)
+
   try {
     const {
       startTime,
