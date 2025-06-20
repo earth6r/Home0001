@@ -65,9 +65,10 @@ export const LocationForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <p className="!mx-0 !text-bodyLg !font-bold">{`Where do you want to buy?`}</p>
-        <p className="!mx-0">{`Select up to 3 locations.`}</p>
-
+        <div className="flex flex-col gap-y mb-ydouble">
+          <p className="!mx-0 !text-bodyLg !font-bold">{`Where do you want to buy?`}</p>
+          <p className="!mx-0">{`Select up to 3 locations.`}</p>
+        </div>
         {LOCATIONS.map(({ label, name }) => (
           <div key={name}>
             <input
@@ -108,7 +109,7 @@ export const LocationForm: FC<FormProps> = ({
           {...register('city_general', { required: false })}
           className={classNames(
             hiddenInputShown ? '' : 'opacity-0',
-            'input my-y md:my-yhalf !py-0'
+            'input !py-0 !border-none'
           )}
         />
       </div>

@@ -50,7 +50,7 @@ export const PRICES = [
 
 export const TIMELINE = [
   {
-    label: 'Immediately',
+    label: 'Under 3 months',
     name: 'now',
   },
   {
@@ -66,7 +66,7 @@ export const TIMELINE = [
     name: '6to12mos',
   },
   {
-    label: `Not sure yet`,
+    label: `Depends`,
     name: 'notsure',
   },
 ]
