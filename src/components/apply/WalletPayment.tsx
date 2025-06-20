@@ -137,8 +137,8 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
         <div className="flex flex-col gap-ydouble">
           <div>
             <div>
-              <h3>{`Review & Pay`}</h3>
-              <p className="!mx-0 my-y">Current joining fee:</p>
+              <p className="!text-bodyLg !font-bold !mx-0">{`Review & Pay:`}</p>
+              <p className="!mx-0 my-y uppercase">Current joining fee:</p>
               <p>
                 {`${joiningFee} USD / ${
                   (cryptoPrice && cryptoPrice.length > 0) ||
@@ -163,7 +163,7 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
             type={'submit'}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
+            {isSubmitting ? 'Submitting...' : 'Make Payment'}
             <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
           </button>
         </div>

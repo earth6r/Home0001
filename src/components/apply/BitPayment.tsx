@@ -151,10 +151,10 @@ const PaymentContainer: FC<BitPaymentProps> = ({
       >
         <div className="flex flex-col gap-y">
           <div>
-            <h3>{`Pay Application Fee`}</h3>
+            <p className="!mx-0 !text-bodyLg !font-bold">{`Review & Pay:`}</p>
 
             <div className="flex justify-start items-center gap-y mt-y">
-              <p className="!mx-0">Current joining fee:</p>
+              <p className="!mx-0 uppercase">Current joining fee:</p>
               <p className="!mx-0">
                 {`${joiningFee} USD`}
                 {cryptoPrice && cryptoPrice.length > 0 && (
@@ -166,7 +166,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
 
           {paymentStatus === 'pending' && (
             <div>
-              <p className="font-medium">Payment window opened</p>
+              <p className="font-medium">Payment window opened.</p>
               <p className="text-sm mt-1">
                 Complete your payment in the new window. This page will
                 automatically update when payment is confirmed.
@@ -177,7 +177,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
                   onClick={() => window.open(invoiceUrl, '_blank')}
                   className="text-base font-medium underline mt-y"
                 >
-                  Reopen payment window
+                  Reopen payment window.
                 </button>
               )}
             </div>

@@ -79,7 +79,7 @@ export const UserInfoForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="relative flex flex-col gap-y">
-        <h3>{`Tell us about yourself!`}</h3>
+        <p className="!mx-0 !text-bodyLg !font-bold">{`Tell us about yourself!`}</p>
 
         <div className="relative flex flex-col gap-y">
           <input
@@ -128,7 +128,7 @@ export const UserInfoForm: FC<FormProps> = ({
 
           <div className="flex flex-col gap-y relative mt-y">
             <label htmlFor="public_profiles" className="flex flex-col gap-y">
-              <span className="text-button">{`Your public profiles (optional)`}</span>
+              <span className="text-button !font-bold">{`Your public profiles (optional)`}</span>
               <span className="text-base">{`Your social media, website or portfolio. Please seperate entries with a comma.`}</span>
             </label>
             <input
@@ -139,7 +139,7 @@ export const UserInfoForm: FC<FormProps> = ({
           </div>
 
           <div className="relative mt-y">
-            <p className="mb-y text-button">{`Communication Preference`}</p>
+            <p className="mb-y text-button !font-bold">{`Communication Preference`}</p>
             <select
               id="preferred-comms"
               className="input select text-button font-sans"
@@ -183,7 +183,7 @@ export const UserInfoForm: FC<FormProps> = ({
             </label>
           </div>
 
-          <div className="flex w-full">
+          {/* <div className="flex w-full">
             <input
               type="checkbox"
               id="member_consent"
@@ -196,22 +196,7 @@ export const UserInfoForm: FC<FormProps> = ({
             >
               <span>{`I agree to the Membership Terms & Conditions.`}</span>
             </label>
-          </div>
-
-          <div className="flex w-full">
-            <input
-              type="checkbox"
-              id="application_consent"
-              className="flex-grow"
-              {...register('application_consent', { required: 'Required' })}
-            />
-            <label
-              className="w-full text-left cursor-pointer font-medium text-md tracking-normal"
-              htmlFor="application_consent"
-            >
-              <span>{`I agree to pay the application fee`}</span>
-            </label>
-          </div>
+          </div> */}
         </div>
       </div>
     </FormPane>
