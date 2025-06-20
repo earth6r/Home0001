@@ -26,7 +26,7 @@ export const PropertyList: FC<PropertyListProps> = ({
       <h2
         className={classNames(
           asPath === '/' ? 'font-bold' : '',
-          `mt-[-16px] text-h2 mb-y`
+          `-mt-y text-h2 mb-y`
         )}
       >
         {header}
