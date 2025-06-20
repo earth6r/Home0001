@@ -96,7 +96,7 @@ export const LocationForm: FC<FormProps> = ({
             })}
           />
           <label
-            className="text-left cursor-pointer font-medium text-xs tracking-normal"
+            className="text-left cursor-pointer font-medium text-xs tracking-normal uppercase"
             htmlFor={'Else'}
           >
             {`Somewhere else`}
@@ -108,7 +108,7 @@ export const LocationForm: FC<FormProps> = ({
           {...register('city_general', { required: false })}
           className={classNames(
             hiddenInputShown ? '' : 'opacity-0',
-            'input my-y md:my-yhalf'
+            'input my-y md:my-yhalf !py-0'
           )}
         />
       </div>

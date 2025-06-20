@@ -81,16 +81,16 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
           )} */}
 
           {user?.hasFinishedProfile && (
-            <span className="absolute right-0 top-0 !mt-0 text-base font-medium">
+            <span className="absolute right-0 top-0 !mt-0 h-auto w-[14px] lg:w-[20px]">
               <svg
-                width="38"
-                height="38"
-                viewBox="0 0 38 38"
+                width=""
+                height=""
+                viewBox="0 0 20 18"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M25.7279 11.3999L17.0221 23.2058L11.875 17.9155L9.5 20.3583L17.4154 28.4999L28.5 13.8428L25.7279 11.3999Z"
+                  d="M16.7279 0.399902L8.02207 12.2058L2.875 6.91546L0.5 9.35832L8.41543 17.4999L19.5 2.84276L16.7279 0.399902Z"
                   fill="black"
                 />
               </svg>
