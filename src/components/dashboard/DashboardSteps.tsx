@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { TypedObject } from 'sanity'
 import { Web3UserProps } from '@contexts/web3'
 import { mintToken } from '@lib/util/web3'
@@ -18,43 +18,46 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
   updateUser,
   className,
 }) => {
-  const initMint = async () => {
-    // console.log('Minting token for address:', user?.address)
-    mintToken(user?.address as string)
-      .then(res => {
-        console.log('Minted token:', res)
-        // if (!res?.result) {
-        //   return console.error('No token ID returned from minting')
-        // }
-        // setUser({
-        //   ...user,
-        //   tokenIds: [res?.toString() as string],
-        // })
-      })
-      .catch(err => {
-        console.error('Error minting token:', err)
-      })
-  }
+  const [eventDates, setEventDates] = useState<{ start_time: string }[] | null>(
+    null
+  )
+  const [loading, setLoading] = useState(true)
+
+  // const initMint = async () => {
+  //   // console.log('Minting token for address:', user?.address)
+  //   mintToken(user?.address as string)
+  //     .then(res => {
+  //       console.log('Minted token:', res)
+  //       // if (!res?.result) {
+  //       //   return console.error('No token ID returned from minting')
+  //       // }
+  //       // setUser({
+  //       //   ...user,
+  //       //   tokenIds: [res?.toString() as string],
+  //       // })
+  //     })
+  //     .catch(err => {
+  //       console.error('Error minting token:', err)
+  //     })
+  // }
 
   const initGetCalendarDate = () => {
     getBookedCalendarDates(user?.email as string)
       .then(res => {
         console.log('Booked calendar dates:', res)
-        if (updateUser && res?.data.events)
-          updateUser({
-            ...user,
-            calendar_dates: res?.data.events,
-          })
+        setEventDates(res?.data.events)
       })
       .catch(err => {
         console.error(err)
       })
+      .finally(() => setLoading(false))
   }
 
   useEffect(() => {
-    console.log('User in DashboardSteps:', user)
-    // if (user?.hasMadePayment && !user.calendar_dates) initGetCalendarDate()
-  }, [])
+    if (user?.hasMadePayment) {
+      initGetCalendarDate()
+    }
+  }, [user?.email, user?.hasMadePayment])
 
   return (
     <div className={className}>
@@ -87,31 +90,38 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
           <p className="lg:pr-fullmenu">
             Come hang at a 0001 home or meet us on a call if you’re far away.
           </p>
-          {user?.calendar_dates ? (
-            <p>{`You have a meeting at: ${moment(
-              user.calendar_dates[0].start_time,
-              'America/New_York'
-            ).format('DD-HH-YY HH:MM')} EST`}</p>
+
+          {loading && <p className="">LOADING...</p>}
+
+          {/* Display the meeting date if available */}
+          {!loading && eventDates ? (
+            <p className="font-medium">{`You have a meeting on ${moment(
+              eventDates[0].start_time
+            )
+              .tz('America/New_York')
+              .format('dddd, MMMM Do [at] h:mma')} EST`}</p>
           ) : (
-            <div className="flex flex-col gap-y w-full max-w-[420px]">
-              <div className="relative w-full">
-                <p className="my-y">
-                  Book a tour of our homes in the Lower East Side
-                </p>
-                {/* <select className="input select text-button font-sans">
+            !loading && (
+              <div className="flex flex-col gap-y w-full max-w-[420px]">
+                <div className="relative w-full">
+                  <p className="mt-y">
+                    Book a tour of our homes in the Lower East Side:
+                  </p>
+                  {/* <select className="input select text-button font-sans">
                   <option>{`New York`}</option>
                   <option>{`Los Angeles`}</option>
                   <option>{`on a Call`}</option>
                 </select>
                 <IconChevron className="absolute w-[12px] right-x top-3/4 transform rotate-0 -translate-y-1/2" /> */}
-              </div>
+                </div>
 
-              <BuyCalendar
-                email={user?.email as string}
-                unit={user?.unit as string}
-                calendarDate={user?.calendar_dates}
-              />
-            </div>
+                <BuyCalendar
+                  email={user?.email as string}
+                  unit={user?.unit as string}
+                  calendarDate={user?.calendar_dates}
+                />
+              </div>
+            )
           )}
         </li>
 
