@@ -40,7 +40,13 @@ const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
           </div>
 
           <Link
-            href={`https://metamask.io/download/`}
+            href={
+              isIOS
+                ? `https://apps.apple.com/us/app/metamask-blockchain-wallet/id1438144202?pt=119300752`
+                : isAndroid
+                ? `https://play.google.com/store/apps/details?id=io.metamask`
+                : `https://metamask.io/download/`
+            }
             target="_blank"
             className="font-bold"
           >

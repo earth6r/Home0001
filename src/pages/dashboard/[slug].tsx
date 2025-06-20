@@ -198,7 +198,7 @@ const Page: NextPage<PageProps> = (
       setLoading(false)
       console.warn('No wallet address provided in query parameters.')
     }
-  }, [query])
+  }, [query.wallet])
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>

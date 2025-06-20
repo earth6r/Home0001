@@ -94,7 +94,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
           {loading && <p className="">LOADING...</p>}
 
           {/* Display the meeting date if available */}
-          {!loading && eventDates ? (
+          {!loading && eventDates && eventDates.length > 0 ? (
             <p className="font-medium">{`You have a meeting on ${moment(
               eventDates[0].start_time
             )
