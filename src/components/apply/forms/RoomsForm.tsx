@@ -107,7 +107,7 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <h3>
+        <p className='!mx-0 !text-bodyLg'>
           {`Last question:`}
           <br />
           {`How many bedrooms are you looking for?`}
