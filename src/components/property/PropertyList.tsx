@@ -23,7 +23,13 @@ export const PropertyList: FC<PropertyListProps> = ({
 
   return (
     <div className={className}>
-      <h2 className="mt-[-16px] text-h2 mb-y">{header}</h2>
+      <h2
+        className={`mt-[-16px] text-h2 mb-y${
+          asPath === '/' ? ' font-bold' : ''
+        }`}
+      >
+        {header}
+      </h2>
 
       <div className="flex flex-col">
         {properties &&
