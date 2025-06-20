@@ -85,12 +85,12 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
           />
 
           <button
-            className="relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            className="inline-flex justify-between items-center gap-[4px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase text-xs z-above"
             type={'submit'}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : 'Make appointment'}
             <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+            {isSubmitting ? 'Submitting...' : 'Make appointment'}
           </button>
 
           {formError.error && (

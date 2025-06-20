@@ -195,7 +195,9 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
 
             {user?.address && (
               <>
-                <li>{user.address}</li>
+                <li className="max-w-48 !break-all">
+                  Wallet ID: {user.address}
+                </li>
                 <li>
                   <button
                     onClick={() => {
