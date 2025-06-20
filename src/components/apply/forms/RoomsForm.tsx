@@ -107,12 +107,12 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <p className='!mx-0 !text-bodyLg'>
+        <p className="!mx-0 !text-bodyLg">
           {`Last question:`}
           <br />
           {`How many bedrooms are you looking for?`}
           <br />
-        </h3>
+        </p>
         <p className="!mx-0">{`Select all that apply.`}</p>
 
         {SIZES.map(({ label, name }) => (
