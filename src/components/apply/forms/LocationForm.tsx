@@ -27,6 +27,10 @@ export const LocationForm: FC<FormProps> = ({
     submitted: false,
     success: false,
   })
+
+  const [checkedCount, setCheckedCount] = useState(0)
+  const max = 3
+
   const [hiddenInputShown, setHiddenInputShown] = useState(false)
 
   const onSubmit = async (data: any) => {
@@ -78,6 +82,18 @@ export const LocationForm: FC<FormProps> = ({
               {...register('interested_cities', {
                 required: 'Choose at least one location',
               })}
+              onClick={e => {
+                const target = e.target as HTMLInputElement
+                if (checkedCount >= max && target.checked) {
+                  e.preventDefault()
+                  return
+                }
+                if (target.checked) {
+                  setCheckedCount(checkedCount + 1)
+                } else {
+                  setCheckedCount(checkedCount - 1)
+                }
+              }}
             />
             <label
               className="text-left cursor-pointer font-medium text-xs tracking-normal uppercase"
@@ -93,8 +109,20 @@ export const LocationForm: FC<FormProps> = ({
             id={'Else'}
             {...register('Else', {
               required: false,
-              onChange: () => setHiddenInputShown(!hiddenInputShown),
             })}
+            onClick={e => {
+              const target = e.target as HTMLInputElement
+              if (checkedCount >= max && target.checked) {
+                e.preventDefault()
+                return
+              }
+              if (target.checked) {
+                setCheckedCount(checkedCount + 1)
+                setHiddenInputShown(!hiddenInputShown)
+              } else {
+                setCheckedCount(checkedCount - 1)
+              }
+            }}
           />
           <label
             className="text-left cursor-pointer font-medium text-xs tracking-normal uppercase"

@@ -41,7 +41,6 @@ export const WalletButton: FC<WalletButtonProps> = ({
       getUserCurrentStep(user.email)
         .then(res => {
           const { data } = res || {}
-          console.log('User step data:', user, data)
           updateUser({
             ...user,
             id: user.id,
