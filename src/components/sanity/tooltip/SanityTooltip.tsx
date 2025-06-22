@@ -57,7 +57,7 @@ export const SanityTooltip: FC<SanityTooltipProps> = ({
           {props.tooltipContent && (
             <RichText
               blocks={props.tooltipContent}
-              className={'bg-white p-[40px] md:p-x'}
+              className={'bg-white p-x'}
             />
           )}
         </PopoverContent>

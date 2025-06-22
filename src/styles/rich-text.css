@@ -206,7 +206,7 @@ a .rich-text.underlined p.small {
 
 .rich-text h1 a,
 .rich-text h2 a {
-  @apply underline;
+  @apply underline font-bold;
 }
 
 .rich-text p a,
