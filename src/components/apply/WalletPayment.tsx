@@ -31,7 +31,7 @@ interface WalletPaymentProps extends HTMLAttributes<HTMLFormElement> {
 
 const STRIPE_PRODUCT_ID = process.env.NEXT_PUBLIC_STRIPE_PRODUCT_ID
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
-const PRODUCT_AMOUNT = 5000
+const PRODUCT_AMOUNT = 10000
 
 const PaymentContainer: FC<WalletPaymentProps> = ({
   user,
