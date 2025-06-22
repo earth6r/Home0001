@@ -70,7 +70,11 @@ export const LocationForm: FC<FormProps> = ({
     >
       <div className="flex flex-col gap-y">
         <div className="flex flex-col gap-y mb-ydouble">
-          <p className="!mx-0 !text-bodyLg !font-bold">{`Where do you want to buy?`}</p>
+          <p className="!mx-0 !text-bodyLg !font-bold">
+            {`Thanks, we’ve received your payment. Your application has started. The next step is to answer 4 quick questions.`}
+            <br />
+            {`Where do you want to buy?`}
+          </p>
           <p className="!mx-0">{`Select up to 3 locations.`}</p>
         </div>
         {LOCATIONS.map(({ label, name }) => (
