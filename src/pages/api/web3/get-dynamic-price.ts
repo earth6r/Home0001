@@ -1,5 +1,6 @@
 // Import necessary modules
 import { enableCors } from '@lib/next/cors'
+import { setCorsHeaders } from '@lib/util/cors'
 import { saveError } from '@lib/util/save-error'
 import axios from 'axios'
 
@@ -13,6 +14,8 @@ export const config = {
 // Handler function to process API requests
 // curl -X GET https://hometrics0001.vercel.app/api/users/get-token-price
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  setCorsHeaders(req, res)
+
   try {
     // Your server-side request (not affected by browser CORS)
     const response = await axios.get(

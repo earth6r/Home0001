@@ -4,6 +4,7 @@ import type {
   BitPayInvoiceData,
   BitPayInvoiceResponse,
 } from '@/lib/bitpay/types'
+import { setCorsHeaders } from '@lib/util/cors'
 
 interface CreateInvoiceRequest extends NextApiRequest {
   body: BitPayInvoiceData
@@ -13,6 +14,8 @@ export default async function handler(
   req: CreateInvoiceRequest,
   res: NextApiResponse<BitPayInvoiceResponse | { error: string }>
 ) {
+  setCorsHeaders(req, res)
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
@@ -20,7 +23,6 @@ export default async function handler(
   try {
     const client = new BitPayClient()
 
-    // TODO: MAKE SURE INVOICE DATA IS VALID AGAINST EXAMPLE https://developer.bitpay.com/reference/create-an-invoice
     console.log('Creating BitPay invoice with data:', req.body)
     const invoiceData = {
       notificationURL: `${
