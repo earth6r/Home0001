@@ -3,12 +3,15 @@ import { enableCors } from '@lib/next/cors'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { saveError } from '@lib/util/save-error'
 import axios from 'axios'
+import { setCorsHeaders } from '@lib/util/cors'
 
 const BITPAY_API_TEST_URL = 'https://test.bitpay.com'
 const BITPAY_API_URL = 'https://bitpay.com'
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  setCorsHeaders(req, res)
+
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' })
   }

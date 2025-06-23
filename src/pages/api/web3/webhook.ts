@@ -3,10 +3,13 @@ import { enableCors } from '@lib/next/cors'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { saveError } from '@lib/util/save-error'
 import axios from 'axios'
+import { setCorsHeaders } from '@lib/util/cors'
 
 const HOMETRICS_API = 'https://hometrics0001.vercel.app/api'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  setCorsHeaders(req, res)
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }

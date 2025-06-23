@@ -1,10 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { createCalendarEvent } from '../../../lib/util/book-google-calendar-event'
+import { setCorsHeaders } from '@lib/util/cors'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  setCorsHeaders(req, res)
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }

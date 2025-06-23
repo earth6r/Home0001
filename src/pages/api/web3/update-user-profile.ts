@@ -1,5 +1,6 @@
 // Import necessary modules
 import { enableCors } from '@lib/next/cors'
+import { setCorsHeaders } from '@lib/util/cors'
 import { saveError } from '@lib/util/save-error'
 import axios from 'axios'
 
@@ -13,6 +14,8 @@ export const config = {
 // Handler function to process API requests
 // curl -X PUT https://hometrics0001.vercel.app/api/users/update-profile
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  setCorsHeaders(req, res)
+
   const { firstName, lastName, email, phoneNumber, id } = req.body
 
   if (!id) {
