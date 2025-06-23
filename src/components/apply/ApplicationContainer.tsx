@@ -52,7 +52,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       fetchDynamicPrice()
     }
 
-    if (dynamicPrice) {
+    if (dynamicPrice && ENV === 'production') {
       const usdPrice = dynamicPrice
 
       fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
