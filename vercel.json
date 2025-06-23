@@ -10,6 +10,16 @@
         }
       ],
       "destination": "/buy/:path*"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "dashboard.home0001.com"
+        }
+      ],
+      "destination": "/dashboard/:path*"
     }
   ],
   "redirects": [
