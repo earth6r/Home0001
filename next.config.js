@@ -1,4 +1,7 @@
 const path = require('path')
+const isDashboard = process.env.NEXT_PUBLIC_BASE_URL?.includes(
+  'dashboard.home0001.com'
+)
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -21,6 +24,7 @@ const nextConfig = {
   experimental: {
     largePageDataBytes: 150 * 1000,
   },
+  basePath: isDashboard ? '/dashboard' : '',
   assetPrefix: process.env.NEXT_PUBLIC_BASE_URL,
   rewrites() {
     return {
