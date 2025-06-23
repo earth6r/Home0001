@@ -3,32 +3,17 @@
     { "source": "/studio/(.*)", "destination": "/studio/index.html" },
     {
       "source": "/_next/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "dashboard.home0001.com"
-        }
-      ],
+      "has": [{ "type": "host", "value": "dashboard.home0001.com" }],
       "destination": "/_next/:path*"
     },
     {
       "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "buy.home0001.com"
-        }
-      ],
+      "has": [{ "type": "host", "value": "buy.home0001.com" }],
       "destination": "/buy/:path*"
     },
     {
       "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "dashboard.home0001.com"
-        }
-      ],
+      "has": [{ "type": "host", "value": "dashboard.home0001.com" }],
       "destination": "/dashboard/:path*"
     }
   ],
