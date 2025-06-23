@@ -37,17 +37,6 @@
       "source": "/echo-park",
       "destination": "/property/echo-park",
       "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "dashboard.home0001.com"
-        }
-      ],
-      "destination": "https://home0001.com/dashboard/$1",
-      "permanent": false
     }
   ],
   "headers": [
