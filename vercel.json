@@ -19,6 +19,12 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "dashboard.home0001.com" }],
+      "destination": "https://www.home0001.com/dashboard/:path*",
+      "permanent": false
+    },
+    {
       "source": "/echo-park",
       "destination": "/property/echo-park",
       "permanent": true
