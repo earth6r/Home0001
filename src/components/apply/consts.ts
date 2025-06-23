@@ -89,3 +89,34 @@ export const SIZES = [
     name: 'Depends',
   },
 ]
+
+export const ESSENTIALS = [
+  {
+    label: 'Outdoor Space',
+    name: 'outdoor space',
+  },
+  {
+    label: 'Gym',
+    name: 'gym',
+  },
+  {
+    label: 'Pool',
+    name: 'pool',
+  },
+  {
+    label: 'Good Views',
+    name: 'good views',
+  },
+  {
+    label: 'Concierge',
+    name: 'concierge',
+  },
+  {
+    label: 'Private Parking',
+    name: 'private parking',
+  },
+  {
+    label: 'Pet Friendly',
+    name: 'pet friendly',
+  },
+]

@@ -34,11 +34,12 @@ export const createUserProfile = async (
     last_name: string
     email: string
     phone_number: string
-    comms: 'whatsapp' | 'telegram'
+    comms: 'WhatsApp' | 'Telegram'
     wallet_address: string
     public_profiles?: string[]
   }
 ) => {
+  console.log('Creating user profile with data:', profileData)
   try {
     await axios.post(
       `${BASE_URL}/api/web3/create-user-profile`,
