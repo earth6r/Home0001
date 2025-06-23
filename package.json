@@ -63,7 +63,7 @@
     "next-sanity": "^8.5.5",
     "next-sanity-image": "^6.1.0",
     "photoswipe": "^5.4.2",
-    "posthog-js": "^1.174.3",
+    "posthog-js": "latest",
     "react": "^18.0.0",
     "react-cookie": "^6.1.1",
     "react-device-detect": "^2.2.3",
