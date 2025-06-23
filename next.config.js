@@ -40,6 +40,16 @@ const nextConfig = {
           has: [
             {
               type: 'host',
+              value: 'dashboard.home0001.com',
+            },
+          ],
+          destination: '/dashboard/:path*',
+        },
+        {
+          source: '/:path*',
+          has: [
+            {
+              type: 'host',
               value: '0001.studio',
             },
           ],
