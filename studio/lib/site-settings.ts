@@ -52,10 +52,16 @@ export const SITE_SETTINGS_QUERY = groq`
     },
     siteDescription,
     siteKeywords,
+    "dashImage": dashImage{
+      ${IMAGE_QUERY}
+    },
     "rdImage": rdImage{
       ${IMAGE_QUERY}
     },
     "rdLink": rdLink{
+      ${LINK_QUERY}
+    },
+    "applyLink": applyLink{
       ${LINK_QUERY}
     },
     mainMenu->{
@@ -76,13 +82,16 @@ export const SITE_SETTINGS_QUERY = groq`
         }
       }
     },
+    dashboardMenu->{
+      items[]{
+        _key,
+        text,
+        link{
+          ${LINK_QUERY}
+        }
+      }
+    },
     applyCopy,
-    waitlistHeader,
-    waitlistCopy,
-    waitlistSuccess,
-    waitlistId,
-    showConsent,
-    consentCopy,
     inquiryId,
     inquiryCopy,
     inquirySuccess,

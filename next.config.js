@@ -8,8 +8,8 @@ const nextConfig = {
     loader: 'custom',
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    deviceSizes: [640, 768, 1024, 1280],
-    imageSizes: [16, 32, 48, 64],
+    deviceSizes: [640, 768, 1280],
+    imageSizes: [16, 32, 64],
   },
   eslint: {
     dirs: ['lib', 'pages', 'styles'],
@@ -34,6 +34,16 @@ const nextConfig = {
             },
           ],
           destination: '/buy/:path*',
+        },
+        {
+          source: '/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'dashboard.home0001.com',
+            },
+          ],
+          destination: '/dashboard/:path*',
         },
         {
           source: '/:path*',

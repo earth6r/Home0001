@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { HTMLAttributes, useEffect, useState } from 'react'
+import { HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 import {
   Control,
@@ -10,7 +10,7 @@ import {
 } from 'react-hook-form'
 import { RichText as RichTextType, UnitGroup } from '@studio/gen/sanity-schema'
 import Pane from './Pane'
-import { useBrokerInquiryModal, useWaitlisModal } from '@contexts/modals'
+import { useBrokerInquiryModal } from '@contexts/modals'
 import { submitForm } from '@lib/util'
 import { RichText } from '@components/sanity'
 import IconChevron from '@components/icons/IconChevron'
@@ -144,7 +144,6 @@ const NameEmailPane: FC<PaneProps> = ({
   className,
 }) => {
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
-  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
 
   return (
     <div className={className}>
@@ -244,7 +243,6 @@ const NameEmailPane: FC<PaneProps> = ({
           onClick={e => {
             e.preventDefault()
             setBrokerInquiryOpen(true)
-            setWaitlistOpen(false)
           }}
         >
           Are you a realtor?

@@ -93,7 +93,9 @@ export const Accordion: FC<AccordionProps> = ({
   }, [])
 
   return (
-    <div className={classNames(className, readMore ? '' : 'border-black')}>
+    <div
+      className={classNames(className, readMore ? '' : 'border-bottom--black')}
+    >
       <Disclosure defaultOpen={open || (isDesktop && openOnDesktop)}>
         {({ open }) => {
           return (
@@ -102,7 +104,7 @@ export const Accordion: FC<AccordionProps> = ({
                 className={classNames(
                   readMore
                     ? ''
-                    : 'flex justify-between items-start px-x py-yhalf',
+                    : 'flex justify-between items-start gap-xhalf pb-y',
                   className?.includes('border-x-0') ? 'pl-0' : null,
                   `w-full text-left`
                 )}
@@ -175,7 +177,7 @@ export const Accordion: FC<AccordionProps> = ({
                 <Disclosure.Panel>
                   <div
                     className={classNames(
-                      readMore ? 'md:pl-0' : 'pl-x pr-10 pt-2 pb-5 ',
+                      readMore ? 'md:pl-0' : 'pt-2 pb-5 ',
                       ''
                     )}
                   >

@@ -4,7 +4,6 @@ import { useNextSanityImage } from 'next-sanity-image'
 import type { SanityImageObject } from '@sanity/image-url/lib/types/types'
 import type { SanityImageProps as SanityImagePropsType } from './types'
 import { client } from '@studio/lib'
-import { useLenis } from '@studio-freight/react-lenis'
 
 interface SanityImageProps extends SanityImageObject {
   props: SanityImagePropsType

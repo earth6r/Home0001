@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useRef, useState } from 'react'
+import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
@@ -9,12 +9,30 @@ import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
 
 import { saveError } from '@lib/util/save-error'
 import { DateSelect } from '@components/date-select'
+import moment from 'moment-timezone'
+
+const createEasternTimeDate = (
+  dateStr: string,
+  timeStr: string
+): { start: string; end: string } => {
+  const dateTimeString = `${dateStr} ${timeStr}`
+  const easternTime = moment.tz(
+    dateTimeString,
+    'YYYY-MM-DD HH:mm',
+    'America/New_York'
+  )
+
+  return {
+    start: easternTime.toISOString(),
+    end: easternTime.clone().add(1, 'hour').toISOString(),
+  }
+}
 
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
   unit?: string
-  calendarDate?: string
-  onMeetingSet: () => void
+  calendarDate?: { start_time: string }[]
+  onMeetingSet?: () => void
 }
 
 export const BuyCalendar: FC<BuyCalendarProps> = ({
@@ -41,11 +59,13 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   const [loading, setLoading] = useState(true)
 
   const onSubmit = async (data: any) => {
-    if (!email || !unit) return
-    createGoogleCalendarMeeting(data, email, unit)
+    if (!email || !data) return
+
+    const { start, end } = createEasternTimeDate(data.date, data.startTime)
+
+    createGoogleCalendarMeeting(start, end, email)
       .then(res => {
-        console.log(res)
-        onMeetingSet()
+        if (onMeetingSet) onMeetingSet()
         setFormSubmitted(true)
       })
       .catch(err => {
@@ -74,70 +94,23 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   }, [])
 
   return (
-    <div className={classNames(className, 'px-x py-ydouble md:mx-x bg-yellow')}>
-      <div className="rich-text">
-        {calendarDate ? (
-          <div className="mt-ydouble">
-            <span className="inline-block mb-y text-md uppercase font-sansText">{`Your buying session has been requested for:`}</span>
-            <h2 className="text-h2">{`${calendarDate}`}</h2>
-          </div>
-        ) : (
-          <>
-            <h2 className="mb-ydouble text-h2">
-              STEP 1: <br />
-              SCHEDULE YOUR HOMEBUYING session.
-            </h2>
-
-            <p>
-              You should have now received the documents that you will need to
-              sign in order to buy your home.
-            </p>
-            <p>
-              You’ll be able to sign these documents electronically with an
-              online notary in your single-session homebuying video call. Right
-              before your video call, another notary will visit you at your
-              home, work, or wherever is convenient for you to sign your
-              mortgage papers.
-            </p>
-          </>
-        )}
-
-        <p className="text-button">WHAT DO YOU NEED?</p>
-
-        <div className="inline-block mt-ydouble">
-          <li>
-            {`Your government-issued photo ID such as a driver’s license or
-            passport.`}
-          </li>
-
-          <li>
-            {`A computer / mobile device with audio/video and Google Chrome
-            browser.`}
-          </li>
-
-          <li>{`A strong internet connection (for the video meeting).`}</li>
-        </div>
-      </div>
-
+    <div className={classNames(className)}>
       {!calendarDate && !formSubmitted && (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full md:max-w-[526px] h-full mt-ydouble"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           <DateSelect
             availableSlots={availableSlots}
             register={register}
             loading={loading}
-            className="mb-ydouble"
+            className="mb-y"
           />
 
           <button
-            className="relative flex justify-between items-center w-full md:w-btnWidth max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            className="inline-flex justify-between items-center gap-[4px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase text-xs z-above"
             type={'submit'}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : 'Book my homebuying session'}
             <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+            {isSubmitting ? 'Submitting...' : 'Make appointment'}
           </button>
 
           {formError.error && (

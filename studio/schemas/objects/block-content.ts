@@ -94,19 +94,14 @@ export default {
       title: 'Messaging Block',
     },
     {
-      name: 'waitlistBlock',
-      type: 'waitlistBlock',
-      title: 'Waitlist Block',
+      name: 'dashboardBlock',
+      type: 'dashboardBlock',
+      title: 'Dashboard Block',
     },
     {
-      name: 'flexWaitlistBlock',
-      type: 'flexWaitlistBlock',
-      title: 'Flex Waitlist Block',
-    },
-    {
-      name: 'web3Block',
-      type: 'web3Block',
-      title: 'Web3 Block',
+      name: 'accountBlock',
+      type: 'accountBlock',
+      title: 'Dashboard: Account Block',
     },
   ],
 }

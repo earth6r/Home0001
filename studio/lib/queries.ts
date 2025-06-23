@@ -221,6 +221,41 @@ export const BODY_QUERY = `
         },
       }, 
     },
+    "items": items[]{
+      ...,
+      copy[]{
+        ...,
+        children[]{
+          ...,
+          link{
+            ${LINK_QUERY}
+          }
+        }
+      }
+    },
+    "applyHeader": applyHeader[]{
+      ...,
+      _type,
+      style,
+      _key,
+      children[]{
+        ...,
+        "images": images[]{
+          ...,
+          "image": image{
+            ${IMAGE_QUERY}
+          },
+        },
+        markDefs[]{
+          ...,
+          ${LINK_MARKDEFS_QUERY}
+        },
+      },
+      markDefs[]{
+        ...,
+        ${LINK_MARKDEFS_QUERY}
+      },
+    },
     "accordions": select(
       count(^.body[
           (_type == "accordionBlock") || 
@@ -332,6 +367,7 @@ export const PROPERTY_TYPE_QUERY = `
   price,
   area,
   summary,
+  moreInfo,
   "inventory": inventory->{
     ...,
     items[]{

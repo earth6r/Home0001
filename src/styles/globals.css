@@ -9,6 +9,7 @@
   --space-y-half: calc(var(--space-y) * 0.5);
   --space-y-double: calc(var(--space-y) * 2);
   --space-y-lg: 2.5rem;
+  --space-y-trio: calc(var(--space-y) * 3);
   --space-y-quad: calc(var(--space-y) * 4);
 
   --space-menu-sm: 52px;
@@ -102,18 +103,17 @@
 }
 
 @font-face {
-  font-family: 'Haas Grot';
+  font-family: 'Haas Grot Display';
   font-weight: bold;
-  src: url('../../public/fonts/haas-grot/NeueHaasGrotDisp-75Bold.woff2')
+  src: url('../../public/fonts/haas-grot/HaasGrotDisp-75Bold.woff2')
     format('woff2');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Haas Grot';
-  font-style: italic;
   font-weight: bold;
-  src: url('../../public/fonts/haas-grot/NeueHaasGrotDisp-76BoldItalic.woff2')
+  src: url('../../public/fonts/haas-grot/NeueHaasGrotText-75Bold.woff2')
     format('woff2');
   font-display: swap;
 }

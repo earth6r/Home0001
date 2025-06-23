@@ -9,6 +9,7 @@ import type {
   SanityReference,
   UnitGroup,
 } from '@gen/sanity-schema'
+import { SanityLinkType } from '@studio/lib'
 import type { Dispatch, HTMLAttributes, SetStateAction } from 'react'
 
 export interface UnitGroupContent extends Omit<UnitGroup, 'property'> {
@@ -23,9 +24,11 @@ export interface HeaderProps
   path?: string
   currentTitle?: string
   property?: SanityReference<Property>
+  applyLink?: SanityLinkType
   mainMenu?: SanityMenu
   hideMenu?: boolean
   hideMenuButton?: boolean
+  hidePageLinks?: boolean
   showTourLink?: boolean
   waitlist?: {
     id?: string

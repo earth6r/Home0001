@@ -1,4 +1,4 @@
-import type { FC, HTMLProps } from 'react'
+import type { Dispatch, FC, HTMLProps, SetStateAction } from 'react'
 import { useRef, Fragment, useState } from 'react'
 import classNames from 'classnames'
 import { Switch } from '@headlessui/react'
@@ -12,14 +12,22 @@ import { useBrokerInquiryModal } from '@contexts/modals'
 import { useLenis } from '@studio-freight/react-lenis'
 import IconChevron from '@components/icons/IconChevron'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useWalletUser, Web3UserProps } from '@contexts/web3'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   customOpen = false,
+  hidePageLinks,
   setCustomOpen,
   onOpen,
   mainMenu,
   className,
 }) => {
+  const [user, updateUser] = useWalletUser() as [
+    Web3UserProps,
+    Dispatch<SetStateAction<Web3UserProps>>
+  ]
+
   const lenis = useLenis()
 
   const [headerLinksShown, setHeaderLinksShown] = useHeaderLinks()
@@ -124,6 +132,10 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                 (link?.internalLink?._type as string) === 'propertyType'
               const isProperty =
                 (link?.internalLink?._type as string) === 'property'
+
+              if (hidePageLinks && text !== 'About' && text !== 'Instagram')
+                return null
+
               return text && link && !isProperty && !isPropertyType ? (
                 <Fragment key={_key}>
                   {mainMenu.items && index === mainMenu.items.length && (
@@ -156,28 +168,55 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
               ) : null
             })}
 
-            <li className="flex items-center gap-y uppercase pt-y">
-              <span className="inline-block">Prices:</span>
+            {!hidePageLinks && (
+              <li className="flex items-center gap-y uppercase pt-y">
+                <span className="inline-block">Prices:</span>
 
-              <span className="inline-block">Fiat</span>
-              <Switch
-                checked={cryptoMode}
-                onChange={setCryptoMode}
-                className={classNames(
-                  cryptoMode ? 'bg-black' : 'bg-gray',
-                  `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto -mx-[10px]`
-                )}
-              >
-                {' '}
-                <span
+                <span className="inline-block">Fiat</span>
+                <Switch
+                  checked={cryptoMode}
+                  onChange={setCryptoMode}
                   className={classNames(
-                    cryptoMode ? 'translate-x-6' : 'translate-x-1',
-                    `block h-4 w-4 transform rounded-full bg-white transition`
+                    cryptoMode ? 'bg-black' : 'bg-gray',
+                    `relative inline-flex h-6 w-11 items-center rounded-full pointer-events-auto -mx-[10px]`
                   )}
-                />
-              </Switch>
-              <span className="inline-block">Crypto</span>
-            </li>
+                >
+                  {' '}
+                  <span
+                    className={classNames(
+                      cryptoMode ? 'translate-x-6' : 'translate-x-1',
+                      `block h-4 w-4 transform rounded-full bg-white transition`
+                    )}
+                  />
+                </Switch>
+                <span className="inline-block">Crypto</span>
+              </li>
+            )}
+
+            {user?.address && (
+              <>
+                <li className="max-w-48 !break-all">
+                  Wallet ID: {user.address}
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      updateUser(null)
+                      localStorage.setItem('walletAddress', '')
+                      setHeaderLinksShown(true)
+                      setTimeout(() => setCustomOpen(false), 100)
+                    }}
+                    className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black"
+                  >
+                    <IconSmallArrow fill="black" width="15" height="11" />
+
+                    <span className="uppercase font-medium !leading-none">
+                      {`Disconnect Wallet`}
+                    </span>
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
       </div>

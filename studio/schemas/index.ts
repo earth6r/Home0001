@@ -14,7 +14,6 @@ import menus from './documents/menus'
 import siteSettings from './documents/site-settings'
 import accordionBlock from './blocks/accordion-block'
 import accordion from './objects/accordion'
-import waitlistBlock from './blocks/waitlist-block'
 import coordinates from './objects/coordinates'
 import city from './documents/city'
 import propertiesBlock from './blocks/properties-block'
@@ -31,7 +30,6 @@ import animatingBlock from './blocks/animating-block'
 import textAndImage from './objects/text-and-image'
 import unitBlock from './blocks/unit-block'
 import propertyBlock from './blocks/property-block'
-import flexWaitlistBlock from './blocks/flex-waitlist-block'
 import calendarBlock from './blocks/calendar-block'
 import video from './objects/video'
 import videosBlock from './blocks/videos-block'
@@ -54,7 +52,9 @@ import inventory from './documents/inventory'
 import inventoryToggle from './objects/inventory-toggle'
 import formBlock from './blocks/form-block'
 import formField from './objects/form-field'
-import web3Block from './blocks/web-3-block'
+import dashboardBlock from './blocks/dashboard-block'
+import dashboard from './documents/dashboard'
+import accountBlock from './blocks/account-block'
 
 export const schemaTypes = [
   // objects
@@ -105,9 +105,8 @@ export const schemaTypes = [
   unitBlock,
   videosBlock,
   messagingBlock,
-  waitlistBlock,
-  flexWaitlistBlock,
-  web3Block,
+  dashboardBlock,
+  accountBlock,
 
   // documents
   brand,
@@ -120,6 +119,7 @@ export const schemaTypes = [
   propertyType,
   rdPage,
   unit,
+  dashboard,
   siteSettings,
 ]
 

@@ -1,0 +1,15 @@
+{
+  "BitPayConfiguration": {
+    "Environment": "Prod",
+    "EnvConfig": {
+      "Test": {
+        "PrivateKey": "7b411537e5c02e14821ca964412f8972998cb46fb3cbe0ff7209ce125875a442",
+        "PublicKey": "02116871bfd2bfdc04fe064cf8e7080dcf73060a5aa4403cd5be7edfeb19a372c2",
+        "ApiTokens": {
+          "merchant": "6ds6N2pfsfmBj4dEvFcmEHLk4HjzYTVFTokdo43h45t5"
+        }
+      }
+    }
+  },
+  "createdAt": "2025-06-16T20:59:40.156Z"
+}

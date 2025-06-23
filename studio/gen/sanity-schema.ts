@@ -278,14 +278,14 @@ export interface Page extends SanityDocument {
   /**
    * Hide Menu Button — `boolean`
    *
-   * Hide waitlist or tour button in header
+   * Hide apply or tour button in header
    */
   hideMenuButton?: boolean;
 
   /**
    * Show Tour Link — `boolean`
    *
-   * Show the tour link in the header instead of waitlist
+   * Show the tour link in the header instead of apply
    */
   showTourLink?: boolean;
 
@@ -479,6 +479,13 @@ export interface PropertyType extends SanityDocument {
   summary?: RichText;
 
   /**
+   * More Info — `richText`
+   *
+   *
+   */
+  moreInfo?: RichText;
+
+  /**
    * Inventory — `reference`
    *
    *
@@ -505,13 +512,6 @@ export interface PropertyType extends SanityDocument {
    *
    */
   body?: BlockContent;
-
-  /**
-   * More Info — `richText`
-   *
-   *
-   */
-  moreInfo?: RichText;
 
   /**
    * Preview Image — `image`
@@ -614,14 +614,14 @@ export interface Unit extends SanityDocument {
   /**
    * Hide Menu Button — `boolean`
    *
-   * Hide waitlist or tour button in header
+   * Hide apply or tour button in header
    */
   hideMenuButton?: boolean;
 
   /**
    * Show Tour Link — `boolean`
    *
-   * Show the tour link in the header instead of waitlist
+   * Show the tour link in the header instead of apply
    */
   showTourLink?: boolean;
 
@@ -786,6 +786,62 @@ export interface Unit extends SanityDocument {
 }
 
 /**
+ * Dashboard Page
+ *
+ *
+ */
+export interface Dashboard extends SanityDocument {
+  _type: "dashboard";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * Password — `string`
+   *
+   * Password protect this page
+   */
+  password?: string;
+
+  /**
+   * Preview Image — `image`
+   *
+   *
+   */
+  previewImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
+   * Body — `blockContent`
+   *
+   *
+   */
+  body?: BlockContent;
+
+  /**
+   * SEO — `seo`
+   *
+   *
+   */
+  seo?: Seo;
+}
+
+/**
  * Site Settings
  *
  *
@@ -860,6 +916,13 @@ export interface SiteSettings extends SanityDocument {
   rdLink?: Link;
 
   /**
+   * Apply Link — `link`
+   *
+   * Link to apply page
+   */
+  applyLink?: Link;
+
+  /**
    * Main Menu — `reference`
    *
    * Select menu for main navigation
@@ -874,53 +937,18 @@ export interface SiteSettings extends SanityDocument {
   footerMenu?: SanityReference<Menus>;
 
   /**
+   * Dashboard Menu — `reference`
+   *
+   * Select menu for dashboard navigation
+   */
+  dashboardMenu?: SanityReference<Menus>;
+
+  /**
    * Footer Apply Copy — `richText`
    *
    *
    */
   applyCopy?: RichText;
-
-  /**
-   * Waitlist Audience ID — `string`
-   *
-   *
-   */
-  waitlistId?: string;
-
-  /**
-   * Waitlist Header — `string`
-   *
-   *
-   */
-  waitlistHeader?: string;
-
-  /**
-   * Waitlist Copy — `richText`
-   *
-   *
-   */
-  waitlistCopy?: RichText;
-
-  /**
-   * Waitlist Success — `richText`
-   *
-   *
-   */
-  waitlistSuccess?: RichText;
-
-  /**
-   * Show Waitlist Consent Checkbox — `boolean`
-   *
-   *
-   */
-  showConsent?: boolean;
-
-  /**
-   * Waitlist Consent Copy — `richText`
-   *
-   *
-   */
-  consentCopy?: RichText;
 
   /**
    * Inquiry Audience ID — `string`
@@ -965,6 +993,18 @@ export interface SiteSettings extends SanityDocument {
   brokerInquirySuccess?: RichText;
 
   /**
+   * Dashboard Image — `image`
+   *
+   *
+   */
+  dashImage?: {
+    _type: "image";
+    asset: SanityReference<SanityImageAsset>;
+    crop?: SanityImageCrop;
+    hotspot?: SanityImageHotspot;
+  };
+
+  /**
    * Properties — `array`
    *
    *
@@ -1000,7 +1040,9 @@ export type Link = {
      *
      *
      */
-    reference?: SanityReference<Page | Property | PropertyType | Unit>;
+    reference?: SanityReference<
+      Page | Property | PropertyType | Unit | Dashboard
+    >;
 
     /**
      * Anchor Slug — `slug`
@@ -1534,9 +1576,8 @@ export type BlockContent = Array<
   | SanityKeyed<UnitBlock>
   | SanityKeyed<VideosBlock>
   | SanityKeyed<MessagingBlock>
-  | SanityKeyed<WaitlistBlock>
-  | SanityKeyed<FlexWaitlistBlock>
-  | SanityKeyed<Web3Block>
+  | SanityKeyed<DashboardBlock>
+  | SanityKeyed<AccountBlock>
 >;
 
 export type AccordionBlock = {
@@ -2071,111 +2112,21 @@ export type MessagingBlock = {
   messaginBlock?: string;
 };
 
-export type WaitlistBlock = {
-  _type: "waitlistBlock";
-  /**
-   * Header — `string`
-   *
-   *
-   */
-  header?: string;
-
-  /**
-   * Text — `richText`
-   *
-   *
-   */
-  text?: RichText;
-
-  /**
-   * URL Submit — `string`
-   *
-   *
-   */
-  urlSubmit?: string;
-
-  /**
-   * Audience ID/Form GUID — `string`
-   *
-   *
-   */
-  audienceId?: string;
-
-  /**
-   * Success Message — `richText`
-   *
-   *
-   */
-  successMessage?: RichText;
-
-  /**
-   * Show Consent Checkbox — `boolean`
-   *
-   *
-   */
-  showConsent?: boolean;
-
-  /**
-   * Consent Copy — `richText`
-   *
-   *
-   */
-  consentCopy?: RichText;
-};
-
-export type FlexWaitlistBlock = {
-  _type: "flexWaitlistBlock";
-  /**
-   * Header — `string`
-   *
-   *
-   */
-  header?: string;
-
-  /**
-   * Text — `richText`
-   *
-   *
-   */
-  text?: RichText;
-
-  /**
-   * URL Submit — `string`
-   *
-   *
-   */
-  urlSubmit?: string;
-
-  /**
-   * Audience ID/Form GUID — `string`
-   *
-   *
-   */
-  audienceId?: string;
-
-  /**
-   * Success Message — `richText`
-   *
-   *
-   */
-  successMessage?: RichText;
-
-  /**
-   * Form Panes — `array`
-   *
-   *
-   */
-  formPanes?: Array<SanityKeyed<string>>;
-};
-
-export type Web3Block = {
-  _type: "web3Block";
+export type DashboardBlock = {
+  _type: "dashboardBlock";
   /**
    * Header — `richText`
    *
    *
    */
-  header?: RichText;
+  applyHeader?: RichText;
+
+  /**
+   * Joining Fee — `number`
+   *
+   * Fee to join the community in $USD
+   */
+  joiningFee?: number;
 
   /**
    * Logged In Header — `richText`
@@ -2192,6 +2143,16 @@ export type Web3Block = {
   dashboardCopy?: RichText;
 };
 
+export type AccountBlock = {
+  _type: "accountBlock";
+  /**
+   * Content — `richText`
+   *
+   *
+   */
+  content?: RichText;
+};
+
 export type Documents =
   | Brand
   | Buy
@@ -2203,6 +2164,7 @@ export type Documents =
   | PropertyType
   | RdPage
   | Unit
+  | Dashboard
   | SiteSettings;
 
 /**
