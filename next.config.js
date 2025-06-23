@@ -69,6 +69,10 @@ const nextConfig = {
             key: 'Access-Control-Allow-Origin',
             value: 'https://buy.home0001.com',
           },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://dashboard.home0001.com',
+          },
           { key: 'Access-Control-Allow-Origin', value: 'https://home0001.com' },
           {
             key: 'Access-Control-Allow-Origin',
