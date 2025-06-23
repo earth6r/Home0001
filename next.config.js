@@ -21,7 +21,7 @@ const nextConfig = {
   experimental: {
     largePageDataBytes: 150 * 1000,
   },
-  assetPrefix: process.env.NEXT_PUBLIC_BASE_URL,
+  assetPrefix: process.env.NEXT_PUBLIC_ASSET_URL,
   rewrites() {
     return {
       beforeFiles: [
