@@ -30,6 +30,8 @@ import { PropertyList } from '@components/property'
 import { Inventory } from '@components/inventory'
 import IconConnect from '@components/icons/IconConnect'
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+
 export const Header: FC<HeaderProps> = ({
   inquiry,
   path,
@@ -135,6 +137,7 @@ export const Header: FC<HeaderProps> = ({
       >
         <div className="flex items-baseline">
           <Logo
+            href={BASE_URL}
             content={title}
             className={classNames(
               hideBreadcrumb ? '-translate-y-[46px]' : 'translate-y-0',
@@ -215,15 +218,24 @@ export const Header: FC<HeaderProps> = ({
                   </div>
                 </Btn>
               ) : (
-                <Link
-                  href={'https://dashboard.home0001.com'}
+                // <Link
+                //   href={'https://dashboard.home0001.com'}
+                //   className={classNames(
+                //     headerLinksShown ? 'opacity-100' : 'opacity-0',
+                //     'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
+                //   )}
+                // >
+                //   <IconConnect className="w-[118px]" />
+                // </Link>
+                <SanityLink
+                  {...(applyLink as SanityLinkType)}
                   className={classNames(
                     headerLinksShown ? 'opacity-100' : 'opacity-0',
                     'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
                   )}
                 >
                   <IconConnect className="w-[118px]" />
-                </Link>
+                </SanityLink>
               )}
             </>
           )}
