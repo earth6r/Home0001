@@ -48,6 +48,7 @@ function App({ Component, pageProps }: AppProps<{}>) {
         api_host:
           process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
         person_profiles: 'identified_only',
+        defaults: '2025-05-24',
         // Enable debug mode in development
         loaded: posthog => {
           if (process.env.NODE_ENV === 'development') posthog.debug()
