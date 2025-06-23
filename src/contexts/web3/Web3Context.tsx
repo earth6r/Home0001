@@ -29,7 +29,7 @@ export type Web3UserProps = {
   last_name?: string
   email?: string
   phone_number?: string
-  comms?: 'WhatsApp' | 'Telegram'
+  comms?: 'whatsapp' | 'telegram'
   signup_source?: 'purchased' | 'referred'
   referred_token?: string
   calendar_dates?: { start_time: string }[]

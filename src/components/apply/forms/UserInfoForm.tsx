@@ -41,7 +41,7 @@ export const UserInfoForm: FC<FormProps> = ({
       last_name: data.last_name as string,
       email: data.email as string,
       phone_number: data.phone as string,
-      comms: data.comms as 'WhatsApp' | 'Telegram',
+      comms: data.comms as 'whatsapp' | 'telegram',
       wallet_address: user.address,
       public_profiles: data.public_profiles
         ? data.public_profiles.split(',').map((p: string) => p.trim())
@@ -149,7 +149,7 @@ export const UserInfoForm: FC<FormProps> = ({
               <option
                 key="option-comms-0"
                 id="preferred-comms"
-                value="WhatsApp"
+                value="whatsapp"
                 className="text-button"
               >
                 {`WhatsApp`}
@@ -157,7 +157,7 @@ export const UserInfoForm: FC<FormProps> = ({
               <option
                 key="option-comms-2"
                 id="preferred-comms"
-                value="Telegram"
+                value="telegram"
                 className="text-button"
               >
                 {`Telegram`}

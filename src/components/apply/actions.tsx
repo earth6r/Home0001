@@ -34,7 +34,7 @@ export const createUserProfile = async (
     last_name: string
     email: string
     phone_number: string
-    comms: 'WhatsApp' | 'Telegram'
+    comms: 'whatsapp' | 'telegram'
     wallet_address: string
     public_profiles?: string[]
   }
@@ -180,7 +180,6 @@ export const updateUserPriceRange = async (
 export const updateUserTimeline = async (
   email: string,
   timeline:
-    | 'IMMEDIATELY'
     | 'IN_1_3_MONTHS'
     | 'IN_3_6_MONTHS'
     | 'IN_6_12_MONTHS'
@@ -286,6 +285,37 @@ export const getDynamicPrice = async () => {
     return {
       success: false,
       message: `Failed to get dynamic price, ${(error as any).message}`,
+    }
+  }
+}
+
+export const postSendEmail = async (
+  email: string,
+  profileData: {
+    comms: 'whatsapp' | 'telegram'
+    first_name: string
+  }
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/send-email`,
+      {
+        email: email,
+        type: profileData.comms,
+        firstName: profileData.first_name,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'POST send email hit successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postSendEmail')
+    return {
+      success: false,
+      message: `Failed to POST send email, ${(error as any).message}`,
     }
   }
 }
