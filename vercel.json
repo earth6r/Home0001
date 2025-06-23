@@ -2,6 +2,16 @@
   "rewrites": [
     { "source": "/studio/(.*)", "destination": "/studio/index.html" },
     {
+      "source": "/_next/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "dashboard.home0001.com"
+        }
+      ],
+      "destination": "/_next/:path*"
+    },
+    {
       "source": "/:path*",
       "has": [
         {
@@ -10,6 +20,16 @@
         }
       ],
       "destination": "/buy/:path*"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "dashboard.home0001.com"
+        }
+      ],
+      "destination": "/dashboard/:path*"
     }
   ],
   "redirects": [
@@ -17,6 +37,17 @@
       "source": "/echo-park",
       "destination": "/property/echo-park",
       "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "dashboard.home0001.com"
+        }
+      ],
+      "destination": "https://home0001.com/dashboard/$1",
+      "permanent": false
     }
   ],
   "headers": [
