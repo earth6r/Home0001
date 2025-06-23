@@ -17,7 +17,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const email = query?.email // Extract the email field from the body
 
-  // Validate buyingProgress
   if (!email) {
     res.status(400).json({
       error: 'Missing email in query parameter', // Respond with error if buyingProgress is missing
