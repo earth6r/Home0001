@@ -266,7 +266,13 @@ export const initUserPayment = async (
     saveError(error, 'initUserPayment')
     return {
       success: false,
-      message: `Failed to init payment, ${(error as any).message}`,
+      message: `Failed to init payment, ${
+        (error as any).response.data.error.error.includes(
+          'did not return user_id'
+        )
+          ? 'email already in use'
+          : (error as any)?.message
+      }`,
     }
   }
 }

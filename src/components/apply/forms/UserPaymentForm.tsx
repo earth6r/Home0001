@@ -36,7 +36,10 @@ export const UserPaymentForm: FC<FormProps> = ({
       .then(res => {
         if (!res?.success) {
           console.error('Error making payment:', res?.message)
-          setFormError({ error: true, message: 'Payment failed' })
+          setFormError({
+            error: true,
+            message: `Payment failed: ${res?.message}`,
+          })
           setFormSubmitted({ submitted: true, success: false })
           setIsSubmitting(false)
         } else {
