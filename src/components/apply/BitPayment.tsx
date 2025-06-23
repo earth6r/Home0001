@@ -156,9 +156,11 @@ const PaymentContainer: FC<BitPaymentProps> = ({
             <div className="flex justify-start items-center gap-y mt-y">
               <p className="!mx-0 uppercase">Current joining fee:</p>
               <p className="!mx-0">
-                {`${joiningFee} USD`}
-                {cryptoPrice && cryptoPrice.length > 0 && (
-                  <span>{` / ${cryptoPrice[0]} ETH / ${cryptoPrice[1]} BTC`}</span>
+                <span>{`${joiningFee} USD`}</span>
+                {cryptoPrice && cryptoPrice[0] > 0 && (
+                  <span>
+                    {`/ ${cryptoPrice[1]} BTC / ${cryptoPrice[0]} ETH`}
+                  </span>
                 )}
               </p>
             </div>

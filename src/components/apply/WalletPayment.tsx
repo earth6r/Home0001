@@ -144,10 +144,12 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
               <p className="!text-bodyLg !font-bold !mx-0">{`Review & Pay:`}</p>
               <p className="!mx-0 my-y uppercase">Current joining fee:</p>
               <p>
-                {`${joiningFee} USD / ${
-                  (cryptoPrice && cryptoPrice.length > 0) ||
-                  '(Crypto only enabled in prod)'
-                } BIC`}
+                <span>{`${joiningFee} USD`}</span>
+                {cryptoPrice && cryptoPrice[0] > 0 && (
+                  <span>
+                    {`/ ${cryptoPrice[1]} BTC / ${cryptoPrice[0]} ETH`}
+                  </span>
+                )}
               </p>
             </div>
           </div>
