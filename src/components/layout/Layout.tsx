@@ -11,7 +11,7 @@ import type {
 import { Head } from '@components/head'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
-import { filterDataToSingleItem } from '@studio/lib'
+import { filterDataToSingleItem, SanityLinkType } from '@studio/lib'
 import { ReactLenis } from '@studio-freight/react-lenis'
 import { Cookies } from '@components/cookies'
 import { triggerToastPreview } from '@components/toast'
@@ -35,6 +35,9 @@ export const Layout: FC<LayoutProps> = ({
 }) => {
   const { asPath, query } = useRouter()
   const page: PageData = filterDataToSingleItem(data)
+  const hideUi =
+    (page?._type && (page._type as string) === 'rdPage') ||
+    (page?._type && (page._type as string) === 'dashboard')
 
   useEffect(() => {
     if (preview)
@@ -70,27 +73,15 @@ export const Layout: FC<LayoutProps> = ({
               : 'HOME0001'
           }
           hideMenuButton={
-            (page?._type !== 'property' && page?.hideMenuButton) ||
-            (page?._type && (page._type as string) === 'buy') ||
-            (page?._type && (page._type as string) === 'rdPage')
+            (page?._type !== 'property' && page?.hideMenuButton) || hideUi
           }
-          hideMenu={
-            (page?._type && (page._type as string) === 'buy') ||
-            (page?._type && (page._type as string) === 'rdPage')
-          }
+          hideMenu={page?._type && (page._type as string) === 'rdPage'}
+          hidePageLinks={hideUi}
           showTourLink={page?._type !== 'property' && page?.showTourLink}
           property={(page as Unit)?.property}
           currentTitle={
             ((page as Property) || (page as Unit))?.headerText || page?.title
           }
-          waitlist={{
-            id: siteSettings?.waitlistId,
-            copy: siteSettings?.waitlistCopy,
-            header: siteSettings?.waitlistHeader,
-            success: siteSettings?.waitlistSuccess,
-            consentCopy: siteSettings?.consentCopy,
-            showConsent: siteSettings?.showConsent,
-          }}
           inquiry={{
             id: siteSettings?.inquiryId,
             copy: siteSettings?.inquiryCopy,
@@ -99,6 +90,7 @@ export const Layout: FC<LayoutProps> = ({
             brokerCopy: siteSettings?.brokerInquiryCopy,
             brokerSuccess: siteSettings?.brokerInquirySuccess,
           }}
+          applyLink={siteSettings?.applyLink as SanityLinkType}
           mainMenu={siteSettings?.mainMenu as Menus | undefined}
           rdSettings={{
             image: siteSettings?.rdImage,
@@ -117,12 +109,13 @@ export const Layout: FC<LayoutProps> = ({
           <main className="flex-auto min-h-[95svh]">{children}</main>
         </ReactLenis>
 
-        {(page?._type as string) !== 'rdPage' && (
+        {!hideUi && (
           <Footer
             path={asPath}
             query={query}
             footerMenu={siteSettings?.footerMenu as Menus | undefined}
             applyCopy={siteSettings?.applyCopy}
+            applyLink={siteSettings?.applyLink as SanityLinkType}
             propertiesList={siteSettings?.properties as KeyedProperty[]}
           />
         )}

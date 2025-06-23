@@ -12,11 +12,8 @@ import { Accordion } from '@components/accordion'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 import IconCirclePlus from '@components/icons/IconCirclePlus'
 import IconCircleMinus from '@components/icons/IconCircleMinus'
-import {
-  useWaitlisModal,
-  useAvailableModal,
-  useInventoryModal,
-} from '@contexts/modals'
+import { useAvailableModal, useInventoryModal } from '@contexts/modals'
+import Link from 'next/link'
 
 type TextAndAccordionProps = {
   copy?: RichTextType
@@ -37,7 +34,6 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({
   cta,
   inventory,
 }) => {
-  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [availableOpen, setAvailableOpen] = useAvailableModal()
   const [inventoryOpen, setInventoryOpen] = useInventoryModal()
 
@@ -51,7 +47,7 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({
       {accordions && !showAccordions && (
         <button
           onClick={() => setShowAccordions(true)}
-          className={classNames('pr-x')}
+          className={classNames('p-4 -m-4')}
         >
           <span
             className={classNames(
@@ -73,36 +69,50 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({
             text={text}
             cta={cta}
             readMore={false}
-            className="w-full md:w-[306px] mt-y first-of-type:mt-0"
+            className="w-full pt-y"
           />
         ))}
 
       {showAccordions && cta && (
         <div className="mt-y">
-          <button
-            onClick={
-              cta === 'waitlist'
-                ? setWaitlistOpen
-                : cta === 'properties'
-                ? setAvailableOpen
-                : setInventoryOpen
-            }
-            className={classNames(
-              'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] bg-black text-white font-medium text-left uppercase border-black'
-            )}
-          >
-            <IconRightArrowBold
-              className="relative w-[14px] mt-[0.1em]"
-              fill="white"
-            />
-            <span className="leading-none">
-              {cta === 'waitlist'
-                ? `Apply`
-                : cta === 'properties'
-                ? `Available Homes`
-                : `View Inventory`}
-            </span>
-          </button>
+          {cta === 'waitlist' ? (
+            <Link href="/web3" passHref>
+              <button
+                className={classNames(
+                  'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] bg-black text-white font-medium text-left uppercase border-black'
+                )}
+              >
+                <IconRightArrowBold
+                  className="relative w-[14px] mt-[0.1em]"
+                  fill="white"
+                />
+                <span className="leading-none">
+                  {cta === 'waitlist'
+                    ? `Apply`
+                    : cta === 'properties'
+                    ? `Available Homes`
+                    : `View Inventory`}
+                </span>
+              </button>
+            </Link>
+          ) : (
+            <button
+              onClick={
+                cta === 'properties' ? setAvailableOpen : setInventoryOpen
+              }
+              className={classNames(
+                'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] bg-black text-white font-medium text-left uppercase border-black'
+              )}
+            >
+              <IconRightArrowBold
+                className="relative w-[14px] mt-[0.1em]"
+                fill="white"
+              />
+              <span className="leading-none">
+                {cta === 'properties' ? `Available Homes` : `View Inventory`}
+              </span>
+            </button>
+          )}
         </div>
       )}
 
@@ -158,7 +168,7 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
   return (
     <Block className={classNames(className)}>
       {scrollHeader && (
-        <div className="flex flex-wrap md:grid md:grid-cols-1 h-[calc(100svh-var(--space-page))] min-h-[600px] items-end md:items-center justify-left md:justify-normal mb-ydouble md:mb-0 md:pr-menu">
+        <div className="flex flex-wrap lg:grid lg:grid-cols-1 h-[calc(100svh-var(--space-page))] min-h-[600px] items-end md:items-center justify-left md:justify-normal mb-ydouble md:mb-0 pr-menu">
           <RichText blocks={scrollHeader} />
 
           <IconRightArrowBold
@@ -166,22 +176,22 @@ export const TextAndAccordionBlock: FC<TextAndAccordionBlockProps> = ({
             onClick={scrollDown}
             className={classNames(
               scrolled ? 'opacity-0 pointer-events-none' : '',
-              'w-[80px] mb-ydouble md:ml-0 md:my-10 transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
+              'w-[80px] mb-ydouble lg:ml-0 lg:my-10 transform rotate-[90deg] origin-center cursor-pointer transition-opacity duration-200'
             )}
           />
         </div>
       )}
 
-      <div className="grid md:grid-cols-2 gap-x mb-[96px]">
+      <div className="grid lg:grid-cols-2 gap-x mb-[96px]">
         {header && (
           <RichText
             blocks={header}
             className={classNames(
-              'md:inline md:sticky md:h-1/5 md:top-[var(--header-height)] col-start-1 md:pr-x mb-[64px]'
+              'lg:inline lg:sticky lg:h-1/5 lg:top-[var(--header-height)] col-start-1 pr-menu lg:pr-x mb-ydouble'
             )}
           />
         )}
-        <div className="md:col-start-2 flex flex-wrap gap-[calc(var(--space-y)*4)] pr-menu">
+        <div className="lg:col-start-2 flex flex-wrap gap-[calc(var(--space-y)*4)] pr-menu">
           {items?.map(item => (
             <div key={item._key} className="w-full">
               <TextAndAccordion {...item} />

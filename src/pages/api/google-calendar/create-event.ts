@@ -9,6 +9,8 @@ export default async function handler(
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  console.log('Creating Google Calendar event with data:', req.body)
+
   try {
     const {
       startTime,
@@ -53,6 +55,39 @@ export default async function handler(
       zoom,
       customizedNotifications,
     })
+
+    try {
+      const response = await fetch(
+        'https://hometrics0001.vercel.app/api/save-calendar-to-database',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            eventId,
+            startTime,
+            endTime,
+            eventName,
+            inviteeEmail,
+            eventDescription,
+            calendarEmail,
+          }),
+        }
+      )
+
+      if (!response.ok) {
+        console.error(
+          'Failed to save calendar event to database:',
+          await response.text()
+        )
+      }
+    } catch (dbError) {
+      console.error(
+        'Error calling API to save calendar event to database:',
+        dbError
+      )
+    }
 
     return res.status(200).json({ success: true, eventId })
   } catch (error) {

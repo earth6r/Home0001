@@ -9,8 +9,20 @@ import React, {
 } from 'react'
 
 export type Web3UserProps = {
+  step?:
+    | 'prompt'
+    | 'info'
+    | 'paymentOption'
+    | 'payment'
+    | 'location'
+    | 'priceRange'
+    | 'whenToBuy'
+    | 'bedrooms'
+    | 'token'
+  id?: string
   address?: string
-  hasProfile?: boolean
+  hasMadePayment?: boolean
+  hasFinishedProfile?: boolean
   tokenIds?: string[]
   paymentType?: string
   first_name?: string
@@ -20,6 +32,8 @@ export type Web3UserProps = {
   comms?: 'WhatsApp' | 'Telegram'
   signup_source?: 'purchased' | 'referred'
   referred_token?: string
+  calendar_dates?: { start_time: string }[]
+  unit?: string | null
 } | null
 
 const Web3Context = createContext<

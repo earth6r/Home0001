@@ -12,6 +12,7 @@ import { MdMeetingRoom } from 'react-icons/md'
 import type { SanityDocument } from '@sanity/types'
 import Iframe from 'sanity-plugin-iframe-pane'
 import resolveProductionUrl from './resolve-production-url'
+import { BiWorld } from 'react-icons/bi'
 
 export const getDefaultDocumentNode = (S: StructureBuilder) => {
   return S.document().views([
@@ -81,9 +82,9 @@ export const deskStructure = (S: StructureBuilder) =>
         .icon(MdOutlineScience),
       S.divider(),
       S.listItem()
-        .title('Buy Page')
-        .child(S.documentTypeList('buy').title('Buy Page'))
-        .icon(FaMoneyBillWave),
+        .title('Dashboard')
+        .child(S.documentTypeList('dashboard').title('Dashboard'))
+        .icon(BiWorld),
     ])
 
 export default deskStructure

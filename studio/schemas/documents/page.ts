@@ -37,13 +37,13 @@ export default {
     {
       name: 'hideMenuButton',
       title: 'Hide Menu Button',
-      description: 'Hide waitlist or tour button in header',
+      description: 'Hide apply or tour button in header',
       type: 'boolean',
     },
     {
       name: 'showTourLink',
       title: 'Show Tour Link',
-      description: 'Show the tour link in the header instead of waitlist',
+      description: 'Show the tour link in the header instead of apply',
       type: 'boolean',
     },
     {

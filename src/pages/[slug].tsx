@@ -56,6 +56,9 @@ const Page: NextPage<PageProps> = (
     (block: any) =>
       block._type === 'propertyBlock' || block._type === 'propertiesBlock'
   )
+  const hasApplicationForm = page.body?.some(
+    (block: any) => block._type === 'applyBlock'
+  )
   const [showLogin, setShowLogin] = useState(true)
 
   const validatePassword = (e: FormEvent<HTMLInputElement>) => {
@@ -71,7 +74,7 @@ const Page: NextPage<PageProps> = (
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
-      <article className="pt-page">
+      <article>
         {page?.password && showLogin ? (
           <div className="flex items-center justify-center w-full h-[60vh]">
             <form className="form">
@@ -88,6 +91,7 @@ const Page: NextPage<PageProps> = (
             grid={filteredBlocks && filteredBlocks?.length === 0}
             blocks={page?.body}
             className={classNames(
+              hasApplicationForm ? '' : 'pt-page',
               filteredBlocks && filteredBlocks?.length > 0 ? '' : 'container',
               'w-full overflow-hidden md:overflow-visible'
             )}

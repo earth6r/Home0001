@@ -8,12 +8,10 @@ import type { Property, Menus as SanityMenu } from '@gen/sanity-schema'
 import { Btn } from '@components/btns'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { AnimatedModal } from '@components/modal'
-import { Form, MultiPaneInputs, SinglePaneInputs } from '@components/form'
-import { sendGoogleEvent } from '@lib/util/analytics'
+import { Form, SinglePaneInputs } from '@components/form'
 import { useForm } from 'react-hook-form'
 import {
   useInquiryModal,
-  useWaitlisModal,
   useBrokerInquiryModal,
   useAvailableModal,
   useInventoryModal,
@@ -28,20 +26,20 @@ import { IconWaitlist } from '@components/icons'
 import { SanityLinkType } from '@studio/lib'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Modal } from '@components/modal'
-import posthog from 'posthog-js'
-import { TypedObject } from 'sanity'
 import { PropertyList } from '@components/property'
 import { Inventory } from '@components/inventory'
+import IconConnect from '@components/icons/IconConnect'
 
 export const Header: FC<HeaderProps> = ({
-  waitlist,
   inquiry,
   path,
   hideMenu,
   hideMenuButton,
+  hidePageLinks,
   showTourLink,
   currentTitle,
   property,
+  applyLink,
   mainMenu,
   title,
   rdSettings,
@@ -54,10 +52,8 @@ export const Header: FC<HeaderProps> = ({
   const onOpen = useCallback((open: boolean) => setMenuOpen(open), [])
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const [waitlistOpen, setWaitlistOpen] = useWaitlisModal()
   const [availableOpen, setAvailableOpen] = useAvailableModal()
   const [inventoryOpen, setInventoryOpen] = useInventoryModal()
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   const [inquiryOpen, setInquiryOpen] = useInquiryModal()
   const [brokerInquiryOpen, setBrokerInquiryOpen] = useBrokerInquiryModal()
@@ -66,10 +62,7 @@ export const Header: FC<HeaderProps> = ({
     register,
     handleSubmit,
     reset,
-    trigger,
-    getValues,
-    control,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = useForm({
     shouldUseNativeValidation: true,
   })
@@ -82,18 +75,7 @@ export const Header: FC<HeaderProps> = ({
 
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 1080])
 
-  const openWaitlist = () => {
-    setWaitlistOpen(true)
-    const options = { location: window.location.pathname }
-    sendGoogleEvent('opened waitlist modal', options)
-
-    if (typeof window !== undefined) {
-      document.body.style.overflow = 'hidden'
-    }
-  }
-
   const onClose = () => {
-    setWaitlistOpen(false)
     setFormSubmitted(false)
     reset({})
 
@@ -140,7 +122,7 @@ export const Header: FC<HeaderProps> = ({
       id="header"
       className={classNames(
         className,
-        menuOpen || waitlistOpen || inquiryOpen || brokerInquiryOpen
+        menuOpen || inquiryOpen || brokerInquiryOpen
           ? 'z-menu'
           : 'z-header transition-z delay-300',
         'fixed w-full pointer-events-none font-medium text-xs'
@@ -233,16 +215,15 @@ export const Header: FC<HeaderProps> = ({
                   </div>
                 </Btn>
               ) : (
-                <Btn
-                  type="button"
-                  onClick={openWaitlist}
+                <SanityLink
+                  {...(applyLink as SanityLinkType)}
                   className={classNames(
                     headerLinksShown ? 'opacity-100' : 'opacity-0',
                     'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
                   )}
                 >
-                  <IconWaitlist className="w-[77px] mt-[3px] md:mt-[4px]" />
-                </Btn>
+                  <IconConnect className="w-[118px]" />
+                </SanityLink>
               )}
             </>
           )}
@@ -253,6 +234,7 @@ export const Header: FC<HeaderProps> = ({
               setCustomOpen={setMenuOpen}
               onOpen={onOpen}
               mainMenu={mainMenu as SanityMenu}
+              hidePageLinks={hidePageLinks}
               className="flex flex-col pointer-events-auto"
             />
           )}
@@ -282,35 +264,6 @@ export const Header: FC<HeaderProps> = ({
               </SanityLink>
             </motion.div>
           )}
-
-          <AnimatedModal isOpen={waitlistOpen} onClose={onClose}>
-            <div className="flex flex-col max-w-md md:max-w-none h-[calc(100svh-var(--space-y))] lg:h-full py-y  pl-x lg:pl-x pr-menu overflow-scroll">
-              <Form
-                formType={'modal'}
-                audienceId={waitlist?.id}
-                successMessage={waitlist?.success}
-                formSubmitted={formSubmitted}
-                handleSubmit={handleSubmit}
-                setFormSubmitted={setFormSubmitted}
-                className="w-full h-full pr-x"
-              >
-                <MultiPaneInputs
-                  header={waitlist?.header}
-                  copy={waitlist?.copy}
-                  showConsent={waitlist?.showConsent}
-                  consentCopy={waitlist?.consentCopy}
-                  buttonCopy="Apply"
-                  isSubmitting={isSubmitting}
-                  errors={errors}
-                  control={control}
-                  register={register}
-                  className={classNames('h-full')}
-                  trigger={trigger}
-                  formValues={getValues}
-                />
-              </Form>
-            </div>
-          </AnimatedModal>
 
           <AnimatedModal isOpen={inquiryOpen} onClose={onInquiryClose}>
             <div className="flex flex-col max-w-md md:max-w-none h-[calc(100%-var(--btn-height)-[6rem])] lg:h-full py-y md:py-ydouble pl-x">
@@ -377,7 +330,7 @@ export const Header: FC<HeaderProps> = ({
                 <Form
                   formType={'broker'}
                   audienceId={inquiry?.brokerId}
-                  successMessage={waitlist?.success}
+                  successMessage={inquiry?.success}
                   formSubmitted={formSubmitted}
                   handleSubmit={handleSubmit}
                   setFormSubmitted={setFormSubmitted}

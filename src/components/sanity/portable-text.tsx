@@ -11,6 +11,8 @@ import { type FC, type HTMLAttributes } from 'react'
 import { ImageCarousel } from '@components/carousel'
 import { SanityInventoryModal } from './table-modal'
 import { Media } from '@studio/gen/sanity-schema'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
+import classNames from 'classnames'
 
 interface SanityCookiesToggleProps extends HTMLAttributes<HTMLElement> {
   linkedCopy?: string
@@ -75,6 +77,30 @@ export const blockTypes: Partial<PortableTextReactComponents['types']> = {
         className="w-full"
         placement="richText"
       />
+    )
+  },
+  cta: ({ value }) => {
+    return (
+      <SanityLink
+        {...value.link}
+        className="!no-underline !font-medium !font-sans"
+      >
+        <button
+          className={classNames(
+            value.color === 'White'
+              ? 'border-black bg-white text-black'
+              : 'border-black hover:border-white bg-black text-white',
+            'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x hover:invert transition-all duration-200 text-button'
+          )}
+        >
+          {value.text}
+          <IconSmallArrow
+            width="16"
+            height="10"
+            fill={value.color === 'Black' ? 'white' : 'black'}
+          />
+        </button>
+      </SanityLink>
     )
   },
 }

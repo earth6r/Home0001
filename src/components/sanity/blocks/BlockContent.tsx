@@ -10,7 +10,6 @@ import {
 import {
   TextBlock,
   AccordionBlock,
-  WaitlistBlock,
   PropertiesBlock,
   NewsletterBlock,
   ContactBlock,
@@ -18,7 +17,6 @@ import {
   AnimatingBlock,
   UnitBlock,
   PropertyBlock,
-  FlexWaitlistBlock,
   CalendarBlock,
   TextAndAccordionBlock,
   VideosBlock,
@@ -28,7 +26,8 @@ import {
   ImagesBlock,
   PropertyTypesBlock,
   FormBlock,
-  Web3Block,
+  DashboardBlock,
+  AccountBlock,
 } from '.'
 import classNames from 'classnames'
 import { useFeatureFlagEnabled } from 'posthog-js/react'
@@ -37,6 +36,8 @@ import { useRouter } from 'next/router'
 export const BlockContent: FC<SanityBlockElement> = ({
   blocks,
   grid,
+  user,
+  updateUser,
   className,
   style,
 }) => {
@@ -145,12 +146,6 @@ export const BlockContent: FC<SanityBlockElement> = ({
             unitBlock: ({ index, value }) => (
               <UnitBlock index={index} grid={grid} {...value} />
             ),
-            waitlistBlock: ({ index, value }) => (
-              <WaitlistBlock index={index} grid={grid} {...value} />
-            ),
-            flexWaitlistBlock: ({ index, value }) => (
-              <FlexWaitlistBlock index={index} {...value} />
-            ),
             contactBlock: ({ index, value }) => (
               <ContactBlock index={index} grid={grid} {...value} />
             ),
@@ -160,8 +155,21 @@ export const BlockContent: FC<SanityBlockElement> = ({
             messagingBlock: ({ index, value }) => (
               <MessagingBlock index={index} {...value} />
             ),
-            web3Block: ({ index, value }) => (
-              <Web3Block index={index} {...value} />
+            dashboardBlock: ({ index, value }) => (
+              <DashboardBlock
+                index={index}
+                user={user}
+                updateUser={updateUser}
+                {...value}
+              />
+            ),
+            accountBlock: ({ index, value }) => (
+              <AccountBlock
+                index={index}
+                user={user}
+                updateUser={updateUser}
+                {...value}
+              />
             ),
           },
           marks: blockMarks,

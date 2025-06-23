@@ -105,7 +105,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                     )}
                   >
                     <IconSmallArrow
-                      className="relative w-[1em] mt-[0.1em]"
+                      className="relative w-[1.1em] mt-[0.1em]"
                       fill="white"
                     />
                     <span className="leading-none">{`Explore`}</span>

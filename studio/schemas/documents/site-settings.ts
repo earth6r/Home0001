@@ -83,6 +83,13 @@ export default {
       group: 'rd',
     },
     {
+      name: 'applyLink',
+      title: 'Apply Link',
+      type: 'link',
+      description: 'Link to apply page',
+      group: 'menus',
+    },
+    {
       name: 'mainMenu',
       title: 'Main Menu',
       type: 'reference',
@@ -99,45 +106,17 @@ export default {
       group: 'menus',
     },
     {
+      name: 'dashboardMenu',
+      title: 'Dashboard Menu',
+      type: 'reference',
+      description: 'Select menu for dashboard navigation',
+      to: { type: 'menus' },
+      group: 'menus',
+    },
+    {
       name: 'applyCopy',
       title: 'Footer Apply Copy',
       type: 'richText',
-      group: 'forms',
-    },
-    {
-      name: 'waitlistId',
-      title: 'Waitlist Audience ID',
-      type: 'string',
-      group: 'forms',
-    },
-    {
-      name: 'waitlistHeader',
-      title: 'Waitlist Header',
-      type: 'string',
-      group: 'forms',
-    },
-    {
-      name: 'waitlistCopy',
-      title: 'Waitlist Copy',
-      type: 'richText',
-      group: 'forms',
-    },
-    {
-      name: 'waitlistSuccess',
-      title: 'Waitlist Success',
-      type: 'richText',
-      group: 'forms',
-    },
-    {
-      name: 'showConsent',
-      type: 'boolean',
-      title: 'Show Waitlist Consent Checkbox',
-      group: 'forms',
-    },
-    {
-      name: 'consentCopy',
-      type: 'richText',
-      title: 'Waitlist Consent Copy',
       group: 'forms',
     },
     {
@@ -175,6 +154,12 @@ export default {
       title: 'Broker Inquiry Success',
       type: 'richText',
       group: 'forms',
+    },
+    {
+      name: 'dashImage',
+      title: 'Dashboard Image',
+      type: 'image',
+      group: 'content',
     },
     {
       name: 'properties',
