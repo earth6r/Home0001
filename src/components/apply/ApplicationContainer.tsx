@@ -52,14 +52,14 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
       fetchDynamicPrice()
     }
 
-    if (dynamicPrice && ENV === 'production') {
+    if (dynamicPrice) {
       const usdPrice = dynamicPrice
 
       fetchCryptoPrice(usdPrice).then((cryptoPrices: number[]) => {
         setCryptoPrice(cryptoPrices)
       })
     }
-  }, [])
+  }, [dynamicPrice])
 
   return (
     <div className={classNames(className)}>
@@ -77,12 +77,18 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
             <div className="flex flex-col flex-start gap-y rich-text text-left">
               <h4>{`Current Joining fee:`}</h4>
               <p className="!mx-0">
-                {dynamicPrice
-                  ? `${dynamicPrice} USD / ${
-                      (cryptoPrice && cryptoPrice.length > 0) ||
-                      '(Crypto only enabled in prod)'
-                    } BIC`
-                  : `Loading...`}
+                {dynamicPrice ? (
+                  <>
+                    <span>{`${dynamicPrice} USD`}</span>
+                    {cryptoPrice[0] > 0 && (
+                      <span>
+                        {`/ ${cryptoPrice[1]} BTC / ${cryptoPrice[0]} ETH`}
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  `Loading...`
+                )}
               </p>
 
               {/* <p className="!mx-0">{`If you were referred by an existing member, your joining fee will be waived.`}</p> */}
