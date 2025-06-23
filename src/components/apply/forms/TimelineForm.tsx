@@ -35,17 +35,13 @@ export const TimelineForm: FC<FormProps> = ({
     setIsSubmitting(true)
 
     let timeline:
-      | 'IMMEDIATELY'
       | 'IN_1_3_MONTHS'
       | 'IN_3_6_MONTHS'
       | 'IN_6_12_MONTHS'
       | 'NOT_SURE_YET' = 'NOT_SURE_YET'
 
     switch (data.buyingtimelinedec2023) {
-      case 'now':
-        timeline = 'IMMEDIATELY'
-        break
-      case '1to3mos':
+      case '0to3mos':
         timeline = 'IN_1_3_MONTHS'
         break
       case '3to6mos':

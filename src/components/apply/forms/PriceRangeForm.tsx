@@ -38,12 +38,8 @@ export const PriceRangeForm: FC<FormProps> = ({
     let maxPrice = null
 
     switch (data.price_range) {
-      case 'lessThan500k':
+      case 'lessThan750k':
         minPrice = null
-        maxPrice = 500000
-        break
-      case '$500kTo750k':
-        minPrice = 500000
         maxPrice = 750000
         break
       case '$750kTo1M':
@@ -54,8 +50,12 @@ export const PriceRangeForm: FC<FormProps> = ({
         minPrice = 1000000
         maxPrice = 1500000
         break
-      case 'moreThan1.5M':
+      case '$1.5MTo2M':
         minPrice = 1500000
+        maxPrice = 2000000
+        break
+      case 'moreThan2M':
+        minPrice = 2000000
         maxPrice = null // No upper limit for this range
         break
       default:
