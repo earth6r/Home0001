@@ -215,15 +215,15 @@ export const Header: FC<HeaderProps> = ({
                   </div>
                 </Btn>
               ) : (
-                <SanityLink
-                  {...(applyLink as SanityLinkType)}
+                <Link
+                  href={'https://dashboard.home0001.com'}
                   className={classNames(
                     headerLinksShown ? 'opacity-100' : 'opacity-0',
                     'flex p-3 -m-3 pointer-events-auto z-header transition-all duration-200'
                   )}
                 >
                   <IconConnect className="w-[118px]" />
-                </SanityLink>
+                </Link>
               )}
             </>
           )}
