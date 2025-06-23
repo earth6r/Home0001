@@ -41,11 +41,14 @@ export const UserInfoForm: FC<FormProps> = ({
       last_name: data.last_name as string,
       email: data.email as string,
       phone_number: data.phone as string,
-      comms: data.comms as 'whatsapp' | 'telegram',
+      comms: data.comms as 'WhatsApp' | 'Telegram',
       wallet_address: user.address,
-      public_profiles: data.public_profiles
-        ? data.public_profiles.split(',').map((p: string) => p.trim())
-        : [],
+      public_profiles: [
+        data.public_profiles_x,
+        data.public_profiles_instagram,
+        data.public_profiles_website,
+        data.public_profiles_other,
+      ].filter(Boolean),
     }).then(res => {
       if (!res?.success) {
         console.error('Error creating user profile:', res?.message)
@@ -79,25 +82,25 @@ export const UserInfoForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="relative flex flex-col gap-y">
-        <p className="!mx-0 !text-bodyLg !font-bold">{`Tell us about yourself!`}</p>
+        <p className="!mx-0 !text-bodyLg !font-bold">{`Tell us a little about yourself:`}</p>
 
         <div className="relative flex flex-col gap-y">
           <input
             type="text"
-            placeholder="First name"
+            placeholder="First name*"
             className="input"
             {...register('first_name', { required: 'First name required' })}
           />
           <input
             type="text"
-            placeholder="Last name"
+            placeholder="Last name*"
             className="input"
             {...register('last_name', { required: 'Last name required' })}
           />
 
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Email*"
             className="input"
             {...register('email', { required: 'Email required' })}
           />
@@ -112,7 +115,7 @@ export const UserInfoForm: FC<FormProps> = ({
                 value={value}
                 onChange={onChange}
                 defaultCountry="US"
-                placeholder="PHONE NUMBER"
+                placeholder="Phone Number*"
                 disabled={isSubmitting}
                 id="phone"
                 className="input"
@@ -128,28 +131,52 @@ export const UserInfoForm: FC<FormProps> = ({
 
           <div className="flex flex-col gap-y relative mt-y">
             <label htmlFor="public_profiles" className="flex flex-col gap-y">
-              <span className="text-button !font-bold">{`Your public profiles (optional)`}</span>
-              <span className="text-base">{`Your social media, website or portfolio. Please seperate entries with a comma.`}</span>
+              <span className="text-button !font-bold">{`Your public profiles`}</span>
             </label>
             <input
               type="text"
               className="input"
-              {...register('public_profiles')}
+              placeholder="X"
+              {...register('public_profiles_x')}
+            />
+            <input
+              type="text"
+              className="input"
+              placeholder="Instagram"
+              {...register('public_profiles_instagram')}
+            />
+            <input
+              type="text"
+              className="input"
+              placeholder="Website"
+              {...register('public_profiles_website')}
+            />
+            <input
+              type="text"
+              className="input"
+              placeholder="farcaster / other"
+              {...register('public_profiles_other')}
             />
           </div>
 
           <div className="relative mt-y">
-            <p className="mb-y text-button !font-bold">{`Communication Preference`}</p>
+            <p className="mb-y !font-bold">{`Pick your favourite messaging app that you check regularly.`}</p>
             <select
               id="preferred-comms"
               className="input select text-button font-sans"
               disabled={isSubmitting}
-              {...register('comms')}
+              {...register('comms', {
+                required: 'Communication preference required',
+                validate: value => value === 'WhatsApp' || value === 'Telegram',
+              })}
             >
+              <option className="text-button">
+                {`Select communication preference*`}
+              </option>
               <option
                 key="option-comms-0"
                 id="preferred-comms"
-                value="whatsapp"
+                value="WhatsApp"
                 className="text-button"
               >
                 {`WhatsApp`}
@@ -157,7 +184,7 @@ export const UserInfoForm: FC<FormProps> = ({
               <option
                 key="option-comms-2"
                 id="preferred-comms"
-                value="telegram"
+                value="Telegram"
                 className="text-button"
               >
                 {`Telegram`}
@@ -167,7 +194,7 @@ export const UserInfoForm: FC<FormProps> = ({
           </div>
         </div>
 
-        <div className="flex flex-col gap-y mt-y">
+        <div className="flex flex-col gap-ydouble my-y">
           <div className="flex w-full">
             <input
               type="checkbox"
@@ -179,9 +206,11 @@ export const UserInfoForm: FC<FormProps> = ({
               className="w-full text-left cursor-pointer font-medium text-md tracking-normal"
               htmlFor="consent"
             >
-              <span>{`I agree to receive communications from HOME0001 about available properties. I understand that data rates may apply and that I can reply STOP to opt out at any time.`}</span>
+              <span>{`I agree to receive communications from HOME0001 about my membership.*`}</span>
             </label>
           </div>
+
+          <p className="!mx-0">{`*Required.`}</p>
 
           {/* <div className="flex w-full">
             <input

@@ -89,8 +89,7 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
       } else {
         updateUser({
           ...user,
-          step: 'token',
-          hasFinishedProfile: true,
+          step: 'essentials',
         })
 
         setFormSubmitted({ submitted: true, success: true })

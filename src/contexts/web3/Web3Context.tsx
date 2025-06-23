@@ -18,6 +18,7 @@ export type Web3UserProps = {
     | 'priceRange'
     | 'whenToBuy'
     | 'bedrooms'
+    | 'essentials'
     | 'token'
   id?: string
   address?: string
@@ -29,7 +30,7 @@ export type Web3UserProps = {
   last_name?: string
   email?: string
   phone_number?: string
-  comms?: 'whatsapp' | 'telegram'
+  comms?: 'WhatsApp' | 'Telegram'
   signup_source?: 'purchased' | 'referred'
   referred_token?: string
   calendar_dates?: { start_time: string }[]

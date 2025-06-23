@@ -10,6 +10,7 @@ import {
   PriceRangeForm,
   TimelineForm,
   RoomsForm,
+  EssentialsForm,
 } from './forms'
 
 const ApplicationForm: FC<FormProps> = ({
@@ -56,6 +57,10 @@ const ApplicationForm: FC<FormProps> = ({
 
             {user?.step === 'bedrooms' && (
               <RoomsForm user={user} updateUser={updateUser} />
+            )}
+
+            {user?.step === 'essentials' && (
+              <EssentialsForm user={user} updateUser={updateUser} />
             )}
           </div>
         </div>
