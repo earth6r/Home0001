@@ -39,7 +39,6 @@ export const createUserProfile = async (
     public_profiles?: string[]
   }
 ) => {
-  console.log('Creating user profile with data:', profileData)
   try {
     await axios.post(
       `${BASE_URL}/api/web3/create-user-profile`,
@@ -273,6 +272,57 @@ export const initUserPayment = async (
           ? 'email already in use'
           : (error as any)?.message
       }`,
+    }
+  }
+}
+
+// Composite action that handles payment initialization and follow-up email
+export const initUserPaymentWithEmail = async (
+  email: string,
+  profileData: {
+    signup_source: 'referred' | 'purchased'
+    referred_token?: string
+    comms: 'whatsapp' | 'telegram'
+    first_name: string
+  }
+) => {
+  try {
+    // Step 1: Initialize payment
+    const paymentResult = await initUserPayment(email, {
+      signup_source: profileData.signup_source,
+      referred_token: profileData.referred_token,
+    })
+
+    if (!paymentResult.success) {
+      return paymentResult
+    }
+
+    // Step 2: Send follow-up email
+    const emailResult = await postSendEmail(email, {
+      comms: profileData.comms,
+      first_name: profileData.first_name,
+    })
+
+    if (!emailResult.success) {
+      console.warn('Payment succeeded but email failed:', emailResult.message)
+      // Still return success since payment went through
+      return {
+        success: true,
+        message: 'Payment succeeded but email notification failed',
+        warnings: [emailResult.message],
+      }
+    }
+
+    return {
+      success: true,
+      message: 'Payment initialized and email sent successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'initUserPaymentWithEmail')
+    return {
+      success: false,
+      message: `Failed to complete payment flow, ${(error as any).message}`,
     }
   }
 }
