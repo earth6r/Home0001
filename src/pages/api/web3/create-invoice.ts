@@ -10,6 +10,8 @@ interface CreateInvoiceRequest extends NextApiRequest {
   body: BitPayInvoiceData
 }
 
+const IS_PROD = process.env.NEXT_PUBLIC_SANITY_DATASET === 'production'
+
 export default async function handler(
   req: CreateInvoiceRequest,
   res: NextApiResponse<BitPayInvoiceResponse | { error: string }>
@@ -21,7 +23,7 @@ export default async function handler(
   }
 
   try {
-    const client = new BitPayClient()
+    const client = new BitPayClient(IS_PROD ? 'prod' : 'test')
 
     console.log('Creating BitPay invoice with data:', req.body)
     const invoiceData = {
