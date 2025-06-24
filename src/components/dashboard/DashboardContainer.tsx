@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import classNames from 'classnames'
 import { RichText } from '@components/sanity/rich-text'
 import { TypedObject } from 'sanity'
 import DashboardSteps from './DashboardSteps'
 import { DashboardContainerProps } from './types'
-import { Web3UserProps } from '@contexts/web3'
 
-export const DashboardContainer: FC<DashboardContainerProps> = ({
+export const DashboardContainerComponent: FC<DashboardContainerProps> = ({
   user,
   updateUser,
   content,
@@ -30,5 +29,7 @@ export const DashboardContainer: FC<DashboardContainerProps> = ({
     </div>
   )
 }
+
+export const DashboardContainer = memo(DashboardContainerComponent)
 
 export default DashboardContainer

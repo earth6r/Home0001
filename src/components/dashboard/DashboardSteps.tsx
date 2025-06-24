@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, memo, useEffect, useState } from 'react'
 import { TypedObject } from 'sanity'
 import { Web3UserProps } from '@contexts/web3'
 import { mintToken } from '@lib/util/web3'
@@ -16,7 +16,7 @@ type TokenDashboardProps = {
   className?: string
 }
 
-const DashboardSteps: FC<TokenDashboardProps> = ({
+const DashboardStepsComponent: FC<TokenDashboardProps> = ({
   user,
   updateUser,
   className,
@@ -45,9 +45,9 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
   // }
 
   const initGetCalendarDate = () => {
+    if (!user?.email) return
     getBookedCalendarDates(user?.email as string)
       .then(res => {
-        console.log('Booked calendar dates:', res)
         setEventDates(res?.data.events)
       })
       .catch(err => {
@@ -60,7 +60,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
     if (user?.hasMadePayment) {
       initGetCalendarDate()
     }
-  }, [user?.email, user?.hasMadePayment])
+  }, [user?.hasMadePayment])
 
   return (
     <div className={className}>
@@ -177,5 +177,7 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
     </div>
   )
 }
+
+export const DashboardSteps = memo(DashboardStepsComponent)
 
 export default DashboardSteps

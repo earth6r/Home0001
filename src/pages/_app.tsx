@@ -1,4 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import '../../wdyr'
+
 import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import { Layout } from '@components/layout'
@@ -23,6 +25,10 @@ import { PostHogProvider } from 'posthog-js/react'
 
 const PS_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
 const prod = process.env.NODE_ENV === 'production'
+
+if (process.env.NODE_ENV === 'development') {
+  require('../../wdyr')
+}
 
 function App({ Component, pageProps }: AppProps<{}>) {
   const { query, events, asPath } = useRouter()
@@ -50,9 +56,9 @@ function App({ Component, pageProps }: AppProps<{}>) {
         person_profiles: 'identified_only',
         defaults: '2025-05-24',
         // Enable debug mode in development
-        loaded: posthog => {
-          if (process.env.NODE_ENV === 'development') posthog.debug()
-        },
+        // loaded: posthog => {
+        //   if (process.env.NODE_ENV === 'development') posthog.debug()
+        // },
       })
     }
 
