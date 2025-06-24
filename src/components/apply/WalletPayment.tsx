@@ -140,18 +140,13 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
       >
         <div className="flex flex-col gap-ydouble">
           <div>
-            <div>
-              <p className="!text-bodyLg !font-bold !mx-0">{`Review & Pay:`}</p>
-              <p className="!mx-0 my-y uppercase">Current joining fee:</p>
-              <p>
-                <span>{`${joiningFee} USD`}</span>
-                {cryptoPrice && cryptoPrice[0] > 0 && (
-                  <span>
-                    {`/ ${cryptoPrice[1]} BTC / ${cryptoPrice[0]} ETH`}
-                  </span>
-                )}
-              </p>
-            </div>
+            <p className="!mx-0 my-y uppercase">Current joining fee:</p>
+            <p>
+              <span className="!font-bold">{`${joiningFee} USD`}</span>
+              {cryptoPrice && cryptoPrice[0] > 0 && (
+                <span className="!font-bold">{`/ ${cryptoPrice[1]} BTC / ${cryptoPrice[0]} ETH`}</span>
+              )}
+            </p>
           </div>
 
           <div className={classNames('relative flex flex-col gap-y h-full')}>

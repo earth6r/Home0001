@@ -68,10 +68,10 @@ export const UserPaymentForm: FC<FormProps> = ({
         {/* Payment method selector */}
         <div className="flex flex-col gap-y">
           <p className="!mx-0 !text-bodyLg !font-bold">
-            Choose your payment method:
+            Choose payment method:
           </p>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-y">
             <label className="flex items-center cursor-pointer">
               <input
                 type="radio"
@@ -81,7 +81,9 @@ export const UserPaymentForm: FC<FormProps> = ({
                 onChange={() => setPaymentMethod('stripe')}
                 className="mr-2"
               />
-              <span className="font-medium">Credit Card (Stripe)</span>
+              <span className="font-medium uppercase">
+                Credit Card (Stripe)
+              </span>
             </label>
 
             <label className="flex items-center cursor-pointer">
@@ -93,7 +95,9 @@ export const UserPaymentForm: FC<FormProps> = ({
                 onChange={() => setPaymentMethod('bitpay')}
                 className="mr-2"
               />
-              <span className="font-medium">Cryptocurrency (BitPay)</span>
+              <span className="font-medium uppercase">
+                Cryptocurrency (BitPay)
+              </span>
             </label>
           </div>
         </div>

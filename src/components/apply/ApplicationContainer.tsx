@@ -14,6 +14,7 @@ import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { getDynamicPrice } from './actions'
 import { saveError } from '@lib/util/save-error'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { animateScroll as scroll } from 'react-scroll'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -96,7 +97,11 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
           </div>
 
           <button
-            onClick={() => updateUser({ ...user, step: 'info' })}
+            onClick={() => {
+              updateUser({ ...user, step: 'info' })
+              scroll.scrollToTop({ behavior: 'smooth' })
+              
+            }}
             className="w-[100vw] h-[173px] bg-yellow px-x -ml-x text-black"
           >
             <div className="flex items-center justify-start gap-xdouble md:gap-x-yquad text-h3 h-full">

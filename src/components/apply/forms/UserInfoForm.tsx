@@ -7,6 +7,7 @@ import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from '../types'
 import FormPane from '../FormPane'
+import { isMobile } from 'react-device-detect'
 
 export const UserInfoForm: FC<FormProps> = ({
   user,
@@ -163,7 +164,7 @@ export const UserInfoForm: FC<FormProps> = ({
             <p className="mb-y !font-bold">{`Pick your favourite messaging app that you check regularly.`}</p>
             <select
               id="preferred-comms"
-              className="input select text-button font-sans"
+              className="relative input select text-button font-sans"
               disabled={isSubmitting}
               {...register('comms', {
                 required: 'Communication preference required',
@@ -171,7 +172,9 @@ export const UserInfoForm: FC<FormProps> = ({
               })}
             >
               <option className="text-button">
-                {`Select communication preference*`}
+                {isMobile
+                  ? `Select communication pref*`
+                  : `Select communication preference*`}
               </option>
               <option
                 key="option-comms-0"
@@ -190,7 +193,7 @@ export const UserInfoForm: FC<FormProps> = ({
                 {`Telegram`}
               </option>
             </select>
-            <IconChevron className="absolute w-[12px] right-x top-[65%] transform rotate-0" />
+            <IconChevron className="absolute w-[12px] right-x bottom-[1.4em]" />
           </div>
         </div>
 
