@@ -180,10 +180,10 @@ export const updateUserPriceRange = async (
 export const updateUserTimeline = async (
   email: string,
   timeline:
-    | 'IN_1_3_MONTHS'
-    | 'IN_3_6_MONTHS'
-    | 'IN_6_12_MONTHS'
-    | 'NOT_SURE_YET'
+    | 'UNDER_3_MONTHS'
+    | 'NEXT_6_MONTHS'
+    | 'WITHIN_NEXT_YEAR'
+    | 'DEPENDS' = 'DEPENDS'
 ) => {
   try {
     await axios.post(
@@ -239,6 +239,33 @@ export const updateUserRooms = async (
   }
 }
 
+export const updateUserEssentials = async (
+  email: string,
+  essentials: string[] | [] = []
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/update-user-essentials`,
+      {
+        email: email,
+        essentials: essentials,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'User essentials updated successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'updateUserEssentiaals')
+    return {
+      success: false,
+      message: `Failed to update user essentials, ${(error as any).message}`,
+    }
+  }
+}
+
 export const initUserPayment = async (
   email: string,
   profileData: {
@@ -272,6 +299,112 @@ export const initUserPayment = async (
           ? 'email already in use'
           : (error as any)?.message
       }`,
+    }
+  }
+}
+
+export const getDynamicPrice = async () => {
+  try {
+    return await axios.get(`${BASE_URL}/api/web3/get-dynamic-price`, CONFIG)
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'getDynamicPrice')
+    return {
+      success: false,
+      message: `Failed to get dynamic price, ${(error as any).message}`,
+    }
+  }
+}
+
+export const postSendEmail = async (
+  email: string,
+  profileData: {
+    comms: 'whatsapp' | 'telegram'
+    first_name: string
+  }
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/send-email`,
+      {
+        email: email,
+        type: profileData.comms,
+        firstName: profileData.first_name,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'POST send email hit successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postSendEmail')
+    return {
+      success: false,
+      message: `Failed to POST send email, ${(error as any).message}`,
+    }
+  }
+}
+
+export const postSendMessage = async (
+  phone: string,
+  profileData: {
+    comms: 'whatsapp' | 'telegram'
+    first_name: string
+  }
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/send-message`,
+      {
+        phoneNumber: phone,
+        firstName: profileData.first_name,
+        preferredContactMethod: profileData.comms,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'POST send email hit successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postSendEmail')
+    return {
+      success: false,
+      message: `Failed to POST send email, ${(error as any).message}`,
+    }
+  }
+}
+
+export const postSendSms = async (
+  phone: string,
+  profileData: {
+    comms: 'whatsapp' | 'telegram'
+    first_name: string
+  }
+) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/api/web3/send-message`,
+      {
+        phoneNumber: phone,
+        preferredContactMethod: profileData.comms,
+        firstName: profileData.first_name,
+      },
+      CONFIG
+    )
+    return {
+      success: true,
+      message: 'POST send email hit successfully',
+    }
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'postSendEmail')
+    return {
+      success: false,
+      message: `Failed to POST send email, ${(error as any).message}`,
     }
   }
 }
@@ -327,46 +460,52 @@ export const initUserPaymentWithEmail = async (
   }
 }
 
-export const getDynamicPrice = async () => {
-  try {
-    return await axios.get(`${BASE_URL}/api/web3/get-dynamic-price`, CONFIG)
-  } catch (error) {
-    console.error(error)
-    saveError(error, 'getDynamicPrice')
-    return {
-      success: false,
-      message: `Failed to get dynamic price, ${(error as any).message}`,
-    }
-  }
-}
-
-export const postSendEmail = async (
+// Composite action that handles payment initialization and follow-up email
+export const updateUserEssentialsWithMessage = async (
   email: string,
+  essentials: string[] | [] = [],
+  phone: string,
   profileData: {
     comms: 'whatsapp' | 'telegram'
     first_name: string
   }
 ) => {
   try {
-    await axios.post(
-      `${BASE_URL}/api/web3/send-email`,
-      {
-        email: email,
-        type: profileData.comms,
-        firstName: profileData.first_name,
-      },
-      CONFIG
-    )
+    // Step 1: Initialize payment
+    const userUpdateResult = await updateUserEssentials(email, essentials)
+
+    if (!userUpdateResult.success) {
+      return userUpdateResult
+    }
+
+    // Step 2: Send follow-up email
+    const messageResult = await postSendMessage(phone, {
+      comms: profileData.comms,
+      first_name: profileData.first_name,
+    })
+
+    if (!messageResult.success) {
+      console.warn(
+        'User update succeeded but message failed:',
+        messageResult.message
+      )
+      return {
+        success: true,
+        message: 'User update succeeded but message failed',
+        warnings: [messageResult.message],
+      }
+    }
+
     return {
       success: true,
-      message: 'POST send email hit successfully',
+      message: 'User updated and message sent successfully',
     }
   } catch (error) {
     console.error(error)
-    saveError(error, 'postSendEmail')
+    saveError(error, 'updateUserEssentialsWithMessage')
     return {
       success: false,
-      message: `Failed to POST send email, ${(error as any).message}`,
+      message: `Failed to complete user update flow, ${(error as any).message}`,
     }
   }
 }

@@ -107,10 +107,7 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
     >
       <div className="flex flex-col gap-y">
         <p className="!mx-0 !text-bodyLg !font-bold">
-          {`Last question:`}
-          <br />
           {`How many bedrooms are you looking for?`}
-          <br />
         </p>
         <div className="flex flex-col gap-y mb-ydouble">
           <p className="!mx-0 ">{`Select all that apply.`}</p>

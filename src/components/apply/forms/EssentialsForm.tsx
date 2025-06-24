@@ -1,6 +1,10 @@
 /* eslint-disable no-console */
 import React, { FC, useState } from 'react'
-import { updateUserRooms } from '../actions'
+import {
+  updateUserEssentials,
+  updateUserEssentialsWithMessage,
+  updateUserRooms,
+} from '../actions'
 import { useForm } from 'react-hook-form'
 import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from '../types'
@@ -28,11 +32,39 @@ export const EssentialsForm: FC<FormProps> = ({
   })
 
   const onSubmit = async (data: any) => {
-    if (!user?.email || !data?.bedroom_preference) {
-      console.error('Missing required form fields')
+    if (!user?.email || !user.phone_number || !user.comms || !user.first_name) {
+      console.error('Missing required user or form fields')
       return
     }
     setIsSubmitting(true)
+
+    updateUserEssentialsWithMessage(
+      user.email,
+      data.essentials,
+      user.phone_number as string,
+      {
+        comms: (user.comms as 'WhatsApp' | 'Telegram').toLowerCase() as
+          | 'whatsapp'
+          | 'telegram',
+        first_name: user.first_name as string,
+      }
+    ).then(res => {
+      if (!res?.success) {
+        console.error('Error updating user essentials:', res?.message)
+        setFormError({ error: true, message: 'User essentials update failed' })
+        setFormSubmitted({ submitted: true, success: false })
+        setIsSubmitting(false)
+      } else {
+        updateUser({
+          ...user,
+          step: 'token',
+          hasFinishedProfile: true,
+        })
+
+        setFormSubmitted({ submitted: true, success: true })
+        scroll.scrollToTop({ behavior: 'smooth' })
+      }
+    })
   }
 
   return (
