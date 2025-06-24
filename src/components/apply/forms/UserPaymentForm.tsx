@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { FC, useState } from 'react'
-import { initUserPayment, initUserPaymentWithEmail } from '../actions'
+import { initUserPayment } from '../actions'
 import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from '../types'
 import WalletPayment from '../WalletPayment'
@@ -30,10 +30,8 @@ export const UserPaymentForm: FC<FormProps> = ({
     }
     setIsSubmitting(true)
 
-    initUserPaymentWithEmail(user.email, {
+    initUserPayment(user.email, {
       signup_source: 'purchased',
-      comms: user.comms?.toLowerCase() as 'whatsapp' | 'telegram',
-      first_name: user.first_name as string,
     })
       .then(res => {
         if (!res?.success) {
