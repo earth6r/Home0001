@@ -17,20 +17,26 @@ const DashboardPopup: FC<{ setShowPopup: (arg0: boolean) => void }> = ({
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="rich-text aspect-square flex flex-col gap-ydouble relative w-full max-w-[358px] py-y p-x bg-white border-black"
+          className="rich-text aspect-square flex flex-col gap-y relative w-full max-w-[358px] py-y p-x bg-white border-black"
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           exit={{ scale: 0.8 }}
           onClick={e => e.stopPropagation()} // Prevent click from closing the popup
         >
-          <p className="large !m-0">
-            {`Thank you, we've received your submission.`}
+          <p className="large !mx-0 mb-y">
+            {`Thanks, your application has been submitted.`}
           </p>
-          <p className="!m-0">{`Welcome to your dashboard. You can manage your account and application here.`}</p>
+          <p className="!m-0">Welcome to your dashboard.</p>
+          <p className="!m-0">
+            You can manage your account and application here.
+          </p>
+          <p className="!m-0">
+            The next step is for you to reach out to a member of the collective.
+          </p>
 
           <div
             className={classNames(
-              'absolute flex flex-col gap-2 md:gap-y w-[calc(100%-var(--space-x-double))] bottom-y'
+              'absolute flex flex-col gap-2 md:gap-y w-[calc(100%-var(--space-x-double))] bottom-0'
             )}
           >
             <button
