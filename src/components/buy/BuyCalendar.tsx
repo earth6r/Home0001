@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useState } from 'react'
+import React, { HTMLAttributes, memo, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
@@ -35,7 +35,7 @@ interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   onMeetingSet?: () => void
 }
 
-export const BuyCalendar: FC<BuyCalendarProps> = ({
+export const BuyCalendarComponent: FC<BuyCalendarProps> = ({
   email,
   unit,
   calendarDate,
@@ -129,5 +129,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
     </div>
   )
 }
+
+export const BuyCalendar = memo(BuyCalendarComponent)
 
 export default BuyCalendar

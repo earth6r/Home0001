@@ -22,7 +22,7 @@ import type { Dispatch, FormEvent, SetStateAction } from 'react'
 import { useRouter } from 'next/router'
 import { getUserProfile, getUserCurrentStep } from '@components/apply/actions'
 import { saveError } from '@lib/util/save-error'
-import { fetchImageUrl, fetchTokenURI } from '@lib/util/web3'
+// import { fetchImageUrl, fetchTokenURI } from '@lib/util/web3'
 import { useWalletUser, useWeb3ImageUrl, Web3UserProps } from '@contexts/web3'
 import DashboardPopup from '@components/dashboard/DashboardPopup'
 import { DashboardSidebar } from '@components/dashboard'
@@ -119,7 +119,6 @@ const Page: NextPage<PageProps> = (
       getUserCurrentStep(user.email)
         .then(res => {
           const { data } = res || {}
-          console.log('User step data:', user, data)
           updateUser({
             id: user.id,
             address: user.walletAddress,

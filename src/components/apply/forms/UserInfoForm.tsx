@@ -171,7 +171,7 @@ export const UserInfoForm: FC<FormProps> = ({
                 validate: value => value === 'WhatsApp' || value === 'Telegram',
               })}
             >
-              <option className="text-button">
+              <option className="text-button" value="">
                 {isMobile
                   ? `Select communication pref*`
                   : `Select communication preference*`}
