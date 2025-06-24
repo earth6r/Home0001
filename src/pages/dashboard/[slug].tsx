@@ -237,6 +237,7 @@ const Page: NextPage<PageProps> = (
             {user && user.hasFinishedProfile && (
               <div
                 className={classNames(
+                  showPopup ? 'opacity-40' : '',
                   'hidden md:flex flex-col justify-end gap-8 fixed w-[100svh] h-[calc(100vw+32px)] top-0 right-[calc(-100vw+44px)] md:right-[calc(-100vw+44px)] pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
                 )}
               >
@@ -249,6 +250,7 @@ const Page: NextPage<PageProps> = (
             {user && !loading && (
               <div
                 className={classNames(
+                  showPopup ? 'opacity-40' : '',
                   user.hasFinishedProfile
                     ? 'md:grid md:grid-cols-3 pl-x pr-fullmenu md:pr-0'
                     : '',
