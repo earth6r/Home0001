@@ -20,10 +20,28 @@ const ApplicationForm: FC<FormProps> = ({
   joiningFee,
   cryptoPrice,
 }) => {
+  let stepNum = 1
+
+  if (user?.step === 'priceRange') {
+    stepNum = 2
+  } else if (user?.step === 'whenToBuy') {
+    stepNum = 3
+  } else if (user?.step === 'bedrooms') {
+    stepNum = 4
+  } else if (user?.step === 'essentials') {
+    stepNum = 5
+  }
+
   return (
     <div className={classNames(className)}>
       <div className="h-full">
-        <div className="grid lg:grid-cols-3 gap-x rich-text">
+        {user?.hasMadePayment && (
+          <div className="w-full px-x py-y bg-yellow text-caption font-bold">
+            {`${stepNum}/5`}
+          </div>
+        )}
+
+        <div className="grid lg:grid-cols-3 gap-x px-x pt-ydouble rich-text">
           <div className="lg:col-start-2 pr-menu lg:pr-0">
             {user?.step === 'info' && (
               <UserInfoForm user={user} updateUser={updateUser} />

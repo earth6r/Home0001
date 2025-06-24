@@ -6,6 +6,7 @@ import { PaneProps } from './types'
 
 const FormPane: FC<PaneProps> = ({
   id,
+  buttonText = 'Next',
   isSubmitting,
   onSubmit,
   className,
@@ -16,7 +17,7 @@ const FormPane: FC<PaneProps> = ({
       id={id}
       className={classNames(
         className,
-        'flex flex-col gap-y justify-between min-h-[calc(80svh-var(--header-height)-var(--space-y-quad))] md:min-h-[calc(98svh-var(--header-height)-var(--space-y-quad))]'
+        'flex flex-col gap-y justify-between min-h-[calc(80svh-var(--header-height)-var(--space-y-quad))] md:min-h-[calc(100svh-var(--header-height)-var(--space-y-quad)-var(--space-y-double))]'
       )}
       onSubmit={onSubmit}
     >
@@ -30,7 +31,7 @@ const FormPane: FC<PaneProps> = ({
           'relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above'
         )}
       >
-        {isSubmitting ? 'Submitting...' : 'Submit'}
+        {isSubmitting ? 'Submitting...' : buttonText}
         <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
       </button>
     </form>

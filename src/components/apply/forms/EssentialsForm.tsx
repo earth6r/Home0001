@@ -70,6 +70,7 @@ export const EssentialsForm: FC<FormProps> = ({
   return (
     <FormPane
       id="essentials-form"
+      buttonText="Submit Application"
       className={className}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit(onSubmit)}
@@ -79,12 +80,12 @@ export const EssentialsForm: FC<FormProps> = ({
           {`Last question:`}
           <br />
           {`What are your essentials?`}
-          <br />
-          {`Select anything that’s crucial for you.`}
         </p>
-        <div className="flex flex-col gap-y mb-ydouble">
+
+        <div className="flex flex-col gap-y mb-y">
           <p className="!mx-0 ">{`Select all that apply.`}</p>
         </div>
+
         {ESSENTIALS.map(({ label, name }) => (
           <div key={name}>
             <input
@@ -105,7 +106,7 @@ export const EssentialsForm: FC<FormProps> = ({
           type="text"
           placeholder="SOMETHING ELSE?"
           {...register('essentials_other', { required: false })}
-          className="input !py-0 !border-none"
+          className="input"
         />
 
         {formError.error && (

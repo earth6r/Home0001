@@ -17,7 +17,6 @@ const WalletPopup: FC<{
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        onClick={setShowPopup}
       >
         <motion.div
           className="rich-text aspect-square flex flex-col gap-ydouble relative w-full max-w-[358px] py-y p-x bg-white border-black"
@@ -37,15 +36,17 @@ const WalletPopup: FC<{
 
           <div
             className={classNames(
-              'absolute flex flex-col gap-2 md:gap-y w-[calc(100%-var(--space-x-double))] bottom-y'
+              'absolute flex flex-col gap-2 md:gap-y w-[calc(100%-var(--space-x-double))] bottom-0'
             )}
           >
             <button
-              className="relative flex justify-between items-center w-full max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
               onClick={setShowPopup}
+              className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] mb-y bg-black text-white"
             >
-              {'Continue'}
-              <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+              <IconSmallArrow fill="white" width="15" height="11" />
+              <span className="uppercase font-medium leading-none text-xs">
+                {`Continue`}
+              </span>
             </button>
           </div>
         </motion.div>

@@ -13,6 +13,7 @@ import { ApplicationContainerProps } from './types'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { getDynamicPrice } from './actions'
 import { saveError } from '@lib/util/save-error'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -65,9 +66,15 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
     <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}
       {user?.step === 'prompt' && (
-        <div className="container flex flex-col">
+        <div className="flex flex-col px-x">
+          {content.header && (
+            <RichText
+              blocks={content.header}
+              className="pr-menu md:pr-0 mb-page lg:max-w-[50%]"
+            />
+          )}
           <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-gray">
-            <div className="flex flex-col flex-start gap-y rich-text text-left">
+            <div className="flex flex-col flex-start gap-y md:max-w-[375px] rich-text text-left">
               <h4>{`Current Joining fee:`}</h4>
               <p className="!mx-0">
                 {dynamicPrice ? (
@@ -83,30 +90,24 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
                   `Loading...`
                 )}
               </p>
+
+              <p className="!mx-0 pr-x">{`We’re keeping the joining fee extremely low for early applicants but increasing it at an accelerating rate with each new member—to grow the project treasury as the community grows.`}</p>
             </div>
           </div>
 
-          <div className="inline-flex flex-col w-[100vw] py-ydouble px-x -ml-x bg-yellow mb-ydouble">
-            <div className="md:max-w-[50%] rich-text"></div>
-
-            <button
-              onClick={() => updateUser({ ...user, step: 'info' })}
-              className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white border-black"
-            >
-              <IconSmallArrow fill="white" width="15" height="11" />
-
-              <span className="uppercase font-medium leading-none text-xs">
-                {`Apply`}
-              </span>
-            </button>
-          </div>
-
-          {content.header && (
-            <RichText
-              blocks={content.header}
-              className="pr-menu md:pr-0 mb-ydouble lg:max-w-[50%]"
-            />
-          )}
+          <button
+            onClick={() => updateUser({ ...user, step: 'info' })}
+            className="w-[100vw] h-[173px] bg-yellow px-x -ml-x text-black"
+          >
+            <div className="flex items-center justify-start gap-xdouble md:gap-x-yquad text-h3 h-full">
+              <p className="text-left">
+                {`Start`}
+                <br />
+                {`Application`}
+              </p>
+              <IconRightArrowBold className="w-[35px] h-auto" fill="black" />
+            </div>
+          </button>
         </div>
       )}
 
@@ -115,7 +116,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
         user?.address &&
         !user?.hasFinishedProfile && (
           <ApplicationForm
-            className="px-x py-ydouble bg-gray"
+            className="pb-ydouble bg-gray"
             user={user}
             updateUser={updateUser}
             joiningFee={dynamicPrice}
