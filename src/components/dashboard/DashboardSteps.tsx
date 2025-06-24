@@ -5,6 +5,9 @@ import { mintToken } from '@lib/util/web3'
 import { BuyCalendar } from '@components/buy'
 import { getBookedCalendarDates } from './actions'
 import moment from 'moment-timezone'
+import classNames from 'classnames'
+import IconSmallArrow from '@components/icons/IconSmallArrow'
+import Link from 'next/link'
 
 type TokenDashboardProps = {
   dashboardCopy?: TypedObject | TypedObject[]
@@ -61,13 +64,15 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
 
   return (
     <div className={className}>
-      <ul className="flex flex-col gap-y">
-        <li className="relative pb-y rich-text border-bottom--gray">
+      <ul className="flex flex-col gap-y pb-page">
+        <li
+          className={classNames(
+            user?.hasFinishedProfile ? 'opacity-40' : '',
+            'relative pb-y rich-text border-bottom--gray'
+          )}
+        >
           <span className="text-base !font-bold uppercase">Step 1</span>
-          <p className="lg:pr-fullmenu">
-            Submit your application. A member of the collective will reach out
-            to you. Speak with them.
-          </p>
+          <p>Submit your application.</p>
 
           {user?.hasFinishedProfile && (
             <span className="absolute right-0 top-0 !mt-0 h-auto w-[14px] lg:w-[20px]">
@@ -87,8 +92,30 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
 
         <li className="w-full pb-y rich-text border-bottom--gray">
           <span className="text-base !font-bold uppercase">Step 2</span>
-          <p className="lg:pr-fullmenu">
-            Come hang at a 0001 home or meet us on a call if you’re far away.
+          <p>
+            {`Chat with a member of the collective. They’ll guide you through the next steps.`}
+          </p>
+
+          <Link
+            href={
+              user?.comms === 'WhatsApp' ? `https://wa.me/` : `https://t.me/`
+            }
+            target="_blank"
+            className="block"
+          >
+            <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white">
+              <IconSmallArrow fill="white" width="15" height="11" />
+              <span className="uppercase font-medium leading-none text-xs">
+                {`Chat`}
+              </span>
+            </button>
+          </Link>
+        </li>
+
+        <li className="w-full pb-y rich-text border-bottom--gray">
+          <span className="text-base !font-bold uppercase">Step 3</span>
+          <p>
+            {`Come hang at a 0001 home or meet us on a call if you’re far away.`}
           </p>
 
           {loading && <p className="">LOADING...</p>}
@@ -108,11 +135,11 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
                     Book a tour of our homes in the Lower East Side:
                   </p>
                   {/* <select className="input select text-button font-sans">
-                  <option>{`New York`}</option>
-                  <option>{`Los Angeles`}</option>
-                  <option>{`on a Call`}</option>
-                </select>
-                <IconChevron className="absolute w-[12px] right-x top-3/4 transform rotate-0 -translate-y-1/2" /> */}
+                    <option>{`New York`}</option>
+                    <option>{`Los Angeles`}</option>
+                    <option>{`on a Call`}</option>
+                  </select>
+                  <IconChevron className="absolute w-[12px] right-x top-3/4 transform rotate-0 -translate-y-1/2" /> */}
                 </div>
 
                 <BuyCalendar
@@ -126,8 +153,8 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
         </li>
 
         <li className="pb-y rich-text border-bottom--gray">
-          <span className="text-base !font-bold uppercase">Step 3</span>
-          <p className="pr-fullmenu">
+          <span className="text-base !font-bold uppercase">Step 4</span>
+          <p>
             Once the selection committee approves your application you can mint
             your token here.
           </p>
@@ -138,12 +165,12 @@ const DashboardSteps: FC<TokenDashboardProps> = ({
         </li>
 
         <li className="pb-y rich-text border-bottom--gray">
-          <span className="text-base !font-bold uppercase">Step 4</span>
+          <span className="text-base !font-bold uppercase">Step 5</span>
           <p>Choose your new home, get financing if required, and buy it.</p>
         </li>
 
         <li className="pb-y rich-text md:border-bottom--gray">
-          <span className="text-base !font-bold uppercase">Step 5</span>
+          <span className="text-base !font-bold uppercase">Step 6</span>
           <p>Move in and get to know your neighbors.</p>
         </li>
       </ul>
