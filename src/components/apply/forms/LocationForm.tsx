@@ -69,12 +69,13 @@ export const LocationForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <div className="flex flex-col gap-y mb-ydouble">
+        <div className="flex flex-col gap-y mb-y">
           <p className="!mx-0 !text-bodyLg !font-bold mb-y">
-            {`Thanks, we’ve received your payment. Your application has started. The next step is to answer 4 quick questions.`}
+            {`We’ve received your payment.`} <br />
+            {`Now tell us what you’re looking for.`}
           </p>
           <p className="!mx-0 !text-bodyLg !font-bold">{`Where do you want to buy?`}</p>
-          <p className="!mx-0">{`Select up to 3 locations.`}</p>
+          <p className="!mx-0">{`Select up to 3 locations, if you want.`}</p>
         </div>
         {LOCATIONS.map(({ label, name }) => (
           <div key={name}>
@@ -106,42 +107,11 @@ export const LocationForm: FC<FormProps> = ({
             </label>
           </div>
         ))}
-        <div key={'Else'}>
-          <input
-            type="checkbox"
-            id={'Else'}
-            {...register('Else', {
-              required: false,
-            })}
-            onClick={e => {
-              const target = e.target as HTMLInputElement
-              if (checkedCount >= max && target.checked) {
-                e.preventDefault()
-                return
-              }
-              if (target.checked) {
-                setCheckedCount(checkedCount + 1)
-                setHiddenInputShown(!hiddenInputShown)
-              } else {
-                setCheckedCount(checkedCount - 1)
-              }
-            }}
-          />
-          <label
-            className="text-left cursor-pointer font-medium text-xs tracking-normal uppercase"
-            htmlFor={'Else'}
-          >
-            {`Somewhere else`}
-          </label>
-        </div>
         <input
           type="text"
-          placeholder="WHERE?"
+          placeholder="Somewhere else?"
           {...register('city_general', { required: false })}
-          className={classNames(
-            hiddenInputShown ? '' : 'opacity-0',
-            'input !py-0 !border-none'
-          )}
+          className={classNames('input')}
         />
       </div>
     </FormPane>

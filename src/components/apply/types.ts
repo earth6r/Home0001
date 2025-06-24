@@ -21,6 +21,7 @@ export type PaneProps = {
   isSubmitting?: boolean
   className?: string
   id?: string
+  buttonText?: string
   children?: ReactNode
 }
 

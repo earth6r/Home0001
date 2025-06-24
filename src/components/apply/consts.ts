@@ -23,6 +23,14 @@ export const LOCATIONS = [
     label: 'Mexico City',
     name: 'CDMX',
   },
+  {
+    label: 'Tokyo',
+    name: 'Tokyo',
+  },
+  {
+    label: 'San Francisco',
+    name: 'SF',
+  },
 ]
 
 export const PRICES = [

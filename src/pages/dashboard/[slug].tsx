@@ -204,7 +204,7 @@ const Page: NextPage<PageProps> = (
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
-      <article className="pt-header pb-page md:py-page">
+      <article className="pt-header pb-page md:pt-page md:pb-0">
         {page?.password && showLogin ? (
           <div className="flex items-center justify-center w-full h-[60vh]">
             <form className="form">

@@ -109,17 +109,18 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
         <p className="!mx-0 !text-bodyLg !font-bold">
           {`How many bedrooms are you looking for?`}
         </p>
-        <div className="flex flex-col gap-y mb-ydouble">
-          <p className="!mx-0 ">{`Select all that apply.`}</p>
+        <div className="flex flex-col gap-y mb-y">
+          <p className="!mx-0 ">{`Please select one option.`}</p>
         </div>
+
         {SIZES.map(({ label, name }) => (
           <div key={name}>
             <input
-              type="checkbox"
+              type="radio"
               value={name}
               id={name}
               {...register('bedroom_preference', {
-                required: 'Please select at least one bedroom preference',
+                required: 'Please select a bedroom preference',
               })}
             />
             <label
