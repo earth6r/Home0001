@@ -65,6 +65,8 @@ export const BuyCalendarComponent: FC<BuyCalendarProps> = ({
   const onSubmit = async (data: any) => {
     if (!email || !data) return
 
+    console.log('Submitting calendar meeting with data:', email, data)
+
     const { start, end } = createEasternTimeDate(data.date, data.startTime)
 
     if (eventId) {

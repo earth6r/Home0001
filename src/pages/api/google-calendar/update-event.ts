@@ -57,6 +57,18 @@ export default async function handler(
       zoom,
     })
 
+    console.log(
+      JSON.stringify({
+        eventId,
+        startTime,
+        endTime,
+        eventName,
+        inviteeEmail,
+        eventDescription,
+        calendarEmail,
+      })
+    )
+
     // Update database record
     try {
       const response = await fetch(
