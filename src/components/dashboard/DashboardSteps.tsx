@@ -132,7 +132,7 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
             <>
               <p className="font-medium">
                 {`You have a meeting on ${moment(eventDates[0].start_time)
-                  .tz('UTC')
+                  .tz('America/New_York')
                   .format('dddd, MMMM Do [at] h:mma')} EST.`}
               </p>
               <p className="font-medium">
@@ -150,7 +150,7 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
             <div className="flex flex-col gap-y w-full max-w-[520px]">
               <div className="relative w-full">
                 <p>
-                  {eventDates
+                  {eventDates && eventDates[0]
                     ? `Reschedule your appointment:`
                     : `Book a tour of our homes in the Lower East Side:`}
                 </p>
