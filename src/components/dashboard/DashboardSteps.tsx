@@ -21,9 +21,9 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
   updateUser,
   className,
 }) => {
-  const [eventDates, setEventDates] = useState<{ start_time: string }[] | null>(
-    null
-  )
+  const [eventDates, setEventDates] = useState<
+    { start_time: string; event_id: string }[] | null
+  >(null)
   const [loading, setLoading] = useState(true)
   const [showCalendar, setShowCalendar] = useState(false)
 
@@ -102,7 +102,9 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
 
           <Link
             href={
-              user?.comms === 'WhatsApp' ? `https://wa.me/` : `https://t.me/`
+              user?.comms === 'WhatsApp'
+                ? `https://wa.me/12135771277/?text=Hi%2C%20I'm%20interested%20in%20joining%20HOME0001`
+                : `http://t.me/Home0001_USA/?text=Hi%2C%20I%20am%20interested%20in%20joining%20HOME0001`
             }
             target="_blank"
             className="block"
@@ -135,16 +137,22 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
               <p className="font-medium">
                 {`We’ve sent you an email with all the details.`}
               </p>
-              <button onClick={() => setShowCalendar(true)}>
-                <span className="underline">{`Change of plans? Re-book your appointment`}</span>
-              </button>
+              {!showCalendar && (
+                <button onClick={() => setShowCalendar(true)}>
+                  <span className="underline">{`Change of plans? Re-book your appointment`}</span>
+                </button>
+              )}
             </>
           )}
 
           {!loading && showCalendar && (
             <div className="flex flex-col gap-y w-full max-w-[520px]">
               <div className="relative w-full">
-                <p>Book a tour of our homes in the Lower East Side:</p>
+                <p>
+                  {eventDates
+                    ? `Reschedule your appointment:`
+                    : `Book a tour of our homes in the Lower East Side:`}
+                </p>
                 {/* <select className="input select text-button font-sans">
                     <option>{`New York`}</option>
                     <option>{`Los Angeles`}</option>
@@ -156,7 +164,7 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
               <BuyCalendar
                 email={user?.email as string}
                 unit={user?.unit as string}
-                calendarDate={user?.calendar_dates}
+                eventId={eventDates && eventDates[0] && eventDates[0].event_id}
               />
             </div>
           )}
