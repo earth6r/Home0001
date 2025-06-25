@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react'
+import React, { FC, memo, useEffect, useRef, useState } from 'react'
 import { TypedObject } from 'sanity'
 import { Web3UserProps } from '@contexts/web3'
 import { mintToken } from '@lib/util/web3'
@@ -25,6 +25,7 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
     null
   )
   const [loading, setLoading] = useState(true)
+  const [showCalendar, setShowCalendar] = useState(false)
 
   // const initMint = async () => {
   //   // console.log('Minting token for address:', user?.address)
@@ -49,6 +50,9 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
     getBookedCalendarDates(user?.email as string)
       .then(res => {
         setEventDates(res?.data.events)
+        if (res?.data.events.length === 0) {
+          setShowCalendar(true)
+        }
       })
       .catch(err => {
         console.error(err)
@@ -121,34 +125,40 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
           {loading && <p className="">LOADING...</p>}
 
           {/* Display the meeting date if available */}
-          {!loading && eventDates && eventDates.length > 0 ? (
-            <p className="font-medium">{`You have a meeting on ${moment(
-              eventDates[0].start_time
-            )
-              .tz('America/New_York')
-              .format('dddd, MMMM Do [at] h:mma')} EST`}</p>
-          ) : (
-            !loading && (
-              <div className="flex flex-col gap-y w-full max-w-[520px]">
-                <div className="relative w-full">
-                  <p className="mt-y">
-                    Book a tour of our homes in the Lower East Side:
-                  </p>
-                  {/* <select className="input select text-button font-sans">
+          {!loading && eventDates && eventDates.length > 0 && (
+            <>
+              <p className="font-medium">
+                {`You have a meeting on ${moment(eventDates[0].start_time)
+                  .tz('America/New_York')
+                  .format('dddd, MMMM Do [at] h:mma')} EST.`}
+              </p>
+              <p className="font-medium">
+                {`We’ve sent you an email with all the details.`}
+              </p>
+              <button onClick={() => setShowCalendar(true)}>
+                <span className="underline">{`Change of plans? Re-book your appointment`}</span>
+              </button>
+            </>
+          )}
+
+          {!loading && showCalendar && (
+            <div className="flex flex-col gap-y w-full max-w-[520px]">
+              <div className="relative w-full">
+                <p>Book a tour of our homes in the Lower East Side:</p>
+                {/* <select className="input select text-button font-sans">
                     <option>{`New York`}</option>
                     <option>{`Los Angeles`}</option>
                     <option>{`on a Call`}</option>
                   </select>
                   <IconChevron className="absolute w-[12px] right-x top-3/4 transform rotate-0 -translate-y-1/2" /> */}
-                </div>
-
-                <BuyCalendar
-                  email={user?.email as string}
-                  unit={user?.unit as string}
-                  calendarDate={user?.calendar_dates}
-                />
               </div>
-            )
+
+              <BuyCalendar
+                email={user?.email as string}
+                unit={user?.unit as string}
+                calendarDate={user?.calendar_dates}
+              />
+            </div>
           )}
         </li>
 
