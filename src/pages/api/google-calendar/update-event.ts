@@ -60,7 +60,7 @@ export default async function handler(
     // Update database record
     try {
       const response = await fetch(
-        'https://hometrics0001.vercel.app/api/update-calendar-to-database',
+        'https://hometrics0001.vercel.app/api/google-calendar/update-calendar',
         {
           method: 'PUT',
           headers: {

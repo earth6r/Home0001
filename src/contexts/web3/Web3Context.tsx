@@ -33,7 +33,6 @@ export type Web3UserProps = {
   comms?: 'WhatsApp' | 'Telegram'
   signup_source?: 'purchased' | 'referred'
   referred_token?: string
-  calendar_dates?: { start_time: string }[]
   unit?: string | null
 } | null
 
