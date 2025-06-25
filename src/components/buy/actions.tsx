@@ -84,7 +84,7 @@ export const setPaymentIntent = async (
 export const getAvailableSlots = async () => {
   try {
     return await axios.post(
-      `${BASE_URL}/api/google/available-meeting-hours?email=talin@home0001.com`,
+      `${BASE_URL}/api/google/available-meeting-hours?email=lowereastside@home0001.com`,
       CONFIG
     )
   } catch (error) {
@@ -107,7 +107,7 @@ export const createGoogleCalendarMeeting = async (
         inviteeEmail: email,
         eventName: 'HOME0001 Meeting',
         eventDescription: `Home0001 meeting re: membership`,
-        calendarEmail: 'talin@home0001.com',
+        calendarEmail: 'lowereastside@home0001.com',
       },
       CONFIG
     )
