@@ -97,7 +97,7 @@ async function getAvailableSlotsForDay(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       date.getUTCDate(),
-      11,
+      9,
       0,
       0,
       0

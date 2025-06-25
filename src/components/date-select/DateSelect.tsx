@@ -14,7 +14,16 @@ interface DateSelectProps extends HTMLAttributes<HTMLFormElement> {
   loading: boolean
 }
 
-const TIMES_LIST = ['11:00', '12:00', '13:00', '14:00', '15:00', '16:00']
+const TIMES_LIST = [
+  '09:00',
+  '10:00',
+  '11:00',
+  '12:00',
+  '13:00',
+  '14:00',
+  '15:00',
+  '16:00',
+]
 
 const convertTo12HourFormat = (time24: any) => {
   // Split the time into hours and minutes
@@ -112,7 +121,7 @@ export const DateSelect: FC<DateSelectProps> = ({
                       key={`slots-${index}`}
                       className={classNames('h-full')}
                     >
-                      <div className="grid grid-cols-2 lg:grid-cols-3 gap-xhalf">
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-xhalf">
                         {times?.map((time: string, index: number) => (
                           <div
                             key={index}

@@ -129,7 +129,7 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
               .format('dddd, MMMM Do [at] h:mma')} EST`}</p>
           ) : (
             !loading && (
-              <div className="flex flex-col gap-y w-full max-w-[420px]">
+              <div className="flex flex-col gap-y w-full max-w-[520px]">
                 <div className="relative w-full">
                   <p className="mt-y">
                     Book a tour of our homes in the Lower East Side:
