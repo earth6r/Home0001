@@ -122,7 +122,7 @@ export const BuyCalendarComponent: FC<BuyCalendarProps> = ({
       )}
 
       {formSubmitted && (
-        <div className="relative mt-ydouble mb-2">
+        <div className="relative mt-y mb-2">
           <p className="font-medium uppercase">{`Session time submitted`}</p>
         </div>
       )}
