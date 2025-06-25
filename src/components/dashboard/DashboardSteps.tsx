@@ -50,6 +50,7 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
     getBookedCalendarDates(user?.email as string)
       .then(res => {
         setEventDates(res?.data.events)
+        console.log(res?.data.events)
         if (res?.data.events.length === 0) {
           setShowCalendar(true)
         }
@@ -131,7 +132,7 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
             <>
               <p className="font-medium">
                 {`You have a meeting on ${moment(eventDates[0].start_time)
-                  .tz('America/New_York')
+                  .tz('UTC')
                   .format('dddd, MMMM Do [at] h:mma')} EST.`}
               </p>
               <p className="font-medium">
