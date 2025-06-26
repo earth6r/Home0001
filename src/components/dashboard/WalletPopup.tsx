@@ -27,8 +27,9 @@ const WalletPopup: FC<{
         >
           <p className="large !m-0">{`Your wallet is connected.`}</p>
 
-          <p className="!m-0">
-            TOKEN ID: <br />
+          <p className="!m-0 !font-bold">
+            WALLET ID: <br />
+            <br />
             {`${user?.address?.slice(0, 6)}...${user?.address?.slice(-6)}`}
           </p>
 

@@ -71,11 +71,11 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
           {content.header && (
             <RichText
               blocks={content.header}
-              className="pr-menu md:pr-0 mb-page lg:max-w-[50%]"
+              className="pr-menu lg:pr-0 mb-page lg:max-w-[50%]"
             />
           )}
           <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-gray">
-            <div className="flex flex-col flex-start gap-y md:max-w-[375px] rich-text text-left">
+            <div className="flex flex-col flex-start gap-y rich-text text-left lg:max-w-[50%]">
               <h4>{`Current Joining fee:`}</h4>
               <p className="!mx-0">
                 {dynamicPrice ? (
@@ -100,7 +100,6 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
             onClick={() => {
               updateUser({ ...user, step: 'info' })
               scroll.scrollToTop({ behavior: 'smooth' })
-              
             }}
             className="w-[100vw] h-[173px] bg-yellow px-x -ml-x text-black"
           >
