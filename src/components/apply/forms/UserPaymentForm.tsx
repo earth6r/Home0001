@@ -67,7 +67,7 @@ export const UserPaymentForm: FC<FormProps> = ({
       <div className="flex flex-col gap-ydouble min-h-[calc(95svh-var(--header-height))]">
         {/* Payment method selector */}
         <div className="flex flex-col gap-y">
-          <p className="!mx-0 !text-bodyLg !font-bold">
+          <p className="!mx-0 !text-bodyLg !font-bold mb-ydouble">
             Choose payment method:
           </p>
 

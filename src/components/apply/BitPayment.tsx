@@ -151,7 +151,9 @@ const PaymentContainer: FC<BitPaymentProps> = ({
       >
         <div className="flex flex-col gap-y">
           <div>
-            <p className="!mx-0 my-y uppercase">Current joining fee:</p>
+            <p className="!mx-0 my-y !font-bold uppercase">
+              Current joining fee:
+            </p>
             <p>
               <span className="!font-bold">{`${joiningFee} USD`}</span>
               {cryptoPrice && cryptoPrice[0] > 0 && (
@@ -205,7 +207,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
             </p>
           )}
 
-          <p className="mt-y">{`Payment will take place in an external window.`}</p>
+          <p className="mt-y !mx-0 !mb-ydouble">{`Payment will take place in an external window.`}</p>
 
           <button
             className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] mb-y bg-black text-white"

@@ -110,7 +110,7 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
             target="_blank"
             className="block"
           >
-            <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-black text-white">
+            <button className="flex items-center gap-[5px] w-fit pt-[3px] pb-[4px] px-[6px] bg-black text-white">
               <IconSmallArrow fill="white" width="15" height="11" />
               <span className="uppercase font-medium leading-none text-xs">
                 {`Chat`}

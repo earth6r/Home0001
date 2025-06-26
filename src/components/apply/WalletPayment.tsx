@@ -140,7 +140,9 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
       >
         <div className="flex flex-col gap-ydouble">
           <div>
-            <p className="!mx-0 my-y uppercase">Current joining fee:</p>
+            <p className="!mx-0 my-y !font-bold uppercase">
+              Current joining fee:
+            </p>
             <p>
               <span className="!font-bold">{`${joiningFee} USD`}</span>
               {cryptoPrice && cryptoPrice[0] > 0 && (
