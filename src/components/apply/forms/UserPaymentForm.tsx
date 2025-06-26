@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { initUserPayment } from '../actions'
 import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from '../types'
@@ -62,12 +62,16 @@ export const UserPaymentForm: FC<FormProps> = ({
       })
   }
 
+  useEffect(() => {
+    scroll.scrollToBottom({ behavior: 'smooth' })
+  }, [formError.error])
+
   return (
     <div className={className}>
-      <div className="flex flex-col gap-ydouble min-h-[calc(95svh-var(--header-height))]">
+      <div className="flex flex-col gap-y min-h-[calc(95svh-var(--header-height))]">
         {/* Payment method selector */}
         <div className="flex flex-col gap-y">
-          <p className="!mx-0 !text-bodyLg !font-bold mb-ydouble">
+          <p className="!mx-0 !text-bodyLg !font-bold mb-y">
             Choose payment method:
           </p>
 
@@ -124,13 +128,13 @@ export const UserPaymentForm: FC<FormProps> = ({
             />
           )}
         </div>
-      </div>
 
-      {formError.error && (
-        <p className="text-red mt-y font-medium uppercase">
-          {formError.message}
-        </p>
-      )}
+        {formError.error && (
+          <p className="text-[#FF0000] !mx-0 font-medium uppercase">
+            {formError.message}
+          </p>
+        )}
+      </div>
     </div>
   )
 }

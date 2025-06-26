@@ -145,7 +145,7 @@ const PaymentContainer: FC<PaymentContainerProps> = ({
           </div>
 
           {formError.error && (
-            <p className="text-red mt-y font-medium uppercase">
+            <p className="text-[#FF0000] mt-y font-medium uppercase">
               {formError.message || `Payment error`}
             </p>
           )}

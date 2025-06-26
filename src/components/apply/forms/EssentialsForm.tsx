@@ -110,7 +110,9 @@ export const EssentialsForm: FC<FormProps> = ({
         />
 
         {formError.error && (
-          <p className="text-red font-medium uppercase">{formError.message}</p>
+          <p className="text-[#FF0000] font-medium uppercase">
+            {formError.message}
+          </p>
         )}
       </div>
     </FormPane>

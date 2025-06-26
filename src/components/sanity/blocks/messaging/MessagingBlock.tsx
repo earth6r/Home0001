@@ -148,7 +148,7 @@ export const MessagingBlock: React.FC = () => {
           placeholder="Enter your phone number"
         />
         {!isPhoneNumberValid && (
-          <p className="text-red-500 text-xs italic">
+          <p className="text-[#FF0000] text-xs italic">
             Please enter a valid phone number with country code and area code.
           </p>
         )}
