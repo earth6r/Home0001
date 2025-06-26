@@ -167,11 +167,11 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
             <Link href="/how-it-works">
               <button
                 className={classNames(
-                  'w-full relative flex flex-row justify-between items-center h-12 max-h-12 p-x border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+                  'w-auto relative flex flex-row gap-[4px] px-[4px] items-center h-auto pt-[5px] pb-[6px]  border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
                 )}
               >
-                {`How it works`}
                 <IconSmallArrow width="16" height="10" fill="white" />
+                {`How it works`}
               </button>
             </Link>
           </div>
