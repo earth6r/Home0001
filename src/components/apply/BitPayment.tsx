@@ -202,7 +202,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
 
         <div className={classNames('relative flex flex-col gap-y')}>
           {formError.error && (
-            <p className="text-red-600 font-medium uppercase">
+            <p className="text-[#FF0000] font-medium uppercase">
               {formError.message || `Payment error`}
             </p>
           )}

@@ -138,7 +138,7 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-y justify-between"
       >
-        <div className="flex flex-col gap-ydouble">
+        <div className="flex flex-col gap-y">
           <div>
             <p className="!mx-0 my-y !font-bold uppercase">
               Current joining fee:
@@ -172,7 +172,7 @@ const PaymentContainer: FC<WalletPaymentProps> = ({
         </div>
 
         {formError.error && (
-          <p className="text-red mt-y font-medium uppercase">
+          <p className="text-[#FF0000] mt-y font-medium uppercase">
             {formError.message || `Payment error`}
           </p>
         )}

@@ -123,7 +123,7 @@ export const SetPasswordForm: FC<SetPasswordFormProps> = ({
         </div>
 
         {formError.error !== null && (
-          <p className="text-red mt-y font-medium uppercase">
+          <p className="text-[#FF0000] mt-y font-medium uppercase">
             {formError.message || `Error setting password`}
           </p>
         )}

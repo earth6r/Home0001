@@ -136,7 +136,7 @@ export const BuyCalendarComponent: FC<BuyCalendarProps> = ({
           </button>
 
           {formError.error && (
-            <p className="text-red mt-y font-medium uppercase">
+            <p className="text-[#FF0000] mt-y font-medium uppercase">
               {formError.message || `Meeting creation failed, please try again`}
             </p>
           )}
