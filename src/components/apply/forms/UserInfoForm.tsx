@@ -82,7 +82,7 @@ export const UserInfoForm: FC<FormProps> = ({
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="relative flex flex-col gap-y">
+      <div className="relative flex flex-col gap-ydouble">
         <p className="!mx-0 !text-bodyLg !font-bold">{`Tell us a little about yourself:`}</p>
 
         <div className="relative flex flex-col gap-y">
@@ -132,7 +132,7 @@ export const UserInfoForm: FC<FormProps> = ({
 
           <div className="flex flex-col gap-y relative mt-y">
             <label htmlFor="public_profiles" className="flex flex-col gap-y">
-              <span className="text-button !font-bold">{`Your public profiles`}</span>
+              <span className="text-button !font-bold">{`Your public profiles:`}</span>
             </label>
             <input
               type="text"
@@ -161,7 +161,7 @@ export const UserInfoForm: FC<FormProps> = ({
           </div>
 
           <div className="relative mt-y">
-            <p className="mb-y !font-bold">{`Pick your favourite messaging app that you check regularly.`}</p>
+            <p className="mb-y !font-bold uppercase">{`Pick your favourite messaging app that you check regularly:`}</p>
             <select
               id="preferred-comms"
               className="relative input select text-button font-sans"
@@ -209,7 +209,7 @@ export const UserInfoForm: FC<FormProps> = ({
               className="w-full text-left cursor-pointer font-medium text-md tracking-normal"
               htmlFor="consent"
             >
-              <span>{`I agree to receive communications from HOME0001 about my membership.*`}</span>
+              <span>{`I agree to receive communications from HOME0001 about my membership.`}</span>
             </label>
           </div>
 
