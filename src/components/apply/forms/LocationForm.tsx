@@ -28,13 +28,11 @@ export const LocationForm: FC<FormProps> = ({
     success: false,
   })
 
-  const [checkedCount, setCheckedCount] = useState(0)
+  const [selectedOrder, setSelectedOrder] = useState<string[]>([]) // Track selection order
   const max = 3
 
-  const [hiddenInputShown, setHiddenInputShown] = useState(false)
-
   const onSubmit = async (data: any) => {
-    if (!user?.email || !data?.interested_cities) {
+    if (!user?.email || selectedOrder.length === 0) {
       console.error('Missing required form fields')
       return
     }
@@ -83,19 +81,24 @@ export const LocationForm: FC<FormProps> = ({
               type="checkbox"
               value={name}
               id={name}
+              checked={selectedOrder.includes(name)}
               {...register('interested_cities', {
                 required: 'Choose at least one location',
               })}
-              onClick={e => {
-                const target = e.target as HTMLInputElement
-                if (checkedCount >= max && target.checked) {
-                  e.preventDefault()
-                  return
-                }
-                if (target.checked) {
-                  setCheckedCount(checkedCount + 1)
+              onChange={() => {
+                const isCurrentlySelected = selectedOrder.includes(name)
+
+                if (isCurrentlySelected) {
+                  const newOrder = selectedOrder.filter(item => item !== name)
+                  setSelectedOrder(newOrder)
                 } else {
-                  setCheckedCount(checkedCount - 1)
+                  let newOrder = [...selectedOrder, name]
+
+                  if (newOrder.length > max) {
+                    newOrder = newOrder.slice(1)
+                  }
+
+                  setSelectedOrder(newOrder)
                 }
               }}
             />
