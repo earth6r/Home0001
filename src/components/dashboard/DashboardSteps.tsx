@@ -8,12 +8,72 @@ import moment from 'moment-timezone'
 import classNames from 'classnames'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
+import { IconCheck } from '@components/icons'
 
 type TokenDashboardProps = {
   dashboardCopy?: TypedObject | TypedObject[]
   user?: Web3UserProps
   updateUser?: (user: Web3UserProps) => void
   className?: string
+}
+
+const isDev = process.env.NODE_ENV === 'development'
+
+const CalendarComponent: FC<{
+  user: Web3UserProps
+  loading?: boolean
+  eventDates?: { start_time: string; event_id: string }[] | null
+  showCalendar?: boolean
+  setShowCalendar: (args0: boolean) => void
+}> = ({ user, loading, eventDates, showCalendar, setShowCalendar }) => {
+  return (
+    <div>
+      {loading && <p className="">LOADING...</p>}
+
+      {/* Display the meeting date if available */}
+      {!loading && eventDates && eventDates.length > 0 && (
+        <>
+          <p className="font-medium">
+            {`You have a meeting on ${moment(eventDates[0].start_time)
+              .tz('America/New_York')
+              .format('dddd, MMMM Do [at] h:mma')} EST.`}
+          </p>
+          <p className="font-medium">
+            {`We’ve sent you an email with all the details.`}
+          </p>
+          {!showCalendar && (
+            <button onClick={() => setShowCalendar(true)}>
+              <span className="underline">{`Change of plans? Re-book your appointment`}</span>
+            </button>
+          )}
+        </>
+      )}
+
+      {!loading && showCalendar && (
+        <div className="flex flex-col gap-y w-full max-w-[520px]">
+          <div className="relative w-full">
+            <p>
+              {eventDates && eventDates[0]
+                ? `Reschedule your appointment:`
+                : `Book a tour of our homes in the Lower East Side:`}
+            </p>
+            {/* <select className="input select text-button font-sans">
+          <option>{`New York`}</option>
+          <option>{`Los Angeles`}</option>
+          <option>{`on a Call`}</option>
+        </select>
+        <IconChevron className="absolute w-[12px] right-x top-3/4 transform rotate-0 -translate-y-1/2" /> */}
+          </div>
+
+          <BuyCalendar
+            email={user?.email as string}
+            unit={user?.unit as string}
+            eventId={eventDates && eventDates[0] && eventDates[0].event_id}
+          />
+        </div>
+      )}
+    </div>
+  )
 }
 
 const DashboardStepsComponent: FC<TokenDashboardProps> = ({
@@ -81,42 +141,46 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
 
           {user?.hasFinishedProfile && (
             <span className="absolute right-0 top-0 !mt-0 h-auto w-[14px] lg:w-[20px]">
-              <svg
-                viewBox="0 0 20 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16.7279 0.399902L8.02207 12.2058L2.875 6.91546L0.5 9.35832L8.41543 17.4999L19.5 2.84276L16.7279 0.399902Z"
-                  fill="black"
-                />
-              </svg>
+              <IconCheck />
             </span>
           )}
         </li>
 
-        <li className="w-full pb-y rich-text border-bottom--gray">
+        <li
+          className={classNames(
+            user?.userSentMessage ? 'opacity-40 pointer-events-none' : '',
+            'relative w-full pb-y rich-text border-bottom--gray'
+          )}
+        >
           <span className="text-base !font-bold uppercase">Step 2</span>
           <p>
             {`Chat with a member of the collective. They’ll guide you through the next steps.`}
           </p>
 
-          <Link
-            href={
-              user?.comms === 'WhatsApp'
-                ? `https://wa.me/12135771277/?text=Hi%2C%20I'm%20interested%20in%20joining%20HOME0001`
-                : `http://t.me/Home0001_USA/?text=Hi%2C%20I%20am%20interested%20in%20joining%20HOME0001`
-            }
-            target="_blank"
-            className="block"
-          >
-            <button className="flex items-center gap-[5px] w-fit pt-[3px] pb-[4px] px-[6px] bg-black text-white">
-              <IconSmallArrow fill="white" width="15" height="11" />
-              <span className="uppercase font-medium leading-none text-xs">
-                {`Chat`}
-              </span>
-            </button>
-          </Link>
+          {!user?.userSentMessage && (
+            <Link
+              href={
+                user?.comms === 'WhatsApp'
+                  ? `https://wa.me/12135771277/?text=Hi%2C%20I'm%20interested%20in%20joining%20HOME0001`
+                  : `http://t.me/Home0001_USA/?text=Hi%2C%20I%20am%20interested%20in%20joining%20HOME0001`
+              }
+              target="_blank"
+              className="block"
+            >
+              <button className="flex items-center gap-[5px] w-fit pt-[3px] pb-[4px] px-[6px] bg-black text-white">
+                <IconSmallArrow fill="white" width="15" height="11" />
+                <span className="uppercase font-medium leading-none text-xs">
+                  {`Chat`}
+                </span>
+              </button>
+            </Link>
+          )}
+
+          {user?.userSentMessage && (
+            <span className="absolute right-0 top-0 !mt-0 h-auto w-[14px] lg:w-[20px]">
+              <IconCheck />
+            </span>
+          )}
         </li>
 
         <li className="w-full pb-y rich-text border-bottom--gray">
@@ -125,49 +189,14 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
             {`Come hang at a 0001 home or meet us on a call if you’re far away.`}
           </p>
 
-          {loading && <p className="">LOADING...</p>}
-
-          {/* Display the meeting date if available */}
-          {!loading && eventDates && eventDates.length > 0 && (
-            <>
-              <p className="font-medium">
-                {`You have a meeting on ${moment(eventDates[0].start_time)
-                  .tz('America/New_York')
-                  .format('dddd, MMMM Do [at] h:mma')} EST.`}
-              </p>
-              <p className="font-medium">
-                {`We’ve sent you an email with all the details.`}
-              </p>
-              {!showCalendar && (
-                <button onClick={() => setShowCalendar(true)}>
-                  <span className="underline">{`Change of plans? Re-book your appointment`}</span>
-                </button>
-              )}
-            </>
-          )}
-
-          {!loading && showCalendar && (
-            <div className="flex flex-col gap-y w-full max-w-[520px]">
-              <div className="relative w-full">
-                <p>
-                  {eventDates && eventDates[0]
-                    ? `Reschedule your appointment:`
-                    : `Book a tour of our homes in the Lower East Side:`}
-                </p>
-                {/* <select className="input select text-button font-sans">
-                    <option>{`New York`}</option>
-                    <option>{`Los Angeles`}</option>
-                    <option>{`on a Call`}</option>
-                  </select>
-                  <IconChevron className="absolute w-[12px] right-x top-3/4 transform rotate-0 -translate-y-1/2" /> */}
-              </div>
-
-              <BuyCalendar
-                email={user?.email as string}
-                unit={user?.unit as string}
-                eventId={eventDates && eventDates[0] && eventDates[0].event_id}
-              />
-            </div>
+          {(isDev || user?.userSentMessage) && (
+            <CalendarComponent
+              user={user as Web3UserProps}
+              loading={loading}
+              eventDates={eventDates}
+              showCalendar={showCalendar}
+              setShowCalendar={setShowCalendar}
+            />
           )}
         </li>
 
