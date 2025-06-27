@@ -59,13 +59,6 @@ const PaymentContainer: FC<BitPaymentProps> = ({
             setPaymentStatus('paid')
             clearInterval(pollInterval)
 
-            // Update user context
-            updateUser({
-              ...user,
-              hasMadePayment: true,
-              paymentType: 'crypto',
-            })
-
             // Trigger success callback
             if (onPaymentSuccess) {
               onPaymentSuccess()
