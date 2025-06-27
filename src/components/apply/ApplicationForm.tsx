@@ -12,6 +12,8 @@ import {
   RoomsForm,
   EssentialsForm,
 } from './forms'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { step } from 'viem/chains'
 
 const ApplicationForm: FC<FormProps> = ({
   className,
@@ -34,11 +36,35 @@ const ApplicationForm: FC<FormProps> = ({
 
   return (
     <div className={classNames(className)}>
-      <div className="h-full">
+      <div className="relative h-full">
         {user?.hasMadePayment && (
           <div className="w-full px-x py-y bg-yellow text-caption font-bold">
             {`${stepNum}/5`}
           </div>
+        )}
+
+        {user?.step !== 'location' && (
+          <button
+            onClick={() => {
+              updateUser({
+                ...user,
+                step:
+                  stepNum === 2
+                    ? 'location'
+                    : stepNum === 3
+                    ? 'priceRange'
+                    : stepNum === 4
+                    ? 'whenToBuy'
+                    : stepNum === 5
+                    ? 'bedrooms'
+                    : '',
+              })
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            className="flex items-center justify-center relative lg:absolute w-[31px] h-[26px] left-x top-y lg:top-[calc(48px+var(--space-y-double))] bg-black"
+          >
+            <IconRightArrowBold className="w-[15px] transform rotate-[180deg]" />
+          </button>
         )}
 
         <div className="grid lg:grid-cols-3 gap-x px-x pt-ydouble rich-text">
