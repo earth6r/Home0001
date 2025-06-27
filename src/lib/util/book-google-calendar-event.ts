@@ -176,7 +176,7 @@ async function updateCalendarEvent({
     // 'annika@home0001.com',
     // 'm@choicefamily.com',
     // 'yan@home0001.com',
-    'collective@home0001.com',
+    // 'collective@home0001.com',
     'lowereastside@home0001.com',
   ]
 

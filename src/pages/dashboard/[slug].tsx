@@ -22,7 +22,7 @@ import type { Dispatch, FormEvent, SetStateAction } from 'react'
 import { useRouter } from 'next/router'
 import { getUserProfile, getUserCurrentStep } from '@components/apply/actions'
 import { saveError } from '@lib/util/save-error'
-import { fetchImageUrl, fetchTokenURI } from '@lib/util/web3'
+// import { fetchImageUrl, fetchTokenURI } from '@lib/util/web3'
 import { useWalletUser, useWeb3ImageUrl, Web3UserProps } from '@contexts/web3'
 import DashboardPopup from '@components/dashboard/DashboardPopup'
 import { DashboardSidebar } from '@components/dashboard'
@@ -126,6 +126,7 @@ const Page: NextPage<PageProps> = (
             first_name: user.firstName,
             last_name: user.lastName,
             phone_number: user.phoneNumber,
+            comms: user.preferredContactMethod,
             step: data.tokenMinted
               ? 'token'
               : data.referralPaymentMade
@@ -202,7 +203,7 @@ const Page: NextPage<PageProps> = (
 
   return page?.body && (!page?._id.includes('drafts.') || preview) ? (
     <PageTransition ref={ref}>
-      <article className="pt-header pb-page md:py-page">
+      <article className="pt-header pb-page md:pt-page md:pb-0">
         {page?.password && showLogin ? (
           <div className="flex items-center justify-center w-full h-[60vh]">
             <form className="form">
@@ -235,6 +236,7 @@ const Page: NextPage<PageProps> = (
             {user && user.hasFinishedProfile && (
               <div
                 className={classNames(
+                  showPopup ? 'opacity-40' : '',
                   'hidden md:flex flex-col justify-end gap-8 fixed w-[100svh] h-[calc(100vw+32px)] top-0 right-[calc(-100vw+44px)] md:right-[calc(-100vw+44px)] pl-header transform translate-x-[calc(100%+16px)] rotate-90 origin-top-left transition-all duration-500 border-none z-above'
                 )}
               >
@@ -247,6 +249,7 @@ const Page: NextPage<PageProps> = (
             {user && !loading && (
               <div
                 className={classNames(
+                  showPopup ? 'opacity-40' : '',
                   user.hasFinishedProfile
                     ? 'md:grid md:grid-cols-3 pl-x pr-fullmenu md:pr-0'
                     : '',

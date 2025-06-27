@@ -84,7 +84,7 @@ export const setPaymentIntent = async (
 export const getAvailableSlots = async () => {
   try {
     return await axios.post(
-      `${BASE_URL}/api/google/available-meeting-hours?email=talin@home0001.com`,
+      `${BASE_URL}/api/google/available-meeting-hours?email=lowereastside@home0001.com`,
       CONFIG
     )
   } catch (error) {
@@ -107,13 +107,39 @@ export const createGoogleCalendarMeeting = async (
         inviteeEmail: email,
         eventName: 'HOME0001 Meeting',
         eventDescription: `Home0001 meeting re: membership`,
-        calendarEmail: 'talin@home0001.com',
+        calendarEmail: 'lowereastside@home0001.com',
       },
       CONFIG
     )
   } catch (error) {
     console.error(error)
     saveError(error, 'createGoogleCalendarMeeting')
+  }
+}
+
+export const updateGoogleCalendarMeeting = async (
+  eventId: string,
+  startTime: string,
+  endTime: string,
+  email: string
+) => {
+  try {
+    return await axios.put(
+      `${BASE_URL}/api/google-calendar/update-event`,
+      {
+        eventId: eventId,
+        startTime: startTime,
+        endTime: endTime,
+        inviteeEmail: email,
+        eventName: 'HOME0001 Meeting',
+        eventDescription: `Home0001 meeting re: membership`,
+        calendarEmail: 'lowereastside@home0001.com',
+      },
+      CONFIG
+    )
+  } catch (error) {
+    console.error(error)
+    saveError(error, 'updateGoogleCalendarMeeting')
   }
 }
 

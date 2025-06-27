@@ -1,11 +1,15 @@
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FC } from 'react'
-import React, { HTMLAttributes, useEffect, useState } from 'react'
+import React, { HTMLAttributes, memo, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
-import { createGoogleCalendarMeeting, getAvailableSlots } from './actions'
+import {
+  createGoogleCalendarMeeting,
+  getAvailableSlots,
+  updateGoogleCalendarMeeting,
+} from './actions'
 
 import { saveError } from '@lib/util/save-error'
 import { DateSelect } from '@components/date-select'
@@ -31,14 +35,14 @@ const createEasternTimeDate = (
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
   unit?: string
-  calendarDate?: { start_time: string }[]
+  eventId?: string | null
   onMeetingSet?: () => void
 }
 
-export const BuyCalendar: FC<BuyCalendarProps> = ({
+export const BuyCalendarComponent: FC<BuyCalendarProps> = ({
   email,
   unit,
-  calendarDate,
+  eventId,
   onMeetingSet,
   className,
 }) => {
@@ -61,21 +65,39 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
   const onSubmit = async (data: any) => {
     if (!email || !data) return
 
+    console.log('Submitting calendar meeting with data:', email, data)
+
     const { start, end } = createEasternTimeDate(data.date, data.startTime)
 
-    createGoogleCalendarMeeting(start, end, email)
-      .then(res => {
-        if (onMeetingSet) onMeetingSet()
-        setFormSubmitted(true)
-      })
-      .catch(err => {
-        setFormError({
-          error: true,
-          message: (err as any).response.data.message as string,
+    if (eventId) {
+      updateGoogleCalendarMeeting(eventId, start, end, email)
+        .then(res => {
+          if (onMeetingSet) onMeetingSet()
+          setFormSubmitted(true)
         })
-        console.error(err)
-        saveError(err, 'createGoogleCalendarMeeting')
-      })
+        .catch(err => {
+          setFormError({
+            error: true,
+            message: (err as any).response.data.message as string,
+          })
+          console.error(err)
+          saveError(err, 'createGoogleCalendarMeeting')
+        })
+    } else {
+      createGoogleCalendarMeeting(start, end, email)
+        .then(res => {
+          if (onMeetingSet) onMeetingSet()
+          setFormSubmitted(true)
+        })
+        .catch(err => {
+          setFormError({
+            error: true,
+            message: (err as any).response.data.message as string,
+          })
+          console.error(err)
+          saveError(err, 'createGoogleCalendarMeeting')
+        })
+    }
   }
 
   useEffect(() => {
@@ -95,7 +117,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
 
   return (
     <div className={classNames(className)}>
-      {!calendarDate && !formSubmitted && (
+      {!formSubmitted && (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
           <DateSelect
             availableSlots={availableSlots}
@@ -114,7 +136,7 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
           </button>
 
           {formError.error && (
-            <p className="text-red mt-y font-medium uppercase">
+            <p className="text-[#FF0000] mt-y font-medium uppercase">
               {formError.message || `Meeting creation failed, please try again`}
             </p>
           )}
@@ -122,12 +144,14 @@ export const BuyCalendar: FC<BuyCalendarProps> = ({
       )}
 
       {formSubmitted && (
-        <div className="relative mt-ydouble mb-2">
+        <div className="relative mt-y mb-2">
           <p className="font-medium uppercase">{`Session time submitted`}</p>
         </div>
       )}
     </div>
   )
 }
+
+export const BuyCalendar = memo(BuyCalendarComponent)
 
 export default BuyCalendar

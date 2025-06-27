@@ -194,7 +194,7 @@ export const AccountSettings: FC<AccountSettingsProps> = ({
             />
           )}
           {errors?.phone && (
-            <p className="flex-1 mb-y text-button text-red-600 leading-loose">
+            <p className="flex-1 mb-y text-button text-[#FF0000] leading-loose">
               Invalid Phone Number: Please select the country code from the
               dropdown and do not include any spaces.
             </p>

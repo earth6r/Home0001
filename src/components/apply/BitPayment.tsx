@@ -59,13 +59,6 @@ const PaymentContainer: FC<BitPaymentProps> = ({
             setPaymentStatus('paid')
             clearInterval(pollInterval)
 
-            // Update user context
-            updateUser({
-              ...user,
-              hasMadePayment: true,
-              paymentType: 'crypto',
-            })
-
             // Trigger success callback
             if (onPaymentSuccess) {
               onPaymentSuccess()
@@ -151,19 +144,15 @@ const PaymentContainer: FC<BitPaymentProps> = ({
       >
         <div className="flex flex-col gap-y">
           <div>
-            <p className="!mx-0 !text-bodyLg !font-bold">{`Review & Pay:`}</p>
-
-            <div className="flex justify-start items-center gap-y mt-y">
-              <p className="!mx-0 uppercase">Current joining fee:</p>
-              <p className="!mx-0">
-                <span>{`${joiningFee} USD`}</span>
-                {cryptoPrice && cryptoPrice[0] > 0 && (
-                  <span>
-                    {`/ ${cryptoPrice[1]} BTC / ${cryptoPrice[0]} ETH`}
-                  </span>
-                )}
-              </p>
-            </div>
+            <p className="!mx-0 my-y !font-bold uppercase">
+              Current joining fee:
+            </p>
+            <p>
+              <span className="!font-bold">{`${joiningFee} USD`}</span>
+              {cryptoPrice && cryptoPrice[0] > 0 && (
+                <span className="!font-bold">{`/ ${cryptoPrice[1]} BTC / ${cryptoPrice[0]} ETH`}</span>
+              )}
+            </p>
           </div>
 
           {paymentStatus === 'pending' && (
@@ -206,12 +195,15 @@ const PaymentContainer: FC<BitPaymentProps> = ({
 
         <div className={classNames('relative flex flex-col gap-y')}>
           {formError.error && (
-            <p className="text-red-600 font-medium uppercase">
+            <p className="text-[#FF0000] font-medium uppercase">
               {formError.message || `Payment error`}
             </p>
           )}
+
+          <p className="mt-y !mx-0 !mb-ydouble">{`Payment will take place in an external window.`}</p>
+
           <button
-            className="relative flex justify-between items-center w-full max-w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above"
+            className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] mb-y bg-black text-white"
             type={'submit'}
             disabled={
               isSubmitting ||
@@ -219,14 +211,16 @@ const PaymentContainer: FC<BitPaymentProps> = ({
               paymentStatus === 'paid'
             }
           >
-            {paymentStatus === 'paid'
-              ? 'Payment Confirmed'
-              : paymentStatus === 'pending'
-              ? 'Waiting for payment...'
-              : isSubmitting
-              ? 'Creating invoice...'
-              : `Pay with wallet`}
-            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+            <IconSmallArrow fill="white" width="15" height="11" />
+            <span className="uppercase font-medium leading-none text-xs">
+              {paymentStatus === 'paid'
+                ? 'Payment Confirmed'
+                : paymentStatus === 'pending'
+                ? 'Waiting for payment...'
+                : isSubmitting
+                ? 'Creating invoice...'
+                : `Pay with wallet`}
+            </span>
           </button>
         </div>
       </form>

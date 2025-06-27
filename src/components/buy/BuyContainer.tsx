@@ -313,7 +313,7 @@ export const BuyContainer: FC<BuyContainerProps> = ({ units, className }) => {
           <BuyCalendar
             email={userData.email as string}
             unit={userData.unit as string}
-            calendarDate={userData.calendarDate}
+            // calendarDate={userData.calendarDate}
             onMeetingSet={() => {
               initUpdateProcess('scheduleClosing')
             }}

@@ -18,21 +18,28 @@ export type Web3UserProps = {
     | 'priceRange'
     | 'whenToBuy'
     | 'bedrooms'
+    | 'essentials'
     | 'token'
+
+  // user profile fields from /api/users/get-user?walletAddress=walletAddress
   id?: string
-  address?: string
-  hasMadePayment?: boolean
-  hasFinishedProfile?: boolean
-  tokenIds?: string[]
-  paymentType?: string
+  email?: string
   first_name?: string
   last_name?: string
-  email?: string
   phone_number?: string
+  address?: string
   comms?: 'WhatsApp' | 'Telegram'
+
+  // steps from /api/users/get-current-step?email=test@test.org
+  hasMadePayment?: boolean
+  hasFinishedProfile?: boolean
+  userSentMessage?: boolean
+
+  // other fields mananged on frontend
+  tokenIds?: string[]
+  paymentType?: string
   signup_source?: 'purchased' | 'referred'
   referred_token?: string
-  calendar_dates?: { start_time: string }[]
   unit?: string | null
 } | null
 

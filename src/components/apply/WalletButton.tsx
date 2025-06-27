@@ -44,7 +44,7 @@ export const WalletButton: FC<WalletButtonProps> = ({
           updateUser({
             ...user,
             id: user.id,
-            address: user.address,
+            address: user.walletAddress,
             email: user.email,
             first_name: user.firstName,
             last_name: user.lastName,
