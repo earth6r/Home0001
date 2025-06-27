@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 // URL mapping object
 const urlMapping: Record<string, string> = {
   whatsapp:
-    'https://wa.me/12135771277/?text=Hi%2C%20I%27m%20interested%20in%20joining%20HOME0001',
+    'https://wa.me/12135771277/?text=Hi%2C%20I%27m%20interested%20in%20joining%20HOME0001.',
   telegram:
     'https://t.me/Home0001_USA/?text=Hi%2C%20I%20am%20interested%20in%20joining%20HOME0001',
 }
