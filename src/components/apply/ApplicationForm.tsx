@@ -12,6 +12,8 @@ import {
   RoomsForm,
   EssentialsForm,
 } from './forms'
+import IconRightArrowBold from '@components/icons/IconRightArrowBold'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const ApplicationForm: FC<FormProps> = ({
   className,
@@ -34,12 +36,43 @@ const ApplicationForm: FC<FormProps> = ({
 
   return (
     <div className={classNames(className)}>
-      <div className="h-full">
+      <div className="relative h-full">
         {user?.hasMadePayment && (
-          <div className="w-full px-x py-y bg-yellow text-caption font-bold">
+          <div className="w-full px-x py-y bg-yellow text-base font-bold">
             {`${stepNum}/5`}
           </div>
         )}
+
+        <AnimatePresence>
+          {user?.step !== 'location' &&
+            user?.step !== 'paymentOption' &&
+            user?.step !== 'payment' &&
+            user?.step !== 'info' && (
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                onClick={() => {
+                  updateUser({
+                    ...user,
+                    step:
+                      stepNum === 2
+                        ? 'location'
+                        : stepNum === 3
+                        ? 'priceRange'
+                        : stepNum === 4
+                        ? 'whenToBuy'
+                        : stepNum === 5
+                        ? 'bedrooms'
+                        : '',
+                  })
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}
+                className="flex items-center justify-center relative lg:absolute w-[31px] h-[26px] left-x top-y lg:top-[calc(48px+var(--space-y-double))] bg-black"
+              >
+                <IconRightArrowBold className="w-[15px] transform rotate-[180deg]" />
+              </motion.button>
+            )}
+        </AnimatePresence>
 
         <div className="grid lg:grid-cols-3 gap-x px-x pt-ydouble rich-text">
           <div className="lg:col-start-2 pr-menu lg:pr-0">
