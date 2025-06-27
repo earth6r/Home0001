@@ -35,27 +35,23 @@ export const TimelineForm: FC<FormProps> = ({
     setIsSubmitting(true)
 
     let timeline:
-      | 'IMMEDIATELY'
-      | 'IN_1_3_MONTHS'
-      | 'IN_3_6_MONTHS'
-      | 'IN_6_12_MONTHS'
-      | 'NOT_SURE_YET' = 'NOT_SURE_YET'
+      | 'UNDER_3_MONTHS'
+      | 'NEXT_6_MONTHS'
+      | 'WITHIN_NEXT_YEAR'
+      | 'DEPENDS' = 'DEPENDS'
 
     switch (data.buyingtimelinedec2023) {
-      case 'now':
-        timeline = 'IMMEDIATELY'
-        break
-      case '1to3mos':
-        timeline = 'IN_1_3_MONTHS'
+      case '0to3mos':
+        timeline = 'UNDER_3_MONTHS'
         break
       case '3to6mos':
-        timeline = 'IN_3_6_MONTHS'
+        timeline = 'NEXT_6_MONTHS'
         break
       case '6to12mos':
-        timeline = 'IN_6_12_MONTHS'
+        timeline = 'WITHIN_NEXT_YEAR'
         break
       case 'notsure':
-        timeline = 'NOT_SURE_YET'
+        timeline = 'DEPENDS'
         break
       default:
         console.error('Invalid timeline selected')
@@ -88,7 +84,8 @@ export const TimelineForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <p className="!mx-0 !text-bodyLg !font-bold mb-ydouble">{`When are you looking to buy?`}</p>
+        <p className="!mx-0 !text-bodyLg !font-bold">{`When are you looking to buy?`}</p>
+        <p className="!mx-0 mb-y">{`Please select the most suitable range for you.`}</p>
 
         {TIMELINE.map(({ label, name }) => (
           <div key={name}>

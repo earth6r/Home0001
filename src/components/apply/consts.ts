@@ -23,16 +23,20 @@ export const LOCATIONS = [
     label: 'Mexico City',
     name: 'CDMX',
   },
+  {
+    label: 'Tokyo',
+    name: 'Tokyo',
+  },
+  {
+    label: 'San Francisco',
+    name: 'SF',
+  },
 ]
 
 export const PRICES = [
   {
-    label: '<$500,000',
-    name: 'lessThan500k',
-  },
-  {
-    label: '$500,000 – $750,000',
-    name: '$500kTo750k',
+    label: 'Under $750,000',
+    name: 'lessThan750k',
   },
   {
     label: '$750,000 – $1,000,000',
@@ -43,26 +47,26 @@ export const PRICES = [
     name: '$1MTo1.5M',
   },
   {
-    label: '$1,500,000+',
-    name: 'moreThan1.5M',
+    label: '$1,500,000 – $2,000,000',
+    name: '$1.5MTo2M',
+  },
+  {
+    label: '$2,000,000+',
+    name: 'moreThan2M',
   },
 ]
 
 export const TIMELINE = [
   {
     label: 'Under 3 months',
-    name: 'now',
+    name: '0to3mos',
   },
   {
-    label: 'In 1 - 3 months',
-    name: '1to3mos',
-  },
-  {
-    label: 'In 3 - 6 months',
+    label: 'Next 6 months',
     name: '3to6mos',
   },
   {
-    label: 'In 6 - 12 months',
+    label: 'WITHIN THE NEXT YEAR',
     name: '6to12mos',
   },
   {
@@ -91,5 +95,36 @@ export const SIZES = [
   {
     label: 'Depends',
     name: 'Depends',
+  },
+]
+
+export const ESSENTIALS = [
+  {
+    label: 'Outdoor Space',
+    name: 'outdoor space',
+  },
+  {
+    label: 'Gym',
+    name: 'gym',
+  },
+  {
+    label: 'Pool',
+    name: 'pool',
+  },
+  {
+    label: 'Good Views',
+    name: 'good views',
+  },
+  {
+    label: 'Concierge',
+    name: 'concierge',
+  },
+  {
+    label: 'Private Parking',
+    name: 'private parking',
+  },
+  {
+    label: 'Pet Friendly',
+    name: 'pet friendly',
   },
 ]

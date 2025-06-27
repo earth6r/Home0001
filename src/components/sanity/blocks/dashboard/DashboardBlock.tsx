@@ -21,7 +21,6 @@ export const DashboardBlock: FC<DashboardBlockProps> = ({
   user,
   updateUser,
   applyHeader,
-  joiningFee,
   loggedInHeader,
   dashboardCopy,
 }) => {

@@ -74,7 +74,7 @@ export const LoginForm: FC<LoginFormProps> = ({ attemptSignIn, className }) => {
         </div>
 
         {formError.error !== null && (
-          <p className="text-red mt-y font-medium uppercase">
+          <p className="text-[#FF0000] mt-y font-medium uppercase">
             {formError.message || `Error logging in.`}
           </p>
         )}

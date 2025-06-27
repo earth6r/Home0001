@@ -182,7 +182,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
                 )}
               />
               {errors.phone && (
-                <p className="mb-y text-button text-red-600 leading-loose">
+                <p className="mb-y text-button text-[#FF0000] leading-loose">
                   Invalid Phone Number: Please select the country code from the
                   dropdown and do not include any spaces.
                 </p>
@@ -239,7 +239,7 @@ export const CalendarBlock: FC<CalendarBlockProps> = ({
               </button>
 
               {formError.error && (
-                <p className="text-red mt-y font-medium uppercase">
+                <p className="text-[#FF0000] mt-y font-medium uppercase">
                   {formError.message ||
                     `Meeting creation failed, please try again`}
                 </p>

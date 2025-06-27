@@ -89,8 +89,7 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
       } else {
         updateUser({
           ...user,
-          step: 'token',
-          hasFinishedProfile: true,
+          step: 'essentials',
         })
 
         setFormSubmitted({ submitted: true, success: true })
@@ -108,22 +107,20 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
     >
       <div className="flex flex-col gap-y">
         <p className="!mx-0 !text-bodyLg !font-bold">
-          {`Last question:`}
-          <br />
           {`How many bedrooms are you looking for?`}
-          <br />
         </p>
-        <div className="flex flex-col gap-y mb-ydouble">
-          <p className="!mx-0 ">{`Select all that apply.`}</p>
+        <div className="flex flex-col gap-y mb-y">
+          <p className="!mx-0 ">{`Please select one option.`}</p>
         </div>
+
         {SIZES.map(({ label, name }) => (
           <div key={name}>
             <input
-              type="checkbox"
+              type="radio"
               value={name}
               id={name}
               {...register('bedroom_preference', {
-                required: 'Please select at least one bedroom preference',
+                required: 'Please select a bedroom preference',
               })}
             />
             <label
@@ -136,7 +133,9 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
         ))}
 
         {formError.error && (
-          <p className="text-red font-medium uppercase">{formError.message}</p>
+          <p className="text-[#FF0000] font-medium uppercase">
+            {formError.message}
+          </p>
         )}
       </div>
     </FormPane>
