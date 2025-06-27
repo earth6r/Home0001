@@ -8,7 +8,7 @@ import moment from 'moment-timezone'
 import classNames from 'classnames'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
-import { IconCheck } from '@components/icons'
+import { IconCheck, IconTelegramQR, IconWhatsAppQR } from '@components/icons'
 
 type TokenDashboardProps = {
   dashboardCopy?: TypedObject | TypedObject[]
@@ -158,22 +158,34 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
           </p>
 
           {!user?.userSentMessage && (
-            <Link
-              href={
-                user?.comms === 'WhatsApp'
-                  ? `https://wa.me/12135771277/?text=Hi%2C%20I'm%20interested%20in%20joining%20HOME0001`
-                  : `http://t.me/Home0001_USA/?text=Hi%2C%20I%20am%20interested%20in%20joining%20HOME0001`
-              }
-              target="_blank"
-              className="block"
-            >
-              <button className="flex items-center gap-[5px] w-fit pt-[3px] pb-[4px] px-[6px] bg-black text-white">
-                <IconSmallArrow fill="white" width="15" height="11" />
-                <span className="uppercase font-medium leading-none text-xs">
-                  {`Chat`}
-                </span>
-              </button>
-            </Link>
+            <div className="flex flex-col gap-y">
+              {user?.comms === 'WhatsApp' ? (
+                <div className="hidden md:block w-[200px] border-black">
+                  <IconWhatsAppQR className="w-full" />
+                </div>
+              ) : (
+                <div className="hidden md:block w-[200px] border-black">
+                  <IconTelegramQR className="w-full" />
+                </div>
+              )}
+
+              <Link
+                href={
+                  user?.comms === 'WhatsApp'
+                    ? `https://wa.me/12135771277/?text=Hi%2C%20I'm%20interested%20in%20joining%20HOME0001`
+                    : `http://t.me/Home0001_USA/?text=Hi%2C%20I%20am%20interested%20in%20joining%20HOME0001`
+                }
+                target="_blank"
+                className="block"
+              >
+                <button className="flex items-center gap-[5px] w-fit pt-[3px] pb-[4px] px-[6px] bg-black text-white">
+                  <IconSmallArrow fill="white" width="15" height="11" />
+                  <span className="uppercase font-medium leading-none text-xs">
+                    {`Chat`}
+                  </span>
+                </button>
+              </Link>
+            </div>
           )}
 
           {user?.userSentMessage && (
