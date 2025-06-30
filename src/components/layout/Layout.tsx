@@ -106,13 +106,14 @@ export const Layout: FC<LayoutProps> = ({
             smoothWheel: false,
           }}
         >
-          <main className="flex-auto min-h-[95svh]">{children}</main>
+          <main className="flex-auto min-h-[82svh]">{children}</main>
         </ReactLenis>
 
-        {!hideUi && (
+        {!(page?._type && (page._type as string) === 'rdPage') && (
           <Footer
             path={asPath}
             query={query}
+            linksOnly={page?._type && (page._type as string) === 'dashboard'}
             footerMenu={siteSettings?.footerMenu as Menus | undefined}
             applyCopy={siteSettings?.applyCopy}
             applyLink={siteSettings?.applyLink as SanityLinkType}

@@ -16,6 +16,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   footerMenu,
   applyCopy,
   applyLink,
+  linksOnly,
   propertiesList,
 }) => {
   const year = new Date().getFullYear()
@@ -25,7 +26,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 
   return (
     <>
-      {asPath !== '/' && (
+      {asPath !== '/' && !linksOnly && (
         <div className="grid lg:grid-cols-2 mt-header">
           {propertiesList && (
             <PropertyList
@@ -37,7 +38,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
         </div>
       )}
 
-      {asPath !== '/how-it-works' && (
+      {asPath !== '/how-it-works' && !linksOnly && (
         <div className="w-full h-[173px] bg-black mt-y px-x text-white">
           <Link
             href="/how-it-works"
@@ -51,50 +52,51 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 
       <footer
         className={classNames(
-          'flex flex-col gap-ydouble pb-20 font-medium text-xs uppercase'
+          'flex flex-col gap-y lg:gap-yquad pb-yquad font-medium text-xs uppercase'
         )}
       >
-        <div className="flex flex-col justify-start gap-ydouble py-ydouble pl-x pr-menu lg:px-x bg-gray">
-          <div className="w-full lg:w-1/2 pr-x">
-            <RichText
-              blocks={applyCopy as TypedObject | TypedObject[]}
-              className="normal-case"
-            />
-            {applyLink && (
-              <SanityLink {...applyLink}>
+        {!linksOnly && (
+          <div className="flex flex-col justify-start gap-ydouble py-ydouble pl-x pr-menu lg:px-x bg-gray">
+            <div className="w-full lg:w-1/2 pr-x">
+              <RichText
+                blocks={applyCopy as TypedObject | TypedObject[]}
+                className="normal-case"
+              />
+              {applyLink && (
+                <SanityLink {...applyLink}>
+                  <button
+                    className={classNames(
+                      'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase border-black'
+                    )}
+                  >
+                    <IconSmallArrow
+                      className="relative w-[1.1em] mt-[0.05em]"
+                      fill="white"
+                    />
+                    <span className="leading-none">{`Connect wallet to apply`}</span>
+                  </button>
+                </SanityLink>
+              )}
+            </div>
+
+            <div className="w-full">
+              <p>{`If you have questions or if you're a broker:`}</p>
+              <a href="http://home0001.com/contact" target="_blank">
                 <button
                   className={classNames(
-                    'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase border-black'
+                    'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
                   )}
                 >
                   <IconSmallArrow
                     className="relative w-[1.1em] mt-[0.05em]"
-                    fill="white"
+                    fill="black"
                   />
-                  <span className="leading-none">{`Connect wallet to apply`}</span>
+                  <span className="leading-none">{`Get in touch`}</span>
                 </button>
-              </SanityLink>
-            )}
-          </div>
+              </a>
+            </div>
 
-          <div className="w-full">
-            <p>{`If you have questions or if you're a broker:`}</p>
-            <a href="http://home0001.com/contact" target="_blank">
-              <button
-                className={classNames(
-                  'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
-                )}
-              >
-                <IconSmallArrow
-                  className="relative w-[1.1em] mt-[0.05em]"
-                  fill="black"
-                />
-                <span className="leading-none">{`Get in touch`}</span>
-              </button>
-            </a>
-          </div>
-
-          {/* <div className="w-full">
+            {/* <div className="w-full">
             <p>{`Are you a broker?`}</p>
             <button
               className={classNames(
@@ -109,7 +111,8 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
               <span className="leading-none">{`Talk to us`}</span>
             </button>
           </div> */}
-        </div>
+          </div>
+        )}
 
         <ul className="flex flex-col xl:flex-row xl:justify-start gap-y xl:gap-xdouble w-full pl-x">
           {footerMenu?.items?.map(({ _key, text, link }) => {

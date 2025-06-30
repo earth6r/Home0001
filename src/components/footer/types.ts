@@ -7,6 +7,7 @@ import { SanityLinkType } from '@studio/lib'
 export interface FooterProps extends HTMLAttributes<HTMLElement> {
   footerMenu?: SanityMenu
   path?: string
+  linksOnly?: boolean
   query?: ParsedUrlQuery
   applyCopy?: RichText
   applyLink?: SanityLinkType

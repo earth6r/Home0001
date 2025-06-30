@@ -67,7 +67,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
     <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}
       {user?.step === 'prompt' && (
-        <div className="flex flex-col px-x mb-ydouble">
+        <div className="flex flex-col px-x">
           {content.header && (
             <RichText
               blocks={content.header}
@@ -75,9 +75,9 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
             />
           )}
           <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-gray">
-            <div className="flex flex-col flex-start gap-y rich-text text-left lg:max-w-[50%]">
-              <h4>{`Current Joining fee:`}</h4>
-              <p className="!mx-0">
+            <div className="flex flex-col flex-start gap-y text-left lg:max-w-[25%]">
+              <h4 className="text-bodyLg uppercase font-bold font-sansText">{`Current Joining fee:`}</h4>
+              <p className="!mx-0 text-bodyLg uppercase font-bold font-sansText">
                 {dynamicPrice ? (
                   <>
                     <span>{`${dynamicPrice} USD`}</span>
@@ -92,7 +92,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
                 )}
               </p>
 
-              <p className="!mx-0 pr-x">{`We’re keeping the joining fee extremely low for early applicants but increasing it at an accelerating rate with each new member—to grow the project treasury as the community grows.`}</p>
+              <p className="!mx-0 pr-x text-xs font-medium">{`We’re keeping the joining fee extremely low for early applicants but increasing it at an accelerating rate with each new member—to grow the project treasury as the community grows.`}</p>
             </div>
           </div>
 
@@ -101,15 +101,11 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
               updateUser({ ...user, step: 'info' })
               scroll.scrollToTop({ behavior: 'smooth' })
             }}
-            className="w-[100vw] h-[173px] bg-yellow px-x -ml-x text-black"
+            className="flex items-center w-[100vw] bg-yellow px-x py-ydouble -ml-x text-white"
           >
-            <div className="flex items-center justify-start gap-xdouble md:gap-x-yquad text-h3 h-full">
-              <p className="text-left">
-                {`Start`}
-                <br />
-                {`Application`}
-              </p>
-              <IconRightArrowBold className="w-[35px] h-auto" fill="black" />
+            <div className="flex items-center justify-between w-full md:w-[50%] lg:w-[33%] xl:w-[25%] h-auto p-xhalf bg-black text-bodyLg uppercase font-bold font-sansText">
+              <p className="w-full text-left">{`Start Application`}</p>
+              <IconRightArrowBold className="w-[34px] h-auto" fill="white" />
             </div>
           </button>
         </div>
