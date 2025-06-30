@@ -17,7 +17,7 @@ const FormPane: FC<PaneProps> = ({
       id={id}
       className={classNames(
         className,
-        'flex flex-col gap-ydouble md:gap-y justify-between min-h-[calc(90svh-var(--header-height)-var(--space-y-quad))] md:min-h-[calc(100svh-var(--header-height)-var(--space-y-quad)-var(--space-y-double))]'
+        'flex flex-col gap-ydouble md:gap-y justify-between mb-ydouble min-h-[calc(90svh-var(--header-height)-var(--space-y-quad))] md:min-h-[calc(100svh-var(--header-height)-var(--space-y-quad)-var(--space-y-double))]'
       )}
       onSubmit={onSubmit}
     >

@@ -67,11 +67,11 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
     <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}
       {user?.step === 'prompt' && (
-        <div className="flex flex-col px-x">
+        <div className="flex flex-col px-x mb-ydouble">
           {content.header && (
             <RichText
               blocks={content.header}
-              className="pr-menu lg:pr-0 mb-page lg:max-w-[50%]"
+              className="pr-menu lg:pr-0 mb-ydouble lg:max-w-[50%]"
             />
           )}
           <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-gray">
