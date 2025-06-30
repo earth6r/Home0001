@@ -471,14 +471,12 @@ export const updateUserEssentialsWithMessage = async (
   }
 ) => {
   try {
-    // Step 1: Initialize payment
     const userUpdateResult = await updateUserEssentials(email, essentials)
 
     if (!userUpdateResult.success) {
       return userUpdateResult
     }
 
-    // Step 2: Send follow-up email
     const messageResult = await postSendMessage(phone, {
       comms: profileData.comms,
       first_name: profileData.first_name,
