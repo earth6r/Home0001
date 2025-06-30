@@ -58,6 +58,7 @@ export const WalletButton: FC<WalletButtonProps> = ({
               : 'info',
             hasMadePayment: data.referralPaymentMade,
             hasFinishedProfile: data.questionnaireFinished,
+            userSentMessage: data.userSentMessage,
           })
         })
         .catch(err => {
