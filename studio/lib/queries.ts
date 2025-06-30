@@ -203,7 +203,7 @@ export const BODY_QUERY = `
             ${LINK_MARKDEFS_QUERY}
           },
         },
-        markDefs[]{
+        "markDefs": coalesce(text[].markDefs, [])[]{
           ...,
           ${LINK_MARKDEFS_QUERY}
         },
