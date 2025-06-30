@@ -25,7 +25,7 @@ export const PropertyList: FC<PropertyListProps> = ({
     <div className={className}>
       <h2
         className={classNames(
-          asPath === '/' ? 'font-bold' : '',
+          asPath === '/' ? 'font-bold' : 'lg:w-[calc(100vw-var(--space-menu))]',
           `-mt-y text-h2 mb-y`
         )}
       >
