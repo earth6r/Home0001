@@ -5,7 +5,7 @@ export const IconTelegramQRComponent = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      shape-rendering="crispEdges"
+      shapeRendering="crispEdges"
       viewBox="0 0 45 45"
       {...props}
     >
