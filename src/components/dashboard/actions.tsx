@@ -26,6 +26,7 @@ export const updateUserProfile = async (profileData: {
   last_name: string
   email: string
   phone_number: string
+  comms?: 'WhatsApp' | 'Telegram'
 }) => {
   try {
     await axios.put(
@@ -36,6 +37,7 @@ export const updateUserProfile = async (profileData: {
         lastName: profileData.last_name,
         email: profileData.email,
         phoneNumber: profileData.phone_number,
+        // preferredContactMethod: profileData.comms,
       },
       CONFIG
     )
