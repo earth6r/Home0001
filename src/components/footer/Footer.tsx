@@ -31,7 +31,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
             <PropertyList
               header={`0001 homes are available in:`}
               properties={propertiesList}
-              className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] md:pr-[calc(var(--space-menu-sm)+var(--space-x)+3px)] col-span-2 lg:pr-0"
+              className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] md:pr-[calc(var(--space-menu-sm)+var(--space-x)+3px)] lg:pr-0"
             />
           )}
         </div>
