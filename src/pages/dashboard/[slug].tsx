@@ -136,6 +136,7 @@ const Page: NextPage<PageProps> = (
               : 'info',
             hasMadePayment: data.referralPaymentMade,
             hasFinishedProfile: data.questionnaireFinished,
+            userSentMessage: data.userSentMessage,
           })
           // if (data.tokenMinted) fetchImage()
         })
