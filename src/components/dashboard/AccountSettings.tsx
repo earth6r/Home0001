@@ -9,6 +9,8 @@ import { Controller, useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { updateUserProfile } from './actions'
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
+import { isMobile } from 'react-device-detect'
+import IconChevron from '@components/icons/IconChevron'
 
 export const AccountSettings: FC<AccountSettingsProps> = ({
   content,
@@ -29,6 +31,7 @@ export const AccountSettings: FC<AccountSettingsProps> = ({
   const [showLastName, setShowLastName] = useState(false)
   const [showEmail, setShowEmail] = useState(false)
   const [showPhone, setShowPhone] = useState(false)
+  const [showComms, setShowComms] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState({ error: false, message: '' })
@@ -50,6 +53,7 @@ export const AccountSettings: FC<AccountSettingsProps> = ({
       last_name: data.last_name || user.last_name,
       email: data.email || user.email,
       phone_number: data.phone || user.phone_number,
+      comms: data.comms || user.comms,
     }).then(res => {
       if (!res?.success) {
         console.error('Error updating user profile:', res?.message)
@@ -201,17 +205,73 @@ export const AccountSettings: FC<AccountSettingsProps> = ({
           )}
         </div>
 
+        <div className="flex flex-col gap-y !m-0">
+          <span className="text-h4">{`Preferred app for communication with HOME0001:`}</span>
+          <div className="flex justify-between items-center">
+            <span className="">{user?.comms || ``}</span>
+            <button
+              type="button"
+              onClick={() => {
+                setHasEdited(true)
+                setShowComms(true)
+              }}
+              className="underline"
+            >
+              <span>{`Edit`}</span>
+            </button>
+          </div>
+
+          {showComms && (
+            <div className="relative">
+              <select
+                id="preferred-comms"
+                className="relative input select text-button font-sans"
+                disabled={isSubmitting}
+                {...register('comms', {
+                  validate: value =>
+                    value === 'WhatsApp' || value === 'Telegram',
+                })}
+              >
+                <option className="text-button" value="">
+                  {isMobile
+                    ? `Select communication pref*`
+                    : `Select communication preference*`}
+                </option>
+                <option
+                  key="option-comms-0"
+                  id="preferred-comms"
+                  value="WhatsApp"
+                  className="text-button"
+                >
+                  {`WhatsApp`}
+                </option>
+                <option
+                  key="option-comms-2"
+                  id="preferred-comms"
+                  value="Telegram"
+                  className="text-button"
+                >
+                  {`Telegram`}
+                </option>
+              </select>
+              <IconChevron className="absolute w-[12px] right-x bottom-[1.4em]" />
+            </div>
+          )}
+        </div>
+
         {hasEdited && (
           <button
             type={'submit'}
             form="account-settings-form"
             disabled={isSubmitting}
             className={classNames(
-              'relative flex justify-between items-center w-full px-x h-btn text-center uppercase text-white bg-black font-medium text-xs z-above'
+              'flex items-center gap-[5px] w-fit py-[4px] px-[6px] mb-y !my-0 bg-black text-white z-above'
             )}
           >
-            {isSubmitting ? 'Submitting...' : 'Save Changes'}
-            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
+            <IconSmallArrow fill="white" width="15" height="11" />
+            <span className="uppercase font-medium leading-none text-xs">
+              {isSubmitting ? 'Submitting...' : 'Save Changes'}
+            </span>
           </button>
         )}
       </form>
