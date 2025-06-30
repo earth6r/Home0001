@@ -26,13 +26,18 @@ export const PropertyList: FC<PropertyListProps> = ({
       <h2
         className={classNames(
           asPath === '/' ? 'font-bold' : '',
-          `-mt-y text-h2 mb-y`
+          `-mt-y text-h2 mb-y w-full`
         )}
       >
         {header}
       </h2>
 
-      <div className="flex flex-col">
+      <div
+        className={classNames(
+          asPath === '/' ? 'max-w-[100%]' : '',
+          `flex flex-col max-w-[50%]`
+        )}
+      >
         {properties &&
           properties.map(({ longTitle, slug, available }, index) => {
             return (
