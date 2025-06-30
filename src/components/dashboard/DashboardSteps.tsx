@@ -110,7 +110,6 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
     getBookedCalendarDates(user?.email as string)
       .then(res => {
         setEventDates(res?.data.events)
-        console.log(res?.data.events)
         if (res?.data.events.length === 0) {
           setShowCalendar(true)
         }
