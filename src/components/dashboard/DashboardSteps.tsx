@@ -38,12 +38,12 @@ const CalendarComponent: FC<{
               .tz('America/New_York')
               .format('dddd, MMMM Do [at] h:mma')} EST.`}
           </p>
-          <p className="font-medium">
+          <p className="font-medium mb-y">
             {`We’ve sent you an email with all the details.`}
           </p>
           {!showCalendar && (
             <button onClick={() => setShowCalendar(true)}>
-              <span className="underline">{`Change of plans? Re-book your appointment`}</span>
+              <span className="mt-y underline">{`Change of plans? Re-book your appointment`}</span>
             </button>
           )}
         </>
@@ -155,6 +155,10 @@ const DashboardStepsComponent: FC<TokenDashboardProps> = ({
           <span className="text-base !font-bold uppercase">Step 2</span>
           <p>
             {`Chat with a member of the collective. They’ll guide you through the next steps.`}
+          </p>
+          <p className="hidden md:block !mx-0 mb-y">
+            Either scan the QR code or hit the chat button if you haven’t
+            already been connected.
           </p>
 
           {!user?.userSentMessage && (

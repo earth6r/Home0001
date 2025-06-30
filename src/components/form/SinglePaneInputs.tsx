@@ -208,7 +208,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
 
         {fields?.showContact && (
           <>
-            <label htmlFor="hs_persona" className="font-medium mt-y text-md">
+            <label htmlFor="hs_persona" className="font-medium mt-y text-xs">
               Which best describes you?
             </label>
 
@@ -220,7 +220,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 {...register('hs_persona', { required: 'Input  required' })}
               />
               <label
-                className="text-left cursor-pointer font-medium text-md"
+                className="text-left cursor-pointer font-medium text-xs"
                 htmlFor="purchasing"
               >
                 {`I am interested in purchasing a home.`}
@@ -235,7 +235,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 {...register('hs_persona', { required: 'Input  required' })}
               />
               <label
-                className="text-left cursor-pointer font-medium text-md"
+                className="text-left cursor-pointer font-medium text-xs"
                 htmlFor="learn_more"
               >
                 {`I want to learn more about HOME0001.`}
@@ -250,7 +250,7 @@ export const SinglePaneInputs: FC<SinglePaneInputsProps> = ({
                 {...register('hs_persona', { required: 'Input  required' })}
               />
               <label
-                className="text-left cursor-pointer font-medium text-md"
+                className="text-left cursor-pointer font-medium text-xs"
                 htmlFor="realitor"
               >
                 {`I am a realtor.`}
