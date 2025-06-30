@@ -31,7 +31,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
             <PropertyList
               header={`0001 homes are available in:`}
               properties={propertiesList}
-              className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] md:pr-[calc(var(--space-menu-sm)+var(--space-x)+3px)] lg:pr-0"
+              className="pl-x pr-[calc(var(--space-menu)+var(--space-x))] md:pr-[calc(var(--space-menu-sm)+var(--space-x)+3px)] col-span-2 lg:pr-0"
             />
           )}
         </div>
@@ -78,8 +78,8 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
           </div>
 
           <div className="w-full">
-            <p>{`If you have questions:`}</p>
-            <a href="mailto:info@home0001.com" target="_blank">
+            <p>{`If you have questions or if you're a broker:`}</p>
+            <a href="http://home0001.com/contact" target="_blank">
               <button
                 className={classNames(
                   'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
@@ -94,15 +94,13 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
             </a>
           </div>
 
-          <div className="w-full">
+          {/* <div className="w-full">
             <p>{`Are you a broker?`}</p>
             <button
               className={classNames(
                 'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
               )}
-              onClick={() => {
-                setBrokerInquiryOpen(true)
-              }}
+              onClick={() => {}}
             >
               <IconSmallArrow
                 className="relative w-[1.1em] mt-[0.05em]"
@@ -110,7 +108,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
               />
               <span className="leading-none">{`Talk to us`}</span>
             </button>
-          </div>
+          </div> */}
         </div>
 
         <ul className="flex flex-col xl:flex-row xl:justify-start gap-y xl:gap-xdouble w-full pl-x">
