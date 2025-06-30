@@ -71,7 +71,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
                     className="relative w-[1.1em] mt-[0.05em]"
                     fill="white"
                   />
-                  <span className="leading-none">{`Apply`}</span>
+                  <span className="leading-none">{`Connect wallet to apply`}</span>
                 </button>
               </SanityLink>
             )}
