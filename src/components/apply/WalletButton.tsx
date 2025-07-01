@@ -49,13 +49,14 @@ export const WalletButton: FC<WalletButtonProps> = ({
             first_name: user.firstName,
             last_name: user.lastName,
             phone_number: user.phoneNumber,
-            step: data.tokenMinted
-              ? 'token'
-              : data.referralPaymentMade
-              ? 'location'
-              : data.walletConnectedProfileCreated
-              ? 'payment'
-              : 'info',
+            step:
+              data.tokenMinted || data.questionnaireFinished
+                ? 'token'
+                : data.referralPaymentMade
+                ? 'location'
+                : data.walletConnectedProfileCreated
+                ? 'payment'
+                : 'info',
             hasMadePayment: data.referralPaymentMade,
             hasFinishedProfile: data.questionnaireFinished,
             userSentMessage: data.userSentMessage,

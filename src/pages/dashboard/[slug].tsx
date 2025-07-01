@@ -119,6 +119,7 @@ const Page: NextPage<PageProps> = (
       getUserCurrentStep(user.email)
         .then(res => {
           const { data } = res || {}
+          console.log('User step data:', data)
           updateUser({
             id: user.id,
             address: user.walletAddress,
@@ -127,13 +128,14 @@ const Page: NextPage<PageProps> = (
             last_name: user.lastName,
             phone_number: user.phoneNumber,
             comms: user.preferredContactMethod,
-            step: data.tokenMinted
-              ? 'token'
-              : data.referralPaymentMade
-              ? 'location'
-              : data.walletConnectedProfileCreated
-              ? 'payment'
-              : 'info',
+            step:
+              data.tokenMinted || data.questionnaireFinished
+                ? 'token'
+                : data.referralPaymentMade
+                ? 'location'
+                : data.walletConnectedProfileCreated
+                ? 'payment'
+                : 'info',
             hasMadePayment: data.referralPaymentMade,
             hasFinishedProfile: data.questionnaireFinished,
             userSentMessage: data.userSentMessage,
