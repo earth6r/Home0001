@@ -80,7 +80,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
             </div>
 
             <div className="w-full">
-              <p>{`If you have questions or if you're a broker:`}</p>
+              <p>{`If you have questions:`}</p>
               <a href="http://home0001.com/contact" target="_blank">
                 <button
                   className={classNames(
@@ -96,21 +96,23 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
               </a>
             </div>
 
-            {/* <div className="w-full">
-            <p>{`Are you a broker?`}</p>
-            <button
-              className={classNames(
-                'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
-              )}
-              onClick={() => {}}
-            >
-              <IconSmallArrow
-                className="relative w-[1.1em] mt-[0.05em]"
-                fill="black"
-              />
-              <span className="leading-none">{`Talk to us`}</span>
-            </button>
-          </div> */}
+            <div className="w-full">
+              <p>{`Are you a broker?`}</p>
+              <a href="http://home0001.com/contact" target="_blank">
+                <button
+                  className={classNames(
+                    'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
+                  )}
+                  onClick={() => {}}
+                >
+                  <IconSmallArrow
+                    className="relative w-[1.1em] mt-[0.05em]"
+                    fill="black"
+                  />
+                  <span className="leading-none">{`Talk to us`}</span>
+                </button>
+              </a>
+            </div>
           </div>
         )}
 
