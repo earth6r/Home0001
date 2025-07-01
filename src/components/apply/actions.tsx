@@ -36,6 +36,9 @@ export const createUserProfile = async (
     phone_number: string
     comms: 'WhatsApp' | 'Telegram'
     wallet_address: string
+    twitter?: string
+    instagram?: string
+    website?: string
     public_profiles?: string[]
   }
 ) => {

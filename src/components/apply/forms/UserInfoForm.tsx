@@ -44,12 +44,9 @@ export const UserInfoForm: FC<FormProps> = ({
       phone_number: data.phone as string,
       comms: data.comms as 'WhatsApp' | 'Telegram',
       wallet_address: user.address,
-      public_profiles: [
-        data.public_profiles_x,
-        data.public_profiles_instagram,
-        data.public_profiles_website,
-        data.public_profiles_other,
-      ].filter(Boolean),
+      twitter: data.public_profiles_x,
+      instagram: data.public_profiles_instagram,
+      website: data.public_profiles_website,
     }).then(res => {
       if (!res?.success) {
         console.error('Error creating user profile:', res?.message)
@@ -149,14 +146,8 @@ export const UserInfoForm: FC<FormProps> = ({
             <input
               type="text"
               className="input"
-              placeholder="Website"
+              placeholder="Website / farcaster / other"
               {...register('public_profiles_website')}
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="farcaster / other"
-              {...register('public_profiles_other')}
             />
           </div>
 
