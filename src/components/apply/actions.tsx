@@ -52,6 +52,9 @@ export const createUserProfile = async (
         email: profileData.email,
         phoneNumber: profileData.phone_number,
         preferredContactMethod: profileData.comms,
+        twitter: profileData.twitter,
+        instagram: profileData.instagram,
+        website: profileData.website,
         publicProfiles: profileData.public_profiles || [],
       },
       CONFIG
@@ -271,6 +274,8 @@ export const updateUserEssentials = async (
 
 export const initUserPayment = async (
   email: string,
+  joiningFee: number,
+  paymentMethod: 'Stripe' | 'Bitpay',
   profileData: {
     signup_source: 'referred' | 'purchased'
     referred_token?: string
@@ -281,6 +286,8 @@ export const initUserPayment = async (
       `${BASE_URL}/api/web3/make-payment`,
       {
         email: email,
+        paymentAmount: joiningFee,
+        paymentMethod: paymentMethod,
         signupSource: profileData.signup_source,
         referredToken: profileData.referred_token || null,
       },
@@ -415,6 +422,8 @@ export const postSendSms = async (
 // Composite action that handles payment initialization and follow-up email
 export const initUserPaymentWithEmail = async (
   email: string,
+  joiningFee: number,
+  paymentMethod: 'Stripe' | 'Bitpay',
   profileData: {
     signup_source: 'referred' | 'purchased'
     referred_token?: string
@@ -424,10 +433,15 @@ export const initUserPaymentWithEmail = async (
 ) => {
   try {
     // Step 1: Initialize payment
-    const paymentResult = await initUserPayment(email, {
-      signup_source: profileData.signup_source,
-      referred_token: profileData.referred_token,
-    })
+    const paymentResult = await initUserPayment(
+      email,
+      joiningFee,
+      paymentMethod,
+      {
+        signup_source: profileData.signup_source,
+        referred_token: profileData.referred_token,
+      }
+    )
 
     if (!paymentResult.success) {
       return paymentResult

@@ -23,14 +23,14 @@ export const UserPaymentForm: FC<FormProps> = ({
     'stripe'
   )
 
-  const initPayment = async () => {
+  const initPayment = async (type: 'Stripe' | 'Bitpay') => {
     if (!user?.email) {
       console.error('Missing required fields for user:', user)
       return
     }
     setIsSubmitting(true)
 
-    initUserPayment(user.email, {
+    initUserPayment(user.email, joiningFee as number, type, {
       signup_source: 'purchased',
     })
       .then(res => {
@@ -114,7 +114,7 @@ export const UserPaymentForm: FC<FormProps> = ({
               updateUser={updateUser}
               joiningFee={joiningFee}
               cryptoPrice={cryptoPrice}
-              onStripeSuccess={initPayment}
+              onStripeSuccess={() => initPayment('Stripe')}
               className="flex flex-col h-full"
             />
           ) : (
@@ -123,7 +123,7 @@ export const UserPaymentForm: FC<FormProps> = ({
               updateUser={updateUser}
               joiningFee={joiningFee}
               cryptoPrice={cryptoPrice}
-              onPaymentSuccess={initPayment}
+              onPaymentSuccess={() => initPayment('Bitpay')}
               className="flex flex-col h-full"
             />
           )}
