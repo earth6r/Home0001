@@ -30,7 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const paymentData = {
           email: email,
           signupSource: 'purchased',
-          paymentMethod: 'crypto',
+          paymentMethod: 'Bitpay',
           paymentProvider: 'bitpay',
           invoiceId: id,
           orderId: orderId,
