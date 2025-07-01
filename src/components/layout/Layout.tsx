@@ -1,4 +1,10 @@
-import { useEffect, type FC, type ReactNode } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  type FC,
+  type ReactNode,
+} from 'react'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'react-toastify'
 import type {
@@ -16,6 +22,7 @@ import { ReactLenis } from '@studio-freight/react-lenis'
 import { Cookies } from '@components/cookies'
 import { triggerToastPreview } from '@components/toast'
 import { KeyedProperty } from '@components/sanity/blocks/properties/types'
+import { useWalletUser, Web3UserProps } from '@contexts/web3'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 type PageData = Page | Property | Unit
@@ -38,6 +45,11 @@ export const Layout: FC<LayoutProps> = ({
   const hideUi =
     (page?._type && (page._type as string) === 'rdPage') ||
     (page?._type && (page._type as string) === 'dashboard')
+
+  const [user, updateUser] = useWalletUser() as [
+    Web3UserProps,
+    Dispatch<SetStateAction<Web3UserProps>>
+  ]
 
   useEffect(() => {
     if (preview)
@@ -109,7 +121,7 @@ export const Layout: FC<LayoutProps> = ({
           <main className="flex-auto min-h-[82svh]">{children}</main>
         </ReactLenis>
 
-        {!(page?._type && (page._type as string) === 'rdPage') && (
+        {(!hideUi || user?.step === 'prompt') && (
           <Footer
             path={asPath}
             query={query}
