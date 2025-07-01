@@ -67,7 +67,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
     <div className={classNames(className)}>
       {/* 1: show prompt to connect wallet */}
       {user?.step === 'prompt' && (
-        <div className="flex flex-col px-x">
+        <div className="flex flex-col px-x mb-y">
           {content.header && (
             <RichText
               blocks={content.header}
@@ -75,7 +75,7 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
             />
           )}
           <div className="w-[100vw] px-x -ml-x py-ydouble pr-menu lg:pr-0 bg-gray">
-            <div className="flex flex-col flex-start gap-y text-left lg:max-w-[25%]">
+            <div className="flex flex-col flex-start gap-ydouble text-left lg:max-w-[33%]">
               <h4 className="text-bodyLg uppercase font-bold font-sansText">{`Current Joining fee:`}</h4>
               <p className="!mx-0 text-bodyLg uppercase font-bold font-sansText">
                 {dynamicPrice ? (
@@ -101,11 +101,11 @@ export const ApplicationContainer: FC<ApplicationContainerProps> = ({
               updateUser({ ...user, step: 'info' })
               scroll.scrollToTop({ behavior: 'smooth' })
             }}
-            className="flex items-center w-[100vw] bg-yellow px-x py-ydouble -ml-x text-white"
+            className="flex items-center w-[100vw] bg-yellow pl-x pr-menu md:pr-x py-yquad -ml-x text-white"
           >
-            <div className="flex items-center justify-between w-full md:w-[50%] lg:w-[33%] xl:w-[25%] h-auto p-xhalf bg-black text-bodyLg uppercase font-bold font-sansText">
+            <div className="flex items-center justify-between w-full md:w-[50%] lg:w-[33%] h-auto px-xhalf pt-[5px] pb-[6px] bg-black text-bodyLg uppercase font-bold font-sansText pt-">
               <p className="w-full text-left">{`Start Application`}</p>
-              <IconRightArrowBold className="w-[34px] h-auto" fill="white" />
+              <IconRightArrowBold className="w-[25px] h-auto" fill="white" />
             </div>
           </button>
         </div>
