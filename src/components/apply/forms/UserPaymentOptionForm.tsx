@@ -34,27 +34,28 @@ export const UserPaymentOptionForm: FC<FormProps> = ({
     }
     setIsSubmitting(true)
 
-    initUserPayment(user.email, {
-      referred_token: data.referredToken,
-      signup_source: 'referred',
-    }).then(res => {
-      if (!res?.success) {
-        console.error('Error making referral payment:', res?.message)
-        setFormError({ error: true, message: 'Referral code failed' })
-        setFormSubmitted({ submitted: true, success: false })
-        setIsSubmitting(false)
-      } else {
-        updateUser({
-          ...user,
-          step: 'location',
-          referred_token: data.referredToken,
-          signup_source: 'referred',
-        })
+    // below variables would need to change given the payment method
+    // initUserPayment(user.email, 0, 'Stripe', {
+    //   referred_token: data.referredToken,
+    //   signup_source: 'referred',
+    // }).then(res => {
+    //   if (!res?.success) {
+    //     console.error('Error making referral payment:', res?.message)
+    //     setFormError({ error: true, message: 'Referral code failed' })
+    //     setFormSubmitted({ submitted: true, success: false })
+    //     setIsSubmitting(false)
+    //   } else {
+    //     updateUser({
+    //       ...user,
+    //       step: 'location',
+    //       referred_token: data.referredToken,
+    //       signup_source: 'referred',
+    //     })
 
-        setFormSubmitted({ submitted: true, success: true })
-        scroll.scrollToTop({ behavior: 'smooth' })
-      }
-    })
+    //     setFormSubmitted({ submitted: true, success: true })
+    //     scroll.scrollToTop({ behavior: 'smooth' })
+    //   }
+    // })
   }
 
   return (
