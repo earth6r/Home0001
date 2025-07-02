@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { RichText } from '@components/sanity/rich-text'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
 import { TypedObject } from 'sanity'
 import { ArrowBtn } from '@components/btns'

@@ -2,7 +2,6 @@ import { useState, type FC, type HTMLAttributes, useEffect } from 'react'
 import { Modal } from '@components/modal'
 import classNames from 'classnames'
 import { sendGoogleEvent } from '@lib/util'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { useLenis } from '@studio-freight/react-lenis'
 import { ArrowBtn } from '@components/btns'
 

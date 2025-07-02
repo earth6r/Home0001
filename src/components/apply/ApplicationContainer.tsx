@@ -10,7 +10,6 @@ import {
 } from '@lib/util/crypto-pricing'
 import ApplicationForm from './ApplicationForm'
 import { ApplicationContainerProps } from './types'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { getDynamicPrice } from './actions'
 import { saveError } from '@lib/util/save-error'
 import IconRightArrowBold from '@components/icons/IconRightArrowBold'

@@ -6,11 +6,8 @@ import { RichText } from '@components/sanity/rich-text'
 import { TypedObject } from 'sanity'
 import { AccountSettingsProps } from './types'
 import { Controller, useForm } from 'react-hook-form'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { updateUserProfile } from './actions'
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
-import { isMobile } from 'react-device-detect'
-import IconChevron from '@components/icons/IconChevron'
 import { ArrowBtn } from '@components/btns'
 
 export const AccountSettings: FC<AccountSettingsProps> = ({

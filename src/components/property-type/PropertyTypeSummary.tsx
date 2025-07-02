@@ -9,7 +9,6 @@ import {
   convertUsdToBtcPrice,
 } from '@lib/util/crypto-pricing'
 import { SanityMedia, SanityMediaProps } from '@components/sanity'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Media } from '@studio/gen/sanity-schema'
 import posthog from 'posthog-js'
 import { ArrowBtn } from '@components/btns'

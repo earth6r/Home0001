@@ -4,7 +4,6 @@ import type { FC } from 'react'
 import React, { HTMLAttributes, memo, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { useForm } from 'react-hook-form'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import {
   createGoogleCalendarMeeting,
   getAvailableSlots,

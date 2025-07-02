@@ -1,5 +1,5 @@
 import type { Dispatch, FC, HTMLProps, SetStateAction } from 'react'
-import { useRef, Fragment, useState } from 'react'
+import { Fragment, useState } from 'react'
 import classNames from 'classnames'
 import { Switch } from '@headlessui/react'
 import type { SanityLinkType } from '@studio/lib'
@@ -13,7 +13,6 @@ import { useLenis } from '@studio-freight/react-lenis'
 import IconChevron from '@components/icons/IconChevron'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useWalletUser, Web3UserProps } from '@contexts/web3'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 
 export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
   customOpen = false,

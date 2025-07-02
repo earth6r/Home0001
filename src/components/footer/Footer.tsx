@@ -10,7 +10,6 @@ import { TypedObject } from 'sanity'
 import { PropertyList } from '@components/property'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { ArrowBtn } from '@components/btns'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
