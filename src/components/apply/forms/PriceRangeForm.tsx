@@ -97,7 +97,7 @@ export const PriceRangeForm: FC<FormProps> = ({
               type="radio"
               value={name}
               id={name}
-              {...register('price_range', { required: false })}
+              {...register('price_range', { required: 'Choose a range' })}
             />
             <label
               className="text-left cursor-pointer font-medium text-xs tracking-normal uppercase"

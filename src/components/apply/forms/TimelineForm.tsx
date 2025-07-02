@@ -92,7 +92,9 @@ export const TimelineForm: FC<FormProps> = ({
               type="radio"
               value={name}
               id={name}
-              {...register('buyingtimelinedec2023', { required: false })}
+              {...register('buyingtimelinedec2023', {
+                required: 'Choose a timeline',
+              })}
             />
             <label
               className="text-left cursor-pointer font-medium text-xs tracking-normal uppercase"
