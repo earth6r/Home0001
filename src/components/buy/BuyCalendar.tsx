@@ -14,6 +14,7 @@ import {
 import { saveError } from '@lib/util/save-error'
 import { DateSelect } from '@components/date-select'
 import moment from 'moment-timezone'
+import { ArrowBtn } from '@components/btns'
 
 const createEasternTimeDate = (
   dateStr: string,
@@ -126,14 +127,12 @@ export const BuyCalendarComponent: FC<BuyCalendarProps> = ({
             className="mb-y"
           />
 
-          <button
-            className="inline-flex justify-between items-center gap-[4px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase text-xs z-above"
-            type={'submit'}
+          <ArrowBtn
+            type="submit"
+            text={isSubmitting ? 'Submitting...' : 'Make appointment'}
             disabled={isSubmitting}
-          >
-            <IconSmallArrow className="w-[15px] md:w-[17px]" height="10" />
-            {isSubmitting ? 'Submitting...' : 'Make appointment'}
-          </button>
+            className="mt-yhalf z-above"
+          />
 
           {formError.error && (
             <p className="text-[#FF0000] mt-y font-medium uppercase">

@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { createBitPayInvoice, checkBitPayInvoiceStatus } from './actions'
 import { Web3UserProps } from '@contexts/web3'
+import { ArrowBtn } from '@components/btns'
 
 interface BitPaymentProps extends HTMLAttributes<HTMLFormElement> {
   user?: Web3UserProps
@@ -202,26 +203,24 @@ const PaymentContainer: FC<BitPaymentProps> = ({
 
           <p className="mt-y !mx-0 !mb-ydouble">{`Payment will take place in an external window.`}</p>
 
-          <button
-            className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] mb-y bg-black text-white"
+          <ArrowBtn
+            className="mb-y"
             type={'submit'}
-            disabled={
-              isSubmitting ||
-              paymentStatus === 'pending' ||
+            text={
               paymentStatus === 'paid'
-            }
-          >
-            <IconSmallArrow fill="white" width="15" height="11" />
-            <span className="uppercase font-medium leading-none text-xs">
-              {paymentStatus === 'paid'
                 ? 'Payment Confirmed'
                 : paymentStatus === 'pending'
                 ? 'Waiting for payment...'
                 : isSubmitting
                 ? 'Creating invoice...'
-                : `Pay with wallet`}
-            </span>
-          </button>
+                : `Pay with wallet`
+            }
+            disabled={
+              isSubmitting ||
+              paymentStatus === 'pending' ||
+              paymentStatus === 'paid'
+            }
+          />
         </div>
       </form>
     </>

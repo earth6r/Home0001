@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from '../types'
 import FormPane from '../FormPane'
+import { ArrowBtn } from '@components/btns'
 
 export const UserPaymentOptionForm: FC<FormProps> = ({
   user,
@@ -83,18 +84,13 @@ export const UserPaymentOptionForm: FC<FormProps> = ({
           {...register('referredToken', { required: 'Code required' })}
         />
 
-        <button
+        <ArrowBtn
           onClick={() =>
             updateUser({ ...user, step: 'payment', signup_source: 'payment' })
           }
-          className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black"
-        >
-          <IconSmallArrow fill="black" width="15" height="11" />
-
-          <span className="uppercase font-medium leading-none text-xs">
-            {`Skip`}
-          </span>
-        </button>
+          background="white"
+          text={`Skip`}
+        />
       </div>
     </FormPane>
   )

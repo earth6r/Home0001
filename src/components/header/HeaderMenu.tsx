@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { Switch } from '@headlessui/react'
 import type { SanityLinkType } from '@studio/lib'
 import { SanityLink } from '@components/sanity'
-import { Btn } from '@components/btns'
+import { ArrowBtn, Btn } from '@components/btns'
 import type { HeaderMenuProps } from './types'
 import { Logo } from '@components/logos'
 import { useCryptoMode, useHeaderLinks } from '@contexts/header'
@@ -199,21 +199,16 @@ export const HeaderMenu: FC<HeaderMenuProps & HTMLProps<HTMLDivElement>> = ({
                   Wallet ID: {user.address}
                 </li>
                 <li>
-                  <button
+                  <ArrowBtn
                     onClick={() => {
                       updateUser(null)
                       localStorage.setItem('walletAddress', '')
                       setHeaderLinksShown(true)
                       setTimeout(() => setCustomOpen(false), 100)
                     }}
-                    className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black"
-                  >
-                    <IconSmallArrow fill="black" width="15" height="11" />
-
-                    <span className="uppercase font-medium !leading-none">
-                      {`Disconnect Wallet`}
-                    </span>
-                  </button>
+                    text={`Disconnect Wallet`}
+                    background="white"
+                  />
                 </li>
               </>
             )}

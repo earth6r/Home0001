@@ -19,6 +19,7 @@ import IconChevron from '@components/icons/IconChevron'
 import { PropertyContentProps } from '@components/property/types'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { IconWaitlist } from '@components/icons'
+import { ArrowBtn } from '@components/btns'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -165,14 +166,12 @@ export const PropertyTypeComponent: FC<PropertyTypeElProps> = ({
 
           <div className="hidden lg:block relative w-full cursor-pointer z-above">
             <Link href="/how-it-works">
-              <button
+              <ArrowBtn
+                text={`How it works`}
                 className={classNames(
-                  'w-auto relative flex flex-row gap-[4px] px-[4px] items-center h-auto pt-[5px] pb-[6px]  border-black hover:border-white bg-black text-white hover:invert transition-all duration-200 text-button'
+                  'border-black hover:border-white bg-black text-white hover:invert transition-all duration-200'
                 )}
-              >
-                <IconSmallArrow width="16" height="10" fill="white" />
-                {`How it works`}
-              </button>
+              />
             </Link>
           </div>
         </div>
