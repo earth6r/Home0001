@@ -119,7 +119,6 @@ const Page: NextPage<PageProps> = (
       getUserCurrentStep(user.email)
         .then(res => {
           const { data } = res || {}
-          console.log('User step data:', data)
           updateUser({
             id: user.id,
             address: user.walletAddress,
