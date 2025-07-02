@@ -72,8 +72,7 @@ export const LocationForm: FC<FormProps> = ({
             {`We’ve received your payment.`} <br />
             {`Now tell us what you’re looking for.`}
           </p>
-          <p className="!mx-0 !text-bodyLg !font-bold">{`Where do you want to buy?`}</p>
-          <p className="!mx-0">{`Select up to 3 locations, if you want.`}</p>
+          <p className="!mx-0 mb-y !text-bodyLg !font-bold">{`Where do you want to buy?`}</p>
         </div>
         {LOCATIONS.map(({ label, name }) => (
           <div key={name}>
