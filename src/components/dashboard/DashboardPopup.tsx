@@ -3,7 +3,6 @@
 import React, { FC } from 'react'
 import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { ArrowBtn } from '@components/btns'
 
 const DashboardPopup: FC<{ setShowPopup: (arg0: boolean) => void }> = ({

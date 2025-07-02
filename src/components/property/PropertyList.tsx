@@ -1,12 +1,11 @@
 import { HTMLAttributes, type FC } from 'react'
 import classNames from 'classnames'
-import { Block, RichText } from '@components/sanity'
+import { RichText } from '@components/sanity'
 import Link from 'next/link'
 import { sendGoogleEvent } from '@lib/util'
 import posthog from 'posthog-js'
 import { useRouter } from 'next/router'
 import { TypedObject } from 'sanity'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { KeyedProperty } from '@components/sanity/blocks/properties/types'
 import { ArrowBtn } from '@components/btns'
 

@@ -5,9 +5,7 @@ import {
   SanityTableModal,
 } from '@components/sanity/table-modal'
 import { RichText as RichTextType } from '@studio/gen/sanity-schema'
-import { MapDialog } from '@components/map'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
-import Link from 'next/link'
 
 export type BuyUnitProps = {
   title: string

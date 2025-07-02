@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import React, { FC, useState } from 'react'
-import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { initUserPayment } from '../actions'
 import { useForm } from 'react-hook-form'
 import { animateScroll as scroll } from 'react-scroll'
