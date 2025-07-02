@@ -205,7 +205,7 @@ export const AccountSettings: FC<AccountSettingsProps> = ({
           )}
         </div>
 
-        <div className="flex flex-col gap-y !m-0">
+        {/* <div className="flex flex-col gap-y !m-0">
           <span className="text-h4">{`Preferred app for communication with HOME0001:`}</span>
           <div className="flex justify-between items-center">
             <span className="">{user?.comms || ``}</span>
@@ -257,7 +257,7 @@ export const AccountSettings: FC<AccountSettingsProps> = ({
               <IconChevron className="absolute w-[12px] right-x bottom-[1.4em]" />
             </div>
           )}
-        </div>
+        </div> */}
 
         {hasEdited && (
           <button
