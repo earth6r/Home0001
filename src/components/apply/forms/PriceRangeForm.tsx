@@ -89,8 +89,7 @@ export const PriceRangeForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <p className="!mx-0 !text-bodyLg !font-bold">{`What’s your price range?`}</p>
-        <p className="!mx-0 mb-y">{`Please select the most suitable range for you.`}</p>
+        <p className="!mx-0 mb-y !text-bodyLg !font-bold">{`What’s your price range?`}</p>
 
         {PRICES.map(({ label, name }) => (
           <div key={name}>

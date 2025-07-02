@@ -106,13 +106,9 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <p className="!mx-0 !text-bodyLg !font-bold">
+        <p className="!mx-0 mb-y !text-bodyLg !font-bold">
           {`How many bedrooms are you looking for?`}
         </p>
-        <div className="flex flex-col gap-y mb-y">
-          <p className="!mx-0 ">{`Please select one option.`}</p>
-        </div>
-
         {SIZES.map(({ label, name }) => (
           <div key={name}>
             <input
