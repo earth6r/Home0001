@@ -38,9 +38,14 @@ export const EssentialsForm: FC<FormProps> = ({
     }
     setIsSubmitting(true)
 
+    const essentials = data.essentials || []
+    if (data.essentials_other) {
+      essentials.push(data.essentials_other)
+    }
+
     updateUserEssentialsWithMessage(
       user.email,
-      data.essentials,
+      essentials,
       user.phone_number as string,
       {
         comms: (user.comms as 'WhatsApp' | 'Telegram').toLowerCase() as
