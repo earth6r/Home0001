@@ -76,15 +76,11 @@ export const EssentialsForm: FC<FormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-y">
-        <p className="!mx-0 !text-bodyLg !font-bold">
+        <p className="mb-y !mx-0 !text-bodyLg !font-bold">
           {`Last question:`}
           <br />
           {`What are your essentials?`}
         </p>
-
-        <div className="flex flex-col gap-y mb-y">
-          <p className="!mx-0 ">{`Select all that apply.`}</p>
-        </div>
 
         {ESSENTIALS.map(({ label, name }) => (
           <div key={name}>
