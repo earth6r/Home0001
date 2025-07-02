@@ -32,8 +32,10 @@ export const LocationForm: FC<FormProps> = ({
   const max = 3
 
   const onSubmit = async (data: any) => {
-    if (!user?.email) {
+    if (!user?.email || (!data?.interested_cities && !data?.city_general)) {
       console.error('Missing required form fields')
+      setFormError({ error: true, message: 'At least one location required' })
+      setFormSubmitted({ submitted: true, success: false })
       return
     }
     setIsSubmitting(true)
@@ -113,6 +115,12 @@ export const LocationForm: FC<FormProps> = ({
           {...register('city_general')}
           className={classNames('input')}
         />
+
+        {formError.error && (
+          <p className="text-[#FF0000] font-medium uppercase">
+            {formError.message}
+          </p>
+        )}
       </div>
     </FormPane>
   )
