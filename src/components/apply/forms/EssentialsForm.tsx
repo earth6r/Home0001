@@ -44,6 +44,40 @@ export const EssentialsForm: FC<FormProps> = ({
       setFormSubmitted({ submitted: true, success: false })
       return
     }
+    setIsSubmitting(true)
+
+    const essentials = data.essentials || []
+    if (data.essentials_other) {
+      essentials.push(data.essentials_other)
+    }
+
+    updateUserEssentialsWithMessage(
+      user.email,
+      essentials,
+      user.phone_number as string,
+      {
+        comms: (user.comms as 'WhatsApp' | 'Telegram').toLowerCase() as
+          | 'whatsapp'
+          | 'telegram',
+        first_name: user.first_name as string,
+      }
+    ).then(res => {
+      if (!res?.success) {
+        console.error('Error updating user essentials:', res?.message)
+        setFormError({ error: true, message: 'User essentials update failed' })
+        setFormSubmitted({ submitted: true, success: false })
+        setIsSubmitting(false)
+      } else {
+        updateUser({
+          ...user,
+          step: 'token',
+          hasFinishedProfile: true,
+        })
+
+        setFormSubmitted({ submitted: true, success: true })
+        scroll.scrollToTop({ behavior: 'smooth' })
+      }
+    })
   }
 
   return (
