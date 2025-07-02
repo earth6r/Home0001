@@ -28,7 +28,7 @@ export const ArrowBtn: FC<ArrowBtnProps> = ({
           background === 'black'
             ? 'bg-black text-white'
             : 'bg-white border-black',
-          'inline-flex justify-between items-center gap-[4.5px] w-auto relative px-[6px] pt-[4px] pb-[5px] font-medium text-left uppercase'
+          'inline-flex justify-between items-center gap-[4.5px] w-fit relative px-[6px] pt-[4px] pb-[5px] font-medium text-left uppercase'
         )}
         {...props}
       >
