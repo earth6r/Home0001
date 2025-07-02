@@ -127,7 +127,7 @@ export const getUserCurrentStep = async (email: string) => {
 
 export const updateUserLocation = async (
   email: string,
-  location: string,
+  location?: string,
   other?: string
 ) => {
   try {
@@ -135,7 +135,7 @@ export const updateUserLocation = async (
       `${BASE_URL}/api/web3/update-user-location`,
       {
         email: email,
-        whereDoYouWantToBuy: location,
+        whereDoYouWantToBuy: location || [],
         elseValue: other,
       },
       CONFIG

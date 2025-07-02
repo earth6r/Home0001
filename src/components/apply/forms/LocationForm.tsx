@@ -32,7 +32,7 @@ export const LocationForm: FC<FormProps> = ({
   const max = 3
 
   const onSubmit = async (data: any) => {
-    if (!user?.email || selectedOrder.length === 0) {
+    if (!user?.email) {
       console.error('Missing required form fields')
       return
     }
@@ -82,9 +82,7 @@ export const LocationForm: FC<FormProps> = ({
               value={name}
               id={name}
               checked={selectedOrder.includes(name)}
-              {...register('interested_cities', {
-                required: 'Choose at least one location',
-              })}
+              {...register('interested_cities')}
               onChange={() => {
                 const isCurrentlySelected = selectedOrder.includes(name)
 
@@ -113,7 +111,7 @@ export const LocationForm: FC<FormProps> = ({
         <input
           type="text"
           placeholder="Somewhere else?"
-          {...register('city_general', { required: false })}
+          {...register('city_general')}
           className={classNames('input')}
         />
       </div>
