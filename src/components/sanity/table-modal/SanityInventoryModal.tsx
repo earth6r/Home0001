@@ -9,6 +9,7 @@ import { SanityImage } from '../media'
 import posthog from 'posthog-js'
 import { useRouter } from 'next/router'
 import { Inventory } from '@components/inventory'
+import { ArrowBtn } from '@components/btns'
 
 interface SanityInventoryModalProps extends HTMLAttributes<HTMLElement> {
   inventory?: {
@@ -65,18 +66,14 @@ export const SanityInventoryModal: FC<SanityInventoryModalProps> = ({
       </Modal>
 
       {buttonType === 'button' ? (
-        <div className="flex items-center gap-[5px] py-[4px] px-[6px] border-black">
-          <IconSmallArrow fill="black" width="15" height="11" />
-          <button
-            onClick={() => {
-              setIsOpen(true)
-              handleEvents()
-            }}
-            className="uppercase font-medium leading-none"
-          >
-            {buttonLabel}
-          </button>
-        </div>
+        <ArrowBtn
+          onClick={() => {
+            setIsOpen(true)
+            handleEvents()
+          }}
+          text={buttonLabel}
+          background="white"
+        />
       ) : (
         <button
           onClick={() => {

@@ -11,6 +11,7 @@ import { PropertyList } from '@components/property'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
+import { ArrowBtn } from '@components/btns'
 
 export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
   footerMenu,
@@ -64,17 +65,10 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
               />
               {applyLink && (
                 <SanityLink {...applyLink}>
-                  <button
-                    className={classNames(
-                      'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-black text-white font-medium text-left uppercase border-black'
-                    )}
-                  >
-                    <IconSmallArrow
-                      className="relative w-[1.1em] mt-[0.05em]"
-                      fill="white"
-                    />
-                    <span className="leading-none">{`Connect wallet to apply`}</span>
-                  </button>
+                  <ArrowBtn
+                    text="Connect wallet to apply"
+                    className="mt-yhalf"
+                  />
                 </SanityLink>
               )}
             </div>
@@ -82,35 +76,18 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
             <div className="w-full">
               <p>{`If you have questions:`}</p>
               <a href="http://home0001.com/contact" target="_blank">
-                <button
-                  className={classNames(
-                    'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
-                  )}
-                >
-                  <IconSmallArrow
-                    className="relative w-[1.1em] mt-[0.05em]"
-                    fill="black"
-                  />
-                  <span className="leading-none">{`Get in touch`}</span>
-                </button>
+                <ArrowBtn text={`Get in touch`} className="mt-yhalf" />
               </a>
             </div>
 
             <div className="w-full">
               <p>{`Are you a broker?`}</p>
               <a href="http://home0001.com/contact" target="_blank">
-                <button
-                  className={classNames(
-                    'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] mt-yhalf bg-white font-medium text-left uppercase border-black'
-                  )}
-                  onClick={() => {}}
-                >
-                  <IconSmallArrow
-                    className="relative w-[1.1em] mt-[0.05em]"
-                    fill="black"
-                  />
-                  <span className="leading-none">{`Talk to us`}</span>
-                </button>
+                <ArrowBtn
+                  text="Talk to us"
+                  background="white"
+                  className="mt-yhalf"
+                />
               </a>
             </div>
           </div>

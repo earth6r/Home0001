@@ -12,6 +12,7 @@ import { SanityMedia, SanityMediaProps } from '@components/sanity'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Media } from '@studio/gen/sanity-schema'
 import posthog from 'posthog-js'
+import { ArrowBtn } from '@components/btns'
 
 const ENV = process.env.NEXT_PUBLIC_SANITY_DATASET
 
@@ -99,17 +100,7 @@ export const PropertyTypeSummary: FC<PropertyTypeListProps> = ({
                 <div className="flex justify-between w-full">
                   <p className="font-medium">{propertyType?.area}</p>
 
-                  <div
-                    className={classNames(
-                      'mt-[-5px] inline-flex justify-between items-center w-[99px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-sm text-left uppercase'
-                    )}
-                  >
-                    <IconSmallArrow
-                      className="relative w-[1.1em] mt-[0.1em]"
-                      fill="white"
-                    />
-                    <span className="leading-none">{`Explore`}</span>
-                  </div>
+                  <ArrowBtn type="div" text="Explore" className="-mt-[5px]" />
                 </div>
               </div>
             </div>

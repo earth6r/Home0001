@@ -4,6 +4,7 @@ import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
 import WalletButton from './WalletButton'
 import { isMobile, isIOS, isAndroid } from 'react-device-detect'
+import { ArrowBtn } from '@components/btns'
 
 const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
   header,
@@ -20,8 +21,11 @@ const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
             <p>To connect your wallet:</p>
           </div>
 
-          <WalletButton className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] mb-y bg-white border-black">
-            <IconSmallArrow fill="black" width="15" height="11" />
+          <WalletButton className="flex items-center gap-[4.5px] w-fit py-[4px] px-[6px] mb-y bg-black text-white">
+            <IconSmallArrow
+              fill="white"
+              className="relative w-[1.1em] mt-[0.05em]"
+            />
             <span className="uppercase font-medium leading-none text-xs">
               {`Connect your wallet`}
             </span>
@@ -50,13 +54,7 @@ const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
             target="_blank"
             className="font-bold"
           >
-            <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] bg-white border-black">
-              <IconSmallArrow fill="black" width="15" height="11" />
-
-              <span className="uppercase font-medium leading-none text-xs">
-                {isMobile ? `Get MetaMask` : `Create a wallet`}
-              </span>
-            </button>
+            <ArrowBtn text={isMobile ? `Get MetaMask` : `Create a wallet`} />
           </Link>
         </>
       )}

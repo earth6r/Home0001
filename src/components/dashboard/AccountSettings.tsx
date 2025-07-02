@@ -11,6 +11,7 @@ import { updateUserProfile } from './actions'
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import { isMobile } from 'react-device-detect'
 import IconChevron from '@components/icons/IconChevron'
+import { ArrowBtn } from '@components/btns'
 
 export const AccountSettings: FC<AccountSettingsProps> = ({
   content,
@@ -260,19 +261,13 @@ export const AccountSettings: FC<AccountSettingsProps> = ({
         </div> */}
 
         {hasEdited && (
-          <button
+          <ArrowBtn
             type={'submit'}
             form="account-settings-form"
             disabled={isSubmitting}
-            className={classNames(
-              'flex items-center gap-[5px] w-fit py-[4px] px-[6px] mb-y !my-0 bg-black text-white z-above'
-            )}
-          >
-            <IconSmallArrow fill="white" width="15" height="11" />
-            <span className="uppercase font-medium leading-none text-xs">
-              {isSubmitting ? 'Submitting...' : 'Save Changes'}
-            </span>
-          </button>
+            text={isSubmitting ? 'Submitting...' : 'Save Changes'}
+            className={classNames('mb-y !my-0 z-above')}
+          />
         )}
       </form>
     </div>

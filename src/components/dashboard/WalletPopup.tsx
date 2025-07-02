@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { Web3UserProps } from '@contexts/web3'
+import { ArrowBtn } from '@components/btns'
 
 const WalletPopup: FC<{
   user: Web3UserProps
@@ -40,15 +41,11 @@ const WalletPopup: FC<{
               'absolute flex flex-col gap-2 md:gap-y w-[calc(100%-var(--space-x-double))] bottom-0'
             )}
           >
-            <button
+            <ArrowBtn
               onClick={setShowPopup}
-              className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] mb-y bg-black text-white"
-            >
-              <IconSmallArrow fill="white" width="15" height="11" />
-              <span className="uppercase font-medium leading-none text-xs">
-                {`Continue`}
-              </span>
-            </button>
+              text={`Continue`}
+              className="mb-y"
+            />
           </div>
         </motion.div>
       </motion.div>

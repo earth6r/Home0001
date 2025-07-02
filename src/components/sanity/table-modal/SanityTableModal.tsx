@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { sendGoogleEvent } from '@lib/util'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { useLenis } from '@studio-freight/react-lenis'
+import { ArrowBtn } from '@components/btns'
 
 interface SanityTableModalProps extends HTMLAttributes<HTMLElement> {
   table: any
@@ -83,18 +84,14 @@ export const SanityTableModal: FC<SanityTableModalProps> = ({
         </div>
       </Modal>
 
-      <div className="flex items-center gap-[5px] py-[4px] px-[6px] border-black">
-        <IconSmallArrow fill="black" width="16" height="10" />
-        <button
-          onClick={() => {
-            setIsOpen(true)
-            handleGoogleEvent()
-          }}
-          className="uppercase font-medium leading-none"
-        >
-          {buttonLabel}
-        </button>
-      </div>
+      <ArrowBtn
+        onClick={() => {
+          setIsOpen(true)
+          handleGoogleEvent()
+        }}
+        text={buttonLabel}
+        background="white"
+      />
     </div>
   )
 }

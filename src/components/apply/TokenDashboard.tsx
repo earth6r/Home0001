@@ -3,6 +3,7 @@ import { RichText } from '@components/sanity/rich-text'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import Link from 'next/link'
 import { TypedObject } from 'sanity'
+import { ArrowBtn } from '@components/btns'
 
 type TokenDashboardProps = {
   dashboardCopy?: TypedObject | TypedObject[]
@@ -27,13 +28,7 @@ const TokenDashboard: FC<TokenDashboardProps> = ({
         target="_blank"
         className="inline-block mt-y font-bold"
       >
-        <button className="flex items-center gap-[5px] w-fit py-[4px] px-[6px] border-black">
-          <IconSmallArrow fill="black" width="15" height="11" />
-
-          <span className="uppercase font-medium leading-none text-xs">
-            {`Get in touch`}
-          </span>
-        </button>
+        <ArrowBtn text={`Get in touch`} background="white" />
       </Link>
 
       <div className="mt-y rich-text">

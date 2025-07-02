@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { TypedObject } from 'sanity'
 import IconSmallArrow from '@components/icons/IconSmallArrow'
 import { KeyedProperty } from '@components/sanity/blocks/properties/types'
+import { ArrowBtn } from '@components/btns'
 
 export interface PropertyListProps extends HTMLAttributes<HTMLDivElement> {
   header?: string
@@ -66,18 +67,9 @@ export const PropertyList: FC<PropertyListProps> = ({
                       'w-[calc(100%-99px-var(--space-x))] uppercase line-clamp-2'
                     )}
                   />
+
                   {available !== false && (
-                    <div
-                      className={classNames(
-                        'inline-flex justify-between items-center w-[101px] relative px-[6px] pt-[4px] pb-[5px] bg-black text-white font-medium text-left uppercase'
-                      )}
-                    >
-                      <IconSmallArrow
-                        className="relative w-[1.1em] mt-[0.05em]"
-                        fill="white"
-                      />
-                      <span className="leading-none">{`Explore`}</span>
-                    </div>
+                    <ArrowBtn type="div" text="Explore" />
                   )}
                 </Link>
               </div>
