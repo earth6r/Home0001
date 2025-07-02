@@ -4,7 +4,12 @@ import type { ChangeEvent, FC } from 'react'
 import React, { HTMLAttributes, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { Calendar } from '@/components/ui/calendar'
+import moment from 'moment-timezone'
+import { cn } from '@lib/util'
+import { setUpcomingDates } from '@lib/util'
 import IconChevron from '@components/icons/IconChevron'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface DateSelectProps extends HTMLAttributes<HTMLFormElement> {
   availableSlots: any[]
@@ -46,65 +51,80 @@ export const DateSelect: FC<DateSelectProps> = ({
   loading,
   times = TIMES_LIST,
   register,
-  resetField,
   className,
 }) => {
-  //@ts-ignore
-  const [activeIndex, setActiveIndex] = useState(availableSlots?.[0]?.date)
-  const renderedSlots = availableSlots
-
-  useEffect(() => {
-    if (availableSlots && availableSlots.length > 0) {
-      setActiveIndex(availableSlots[0]?.date)
-    }
-  }, [availableSlots])
+  const [selectedDate, setSelectedDate] = useState(moment().add(2, 'days'))
+  const [hasNavigatedToNextMonth, setHasNavigatedToNextMonth] = useState(false)
+  console.log('Available slots:', availableSlots[0], selectedDate)
 
   return (
     <div className={className}>
+      {/* Hidden input to register the selected date */}
+      <input
+        type="hidden"
+        value={selectedDate.format('YYYY-MM-DD')}
+        {...register('date')}
+      />
+
       <div className="flex flex-col justify-start gap-y min-h-[224px] lg:min-h-[167px]">
         {loading && <p className="!mx-0 mt-y text-button">{`Loading...`}</p>}
 
         {!loading && (
           <>
-            {renderedSlots && renderedSlots.length > 0 ? (
-              <div className="relative">
-                <select
-                  id="date-select"
-                  className="input select text-button font-sans"
-                  {...register('date')}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                    setActiveIndex(e.target.value)
-                    if (resetField) resetField('startTime')
-                  }}
-                >
-                  {renderedSlots.map(
-                    ({ date }: { date: string; slots: string[] }, index) => {
-                      const formattedDate = new Date(date).toLocaleDateString(
-                        'en-US',
-                        {
-                          timeZone: 'UTC',
-                          weekday: 'short',
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        }
-                      )
+            {availableSlots && availableSlots.length > 0 ? (
+              <Calendar
+                mode="single"
+                selected={selectedDate.toDate()}
+                disabled={date => {
+                  // Convert date to YYYY-MM-DD format to match availableSlots
+                  const dateString = moment(date).format('YYYY-MM-DD')
+                  // Disable dates that are not in availableSlots
+                  return !availableSlots.some(slot => slot.date === dateString)
+                }}
+                onSelect={date => {
+                  date && setSelectedDate(moment(date))
+                }}
+                onMonthChange={month => {
+                  // Check if user navigated to a future month
+                  const currentMonth = moment().month()
+                  const currentYear = moment().year()
+                  const selectedMonth = moment(month).month()
+                  const selectedYear = moment(month).year()
 
-                      return (
-                        <option
-                          key={`option-${index}`}
-                          id="date-select"
-                          value={date}
-                          className="text-button"
-                        >
-                          {formattedDate}
-                        </option>
-                      )
-                    }
-                  )}
-                </select>
-                <IconChevron className="absolute w-[12px] right-x top-1/2 transform -translate-y-1/2" />
-              </div>
+                  if (
+                    selectedYear > currentYear ||
+                    (selectedYear === currentYear &&
+                      selectedMonth > currentMonth)
+                  ) {
+                    setHasNavigatedToNextMonth(true)
+                  }
+                }}
+                components={{
+                  IconLeft: ({
+                    className,
+                    ...props
+                  }: React.ComponentProps<'svg'>) => (
+                    <ChevronLeft
+                      className={classNames(
+                        className,
+                        hasNavigatedToNextMonth
+                          ? ''
+                          : 'opacity-20 pointer-events-none'
+                      )}
+                      {...props}
+                    />
+                  ),
+                  IconRight: ({
+                    className,
+                    ...props
+                  }: React.ComponentProps<'svg'>) => (
+                    <ChevronRight className={className} {...props} />
+                  ),
+                }}
+                className={classNames(
+                  'flex-inline relative text-black font-sans font-regular'
+                )}
+              />
             ) : (
               <p className="!mx-0 mt-y text-button">{`No available times`}</p>
             )}
@@ -112,16 +132,19 @@ export const DateSelect: FC<DateSelectProps> = ({
         )}
 
         <div className="w-full ml-0 md:mx-auto">
-          {renderedSlots &&
-            renderedSlots.map(
+          {availableSlots &&
+            availableSlots.map(
               ({ date, slots }: { date: string; slots: string[] }, index) => {
+                // Format selectedDate to match the date format in availableSlots
+                const selectedDateFormatted = selectedDate.format('YYYY-MM-DD')
+
                 return (
-                  activeIndex === date && (
+                  selectedDateFormatted === date && (
                     <div
                       key={`slots-${index}`}
                       className={classNames('h-full')}
                     >
-                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-xhalf">
+                      <div className="grid grid-cols-2 gap-xhalf">
                         {times?.map((time: string, index: number) => (
                           <div
                             key={index}

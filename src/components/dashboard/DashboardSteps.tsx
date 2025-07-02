@@ -50,7 +50,7 @@ const CalendarComponent: FC<{
       )}
 
       {!loading && showCalendar && (
-        <div className="flex flex-col gap-y w-full max-w-[520px]">
+        <div className="flex flex-col gap-y w-full">
           <div className="relative w-full">
             <p>
               {eventDates && eventDates[0]

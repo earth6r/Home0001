@@ -14,23 +14,7 @@ import { saveError } from '@lib/util/save-error'
 import { DateSelect } from '@components/date-select'
 import moment from 'moment-timezone'
 import { ArrowBtn } from '@components/btns'
-
-const createEasternTimeDate = (
-  dateStr: string,
-  timeStr: string
-): { start: string; end: string } => {
-  const dateTimeString = `${dateStr} ${timeStr}`
-  const easternTime = moment.tz(
-    dateTimeString,
-    'YYYY-MM-DD HH:mm',
-    'America/New_York'
-  )
-
-  return {
-    start: easternTime.toISOString(),
-    end: easternTime.clone().add(1, 'hour').toISOString(),
-  }
-}
+import { createEasternTimeDate } from '@lib/util'
 
 interface BuyCalendarProps extends HTMLAttributes<HTMLFormElement> {
   email?: string
@@ -118,7 +102,10 @@ export const BuyCalendarComponent: FC<BuyCalendarProps> = ({
   return (
     <div className={classNames(className)}>
       {!formSubmitted && (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full max-w-[285px] h-full"
+        >
           <DateSelect
             availableSlots={availableSlots}
             register={register}
