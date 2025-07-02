@@ -55,15 +55,6 @@ export class BitPayKeyUtils {
    */
   static getSinFromPublicKey(publicKeyHex: string): string {
     try {
-      // Try BitPay SDK first
-      try {
-        const { SIN } = require('bitpay-sdk/dist/SIN')
-        return SIN.fromPublicKey(Buffer.from(publicKeyHex, 'hex')).toString()
-      } catch (sdkError) {
-        console.log('BitPay SDK SIN generation failed, using fallback')
-      }
-
-      // Fallback implementation
       const publicKey = Buffer.from(publicKeyHex, 'hex')
 
       // Step 1: SHA256 hash of public key
