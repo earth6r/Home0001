@@ -145,7 +145,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
       >
         <div className="flex flex-col gap-y">
           <div>
-            <p className="!mx-0 my-y !font-bold uppercase">
+            <p className="!mx-0 mb-y !font-bold uppercase">
               Current joining fee:
             </p>
             <p>

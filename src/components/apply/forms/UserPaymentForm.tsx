@@ -5,6 +5,7 @@ import { animateScroll as scroll } from 'react-scroll'
 import { FormProps } from '../types'
 import WalletPayment from '../WalletPayment'
 import BitPayment from '../BitPayment'
+import { isMobile } from 'react-device-detect'
 
 export const UserPaymentForm: FC<FormProps> = ({
   user,
@@ -70,41 +71,43 @@ export const UserPaymentForm: FC<FormProps> = ({
     <div className={className}>
       <div className="flex flex-col gap-y min-h-[calc(95svh-var(--header-height))]">
         {/* Payment method selector */}
-        <div className="flex flex-col gap-y">
-          <p className="!mx-0 !text-bodyLg !font-bold mb-y">
-            Choose payment method:
-          </p>
+        {!isMobile && (
+          <div className="flex flex-col gap-y mb-y">
+            <p className="!mx-0 !text-bodyLg !font-bold mb-y">
+              Choose payment method:
+            </p>
 
-          <div className="flex flex-col gap-y">
-            <label className="flex items-center cursor-pointer">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="stripe"
-                checked={paymentMethod === 'stripe'}
-                onChange={() => setPaymentMethod('stripe')}
-                className="mr-2"
-              />
-              <span className="font-medium uppercase">
-                Credit Card (Stripe)
-              </span>
-            </label>
+            <div className="flex flex-col gap-y">
+              <label className="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="stripe"
+                  checked={paymentMethod === 'stripe'}
+                  onChange={() => setPaymentMethod('stripe')}
+                  className="mr-2"
+                />
+                <span className="font-medium uppercase">
+                  Credit Card (Stripe)
+                </span>
+              </label>
 
-            <label className="flex items-center cursor-pointer">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="bitpay"
-                checked={paymentMethod === 'bitpay'}
-                onChange={() => setPaymentMethod('bitpay')}
-                className="mr-2"
-              />
-              <span className="font-medium uppercase">
-                Cryptocurrency (BitPay)
-              </span>
-            </label>
+              <label className="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="bitpay"
+                  checked={paymentMethod === 'bitpay'}
+                  onChange={() => setPaymentMethod('bitpay')}
+                  className="mr-2"
+                />
+                <span className="font-medium uppercase">
+                  Cryptocurrency (BitPay)
+                </span>
+              </label>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Payment form based on selected method */}
         <div>
