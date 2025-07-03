@@ -21,6 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       automatic_payment_methods: { enabled: true },
       description: 'HOME0001 Application Fee',
       statement_descriptor: 'HOME0001 Appl. Fee',
+      receipt_email: email,
       metadata: {
         propertyType: propertyType,
         email: email,
