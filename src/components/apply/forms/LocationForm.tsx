@@ -28,15 +28,17 @@ export const LocationForm: FC<FormProps> = ({
     success: false,
   })
 
-  const [selectedOrder, setSelectedOrder] = useState<string[]>(
-    user?.interested_cities || []
-  ) // Track selection order
-  const max = 3
-
   const onSubmit = async (data: any) => {
     if (!user?.email || (!data?.interested_cities && !data?.city_general)) {
       console.error('Missing required form fields')
       setFormError({ error: true, message: 'At least one location required' })
+      setFormSubmitted({ submitted: true, success: false })
+      return
+    }
+
+    if (data?.interested_cities.length > 3) {
+      console.error('Max cities')
+      setFormError({ error: true, message: 'Select up to three cities' })
       setFormSubmitted({ submitted: true, success: false })
       return
     }
@@ -86,24 +88,8 @@ export const LocationForm: FC<FormProps> = ({
               type="checkbox"
               value={name}
               id={name}
-              checked={selectedOrder.includes(name)}
+              checked={user?.interested_cities?.includes(name)}
               {...register('interested_cities')}
-              onChange={() => {
-                const isCurrentlySelected = selectedOrder.includes(name)
-
-                if (isCurrentlySelected) {
-                  const newOrder = selectedOrder.filter(item => item !== name)
-                  setSelectedOrder(newOrder)
-                } else {
-                  let newOrder = [...selectedOrder, name]
-
-                  if (newOrder.length > max) {
-                    newOrder = newOrder.slice(1)
-                  }
-
-                  setSelectedOrder(newOrder)
-                }
-              }}
             />
             <label
               className="text-left cursor-pointer font-medium text-xs tracking-normal uppercase"
