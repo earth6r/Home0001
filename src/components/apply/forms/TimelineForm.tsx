@@ -69,6 +69,7 @@ export const TimelineForm: FC<FormProps> = ({
         updateUser({
           ...user,
           step: 'bedrooms',
+          when_to_buy: data?.buyingtimelinedec2023,
         })
 
         setFormSubmitted({ submitted: true, success: true })
@@ -92,6 +93,7 @@ export const TimelineForm: FC<FormProps> = ({
               type="radio"
               value={name}
               id={name}
+              defaultChecked={user?.when_to_buy === name}
               {...register('buyingtimelinedec2023', {
                 required: 'Choose a timeline',
               })}

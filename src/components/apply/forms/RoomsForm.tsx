@@ -34,49 +34,30 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
     let maxBedrooms = null
     let depends = false
 
-    // Handle both single selection (string) and multiple selections (array)
-    const selections = Array.isArray(data.bedroom_preference)
-      ? data.bedroom_preference
-      : [data.bedroom_preference]
+    const selection = data.bedroom_preference
 
-    // Check if "Depends" is selected
-    if (selections.includes('Depends')) {
+    if (selection === 'Depends') {
       depends = true
       minBedrooms = null
       maxBedrooms = null
     } else {
-      // Calculate min and max from all selections
       const roomRanges: { min: number; max: number | null }[] = []
 
-      selections.forEach((selection: string) => {
-        switch (selection) {
-          case 'Studio':
-            roomRanges.push({ min: 0, max: 0 })
-            break
-          case '1bdrm':
-            roomRanges.push({ min: 1, max: 1 })
-            break
-          case '2bdrm':
-            roomRanges.push({ min: 2, max: 2 })
-            break
-          case '3+bdrm':
-            roomRanges.push({ min: 3, max: null })
-            break
-          default:
-            console.error('Invalid bedroom preference selected:', selection)
-        }
-      })
-
-      if (roomRanges.length > 0) {
-        // Find the minimum of all minimums
-        minBedrooms = Math.min(...roomRanges.map(r => r.min))
-
-        // Find the maximum of all maximums (handle null values for 3+)
-        const maxValues = roomRanges.map(r => r.max).filter(max => max !== null)
-
-        // If any selection has no max (like 3+), set maxBedrooms to null
-        maxBedrooms =
-          maxValues.length === roomRanges.length ? Math.max(...maxValues) : null
+      switch (selection) {
+        case 'Studio':
+          roomRanges.push({ min: 0, max: 0 })
+          break
+        case '1bdrm':
+          roomRanges.push({ min: 1, max: 1 })
+          break
+        case '2bdrm':
+          roomRanges.push({ min: 2, max: 2 })
+          break
+        case '3+bdrm':
+          roomRanges.push({ min: 3, max: null })
+          break
+        default:
+          console.error('Invalid bedroom preference selected:', selection)
       }
     }
 
@@ -90,6 +71,7 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
         updateUser({
           ...user,
           step: 'essentials',
+          bedrooms: data?.bedroom_preference,
         })
 
         setFormSubmitted({ submitted: true, success: true })
@@ -115,6 +97,7 @@ export const RoomsForm: FC<FormProps> = ({ user, updateUser, className }) => {
               type="radio"
               value={name}
               id={name}
+              defaultChecked={user?.bedrooms === name}
               {...register('bedroom_preference', {
                 required: 'Please select a bedroom preference',
               })}

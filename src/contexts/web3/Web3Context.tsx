@@ -35,6 +35,13 @@ export type Web3UserProps = {
   hasFinishedProfile?: boolean
   userSentMessage?: boolean
 
+  // questionnaire fields
+  interested_cities?: string[] | null
+  city_general?: string | null
+  price_range?: string | null
+  when_to_buy?: string | null
+  bedrooms?: string | null
+
   // other fields mananged on frontend
   tokenIds?: string[]
   paymentType?: string
