@@ -52,7 +52,7 @@ export const Footer: FC<FooterProps & HTMLProps<HTMLDivElement>> = ({
 
       <footer
         className={classNames(
-          'flex flex-col gap-y lg:gap-yquad pb-yquad font-medium text-xs uppercase'
+          'flex flex-col gap-y lg:gap-ydouble pb-yquad font-medium text-xs uppercase'
         )}
       >
         {!linksOnly && (
