@@ -28,7 +28,9 @@ export const LocationForm: FC<FormProps> = ({
     success: false,
   })
 
-  const [selectedOrder, setSelectedOrder] = useState<string[]>([]) // Track selection order
+  const [selectedOrder, setSelectedOrder] = useState<string[]>(
+    user?.interested_cities || []
+  ) // Track selection order
   const max = 3
 
   const onSubmit = async (data: any) => {
@@ -54,6 +56,8 @@ export const LocationForm: FC<FormProps> = ({
         updateUser({
           ...user,
           step: 'priceRange',
+          interested_cities: data.interested_cities || [],
+          city_general: data.city_general || '',
         })
 
         setFormSubmitted({ submitted: true, success: true })
@@ -111,7 +115,7 @@ export const LocationForm: FC<FormProps> = ({
         ))}
         <input
           type="text"
-          placeholder="Somewhere else?"
+          placeholder={user?.city_general || 'Somewhere else?'}
           {...register('city_general')}
           className={classNames('input')}
         />

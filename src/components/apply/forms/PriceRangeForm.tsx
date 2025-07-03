@@ -74,6 +74,7 @@ export const PriceRangeForm: FC<FormProps> = ({
         updateUser({
           ...user,
           step: 'whenToBuy',
+          price_range: data.price_range,
         })
 
         setFormSubmitted({ submitted: true, success: true })
@@ -97,6 +98,7 @@ export const PriceRangeForm: FC<FormProps> = ({
               type="radio"
               value={name}
               id={name}
+              defaultChecked={user?.price_range === name}
               {...register('price_range', { required: 'Choose a range' })}
             />
             <label
