@@ -104,6 +104,7 @@ const PaymentContainer: FC<BitPaymentProps> = ({
           name: `${user.first_name || ''} ${user.last_name || ''}`.trim(),
           email: user.email,
           address1: user.address, // Wallet address as identifier
+          notify: true,
         },
       }
 
