@@ -88,7 +88,7 @@ export const LocationForm: FC<FormProps> = ({
               type="checkbox"
               value={name}
               id={name}
-              checked={user?.interested_cities?.includes(name)}
+              defaultChecked={user?.interested_cities?.includes(name)}
               {...register('interested_cities')}
             />
             <label
