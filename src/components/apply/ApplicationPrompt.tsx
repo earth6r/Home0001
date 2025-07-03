@@ -15,7 +15,7 @@ const ApplicationPrompt: FC<{ header?: string; className?: string }> = ({
   return (
     <div className={classNames(className, 'inline-flex flex-col gap-y')}>
       <h3 className="test-h3 text-left mb-y">{header}</h3>
-      {(isMobile || isMetamask) && (
+      {(!isMobile || isMetamask) && (
         <>
           <div className="md:max-w-[50%] rich-text mb-y">
             <p>To connect your wallet:</p>
