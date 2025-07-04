@@ -76,7 +76,7 @@ const TextAndAccordion: FC<TextAndAccordionProps> = ({
       {showAccordions && cta && (
         <div className="mt-y">
           {cta === 'waitlist' ? (
-            <Link href="/web3" passHref>
+            <Link href="/dashboard" passHref>
               <button
                 className={classNames(
                   'inline-flex justify-between items-center gap-[5px] relative px-[6px] pt-[3px] pb-[4px] bg-black text-white font-medium text-left uppercase border-black'
