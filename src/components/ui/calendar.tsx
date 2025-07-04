@@ -31,11 +31,11 @@ function Calendar({
         nav_button_next: 'relative',
         table: 'w-full border-collapse space-y-1',
         head_row:
-          'flex justify-between text-center w-full pb-3 px-1 border-bottom',
+          'flex justify-between text-center w-full pb-3 px-1 border-bottom--black',
         head_cell: 'w-8 font-bold text-[11px] font-sansText',
-        row: 'flex w-full border-bottom border-left',
+        row: 'flex w-full border-bottom--black border-left',
         cell: cn(
-          'relative border-right p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50'
+          'relative border-right p-0 text-center text-xs focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50'
         ),
         day: cn(
           buttonVariants({ variant: 'ghost' }),

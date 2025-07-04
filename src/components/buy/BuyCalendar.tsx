@@ -104,7 +104,7 @@ export const BuyCalendarComponent: FC<BuyCalendarProps> = ({
       {!formSubmitted && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-[285px] h-full"
+          className="w-full max-w-[286px] h-full"
         >
           <DateSelect
             availableSlots={availableSlots}
@@ -117,20 +117,21 @@ export const BuyCalendarComponent: FC<BuyCalendarProps> = ({
             type="submit"
             text={isSubmitting ? 'Submitting...' : 'Make appointment'}
             disabled={isSubmitting}
-            className="mt-yhalf z-above"
+            className="z-above"
           />
 
           {formError.error && (
             <p className="text-[#FF0000] mt-y font-medium uppercase">
-              {formError.message || `Meeting creation failed, please try again`}
+              {formError.message ||
+                `Meeting creation failed, please try again.`}
             </p>
           )}
         </form>
       )}
 
       {formSubmitted && (
-        <div className="relative mt-y mb-2">
-          <p className="font-medium uppercase">{`Session time submitted`}</p>
+        <div className="relative mb-yhalf">
+          <p className="font-medium">{`Your appointment has been booked.`}</p>
         </div>
       )}
     </div>

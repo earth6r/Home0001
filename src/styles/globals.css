@@ -56,7 +56,7 @@
     --gradient-height: 90px;
 
     --space-menu-sm: 59px;
-    --space-menu: 171px;
+    --space-menu: 212px;
     --space-full-menu: 12rem;
     --space-page: var(--header-height);
   }
@@ -64,13 +64,16 @@
 
 @font-face {
   font-family: 'Haas Grot';
+  font-weight: 400;
   src: url('../../public/fonts/haas-grot/NeueHaasGrotText-55Roman.woff2')
     format('woff2');
+
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Haas Grot';
+  font-weight: 400;
   font-style: italic;
   src: url('../../public/fonts/haas-grot/NeueHaasGrotText-56Italic.woff2')
     format('woff2');
