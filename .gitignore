@@ -45,3 +45,5 @@ yarn-error.log*
 *.tar.gz
 studio/*.tar.gz
 certificates
+
+bitpay-config.json
