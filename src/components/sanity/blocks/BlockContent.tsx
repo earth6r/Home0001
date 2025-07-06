@@ -51,7 +51,8 @@ export const BlockContent: FC<SanityBlockElement> = ({
     }
   }, [])
 
-  return flagEnabled !== undefined && blocks ? (
+  // TODO: FIX FLAG ENABLED CHECK
+  return blocks ? (
     <div className={className} style={style}>
       <PortableText
         value={blocks}
